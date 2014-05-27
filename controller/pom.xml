@@ -1,0 +1,115 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>peacock-parent</artifactId>
+		<groupId>athena-peacock</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>controller</artifactId>
+	<packaging>war</packaging>
+	
+	<dependencies>
+        <dependency>
+            <groupId>athena-peacock</groupId>
+            <artifactId>common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+    
+	<!-- Build Profile -->
+	<profiles>
+		<!-- Production Environment -->
+		<profile>
+			<id>production</id>
+			<activation>
+				<property>
+					<name>mode</name>
+					<value>production</value>
+				</property>
+			</activation>
+			<build>
+				<filters>
+					<filter>${basedir}/src/main/filters/production.properties</filter>
+				</filters>
+				<plugins>
+					<plugin>           
+						<groupId>org.apache.maven.plugins</groupId>           
+						<artifactId>maven-war-plugin</artifactId> 
+						<version>2.0.2</version>
+						<configuration> 
+							<webxml>WEB-INF/web.xml</webxml>
+						</configuration>          
+					</plugin>
+				</plugins>						
+			</build>
+		</profile>
+
+		<!-- Local Development Environment(Default) -->
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<filters>
+					<filter>${basedir}/src/main/filters/local.properties</filter>
+				</filters>
+				<plugins>														
+					<plugin>           
+						<groupId>org.apache.maven.plugins</groupId>           
+						<artifactId>maven-war-plugin</artifactId> 
+						<version>2.0.2</version>
+						<configuration> 
+							<webxml>WEB-INF/web.xml</webxml>
+						</configuration>          
+					</plugin>
+				</plugins>						
+			</build>
+		</profile>
+	</profiles>
+	
+	<build>
+		<defaultGoal>install</defaultGoal>
+		<directory>${basedir}/target</directory>
+		<resources>
+			<resource>
+				<directory>${basedir}/src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+            <resource>
+                <directory>${basedir}/src/main/java</directory>
+                <includes>
+                    <include>**/*Mapper.xsql</include>
+                </includes>
+            </resource>
+		</resources>
+		
+		<plugins>
+			<!-- Jetty Local Runtime Environment -->
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>maven-jetty-plugin</artifactId>
+				<version>6.1.15</version>
+				<configuration>
+					<contextPath>/peacock</contextPath>
+					<scanIntervalSeconds>30</scanIntervalSeconds>
+					<jettyEnvXml>${basedir}/src/main/resources/jetty/jetty-env.xml</jettyEnvXml>
+					<connectors>
+						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+							<port>8180</port>
+							<maxIdleTime>60000</maxIdleTime>
+						</connector>
+					</connectors>
+
+					<systemProperties>
+						<systemProperty>
+							<name>server.type</name>
+							<value>Local</value>
+						</systemProperty>
+					</systemProperties>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
