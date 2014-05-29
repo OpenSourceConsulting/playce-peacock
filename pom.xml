@@ -31,7 +31,7 @@
 	</modules>
 
 	<properties>
-		<spring.maven.artifact.version>3.1.4.RELEASE</spring.maven.artifact.version>
+		<spring.maven.artifact.version>3.2.9.RELEASE</spring.maven.artifact.version>
 		<slf4j.artifact.version>1.7.5</slf4j.artifact.version>
 		<apache.ant.artifact.version>1.9.2</apache.ant.artifact.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -441,7 +441,7 @@
 		<dependency>
 			<groupId>io.netty</groupId>
 			<artifactId>netty-all</artifactId>
-			<version>4.0.7.Final</version>
+			<version>4.0.19.Final</version>
 		</dependency>
 		
 		<!-- Quartz -->
