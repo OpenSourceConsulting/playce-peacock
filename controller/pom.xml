@@ -87,21 +87,22 @@
 		
 		<plugins>
 			<!-- Jetty Local Runtime Environment -->
+			<!-- http://www.eclipse.org/jetty/documentation/current/jetty-maven-plugin.html -->
 			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>maven-jetty-plugin</artifactId>
-				<version>6.1.15</version>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.2.0.RC0</version>
 				<configuration>
-					<contextPath>/peacock</contextPath>
-					<scanIntervalSeconds>30</scanIntervalSeconds>
-					<jettyEnvXml>${basedir}/src/main/resources/jetty/jetty-env.xml</jettyEnvXml>
-					<connectors>
-						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-							<port>8180</port>
-							<maxIdleTime>60000</maxIdleTime>
-						</connector>
-					</connectors>
-
+					<scanIntervalSeconds>10</scanIntervalSeconds>
+					<webApp>
+						<contextPath>/${project.name}</contextPath>
+						<jettyEnvXml>${basedir}/src/main/resources/jetty/jetty-env.xml</jettyEnvXml>
+					</webApp>
+    				<httpConnector>
+    					<host>0.0.0.0</host>
+    					<port>8180</port>
+    					<idleTimeout>60000</idleTimeout>
+    				</httpConnector>
 					<systemProperties>
 						<systemProperty>
 							<name>server.type</name>
