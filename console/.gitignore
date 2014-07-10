@@ -12,3 +12,4 @@ build
 build.xml
 build.settings
 *.$old
+sencha_web_start.bat
