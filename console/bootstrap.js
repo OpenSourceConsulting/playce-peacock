@@ -24,6 +24,7 @@ Ext.Loader.addClassPathMappings({
   "ExtThemeNeptune.tab.Tab": "ext/ext-theme-neptune.js",
   "ExtThemeNeptune.toolbar.Paging": "ext/ext-theme-neptune.js",
   "ExtThemeNeptune.toolbar.Toolbar": "ext/ext-theme-neptune.js",
+  "GLOBAL": "app/controller/GlobalController.js",
   "MyApp": "app"
 });
 Ext.ClassManager.addNameAlternateMappings({
@@ -859,9 +860,12 @@ Ext.ClassManager.addNameAlternateMappings({
   "ExtThemeNeptune.tab.Tab": [],
   "ExtThemeNeptune.toolbar.Paging": [],
   "ExtThemeNeptune.toolbar.Toolbar": [],
+  "GLOBAL": [],
   "MyApp.Application": [],
+  "MyApp.controller.GlobalController": [],
   "MyApp.controller.LoginController": [],
   "MyApp.controller.Main": [],
+  "MyApp.controller.MenuController": [],
   "MyApp.controller.SettingsMenuController": [],
   "MyApp.store.MenuTreeStore": [],
   "MyApp.view.Main": [],
@@ -1872,9 +1876,12 @@ Ext.ClassManager.addNameAliasMappings({
   "ExtThemeNeptune.tab.Tab": [],
   "ExtThemeNeptune.toolbar.Paging": [],
   "ExtThemeNeptune.toolbar.Toolbar": [],
+  "GLOBAL": [],
   "MyApp.Application": [],
+  "MyApp.controller.GlobalController": [],
   "MyApp.controller.LoginController": [],
   "MyApp.controller.Main": [],
+  "MyApp.controller.MenuController": [],
   "MyApp.controller.SettingsMenuController": [],
   "MyApp.store.MenuTreeStore": [],
   "MyApp.view.Main": [

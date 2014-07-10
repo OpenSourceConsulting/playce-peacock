@@ -24,6 +24,7 @@ Ext.Loader.addClassPathMappings({
   "ExtThemeNeptune.tab.Tab": "../../ext/ext-theme-neptune.js",
   "ExtThemeNeptune.toolbar.Paging": "../../ext/ext-theme-neptune.js",
   "ExtThemeNeptune.toolbar.Toolbar": "../../ext/ext-theme-neptune.js",
+  "GLOBAL": "../../app/controller/GlobalController.js",
   "MyApp": "../../app"
 });
 Ext.ClassManager.addNameAlternateMappings({
@@ -428,7 +429,6 @@ Ext.ClassManager.addNameAlternateMappings({
   ],
   "Ext.grid.RowEditor": [],
   "Ext.grid.RowEditorButtons": [],
-  "Ext.grid.Scroller": [],
   "Ext.grid.View": [],
   "Ext.grid.ViewDropZone": [],
   "Ext.grid.column.Action": [
@@ -860,12 +860,17 @@ Ext.ClassManager.addNameAlternateMappings({
   "ExtThemeNeptune.tab.Tab": [],
   "ExtThemeNeptune.toolbar.Paging": [],
   "ExtThemeNeptune.toolbar.Toolbar": [],
+  "GLOBAL": [],
   "MyApp.Application": [],
+  "MyApp.controller.GlobalController": [],
   "MyApp.controller.LoginController": [],
   "MyApp.controller.Main": [],
+  "MyApp.controller.MenuController": [],
   "MyApp.controller.SettingsMenuController": [],
+  "MyApp.store.MenuTreeStore": [],
   "MyApp.view.Main": [],
   "MyApp.view.Viewport": [],
+  "MyApp.view.dashboardPanel": [],
   "MyApp.view.loginWindow": [],
   "MyApp.view.peacockViewport": [],
   "MyApp.view.settingsPanel": []
@@ -1306,7 +1311,6 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.grid.RowEditorButtons": [
     "widget.roweditorbuttons"
   ],
-  "Ext.grid.Scroller": [],
   "Ext.grid.View": [
     "widget.gridview"
   ],
@@ -1872,14 +1876,21 @@ Ext.ClassManager.addNameAliasMappings({
   "ExtThemeNeptune.tab.Tab": [],
   "ExtThemeNeptune.toolbar.Paging": [],
   "ExtThemeNeptune.toolbar.Toolbar": [],
+  "GLOBAL": [],
   "MyApp.Application": [],
+  "MyApp.controller.GlobalController": [],
   "MyApp.controller.LoginController": [],
   "MyApp.controller.Main": [],
+  "MyApp.controller.MenuController": [],
   "MyApp.controller.SettingsMenuController": [],
+  "MyApp.store.MenuTreeStore": [],
   "MyApp.view.Main": [
     "widget.app-main"
   ],
   "MyApp.view.Viewport": [],
+  "MyApp.view.dashboardPanel": [
+    "widget.dashboardPanel"
+  ],
   "MyApp.view.loginWindow": [
     "widget.loginWindow"
   ],

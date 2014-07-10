@@ -11,3 +11,4 @@ app.json.meta
 build
 build.xml
 build.settings
+*.$old
