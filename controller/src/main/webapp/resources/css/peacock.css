@@ -1,0 +1,22 @@
+/**
+ * Tree Menu Style Sheet
+ */
+.no-icon {
+   display : none;
+   background-image:url('ext/resources/images/default/s.gif') !important;
+}
+.parent-node {
+   padding-top: 5px;
+}
+.last-children {
+   padding-bottom: 5px;
+}
+.last-children-10 {
+   padding-bottom: 10px;
+}
+.last-children-20 {
+   padding-bottom: 20px;
+}
+span.x-tree-node-text {
+   cursor: pointer;
+}

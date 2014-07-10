@@ -14,7 +14,7 @@
                 "width": null
             }
         },
-        "urlPrefix": "http://localhost:1841/peacock/",
+        "urlPrefix": "http://localhost:1841",
         "exportPath": "",
         "spacesToIndent": 4,
         "sdkPath": "",
