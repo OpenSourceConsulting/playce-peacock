@@ -1,0 +1,365 @@
+{
+    "type": "Ext.container.Viewport",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|initialView": true,
+        "designer|userAlias": "peacockViewport",
+        "designer|userClassName": "peacockViewport",
+        "id": "peacockViewport",
+        "itemId": "peacockViewport",
+        "layout": "card",
+        "requires": [
+            "Ext.layout.container.Border",
+            "Ext.layout.container.Card"
+        ]
+    },
+    "designerId": "02d97b74-a438-4ea9-97e8-f383c38ffcac",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyStyle": [
+                    "{",
+                    "    \"background\": \"white\"",
+                    "}"
+                ],
+                "id": "introPanel",
+                "itemId": "introPanel",
+                "title": null
+            },
+            "designerId": "312ca490-2c7d-4a5f-beb3-a20357c9f174"
+        },
+        {
+            "type": "Ext.container.Container",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": "mainContainer",
+                "itemId": "mainContainer",
+                "layout": "border",
+                "width": 150
+            },
+            "designerId": "5bb863ca-cf65-4e90-bb99-b95030990845",
+            "cn": [
+                {
+                    "type": "Ext.panel.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|align": "stretch",
+                        "height": 50,
+                        "id": "northPanel",
+                        "itemId": "northPanel",
+                        "layout": "hbox",
+                        "layout|margins": "0 0 5 0",
+                        "layout|region": "north",
+                        "title": null
+                    },
+                    "designerId": "80fc1904-a463-414d-ac99-86531a6a700b",
+                    "cn": [
+                        {
+                            "type": "Ext.Img",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 45,
+                                "id": "logoImg",
+                                "itemId": "logoImg",
+                                "layout|flex": null,
+                                "layout|margins": "3 3 3 8",
+                                "src": "resources/images/logos/osc-logo.png",
+                                "title": "Open Source Consulting Co. ltd.",
+                                "width": 120
+                            },
+                            "designerId": "b02f2772-8b6b-4a8d-9506-c984e189e31e"
+                        },
+                        {
+                            "type": "Ext.toolbar.Spacer",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": 1
+                            },
+                            "designerId": "774efdf7-9bb7-4abf-9809-79db89bf8676"
+                        },
+                        {
+                            "type": "Ext.panel.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "margin": "14 14 0 0",
+                                "title": null
+                            },
+                            "designerId": "3fcd5200-c1f0-4897-8765-c5fff31cf037",
+                            "cn": [
+                                {
+                                    "type": "Ext.button.Split",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "id": "userSplitBtn",
+                                        "itemId": "userSplitBtn",
+                                        "text": null
+                                    },
+                                    "designerId": "72cf9e8b-c484-438a-b85f-49244958b0e2",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.menu.Menu",
+                                            "reference": {
+                                                "name": "menu",
+                                                "type": "object"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "width": 120
+                                            },
+                                            "designerId": "cd6d309c-29a7-49b2-8221-27f8923f6e5b",
+                                            "cn": [
+                                                {
+                                                    "type": "Ext.menu.Item",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "id": "editProfileMenu",
+                                                        "itemId": "editProfileMenu",
+                                                        "text": "My Account"
+                                                    },
+                                                    "designerId": "fc50186d-2e7c-4fcb-88ef-d1004e90a2f6"
+                                                },
+                                                {
+                                                    "type": "Ext.menu.Item",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "id": "logoutMenu",
+                                                        "itemId": "logoutMenu",
+                                                        "text": "Sign Out"
+                                                    },
+                                                    "designerId": "f59d400e-d8d1-4437-a300-718756f6c76b"
+                                                },
+                                                {
+                                                    "type": "Ext.menu.Separator",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "id": "adminMenuSeparator",
+                                                        "itemId": "adminMenuSeparator"
+                                                    },
+                                                    "designerId": "2e5a90a0-a4a6-47d2-af54-cf1f6b9cd44e"
+                                                },
+                                                {
+                                                    "type": "Ext.menu.Item",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "id": "adminMenu",
+                                                        "itemId": "adminMenu",
+                                                        "text": "Settings"
+                                                    },
+                                                    "designerId": "a4479366-69cd-46e9-ae7f-eeb28c92f2d2"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.panel.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "collapsible": true,
+                        "container|align": "stretch",
+                        "id": "menuPanel",
+                        "itemId": "menuPanel",
+                        "layout": "vbox",
+                        "layout|margins": null,
+                        "layout|region": "west",
+                        "layout|split": true,
+                        "resizable": null,
+                        "title": "MENU",
+                        "width": 250
+                    },
+                    "configAlternates": {
+                        "resizable": "boolean"
+                    },
+                    "designerId": "ebfd4691-bc1f-4a2e-a1fb-ac451a47cc31",
+                    "cn": [
+                        {
+                            "type": "Ext.panel.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 25,
+                                "id": "rhevListPanel",
+                                "itemId": "rhevListPanel",
+                                "layout|flex": null,
+                                "layout|margins": "5 5 5 5",
+                                "title": null
+                            },
+                            "designerId": "ed195de0-6d5b-47af-8262-d65d3ae1ed68",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.ComboBox",
+                                    "reference": {
+                                        "name": "dockedItems",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dock": "top",
+                                        "fieldLabel": "RHEV-M",
+                                        "id": "rhevCombo",
+                                        "itemId": "rhevCombo",
+                                        "labelWidth": 60,
+                                        "store": [
+                                            "[",
+                                            "    '192.168.0.1',",
+                                            "    '192.168.0.2',",
+                                            "    '192.168.0.3'",
+                                            "]"
+                                        ],
+                                        "value": [
+                                            "'192.168.0.1'"
+                                        ]
+                                    },
+                                    "configAlternates": {
+                                        "store": "array"
+                                    },
+                                    "designerId": "2b30b9a5-82b6-4e14-86aa-b4b16436dfc1"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.tree.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "autoScroll": true,
+                                "border": null,
+                                "columnLines": null,
+                                "id": "menuTreePanel",
+                                "itemId": "menuTreePanel",
+                                "layout|flex": 1,
+                                "layout|margins": null,
+                                "margin": null,
+                                "rootVisible": false,
+                                "store": "MenuTreeStore",
+                                "title": null,
+                                "useArrows": true
+                            },
+                            "designerId": "da3ae820-0733-4c86-bffc-e5311e866e09",
+                            "cn": [
+                                {
+                                    "type": "Ext.tree.View",
+                                    "reference": {
+                                        "name": "viewConfig",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "autoScroll": true,
+                                        "id": "menuTreeView",
+                                        "itemId": "menuTreeView",
+                                        "margin": null,
+                                        "preserveScrollOnRefresh": true
+                                    },
+                                    "designerId": "d4dd92ae-9132-4b1c-bddb-584ebeed68df"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.container.Container",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "centerContainer",
+                        "itemId": "centerContainer",
+                        "layout": "card",
+                        "layout|region": "center"
+                    },
+                    "designerId": "7c490048-4a66-464e-922d-0aa2d5bbb8d5",
+                    "cn": [
+                        {
+                            "type": "linkedinstance",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "designerId": "e2f43b21-f12b-4c7a-ad43-715b9b879eb7",
+                            "masterInstanceId": "9dde4dd3-0f27-451a-a7b6-c51c0ba51b5c"
+                        },
+                        {
+                            "type": "linkedinstance",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "designerId": "b6646165-6fda-4c93-b182-95d85cc52c8e",
+                            "masterInstanceId": "2d4e8804-68b6-4801-a8fb-1f1cca456d47"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

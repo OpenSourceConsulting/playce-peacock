@@ -1,0 +1,8 @@
+{
+   "name": "MyApp",
+   "requires": [],
+   "id": "57c0cf1a-d629-44f7-82ec-78c3bb7892f0",
+   "resources": [
+      "resources/css/peacock.css"
+   ]
+}

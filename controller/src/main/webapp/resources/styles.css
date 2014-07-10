@@ -1,0 +1,66 @@
+* {
+    margin: auto;
+    padding: 0px;
+}
+
+html, body {
+    width:90%;
+    height:90%;
+    background: #eeeeda;
+}
+
+.panel {
+    border: 2px solid #0078ae;
+    border-radius: 5px;
+    width:100%;
+}
+
+.message-area {
+    height: 70%;
+    resize: none;
+    box-sizing: border-box;
+}
+
+.input-area {
+    background: #0078ae;
+    box-shadow: inset 0 0 10px #00568c;
+}
+
+.input-area input {
+    margin: 0.5em 0em 0.5em 0.5em;
+}
+
+.text-field {
+    border: 1px solid grey;
+    padding: 0.2em;
+    box-shadow: 0 0 5px #000000;
+}
+
+.button {
+    border: none;
+    padding: 5px 5px;
+    border-radius: 5px;
+    width: 60px;
+    background: orange;
+    box-shadow: inset 0 0 10px #000000;
+    font-weight: bold;
+}
+
+.button:hover {
+    background: yellow;
+}
+
+h1 {
+    font-size: 1.5em;
+    padding: 5px;
+    margin: 5px;
+}
+
+#userName {
+    width: 20%;
+}
+
+#messageInput {
+    min-width: 60%;
+    max-width: 80%;
+}

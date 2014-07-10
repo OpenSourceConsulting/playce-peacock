@@ -1,0 +1,174 @@
+{
+    "type": "Ext.app.Controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "SettingsMenuController"
+    },
+    "designerId": "dfdaa599-9b5d-497b-8e65-575818d50039",
+    "cn": [
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "menuMgmtBtn",
+                "selector": "#menuMgmtBtn"
+            },
+            "designerId": "57b0f7a4-6f0d-4c83-95fb-8ffef0eddeff"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "groupMgmtBtn",
+                "selector": "#groupMgmtBtn"
+            },
+            "designerId": "29daec39-456e-4cf2-a0ef-489cea78edff"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "userMgmtBtn",
+                "selector": "#userMgmtBtn"
+            },
+            "designerId": "c862bd18-cf6d-40e5-b2c7-259b4b6886af"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#menuMgmtBtn",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "menuMgmtBtnClick",
+                "implHandler": [
+                    "/**",
+                    " * Menu Management 버튼 클릭 시 수행되는 function",
+                    " */",
+                    "var menuMgmtBtn = this.getMenuMgmtBtn(),",
+                    "    groupMgmtBtn = this.getGroupMgmtBtn(),",
+                    "    userMgmtBtn = this.getUserMgmtBtn(),",
+                    "    settingsDetailPanel = this.getSettingsDetailPanel();",
+                    "",
+                    "// 현재 선택된 메뉴가 Menu Management일 경우 무시한다.",
+                    "if (settingsDetailPanel.layout.getActiveItem().itemId === \"menuMgmtPanel\") {",
+                    "    menuMgmtBtn.toggle(true);",
+                    "    return;",
+                    "}",
+                    "",
+                    "groupMgmtBtn.toggle(false);",
+                    "userMgmtBtn.toggle(false);",
+                    "",
+                    "settingsDetailPanel.layout.setActiveItem(0);"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "1cb15789-ebfb-4e6d-be16-145e214f7a95"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#groupMgmtBtn",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "groupMgmtBtnClick",
+                "implHandler": [
+                    "/**",
+                    " * Group Management 버튼 클릭 시 수행되는 function",
+                    " */",
+                    "var menuMgmtBtn = this.getMenuMgmtBtn(),",
+                    "    groupMgmtBtn = this.getGroupMgmtBtn(),",
+                    "    userMgmtBtn = this.getUserMgmtBtn(),",
+                    "    settingsDetailPanel = this.getSettingsDetailPanel();",
+                    "",
+                    "// 현재 선택된 메뉴가 Group Management일 경우 무시한다.",
+                    "if (settingsDetailPanel.layout.getActiveItem().itemId === \"groupMgmtPanel\") {",
+                    "    groupMgmtBtn.toggle(true);",
+                    "    return;",
+                    "}",
+                    "",
+                    "menuMgmtBtn.toggle(false);",
+                    "userMgmtBtn.toggle(false);",
+                    "",
+                    "settingsDetailPanel.layout.setActiveItem(1);"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "2013f271-c58a-40f4-8ef8-126a766c4c05"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#userMgmtBtn",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "userMgmtBtnClick",
+                "implHandler": [
+                    "/**",
+                    " * User Management 버튼 클릭 시 수행되는 function",
+                    " */",
+                    "var menuMgmtBtn = this.getMenuMgmtBtn(),",
+                    "    groupMgmtBtn = this.getGroupMgmtBtn(),",
+                    "    userMgmtBtn = this.getUserMgmtBtn(),",
+                    "    settingsDetailPanel = this.getSettingsDetailPanel();",
+                    "",
+                    "// 현재 선택된 메뉴가 User Management일 경우 무시한다.",
+                    "if (settingsDetailPanel.layout.getActiveItem().itemId === \"userMgmtPanel\") {",
+                    "    userMgmtBtn.toggle(true);",
+                    "    return;",
+                    "}",
+                    "",
+                    "menuMgmtBtn.toggle(false);",
+                    "groupMgmtBtn.toggle(false);",
+                    "",
+                    "settingsDetailPanel.layout.setActiveItem(2);"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "94d57aed-4411-4cc4-b8bf-28481147bf8b"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "settingsDetailPanel",
+                "selector": "#settingsDetailPanel"
+            },
+            "designerId": "628a4f74-5074-4709-972a-e814470072c1"
+        }
+    ]
+}

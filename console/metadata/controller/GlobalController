@@ -1,0 +1,35 @@
+{
+    "type": "Ext.app.Controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "GlobalController"
+    },
+    "designerId": "58836076-b762-47f5-a367-008beaa4c967",
+    "cn": [
+        {
+            "type": "fixedfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "application"
+                ],
+                "fn": "init",
+                "implHandler": [
+                    "Ext.define('GLOBAL', {",
+                    "    singleton: true,",
+                    "    lastSelectedMenuId: null",
+                    "});"
+                ]
+            },
+            "designerId": "5aad5c6f-f046-40cc-abb5-d8784d7d72db"
+        }
+    ]
+}

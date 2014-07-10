@@ -1,0 +1,30 @@
+{
+    "type": "Ext.app.Application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "controllers": [
+            "LoginController",
+            "SettingsMenuController",
+            "MenuController",
+            "GlobalController"
+        ],
+        "name": "MyApp",
+        "requires": [
+            "Ext.util.Point"
+        ],
+        "stores": [
+            "MenuTreeStore"
+        ],
+        "views": [
+            "peacockViewport",
+            "loginWindow",
+            "settingsPanel",
+            "dashboardPanel"
+        ]
+    },
+    "designerId": "application"
+}

@@ -1,0 +1,62 @@
+{
+    "name": "peacock",
+    "settings": {
+        "cmd": {
+            "license": "commercial",
+            "cmdVersion": "4.0.4.84",
+            "frameworkVersion": "4.2.1.883"
+        },
+        "canvasControls": {
+            "viewportSize": {
+                "name": "Auto Expand",
+                "builtIn": true,
+                "height": null,
+                "width": null
+            }
+        },
+        "urlPrefix": "http://localhost:1841/peacock/",
+        "exportPath": "",
+        "spacesToIndent": 4,
+        "sdkPath": "",
+        "lineEnding": "LF",
+        "genTimestamps": false,
+        "cacheBust": false,
+        "buildShouldOverwriteIndex": true,
+        "generateArchitectVersion": true,
+        "lastBuildSelection": {
+            "value": "webBuild",
+            "display": "Build web app"
+        }
+    },
+    "xdsVersion": "3.0.4",
+    "xdsBuild": 1386,
+    "schemaVersion": 1,
+    "upgradeVersion": 300000000004,
+    "framework": "ext42",
+    "viewOrderMap": {
+        "view": [
+            "02d97b74-a438-4ea9-97e8-f383c38ffcac",
+            "5a81ebf7-bef8-44a2-b755-4fcaa744ed1b",
+            "9dde4dd3-0f27-451a-a7b6-c51c0ba51b5c",
+            "2d4e8804-68b6-4801-a8fb-1f1cca456d47"
+        ],
+        "store": [
+            "354fc48e-c461-40e5-bd2d-7f38ae2f81e5"
+        ],
+        "controller": [
+            "cb6d63bc-7299-4f2b-8412-a47aa15cd876",
+            "dfdaa599-9b5d-497b-8e65-575818d50039",
+            "b8e8cdaf-1a53-4af2-8c16-3cb558cf8b1c",
+            "58836076-b762-47f5-a367-008beaa4c967"
+        ],
+        "model": [],
+        "resource": [
+            "abd9c1f0-9aa9-4683-84b3-d35f7daae4d8",
+            "209db871-58c6-487e-8805-50a72bc66ca4",
+            "0ad9d539-6c7d-4f97-ae55-8f11dbbb7e09"
+        ],
+        "app": [
+            "application"
+        ]
+    }
+}

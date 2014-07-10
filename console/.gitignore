@@ -1,7 +1,13 @@
 *.class
 /target
 
-# Package Files #
-*.jar
-*.war
-*.ear
+.project
+.settings
+.architect
+.sencha
+packages
+ext
+app.json.meta
+build
+build.xml
+build.settings

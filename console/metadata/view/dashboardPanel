@@ -1,0 +1,18 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "dashboardPanel",
+        "designer|userClassName": "dashboardPanel",
+        "height": null,
+        "id": "dashboardPanel",
+        "itemId": "dashboardPanel",
+        "title": null,
+        "width": null
+    },
+    "designerId": "9dde4dd3-0f27-451a-a7b6-c51c0ba51b5c"
+}

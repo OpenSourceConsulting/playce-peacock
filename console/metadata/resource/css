@@ -1,0 +1,13 @@
+{
+    "type": "cssresource",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "css",
+        "url": "resources/css/peacock.css"
+    },
+    "designerId": "0ad9d539-6c7d-4f97-ae55-8f11dbbb7e09"
+}

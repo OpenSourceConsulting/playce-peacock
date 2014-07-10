@@ -1,0 +1,72 @@
+{
+    "type": "Ext.app.Controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "MenuController"
+    },
+    "designerId": "b8e8cdaf-1a53-4af2-8c16-3cb558cf8b1c",
+    "cn": [
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#menuTreeView",
+                "designer|targetType": "Ext.tree.View",
+                "fn": "onMenuViewClick",
+                "implHandler": [
+                    "/**",
+                    " * 메뉴 선택(cellclick) 시 수행되는 function()",
+                    " */",
+                    "if (record.get('leaf') && GLOBAL.lastSelectedMenuId != record.get('id')) {",
+                    "    GLOBAL.lastSelectedMenuId = record.get('id');",
+                    "    Ext.Msg.alert('Msg', record.get('id') + '(' + record.get('text') + ') selected.');",
+                    "}"
+                ],
+                "name": "cellclick",
+                "scope": "me"
+            },
+            "designerId": "1b3a6580-beeb-4270-a41d-d2cfcf870abe"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#rhevCombo",
+                "designer|targetType": "Ext.form.field.ComboBox",
+                "fn": "rhevComboSelect",
+                "implHandler": [
+                    "/**",
+                    " * RHEV-M 목록 선택시 수행되는 function()",
+                    " */",
+                    "var index = 0;",
+                    "",
+                    "if (records) {",
+                    "    index = records[0].index;",
+                    "}",
+                    "",
+                    "console.log(records);",
+                    "",
+                    "var menuTreeStore = Ext.getStore(\"MenuTreeStore\");",
+                    "",
+                    "Ext.getCmp(\"menuTreeView\").selModel.select(0);",
+                    "Ext.getCmp(\"menuTreeView\").fireEvent('cellclick', Ext.getCmp(\"menuTreeView\"), null, null, menuTreeStore.getRootNode().firstChild);"
+                ],
+                "name": "select",
+                "scope": "me"
+            },
+            "designerId": "46e257ca-eb3f-4186-b834-7552ee094e5b"
+        }
+    ]
+}
