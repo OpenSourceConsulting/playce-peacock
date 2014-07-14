@@ -61,7 +61,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "container|align": "stretch",
+                        "container|align": "middle",
                         "height": 50,
                         "id": "northPanel",
                         "itemId": "northPanel",
@@ -99,9 +99,9 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "layout|flex": 1
+                                "layout|flex": 2
                             },
-                            "designerId": "774efdf7-9bb7-4abf-9809-79db89bf8676"
+                            "designerId": "e9123bfc-cf86-4841-bbe8-67754ee23e0c"
                         },
                         {
                             "type": "Ext.panel.Panel",
@@ -111,92 +111,144 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "layout|flex": null,
+                                "layout|flex": 1,
                                 "margin": "14 14 0 0",
                                 "title": null
                             },
                             "designerId": "3fcd5200-c1f0-4897-8765-c5fff31cf037",
                             "cn": [
                                 {
-                                    "type": "Ext.button.Split",
+                                    "type": "Ext.toolbar.Toolbar",
                                     "reference": {
-                                        "name": "items",
+                                        "name": "dockedItems",
                                         "type": "array"
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "id": "userSplitBtn",
-                                        "itemId": "userSplitBtn",
-                                        "text": null
+                                        "dock": "top"
                                     },
-                                    "designerId": "72cf9e8b-c484-438a-b85f-49244958b0e2",
+                                    "designerId": "46d5b414-6bbe-4f34-89a9-f76f1d868b17",
                                     "cn": [
                                         {
-                                            "type": "Ext.menu.Menu",
+                                            "type": "Ext.toolbar.Spacer",
                                             "reference": {
-                                                "name": "menu",
-                                                "type": "object"
+                                                "name": "items",
+                                                "type": "array"
                                             },
                                             "codeClass": null,
                                             "userConfig": {
-                                                "width": 120
+                                                "layout|flex": 1
                                             },
-                                            "designerId": "cd6d309c-29a7-49b2-8221-27f8923f6e5b",
+                                            "designerId": "4a530835-93d8-4068-9d63-9adf45bcaedc"
+                                        },
+                                        {
+                                            "type": "Ext.toolbar.TextItem",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "layout|flex": null,
+                                                "text": "(최근 접속시간 : 2014.07.07 14:48:48)"
+                                            },
+                                            "designerId": "4d7d738f-5f49-4647-9797-288760ef98c1"
+                                        },
+                                        {
+                                            "type": "Ext.toolbar.Separator",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "layout|flex": null
+                                            },
+                                            "designerId": "07bc8f72-b015-47db-ad4f-08d2e1073d67"
+                                        },
+                                        {
+                                            "type": "Ext.button.Split",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "id": "userSplitBtn",
+                                                "itemId": "userSplitBtn",
+                                                "layout|flex": null,
+                                                "text": null
+                                            },
+                                            "designerId": "72cf9e8b-c484-438a-b85f-49244958b0e2",
                                             "cn": [
                                                 {
-                                                    "type": "Ext.menu.Item",
+                                                    "type": "Ext.menu.Menu",
                                                     "reference": {
-                                                        "name": "items",
-                                                        "type": "array"
+                                                        "name": "menu",
+                                                        "type": "object"
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
-                                                        "id": "editProfileMenu",
-                                                        "itemId": "editProfileMenu",
-                                                        "text": "My Account"
+                                                        "width": 120
                                                     },
-                                                    "designerId": "fc50186d-2e7c-4fcb-88ef-d1004e90a2f6"
-                                                },
-                                                {
-                                                    "type": "Ext.menu.Item",
-                                                    "reference": {
-                                                        "name": "items",
-                                                        "type": "array"
-                                                    },
-                                                    "codeClass": null,
-                                                    "userConfig": {
-                                                        "id": "logoutMenu",
-                                                        "itemId": "logoutMenu",
-                                                        "text": "Sign Out"
-                                                    },
-                                                    "designerId": "f59d400e-d8d1-4437-a300-718756f6c76b"
-                                                },
-                                                {
-                                                    "type": "Ext.menu.Separator",
-                                                    "reference": {
-                                                        "name": "items",
-                                                        "type": "array"
-                                                    },
-                                                    "codeClass": null,
-                                                    "userConfig": {
-                                                        "id": "adminMenuSeparator",
-                                                        "itemId": "adminMenuSeparator"
-                                                    },
-                                                    "designerId": "2e5a90a0-a4a6-47d2-af54-cf1f6b9cd44e"
-                                                },
-                                                {
-                                                    "type": "Ext.menu.Item",
-                                                    "reference": {
-                                                        "name": "items",
-                                                        "type": "array"
-                                                    },
-                                                    "codeClass": null,
-                                                    "userConfig": {
-                                                        "id": "adminMenu",
-                                                        "itemId": "adminMenu",
-                                                        "text": "Settings"
-                                                    },
-                                                    "designerId": "a4479366-69cd-46e9-ae7f-eeb28c92f2d2"
+                                                    "designerId": "cd6d309c-29a7-49b2-8221-27f8923f6e5b",
+                                                    "cn": [
+                                                        {
+                                                            "type": "Ext.menu.Item",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "id": "editProfileMenu",
+                                                                "itemId": "editProfileMenu",
+                                                                "text": "My Account"
+                                                            },
+                                                            "designerId": "fc50186d-2e7c-4fcb-88ef-d1004e90a2f6"
+                                                        },
+                                                        {
+                                                            "type": "Ext.menu.Item",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "id": "logoutMenu",
+                                                                "itemId": "logoutMenu",
+                                                                "text": "Sign Out"
+                                                            },
+                                                            "designerId": "f59d400e-d8d1-4437-a300-718756f6c76b"
+                                                        },
+                                                        {
+                                                            "type": "Ext.menu.Separator",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "id": "adminMenuSeparator",
+                                                                "itemId": "adminMenuSeparator"
+                                                            },
+                                                            "designerId": "2e5a90a0-a4a6-47d2-af54-cf1f6b9cd44e"
+                                                        },
+                                                        {
+                                                            "type": "Ext.menu.Item",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "id": "adminMenu",
+                                                                "itemId": "adminMenu",
+                                                                "text": "Settings"
+                                                            },
+                                                            "designerId": "a4479366-69cd-46e9-ae7f-eeb28c92f2d2"
+                                                        }
+                                                    ]
                                                 }
                                             ]
                                         }
@@ -231,54 +283,6 @@
                     },
                     "designerId": "ebfd4691-bc1f-4a2e-a1fb-ac451a47cc31",
                     "cn": [
-                        {
-                            "type": "Ext.panel.Panel",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "height": 25,
-                                "id": "rhevListPanel",
-                                "itemId": "rhevListPanel",
-                                "layout|flex": null,
-                                "layout|margins": "5 5 5 5",
-                                "title": null
-                            },
-                            "designerId": "ed195de0-6d5b-47af-8262-d65d3ae1ed68",
-                            "cn": [
-                                {
-                                    "type": "Ext.form.field.ComboBox",
-                                    "reference": {
-                                        "name": "dockedItems",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "dock": "top",
-                                        "fieldLabel": "RHEV-M",
-                                        "id": "rhevCombo",
-                                        "itemId": "rhevCombo",
-                                        "labelWidth": 60,
-                                        "store": [
-                                            "[",
-                                            "    '192.168.0.1',",
-                                            "    '192.168.0.2',",
-                                            "    '192.168.0.3'",
-                                            "]"
-                                        ],
-                                        "value": [
-                                            "'192.168.0.1'"
-                                        ]
-                                    },
-                                    "configAlternates": {
-                                        "store": "array"
-                                    },
-                                    "designerId": "2b30b9a5-82b6-4e14-86aa-b4b16436dfc1"
-                                }
-                            ]
-                        },
                         {
                             "type": "Ext.tree.Panel",
                             "reference": {
@@ -354,8 +358,38 @@
                                 "type": "array"
                             },
                             "codeClass": null,
-                            "designerId": "b6646165-6fda-4c93-b182-95d85cc52c8e",
-                            "masterInstanceId": "2d4e8804-68b6-4801-a8fb-1f1cca456d47"
+                            "designerId": "9a8a9fb5-d761-436f-befa-487a734db4d7",
+                            "masterInstanceId": "b5b314e1-ae09-4c5d-a5a5-856ba35ca835"
+                        },
+                        {
+                            "type": "linkedinstance",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "designerId": "083f99a7-9f99-425d-96b6-75393347e04c",
+                            "masterInstanceId": "54299fce-5c10-48e5-b26c-59f244ca9c13"
+                        },
+                        {
+                            "type": "linkedinstance",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "designerId": "81f6a198-24a7-4653-9322-0b8922f0466d",
+                            "masterInstanceId": "38a59a4b-1b0e-4526-9622-37000209d81b"
+                        },
+                        {
+                            "type": "linkedinstance",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "designerId": "f2a2e48f-bb76-4992-aba1-c0577aa69f92",
+                            "masterInstanceId": "11a04474-69a0-49bd-bf40-fe6fd96c6386"
                         }
                     ]
                 }

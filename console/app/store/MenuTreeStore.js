@@ -34,147 +34,49 @@ Ext.define('MyApp.store.MenuTreeStore', {
                         id: 'MENU_01',
                         leaf: true,
                         iconCls: 'no-icon',
-                        cls: 'parent-node last-children'
+                        cls: 'parent-node last-children',
+                        activeRow: 0
                     },
                     {
-                        text: '<b>Server Management</b>',
+                        text: '<b>Instances</b>',
                         id: 'MENU_02',
-                        expanded: true,
+                        leaf: true,
                         iconCls: 'no-icon',
-                        cls: 'parent-node',
-                        children: [
-                            {
-                                text: 'Instances1',
-                                id: 'MENU_02_01',
-                                leaf: true,
-                                iconCls: 'no-icon'
-                            },
-                            {
-                                text: 'Instances2',
-                                id: 'MENU_02_02',
-                                leaf: true,
-                                iconCls: 'no-icon'
-                            },
-                            {
-                                text: 'Instances3',
-                                id: 'MENU_02_03',
-                                leaf: true,
-                                iconCls: 'no-icon',
-                                cls: 'last-children'
-                            }
-                        ]
+                        cls: 'parent-node last-children',
+                        activeRow: 1
                     },
                     {
-                        text: '<b>RHEV Manager</b>',
+                        text: '<b>RHEV Management</b>',
                         id: 'MENU_03',
-                        expanded: true,
+                        leaf: true,
                         iconCls: 'no-icon',
-                        cls: 'parent-node',
-                        children: [
-                            {
-                                text: 'Virtual Machines',
-                                id: 'MENU_03_01',
-                                leaf: true,
-                                iconCls: 'no-icon'
-                            },
-                            {
-                                text: 'Templates',
-                                id: 'MENU_03_02',
-                                leaf: true,
-                                iconCls: 'no-icon',
-                                cls: 'last-children'
-                            }
-                        ]
+                        cls: 'parent-node last-children',
+                        activeRow: 2
                     },
                     {
-                        text: '<b>Scaling</b>',
+                        text: '<b>ALM Management</b>',
                         id: 'MENU_04',
-                        expanded: true,
+                        leaf: true,
                         iconCls: 'no-icon',
-                        cls: 'parent-node',
-                        children: [
-                            {
-                                text: 'Auto Sacling',
-                                id: 'MENU_04_01',
-                                leaf: true,
-                                iconCls: 'no-icon'
-                            },
-                            {
-                                text: 'Load Balancers',
-                                id: 'MENU_04_02',
-                                leaf: true,
-                                iconCls: 'no-icon',
-                                cls: 'last-children'
-                            }
-                        ]
+                        cls: 'parent-node last-children',
+                        activeRow: 3
                     },
                     {
-                        text: '<b>Etc</b>',
+                        text: '<b>User Management</b>',
                         id: 'MENU_05',
-                        expanded: true,
+                        leaf: true,
                         iconCls: 'no-icon',
-                        cls: 'parent-node',
-                        children: [
-                            {
-                                text: 'sub menu1',
-                                id: 'MENU_05_01',
-                                leaf: true,
-                                iconCls: 'no-icon'
-                            },
-                            {
-                                text: 'sub menu2',
-                                id: 'MENU_05_02',
-                                leaf: true,
-                                iconCls: 'no-icon'
-                            },
-                            {
-                                text: 'sub menu3',
-                                id: 'MENU_05_03',
-                                leaf: true,
-                                iconCls: 'no-icon'
-                            },
-                            {
-                                text: 'sub menu4',
-                                id: 'MENU_05_04',
-                                leaf: true,
-                                iconCls: 'no-icon',
-                                cls: 'last-children'
-                            }
-                        ]
-                    },
-                    {
-                        text: '<b>System Configuration</b>',
-                        id: 'MENU_99',
-                        expanded: true,
-                        iconCls: 'no-icon',
-                        cls: 'parent-node',
-                        children: [
-                            {
-                                text: 'Menu Management',
-                                id: 'MENU_99_01',
-                                leaf: true,
-                                iconCls: 'no-icon'
-                            },
-                            {
-                                text: 'Group Mamagement',
-                                id: 'MENU_99_02',
-                                leaf: true,
-                                iconCls: 'no-icon'
-                            },
-                            {
-                                text: 'User Management',
-                                id: 'MENU_99_03',
-                                leaf: true,
-                                iconCls: 'no-icon',
-                                cls: 'last-children'
-                            }
-                        ]
+                        cls: 'parent-node last-children',
+                        activeRow: 4
                     }
                 ]
             },
             fields: [
                 {
                     name: 'text'
+                },
+                {
+                    name: 'activeRow'
                 }
             ]
         }, cfg)]);

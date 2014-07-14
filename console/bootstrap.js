@@ -870,10 +870,13 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.MenuTreeStore": [],
   "MyApp.view.Main": [],
   "MyApp.view.Viewport": [],
+  "MyApp.view.almPanel": [],
   "MyApp.view.dashboardPanel": [],
+  "MyApp.view.instancesPanel": [],
   "MyApp.view.loginWindow": [],
   "MyApp.view.peacockViewport": [],
-  "MyApp.view.settingsPanel": []
+  "MyApp.view.rhevPanel": [],
+  "MyApp.view.userPanel": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1888,8 +1891,14 @@ Ext.ClassManager.addNameAliasMappings({
     "widget.app-main"
   ],
   "MyApp.view.Viewport": [],
+  "MyApp.view.almPanel": [
+    "widget.almPanel"
+  ],
   "MyApp.view.dashboardPanel": [
     "widget.dashboardPanel"
+  ],
+  "MyApp.view.instancesPanel": [
+    "widget.instancesPanel"
   ],
   "MyApp.view.loginWindow": [
     "widget.loginWindow"
@@ -1897,8 +1906,11 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.peacockViewport": [
     "widget.peacockViewport"
   ],
-  "MyApp.view.settingsPanel": [
-    "widget.settingsPanel"
+  "MyApp.view.rhevPanel": [
+    "widget.rhevPanel"
+  ],
+  "MyApp.view.userPanel": [
+    "widget.userPanel"
   ]
 });
 Ext.setVersion("ext-theme-base", "4.2.1");

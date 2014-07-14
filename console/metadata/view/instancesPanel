@@ -1,0 +1,18 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "instancesPanel",
+        "designer|userClassName": "instancesPanel",
+        "height": null,
+        "id": "instancesPanel",
+        "itemId": "instancesPanel",
+        "title": "Instances Panel",
+        "width": null
+    },
+    "designerId": "b5b314e1-ae09-4c5d-a5a5-856ba35ca835"
+}

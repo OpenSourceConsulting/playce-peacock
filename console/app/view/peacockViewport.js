@@ -19,13 +19,18 @@ Ext.define('MyApp.view.peacockViewport', {
 
     requires: [
         'MyApp.view.dashboardPanel',
-        'MyApp.view.settingsPanel',
+        'MyApp.view.instancesPanel',
+        'MyApp.view.rhevPanel',
+        'MyApp.view.almPanel',
+        'MyApp.view.userPanel',
         'Ext.Img',
         'Ext.toolbar.Spacer',
+        'Ext.toolbar.Toolbar',
+        'Ext.toolbar.TextItem',
+        'Ext.toolbar.Separator',
         'Ext.button.Split',
         'Ext.menu.Menu',
         'Ext.menu.Separator',
-        'Ext.form.field.ComboBox',
         'Ext.tree.Panel',
         'Ext.tree.View',
         'Ext.layout.container.Border',
@@ -65,7 +70,7 @@ Ext.define('MyApp.view.peacockViewport', {
                             itemId: 'northPanel',
                             layout: {
                                 type: 'hbox',
-                                align: 'stretch'
+                                align: 'middle'
                             },
                             items: [
                                 {
@@ -80,45 +85,63 @@ Ext.define('MyApp.view.peacockViewport', {
                                 },
                                 {
                                     xtype: 'tbspacer',
-                                    flex: 1
+                                    flex: 2
                                 },
                                 {
                                     xtype: 'panel',
+                                    flex: 1,
                                     margin: '14 14 0 0',
-                                    items: [
+                                    dockedItems: [
                                         {
-                                            xtype: 'splitbutton',
-                                            id: 'userSplitBtn',
-                                            itemId: 'userSplitBtn',
-                                            menu: {
-                                                xtype: 'menu',
-                                                width: 120,
-                                                items: [
-                                                    {
-                                                        xtype: 'menuitem',
-                                                        id: 'editProfileMenu',
-                                                        itemId: 'editProfileMenu',
-                                                        text: 'My Account'
-                                                    },
-                                                    {
-                                                        xtype: 'menuitem',
-                                                        id: 'logoutMenu',
-                                                        itemId: 'logoutMenu',
-                                                        text: 'Sign Out'
-                                                    },
-                                                    {
-                                                        xtype: 'menuseparator',
-                                                        id: 'adminMenuSeparator',
-                                                        itemId: 'adminMenuSeparator'
-                                                    },
-                                                    {
-                                                        xtype: 'menuitem',
-                                                        id: 'adminMenu',
-                                                        itemId: 'adminMenu',
-                                                        text: 'Settings'
+                                            xtype: 'toolbar',
+                                            dock: 'top',
+                                            items: [
+                                                {
+                                                    xtype: 'tbspacer',
+                                                    flex: 1
+                                                },
+                                                {
+                                                    xtype: 'tbtext',
+                                                    text: '(최근 접속시간 : 2014.07.07 14:48:48)'
+                                                },
+                                                {
+                                                    xtype: 'tbseparator'
+                                                },
+                                                {
+                                                    xtype: 'splitbutton',
+                                                    id: 'userSplitBtn',
+                                                    itemId: 'userSplitBtn',
+                                                    menu: {
+                                                        xtype: 'menu',
+                                                        width: 120,
+                                                        items: [
+                                                            {
+                                                                xtype: 'menuitem',
+                                                                id: 'editProfileMenu',
+                                                                itemId: 'editProfileMenu',
+                                                                text: 'My Account'
+                                                            },
+                                                            {
+                                                                xtype: 'menuitem',
+                                                                id: 'logoutMenu',
+                                                                itemId: 'logoutMenu',
+                                                                text: 'Sign Out'
+                                                            },
+                                                            {
+                                                                xtype: 'menuseparator',
+                                                                id: 'adminMenuSeparator',
+                                                                itemId: 'adminMenuSeparator'
+                                                            },
+                                                            {
+                                                                xtype: 'menuitem',
+                                                                id: 'adminMenu',
+                                                                itemId: 'adminMenu',
+                                                                text: 'Settings'
+                                                            }
+                                                        ]
                                                     }
-                                                ]
-                                            }
+                                                }
+                                            ]
                                         }
                                     ]
                                 }
@@ -138,29 +161,6 @@ Ext.define('MyApp.view.peacockViewport', {
                                 align: 'stretch'
                             },
                             items: [
-                                {
-                                    xtype: 'panel',
-                                    margins: '5 5 5 5',
-                                    height: 25,
-                                    id: 'rhevListPanel',
-                                    itemId: 'rhevListPanel',
-                                    dockedItems: [
-                                        {
-                                            xtype: 'combobox',
-                                            dock: 'top',
-                                            id: 'rhevCombo',
-                                            itemId: 'rhevCombo',
-                                            fieldLabel: 'RHEV-M',
-                                            labelWidth: 60,
-                                            value: '192.168.0.1',
-                                            store: [
-                                                '192.168.0.1',
-                                                '192.168.0.2',
-                                                '192.168.0.3'
-                                            ]
-                                        }
-                                    ]
-                                },
                                 {
                                     xtype: 'treepanel',
                                     flex: 1,
@@ -190,7 +190,16 @@ Ext.define('MyApp.view.peacockViewport', {
                                     xtype: 'dashboardPanel'
                                 },
                                 {
-                                    xtype: 'settingsPanel'
+                                    xtype: 'instancesPanel'
+                                },
+                                {
+                                    xtype: 'rhevPanel'
+                                },
+                                {
+                                    xtype: 'almPanel'
+                                },
+                                {
+                                    xtype: 'userPanel'
                                 }
                             ]
                         }
