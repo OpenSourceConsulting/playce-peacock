@@ -23,10 +23,10 @@
             "peacockViewport",
             "loginWindow",
             "dashboardPanel",
-            "instancesPanel",
             "rhevPanel",
             "almPanel",
-            "userPanel"
+            "userPanel",
+            "instancesContainer"
         ]
     },
     "designerId": "application"

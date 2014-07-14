@@ -19,7 +19,7 @@ Ext.define('MyApp.view.peacockViewport', {
 
     requires: [
         'MyApp.view.dashboardPanel',
-        'MyApp.view.instancesPanel',
+        'MyApp.view.instancesContainer',
         'MyApp.view.rhevPanel',
         'MyApp.view.almPanel',
         'MyApp.view.userPanel',
@@ -190,7 +190,7 @@ Ext.define('MyApp.view.peacockViewport', {
                                     xtype: 'dashboardPanel'
                                 },
                                 {
-                                    xtype: 'instancesPanel'
+                                    xtype: 'instancesContainer'
                                 },
                                 {
                                     xtype: 'rhevPanel'

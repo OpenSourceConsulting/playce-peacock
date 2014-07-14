@@ -20,3 +20,10 @@
 span.x-tree-node-text {
    cursor: pointer;
 }
+.search{
+   background:url('http://localhost:1841/resources/images/icons/search-box.png') no-repeat;
+   padding:2px 0 0 25px;
+}
+.search-body{
+   width:150px;
+}

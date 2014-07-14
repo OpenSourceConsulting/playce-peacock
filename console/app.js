@@ -31,10 +31,10 @@ Ext.application({
         'peacockViewport',
         'loginWindow',
         'dashboardPanel',
-        'instancesPanel',
         'rhevPanel',
         'almPanel',
-        'userPanel'
+        'userPanel',
+        'instancesContainer'
     ],
     controllers: [
         'LoginController',
