@@ -1,0 +1,37 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "data": [
+            "[",
+            "    {",
+            "        id: 'ID1'",
+            "    },",
+            "    {",
+            "        id: 'ID2'",
+            "    }",
+            "]"
+        ],
+        "designer|userClassName": "tempGridData",
+        "storeId": "tempGridData"
+    },
+    "designerId": "0c463958-1ab1-4b6c-930b-ac64c7cef0d8",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "id"
+            },
+            "designerId": "62bddf3e-0e5b-4909-a4a0-8106dea1f2f2"
+        }
+    ]
+}

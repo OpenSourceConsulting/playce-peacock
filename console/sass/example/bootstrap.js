@@ -25,7 +25,8 @@ Ext.Loader.addClassPathMappings({
   "ExtThemeNeptune.toolbar.Paging": "../../ext/ext-theme-neptune.js",
   "ExtThemeNeptune.toolbar.Toolbar": "../../ext/ext-theme-neptune.js",
   "GLOBAL": "../../app/controller/GlobalController.js",
-  "MyApp": "../../app"
+  "MyApp": "../../app",
+  "instancesConstants": "../../app/controller/InstancesController.js"
 });
 Ext.ClassManager.addNameAlternateMappings({
   "Ext.AbstractComponent": [],
@@ -863,20 +864,27 @@ Ext.ClassManager.addNameAlternateMappings({
   "GLOBAL": [],
   "MyApp.Application": [],
   "MyApp.controller.GlobalController": [],
+  "MyApp.controller.InstancesController": [],
   "MyApp.controller.LoginController": [],
   "MyApp.controller.Main": [],
   "MyApp.controller.MenuController": [],
   "MyApp.controller.SettingsMenuController": [],
   "MyApp.store.MenuTreeStore": [],
+  "MyApp.store.tempChartData": [],
+  "MyApp.store.tempGridData": [],
+  "MyApp.view.CLIWindow": [],
   "MyApp.view.Main": [],
   "MyApp.view.Viewport": [],
   "MyApp.view.almPanel": [],
+  "MyApp.view.crontabWindow": [],
   "MyApp.view.dashboardPanel": [],
-  "MyApp.view.instancesPanel": [],
+  "MyApp.view.fstabWindow": [],
+  "MyApp.view.instancesContainer": [],
   "MyApp.view.loginWindow": [],
   "MyApp.view.peacockViewport": [],
   "MyApp.view.rhevPanel": [],
-  "MyApp.view.userPanel": []
+  "MyApp.view.userPanel": [],
+  "instancesConstants": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1882,11 +1890,17 @@ Ext.ClassManager.addNameAliasMappings({
   "GLOBAL": [],
   "MyApp.Application": [],
   "MyApp.controller.GlobalController": [],
+  "MyApp.controller.InstancesController": [],
   "MyApp.controller.LoginController": [],
   "MyApp.controller.Main": [],
   "MyApp.controller.MenuController": [],
   "MyApp.controller.SettingsMenuController": [],
   "MyApp.store.MenuTreeStore": [],
+  "MyApp.store.tempChartData": [],
+  "MyApp.store.tempGridData": [],
+  "MyApp.view.CLIWindow": [
+    "widget.CLIWindow"
+  ],
   "MyApp.view.Main": [
     "widget.app-main"
   ],
@@ -1894,11 +1908,17 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.almPanel": [
     "widget.almPanel"
   ],
+  "MyApp.view.crontabWindow": [
+    "widget.crontabWindow"
+  ],
   "MyApp.view.dashboardPanel": [
     "widget.dashboardPanel"
   ],
-  "MyApp.view.instancesPanel": [
-    "widget.instancesPanel"
+  "MyApp.view.fstabWindow": [
+    "widget.fstabWindow"
+  ],
+  "MyApp.view.instancesContainer": [
+    "widget.instancesContainer"
   ],
   "MyApp.view.loginWindow": [
     "widget.loginWindow"
@@ -1911,7 +1931,8 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.userPanel": [
     "widget.userPanel"
-  ]
+  ],
+  "instancesConstants": []
 });
 Ext.setVersion("ext-theme-base", "4.2.1");
 Ext.setVersion("ext-theme-neptune", "4.2.1");

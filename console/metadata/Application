@@ -10,14 +10,17 @@
             "LoginController",
             "SettingsMenuController",
             "MenuController",
-            "GlobalController"
+            "GlobalController",
+            "InstancesController"
         ],
         "name": "MyApp",
         "requires": [
             "Ext.util.Point"
         ],
         "stores": [
-            "MenuTreeStore"
+            "MenuTreeStore",
+            "tempChartData",
+            "tempGridData"
         ],
         "views": [
             "peacockViewport",
@@ -26,7 +29,10 @@
             "rhevPanel",
             "almPanel",
             "userPanel",
-            "instancesContainer"
+            "instancesContainer",
+            "CLIWindow",
+            "fstabWindow",
+            "crontabWindow"
         ]
     },
     "designerId": "application"

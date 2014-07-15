@@ -1,0 +1,108 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "fstabWindow",
+        "designer|userClassName": "fstabWindow",
+        "height": 400,
+        "id": "fstabWindow",
+        "layout": "border",
+        "title": "Edit Fstab",
+        "width": 500
+    },
+    "designerId": "025a4b85-37e6-49f3-b6b7-032807c32144",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "header": false,
+                "layout|flex": 1,
+                "layout|region": "center",
+                "title": "fstabPanel"
+            },
+            "designerId": "eb79a405-e934-4b87-9f12-0a04b2161080",
+            "cn": [
+                {
+                    "type": "Ext.form.field.TextArea",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "",
+                        "height": 300,
+                        "id": null,
+                        "inputId": "inputFstab",
+                        "itemId": null,
+                        "labelAlign": "top",
+                        "name": "inputFstab",
+                        "padding": "10 10 5 10",
+                        "width": 464
+                    },
+                    "designerId": "d1a21d3e-38e5-4a94-b790-3d7bc6368ac4"
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|pack": "center",
+                        "designer|uiInterfaceName": "footer",
+                        "dock": "bottom",
+                        "ui": "footer"
+                    },
+                    "designerId": "2f0f0d38-0836-44f5-8304-ef8a5256df00",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "fstabSaveBtn",
+                                "itemId": "fstabSaveBtn",
+                                "layout|flex": null,
+                                "margin": "0 15 0 0",
+                                "padding": "2 7 2 7",
+                                "text": "Save"
+                            },
+                            "designerId": "4b99d19c-178c-4bd4-badd-fa30b22dbe3d"
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "fstabCancelBtn",
+                                "itemId": "fstabCancelBtn",
+                                "layout|flex": null,
+                                "margin": "0 0 0 0",
+                                "padding": "2 5 2 5",
+                                "text": "Cancel"
+                            },
+                            "designerId": "9bd86767-57c9-4ffe-b914-48023e5b7e59"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

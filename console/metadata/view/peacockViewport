@@ -6,6 +6,7 @@
     },
     "codeClass": null,
     "userConfig": {
+        "activeItem": 1,
         "designer|initialView": true,
         "designer|userAlias": "peacockViewport",
         "designer|userClassName": "peacockViewport",

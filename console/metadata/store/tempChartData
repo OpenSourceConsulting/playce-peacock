@@ -1,0 +1,87 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "tempChartData",
+        "storeId": "tempChartData"
+    },
+    "designerId": "f2d20078-7617-4836-bac0-38df473ca086",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "date"
+            },
+            "designerId": "48e19210-851c-4ca2-ad7e-e4691659d062"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "cpu"
+            },
+            "designerId": "70785fb1-0940-4e5d-9e5b-797edb83953f"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "memory"
+            },
+            "designerId": "7288c3f9-92b5-4148-b3f8-18f25ee95b69"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "disk"
+            },
+            "designerId": "a08755e6-53ae-4940-bf71-fea86b98bbf5"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "cur_in"
+            },
+            "designerId": "4a4d4c9a-41a9-4406-8781-72654b105ab6"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "cur_out"
+            },
+            "designerId": "0b832965-16f3-4fac-8afe-7926b8ffc924"
+        }
+    ]
+}

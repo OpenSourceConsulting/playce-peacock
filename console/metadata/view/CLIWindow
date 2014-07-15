@@ -1,0 +1,131 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "CLIWindow",
+        "designer|userClassName": "CLIWindow",
+        "height": 600,
+        "layout": "border",
+        "title": "CLI(Command Line Interface)",
+        "width": 500
+    },
+    "designerId": "f252af18-e36c-4a0d-8d96-720e20e95fae",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "header": false,
+                "layout|flex": 1,
+                "layout|region": "center",
+                "title": "commendPanel"
+            },
+            "designerId": "b01b8b48-ed2a-4ef7-9c4a-605ca30f1846",
+            "cn": [
+                {
+                    "type": "Ext.form.field.TextArea",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "Command(s)",
+                        "height": 220,
+                        "id": null,
+                        "inputId": "inputCLICommand",
+                        "itemId": null,
+                        "labelAlign": "top",
+                        "name": "inputCLICommand",
+                        "padding": "10 10 0 10",
+                        "width": 464
+                    },
+                    "designerId": "1143962f-04c6-4dce-842c-7ef6ec1172b3"
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|pack": "end",
+                        "designer|uiInterfaceName": "footer",
+                        "dock": "bottom",
+                        "padding": "5 5 5 5",
+                        "ui": "footer"
+                    },
+                    "designerId": "986d72ad-391c-4339-bf4d-8c8c8987ebc1",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "CLIExcuteBtn",
+                                "itemId": "CLIExcuteBtn",
+                                "layout|flex": null,
+                                "margin": "0 15 0 0",
+                                "padding": "2 2 2 2",
+                                "text": "Execute"
+                            },
+                            "designerId": "f3589158-3167-474c-9d2d-050723f6ba16"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "header": false,
+                "height": 150,
+                "layout|flex": 1,
+                "layout|region": "south",
+                "layout|split": true,
+                "title": "outputPanel"
+            },
+            "designerId": "ef94e3a0-4f96-429b-9518-534b4e7f81e3",
+            "cn": [
+                {
+                    "type": "Ext.form.field.TextArea",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "Output",
+                        "height": 250,
+                        "id": null,
+                        "inputId": "inputCLIOutput",
+                        "itemId": null,
+                        "labelAlign": "top",
+                        "name": "inputCLIOutput",
+                        "padding": "10 10 10 10",
+                        "readOnly": true,
+                        "width": 464
+                    },
+                    "designerId": "42f1a107-5604-43c6-92e5-d247ce55c676"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,153 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "crontabWindow",
+        "designer|userClassName": "crontabWindow",
+        "height": 400,
+        "id": "crontabWindow",
+        "layout": "border",
+        "title": "Edit Crontab",
+        "width": 500
+    },
+    "designerId": "607aee03-4f9a-4998-844b-b647741e074b",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "header": false,
+                "layout|flex": 1,
+                "layout|region": "center",
+                "title": "crontabPanel"
+            },
+            "designerId": "dca6c46e-c71c-400d-ac41-0580f2bd8457",
+            "cn": [
+                {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|displayName": "selectAccount",
+                        "fieldLabel": "Select Account",
+                        "inputId": "selectAccount",
+                        "name": "selectAccount",
+                        "padding": "10 0 0 10"
+                    },
+                    "designerId": "25200e16-66d8-41db-8863-36fde1dd67dc",
+                    "cn": [
+                        {
+                            "type": "Ext.XTemplate",
+                            "reference": {
+                                "name": "fieldSubTpl",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "root",
+                                "disableFormats": true,
+                                "implHandler": [
+                                    "<div class=\"{hiddenDataCls}\" role=\"presentation\"></div>",
+                                    "<input id=\"{id}\" type=\"{type}\" {inputAttrTpl} class=\"{fieldCls} {typeCls} {editableCls}\" autocomplete=\"off\"",
+                                    "<tpl if=\"value\"> value=\"{[Ext.util.Format.htmlEncode(values.value)]}\"</tpl>",
+                                    "<tpl if=\"name\"> name=\"{name}\"</tpl>",
+                                    "<tpl if=\"placeholder\"> placeholder=\"{placeholder}\"</tpl>",
+                                    "<tpl if=\"size\"> size=\"{size}\"</tpl>",
+                                    "<tpl if=\"maxLength !== undefined\"> maxlength=\"{maxLength}\"</tpl>",
+                                    "<tpl if=\"readOnly\"> readonly=\"readonly\"</tpl>",
+                                    "<tpl if=\"disabled\"> disabled=\"disabled\"</tpl>",
+                                    "<tpl if=\"tabIdx\"> tabIndex=\"{tabIdx}\"</tpl>",
+                                    "<tpl if=\"fieldStyle\"> style=\"{fieldStyle}\"</tpl>",
+                                    "/>"
+                                ]
+                            },
+                            "designerId": "c5f8b959-293d-4ffb-b061-8acfa03bffc6"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.form.field.TextArea",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "",
+                        "height": 265,
+                        "id": null,
+                        "inputId": "inputCrontab",
+                        "itemId": null,
+                        "labelAlign": "top",
+                        "name": "inputCrontab",
+                        "padding": "10 10 5 10",
+                        "width": 464
+                    },
+                    "designerId": "96e2f33f-f9c6-4220-bb79-2bca08c4d5b4"
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|pack": "center",
+                        "designer|uiInterfaceName": "footer",
+                        "dock": "bottom",
+                        "ui": "footer"
+                    },
+                    "designerId": "27153624-05b7-4a97-a295-c202ef8b7e58",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "crontabSaveBtn",
+                                "itemId": "crontabSaveBtn",
+                                "layout|flex": null,
+                                "margin": "0 15 0 0",
+                                "padding": "2 7 2 7",
+                                "text": "Save"
+                            },
+                            "designerId": "a00acff6-4032-47b6-bed7-b9e11456df10"
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "crontabCancelBtn",
+                                "itemId": "crontabCancelBtn",
+                                "layout|flex": null,
+                                "margin": "0 0 0 0",
+                                "padding": "2 5 2 5",
+                                "text": "Cancel"
+                            },
+                            "designerId": "8c069891-f1ae-4953-9a41-d371c21b5928"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

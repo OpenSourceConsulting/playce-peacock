@@ -19,9 +19,6 @@ Ext.define('MyApp.view.instancesContainer', {
 
     requires: [
         'Ext.grid.Panel',
-        'Ext.grid.column.Number',
-        'Ext.grid.column.Date',
-        'Ext.grid.column.Boolean',
         'Ext.grid.View',
         'Ext.toolbar.Separator',
         'Ext.toolbar.TextItem',
@@ -34,13 +31,21 @@ Ext.define('MyApp.view.instancesContainer', {
         'Ext.tab.Tab',
         'Ext.form.Panel',
         'Ext.form.FieldContainer',
-        'Ext.form.field.Checkbox'
+        'Ext.form.field.Checkbox',
+        'Ext.grid.column.Number',
+        'Ext.grid.column.Date',
+        'Ext.grid.column.Boolean',
+        'Ext.form.Label',
+        'Ext.chart.Chart',
+        'Ext.chart.axis.Category',
+        'Ext.chart.axis.Numeric',
+        'Ext.chart.series.Line'
     ],
 
     height: 755,
     id: 'instancesContainer',
     itemId: 'instancesContainer',
-    width: 1229,
+    width: 1000,
     layout: 'border',
 
     initComponent: function() {
@@ -57,28 +62,7 @@ Ext.define('MyApp.view.instancesContainer', {
                     minHeight: 100,
                     autoScroll: true,
                     columnLines: true,
-                    columns: [
-                        {
-                            xtype: 'gridcolumn',
-                            dataIndex: 'string',
-                            text: 'String'
-                        },
-                        {
-                            xtype: 'numbercolumn',
-                            dataIndex: 'number',
-                            text: 'Number'
-                        },
-                        {
-                            xtype: 'datecolumn',
-                            dataIndex: 'date',
-                            text: 'Date'
-                        },
-                        {
-                            xtype: 'booleancolumn',
-                            dataIndex: 'bool',
-                            text: 'Boolean'
-                        }
-                    ],
+                    store: 'tempGridData',
                     dockedItems: [
                         {
                             xtype: 'toolbar',
@@ -184,6 +168,13 @@ Ext.define('MyApp.view.instancesContainer', {
                             dock: 'bottom',
                             width: 360,
                             displayInfo: true
+                        }
+                    ],
+                    columns: [
+                        {
+                            xtype: 'gridcolumn',
+                            dataIndex: 'id',
+                            text: 'Id'
                         }
                     ]
                 },
@@ -380,162 +371,43 @@ Ext.define('MyApp.view.instancesContainer', {
                                     title: 'Software',
                                     items: [
                                         {
-                                            xtype: 'form',
-                                            id: 'instanceDescForm1',
-                                            itemId: 'instanceDescForm',
-                                            defaults: {
-                                                border: false,
-                                                xtype: 'panel',
-                                                flex: 1,
-                                                layout: 'anchor'
-                                            },
-                                            bodyPadding: 10,
-                                            bodyStyle: 'padding:5px 5px 0',
-                                            header: false,
-                                            fieldDefaults: {
-                                                msgTarget: 'side',
-                                                margin: '0 10',
-                                                readOnly: true
-                                            },
-                                            waitMsgTarget: 'instDescForm',
-                                            items: [
+                                            xtype: 'gridpanel',
+                                            id: 'instanceSoftwareGrid',
+                                            itemId: 'instanceSoftwareGrid',
+                                            autoScroll: true,
+                                            columnLines: true,
+                                            columns: [
                                                 {
-                                                    xtype: 'fieldcontainer',
-                                                    height: 34,
-                                                    defaults: {
-                                                        flex: 1
-                                                    },
-                                                    fieldLabel: 'Label',
-                                                    hideLabel: true,
-                                                    layout: {
-                                                        type: 'hbox',
-                                                        align: 'middle'
-                                                    },
-                                                    items: [
-                                                        {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'Instance ID'
-                                                        },
-                                                        {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'Host'
-                                                        }
-                                                    ]
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'string',
+                                                    text: 'String'
                                                 },
                                                 {
-                                                    xtype: 'fieldcontainer',
-                                                    height: 34,
-                                                    defaults: {
-                                                        flex: 1
-                                                    },
-                                                    fieldLabel: 'Label',
-                                                    hideLabel: true,
-                                                    layout: {
-                                                        type: 'hbox',
-                                                        align: 'middle'
-                                                    },
-                                                    items: [
-                                                        {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'OS Name'
-                                                        },
-                                                        {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'OS Version'
-                                                        }
-                                                    ]
+                                                    xtype: 'numbercolumn',
+                                                    dataIndex: 'number',
+                                                    text: 'Number'
                                                 },
                                                 {
-                                                    xtype: 'fieldcontainer',
-                                                    height: 34,
-                                                    defaults: {
-                                                        flex: 1
-                                                    },
-                                                    fieldLabel: 'Label',
-                                                    hideLabel: true,
-                                                    layout: {
-                                                        type: 'hbox',
-                                                        align: 'middle'
-                                                    },
-                                                    items: [
-                                                        {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'MAC Address'
-                                                        },
-                                                        {
-                                                            xtype: 'checkboxfield',
-                                                            flex: 1,
-                                                            fieldLabel: 'Is VM',
-                                                            boxLabel: 'VM'
-                                                        }
-                                                    ]
+                                                    xtype: 'datecolumn',
+                                                    dataIndex: 'date',
+                                                    text: 'Date'
                                                 },
                                                 {
-                                                    xtype: 'fieldcontainer',
-                                                    height: 34,
-                                                    defaults: {
-                                                        flex: 1
-                                                    },
-                                                    fieldLabel: 'Label',
-                                                    hideLabel: true,
-                                                    layout: {
-                                                        type: 'hbox',
-                                                        align: 'middle'
-                                                    },
-                                                    items: [
-                                                        {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'IP Address'
-                                                        },
-                                                        {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'OS Arch'
-                                                        }
-                                                    ]
-                                                },
+                                                    xtype: 'booleancolumn',
+                                                    dataIndex: 'bool',
+                                                    text: 'Boolean'
+                                                }
+                                            ],
+                                            dockedItems: [
                                                 {
-                                                    xtype: 'fieldcontainer',
-                                                    height: 34,
-                                                    defaults: {
-                                                        flex: 1
-                                                    },
-                                                    fieldLabel: 'Label',
-                                                    hideLabel: true,
-                                                    layout: {
-                                                        type: 'hbox',
-                                                        align: 'middle'
-                                                    },
+                                                    xtype: 'toolbar',
+                                                    dock: 'top',
                                                     items: [
                                                         {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'CPU Clock'
-                                                        },
-                                                        {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'Core'
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    xtype: 'fieldcontainer',
-                                                    height: 34,
-                                                    defaults: {
-                                                        flex: 1
-                                                    },
-                                                    fieldLabel: 'Label',
-                                                    hideLabel: true,
-                                                    layout: {
-                                                        type: 'hbox',
-                                                        align: 'middle'
-                                                    },
-                                                    items: [
-                                                        {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'Memory Size'
-                                                        },
-                                                        {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'Create Date'
+                                                            xtype: 'button',
+                                                            id: 'softwareInstallBtn',
+                                                            itemId: 'softwareInstallBtn',
+                                                            text: 'Software Install'
                                                         }
                                                     ]
                                                 }
@@ -550,164 +422,56 @@ Ext.define('MyApp.view.instancesContainer', {
                                     title: 'OS Package',
                                     items: [
                                         {
-                                            xtype: 'form',
-                                            id: 'instanceDescForm2',
-                                            itemId: 'instanceDescForm',
-                                            defaults: {
-                                                border: false,
-                                                xtype: 'panel',
-                                                flex: 1,
-                                                layout: 'anchor'
-                                            },
-                                            bodyPadding: 10,
-                                            bodyStyle: 'padding:5px 5px 0',
-                                            header: false,
-                                            fieldDefaults: {
-                                                msgTarget: 'side',
-                                                margin: '0 10',
-                                                readOnly: true
-                                            },
-                                            waitMsgTarget: 'instDescForm',
-                                            items: [
+                                            xtype: 'gridpanel',
+                                            id: 'instanceOsGrid',
+                                            itemId: 'instanceOsGrid',
+                                            autoScroll: true,
+                                            columnLines: true,
+                                            dockedItems: [
                                                 {
-                                                    xtype: 'fieldcontainer',
-                                                    height: 34,
-                                                    defaults: {
-                                                        flex: 1
-                                                    },
-                                                    fieldLabel: 'Label',
-                                                    hideLabel: true,
-                                                    layout: {
-                                                        type: 'hbox',
-                                                        align: 'middle'
-                                                    },
+                                                    xtype: 'toolbar',
+                                                    dock: 'top',
                                                     items: [
                                                         {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'Instance ID'
+                                                            xtype: 'button',
+                                                            id: 'osReloadBtn',
+                                                            itemId: 'osReloadBtn',
+                                                            text: 'Reload'
+                                                        },
+                                                        {
+                                                            xtype: 'tbseparator'
                                                         },
                                                         {
                                                             xtype: 'textfield',
-                                                            fieldLabel: 'Host'
+                                                            id: 'inputPackageName',
+                                                            itemId: 'inputPackageName',
+                                                            fieldLabel: 'Name',
+                                                            labelWidth: 45,
+                                                            emptyText: 'Search Package'
                                                         }
                                                     ]
+                                                }
+                                            ],
+                                            columns: [
+                                                {
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'string',
+                                                    text: 'String'
                                                 },
                                                 {
-                                                    xtype: 'fieldcontainer',
-                                                    height: 34,
-                                                    defaults: {
-                                                        flex: 1
-                                                    },
-                                                    fieldLabel: 'Label',
-                                                    hideLabel: true,
-                                                    layout: {
-                                                        type: 'hbox',
-                                                        align: 'middle'
-                                                    },
-                                                    items: [
-                                                        {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'OS Name'
-                                                        },
-                                                        {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'OS Version'
-                                                        }
-                                                    ]
+                                                    xtype: 'numbercolumn',
+                                                    dataIndex: 'number',
+                                                    text: 'Number'
                                                 },
                                                 {
-                                                    xtype: 'fieldcontainer',
-                                                    height: 34,
-                                                    defaults: {
-                                                        flex: 1
-                                                    },
-                                                    fieldLabel: 'Label',
-                                                    hideLabel: true,
-                                                    layout: {
-                                                        type: 'hbox',
-                                                        align: 'middle'
-                                                    },
-                                                    items: [
-                                                        {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'MAC Address'
-                                                        },
-                                                        {
-                                                            xtype: 'checkboxfield',
-                                                            flex: 1,
-                                                            fieldLabel: 'Is VM',
-                                                            boxLabel: 'VM'
-                                                        }
-                                                    ]
+                                                    xtype: 'datecolumn',
+                                                    dataIndex: 'date',
+                                                    text: 'Date'
                                                 },
                                                 {
-                                                    xtype: 'fieldcontainer',
-                                                    height: 34,
-                                                    defaults: {
-                                                        flex: 1
-                                                    },
-                                                    fieldLabel: 'Label',
-                                                    hideLabel: true,
-                                                    layout: {
-                                                        type: 'hbox',
-                                                        align: 'middle'
-                                                    },
-                                                    items: [
-                                                        {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'IP Address'
-                                                        },
-                                                        {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'OS Arch'
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    xtype: 'fieldcontainer',
-                                                    height: 34,
-                                                    defaults: {
-                                                        flex: 1
-                                                    },
-                                                    fieldLabel: 'Label',
-                                                    hideLabel: true,
-                                                    layout: {
-                                                        type: 'hbox',
-                                                        align: 'middle'
-                                                    },
-                                                    items: [
-                                                        {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'CPU Clock'
-                                                        },
-                                                        {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'Core'
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    xtype: 'fieldcontainer',
-                                                    height: 34,
-                                                    defaults: {
-                                                        flex: 1
-                                                    },
-                                                    fieldLabel: 'Label',
-                                                    hideLabel: true,
-                                                    layout: {
-                                                        type: 'hbox',
-                                                        align: 'middle'
-                                                    },
-                                                    items: [
-                                                        {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'Memory Size'
-                                                        },
-                                                        {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'Create Date'
-                                                        }
-                                                    ]
+                                                    xtype: 'booleancolumn',
+                                                    dataIndex: 'bool',
+                                                    text: 'Boolean'
                                                 }
                                             ]
                                         }
@@ -717,7 +481,215 @@ Ext.define('MyApp.view.instancesContainer', {
                                     xtype: 'panel',
                                     autoScroll: true,
                                     layout: 'fit',
-                                    title: 'Monitoring'
+                                    title: 'Monitoring',
+                                    items: [
+                                        {
+                                            xtype: 'panel',
+                                            height: 250,
+                                            id: 'monitoringPanel',
+                                            width: 400,
+                                            layout: 'border',
+                                            items: [
+                                                {
+                                                    xtype: 'panel',
+                                                    flex: 1,
+                                                    region: 'west',
+                                                    id: 'cpuPanel',
+                                                    width: 150,
+                                                    layout: {
+                                                        type: 'hbox',
+                                                        align: 'stretch'
+                                                    },
+                                                    dockedItems: [
+                                                        {
+                                                            xtype: 'label',
+                                                            dock: 'top',
+                                                            cls: 'chart-title',
+                                                            text: 'CPU'
+                                                        }
+                                                    ],
+                                                    items: [
+                                                        {
+                                                            xtype: 'chart',
+                                                            height: 250,
+                                                            id: 'cpuChart',
+                                                            itemId: 'cpuChart',
+                                                            width: 400,
+                                                            shadow: true,
+                                                            animate: true,
+                                                            insetPadding: 20,
+                                                            store: 'tempChartData',
+                                                            axes: [
+                                                                {
+                                                                    type: 'Category',
+                                                                    fields: [
+                                                                        'date'
+                                                                    ],
+                                                                    label: {
+                                                                        rotate: {
+                                                                            degrees: 315
+                                                                        }
+                                                                    },
+                                                                    position: 'bottom'
+                                                                },
+                                                                {
+                                                                    type: 'Numeric',
+                                                                    fields: [
+                                                                        'cpu'
+                                                                    ],
+                                                                    maximum: 100,
+                                                                    position: 'left'
+                                                                }
+                                                            ],
+                                                            series: [
+                                                                {
+                                                                    type: 'line',
+                                                                    xField: 'x',
+                                                                    yField: 'y',
+                                                                    markerConfig: {
+                                                                        radius: 3,
+                                                                        size: 3
+                                                                    },
+                                                                    smooth: 3
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    xtype: 'panel',
+                                                    flex: 1,
+                                                    region: 'center',
+                                                    id: 'cpuPanel1',
+                                                    layout: {
+                                                        type: 'hbox',
+                                                        align: 'stretch'
+                                                    },
+                                                    dockedItems: [
+                                                        {
+                                                            xtype: 'label',
+                                                            dock: 'top',
+                                                            cls: 'chart-title',
+                                                            text: 'Memory'
+                                                        }
+                                                    ],
+                                                    items: [
+                                                        {
+                                                            xtype: 'chart',
+                                                            height: 250,
+                                                            id: 'cpuChart1',
+                                                            itemId: 'cpuChart',
+                                                            width: 400,
+                                                            shadow: true,
+                                                            animate: true,
+                                                            insetPadding: 20,
+                                                            store: 'tempChartData',
+                                                            axes: [
+                                                                {
+                                                                    type: 'Category',
+                                                                    fields: [
+                                                                        'date'
+                                                                    ],
+                                                                    label: {
+                                                                        rotate: {
+                                                                            degrees: 315
+                                                                        }
+                                                                    },
+                                                                    position: 'bottom'
+                                                                },
+                                                                {
+                                                                    type: 'Numeric',
+                                                                    fields: [
+                                                                        'cpu'
+                                                                    ],
+                                                                    maximum: 100,
+                                                                    position: 'left'
+                                                                }
+                                                            ],
+                                                            series: [
+                                                                {
+                                                                    type: 'line',
+                                                                    xField: 'x',
+                                                                    yField: 'y',
+                                                                    markerConfig: {
+                                                                        radius: 3,
+                                                                        size: 3
+                                                                    },
+                                                                    smooth: 3
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    xtype: 'panel',
+                                                    flex: 1,
+                                                    region: 'east',
+                                                    id: 'cpuPanel2',
+                                                    width: 150,
+                                                    layout: {
+                                                        type: 'hbox',
+                                                        align: 'stretch'
+                                                    },
+                                                    dockedItems: [
+                                                        {
+                                                            xtype: 'label',
+                                                            dock: 'top',
+                                                            cls: 'chart-title',
+                                                            text: 'Disk'
+                                                        }
+                                                    ],
+                                                    items: [
+                                                        {
+                                                            xtype: 'chart',
+                                                            height: 250,
+                                                            id: 'cpuChart2',
+                                                            itemId: 'cpuChart',
+                                                            width: 400,
+                                                            shadow: true,
+                                                            animate: true,
+                                                            insetPadding: 20,
+                                                            store: 'tempChartData',
+                                                            axes: [
+                                                                {
+                                                                    type: 'Category',
+                                                                    fields: [
+                                                                        'date'
+                                                                    ],
+                                                                    label: {
+                                                                        rotate: {
+                                                                            degrees: 315
+                                                                        }
+                                                                    },
+                                                                    position: 'bottom'
+                                                                },
+                                                                {
+                                                                    type: 'Numeric',
+                                                                    fields: [
+                                                                        'cpu'
+                                                                    ],
+                                                                    maximum: 100,
+                                                                    position: 'left'
+                                                                }
+                                                            ],
+                                                            series: [
+                                                                {
+                                                                    type: 'line',
+                                                                    xField: 'x',
+                                                                    yField: 'y',
+                                                                    markerConfig: {
+                                                                        radius: 3,
+                                                                        size: 3
+                                                                    },
+                                                                    smooth: 3
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
                                 }
                             ]
                         }

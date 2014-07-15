@@ -25,7 +25,9 @@ Ext.application({
         'Ext.util.Point'
     ],
     stores: [
-        'MenuTreeStore'
+        'MenuTreeStore',
+        'tempChartData',
+        'tempGridData'
     ],
     views: [
         'peacockViewport',
@@ -34,13 +36,17 @@ Ext.application({
         'rhevPanel',
         'almPanel',
         'userPanel',
-        'instancesContainer'
+        'instancesContainer',
+        'CLIWindow',
+        'fstabWindow',
+        'crontabWindow'
     ],
     controllers: [
         'LoginController',
         'SettingsMenuController',
         'MenuController',
-        'GlobalController'
+        'GlobalController',
+        'InstancesController'
     ],
     name: 'MyApp',
 
