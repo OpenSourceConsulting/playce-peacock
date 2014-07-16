@@ -843,7 +843,30 @@
                                                         "layout|flex": null,
                                                         "text": "Software Install"
                                                     },
-                                                    "designerId": "1c614ef9-b056-4461-a49a-bb9d37ceb7dd"
+                                                    "designerId": "1c614ef9-b056-4461-a49a-bb9d37ceb7dd",
+                                                    "cn": [
+                                                        {
+                                                            "type": "fixedfunction",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "designer|params": [
+                                                                    "button",
+                                                                    "e"
+                                                                ],
+                                                                "fn": "handler",
+                                                                "implHandler": [
+                                                                    "var softwareInstallWindow = Ext.create(\"widget.softwareInstallWindow\");",
+                                                                    "",
+                                                                    "softwareInstallWindow.show();"
+                                                                ]
+                                                            },
+                                                            "designerId": "9087863d-0373-4d2d-9ad3-cf6923c34960"
+                                                        }
+                                                    ]
                                                 }
                                             ]
                                         }

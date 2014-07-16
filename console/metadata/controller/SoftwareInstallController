@@ -1,0 +1,78 @@
+{
+    "type": "Ext.app.Controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "SoftwareInstallController"
+    },
+    "designerId": "b0a458ee-4781-4ac1-86f6-5eed071d8b49",
+    "cn": [
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "mycombobox2",
+                "selector": "#mycombobox2"
+            },
+            "designerId": "4a2fde46-34d9-4688-8652-1190727825f8"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#mycombobox2",
+                "designer|targetType": "Ext.form.field.ComboBox",
+                "fn": "onComboboxChange",
+                "implHandler": [
+                    "",
+                    "var frmID = null;",
+                    "var installWindow = Ext.getCmp(\"softwareInstallWindow\");",
+                    "",
+                    "if(newValue == 'Apache HTTP Server') {",
+                    "",
+                    "    frmID = 0;",
+                    "    installWindow.setSize(500, 350);",
+                    "",
+                    "} else if(newValue == 'Apache Tomcat') {",
+                    "",
+                    "    frmID = 1;",
+                    "    installWindow.setSize(500, 460);",
+                    "    //installWindow.height = 460;",
+                    "",
+                    "} else if(newValue == 'JBoss EWS') {",
+                    "",
+                    "    frmID = 2;",
+                    "    installWindow.setSize(500, 520);",
+                    "",
+                    "} else if(newValue == 'JBoss EAP') {",
+                    "",
+                    "    frmID = 3;",
+                    "    installWindow.setSize(500, 750);",
+                    "",
+                    "}",
+                    "",
+                    "",
+                    "var installPanel = Ext.getCmp(\"softwareInstallPanel\");",
+                    "installPanel.layout.setActiveItem(frmID);",
+                    "",
+                    "installWindow.center();",
+                    ""
+                ],
+                "name": "change",
+                "scope": "me"
+            },
+            "designerId": "b493ff10-d805-443e-a5bd-c4b1574d11eb"
+        }
+    ]
+}

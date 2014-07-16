@@ -55,25 +55,25 @@
                     "var instancesGridContextMenu = new Ext.menu.Menu({",
                     "        items:",
                     "        [",
-                    "            { text: 'CLI(Command Line Interface)', ",
+                    "            { text: 'CLI(Command Line Interface)',",
                     "              handler: function() {",
                     "                   instances.showCLIWindow();",
-                    "              } ",
+                    "              }",
                     "            },",
-                    "            { text: 'Manage Account', ",
+                    "            { text: 'Manage Account',",
                     "              handler: function() {",
-                    "                  //instances.showCLIWindow();",
-                    "              } ",
+                    "                  instances.showManageAccountWindow();",
+                    "              }",
                     "            },",
-                    "            { text: 'Edit Fstab', ",
+                    "            { text: 'Edit Fstab',",
                     "              handler: function() {",
                     "                  instances.showFstabWindow();",
-                    "              } ",
+                    "              }",
                     "            },",
-                    "            { text: 'Edit Crontab', ",
+                    "            { text: 'Edit Crontab',",
                     "              handler: function() {",
                     "                  instances.showCrontabWindow();",
-                    "              } ",
+                    "              }",
                     "            }",
                     "        ]",
                     "",
@@ -106,6 +106,23 @@
                 ]
             },
             "designerId": "b4fd2fc9-3ff7-405c-b736-7d4c1e61667f"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "showManageAccountWindow",
+                "implHandler": [
+                    "var manageAccountWindow = Ext.create(\"widget.manageAccountWindow\");",
+                    "",
+                    "manageAccountWindow.show();"
+                ]
+            },
+            "designerId": "daee12f1-ab4e-404a-ad90-f7c93442ca26"
         },
         {
             "type": "basicfunction",

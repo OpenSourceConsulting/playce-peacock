@@ -1,0 +1,937 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "softwareInstallWindow",
+        "designer|userClassName": "softwareInstallWindow",
+        "height": 350,
+        "id": "softwareInstallWindow",
+        "layout": "border",
+        "title": "Software Install Launch Wizard",
+        "width": 500
+    },
+    "designerId": "c69383e8-5a57-4e7c-bfde-b81fdbb5735c",
+    "cn": [
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "top",
+                "padding": "10 10 0 10"
+            },
+            "designerId": "f326f262-6bb3-4ff5-8d13-8a42e127378a",
+            "cn": [
+                {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "Software",
+                        "itemId": "mycombobox2",
+                        "layout|flex": null,
+                        "queryMode": "local",
+                        "store": [
+                            "[",
+                            "    'Apache HTTP Server',",
+                            "    'Apache Tomcat',",
+                            "    'JBoss EWS',",
+                            "    'JBoss EAP'",
+                            "]"
+                        ],
+                        "width": 350
+                    },
+                    "configAlternates": {
+                        "store": "array"
+                    },
+                    "designerId": "06054206-2b75-4cdf-97b5-46cca8652ccd"
+                }
+            ]
+        },
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "container|pack": "center",
+                "designer|uiInterfaceName": "footer",
+                "dock": "bottom",
+                "ui": "footer"
+            },
+            "designerId": "b3b6431e-ef01-42d9-86ca-e4bf1fd3809d",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "installSofrwareBtn",
+                        "itemId": "installSofrwareBtn",
+                        "layout|flex": null,
+                        "margin": "0 15 0 0",
+                        "padding": "2 5 2 5",
+                        "text": "Launch"
+                    },
+                    "designerId": "d07879d0-9cc0-46c8-92ce-52ce90d6de7c"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "installCancelBtn",
+                        "itemId": "installCancelBtn",
+                        "layout|flex": null,
+                        "margin": "0 0 0 0",
+                        "padding": "2 5 2 5",
+                        "text": "Cancel"
+                    },
+                    "designerId": "70e5efd0-4f28-4fff-b450-65e48ce65074"
+                }
+            ]
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "header": false,
+                "id": "softwareInstallPanel",
+                "itemId": "softwareInstallPanel",
+                "layout": "card",
+                "layout|flex": 1,
+                "layout|region": "center",
+                "title": "sofrwareInstallPanel"
+            },
+            "designerId": "45575b1b-de24-4100-9610-12597d29df4a",
+            "cn": [
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "autoScroll": true,
+                        "bodyPadding": 15,
+                        "height": 242,
+                        "id": "apacheInstallForm",
+                        "itemId": "apacheInstallForm",
+                        "title": null
+                    },
+                    "designerId": "d092bd20-3b45-41f9-a0ce-f6098890f0f9",
+                    "cn": [
+                        {
+                            "type": "Ext.form.FieldSet",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "title": "Apache HTTP Server Install"
+                            },
+                            "designerId": "2a443726-4f4e-4f48-8ccc-5139a1b71b85",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.ComboBox",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Version",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "00bfab17-b703-4239-99e9-d54b8cd9ef56"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Target Dir",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "a03bc98a-8056-4876-9e8d-85be4721e14e"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Server Root",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "fea70ea9-83f1-4930-9112-b7903047a975"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Port",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "256d35d5-4ffd-47b3-b6fb-594b7aa86125"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Server Domain",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "133fde20-a02f-497c-a67a-190dd0b3ac72"
+                                },
+                                {
+                                    "type": "Ext.form.field.Checkbox",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "boxLabel": "Start Service after Installation",
+                                        "fieldLabel": "Start Service",
+                                        "labelWidth": 110
+                                    },
+                                    "designerId": "64ebc458-0941-4c69-b15d-b1c1d1851f98"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "autoScroll": true,
+                        "bodyPadding": 15,
+                        "height": 242,
+                        "id": "tomcatInstallForm",
+                        "itemId": "tomcatInstallForm",
+                        "title": null
+                    },
+                    "designerId": "006d3218-229f-42e7-af54-77f67dfa8cbc",
+                    "cn": [
+                        {
+                            "type": "Ext.form.FieldSet",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "title": "Apache Tomcat Install"
+                            },
+                            "designerId": "2701ddb5-835b-4d9f-9a26-04c44174efc7",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.ComboBox",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Version",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "84ae0e95-b61c-438b-9a2d-ad37cc74a2e4"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Java Home",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "82a21f56-8718-47b9-94d7-969b15c2575e"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Catalina Home",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "4c508cca-9996-4191-9325-a65821748f67"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Catalina Base",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "96df6884-702c-4740-a104-857e8ee3bbec"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Server Name",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "54ba2607-4dbf-4a73-a1c9-187975253a1a"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Comp User",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "c06b6730-8350-4ffe-b88c-9ff1e349dd65"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Port Offset",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "f1c72b5e-57c8-4dd8-af29-0d86d4338b2b"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Heap Size",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "039b67c6-aa94-48b8-9783-9f9a2c9939dc"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Permgen Size",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "10b617b9-9160-4e82-bc78-6fccd8caaa83"
+                                },
+                                {
+                                    "type": "Ext.form.field.Checkbox",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "boxLabel": "Start Service after Installation",
+                                        "fieldLabel": "Start Service",
+                                        "labelWidth": 110
+                                    },
+                                    "designerId": "ba27e9e1-0299-452e-ad89-70971adce332"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "autoScroll": true,
+                        "bodyPadding": 15,
+                        "height": 242,
+                        "id": "jbossEWSInstallForm",
+                        "itemId": "jbossEWSInstallForm",
+                        "title": null
+                    },
+                    "designerId": "46e6d93f-ec15-4930-8ecb-4911cce174fe",
+                    "cn": [
+                        {
+                            "type": "Ext.form.FieldSet",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "title": "JBoss EWS Install"
+                            },
+                            "designerId": "570254b0-f220-45cf-b338-bd4b4f2197e0",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.ComboBox",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Version",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "888bc198-9fac-4429-94bb-6c558cbdb4af"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Java Home",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "5619fa32-5916-4602-977d-55c644f63c92"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Catalina Home",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "1c063219-a324-4f96-adeb-513418c20cdf"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Catalina Base",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "444a9fe1-3478-4765-80c0-5f904ac80f02"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Server Name",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "e9f54c2e-881a-4c36-88d5-53e50be6b4e8"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Comp User",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "e54376e9-8a44-40e8-8c84-b9b8e4db9e49"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Port Offset",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "b6ef1aa3-d634-4e45-8ed2-37ce055bce26"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Heap Size",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "3467fea7-8dbe-41c1-9cde-1a0302005d0b"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Permgen Size",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "2d9ad85d-a719-459f-b67e-061773455937"
+                                },
+                                {
+                                    "type": "Ext.form.field.Checkbox",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "boxLabel": "Check when using clustering",
+                                        "fieldLabel": "High Availability",
+                                        "labelWidth": 110
+                                    },
+                                    "designerId": "7f972d12-b15e-4481-b19d-9f7d3f771f26"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Multicast Address",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "7f2cf4b7-ba3f-4d44-8080-1960baa6090d"
+                                },
+                                {
+                                    "type": "Ext.form.field.Checkbox",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "boxLabel": "Start Service after Installation",
+                                        "fieldLabel": "Start Service",
+                                        "labelWidth": 110
+                                    },
+                                    "designerId": "0c7e10ea-505a-4fb3-a588-6f0cad0cface"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "autoScroll": true,
+                        "bodyPadding": 15,
+                        "height": 242,
+                        "id": "jbossEAPInstallForm",
+                        "itemId": "jbossEAPInstallForm",
+                        "title": null
+                    },
+                    "designerId": "82e0b378-1a33-4852-85e2-3d7da3b604ed",
+                    "cn": [
+                        {
+                            "type": "Ext.form.FieldSet",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "title": "JBoss EAP Install"
+                            },
+                            "designerId": "69bd037b-2458-4cbd-a64e-87bfcb277209",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.ComboBox",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Version",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "2db2a635-9e7e-4155-9fd4-4ba9da406d55"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "JBoss Home",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "be719f54-ed72-48e6-bdc9-d8d92c2573f2"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Server Home",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "a134fdc0-9633-4c6d-8e08-e3489820ea7c"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Server Name",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "576356c4-9e9a-4c4f-b1ae-3a472f8c72e1"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Mgmt Address",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "e4bbbb1e-3871-4d56-98f4-6b7927c93e35"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Bind Address",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "c58a1e5c-7f46-44d1-8a10-b0c34fecc192"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Port Offset",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "b4405f79-ed55-4ef5-a4ed-eab2f5a9a60e"
+                                },
+                                {
+                                    "type": "Ext.form.field.Checkbox",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "boxLabel": "Use standalone-ha.xml",
+                                        "fieldLabel": "High Availability",
+                                        "labelWidth": 110
+                                    },
+                                    "designerId": "2bb36022-3903-4d99-96b8-0dfbc992fd62"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Multicast Address",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "90a2b435-e7fd-4b68-a3ab-096028643074"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Heap Size",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "2e82b1bf-e8ff-4de5-8c76-3b6d6718839d"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Permgen Size",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "2c8acd62-4d63-4ac3-862b-97d81af5ba52"
+                                },
+                                {
+                                    "type": "Ext.form.field.Checkbox",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "boxLabel": "Start Service after Installation",
+                                        "fieldLabel": "Start Service",
+                                        "labelWidth": 110
+                                    },
+                                    "designerId": "10055b54-0efd-401a-bf03-364193dcb37b"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.form.FieldSet",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "title": "     Data Source Setting(Optional)"
+                            },
+                            "designerId": "20fda286-0ec1-4dcf-918a-139746939013",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.ComboBox",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Database Type",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "48897ed8-180a-490d-9a00-ac4983b86b88"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "JNDI Name",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "965de560-3d7d-499e-98bb-817a9228b322"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "JDBC URL",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "932048e2-6a0c-4bde-be65-ece6aafb6f02"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "User Name",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "8fad59c4-d8d4-46a1-81fc-a9cf0b36ef0b"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Password",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "f659688c-d972-46c6-8abe-5ae74b2d5eb7"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Min Pool Size",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "6db669a1-e615-44d0-9408-a3e4e2f205ce"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Max Pool Size",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "16c47c02-c1d0-47eb-bb3c-2c744f6a499d"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

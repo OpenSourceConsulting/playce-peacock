@@ -39,14 +39,18 @@ Ext.application({
         'instancesContainer',
         'CLIWindow',
         'fstabWindow',
-        'crontabWindow'
+        'crontabWindow',
+        'manageAccountWindow',
+        'regAccountWindow',
+        'softwareInstallWindow'
     ],
     controllers: [
         'LoginController',
         'SettingsMenuController',
         'MenuController',
         'GlobalController',
-        'InstancesController'
+        'InstancesController',
+        'SoftwareInstallController'
     ],
     name: 'MyApp',
 

@@ -42,7 +42,7 @@ Ext.define('MyApp.controller.InstancesController', {
                     },
                     { text: 'Manage Account',
                         handler: function() {
-                            //instances.showCLIWindow();
+                            instances.showManageAccountWindow();
                         }
                     },
                     { text: 'Edit Fstab',
@@ -78,6 +78,12 @@ Ext.define('MyApp.controller.InstancesController', {
         var CLIWindow = Ext.create("widget.CLIWindow");
 
         CLIWindow.show();
+    },
+
+    showManageAccountWindow: function() {
+        var manageAccountWindow = Ext.create("widget.manageAccountWindow");
+
+        manageAccountWindow.show();
     },
 
     showFstabWindow: function() {

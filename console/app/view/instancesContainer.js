@@ -405,6 +405,11 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     items: [
                                                         {
                                                             xtype: 'button',
+                                                            handler: function(button, e) {
+                                                                var softwareInstallWindow = Ext.create("widget.softwareInstallWindow");
+
+                                                                softwareInstallWindow.show();
+                                                            },
                                                             id: 'softwareInstallBtn',
                                                             itemId: 'softwareInstallBtn',
                                                             text: 'Software Install'
