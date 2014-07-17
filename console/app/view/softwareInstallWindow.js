@@ -53,7 +53,8 @@ Ext.define('MyApp.view.softwareInstallWindow', {
                                 'Apache Tomcat',
                                 'JBoss EWS',
                                 'JBoss EAP'
-                            ]
+                            ],
+                            typeAhead: true
                         }
                     ]
                 },
@@ -76,6 +77,9 @@ Ext.define('MyApp.view.softwareInstallWindow', {
                         },
                         {
                             xtype: 'button',
+                            handler: function(button, e) {
+                                button.up("window").close();
+                            },
                             id: 'installCancelBtn',
                             itemId: 'installCancelBtn',
                             margin: '0 0 0 0',

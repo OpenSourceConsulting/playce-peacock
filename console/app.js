@@ -42,7 +42,8 @@ Ext.application({
         'crontabWindow',
         'manageAccountWindow',
         'regAccountWindow',
-        'softwareInstallWindow'
+        'softwareInstallWindow',
+        'regInstanceWindow'
     ],
     controllers: [
         'LoginController',

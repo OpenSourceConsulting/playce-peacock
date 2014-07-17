@@ -79,6 +79,11 @@ Ext.define('MyApp.view.instancesContainer', {
                                 },
                                 {
                                     xtype: 'button',
+                                    handler: function(button, e) {
+                                        var regInstanceWindow = Ext.create("widget.regInstanceWindow");
+
+                                        regInstanceWindow.show();
+                                    },
                                     id: 'createInstanceBtn',
                                     itemId: 'createInstanceBtn',
                                     text: 'Create Instance'

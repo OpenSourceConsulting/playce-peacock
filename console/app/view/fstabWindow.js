@@ -73,6 +73,9 @@ Ext.define('MyApp.view.fstabWindow', {
                                 },
                                 {
                                     xtype: 'button',
+                                    handler: function(button, e) {
+                                        button.up("window").close();
+                                    },
                                     id: 'fstabCancelBtn',
                                     itemId: 'fstabCancelBtn',
                                     margin: '0 0 0 0',

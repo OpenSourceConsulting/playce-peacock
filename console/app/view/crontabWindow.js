@@ -20,7 +20,6 @@ Ext.define('MyApp.view.crontabWindow', {
     requires: [
         'Ext.panel.Panel',
         'Ext.form.field.ComboBox',
-        'Ext.XTemplate',
         'Ext.form.field.TextArea',
         'Ext.toolbar.Toolbar',
         'Ext.button.Button'
@@ -49,24 +48,7 @@ Ext.define('MyApp.view.crontabWindow', {
                             padding: '10 0 0 10',
                             fieldLabel: 'Select Account',
                             name: 'selectAccount',
-                            inputId: 'selectAccount',
-                            fieldSubTpl: Ext.create('Ext.XTemplate', 
-                                '<div class="{hiddenDataCls}" role="presentation"></div>',
-                                '<input id="{id}" type="{type}" {inputAttrTpl} class="{fieldCls} {typeCls} {editableCls}" autocomplete="off"',
-                                '<tpl if="value"> value="{[Ext.util.Format.htmlEncode(values.value)]}"</tpl>',
-                                '<tpl if="name"> name="{name}"</tpl>',
-                                '<tpl if="placeholder"> placeholder="{placeholder}"</tpl>',
-                                '<tpl if="size"> size="{size}"</tpl>',
-                                '<tpl if="maxLength !== undefined"> maxlength="{maxLength}"</tpl>',
-                                '<tpl if="readOnly"> readonly="readonly"</tpl>',
-                                '<tpl if="disabled"> disabled="disabled"</tpl>',
-                                '<tpl if="tabIdx"> tabIndex="{tabIdx}"</tpl>',
-                                '<tpl if="fieldStyle"> style="{fieldStyle}"</tpl>',
-                                '/>',
-                                {
-                                    disableFormats: true
-                                }
-                            )
+                            inputId: 'selectAccount'
                         },
                         {
                             xtype: 'textareafield',
@@ -99,6 +81,9 @@ Ext.define('MyApp.view.crontabWindow', {
                                 },
                                 {
                                     xtype: 'button',
+                                    handler: function(button, e) {
+                                        button.up("window").close();
+                                    },
                                     id: 'crontabCancelBtn',
                                     itemId: 'crontabCancelBtn',
                                     margin: '0 0 0 0',

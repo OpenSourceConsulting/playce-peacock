@@ -869,6 +869,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.controller.Main": [],
   "MyApp.controller.MenuController": [],
   "MyApp.controller.SettingsMenuController": [],
+  "MyApp.controller.SoftwareInstallController": [],
   "MyApp.store.MenuTreeStore": [],
   "MyApp.store.tempChartData": [],
   "MyApp.store.tempGridData": [],
@@ -881,8 +882,12 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.fstabWindow": [],
   "MyApp.view.instancesContainer": [],
   "MyApp.view.loginWindow": [],
+  "MyApp.view.manageAccountWindow": [],
   "MyApp.view.peacockViewport": [],
+  "MyApp.view.regAccountWindow": [],
+  "MyApp.view.regInstanceWindow": [],
   "MyApp.view.rhevPanel": [],
+  "MyApp.view.softwareInstallWindow": [],
   "MyApp.view.userPanel": [],
   "instancesConstants": []
 });
@@ -1895,6 +1900,7 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.controller.Main": [],
   "MyApp.controller.MenuController": [],
   "MyApp.controller.SettingsMenuController": [],
+  "MyApp.controller.SoftwareInstallController": [],
   "MyApp.store.MenuTreeStore": [],
   "MyApp.store.tempChartData": [],
   "MyApp.store.tempGridData": [],
@@ -1923,11 +1929,23 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.loginWindow": [
     "widget.loginWindow"
   ],
+  "MyApp.view.manageAccountWindow": [
+    "widget.manageAccountWindow"
+  ],
   "MyApp.view.peacockViewport": [
     "widget.peacockViewport"
   ],
+  "MyApp.view.regAccountWindow": [
+    "widget.regAccountWindow"
+  ],
+  "MyApp.view.regInstanceWindow": [
+    "widget.regInstanceWindow"
+  ],
   "MyApp.view.rhevPanel": [
     "widget.rhevPanel"
+  ],
+  "MyApp.view.softwareInstallWindow": [
+    "widget.softwareInstallWindow"
   ],
   "MyApp.view.userPanel": [
     "widget.userPanel"

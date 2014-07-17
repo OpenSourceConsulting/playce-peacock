@@ -45,36 +45,7 @@
                         "name": "selectAccount",
                         "padding": "10 0 0 10"
                     },
-                    "designerId": "25200e16-66d8-41db-8863-36fde1dd67dc",
-                    "cn": [
-                        {
-                            "type": "Ext.XTemplate",
-                            "reference": {
-                                "name": "fieldSubTpl",
-                                "type": "object"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "designer|displayName": "root",
-                                "disableFormats": true,
-                                "implHandler": [
-                                    "<div class=\"{hiddenDataCls}\" role=\"presentation\"></div>",
-                                    "<input id=\"{id}\" type=\"{type}\" {inputAttrTpl} class=\"{fieldCls} {typeCls} {editableCls}\" autocomplete=\"off\"",
-                                    "<tpl if=\"value\"> value=\"{[Ext.util.Format.htmlEncode(values.value)]}\"</tpl>",
-                                    "<tpl if=\"name\"> name=\"{name}\"</tpl>",
-                                    "<tpl if=\"placeholder\"> placeholder=\"{placeholder}\"</tpl>",
-                                    "<tpl if=\"size\"> size=\"{size}\"</tpl>",
-                                    "<tpl if=\"maxLength !== undefined\"> maxlength=\"{maxLength}\"</tpl>",
-                                    "<tpl if=\"readOnly\"> readonly=\"readonly\"</tpl>",
-                                    "<tpl if=\"disabled\"> disabled=\"disabled\"</tpl>",
-                                    "<tpl if=\"tabIdx\"> tabIndex=\"{tabIdx}\"</tpl>",
-                                    "<tpl if=\"fieldStyle\"> style=\"{fieldStyle}\"</tpl>",
-                                    "/>"
-                                ]
-                            },
-                            "designerId": "c5f8b959-293d-4ffb-b061-8acfa03bffc6"
-                        }
-                    ]
+                    "designerId": "25200e16-66d8-41db-8863-36fde1dd67dc"
                 },
                 {
                     "type": "Ext.form.field.TextArea",
@@ -143,7 +114,28 @@
                                 "padding": "2 5 2 5",
                                 "text": "Cancel"
                             },
-                            "designerId": "8c069891-f1ae-4953-9a41-d371c21b5928"
+                            "designerId": "8c069891-f1ae-4953-9a41-d371c21b5928",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "button.up(\"window\").close();"
+                                        ]
+                                    },
+                                    "designerId": "a85e3bc7-537a-4ad0-bc81-5819337e2ab2"
+                                }
+                            ]
                         }
                     ]
                 }

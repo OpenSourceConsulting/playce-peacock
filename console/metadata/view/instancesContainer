@@ -89,7 +89,30 @@
                                 "layout|flex": null,
                                 "text": "Create Instance"
                             },
-                            "designerId": "0e17185a-05ee-4376-a054-1f354d567bbb"
+                            "designerId": "0e17185a-05ee-4376-a054-1f354d567bbb",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var regInstanceWindow = Ext.create(\"widget.regInstanceWindow\");",
+                                            "",
+                                            "regInstanceWindow.show();"
+                                        ]
+                                    },
+                                    "designerId": "95752a0a-8d36-4a8d-a450-40c4379ea525"
+                                }
+                            ]
                         },
                         {
                             "type": "Ext.toolbar.Separator",

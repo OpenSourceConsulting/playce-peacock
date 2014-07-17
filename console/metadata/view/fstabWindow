@@ -98,7 +98,28 @@
                                 "padding": "2 5 2 5",
                                 "text": "Cancel"
                             },
-                            "designerId": "9bd86767-57c9-4ffe-b914-48023e5b7e59"
+                            "designerId": "9bd86767-57c9-4ffe-b914-48023e5b7e59",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "button.up(\"window\").close();"
+                                        ]
+                                    },
+                                    "designerId": "425d49ac-3910-490a-9352-0dee2d13a508"
+                                }
+                            ]
                         }
                     ]
                 }

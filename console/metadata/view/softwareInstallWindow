@@ -49,6 +49,7 @@
                             "    'JBoss EAP'",
                             "]"
                         ],
+                        "typeAhead": true,
                         "width": 350
                     },
                     "configAlternates": {
@@ -105,7 +106,28 @@
                         "padding": "2 5 2 5",
                         "text": "Cancel"
                     },
-                    "designerId": "70e5efd0-4f28-4fff-b450-65e48ce65074"
+                    "designerId": "70e5efd0-4f28-4fff-b450-65e48ce65074",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "button",
+                                    "e"
+                                ],
+                                "fn": "handler",
+                                "implHandler": [
+                                    "button.up(\"window\").close();"
+                                ]
+                            },
+                            "designerId": "ed0553be-1d46-42ec-b6fa-60d7bacb0857"
+                        }
+                    ]
                 }
             ]
         },
