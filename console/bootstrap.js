@@ -26,6 +26,7 @@ Ext.Loader.addClassPathMappings({
   "ExtThemeNeptune.toolbar.Toolbar": "ext/ext-theme-neptune.js",
   "GLOBAL": "app/controller/GlobalController.js",
   "MyApp": "app",
+  "RHEVMConstants": "app/controller/RHEVMController.js",
   "instancesConstants": "app/controller/InstancesController.js"
 });
 Ext.ClassManager.addNameAlternateMappings({
@@ -868,6 +869,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.controller.LoginController": [],
   "MyApp.controller.Main": [],
   "MyApp.controller.MenuController": [],
+  "MyApp.controller.RHEVMController": [],
   "MyApp.controller.SettingsMenuController": [],
   "MyApp.controller.SoftwareInstallController": [],
   "MyApp.store.MenuTreeStore": [],
@@ -875,6 +877,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.tempGridData": [],
   "MyApp.view.CLIWindow": [],
   "MyApp.view.Main": [],
+  "MyApp.view.MyWindow1": [],
   "MyApp.view.Viewport": [],
   "MyApp.view.almPanel": [],
   "MyApp.view.crontabWindow": [],
@@ -886,9 +889,12 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.peacockViewport": [],
   "MyApp.view.regAccountWindow": [],
   "MyApp.view.regInstanceWindow": [],
-  "MyApp.view.rhevPanel": [],
+  "MyApp.view.regRhevmWindow": [],
+  "MyApp.view.regTemplateWindow": [],
+  "MyApp.view.rhevmContainer": [],
   "MyApp.view.softwareInstallWindow": [],
-  "MyApp.view.userPanel": [],
+  "MyApp.view.userContainer": [],
+  "RHEVMConstants": [],
   "instancesConstants": []
 });
 Ext.ClassManager.addNameAliasMappings({
@@ -1899,6 +1905,7 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.controller.LoginController": [],
   "MyApp.controller.Main": [],
   "MyApp.controller.MenuController": [],
+  "MyApp.controller.RHEVMController": [],
   "MyApp.controller.SettingsMenuController": [],
   "MyApp.controller.SoftwareInstallController": [],
   "MyApp.store.MenuTreeStore": [],
@@ -1910,6 +1917,7 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.Main": [
     "widget.app-main"
   ],
+  "MyApp.view.MyWindow1": [],
   "MyApp.view.Viewport": [],
   "MyApp.view.almPanel": [
     "widget.almPanel"
@@ -1941,15 +1949,22 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.regInstanceWindow": [
     "widget.regInstanceWindow"
   ],
-  "MyApp.view.rhevPanel": [
-    "widget.rhevPanel"
+  "MyApp.view.regRhevmWindow": [
+    "widget.regRhevmWindow"
+  ],
+  "MyApp.view.regTemplateWindow": [
+    "widget.regTemplateWindow"
+  ],
+  "MyApp.view.rhevmContainer": [
+    "widget.rhevmcontainer"
   ],
   "MyApp.view.softwareInstallWindow": [
     "widget.softwareInstallWindow"
   ],
-  "MyApp.view.userPanel": [
-    "widget.userPanel"
+  "MyApp.view.userContainer": [
+    "widget.usercontainer"
   ],
+  "RHEVMConstants": [],
   "instancesConstants": []
 });
 Ext.setVersion("ext-theme-base", "4.2.1");

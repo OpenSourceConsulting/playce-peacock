@@ -1,0 +1,213 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "regRhevmWindow",
+        "designer|userClassName": "regRhevmWindow",
+        "height": 280,
+        "id": "regRhevmWindow",
+        "itemId": "regRhevmWindow",
+        "layout": "border",
+        "title": "Add RHEVM",
+        "width": 350
+    },
+    "designerId": "e7675f91-d126-4470-ac73-784eee1a49d5",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "header": false,
+                "layout|flex": 1,
+                "layout|region": "center",
+                "title": "regRhevmPanel"
+            },
+            "designerId": "e835fe64-c17e-4e3c-a48f-5d7eb11c3a3e",
+            "cn": [
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "bodyPadding": 15,
+                        "height": null,
+                        "id": "rhevmForm",
+                        "itemId": "rhevmForm",
+                        "title": null
+                    },
+                    "designerId": "6665fc0f-8f74-4e12-b9d5-2712bd9b7992",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Name",
+                                "labelWidth": 80,
+                                "layout|anchor": "100%"
+                            },
+                            "designerId": "760fcf5d-7488-4f48-8397-1821a1818cdb"
+                        },
+                        {
+                            "type": "Ext.form.field.ComboBox",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Protocol",
+                                "labelWidth": 80,
+                                "layout|anchor": "100%",
+                                "padding": ""
+                            },
+                            "designerId": "52877405-398d-4118-824a-b57e55a48b2d"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Port",
+                                "labelWidth": 80,
+                                "layout|anchor": "100%"
+                            },
+                            "designerId": "f1fd9792-c575-43fe-993c-2073922b2672"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Domain",
+                                "labelWidth": 80,
+                                "layout|anchor": "100%"
+                            },
+                            "designerId": "3705fe87-df63-4a78-b9d9-ee738ecd0119"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Username",
+                                "labelWidth": 80,
+                                "layout|anchor": "100%"
+                            },
+                            "designerId": "ecf4ffe2-1e62-461c-a87f-c7ea6a8e2904"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Password",
+                                "labelWidth": 80,
+                                "layout|anchor": "100%"
+                            },
+                            "designerId": "0f92b6b2-3905-4e55-8d3d-2f743b677a0e"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|pack": "center",
+                        "designer|uiInterfaceName": "footer",
+                        "dock": "bottom",
+                        "ui": "footer"
+                    },
+                    "designerId": "bbd46e1e-a275-4d65-8779-b89b3dc2202d",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "rhevmCreateBtn",
+                                "itemId": "rhevmCreateBtn",
+                                "layout|flex": null,
+                                "margin": "0 15 0 0",
+                                "padding": "2 10 2 10",
+                                "text": "OK"
+                            },
+                            "designerId": "84ce0483-59e6-460a-8db1-0af28ef52609"
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "rhevmCancelBtn",
+                                "itemId": "rhevmCancelBtn",
+                                "layout|flex": null,
+                                "margin": "0 0 0 0",
+                                "padding": "2 5 2 5",
+                                "text": "Cancel"
+                            },
+                            "designerId": "eba426be-533d-4107-ae50-e5e1b9dd78b3",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "button.up(\"window\").close();"
+                                        ]
+                                    },
+                                    "designerId": "739a7c91-dc8f-4e35-b354-0adc03c2df6b"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

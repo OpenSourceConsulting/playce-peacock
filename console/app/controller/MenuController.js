@@ -22,7 +22,6 @@ Ext.define('MyApp.controller.MenuController', {
          */
         if (record.get('leaf') && GLOBAL.lastSelectedMenuId != record.get('id')) {
             GLOBAL.lastSelectedMenuId = record.get('id');
-            Ext.Msg.alert('Msg', record.get('id') + '(' + record.get('text') + ') selected.');
             Ext.getCmp('centerContainer').layout.setActiveItem(record.get('activeRow'));
         }
     },

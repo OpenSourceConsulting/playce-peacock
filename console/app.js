@@ -33,9 +33,7 @@ Ext.application({
         'peacockViewport',
         'loginWindow',
         'dashboardPanel',
-        'rhevPanel',
         'almPanel',
-        'userPanel',
         'instancesContainer',
         'CLIWindow',
         'fstabWindow',
@@ -43,7 +41,12 @@ Ext.application({
         'manageAccountWindow',
         'regAccountWindow',
         'softwareInstallWindow',
-        'regInstanceWindow'
+        'regInstanceWindow',
+        'rhevmContainer',
+        'regTemplateWindow',
+        'MyWindow1',
+        'regRhevmWindow',
+        'userContainer'
     ],
     controllers: [
         'LoginController',
@@ -51,7 +54,8 @@ Ext.application({
         'MenuController',
         'GlobalController',
         'InstancesController',
-        'SoftwareInstallController'
+        'SoftwareInstallController',
+        'RHEVMController'
     ],
     name: 'MyApp',
 

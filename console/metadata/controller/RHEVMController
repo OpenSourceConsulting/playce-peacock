@@ -1,0 +1,144 @@
+{
+    "type": "Ext.app.Controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "RHEVMController"
+    },
+    "designerId": "82c2dbac-191d-44f3-81e3-717d31ea95c9",
+    "cn": [
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#rhevmTabPanel",
+                "designer|targetType": "Ext.tab.Panel",
+                "fn": "onRhevmTabPanelTabChange",
+                "implHandler": [
+                    "var detailTab = Ext.getCmp(\"rhevmTabDetailPanel\");",
+                    "detailTab.collapse();",
+                    ""
+                ],
+                "name": "tabchange",
+                "scope": "me"
+            },
+            "designerId": "165a1414-12b8-4947-91aa-c92cfdc5a987"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#rhevmVMGrid",
+                "designer|targetType": "Ext.grid.Panel",
+                "fn": "onRhevmVMGridItemClick",
+                "implHandler": [
+                    "var detailTab = Ext.getCmp(\"rhevmTabDetailPanel\");",
+                    "detailTab.expand();"
+                ],
+                "name": "itemclick",
+                "scope": "me"
+            },
+            "designerId": "3e5fd3cd-6bc4-4809-a35c-05e4ae797829"
+        },
+        {
+            "type": "fixedfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "application"
+                ],
+                "fn": "init",
+                "implHandler": [
+                    "var rhevm = this;",
+                    "",
+                    "var rhevmVMGridContextMenu = new Ext.menu.Menu({",
+                    "    items:",
+                    "    [",
+                    "        { text: 'Start',",
+                    "         handler: function() {",
+                    "             alert('Start');",
+                    "         }",
+                    "        },",
+                    "        { text: 'Stop',",
+                    "         handler: function() {",
+                    "             alert('Stop');",
+                    "         }",
+                    "        },",
+                    "        { text: 'Suspend',",
+                    "         disabled : true,",
+                    "         handler: function() {",
+                    "             alert('Suspend');",
+                    "         }",
+                    "        },",
+                    "        { text: 'Shutdown',",
+                    "         handler: function() {",
+                    "             alert('Shutdown');",
+                    "         }",
+                    "        },",
+                    "        { text: 'Export',",
+                    "         handler: function() {",
+                    "             alert('Export');",
+                    "         }",
+                    "        },",
+                    "        { text: 'Make Template',",
+                    "          handler: function() {",
+                    "             var templateWindow = Ext.create(\"widget.regTemplateWindow\");",
+                    "             templateWindow.show();",
+                    "",
+                    "          }",
+                    "        }",
+                    "    ]",
+                    "",
+                    "});",
+                    "",
+                    "//RHEVM Menu Constants",
+                    "Ext.define('RHEVMConstants', {",
+                    "    singleton: true,",
+                    "    contextMenu: rhevmVMGridContextMenu,",
+                    "    selectRowId : null",
+                    "});"
+                ]
+            },
+            "designerId": "8c90bd08-5bc3-487e-a028-e44d03fb7906"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#rhevmVMGrid",
+                "designer|targetType": "Ext.grid.Panel",
+                "fn": "onRhevmVMGridBeforeItemContextMenu",
+                "implHandler": [
+                    "var position = e.getXY();",
+                    "e.stopEvent();",
+                    "",
+                    "RHEVMConstants.selectRowId = record.get('id');",
+                    "",
+                    "RHEVMConstants.contextMenu.showAt(position);"
+                ],
+                "name": "beforeitemcontextmenu",
+                "scope": "me"
+            },
+            "designerId": "1b83a125-6744-43d5-8dea-f4acacae4b13"
+        }
+    ]
+}

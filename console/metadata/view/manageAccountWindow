@@ -132,40 +132,26 @@
                                             "designerId": "2a343cd4-8f96-4701-bd73-7eb93b12ec86"
                                         }
                                     ]
-                                },
-                                {
-                                    "type": "Ext.toolbar.Spacer",
-                                    "reference": {
-                                        "name": "items",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "layout|flex": 1
-                                    },
-                                    "designerId": "97513de9-eaa5-4231-8fc8-16098909317c"
-                                },
-                                {
-                                    "type": "Ext.button.Button",
-                                    "reference": {
-                                        "name": "items",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "iconCls": "x-tbar-loading",
-                                        "id": "accountReflashBtn",
-                                        "itemId": "accountReflashBtn",
-                                        "layout|flex": null,
-                                        "text": null
-                                    },
-                                    "designerId": "e424369b-b17b-49a1-8860-ef4fccfef3f5"
                                 }
                             ]
                         }
                     ]
                 }
             ]
+        },
+        {
+            "type": "Ext.panel.Tool",
+            "reference": {
+                "name": "tools",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "tooltip": "",
+                "tooltipType": null,
+                "type": "refresh"
+            },
+            "designerId": "0c9bec5f-5fbe-4fc1-a7a5-0121773ff50a"
         }
     ]
 }

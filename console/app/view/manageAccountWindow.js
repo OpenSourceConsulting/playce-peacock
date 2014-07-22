@@ -23,7 +23,7 @@ Ext.define('MyApp.view.manageAccountWindow', {
         'Ext.grid.View',
         'Ext.toolbar.Toolbar',
         'Ext.button.Button',
-        'Ext.toolbar.Spacer'
+        'Ext.panel.Tool'
     ],
 
     height: 400,
@@ -78,22 +78,19 @@ Ext.define('MyApp.view.manageAccountWindow', {
                                             margin: '0 15 0 0',
                                             padding: '2 7 2 7',
                                             text: 'Create Account'
-                                        },
-                                        {
-                                            xtype: 'tbspacer',
-                                            flex: 1
-                                        },
-                                        {
-                                            xtype: 'button',
-                                            id: 'accountReflashBtn',
-                                            itemId: 'accountReflashBtn',
-                                            iconCls: 'x-tbar-loading'
                                         }
                                     ]
                                 }
                             ]
                         }
                     ]
+                }
+            ],
+            tools: [
+                {
+                    xtype: 'tool',
+                    tooltip: '',
+                    type: 'refresh'
                 }
             ]
         });

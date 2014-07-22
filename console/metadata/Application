@@ -12,7 +12,8 @@
             "MenuController",
             "GlobalController",
             "InstancesController",
-            "SoftwareInstallController"
+            "SoftwareInstallController",
+            "RHEVMController"
         ],
         "name": "MyApp",
         "requires": [
@@ -27,9 +28,7 @@
             "peacockViewport",
             "loginWindow",
             "dashboardPanel",
-            "rhevPanel",
             "almPanel",
-            "userPanel",
             "instancesContainer",
             "CLIWindow",
             "fstabWindow",
@@ -37,7 +36,12 @@
             "manageAccountWindow",
             "regAccountWindow",
             "softwareInstallWindow",
-            "regInstanceWindow"
+            "regInstanceWindow",
+            "rhevmContainer",
+            "regTemplateWindow",
+            "MyWindow1",
+            "regRhevmWindow",
+            "userContainer"
         ]
     },
     "designerId": "application"
