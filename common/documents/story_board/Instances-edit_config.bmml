@@ -1,0 +1,99 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1396" measuredH="793" mockupW="1355" mockupH="783">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::SubTitle" x="41" y="10" w="-1" h="-1" measuredW="262" measuredH="35" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>32</size>
+        <text>Edit%20Config%20Popup</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::TitleWindow" x="41" y="52" w="530" h="741" measuredW="450" measuredH="400" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bottomheight>0</bottomheight>
+        <close>true</close>
+        <text>Edit%20Config</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="74" y="126" w="-1" h="-1" measuredW="121" measuredH="21" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Config%20File%20Version%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::ComboBox" x="197" y="126" w="346" h="-1" measuredW="198" measuredH="24" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>1%20%282014.07.07%2014%3A12%3A24%20KST%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="17" controlTypeID="com.balsamiq.mockups::Button" x="217" y="754" w="-1" h="-1" measuredW="52" measuredH="27" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Save</text>
+      </controlProperties>
+    </control>
+    <control controlID="18" controlTypeID="com.balsamiq.mockups::Button" x="292" y="754" w="-1" h="-1" measuredW="64" measuredH="27" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cancel</text>
+      </controlProperties>
+    </control>
+    <control controlID="19" controlTypeID="com.balsamiq.mockups::Label" x="83" y="97" w="-1" h="-1" measuredW="112" measuredH="21" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Config%20File%20Name%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="20" controlTypeID="com.balsamiq.mockups::ComboBox" x="197" y="95" w="346" h="-1" measuredW="90" measuredH="24" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>closed</state>
+        <text>httpd.conf</text>
+      </controlProperties>
+    </control>
+    <control controlID="23" controlTypeID="com.balsamiq.mockups::TextArea" x="61" y="220" w="491" h="221" measuredW="200" measuredH="140" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%23%0A%23%20This%20is%20the%20main%20Apache%20server%20configuration%20file.%20%20It%20contains%20the%0A%23%20configuration%20directives%20that%20give%20the%20server%20its%20instructions.%0A%23%20See%20%3CURL%3Ahttp%3A//httpd.apache.org/docs/2.2/%3E%20for%20detailed%20information.%0A%23%20In%20particular%2C%20see%0A%23%20%3CURL%3Ahttp%3A//httpd.apache.org/docs/2.2/mod/directives.html%3E%0A%23%20for%20a%20discussion%20of%20each%20configuration%20directive.%0A%23%0A%23%0A%23%20Do%20NOT%20simply%20read%20the%20instructions%20in%20here%20without%20understanding%0A%23%20what%20they%20do.%20%20They%27re%20here%20only%20as%20hints%20or%20reminders.%20%20If%20you%20are%20unsure%0A%23%20consult%20the%20online%20docs.%20You%20have%20been%20warned.%20%0A.....</text>
+        <verticalScrollbar>true</verticalScrollbar>
+      </controlProperties>
+    </control>
+    <control controlID="24" controlTypeID="com.balsamiq.mockups::HRule" x="51" y="158" w="507" h="-1" measuredW="100" measuredH="10" zOrder="8" locked="false" isInGroup="-1"/>
+    <control controlID="25" controlTypeID="com.balsamiq.mockups::Label" x="59" y="178" w="-1" h="-1" measuredW="193" measuredH="21" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Path%20%3A%20/etc/httpd/conf/httpd.conf</text>
+      </controlProperties>
+    </control>
+    <control controlID="26" controlTypeID="com.balsamiq.mockups::FieldSet" x="52" y="460" w="510" h="245" measuredW="200" measuredH="170" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20%20%20%20%20Configuration%20in%20System</text>
+      </controlProperties>
+    </control>
+    <control controlID="27" controlTypeID="com.balsamiq.mockups::Icon" x="68" y="460" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>DownFillTriangleIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="28" controlTypeID="com.balsamiq.mockups::FieldSet" x="52" y="205" w="510" h="245" measuredW="200" measuredH="170" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Configuration%20in%20DataBase</text>
+      </controlProperties>
+    </control>
+    <control controlID="29" controlTypeID="com.balsamiq.mockups::TextArea" x="61" y="476" w="491" h="221" measuredW="200" measuredH="140" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>14540253</color>
+        <text>%23%0A%23%20This%20is%20the%20main%20Apache%20server%20configuration%20file.%20%20It%20contains%20the%0A%23%20configuration%20directives%20that%20give%20the%20server%20its%20instructions.%0A%23%20See%20%3CURL%3Ahttp%3A//httpd.apache.org/docs/2.2/%3E%20for%20detailed%20information.%0A%23%20In%20particular%2C%20see%0A%23%20%3CURL%3Ahttp%3A//httpd.apache.org/docs/2.2/mod/directives.html%3E%0A%23%20for%20a%20discussion%20of%20each%20configuration%20directive.%0A%23%0A%23%0A%23%20Do%20NOT%20simply%20read%20the%20instructions%20in%20here%20without%20understanding%0A%23%20what%20they%20do.%20%20They%27re%20here%20only%20as%20hints%20or%20reminders.%20%20If%20you%20are%20unsure%0A%23%20consult%20the%20online%20docs.%20You%20have%20been%20warned.%20%0A.....</text>
+        <verticalScrollbar>true</verticalScrollbar>
+      </controlProperties>
+    </control>
+    <control controlID="30" controlTypeID="com.balsamiq.mockups::Label" x="61" y="714" w="-1" h="-1" measuredW="106" measuredH="21" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Restart%20Service%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="31" controlTypeID="com.balsamiq.mockups::CheckBox" x="170" y="714" w="-1" h="-1" measuredW="182" measuredH="22" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>selected</state>
+        <text>Restart%20Service%20after%20Save</text>
+      </controlProperties>
+    </control>
+    <control controlID="32" controlTypeID="com.balsamiq.mockups::iPadPopover" x="596" y="333" w="800" h="94" measuredW="222" measuredH="187" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <popoverArrowSide>left</popoverArrowSide>
+        <text>1.%20%uAC01%20%uC18C%uD504%uD2B8%uC6E8%uC5B4%uAC00%20%uAC16%uB294%20config%20%uD30C%uC77C%20%uBAA9%uB85D%uC744%20%uC120%uD0DD%uD558%uBA74%20%uD574%uB2F9%20VM%20%uC778%uC2A4%uD134%uC2A4%uC5D0%20%uD574%uB2F9%uD558%uB294%20config%20%uD30C%uC77C%20%uBC84%uC804%uC774%20%uD45C%uC2DC%uB41C%uB2E4%2C.%0A2.%20%uD2B9%uC815%20config%20%uD30C%uC77C%20%uBC84%uC804%uC744%20%uC120%uD0DD%uD558%uBA74%20DB%20%uC11C%uBC84%uB85C%uBD80%uD130%20%uD574%uB2F9%20config%20%uD30C%uC77C%uC758%20%uACBD%uB85C%20%uBC0F%20%uD30C%uC77C%20%uB0B4%uC6A9%uC744%20%uC870%uD68C%uD574%20%uC628%uB2E4.%0A3.%20Optional%20%uD55C%20%uAE30%uB2A5%uC73C%uB85C%20collapsed%20%uB41C%20System%20Configuration%uC744%20%uC5F4%uBA74%20%uD574%uB2F9%20%uC2DC%uC2A4%uD15C%uC5D0%20%uC124%uC815%uB41C%20%uC2E4%uC81C%20%uD30C%uC77C%20%uB0B4%uC6A9%uC744%20%uC870%uD68C%uD574%20%uC628%uB2E4.%28Readonly%29%0A4.%20Editor%20%uB0B4%uC6A9%uC744%20%uC218%uC815%uD558%uACE0%20Save%20%uBC84%uD2BC%uC744%20%uD074%uB9AD%uD558%uBA74%20DB%20%uBC0F%20%uC2DC%uC2A4%uD15C%uC5D0%20%uC218%uC815%uB41C%20%uB0B4%uC6A9%uC73C%uB85C%20config%20%uAC12%uC774%20%uBCC0%uACBD%uB418%uBA70%2C%0A%20%20%20%20Restart%20Service%20after%20Save%20%uCCB4%uD06C%20%uC2DC%20%uC790%uB3D9%uC73C%uB85C%20%uC11C%uBE44%uC2A4%uAC00%20restart%20%uB41C%uB2E4.</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

@@ -1,0 +1,1038 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1776" measuredH="1562" mockupW="1740" mockupH="1552">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::SubTitle" x="41" y="10" w="-1" h="-1" measuredW="329" measuredH="35" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>32</size>
+        <text>Software%20Install%20Popup</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::TitleWindow" x="39" y="240" w="450" h="336" measuredW="450" measuredH="400" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bottomheight>0</bottomheight>
+        <close>true</close>
+        <text>Software%20Install%20Launch%20Wizard</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="61" y="277" w="-1" h="-1" measuredW="64" measuredH="21" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Software%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="17" controlTypeID="com.balsamiq.mockups::Button" x="181" y="534" w="-1" h="-1" measuredW="65" measuredH="27" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Launch</text>
+      </controlProperties>
+    </control>
+    <control controlID="18" controlTypeID="com.balsamiq.mockups::Button" x="256" y="534" w="-1" h="-1" measuredW="64" measuredH="27" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cancel</text>
+      </controlProperties>
+    </control>
+    <control controlID="19" controlTypeID="com.balsamiq.mockups::FieldSet" x="45" y="305" w="437" h="218" measuredW="200" measuredH="170" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Apache%20HTTP%20Server%20Install</text>
+      </controlProperties>
+    </control>
+    <control controlID="22" controlTypeID="com.balsamiq.mockups::Label" x="112" y="329" w="-1" h="-1" measuredW="54" measuredH="21" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Version%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="23" controlTypeID="com.balsamiq.mockups::Label" x="96" y="359" w="-1" h="-1" measuredW="70" measuredH="21" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Target%20Dir%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="24" controlTypeID="com.balsamiq.mockups::Label" x="83" y="391" w="-1" h="-1" measuredW="83" measuredH="21" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Server%20Root%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="25" controlTypeID="com.balsamiq.mockups::Label" x="131" y="422" w="-1" h="-1" measuredW="35" measuredH="21" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Port%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="26" controlTypeID="com.balsamiq.mockups::Label" x="67" y="454" w="-1" h="-1" measuredW="99" measuredH="21" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Server%20Domain%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="27" controlTypeID="com.balsamiq.mockups::Label" x="75" y="487" w="-1" h="-1" measuredW="91" measuredH="21" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Start%20Service%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="29" controlTypeID="com.balsamiq.mockups::ComboBox" x="187" y="327" w="287" h="-1" measuredW="68" measuredH="24" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>2.2.27</text>
+      </controlProperties>
+    </control>
+    <control controlID="31" controlTypeID="com.balsamiq.mockups::TextInput" x="187" y="356" w="287" h="-1" measuredW="120" measuredH="27" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>/usr/local/apache</text>
+      </controlProperties>
+    </control>
+    <control controlID="32" controlTypeID="com.balsamiq.mockups::TextInput" x="187" y="388" w="287" h="-1" measuredW="120" measuredH="27" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>/usr/local/apache</text>
+      </controlProperties>
+    </control>
+    <control controlID="33" controlTypeID="com.balsamiq.mockups::TextInput" x="187" y="419" w="287" h="-1" measuredW="30" measuredH="27" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>80</text>
+      </controlProperties>
+    </control>
+    <control controlID="34" controlTypeID="com.balsamiq.mockups::TextInput" x="187" y="451" w="287" h="-1" measuredW="67" measuredH="27" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>localhost</text>
+      </controlProperties>
+    </control>
+    <control controlID="35" controlTypeID="com.balsamiq.mockups::CheckBox" x="187" y="486" w="-1" h="-1" measuredW="202" measuredH="22" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>selected</state>
+        <text>Start%20Service%20after%20Installation</text>
+      </controlProperties>
+    </control>
+    <control controlID="54" controlTypeID="com.balsamiq.mockups::ComboBox" x="137" y="275" w="209" h="-1" measuredW="157" measuredH="24" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Apache%20HTTP%20Server</text>
+      </controlProperties>
+    </control>
+    <control controlID="55" controlTypeID="com.balsamiq.mockups::ComboBox" x="115" y="70" w="209" h="-1" measuredW="34" measuredH="93" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20%0AApache%20HTTP%20Server%0AApache%20Tomcat%0AJBoss%20EWS%0AJBoss%20EAP</text>
+      </controlProperties>
+    </control>
+    <control controlID="74" controlTypeID="com.balsamiq.mockups::TitleWindow" x="558" y="768" w="450" h="742" measuredW="450" measuredH="400" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bottomheight>0</bottomheight>
+        <close>true</close>
+        <text>Software%20Install%20Launch%20Wizard</text>
+      </controlProperties>
+    </control>
+    <control controlID="75" controlTypeID="com.balsamiq.mockups::Label" x="580" y="805" w="-1" h="-1" measuredW="64" measuredH="21" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Software%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="76" controlTypeID="com.balsamiq.mockups::Button" x="700" y="1470" w="-1" h="-1" measuredW="65" measuredH="27" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Launch</text>
+      </controlProperties>
+    </control>
+    <control controlID="77" controlTypeID="com.balsamiq.mockups::Button" x="775" y="1470" w="-1" h="-1" measuredW="64" measuredH="27" zOrder="23" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cancel</text>
+      </controlProperties>
+    </control>
+    <control controlID="78" controlTypeID="com.balsamiq.mockups::FieldSet" x="564" y="833" w="437" h="365" measuredW="200" measuredH="170" zOrder="24" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>JBoss%20EAP%20Install</text>
+      </controlProperties>
+    </control>
+    <control controlID="79" controlTypeID="com.balsamiq.mockups::Label" x="631" y="857" w="-1" h="-1" measuredW="54" measuredH="21" zOrder="25" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Version%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="80" controlTypeID="com.balsamiq.mockups::Label" x="594" y="1171" w="-1" h="-1" measuredW="91" measuredH="21" zOrder="26" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Start%20Service%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="81" controlTypeID="com.balsamiq.mockups::ComboBox" x="706" y="855" w="287" h="-1" measuredW="38" measuredH="24" zOrder="27" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>5</text>
+      </controlProperties>
+    </control>
+    <control controlID="82" controlTypeID="com.balsamiq.mockups::CheckBox" x="706" y="1171" w="-1" h="-1" measuredW="202" measuredH="22" zOrder="28" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>selected</state>
+        <text>Start%20Service%20after%20Installation</text>
+      </controlProperties>
+    </control>
+    <control controlID="83" controlTypeID="com.balsamiq.mockups::ComboBox" x="656" y="803" w="209" h="-1" measuredW="96" measuredH="24" zOrder="29" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>JBoss%20EAP</text>
+      </controlProperties>
+    </control>
+    <control controlID="84" controlTypeID="com.balsamiq.mockups::Label" x="610" y="887" w="-1" h="-1" measuredW="75" measuredH="21" zOrder="30" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Java%20Home%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="85" controlTypeID="com.balsamiq.mockups::Label" x="600" y="919" w="-1" h="-1" measuredW="85" measuredH="21" zOrder="31" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>JBoss%20Home%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="86" controlTypeID="com.balsamiq.mockups::Label" x="596" y="950" w="-1" h="-1" measuredW="89" measuredH="21" zOrder="32" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Server%20Home%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="87" controlTypeID="com.balsamiq.mockups::Label" x="595" y="982" w="-1" h="-1" measuredW="90" measuredH="21" zOrder="33" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Server%20Name%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="88" controlTypeID="com.balsamiq.mockups::TextInput" x="706" y="884" w="287" h="-1" measuredW="79" measuredH="26" zOrder="34" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="89" controlTypeID="com.balsamiq.mockups::TextInput" x="706" y="916" w="287" h="-1" measuredW="79" measuredH="26" zOrder="35" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="90" controlTypeID="com.balsamiq.mockups::TextInput" x="706" y="947" w="287" h="-1" measuredW="79" measuredH="26" zOrder="36" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="91" controlTypeID="com.balsamiq.mockups::TextInput" x="706" y="979" w="287" h="-1" measuredW="79" measuredH="26" zOrder="37" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="92" controlTypeID="com.balsamiq.mockups::Label" x="588" y="1014" w="-1" h="-1" measuredW="97" measuredH="21" zOrder="38" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Partition%20Name%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="93" controlTypeID="com.balsamiq.mockups::Label" x="597" y="1046" w="-1" h="-1" measuredW="88" measuredH="21" zOrder="39" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Bind%20Address%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="94" controlTypeID="com.balsamiq.mockups::TextInput" x="706" y="1011" w="287" h="-1" measuredW="56" measuredH="27" zOrder="40" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>partion</text>
+      </controlProperties>
+    </control>
+    <control controlID="95" controlTypeID="com.balsamiq.mockups::TextInput" x="706" y="1043" w="287" h="-1" measuredW="54" measuredH="27" zOrder="41" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>0.0.0.0</text>
+      </controlProperties>
+    </control>
+    <control controlID="96" controlTypeID="com.balsamiq.mockups::Label" x="621" y="1076" w="-1" h="-1" measuredW="64" measuredH="21" zOrder="42" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Bind%20Port%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="98" controlTypeID="com.balsamiq.mockups::FieldSet" x="565" y="1208" w="437" h="250" measuredW="200" measuredH="170" zOrder="43" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20%20%20%20%20Data%20Source%20Setting%28Optional%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="99" controlTypeID="com.balsamiq.mockups::Icon" x="580" y="1208" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="44" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>DownFillTriangleIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="100" controlTypeID="com.balsamiq.mockups::Label" x="580" y="1233" w="-1" h="-1" measuredW="97" measuredH="21" zOrder="45" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Database%20Type%20%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="101" controlTypeID="com.balsamiq.mockups::ComboBox" x="700" y="1231" w="287" h="-1" measuredW="30" measuredH="24" zOrder="46" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="102" controlTypeID="com.balsamiq.mockups::Label" x="597" y="1263" w="-1" h="-1" measuredW="80" measuredH="21" zOrder="47" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>JNDI%20Name%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="103" controlTypeID="com.balsamiq.mockups::Label" x="602" y="1295" w="-1" h="-1" measuredW="75" measuredH="21" zOrder="48" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>JDBC%20URL%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="104" controlTypeID="com.balsamiq.mockups::Label" x="599" y="1326" w="-1" h="-1" measuredW="78" measuredH="21" zOrder="49" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>User%20Name%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="105" controlTypeID="com.balsamiq.mockups::Label" x="611" y="1358" w="-1" h="-1" measuredW="66" measuredH="21" zOrder="50" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Password%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="106" controlTypeID="com.balsamiq.mockups::TextInput" x="700" y="1260" w="287" h="-1" measuredW="79" measuredH="26" zOrder="51" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="107" controlTypeID="com.balsamiq.mockups::TextInput" x="700" y="1292" w="287" h="-1" measuredW="79" measuredH="26" zOrder="52" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="108" controlTypeID="com.balsamiq.mockups::TextInput" x="700" y="1323" w="287" h="-1" measuredW="79" measuredH="26" zOrder="53" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="109" controlTypeID="com.balsamiq.mockups::TextInput" x="700" y="1355" w="287" h="-1" measuredW="79" measuredH="26" zOrder="54" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="110" controlTypeID="com.balsamiq.mockups::Label" x="588" y="1390" w="-1" h="-1" measuredW="89" measuredH="21" zOrder="55" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Min%20Pool%20Size%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="111" controlTypeID="com.balsamiq.mockups::Label" x="584" y="1422" w="-1" h="-1" measuredW="93" measuredH="21" zOrder="56" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Max%20Pool%20Size%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="112" controlTypeID="com.balsamiq.mockups::TextInput" x="700" y="1387" w="287" h="-1" measuredW="28" measuredH="27" zOrder="57" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>10</text>
+      </controlProperties>
+    </control>
+    <control controlID="113" controlTypeID="com.balsamiq.mockups::TextInput" x="700" y="1419" w="287" h="-1" measuredW="31" measuredH="27" zOrder="58" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>20</text>
+      </controlProperties>
+    </control>
+    <control controlID="114" controlTypeID="com.balsamiq.mockups::TitleWindow" x="560" y="240" w="450" h="462" measuredW="450" measuredH="400" zOrder="59" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bottomheight>0</bottomheight>
+        <close>true</close>
+        <text>Software%20Install%20Launch%20Wizard</text>
+      </controlProperties>
+    </control>
+    <control controlID="115" controlTypeID="com.balsamiq.mockups::Label" x="582" y="277" w="-1" h="-1" measuredW="64" measuredH="21" zOrder="60" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Software%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="116" controlTypeID="com.balsamiq.mockups::Button" x="702" y="660" w="-1" h="-1" measuredW="65" measuredH="27" zOrder="61" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Launch</text>
+      </controlProperties>
+    </control>
+    <control controlID="117" controlTypeID="com.balsamiq.mockups::Button" x="777" y="660" w="-1" h="-1" measuredW="64" measuredH="27" zOrder="62" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cancel</text>
+      </controlProperties>
+    </control>
+    <control controlID="118" controlTypeID="com.balsamiq.mockups::FieldSet" x="566" y="305" w="437" h="340" measuredW="200" measuredH="170" zOrder="63" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Apache%20HTTP%20Server%20Install</text>
+      </controlProperties>
+    </control>
+    <control controlID="119" controlTypeID="com.balsamiq.mockups::Label" x="628" y="329" w="-1" h="-1" measuredW="54" measuredH="21" zOrder="64" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Version%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="120" controlTypeID="com.balsamiq.mockups::Label" x="607" y="359" w="-1" h="-1" measuredW="75" measuredH="21" zOrder="65" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Java%20Home%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="121" controlTypeID="com.balsamiq.mockups::Label" x="585" y="391" w="-1" h="-1" measuredW="97" measuredH="21" zOrder="66" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Catalina%20Home%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="122" controlTypeID="com.balsamiq.mockups::Label" x="589" y="422" w="-1" h="-1" measuredW="93" measuredH="21" zOrder="67" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Catalina%20Base%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="123" controlTypeID="com.balsamiq.mockups::Label" x="592" y="454" w="-1" h="-1" measuredW="90" measuredH="21" zOrder="68" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Server%20Name%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="124" controlTypeID="com.balsamiq.mockups::Label" x="591" y="614" w="-1" h="-1" measuredW="91" measuredH="21" zOrder="69" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Start%20Service%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="125" controlTypeID="com.balsamiq.mockups::ComboBox" x="708" y="327" w="287" h="-1" measuredW="67" measuredH="24" zOrder="70" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>7.0.47</text>
+      </controlProperties>
+    </control>
+    <control controlID="126" controlTypeID="com.balsamiq.mockups::TextInput" x="708" y="356" w="287" h="-1" measuredW="79" measuredH="26" zOrder="71" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="127" controlTypeID="com.balsamiq.mockups::TextInput" x="708" y="388" w="287" h="-1" measuredW="79" measuredH="26" zOrder="72" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="128" controlTypeID="com.balsamiq.mockups::TextInput" x="708" y="419" w="287" h="-1" measuredW="79" measuredH="26" zOrder="73" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="129" controlTypeID="com.balsamiq.mockups::TextInput" x="708" y="451" w="287" h="-1" measuredW="79" measuredH="26" zOrder="74" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="130" controlTypeID="com.balsamiq.mockups::CheckBox" x="708" y="613" w="-1" h="-1" measuredW="202" measuredH="22" zOrder="75" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>selected</state>
+        <text>Start%20Service%20after%20Installation</text>
+      </controlProperties>
+    </control>
+    <control controlID="131" controlTypeID="com.balsamiq.mockups::ComboBox" x="658" y="275" w="209" h="-1" measuredW="122" measuredH="24" zOrder="76" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Apache%20Tomcat</text>
+      </controlProperties>
+    </control>
+    <control controlID="132" controlTypeID="com.balsamiq.mockups::Label" x="604" y="486" w="-1" h="-1" measuredW="78" measuredH="21" zOrder="77" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Comp%20User%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="133" controlTypeID="com.balsamiq.mockups::Label" x="605" y="518" w="-1" h="-1" measuredW="77" measuredH="21" zOrder="78" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Port%20Offset%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="134" controlTypeID="com.balsamiq.mockups::TextInput" x="708" y="483" w="287" h="-1" measuredW="79" measuredH="26" zOrder="79" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="135" controlTypeID="com.balsamiq.mockups::TextInput" x="708" y="515" w="287" h="-1" measuredW="22" measuredH="27" zOrder="80" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>0</text>
+      </controlProperties>
+    </control>
+    <control controlID="137" controlTypeID="com.balsamiq.mockups::Label" x="682" y="329" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="81" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="138" controlTypeID="com.balsamiq.mockups::Label" x="682" y="359" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="82" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="139" controlTypeID="com.balsamiq.mockups::Label" x="682" y="391" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="83" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="140" controlTypeID="com.balsamiq.mockups::Label" x="682" y="422" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="84" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="141" controlTypeID="com.balsamiq.mockups::Label" x="682" y="454" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="85" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="142" controlTypeID="com.balsamiq.mockups::Label" x="682" y="486" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="86" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="143" controlTypeID="com.balsamiq.mockups::Label" x="166" y="329" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="87" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="144" controlTypeID="com.balsamiq.mockups::Label" x="684" y="857" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="88" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="145" controlTypeID="com.balsamiq.mockups::Label" x="684" y="887" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="89" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="146" controlTypeID="com.balsamiq.mockups::Label" x="684" y="919" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="90" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="147" controlTypeID="com.balsamiq.mockups::Label" x="684" y="950" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="91" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="148" controlTypeID="com.balsamiq.mockups::Label" x="684" y="982" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="92" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="149" controlTypeID="com.balsamiq.mockups::Label" x="41" y="70" w="-1" h="-1" measuredW="64" measuredH="21" zOrder="93" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Software%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="150" controlTypeID="com.balsamiq.mockups::SubTitle" x="38" y="213" w="-1" h="-1" measuredW="213" measuredH="23" zOrder="94" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>1.%20Apache%20HTTP%20Server</text>
+      </controlProperties>
+    </control>
+    <control controlID="151" controlTypeID="com.balsamiq.mockups::SubTitle" x="560" y="217" w="-1" h="-1" measuredW="163" measuredH="23" zOrder="95" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>2.%20Apache%20Tomcat</text>
+      </controlProperties>
+    </control>
+    <control controlID="152" controlTypeID="com.balsamiq.mockups::SubTitle" x="36" y="742" w="-1" h="-1" measuredW="131" measuredH="23" zOrder="96" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>3.%20JBoss%20EWS</text>
+      </controlProperties>
+    </control>
+    <control controlID="153" controlTypeID="com.balsamiq.mockups::SubTitle" x="558" y="746" w="-1" h="-1" measuredW="125" measuredH="23" zOrder="97" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>4.%20JBoss%20EAP</text>
+      </controlProperties>
+    </control>
+    <control controlID="154" controlTypeID="com.balsamiq.mockups::TitleWindow" x="37" y="768" w="450" h="516" measuredW="450" measuredH="400" zOrder="98" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bottomheight>0</bottomheight>
+        <close>true</close>
+        <text>Software%20Install%20Launch%20Wizard</text>
+      </controlProperties>
+    </control>
+    <control controlID="155" controlTypeID="com.balsamiq.mockups::Label" x="59" y="805" w="-1" h="-1" measuredW="64" measuredH="21" zOrder="99" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Software%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="156" controlTypeID="com.balsamiq.mockups::Button" x="179" y="1245" w="-1" h="-1" measuredW="65" measuredH="27" zOrder="100" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Launch</text>
+      </controlProperties>
+    </control>
+    <control controlID="157" controlTypeID="com.balsamiq.mockups::Button" x="254" y="1245" w="-1" h="-1" measuredW="64" measuredH="27" zOrder="101" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cancel</text>
+      </controlProperties>
+    </control>
+    <control controlID="158" controlTypeID="com.balsamiq.mockups::FieldSet" x="43" y="833" w="437" h="400" measuredW="200" measuredH="170" zOrder="102" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Apache%20HTTP%20Server%20Install</text>
+      </controlProperties>
+    </control>
+    <control controlID="159" controlTypeID="com.balsamiq.mockups::Label" x="114" y="857" w="-1" h="-1" measuredW="54" measuredH="21" zOrder="103" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Version%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="160" controlTypeID="com.balsamiq.mockups::Label" x="93" y="887" w="-1" h="-1" measuredW="75" measuredH="21" zOrder="104" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Java%20Home%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="161" controlTypeID="com.balsamiq.mockups::Label" x="71" y="919" w="-1" h="-1" measuredW="97" measuredH="21" zOrder="105" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Catalina%20Home%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="162" controlTypeID="com.balsamiq.mockups::Label" x="75" y="950" w="-1" h="-1" measuredW="93" measuredH="21" zOrder="106" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Catalina%20Base%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="163" controlTypeID="com.balsamiq.mockups::Label" x="78" y="982" w="-1" h="-1" measuredW="90" measuredH="21" zOrder="107" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Server%20Name%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="164" controlTypeID="com.balsamiq.mockups::Label" x="77" y="1198" w="-1" h="-1" measuredW="91" measuredH="21" zOrder="108" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Start%20Service%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="165" controlTypeID="com.balsamiq.mockups::ComboBox" x="185" y="855" w="287" h="-1" measuredW="67" measuredH="24" zOrder="109" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>7.0.40</text>
+      </controlProperties>
+    </control>
+    <control controlID="166" controlTypeID="com.balsamiq.mockups::TextInput" x="185" y="884" w="287" h="-1" measuredW="79" measuredH="26" zOrder="110" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="167" controlTypeID="com.balsamiq.mockups::TextInput" x="185" y="916" w="287" h="-1" measuredW="79" measuredH="26" zOrder="111" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="168" controlTypeID="com.balsamiq.mockups::TextInput" x="185" y="947" w="287" h="-1" measuredW="79" measuredH="26" zOrder="112" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="169" controlTypeID="com.balsamiq.mockups::TextInput" x="185" y="979" w="287" h="-1" measuredW="79" measuredH="26" zOrder="113" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="170" controlTypeID="com.balsamiq.mockups::CheckBox" x="185" y="1198" w="-1" h="-1" measuredW="202" measuredH="22" zOrder="114" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>selected</state>
+        <text>Start%20Service%20after%20Installation</text>
+      </controlProperties>
+    </control>
+    <control controlID="171" controlTypeID="com.balsamiq.mockups::ComboBox" x="135" y="803" w="209" h="-1" measuredW="101" measuredH="24" zOrder="115" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>JBoss%20EWS</text>
+      </controlProperties>
+    </control>
+    <control controlID="172" controlTypeID="com.balsamiq.mockups::Label" x="90" y="1014" w="-1" h="-1" measuredW="78" measuredH="21" zOrder="116" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Comp%20User%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="173" controlTypeID="com.balsamiq.mockups::Label" x="91" y="1046" w="-1" h="-1" measuredW="77" measuredH="21" zOrder="117" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Port%20Offset%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="174" controlTypeID="com.balsamiq.mockups::TextInput" x="185" y="1011" w="287" h="-1" measuredW="79" measuredH="26" zOrder="118" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="175" controlTypeID="com.balsamiq.mockups::TextInput" x="185" y="1043" w="287" h="-1" measuredW="22" measuredH="27" zOrder="119" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>0</text>
+      </controlProperties>
+    </control>
+    <control controlID="176" controlTypeID="com.balsamiq.mockups::Label" x="167" y="857" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="120" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="177" controlTypeID="com.balsamiq.mockups::Label" x="167" y="887" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="121" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="178" controlTypeID="com.balsamiq.mockups::Label" x="167" y="919" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="122" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="179" controlTypeID="com.balsamiq.mockups::Label" x="167" y="950" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="123" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="180" controlTypeID="com.balsamiq.mockups::Label" x="167" y="982" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="124" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="181" controlTypeID="com.balsamiq.mockups::Label" x="167" y="1014" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="125" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="182" controlTypeID="com.balsamiq.mockups::TitleWindow" x="1034" y="769" w="450" h="793" measuredW="450" measuredH="400" zOrder="126" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bottomheight>0</bottomheight>
+        <close>true</close>
+        <text>Software%20Install%20Launch%20Wizard</text>
+      </controlProperties>
+    </control>
+    <control controlID="183" controlTypeID="com.balsamiq.mockups::Label" x="1056" y="806" w="-1" h="-1" measuredW="64" measuredH="21" zOrder="127" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Software%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="184" controlTypeID="com.balsamiq.mockups::Button" x="1176" y="1520" w="-1" h="-1" measuredW="65" measuredH="27" zOrder="128" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Launch</text>
+      </controlProperties>
+    </control>
+    <control controlID="185" controlTypeID="com.balsamiq.mockups::Button" x="1251" y="1520" w="-1" h="-1" measuredW="64" measuredH="27" zOrder="129" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cancel</text>
+      </controlProperties>
+    </control>
+    <control controlID="186" controlTypeID="com.balsamiq.mockups::FieldSet" x="1040" y="834" w="437" h="414" measuredW="200" measuredH="170" zOrder="130" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>JBoss%20EAP%20Install</text>
+      </controlProperties>
+    </control>
+    <control controlID="187" controlTypeID="com.balsamiq.mockups::Label" x="1115" y="858" w="-1" h="-1" measuredW="54" measuredH="21" zOrder="131" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Version%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="188" controlTypeID="com.balsamiq.mockups::Label" x="1078" y="1220" w="-1" h="-1" measuredW="91" measuredH="21" zOrder="132" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Start%20Service%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="189" controlTypeID="com.balsamiq.mockups::ComboBox" x="1182" y="856" w="287" h="-1" measuredW="39" measuredH="24" zOrder="133" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>6</text>
+      </controlProperties>
+    </control>
+    <control controlID="190" controlTypeID="com.balsamiq.mockups::CheckBox" x="1182" y="1220" w="-1" h="-1" measuredW="202" measuredH="22" zOrder="134" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>selected</state>
+        <text>Start%20Service%20after%20Installation</text>
+      </controlProperties>
+    </control>
+    <control controlID="191" controlTypeID="com.balsamiq.mockups::ComboBox" x="1132" y="804" w="209" h="-1" measuredW="96" measuredH="24" zOrder="135" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>JBoss%20EAP</text>
+      </controlProperties>
+    </control>
+    <control controlID="192" controlTypeID="com.balsamiq.mockups::Label" x="1094" y="888" w="-1" h="-1" measuredW="75" measuredH="21" zOrder="136" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Java%20Home%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="193" controlTypeID="com.balsamiq.mockups::Label" x="1084" y="920" w="-1" h="-1" measuredW="85" measuredH="21" zOrder="137" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>JBoss%20Home%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="194" controlTypeID="com.balsamiq.mockups::Label" x="1080" y="951" w="-1" h="-1" measuredW="89" measuredH="21" zOrder="138" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Server%20Home%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="195" controlTypeID="com.balsamiq.mockups::Label" x="1079" y="983" w="-1" h="-1" measuredW="90" measuredH="21" zOrder="139" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Server%20Name%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="196" controlTypeID="com.balsamiq.mockups::TextInput" x="1182" y="885" w="287" h="-1" measuredW="79" measuredH="26" zOrder="140" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="197" controlTypeID="com.balsamiq.mockups::TextInput" x="1182" y="917" w="287" h="-1" measuredW="79" measuredH="26" zOrder="141" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="198" controlTypeID="com.balsamiq.mockups::TextInput" x="1182" y="948" w="287" h="-1" measuredW="79" measuredH="26" zOrder="142" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="199" controlTypeID="com.balsamiq.mockups::TextInput" x="1182" y="980" w="287" h="-1" measuredW="79" measuredH="26" zOrder="143" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="200" controlTypeID="com.balsamiq.mockups::Label" x="1067" y="1103" w="-1" h="-1" measuredW="102" measuredH="21" zOrder="148" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>High%20Availability%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="201" controlTypeID="com.balsamiq.mockups::Label" x="1081" y="1044" w="-1" h="-1" measuredW="88" measuredH="21" zOrder="144" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Bind%20Address%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="203" controlTypeID="com.balsamiq.mockups::TextInput" x="1182" y="1041" w="287" h="-1" measuredW="54" measuredH="27" zOrder="145" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>0.0.0.0</text>
+      </controlProperties>
+    </control>
+    <control controlID="204" controlTypeID="com.balsamiq.mockups::Label" x="1092" y="1076" w="-1" h="-1" measuredW="77" measuredH="21" zOrder="146" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Port%20Offset%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="205" controlTypeID="com.balsamiq.mockups::TextInput" x="1182" y="1071" w="287" h="-1" measuredW="22" measuredH="27" zOrder="147" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>0</text>
+      </controlProperties>
+    </control>
+    <control controlID="206" controlTypeID="com.balsamiq.mockups::FieldSet" x="1041" y="1261" w="437" h="250" measuredW="200" measuredH="170" zOrder="149" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20%20%20%20%20Data%20Source%20Setting%28Optional%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="207" controlTypeID="com.balsamiq.mockups::Icon" x="1056" y="1261" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="150" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>DownFillTriangleIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="208" controlTypeID="com.balsamiq.mockups::Label" x="1056" y="1286" w="-1" h="-1" measuredW="97" measuredH="21" zOrder="151" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Database%20Type%20%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="209" controlTypeID="com.balsamiq.mockups::ComboBox" x="1176" y="1284" w="287" h="-1" measuredW="30" measuredH="24" zOrder="152" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="210" controlTypeID="com.balsamiq.mockups::Label" x="1073" y="1316" w="-1" h="-1" measuredW="80" measuredH="21" zOrder="153" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>JNDI%20Name%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="211" controlTypeID="com.balsamiq.mockups::Label" x="1078" y="1348" w="-1" h="-1" measuredW="75" measuredH="21" zOrder="154" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>JDBC%20URL%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="212" controlTypeID="com.balsamiq.mockups::Label" x="1075" y="1379" w="-1" h="-1" measuredW="78" measuredH="21" zOrder="155" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>User%20Name%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="213" controlTypeID="com.balsamiq.mockups::Label" x="1087" y="1411" w="-1" h="-1" measuredW="66" measuredH="21" zOrder="156" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Password%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="214" controlTypeID="com.balsamiq.mockups::TextInput" x="1176" y="1313" w="287" h="-1" measuredW="79" measuredH="26" zOrder="157" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="215" controlTypeID="com.balsamiq.mockups::TextInput" x="1176" y="1345" w="287" h="-1" measuredW="79" measuredH="26" zOrder="158" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="216" controlTypeID="com.balsamiq.mockups::TextInput" x="1176" y="1376" w="287" h="-1" measuredW="79" measuredH="26" zOrder="159" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="217" controlTypeID="com.balsamiq.mockups::TextInput" x="1176" y="1408" w="287" h="-1" measuredW="79" measuredH="26" zOrder="160" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="218" controlTypeID="com.balsamiq.mockups::Label" x="1064" y="1443" w="-1" h="-1" measuredW="89" measuredH="21" zOrder="161" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Min%20Pool%20Size%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="219" controlTypeID="com.balsamiq.mockups::Label" x="1060" y="1475" w="-1" h="-1" measuredW="93" measuredH="21" zOrder="162" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Max%20Pool%20Size%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="220" controlTypeID="com.balsamiq.mockups::TextInput" x="1176" y="1440" w="287" h="-1" measuredW="28" measuredH="27" zOrder="163" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>10</text>
+      </controlProperties>
+    </control>
+    <control controlID="221" controlTypeID="com.balsamiq.mockups::TextInput" x="1176" y="1472" w="287" h="-1" measuredW="31" measuredH="27" zOrder="164" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>20</text>
+      </controlProperties>
+    </control>
+    <control controlID="222" controlTypeID="com.balsamiq.mockups::Label" x="1168" y="858" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="165" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="223" controlTypeID="com.balsamiq.mockups::Label" x="1168" y="888" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="166" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="224" controlTypeID="com.balsamiq.mockups::Label" x="1168" y="920" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="167" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="225" controlTypeID="com.balsamiq.mockups::Label" x="1168" y="951" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="168" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="226" controlTypeID="com.balsamiq.mockups::Label" x="1168" y="983" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="169" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="227" controlTypeID="com.balsamiq.mockups::CheckBox" x="1183" y="1102" w="-1" h="-1" measuredW="155" measuredH="22" zOrder="170" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>up</state>
+        <text>Use%20standalone-ha.xml</text>
+      </controlProperties>
+    </control>
+    <control controlID="228" controlTypeID="com.balsamiq.mockups::Label" x="1052" y="1129" w="-1" h="-1" measuredW="117" measuredH="21" zOrder="171" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Multicast%20Address%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="229" controlTypeID="com.balsamiq.mockups::TextInput" x="1182" y="1126" w="287" h="-1" measuredW="81" measuredH="27" zOrder="172" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>disabled</state>
+        <text>230.1.11.175</text>
+      </controlProperties>
+    </control>
+    <control controlID="230" controlTypeID="com.balsamiq.mockups::Label" x="1083" y="1014" w="-1" h="-1" measuredW="86" measuredH="21" zOrder="173" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Mgmt%20Address</text>
+      </controlProperties>
+    </control>
+    <control controlID="231" controlTypeID="com.balsamiq.mockups::TextInput" x="1182" y="1011" w="287" h="-1" measuredW="54" measuredH="27" zOrder="174" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>0.0.0.0</text>
+      </controlProperties>
+    </control>
+    <control controlID="233" controlTypeID="com.balsamiq.mockups::ComboBox" x="706" y="1076" w="287" h="-1" measuredW="106" measuredH="24" zOrder="175" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>closed</state>
+        <text>ports-default%0Aports-01%0Aports-02%0Aports-03</text>
+      </controlProperties>
+    </control>
+    <control controlID="234" controlTypeID="com.balsamiq.mockups::Tooltip" x="1492" y="1074" w="284" h="88" measuredW="285" measuredH="0" zOrder="176" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>High%20Availability%uC5D0%20%uCCB4%uD06C%uB420%20%uACBD%uC6B0%20Multicast%20Address%uAC00%20%uD65C%uC131%uD654%20%uB41C%uB2E4.%0A%20%0A*%20UDP%20%uAE30%uC900%20%28TCP%uB294%20%uC218%uB3D9%20%uC124%uC815%29</text>
+        <tooltipDirection>SW</tooltipDirection>
+      </controlProperties>
+    </control>
+    <control controlID="236" controlTypeID="com.balsamiq.mockups::Label" x="610" y="550" w="-1" h="-1" measuredW="71" measuredH="21" zOrder="177" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Heap%20Size%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="237" controlTypeID="com.balsamiq.mockups::Label" x="588" y="582" w="-1" h="-1" measuredW="93" measuredH="21" zOrder="178" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Permgen%20Size%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="238" controlTypeID="com.balsamiq.mockups::TextInput" x="708" y="547" w="287" h="-1" measuredW="53" measuredH="27" zOrder="179" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>512MB</text>
+      </controlProperties>
+    </control>
+    <control controlID="239" controlTypeID="com.balsamiq.mockups::TextInput" x="708" y="579" w="287" h="-1" measuredW="56" measuredH="27" zOrder="180" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>256MB</text>
+      </controlProperties>
+    </control>
+    <control controlID="241" controlTypeID="com.balsamiq.mockups::Label" x="614" y="1109" w="-1" h="-1" measuredW="71" measuredH="21" zOrder="181" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Heap%20Size%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="242" controlTypeID="com.balsamiq.mockups::Label" x="592" y="1141" w="-1" h="-1" measuredW="93" measuredH="21" zOrder="182" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Permgen%20Size%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="243" controlTypeID="com.balsamiq.mockups::TextInput" x="706" y="1106" w="287" h="-1" measuredW="53" measuredH="27" zOrder="183" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>512MB</text>
+      </controlProperties>
+    </control>
+    <control controlID="244" controlTypeID="com.balsamiq.mockups::TextInput" x="706" y="1138" w="287" h="-1" measuredW="56" measuredH="27" zOrder="184" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>256MB</text>
+      </controlProperties>
+    </control>
+    <control controlID="245" controlTypeID="com.balsamiq.mockups::Label" x="1097" y="1161" w="-1" h="-1" measuredW="71" measuredH="21" zOrder="185" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Heap%20Size%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="246" controlTypeID="com.balsamiq.mockups::Label" x="1075" y="1193" w="-1" h="-1" measuredW="93" measuredH="21" zOrder="186" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Permgen%20Size%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="247" controlTypeID="com.balsamiq.mockups::TextInput" x="1182" y="1158" w="287" h="-1" measuredW="53" measuredH="27" zOrder="187" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>512MB</text>
+      </controlProperties>
+    </control>
+    <control controlID="248" controlTypeID="com.balsamiq.mockups::TextInput" x="1182" y="1190" w="287" h="-1" measuredW="56" measuredH="27" zOrder="188" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>256MB</text>
+      </controlProperties>
+    </control>
+    <control controlID="249" controlTypeID="com.balsamiq.mockups::Label" x="96" y="1079" w="-1" h="-1" measuredW="71" measuredH="21" zOrder="189" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Heap%20Size%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="250" controlTypeID="com.balsamiq.mockups::Label" x="74" y="1111" w="-1" h="-1" measuredW="93" measuredH="21" zOrder="190" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Permgen%20Size%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="251" controlTypeID="com.balsamiq.mockups::TextInput" x="184" y="1076" w="287" h="-1" measuredW="53" measuredH="27" zOrder="191" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>512MB</text>
+      </controlProperties>
+    </control>
+    <control controlID="252" controlTypeID="com.balsamiq.mockups::TextInput" x="184" y="1108" w="287" h="-1" measuredW="56" measuredH="27" zOrder="192" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>256MB</text>
+      </controlProperties>
+    </control>
+    <control controlID="255" controlTypeID="com.balsamiq.mockups::Label" x="67" y="1141" w="-1" h="-1" measuredW="102" measuredH="21" zOrder="193" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>High%20Availability%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="256" controlTypeID="com.balsamiq.mockups::CheckBox" x="183" y="1140" w="-1" h="-1" measuredW="191" measuredH="22" zOrder="194" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>up</state>
+        <text>Check%20when%20using%20clustering</text>
+      </controlProperties>
+    </control>
+    <control controlID="257" controlTypeID="com.balsamiq.mockups::Label" x="52" y="1167" w="-1" h="-1" measuredW="117" measuredH="21" zOrder="195" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Multicast%20Address%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="258" controlTypeID="com.balsamiq.mockups::TextInput" x="182" y="1164" w="287" h="-1" measuredW="81" measuredH="27" zOrder="196" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>disabled</state>
+        <text>230.1.11.175</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

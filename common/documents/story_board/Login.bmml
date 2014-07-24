@@ -1,0 +1,54 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1149" measuredH="810" mockupW="1111" mockupH="769">
+  <controls>
+    <control controlID="11" controlTypeID="__group__" x="368" y="310" w="450" h="230" measuredW="450" measuredH="230" zOrder="1" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::TitleWindow" x="0" y="0" w="450" h="230" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="11">
+          <controlProperties>
+            <bottomheight>0</bottomheight>
+            <text>HiWay%20Automation%20System</text>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="64" y="46" w="-1" h="-1" measuredW="322" measuredH="24" zOrder="1" locked="false" isInGroup="11">
+          <controlProperties>
+            <text>%uD604%uB300%uC911%uACF5%uC5C5%20%uC790%uB3D9%uD654%20%uBC30%uD3EC%uC2DC%uC2A4%uD15C%uC5D0%20%uC624%uC2E0%20%uAC83%uC744%20%uD658%uC601%uD569%uB2C8%uB2E4.</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="120" y="67" w="-1" h="-1" measuredW="210" measuredH="24" zOrder="2" locked="false" isInGroup="11">
+          <controlProperties>
+            <text>%uC0AC%uC6A9%uD558%uC2DC%uB824%uBA74%20%uB85C%uADF8%uC778%uC744%20%uD574%20%uC8FC%uC2ED%uC2DC%uC624.</text>
+          </controlProperties>
+        </control>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::TextInput" x="152" y="111" w="274" h="-1" measuredW="79" measuredH="26" zOrder="3" locked="false" isInGroup="11">
+          <controlProperties>
+            <text/>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::TextInput" x="152" y="142" w="273" h="-1" measuredW="79" measuredH="26" zOrder="4" locked="false" isInGroup="11">
+          <controlProperties>
+            <text/>
+          </controlProperties>
+        </control>
+        <control controlID="5" controlTypeID="com.balsamiq.mockups::Button" x="195" y="188" w="-1" h="-1" measuredW="61" measuredH="27" zOrder="5" locked="false" isInGroup="11">
+          <controlProperties>
+            <text>%uB85C%uADF8%uC778</text>
+          </controlProperties>
+        </control>
+        <control controlID="6" controlTypeID="com.balsamiq.mockups::Label" x="48" y="112" w="-1" h="-1" measuredW="89" measuredH="24" zOrder="6" locked="false" isInGroup="11">
+          <controlProperties>
+            <text>%uC0AC%uC6A9%uC790%uC544%uC774%uB514%20%3A%20</text>
+          </controlProperties>
+        </control>
+        <control controlID="7" controlTypeID="com.balsamiq.mockups::Label" x="74" y="143" w="-1" h="-1" measuredW="63" measuredH="24" zOrder="7" locked="false" isInGroup="11">
+          <controlProperties>
+            <text>%uBE44%uBC00%uBC88%uD638%20%3A%20</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="12" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="38" y="41" w="1111" h="769" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Athena%20Peacock%0Ahttp%3A//peacock.osci.kr</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

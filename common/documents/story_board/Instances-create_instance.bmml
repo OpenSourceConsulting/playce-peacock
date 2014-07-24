@@ -1,0 +1,155 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="2108" measuredH="1256" mockupW="2067" mockupH="1246">
+  <controls>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::SubTitle" x="41" y="10" w="-1" h="-1" measuredW="337" measuredH="35" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>32</size>
+        <text>Create%20Instance%20Popup</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::TitleWindow" x="41" y="52" w="434" h="446" measuredW="450" measuredH="400" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bottomheight>0</bottomheight>
+        <close>true</close>
+        <text>Create%20Instance</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="103" y="139" w="-1" h="-1" measuredW="84" measuredH="21" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Data%20Center%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::Label" x="101" y="168" w="-1" h="-1" measuredW="86" measuredH="21" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Host%20Cluster%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::Label" x="142" y="220" w="-1" h="-1" measuredW="45" measuredH="21" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Name%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Label" x="109" y="250" w="-1" h="-1" measuredW="78" measuredH="21" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Description%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::Label" x="63" y="279" w="-1" h="-1" measuredW="124" measuredH="21" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Based%20on%20Template%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::Label" x="99" y="334" w="-1" h="-1" measuredW="88" measuredH="21" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Memory%20Size%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::Label" x="67" y="365" w="-1" h="-1" measuredW="120" measuredH="21" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Total%20Virtual%20CPUs%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="11" controlTypeID="com.balsamiq.mockups::CheckBox" x="63" y="419" w="-1" h="-1" measuredW="123" measuredH="22" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Delete%20protection</text>
+      </controlProperties>
+    </control>
+    <control controlID="12" controlTypeID="com.balsamiq.mockups::ComboBox" x="190" y="137" w="273" h="-1" measuredW="100" measuredH="24" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>localdomain</text>
+      </controlProperties>
+    </control>
+    <control controlID="13" controlTypeID="com.balsamiq.mockups::ComboBox" x="190" y="166" w="273" h="-1" measuredW="82" measuredH="24" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cluster-1</text>
+      </controlProperties>
+    </control>
+    <control controlID="14" controlTypeID="com.balsamiq.mockups::TextInput" x="190" y="217" w="272" h="-1" measuredW="96" measuredH="27" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Peacock%20WAS</text>
+      </controlProperties>
+    </control>
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::TextInput" x="190" y="247" w="272" h="-1" measuredW="140" measuredH="27" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Peacock%20WAS%20Server</text>
+      </controlProperties>
+    </control>
+    <control controlID="16" controlTypeID="com.balsamiq.mockups::ComboBox" x="190" y="277" w="273" h="-1" measuredW="139" measuredH="24" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Peacock-Template</text>
+      </controlProperties>
+    </control>
+    <control controlID="17" controlTypeID="com.balsamiq.mockups::TextInput" x="190" y="331" w="272" h="-1" measuredW="57" measuredH="27" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>512%20MB</text>
+      </controlProperties>
+    </control>
+    <control controlID="18" controlTypeID="com.balsamiq.mockups::TextInput" x="190" y="362" w="272" h="-1" measuredW="20" measuredH="27" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>1</text>
+      </controlProperties>
+    </control>
+    <control controlID="19" controlTypeID="com.balsamiq.mockups::Button" x="183" y="456" w="-1" h="-1" measuredW="41" measuredH="27" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>OK</text>
+      </controlProperties>
+    </control>
+    <control controlID="20" controlTypeID="com.balsamiq.mockups::Button" x="258" y="456" w="-1" h="-1" measuredW="64" measuredH="27" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cancel</text>
+      </controlProperties>
+    </control>
+    <control controlID="28" controlTypeID="com.balsamiq.mockups::Image" x="584" y="47" w="-1" h="-1" measuredW="500" measuredH="397" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>./assets/Genral.png</src>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="30" controlTypeID="com.balsamiq.mockups::Image" x="1095" y="47" w="-1" h="-1" measuredW="500" measuredH="397" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>./assets/Initial%2520Run.png</src>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="31" controlTypeID="com.balsamiq.mockups::Image" x="1608" y="47" w="-1" h="-1" measuredW="500" measuredH="397" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>./assets/Console.png</src>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="32" controlTypeID="com.balsamiq.mockups::Image" x="584" y="452" w="-1" h="-1" measuredW="500" measuredH="397" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>./assets/High%2520Availability.png</src>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="33" controlTypeID="com.balsamiq.mockups::Image" x="1095" y="452" w="-1" h="-1" measuredW="500" measuredH="397" zOrder="23" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>./assets/Resource%2520Allocation.png</src>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="34" controlTypeID="com.balsamiq.mockups::Image" x="1608" y="452" w="-1" h="-1" measuredW="500" measuredH="397" zOrder="24" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>./assets/Boot%2520Options.png</src>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="35" controlTypeID="com.balsamiq.mockups::Image" x="584" y="859" w="-1" h="-1" measuredW="500" measuredH="397" zOrder="25" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>./assets/Custom%2520Properties.png</src>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="36" controlTypeID="com.balsamiq.mockups::Label" x="84" y="89" w="-1" h="-1" measuredW="103" measuredH="21" zOrder="26" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>RHEM%20Manager%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="37" controlTypeID="com.balsamiq.mockups::ComboBox" x="190" y="87" w="273" h="-1" measuredW="83" measuredH="24" zOrder="27" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>closed</state>
+        <text>RHEV-M1%0ARHEV-M1%0ARHEV-M2</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

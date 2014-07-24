@@ -1,0 +1,646 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="3260" measuredH="2363" mockupW="3222" mockupH="2357">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="38" y="41" w="1111" h="769" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Athena%20Peacock%0Ahttp%3A//peacock.osci.kr</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Image" x="43" y="116" w="95" h="39" measuredW="1035" measuredH="381" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>http%3A//osci.kr/assets/img/osc-logo.png</src>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="805" y="125" w="-1" h="-1" measuredW="223" measuredH="21" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%28%uCD5C%uADFC%20%uC811%uC18D%uC2DC%uAC04%20%3A%202014.07.07%2014%3A48%3A48%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::VerticalTabBar" x="38" y="155" w="1110" h="629" measuredW="200" measuredH="212" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>2</selectedIndex>
+        <text>Dashboard%0AInstances%0ARHEV%20Management%0AALM%20Management%0AUser%20Management</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::ComboBox" x="1036" y="126" w="93" h="-1" measuredW="66" measuredH="24" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>closed</state>
+        <text>admin%0AMy%20Account%0ASign%20Out</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::VSplitter" x="161" y="279" w="988" h="-1" measuredW="100" measuredH="11" zOrder="5" locked="false" isInGroup="-1"/>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::HRule" x="161" y="187" w="983" h="-1" measuredW="100" measuredH="10" zOrder="6" locked="false" isInGroup="-1"/>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::Button" x="168" y="161" w="-1" h="-1" measuredW="94" measuredH="27" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Add%20RHEVM</text>
+      </controlProperties>
+    </control>
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::DataGrid" x="164" y="195" w="979" h="80" measuredW="780" measuredH="81" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <hasHeader>true</hasHeader>
+        <hLines>true</hLines>
+        <text>No%20%5E%2C%20Host%20v%2C%20Name%20v%2C%20Domain%20v%2C%20Protocol%20v%2C%20Port%20v%2C%20Username%20v%2C%20Password%20v%2C%20Create%20Date%20v%2C%20Delete%0A1%20%2C%20192.168.0.174%20%2C%20RHEV-M1%20%2C%20internal%20%2C%20https%20%2C%20443%20%2C%20admin%20%2C%20%20re****%20%2C%202014.06.01%2013%3A34%3A24%20KST%20%2C%20%0A2%20%2C%20192.168.0.175%20%2C%20RHEV-M2%20%2C%20internal%20%2C%20https%20%2C%20443%20%2C%20admin%20%2C%20%20re****%20%2C%202014.06.01%2013%3A35%3A12%20KST%20%2C%20</text>
+        <verticalScrollbar>false</verticalScrollbar>
+      </controlProperties>
+    </control>
+    <control controlID="21" controlTypeID="com.balsamiq.mockups::Icon" x="1094" y="217" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>CircledMinusIcon%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="22" controlTypeID="com.balsamiq.mockups::Icon" x="1094" y="246" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>CircledMinusIcon%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="23" controlTypeID="com.balsamiq.mockups::TabBar" x="160" y="290" w="989" h="445" measuredW="253" measuredH="100" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>0</selectedIndex>
+        <text>Virtual%20Machines%2C%20Templates</text>
+      </controlProperties>
+    </control>
+    <control controlID="24" controlTypeID="com.balsamiq.mockups::Icon" x="1125" y="294" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>ReloadIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="25" controlTypeID="com.balsamiq.mockups::DataGrid" x="165" y="319" w="979" h="411" measuredW="756" measuredH="111" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <hasHeader>true</hasHeader>
+        <hLines>true</hLines>
+        <text>Name%20%5E%2C%20Host%20v%2C%20IP%20Address%20v%2C%20Cluster%20v%2C%20OS%20v%2C%20Status%20v%2C%20Uptime%20v%0APeacock%20Dev%20Server%20%2C%20RHEV-H1%20%2C%20192.168.0.108%20%2C%20Cluster-1%20%2C%20rhel6.x64%20%2C%20Up%20%2C%202014.07.01%2012%3A34%3A50%20KST%0APeacock%20Prd%20Web%20Server-01%20%2C%20RHEV-H2%20%2C%20192.168.0.109%20%2C%20Cluster-M1%20%2C%20rhel6.x64%20%2C%20Down%20%2C%20%0APeacock%20Prd%20Tomcat%20Server-01%20%2C%20RHEV-H2%20%2C%20192.168.0.111%20%2C%20Cluster-M1%20%2C%20rhel6.x64%20%2C%20Down%20%2C%20</text>
+        <verticalScrollbar>true</verticalScrollbar>
+      </controlProperties>
+    </control>
+    <control controlID="26" controlTypeID="com.balsamiq.mockups::VSplitter" x="161" y="732" w="988" h="-1" measuredW="100" measuredH="11" zOrder="14" locked="false" isInGroup="-1"/>
+    <control controlID="27" controlTypeID="com.balsamiq.mockups::SubTitle" x="174" y="748" w="-1" h="-1" measuredW="63" measuredH="27" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Detail</text>
+      </controlProperties>
+    </control>
+    <control controlID="28" controlTypeID="com.balsamiq.mockups::Icon" x="1117" y="749" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>UpDownFillTriangleIcon%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="29" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="38" y="863" w="1111" h="769" measuredW="450" measuredH="400" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Athena%20Peacock%0Ahttp%3A//peacock.osci.kr</text>
+      </controlProperties>
+    </control>
+    <control controlID="30" controlTypeID="com.balsamiq.mockups::Image" x="43" y="938" w="95" h="39" measuredW="1035" measuredH="381" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>http%3A//osci.kr/assets/img/osc-logo.png</src>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="31" controlTypeID="com.balsamiq.mockups::Label" x="805" y="947" w="-1" h="-1" measuredW="223" measuredH="21" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%28%uCD5C%uADFC%20%uC811%uC18D%uC2DC%uAC04%20%3A%202014.07.07%2014%3A48%3A48%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="32" controlTypeID="com.balsamiq.mockups::VerticalTabBar" x="38" y="977" w="1110" h="629" measuredW="200" measuredH="212" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>2</selectedIndex>
+        <text>Dashboard%0AInstances%0ARHEV%20Management%0AALM%20Management%0AUser%20Management</text>
+      </controlProperties>
+    </control>
+    <control controlID="33" controlTypeID="com.balsamiq.mockups::ComboBox" x="1036" y="948" w="93" h="-1" measuredW="66" measuredH="24" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>closed</state>
+        <text>admin%0AMy%20Account%0ASign%20Out</text>
+      </controlProperties>
+    </control>
+    <control controlID="34" controlTypeID="com.balsamiq.mockups::VSplitter" x="161" y="1101" w="988" h="-1" measuredW="100" measuredH="11" zOrder="22" locked="false" isInGroup="-1"/>
+    <control controlID="35" controlTypeID="com.balsamiq.mockups::HRule" x="161" y="1009" w="983" h="-1" measuredW="100" measuredH="10" zOrder="23" locked="false" isInGroup="-1"/>
+    <control controlID="36" controlTypeID="com.balsamiq.mockups::Button" x="168" y="983" w="-1" h="-1" measuredW="94" measuredH="27" zOrder="24" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Add%20RHEVM</text>
+      </controlProperties>
+    </control>
+    <control controlID="37" controlTypeID="com.balsamiq.mockups::DataGrid" x="164" y="1017" w="979" h="80" measuredW="780" measuredH="81" zOrder="25" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <hasHeader>true</hasHeader>
+        <hLines>true</hLines>
+        <text>No%20%5E%2C%20Host%20v%2C%20Name%20v%2C%20Domain%20v%2C%20Protocol%20v%2C%20Port%20v%2C%20Username%20v%2C%20Password%20v%2C%20Create%20Date%20v%2C%20Delete%0A1%20%2C%20192.168.0.174%20%2C%20RHEV-M1%20%2C%20internal%20%2C%20https%20%2C%20443%20%2C%20admin%20%2C%20%20re****%20%2C%202014.06.01%2013%3A34%3A24%20KST%20%2C%20%0A2%20%2C%20192.168.0.175%20%2C%20RHEV-M2%20%2C%20internal%20%2C%20https%20%2C%20443%20%2C%20admin%20%2C%20%20re****%20%2C%202014.06.01%2013%3A35%3A12%20KST%20%2C%20</text>
+        <verticalScrollbar>false</verticalScrollbar>
+      </controlProperties>
+    </control>
+    <control controlID="38" controlTypeID="com.balsamiq.mockups::Icon" x="1094" y="1039" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="26" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>CircledMinusIcon%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="39" controlTypeID="com.balsamiq.mockups::Icon" x="1094" y="1068" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="27" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>CircledMinusIcon%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="40" controlTypeID="com.balsamiq.mockups::TabBar" x="160" y="1112" w="989" h="494" measuredW="253" measuredH="100" zOrder="28" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>0</selectedIndex>
+        <text>Virtual%20Machines%2C%20Templates</text>
+      </controlProperties>
+    </control>
+    <control controlID="41" controlTypeID="com.balsamiq.mockups::Icon" x="1125" y="1116" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="29" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>ReloadIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="42" controlTypeID="com.balsamiq.mockups::DataGrid" x="165" y="1141" w="979" h="110" measuredW="756" measuredH="111" zOrder="30" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <hasHeader>true</hasHeader>
+        <hLines>true</hLines>
+        <text>Name%20v%2C%20Host%20v%2C%20IP%20Address%20v%2C%20Cluster%20v%2C%20OS%20v%2C%20Status%20v%2C%20Uptime%20v%0APeacock%20Dev%20Server%20%2C%20RHEV-H1%20%2C%20192.168.0.108%20%2C%20Cluster-M1%20%2C%20rhel6.x64%20%2C%20Up%20%2C%202014.07.01%2012%3A34%3A50%20KST%0APeacock%20Prd%20Web%20Server-01%20%2C%20RHEV-H2%20%2C%20192.168.0.109%20%2C%20Cluster-M1%20%2C%20rhel6.x64%20%2C%20Down%20%2C%20%0APeacock%20Prd%20Tomcat%20Server-01%20%2C%20RHEV-H2%20%2C%20192.168.0.111%20%2C%20Cluster-M1%20%2C%20rhel6.x64%20%2C%20Down%20%2C%20</text>
+        <verticalScrollbar>true</verticalScrollbar>
+      </controlProperties>
+    </control>
+    <control controlID="43" controlTypeID="com.balsamiq.mockups::VSplitter" x="161" y="1255" w="988" h="-1" measuredW="100" measuredH="11" zOrder="31" locked="false" isInGroup="-1"/>
+    <control controlID="44" controlTypeID="com.balsamiq.mockups::SubTitle" x="173" y="1272" w="-1" h="-1" measuredW="63" measuredH="27" zOrder="32" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Detail</text>
+      </controlProperties>
+    </control>
+    <control controlID="45" controlTypeID="com.balsamiq.mockups::Icon" x="1116" y="1273" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="33" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>UpDownFillTriangleIcon%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="46" controlTypeID="com.balsamiq.mockups::HRule" x="161" y="1296" w="988" h="-1" measuredW="100" measuredH="10" zOrder="34" locked="false" isInGroup="-1"/>
+    <control controlID="50" controlTypeID="com.balsamiq.mockups::Tooltip" x="1069" y="475" w="287" h="75" measuredW="287" measuredH="0" zOrder="110" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Virtial%20Machines%2C%20Templates%20%uBAA9%uB85D%20%uC120%uD0DD%20%uC2DC%20Detail%20%uD328%uB110%uC774%20collapse%20%uD574%uC81C%20%uB41C%uB2E4.</text>
+        <tooltipDirection>SW</tooltipDirection>
+      </controlProperties>
+    </control>
+    <control controlID="51" controlTypeID="com.balsamiq.mockups::TabBar" x="1343" y="290" w="989" h="445" measuredW="253" measuredH="100" zOrder="50" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>1</selectedIndex>
+        <text>Virtual%20Machines%2C%20Templates</text>
+      </controlProperties>
+    </control>
+    <control controlID="52" controlTypeID="com.balsamiq.mockups::DataGrid" x="1348" y="319" w="979" h="411" measuredW="757" measuredH="111" zOrder="51" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <hasHeader>true</hasHeader>
+        <hLines>true</hLines>
+        <text>Name%20%5E%2C%20Type%20v%2C%20Status%20v%2C%20Memory%20v%2C%20CPU%20Cores%20v%2C%20Creation%20Date%20v%2C%20Description%20v%0ABlank%20%2C%20desktop%20%2C%20ok%20%2C%20512MB%20%2C%201%20%2C%202014.07.01%2012%3A34%3A21%20KST%20%2C%20%0APeacock-Template%20%2C%20server%20%2C%20ok%20%2C%202048MB%20%2C%202%20%2C%202014.07.01%2014%3A23%3A14%20KST%20%2C%20Peacock%20Agent%20Template%0ARHEL-Base%20%2C%20server%20%2C%20ok%20%2C%202048MB%20%2C%202%20%2C%202014.07.01%2014%3A52%3A34%20KST%20%2C%20</text>
+        <verticalScrollbar>true</verticalScrollbar>
+      </controlProperties>
+    </control>
+    <control controlID="53" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="1221" y="41" w="1111" h="769" measuredW="450" measuredH="400" zOrder="35" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Athena%20Peacock%0Ahttp%3A//peacock.osci.kr</text>
+      </controlProperties>
+    </control>
+    <control controlID="54" controlTypeID="com.balsamiq.mockups::Image" x="1226" y="116" w="95" h="39" measuredW="1035" measuredH="381" zOrder="36" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>http%3A//osci.kr/assets/img/osc-logo.png</src>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="55" controlTypeID="com.balsamiq.mockups::Label" x="1988" y="125" w="-1" h="-1" measuredW="223" measuredH="21" zOrder="37" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%28%uCD5C%uADFC%20%uC811%uC18D%uC2DC%uAC04%20%3A%202014.07.07%2014%3A48%3A48%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="56" controlTypeID="com.balsamiq.mockups::VerticalTabBar" x="1221" y="155" w="1110" h="629" measuredW="200" measuredH="212" zOrder="38" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>2</selectedIndex>
+        <text>Dashboard%0AInstances%0ARHEV%20Management%0AALM%20Management%0AUser%20Management</text>
+      </controlProperties>
+    </control>
+    <control controlID="57" controlTypeID="com.balsamiq.mockups::ComboBox" x="2219" y="126" w="93" h="-1" measuredW="66" measuredH="24" zOrder="39" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>closed</state>
+        <text>admin%0AMy%20Account%0ASign%20Out</text>
+      </controlProperties>
+    </control>
+    <control controlID="58" controlTypeID="com.balsamiq.mockups::VSplitter" x="1344" y="279" w="988" h="-1" measuredW="100" measuredH="11" zOrder="40" locked="false" isInGroup="-1"/>
+    <control controlID="59" controlTypeID="com.balsamiq.mockups::HRule" x="1344" y="187" w="983" h="-1" measuredW="100" measuredH="10" zOrder="41" locked="false" isInGroup="-1"/>
+    <control controlID="60" controlTypeID="com.balsamiq.mockups::Button" x="1351" y="161" w="-1" h="-1" measuredW="94" measuredH="27" zOrder="42" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Add%20RHEVM</text>
+      </controlProperties>
+    </control>
+    <control controlID="61" controlTypeID="com.balsamiq.mockups::DataGrid" x="1347" y="195" w="979" h="80" measuredW="780" measuredH="81" zOrder="43" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <hasHeader>true</hasHeader>
+        <hLines>true</hLines>
+        <text>No%20%5E%2C%20Host%20v%2C%20Name%20v%2C%20Domain%20v%2C%20Protocol%20v%2C%20Port%20v%2C%20Username%20v%2C%20Password%20v%2C%20Create%20Date%20v%2C%20Delete%0A1%20%2C%20192.168.0.174%20%2C%20RHEV-M1%20%2C%20internal%20%2C%20https%20%2C%20443%20%2C%20admin%20%2C%20%20re****%20%2C%202014.06.01%2013%3A34%3A24%20KST%20%2C%20%0A2%20%2C%20192.168.0.175%20%2C%20RHEV-M2%20%2C%20internal%20%2C%20https%20%2C%20443%20%2C%20admin%20%2C%20%20re****%20%2C%202014.06.01%2013%3A35%3A12%20KST%20%2C%20</text>
+        <verticalScrollbar>false</verticalScrollbar>
+      </controlProperties>
+    </control>
+    <control controlID="62" controlTypeID="com.balsamiq.mockups::Icon" x="2277" y="217" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="44" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>CircledMinusIcon%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="63" controlTypeID="com.balsamiq.mockups::Icon" x="2277" y="246" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="45" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>CircledMinusIcon%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="65" controlTypeID="com.balsamiq.mockups::Icon" x="2308" y="294" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="46" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>ReloadIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="67" controlTypeID="com.balsamiq.mockups::VSplitter" x="1344" y="732" w="988" h="-1" measuredW="100" measuredH="11" zOrder="47" locked="false" isInGroup="-1"/>
+    <control controlID="68" controlTypeID="com.balsamiq.mockups::SubTitle" x="1357" y="748" w="-1" h="-1" measuredW="63" measuredH="27" zOrder="48" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Detail</text>
+      </controlProperties>
+    </control>
+    <control controlID="69" controlTypeID="com.balsamiq.mockups::Icon" x="2300" y="749" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="49" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>UpDownFillTriangleIcon%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="70" controlTypeID="com.balsamiq.mockups::TabBar" x="161" y="1302" w="988" h="304" measuredW="288" measuredH="100" zOrder="52" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>0</selectedIndex>
+        <text>General%2C%20Network%20Interfaces%2C%20Disks</text>
+      </controlProperties>
+    </control>
+    <control controlID="71" controlTypeID="com.balsamiq.mockups::Label" x="217" y="1344" w="-1" h="-1" measuredW="167" measuredH="21" zOrder="53" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Name%20%3A%20Peacock%20Dev%20Server</text>
+      </controlProperties>
+    </control>
+    <control controlID="72" controlTypeID="com.balsamiq.mockups::Label" x="184" y="1372" w="-1" h="-1" measuredW="199" measuredH="21" zOrder="54" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Description%20%3A%20Peacock%20Dev%20Server</text>
+      </controlProperties>
+    </control>
+    <control controlID="73" controlTypeID="com.balsamiq.mockups::Label" x="197" y="1400" w="-1" h="-1" measuredW="174" measuredH="21" zOrder="55" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Template%20%3A%20Peacock-Template</text>
+      </controlProperties>
+    </control>
+    <control controlID="74" controlTypeID="com.balsamiq.mockups::Label" x="204" y="1427" w="-1" h="-1" measuredW="109" measuredH="21" zOrder="56" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Memory%20%3A%202048MB</text>
+      </controlProperties>
+    </control>
+    <control controlID="75" controlTypeID="com.balsamiq.mockups::Label" x="199" y="1483" w="-1" h="-1" measuredW="124" measuredH="21" zOrder="57" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>OS%20Type%20%3A%20rhel_6x64</text>
+      </controlProperties>
+    </control>
+    <control controlID="76" controlTypeID="com.balsamiq.mockups::Label" x="620" y="1372" w="-1" h="-1" measuredW="118" measuredH="21" zOrder="58" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Display%20Type%20%3A%20spice</text>
+      </controlProperties>
+    </control>
+    <control controlID="77" controlTypeID="com.balsamiq.mockups::Label" x="624" y="1483" w="-1" h="-1" measuredW="228" measuredH="21" zOrder="59" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Create%20Date%20%3A%202014.07.01%2012%3A30%3A12%20KST</text>
+      </controlProperties>
+    </control>
+    <control controlID="78" controlTypeID="com.balsamiq.mockups::Label" x="661" y="1400" w="-1" h="-1" measuredW="72" measuredH="21" zOrder="60" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Origin%20%3A%20rhev</text>
+      </controlProperties>
+    </control>
+    <control controlID="79" controlTypeID="com.balsamiq.mockups::Label" x="630" y="1427" w="-1" h="-1" measuredW="85" measuredH="21" zOrder="61" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>CPU%20Cores%20%3A%202</text>
+      </controlProperties>
+    </control>
+    <control controlID="80" controlTypeID="com.balsamiq.mockups::Label" x="633" y="1455" w="-1" h="-1" measuredW="98" measuredH="21" zOrder="62" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>HA%20Priority%20%3A%20Low</text>
+      </controlProperties>
+    </control>
+    <control controlID="81" controlTypeID="com.balsamiq.mockups::Label" x="183" y="1455" w="-1" h="-1" measuredW="107" measuredH="21" zOrder="63" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>HA%20Enabled%20%3A%20false</text>
+      </controlProperties>
+    </control>
+    <control controlID="82" controlTypeID="com.balsamiq.mockups::Label" x="657" y="1344" w="-1" h="-1" measuredW="66" measuredH="21" zOrder="64" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Status%20%3A%20Up</text>
+      </controlProperties>
+    </control>
+    <control controlID="96" controlTypeID="com.balsamiq.mockups::TabBar" x="161" y="1677" w="988" h="304" measuredW="288" measuredH="100" zOrder="65" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>1</selectedIndex>
+        <text>General%2C%20Network%20Interfaces%2C%20Disks</text>
+      </controlProperties>
+    </control>
+    <control controlID="134" controlTypeID="com.balsamiq.mockups::DataGrid" x="167" y="1708" w="976" h="267" measuredW="622" measuredH="51" zOrder="66" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Name%20%5E%2C%20Network%20Name%20v%2C%20Active%20v%2C%20Linked%20v%2C%20Plugged%20v%2C%20Type%28Interface%29%20v%2C%20MAC%20Address%20v%0Anic1%20%2C%20rhevm%20%2C%20true%20%2C%20true%20%2C%20true%20%2C%20virtio%20%2C%2000%3A1a%3A4a%3Aa8%3A00%3A5e%20</text>
+        <verticalScrollbar>true</verticalScrollbar>
+      </controlProperties>
+    </control>
+    <control controlID="135" controlTypeID="com.balsamiq.mockups::TabBar" x="161" y="2023" w="988" h="304" measuredW="288" measuredH="100" zOrder="67" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>2</selectedIndex>
+        <text>General%2C%20Network%20Interfaces%2C%20Disks</text>
+      </controlProperties>
+    </control>
+    <control controlID="136" controlTypeID="com.balsamiq.mockups::DataGrid" x="167" y="2054" w="976" h="267" measuredW="708" measuredH="51" zOrder="68" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Name%20%5E%2C%20Active%20v%2C%20Virtual%20Size%20v%2C%20Actual%20Size%20v%2C%20Bootable%20v%2C%20Shareable%20v%2C%20Interface%20v%2C%20Status%20v%0ARHEL_Peacock_Disk1%20%2C%20true%20%2C%2032GB%20%2C%2014GB%20%2C%20true%20%2C%20false%20%2C%20virtio%20%2C%20ok</text>
+        <verticalScrollbar>true</verticalScrollbar>
+      </controlProperties>
+    </control>
+    <control controlID="137" controlTypeID="com.balsamiq.mockups::Icon" x="1118" y="988" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="69" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>ReloadIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="138" controlTypeID="com.balsamiq.mockups::Icon" x="1094" y="1277" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="70" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>ReloadIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="139" controlTypeID="com.balsamiq.mockups::Icon" x="1124" y="167" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="71" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>ReloadIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="140" controlTypeID="com.balsamiq.mockups::Icon" x="2308" y="166" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="72" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>ReloadIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="141" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="1221" y="863" w="1111" h="769" measuredW="450" measuredH="400" zOrder="73" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Athena%20Peacock%0Ahttp%3A//peacock.osci.kr</text>
+      </controlProperties>
+    </control>
+    <control controlID="142" controlTypeID="com.balsamiq.mockups::Image" x="1226" y="938" w="95" h="39" measuredW="1035" measuredH="381" zOrder="74" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>http%3A//osci.kr/assets/img/osc-logo.png</src>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="143" controlTypeID="com.balsamiq.mockups::Label" x="1988" y="947" w="-1" h="-1" measuredW="223" measuredH="21" zOrder="75" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%28%uCD5C%uADFC%20%uC811%uC18D%uC2DC%uAC04%20%3A%202014.07.07%2014%3A48%3A48%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="144" controlTypeID="com.balsamiq.mockups::VerticalTabBar" x="1221" y="977" w="1110" h="629" measuredW="200" measuredH="212" zOrder="76" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>2</selectedIndex>
+        <text>Dashboard%0AInstances%0ARHEV%20Management%0AALM%20Management%0AUser%20Management</text>
+      </controlProperties>
+    </control>
+    <control controlID="145" controlTypeID="com.balsamiq.mockups::ComboBox" x="2219" y="948" w="93" h="-1" measuredW="66" measuredH="24" zOrder="77" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>closed</state>
+        <text>admin%0AMy%20Account%0ASign%20Out</text>
+      </controlProperties>
+    </control>
+    <control controlID="146" controlTypeID="com.balsamiq.mockups::VSplitter" x="1344" y="1101" w="988" h="-1" measuredW="100" measuredH="11" zOrder="78" locked="false" isInGroup="-1"/>
+    <control controlID="147" controlTypeID="com.balsamiq.mockups::HRule" x="1344" y="1009" w="983" h="-1" measuredW="100" measuredH="10" zOrder="79" locked="false" isInGroup="-1"/>
+    <control controlID="148" controlTypeID="com.balsamiq.mockups::Button" x="1351" y="983" w="-1" h="-1" measuredW="94" measuredH="27" zOrder="80" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Add%20RHEVM</text>
+      </controlProperties>
+    </control>
+    <control controlID="149" controlTypeID="com.balsamiq.mockups::DataGrid" x="1347" y="1017" w="979" h="80" measuredW="780" measuredH="81" zOrder="81" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <hasHeader>true</hasHeader>
+        <hLines>true</hLines>
+        <text>No%20%5E%2C%20Host%20v%2C%20Name%20v%2C%20Domain%20v%2C%20Protocol%20v%2C%20Port%20v%2C%20Username%20v%2C%20Password%20v%2C%20Create%20Date%20v%2C%20Delete%0A1%20%2C%20192.168.0.174%20%2C%20RHEV-M1%20%2C%20internal%20%2C%20https%20%2C%20443%20%2C%20admin%20%2C%20%20re****%20%2C%202014.06.01%2013%3A34%3A24%20KST%20%2C%20%0A2%20%2C%20192.168.0.175%20%2C%20RHEV-M2%20%2C%20internal%20%2C%20https%20%2C%20443%20%2C%20admin%20%2C%20%20re****%20%2C%202014.06.01%2013%3A35%3A12%20KST%20%2C%20</text>
+        <verticalScrollbar>false</verticalScrollbar>
+      </controlProperties>
+    </control>
+    <control controlID="150" controlTypeID="com.balsamiq.mockups::Icon" x="2277" y="1039" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="82" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>CircledMinusIcon%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="151" controlTypeID="com.balsamiq.mockups::Icon" x="2277" y="1068" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="83" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>CircledMinusIcon%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="152" controlTypeID="com.balsamiq.mockups::Icon" x="2308" y="1116" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="84" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>ReloadIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="153" controlTypeID="com.balsamiq.mockups::VSplitter" x="1344" y="1253" w="988" h="-1" measuredW="100" measuredH="11" zOrder="101" locked="false" isInGroup="-1"/>
+    <control controlID="154" controlTypeID="com.balsamiq.mockups::SubTitle" x="1357" y="1269" w="-1" h="-1" measuredW="63" measuredH="27" zOrder="102" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Detail</text>
+      </controlProperties>
+    </control>
+    <control controlID="155" controlTypeID="com.balsamiq.mockups::Icon" x="2300" y="1270" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="103" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>UpDownFillTriangleIcon%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="156" controlTypeID="com.balsamiq.mockups::TabBar" x="1343" y="1112" w="989" h="445" measuredW="253" measuredH="100" zOrder="85" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>1</selectedIndex>
+        <text>Virtual%20Machines%2C%20Templates</text>
+      </controlProperties>
+    </control>
+    <control controlID="157" controlTypeID="com.balsamiq.mockups::DataGrid" x="1348" y="1141" w="979" h="110" measuredW="762" measuredH="111" zOrder="86" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <hasHeader>true</hasHeader>
+        <hLines>true</hLines>
+        <text>Name%20%5E%2C%20Type%20v%2C%20Status%20v%2C%20Memory%20v%2C%20CPU%20Cores%20v%2C%20Creation%20Date%20v%2C%20Description%20v%0ABlank%20%2C%20desktop%20%2C%20ok%20%2C%20512MB%20%2C%201%20%2C%202014.07.01%2012%3A34%3A21%20KST%20%2C%20%0APeacock-Template%20%2C%20server%20%2C%20ok%20%2C%202048MB%20%2C%202%20%2C%202014.07.01%2012%3A13%3A23%20KST%20%2C%20Athena%20Peacock%20Template%0ARHEL-Base%20%2C%20server%20%2C%20ok%20%2C%202048MB%20%2C%202%20%2C%202014.07.01%2014%3A52%3A34%20KST%20%2C%20</text>
+        <verticalScrollbar>true</verticalScrollbar>
+      </controlProperties>
+    </control>
+    <control controlID="158" controlTypeID="com.balsamiq.mockups::Icon" x="2308" y="988" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="87" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>ReloadIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="159" controlTypeID="com.balsamiq.mockups::TabBar" x="1343" y="1302" w="988" h="304" measuredW="288" measuredH="100" zOrder="88" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>0</selectedIndex>
+        <text>General%2C%20Network%20Interfaces%2C%20Disks</text>
+      </controlProperties>
+    </control>
+    <control controlID="160" controlTypeID="com.balsamiq.mockups::Label" x="1399" y="1344" w="-1" h="-1" measuredW="154" measuredH="21" zOrder="89" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Name%20%3A%20Peacock-Template</text>
+      </controlProperties>
+    </control>
+    <control controlID="161" controlTypeID="com.balsamiq.mockups::Label" x="1366" y="1372" w="-1" h="-1" measuredW="230" measuredH="21" zOrder="90" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Description%20%3A%20Athena%20Peacock%20Template</text>
+      </controlProperties>
+    </control>
+    <control controlID="162" controlTypeID="com.balsamiq.mockups::Label" x="1403" y="1400" w="-1" h="-1" measuredW="79" measuredH="21" zOrder="91" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Type%20%3A%20server</text>
+      </controlProperties>
+    </control>
+    <control controlID="163" controlTypeID="com.balsamiq.mockups::Label" x="1386" y="1427" w="-1" h="-1" measuredW="109" measuredH="21" zOrder="92" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Memory%20%3A%202048MB</text>
+      </controlProperties>
+    </control>
+    <control controlID="164" controlTypeID="com.balsamiq.mockups::Label" x="1381" y="1483" w="-1" h="-1" measuredW="124" measuredH="21" zOrder="93" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>OS%20Type%20%3A%20rhel_6x64</text>
+      </controlProperties>
+    </control>
+    <control controlID="165" controlTypeID="com.balsamiq.mockups::Label" x="1802" y="1372" w="-1" h="-1" measuredW="118" measuredH="21" zOrder="94" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Display%20Type%20%3A%20spice</text>
+      </controlProperties>
+    </control>
+    <control controlID="166" controlTypeID="com.balsamiq.mockups::Label" x="1806" y="1483" w="-1" h="-1" measuredW="228" measuredH="21" zOrder="95" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Create%20Date%20%3A%202014.07.01%2012%3A13%3A23%20KST</text>
+      </controlProperties>
+    </control>
+    <control controlID="167" controlTypeID="com.balsamiq.mockups::Label" x="1843" y="1400" w="-1" h="-1" measuredW="72" measuredH="21" zOrder="96" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Origin%20%3A%20rhev</text>
+      </controlProperties>
+    </control>
+    <control controlID="168" controlTypeID="com.balsamiq.mockups::Label" x="1812" y="1427" w="-1" h="-1" measuredW="85" measuredH="21" zOrder="97" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>CPU%20Cores%20%3A%202</text>
+      </controlProperties>
+    </control>
+    <control controlID="169" controlTypeID="com.balsamiq.mockups::Label" x="1815" y="1455" w="-1" h="-1" measuredW="98" measuredH="21" zOrder="98" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>HA%20Priority%20%3A%20Low</text>
+      </controlProperties>
+    </control>
+    <control controlID="170" controlTypeID="com.balsamiq.mockups::Label" x="1365" y="1455" w="-1" h="-1" measuredW="107" measuredH="21" zOrder="99" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>HA%20Enabled%20%3A%20false</text>
+      </controlProperties>
+    </control>
+    <control controlID="171" controlTypeID="com.balsamiq.mockups::Label" x="1839" y="1344" w="-1" h="-1" measuredW="63" measuredH="21" zOrder="100" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Status%20%3A%20ok</text>
+      </controlProperties>
+    </control>
+    <control controlID="172" controlTypeID="com.balsamiq.mockups::HRule" x="1343" y="1296" w="988" h="-1" measuredW="100" measuredH="10" zOrder="104" locked="false" isInGroup="-1"/>
+    <control controlID="173" controlTypeID="com.balsamiq.mockups::TabBar" x="1343" y="1677" w="988" h="304" measuredW="288" measuredH="100" zOrder="105" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>1</selectedIndex>
+        <text>General%2C%20Network%20Interfaces%2C%20Disks</text>
+      </controlProperties>
+    </control>
+    <control controlID="174" controlTypeID="com.balsamiq.mockups::DataGrid" x="1349" y="1708" w="976" h="267" measuredW="502" measuredH="51" zOrder="106" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Name%20%5E%2C%20Network%20Name%20v%2C%20Active%20v%2C%20Linked%20v%2C%20Plugged%20v%2C%20Type%28Interface%29%20v%0Anic1%20%2C%20rhevm%20%2C%20true%20%2C%20true%20%2C%20true%20%2C%20virtio%20</text>
+        <verticalScrollbar>true</verticalScrollbar>
+      </controlProperties>
+    </control>
+    <control controlID="175" controlTypeID="com.balsamiq.mockups::TabBar" x="1343" y="2023" w="988" h="304" measuredW="288" measuredH="100" zOrder="107" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>2</selectedIndex>
+        <text>General%2C%20Network%20Interfaces%2C%20Disks</text>
+      </controlProperties>
+    </control>
+    <control controlID="176" controlTypeID="com.balsamiq.mockups::DataGrid" x="1349" y="2054" w="976" h="267" measuredW="589" measuredH="51" zOrder="108" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Name%20%5E%2C%20Virtual%20Size%20v%2C%20Actual%20Size%20v%2C%20Bootable%20v%2C%20Shareable%20v%2C%20Interface%20v%2C%20Status%20v%0ARHEL_Disk1%20%2C%2032GB%20%2C%2011GB%20%2C%20true%20%2C%20false%20%2C%20virtio%20%2C%20ok</text>
+        <verticalScrollbar>true</verticalScrollbar>
+      </controlProperties>
+    </control>
+    <control controlID="177" controlTypeID="com.balsamiq.mockups::VRule" x="1180" y="6" w="-1" h="2357" measuredW="10" measuredH="100" zOrder="109" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+      </controlProperties>
+    </control>
+    <control controlID="178" controlTypeID="com.balsamiq.mockups::Button" x="2426" y="146" w="-1" h="-1" measuredW="94" measuredH="27" zOrder="111" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Add%20RHEVM</text>
+      </controlProperties>
+    </control>
+    <control controlID="179" controlTypeID="com.balsamiq.mockups::VRule" x="2366" y="6" w="-1" h="2357" measuredW="10" measuredH="100" zOrder="112" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+      </controlProperties>
+    </control>
+    <control controlID="180" controlTypeID="com.balsamiq.mockups::TextArea" x="2426" y="333" w="109" h="108" measuredW="200" measuredH="140" zOrder="113" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Start%0AStop%0ASuspend%0AShutdown%0AExport%0AMake%20Template</text>
+      </controlProperties>
+    </control>
+    <control controlID="189" controlTypeID="com.balsamiq.mockups::Title" x="2426" y="101" w="-1" h="-1" measuredW="244" measuredH="43" zOrder="114" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Toolbar%20Menu</text>
+      </controlProperties>
+    </control>
+    <control controlID="191" controlTypeID="com.balsamiq.mockups::Title" x="2426" y="290" w="-1" h="-1" measuredW="834" measuredH="43" zOrder="115" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Virtual%20Machines%20Grid%20Mouse%20Right%20Click%20Menu</text>
+      </controlProperties>
+    </control>
+    <control controlID="193" controlTypeID="com.balsamiq.mockups::StickyNote" x="2712" y="101" w="287" h="87" measuredW="109" measuredH="123" zOrder="116" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Refer%20to%20RHEVManagement-add_rhevm.bmml</text>
+      </controlProperties>
+    </control>
+    <control controlID="194" controlTypeID="com.balsamiq.mockups::Tooltip" x="2545" y="359" w="326" h="116" measuredW="336" measuredH="0" zOrder="117" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Virtaul%20Machine%20%uC0C1%uD0DC%uC5D0%20%uB530%uB77C%20%uB9C8%uC6B0%uC2A4%20%uC6B0%uD074%uB9AD%20%uBA54%uB274%20%uC911%20%0A%uC77C%uBD80%uB294%20%uBE44%uD65C%uC131%20%uD654%20%uB418%uC5B4%uC57C%20%uD558%uBA70%2C%20%uBA54%uB274%20%uC120%uD0DD%20%uC2DC%20%uC9C4%uD589%20%0A%uC5EC%uBD80%uB97C%20%uBB3B%uB294%20Confirm%20%uCC3D%uC774%20%uB72C%uB2E4.%0A%20%0AVM%20%uC0C1%uD0DC%20%uBCC4%uB85C%20%uC120%uD0DD%20%uAC00%uB2A5%uD55C%20%uBA54%uB274%20%uBAA9%uB85D%uC740%20%uCD94%uD6C4%20%uC815%uC758</text>
+      </controlProperties>
+    </control>
+    <control controlID="195" controlTypeID="com.balsamiq.mockups::Title" x="2426" y="512" w="-1" h="-1" measuredW="398" measuredH="43" zOrder="118" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Make%20Template%20Popup</text>
+      </controlProperties>
+    </control>
+    <control controlID="197" controlTypeID="com.balsamiq.mockups::TitleWindow" x="2426" y="558" w="441" h="162" measuredW="450" measuredH="400" zOrder="119" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bottomheight>0</bottomheight>
+        <close>true</close>
+        <text>Make%20Template</text>
+      </controlProperties>
+    </control>
+    <control controlID="198" controlTypeID="com.balsamiq.mockups::Label" x="2440" y="627" w="-1" h="-1" measuredW="78" measuredH="21" zOrder="120" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Description%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="206" controlTypeID="com.balsamiq.mockups::Button" x="2577" y="669" w="-1" h="-1" measuredW="41" measuredH="27" zOrder="121" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>OK</text>
+      </controlProperties>
+    </control>
+    <control controlID="207" controlTypeID="com.balsamiq.mockups::Button" x="2652" y="669" w="-1" h="-1" measuredW="64" measuredH="27" zOrder="122" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cancel</text>
+      </controlProperties>
+    </control>
+    <control controlID="208" controlTypeID="com.balsamiq.mockups::TextInput" x="2536" y="626" w="320" h="-1" measuredW="79" measuredH="26" zOrder="123" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="215" controlTypeID="com.balsamiq.mockups::Label" x="2473" y="597" w="-1" h="-1" measuredW="45" measuredH="21" zOrder="124" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Name%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="216" controlTypeID="com.balsamiq.mockups::TextInput" x="2536" y="594" w="320" h="-1" measuredW="79" measuredH="26" zOrder="125" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="217" controlTypeID="com.balsamiq.mockups::Label" x="2516" y="597" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="126" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
