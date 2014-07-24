@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ConfigMapper">
+
+	<insert id="insertConfig" parameterType="com.athena.peacock.controller.web.config.ConfigDto">
+		<selectKey keyProperty="configFileId" resultType="int" order="BEFORE" statementType="PREPARED">
+			SELECT IFNULL(MAX(CONFIG_FILE_ID), 0) + 1
+			  FROM config_tbl
+			 WHERE MACHINE_ID = #{machineId}
+		   	   AND SOFTWARE_ID = #{softwareId}
+		</selectKey>
+		INSERT INTO config_tbl 
+			        (MACHINE_ID, SOFTWARE_ID, CONFIG_FILE_ID, CONFIG_FILE_LOCATION, CONFIG_FILE_NAME
+			        , CONFIG_FILE_CONTENTS, DELETE_YN, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
+		     VALUES (#{machineId}, #{softwareId}, #{configFileId}, #{configFileLocation}, #{configFileName}
+		     	    , #{configFileContents}, #{deleteYn}, #{regUserId}, NOW(), #{updUserId}, NOW())
+	</insert>
+
+	<select id="getConfig" parameterType="com.athena.peacock.controller.web.config.ConfigDto" resultType="com.athena.peacock.controller.web.config.ConfigDto">
+		SELECT MACHINE_ID AS machineId
+			   , SOFTWARE_ID AS softwareId
+			   , CONFIG_FILE_ID AS configFileId
+			   , CONFIG_FILE_LOCATION AS configFileLocation
+			   , CONFIG_FILE_NAME AS configFileName
+			   , CONFIG_FILE_CONTENTS AS configFileContents
+			   , DELETE_YN AS deleteYn
+			   , REG_USER_ID AS regUserId
+			   , REG_DT AS regDt
+			   , UPD_USER_ID AS updUserId
+			   , UPD_DT AS updDt
+		  FROM config_tbl
+		 WHERE MACHINE_ID = #{machineId}
+		   AND SOFTWARE_ID = #{softwareId}
+		   AND CONFIG_FILE_ID = #{configFileId}
+	</select>
+	
+	<update id="updateConfig" parameterType="com.athena.peacock.controller.web.config.ConfigDto">
+		UPDATE config_tbl
+		   SET CONFIG_FILE_LOCATION = #{configFileLocation}
+			   , CONFIG_FILE_NAME = #{configFileName}
+			   , CONFIG_FILE_CONTENTS = #{configFileContents}
+			   , DELETE_YN = #{deleteYn}
+			   , UPD_USER_ID = #{updUserId}
+			   , UPD_DT = NOW()
+		 WHERE MACHINE_ID = #{machineId}
+		   AND SOFTWARE_ID = #{softwareId}
+		   AND CONFIG_FILE_ID = #{configFileId}
+	</update>
+	
+	<update id="deleteConfig" parameterType="com.athena.peacock.controller.web.config.ConfigDto">
+		UPDATE config_tbl
+		   SET DELETE_YN = 'Y'
+			   , UPD_USER_ID = #{updUserId}
+			   , UPD_DT = NOW()
+		 WHERE MACHINE_ID = #{machineId}
+		   AND SOFTWARE_ID = #{softwareId}
+		   AND DELETE_YN = 'N'
+		<if test="configFileId != null">AND CONFIG_FILE_ID = #{configFileId}</if>
+	</update>
+	
+	<select id="getConfigListCnt" parameterType="com.athena.peacock.controller.web.config.ConfigDto" resultType="int">
+		SELECT COUNT(*)
+		  FROM config_tbl
+		 WHERE 1=1
+		<if test="machineId != null">AND MACHINE_ID = #{machineId}</if>
+		<if test="softwareId != null">AND SOFTWARE_ID = #{softwareId}</if>
+		<if test="configFileId != null">AND CONFIG_FILE_ID = #{configFileId}</if>
+		<if test="configFileLocation != null">AND CONFIG_FILE_LOCATION = #{configFileLocation}</if>
+		<if test="configFileName != null">AND CONFIG_FILE_NAME = #{configFileName}</if>
+		<if test="deleteYn != null">AND DELETE_YN = #{deleteYn}</if>
+	</select>
+	
+	<select id="getConfigList" parameterType="com.athena.peacock.controller.web.config.ConfigDto" resultType="com.athena.peacock.controller.web.config.ConfigDto">
+		SELECT MACHINE_ID AS machineId
+			   , SOFTWARE_ID AS softwareId
+			   , CONFIG_FILE_ID AS configFileId
+			   , CONFIG_FILE_LOCATION AS configFileLocation
+			   , CONFIG_FILE_NAME AS configFileName
+			   , CONFIG_FILE_CONTENTS AS configFileContents
+			   , DELETE_YN AS deleteYn
+			   , REG_USER_ID AS regUserId
+			   , REG_DT AS regDt
+			   , UPD_USER_ID AS updUserId
+			   , UPD_DT AS updDt
+		  FROM config_tbl
+		 WHERE 1=1
+		<if test="machineId != null">AND MACHINE_ID = #{machineId}</if>
+		<if test="softwareId != null">AND SOFTWARE_ID = #{softwareId}</if>
+		<if test="configFileId != null">AND CONFIG_FILE_ID = #{configFileId}</if>
+		<if test="configFileLocation != null">AND CONFIG_FILE_LOCATION = #{configFileLocation}</if>
+		<if test="configFileName != null">AND CONFIG_FILE_NAME = #{configFileName}</if>
+		<if test="deleteYn != null">AND DELETE_YN = #{deleteYn}</if>
+		 LIMIT #{start}, #{limit}
+	</select>
+
+</mapper>

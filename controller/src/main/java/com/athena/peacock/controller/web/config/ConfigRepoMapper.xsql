@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ConfigRepoMapper">
+
+	<insert id="insertConfigRepo" parameterType="com.athena.peacock.controller.web.config.ConfigRepoDto">
+		<selectKey keyProperty="configFileId" resultType="int" order="BEFORE" statementType="PREPARED">
+			SELECT IFNULL(MAX(CONFIG_FILE_ID), 0) + 1
+			  FROM config_repo_tbl
+			 WHERE SOFTWARE_ID = #{softwareId}
+		</selectKey>
+		INSERT INTO config_repo_tbl 
+			        (SOFTWARE_ID, CONFIG_FILE_ID, CONFIG_FILE_SOURCE_LOCATION, CONFIG_FILE_TARGET_LOCATION
+			        , CONFIG_FILE_NAME, PROPERTIES, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
+		     VALUES (#{softwareId}, #{configFileId}, #{configFileSourceLocation}, #{configFileTargetLocation}
+		     		, #{configFileName}, #{properties}, #{regUserId}, NOW(), #{updUserId}, NOW())
+	</insert>
+
+	<select id="getConfigRepo" parameterType="com.athena.peacock.controller.web.config.ConfigRepoDto" resultType="com.athena.peacock.controller.web.config.ConfigRepoDto">
+		SELECT SOFTWARE_ID AS softwareId
+			   , CONFIG_FILE_ID AS configFileId
+			   , CONFIG_FILE_SOURCE_LOCATION AS configFileSourceLocation
+			   , CONFIG_FILE_TARGET_LOCATION AS configFileTargetLocation
+			   , CONFIG_FILE_NAME AS configFileName
+			   , PROPERTIES AS properties
+			   , REG_USER_ID AS regUserId
+			   , REG_DT AS regDt
+			   , UPD_USER_ID AS updUserId
+			   , UPD_DT AS updDt
+		  FROM config_repo_tbl
+		 WHERE SOFTWARE_ID = #{softwareId}
+		   AND CONFIG_FILE_ID = #{configFileId}
+	</select>
+	
+	<update id="updateConfigRepo" parameterType="com.athena.peacock.controller.web.config.ConfigRepoDto">
+		UPDATE config_repo_tbl
+		   SET CONFIG_FILE_SOURCE_LOCATION = #{configFileSourceLocation}
+			   , CONFIG_FILE_TARGET_LOCATION = #{configFileTargetLocation}
+			   , CONFIG_FILE_NAME = #{configFileName}
+			   , PROPERTIES = #{properties}
+			   , UPD_USER_ID = #{updUserId}
+			   , UPD_DT = NOW()
+		 WHERE SOFTWARE_ID = #{softwareId}
+		   AND CONFIG_FILE_ID = #{configFileId}
+	</update>
+	
+	<delete id="deleteConfigRepo" parameterType="com.athena.peacock.controller.web.config.ConfigRepoDto">
+		DELETE FROM config_repo_tbl 
+		 WHERE 1=1
+		<if test="softwareId != null">AND SOFTWARE_ID = #{softwareId}</if>
+		<if test="configFileId != null">AND CONFIG_FILE_ID = #{configFileId}</if>
+	</delete>
+	
+	<select id="getConfigRepoListCnt" parameterType="com.athena.peacock.controller.web.config.ConfigRepoDto" resultType="int">
+		SELECT COUNT(*)
+		  FROM config_repo_tbl
+		 WHERE 1=1
+		<if test="softwareId != null">AND SOFTWARE_ID = #{softwareId}</if>
+		<if test="configFileId != null">AND CONFIG_FILE_ID = #{configFileId}</if>
+		<if test="configFileSourceLocation != null">AND CONFIG_FILE_SOURCE_LOCATION = #{configFileSourceLocation}</if>
+		<if test="configFileTargetLocation != null">AND CONFIG_FILE_TARGET_LOCATION = #{configFileTargetLocation}</if>
+		<if test="configFileName != null">AND CONFIG_FILE_NAME = #{configFileName}</if>
+		<if test="properties != null">AND PROPERTIES = #{properties}</if>
+	</select>
+	
+	<select id="getConfigRepoList" parameterType="com.athena.peacock.controller.web.config.ConfigRepoDto" resultType="com.athena.peacock.controller.web.config.ConfigRepoDto">
+		SELECT CONFIG_FILE_ID AS configFileId
+			   , SOFTWARE_ID AS softwareId
+			   , CONFIG_FILE_SOURCE_LOCATION AS configFileSourceLocation
+			   , CONFIG_FILE_TARGET_LOCATION AS configFileTargetLocation
+			   , CONFIG_FILE_NAME AS configFileName
+			   , PROPERTIES AS properties
+			   , REG_USER_ID AS regUserId
+			   , REG_DT AS regDt
+			   , UPD_USER_ID AS updUserId
+			   , UPD_DT AS updDt
+		  FROM config_repo_tbl
+		 WHERE 1=1
+		<if test="softwareId != null">AND SOFTWARE_ID = #{softwareId}</if>
+		<if test="configFileId != null">AND CONFIG_FILE_ID = #{configFileId}</if>
+		<if test="configFileSourceLocation != null">AND CONFIG_FILE_SOURCE_LOCATION = #{configFileSourceLocation}</if>
+		<if test="configFileTargetLocation != null">AND CONFIG_FILE_TARGET_LOCATION = #{configFileTargetLocation}</if>
+		<if test="configFileName != null">AND CONFIG_FILE_NAME = #{configFileName}</if>
+		<if test="properties != null">AND PROPERTIES = #{properties}</if>
+		 LIMIT #{start}, #{limit}
+	</select>
+
+</mapper>

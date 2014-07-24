@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="LoadBalancerMapper">
+
+	<insert id="insertLoadBalancer" parameterType="com.athena.peacock.controller.web.lb.LoadBalancerDto">
+		INSERT INTO load_balancer_tbl 
+			        (MACHINE_ID, LB_NAME, LB_DNS_NAME, AUTO_SCALING_ID, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
+		     VALUES (#{machineId}, #{lbName}, #{lbDnsName}, #{autoScalingId}, #{regUserId}, NOW(), #{updUserId}, NOW())
+	</insert>
+
+	<select id="getLoadBalancer" parameterType="int" resultType="com.athena.peacock.controller.web.lb.LoadBalancerDto">
+		SELECT A.LOAD_BALANCER_ID AS loadBalancerId
+			   , A.MACHINE_ID AS machineId
+			   , A.LB_NAME AS lbName
+			   , A.LB_DNS_NAME AS lbDnsName
+			   , B.IP_ADDR AS ipAddr
+			   , A.AUTO_SCALING_ID AS autoScalingId
+			   , A.REG_USER_ID AS regUserId
+			   , A.REG_DT AS regDt
+			   , A.UPD_USER_ID AS updUserId
+			   , A.UPD_DT AS updDt
+		  FROM load_balancer_tbl A JOIN machine_tbl B
+		    ON A.MACHINE_ID = B.MACHINE_ID
+		 WHERE A.LOAD_BALANCER_ID = #{loadBalancerId}
+	</select>
+
+	<select id="getLoadBalancerByAutoScalingId" parameterType="int" resultType="com.athena.peacock.controller.web.lb.LoadBalancerDto">
+		SELECT A.LOAD_BALANCER_ID AS loadBalancerId
+			   , A.MACHINE_ID AS machineId
+			   , A.LB_NAME AS lbName
+			   , A.LB_DNS_NAME AS lbDnsName
+			   , B.IP_ADDR AS ipAddr
+			   , A.AUTO_SCALING_ID AS autoScalingId
+			   , A.REG_USER_ID AS regUserId
+			   , A.REG_DT AS regDt
+			   , A.UPD_USER_ID AS updUserId
+			   , A.UPD_DT AS updDt
+		  FROM load_balancer_tbl A JOIN machine_tbl B
+		    ON A.MACHINE_ID = B.MACHINE_ID
+		 WHERE AUTO_SCALING_ID = #{autoScalingId}
+	</select>
+	
+	<update id="updateLoadBalancer" parameterType="com.athena.peacock.controller.web.lb.LoadBalancerDto">
+		UPDATE load_balancer_tbl
+		   SET LB_NAME = #{lbName}
+			   , LB_DNS_NAME = #{lbDnsName}
+			   , AUTO_SCALING_ID = #{autoScalingId}
+			   , UPD_USER_ID = #{updUserId}
+			   , UPD_DT = NOW()
+		 WHERE LOAD_BALANCER_ID = #{loadBalancerId}
+	</update>
+	
+	<delete id="deleteLoadBalancer" parameterType="int">
+		DELETE FROM load_balancer_tbl WHERE LOAD_BALANCER_ID = #{loadBalancerId}
+	</delete>
+	
+	<select id="getLoadBalancerListCnt" parameterType="com.athena.peacock.controller.web.lb.LoadBalancerDto" resultType="int">
+		SELECT COUNT(*)
+		  FROM load_balancer_tbl A JOIN machine_tbl B
+		    ON A.MACHINE_ID = B.MACHINE_ID
+		 WHERE 1=1
+		<if test="includeAll != 'true'">AND AUTO_SCALING_ID IS NULL</if>
+		<if test="loadBalancerId != null">AND LOAD_BALANCER_ID = #{loadBalancerId}</if>
+		<if test="machineId != null">AND MACHINE_ID = #{machineId}</if>
+		<if test="lbName != null">AND LB_NAME LIKE CONCAT('%', #{lbName}, '%')</if>
+		<if test="lbDnsName != null">AND LB_DNS_NAME = #{lbDnsName}</if>
+		<if test="autoScalingId != null">AND AUTO_SCALING_ID = #{autoScalingId}</if>
+	</select>
+	
+	<select id="getLoadBalancerList" parameterType="com.athena.peacock.controller.web.lb.LoadBalancerDto" resultType="com.athena.peacock.controller.web.lb.LoadBalancerDto">
+		SELECT A.LOAD_BALANCER_ID AS loadBalancerId
+			   , A.MACHINE_ID AS machineId
+			   , A.LB_NAME AS lbName
+			   , A.LB_DNS_NAME AS lbDnsName
+			   , B.IP_ADDR AS ipAddr
+			   , A.AUTO_SCALING_ID AS autoScalingId
+			   , A.REG_USER_ID AS regUserId
+			   , A.REG_DT AS regDt
+			   , A.UPD_USER_ID AS updUserId
+			   , A.UPD_DT AS updDt
+		  FROM load_balancer_tbl A JOIN machine_tbl B
+		    ON A.MACHINE_ID = B.MACHINE_ID
+		 WHERE 1=1
+		<if test="includeAll != 'true'">AND AUTO_SCALING_ID IS NULL</if>
+		<if test="loadBalancerId != null">AND LOAD_BALANCER_ID = #{loadBalancerId}</if>
+		<if test="machineId != null">AND MACHINE_ID = #{machineId}</if>
+		<if test="lbName != null">AND LB_NAME LIKE CONCAT('%', #{lbName}, '%')</if>
+		<if test="lbDnsName != null">AND LB_DNS_NAME = #{lbDnsName}</if>
+		<if test="autoScalingId != null">AND AUTO_SCALING_ID = #{autoScalingId}</if>
+		 LIMIT #{start}, #{limit}
+	</select>
+
+</mapper>

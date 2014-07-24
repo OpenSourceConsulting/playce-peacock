@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SoftwareRepoMapper">
+
+	<insert id="insertSoftwareRepo" parameterType="com.athena.peacock.controller.web.software.SoftwareRepoDto">
+		INSERT INTO software_repo_tbl 
+			        (SOFTWARE_ID, SOFTWARE_NAME, SOFTWARE_VERSION, SOFTWARE_VENDOR, FILE_LOCATION
+			        , FILE_NAME, DESCRIPTION, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
+		     VALUES (#{softwareId}, #{softwareName}, #{softwareVersion}, #{softwareVendor}, #{fileLocation}
+		     		, #{fileName}, #{description}, #{regUserId}, NOW(), #{updUserId}, NOW())
+	</insert>
+
+	<select id="getSoftwareRepo" parameterType="int" resultType="com.athena.peacock.controller.web.software.SoftwareRepoDto">
+		SELECT SOFTWARE_ID AS softwareId
+			   , SOFTWARE_NAME AS softwareName
+			   , SOFTWARE_VERSION AS softwareVersion
+			   , SOFTWARE_VENDOR AS softwareVendor
+			   , FILE_LOCATION AS fileLocation
+			   , FILE_NAME AS fileName
+			   , DESCRIPTION AS description
+			   , REG_USER_ID AS regUserId
+			   , REG_DT AS regDt
+			   , UPD_USER_ID AS updUserId
+			   , UPD_DT AS updDt
+		  FROM software_repo_tbl
+		 WHERE SOFTWARE_ID = #{softwareId}
+	</select>
+	
+	<update id="updateSoftwareRepo" parameterType="com.athena.peacock.controller.web.software.SoftwareRepoDto">
+		UPDATE software_repo_tbl
+		   SET SOFTWARE_NAME = #{softwareName}
+			   , SOFTWARE_VERSION = #{softwareVersion}
+			   , SOFTWARE_VENDOR = #{softwareVendor}
+			   , FILE_LOCATION = #{fileLocation}
+			   , FILE_NAME = #{fileName}
+			   , DESCRIPTION = #{description}
+			   , UPD_USER_ID = #{updUserId}
+			   , UPD_DT = NOW()
+		 WHERE SOFTWARE_ID = #{softwareId}
+	</update>
+	
+	<delete id="deleteSoftwareRepo" parameterType="int">
+		DELETE FROM software_repo_tbl WHERE SOFTWARE_ID = #{softwareId}
+	</delete>
+	
+	<select id="getSoftwareRepoListCnt" parameterType="com.athena.peacock.controller.web.software.SoftwareRepoDto" resultType="int">
+		SELECT COUNT(*)
+		  FROM software_repo_tbl
+		 WHERE 1=1
+		<if test="softwareId != null">AND SOFTWARE_ID = #{softwareId}</if>
+		<if test="softwareName != null">AND SOFTWARE_NAME = #{softwareName}</if>
+		<if test="softwareVersion != null">AND SOFTWARE_VERSION = #{softwareVersion}</if>
+		<if test="softwareVendor != null">AND SOFTWARE_VENDOR = #{softwareVendor}</if>
+		<if test="fileLocation != null">AND FILE_LOCATION = #{fileLocation}</if>
+		<if test="fileName != null">AND FILE_NAME = #{fileName}</if>
+		<if test="description != null">AND DESCRIPTION = #{description}</if>
+	</select>
+	
+	<select id="getSoftwareRepoList" parameterType="com.athena.peacock.controller.web.software.SoftwareRepoDto" resultType="com.athena.peacock.controller.web.software.SoftwareRepoDto">
+		SELECT SOFTWARE_ID AS softwareId
+			   , SOFTWARE_NAME AS softwareName
+			   , SOFTWARE_VERSION AS softwareVersion
+			   , SOFTWARE_VENDOR AS softwareVendor
+			   , FILE_LOCATION AS fileLocation
+			   , FILE_NAME AS fileName
+			   , DESCRIPTION AS description
+			   , REG_USER_ID AS regUserId
+			   , REG_DT AS regDt
+			   , UPD_USER_ID AS updUserId
+			   , UPD_DT AS updDt
+		  FROM software_repo_tbl
+		 WHERE 1=1
+		<if test="softwareId != null">AND SOFTWARE_ID = #{softwareId}</if>
+		<if test="softwareName != null">AND SOFTWARE_NAME = #{softwareName}</if>
+		<if test="softwareVersion != null">AND SOFTWARE_VERSION = #{softwareVersion}</if>
+		<if test="softwareVendor != null">AND SOFTWARE_VENDOR = #{softwareVendor}</if>
+		<if test="fileLocation != null">AND FILE_LOCATION = #{fileLocation}</if>
+		<if test="fileName != null">AND FILE_NAME = #{fileName}</if>
+		<if test="description != null">AND DESCRIPTION = #{description}</if>
+		 LIMIT #{start}, #{limit}
+	</select>
+	
+	<select id="getSoftwareNames" resultType="String">
+		SELECT DISTINCT(SOFTWARE_NAME) 
+		  FROM software_repo_tbl
+		 ORDER BY SOFTWARE_NAME
+	</select>
+	
+	<select id="getSoftwareVersions" parameterType="String" resultType="com.athena.peacock.controller.web.software.SoftwareRepoDto">
+		SELECT SOFTWARE_ID AS softwareId
+			   , SOFTWARE_NAME AS softwareName
+			   , SOFTWARE_VERSION AS softwareVersion
+			   , SOFTWARE_VENDOR AS softwareVendor
+			   , FILE_LOCATION AS fileLocation
+			   , FILE_NAME AS fileName
+			   , DESCRIPTION AS description
+			   , REG_USER_ID AS regUserId
+			   , REG_DT AS regDt
+			   , UPD_USER_ID AS updUserId
+			   , UPD_DT AS updDt
+		  FROM software_repo_tbl
+		 WHERE SOFTWARE_NAME = #{softwareName}
+	</select>
+
+</mapper>

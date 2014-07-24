@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SoftwareMapper">
+
+	<insert id="insertSoftware" parameterType="com.athena.peacock.controller.web.software.SoftwareDto">
+		INSERT INTO software_tbl 
+			        (MACHINE_ID, SOFTWARE_ID, INSTALL_LOCATION, INSTALL_STAT, INSTALL_LOG, DESCRIPTION
+			        , DELETE_YN, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
+		     VALUES (#{machineId}, #{softwareId}, #{installLocation}, #{installStat}, #{installLog}, #{description}
+		     		, #{deleteYn}, #{regUserId}, NOW(), #{updUserId}, NOW())
+	</insert>
+
+	<select id="getSoftware" parameterType="com.athena.peacock.controller.web.software.SoftwareDto" resultType="com.athena.peacock.controller.web.software.SoftwareDto">
+		SELECT MACHINE_ID AS machineId
+		       , SOFTWARE_ID AS softwareId
+		       , INSTALL_LOCATION AS installLocation
+		       , INSTALL_STAT AS installStat
+		       , INSTALL_LOG AS installLog
+		       , DESCRIPTION AS description
+		       , DELETE_YN AS deleteYn
+			   , REG_USER_ID AS regUserId
+			   , REG_DT AS regDt
+			   , UPD_USER_ID AS updUserId
+			   , UPD_DT AS updDt
+		  FROM software_tbl
+		 WHERE MACHINE_ID = #{machineId}
+		   AND SOFTWARE_ID = #{softwareId}
+	</select>
+	
+	<update id="updateSoftware" parameterType="com.athena.peacock.controller.web.software.SoftwareDto">
+		UPDATE software_tbl
+		   SET INSTALL_LOCATION = #{installLocation}
+		   	   , INSTALL_STAT = #{installStat}
+		       , INSTALL_LOG = #{installLog}
+		       , DESCRIPTION = #{description}
+		       , DELETE_YN = #{deleteYn}
+			   , UPD_USER_ID = #{updUserId}
+			   , UPD_DT = NOW()
+		 WHERE MACHINE_ID = #{machineId}
+		   AND SOFTWARE_ID = #{softwareId}
+	</update>
+	
+	<update id="deleteSoftware" parameterType="com.athena.peacock.controller.web.software.SoftwareDto">
+		UPDATE software_tbl
+		   SET DELETE_YN = #{deleteYn}
+			   , UPD_USER_ID = #{updUserId}
+			   , UPD_DT = NOW()
+		 WHERE MACHINE_ID = #{machineId}
+		   AND SOFTWARE_ID = #{softwareId}
+	</update>
+	
+	<select id="getSoftwareListCnt" parameterType="com.athena.peacock.controller.web.software.SoftwareDto" resultType="int">
+		SELECT COUNT(*)
+		  FROM software_tbl
+		 WHERE 1=1
+		<if test="machineId != null">AND MACHINE_ID = #{machineId}</if>
+		<if test="softwareId != null">AND SOFTWARE_ID = #{softwareId}</if>
+		<if test="installLocation != null">AND INSTALL_LOCATION = #{installLocation}</if>
+		<if test="installStat != null">AND INSTALL_STAT = #{installStat}</if>
+		<if test="description != null">AND DESCRIPTION = #{description}</if>
+		<if test="deleteYn != null">AND DELETE_YN = #{deleteYn}</if>
+	</select>
+	
+	<select id="getSoftwareList" parameterType="com.athena.peacock.controller.web.software.SoftwareDto" resultType="com.athena.peacock.controller.web.software.SoftwareDto">
+		SELECT MACHINE_ID AS machineId
+		       , SOFTWARE_ID AS softwareId
+		       , INSTALL_LOCATION AS installLocation
+		       , INSTALL_STAT = #{installStat}
+		       , DESCRIPTION AS description
+		       , DELETE_YN AS deleteYn
+			   , REG_USER_ID AS regUserId
+			   , REG_DT AS regDt
+			   , UPD_USER_ID AS updUserId
+			   , UPD_DT AS updDt
+		  FROM software_tbl
+		 WHERE 1=1
+		<if test="machineId != null">AND MACHINE_ID = #{machineId}</if>
+		<if test="softwareId != null">AND SOFTWARE_ID = #{softwareId}</if>
+		<if test="installLocation != null">AND INSTALL_LOCATION = #{installLocation}</if>
+		<if test="installStat != null">AND INSTALL_STAT = #{installStat}</if>
+		<if test="description != null">AND DESCRIPTION = #{description}</if>
+		<if test="deleteYn != null">AND DELETE_YN = #{deleteYn}</if>
+		 LIMIT #{start}, #{limit}
+	</select>
+	
+	<select id="getSoftwareInstallListCnt" parameterType="com.athena.peacock.controller.web.machine.MachineDto" resultType="int">
+		SELECT COUNT(*)
+		  FROM software_repo_tbl A JOIN software_tbl B
+			ON A.SOFTWARE_ID = B.SOFTWARE_ID
+		 WHERE B.DELETE_YN = 'N'
+ 		   AND B.MACHINE_ID = #{machineId}
+	</select>
+	
+	<select id="getSoftwareInstallList" parameterType="com.athena.peacock.controller.web.machine.MachineDto" resultType="com.athena.peacock.controller.web.software.SoftwareDto">
+		SELECT A.SOFTWARE_ID AS softwareId
+			   , A.SOFTWARE_NAME AS softwareName
+			   , A.SOFTWARE_VERSION AS softwareVersion
+			   , A.SOFTWARE_VENDOR AS softwareVendor
+			   , A.DESCRIPTION AS description
+			   , 'Y' AS installYn
+		       , B.INSTALL_LOCATION AS installLocation
+		       , CASE(B.INSTALL_STAT) 
+		       		WHEN 'INSTALLING' THEN '설치중'
+		       		WHEN 'UNINSTALLING' THEN '삭제중'
+					WHEN 'COMPLETED' THEN '설치 완료'
+					WHEN 'DELETED' THEN '삭제 완료'
+					WHEN 'INST_ERROR' THEN '설치 에러'
+					WHEN 'UNINST_ERROR' THEN '삭제 에러'
+				 END AS installStat
+			   , B.REG_USER_ID AS regUserId
+			   , B.REG_DT AS regDt
+			   , B.UPD_USER_ID AS updUserId
+			   , B.UPD_DT AS updDt
+		  FROM software_repo_tbl A JOIN software_tbl B
+			ON A.SOFTWARE_ID = B.SOFTWARE_ID
+		 WHERE B.DELETE_YN = 'N'
+ 		   AND B.MACHINE_ID = #{machineId}
+		 LIMIT #{start}, #{limit}
+	</select>
+	
+	<select id="getSoftwareInstallListAll" parameterType="String" resultType="com.athena.peacock.controller.web.software.SoftwareDto">
+		SELECT A.SOFTWARE_ID AS softwareId
+			   , A.SOFTWARE_NAME AS softwareName
+			   , A.SOFTWARE_VERSION AS softwareVersion
+			   , A.SOFTWARE_VENDOR AS softwareVendor
+			   , A.DESCRIPTION AS description
+			   , 'Y' AS installYn
+		       , B.INSTALL_LOCATION AS installLocation
+		       , CASE(B.INSTALL_STAT)
+		       		WHEN 'INSTALLING' THEN '설치중'
+		       		WHEN 'UNINSTALLING' THEN '삭제중'
+					WHEN 'COMPLETED' THEN '설치 완료'
+					WHEN 'DELETED' THEN '삭제 완료'
+					WHEN 'INST_ERROR' THEN '설치 에러'
+					WHEN 'UNINST_ERROR' THEN '삭제 에러'
+				 END AS installStat
+			   , B.REG_USER_ID AS regUserId
+			   , B.REG_DT AS regDt
+			   , B.UPD_USER_ID AS updUserId
+			   , B.UPD_DT AS updDt
+		  FROM software_repo_tbl A JOIN software_tbl B
+			ON A.SOFTWARE_ID = B.SOFTWARE_ID
+		 WHERE B.DELETE_YN = 'N'
+ 		   AND B.MACHINE_ID = #{machineId}
+	</select>
+
+</mapper>

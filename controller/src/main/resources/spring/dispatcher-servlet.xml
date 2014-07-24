@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+						   http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+						   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+						   
+	<!-- Scans within the base package of the application for @Components to configure as beans -->
+	<!-- @Controller, @Service, @Configuration, etc. -->
+	<context:annotation-config />
+	<context:component-scan base-package="com.athena.peacock"/>
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<mvc:annotation-driven conversion-service="conversionService">
+		<mvc:message-converters register-defaults="false">
+	        <bean
+	            class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+	            <property name="objectMapper">
+	                <bean class="com.athena.peacock.controller.web.common.json.JacksonObjectMapper" />
+	            </property>
+	        </bean>
+	    </mvc:message-converters>
+	</mvc:annotation-driven>
+	
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="com.athena.peacock.controller.web.common.converter.StringToNumberConverterFactory"/>
+            </set>
+        </property>
+    </bean>
+	
+	<!-- Enables the @Transactional programming model -->
+	<tx:annotation-driven proxy-target-class="true"/>
+	
+	<mvc:resources mapping="/index.html" location="/index.html" />
+	<mvc:resources mapping="/app.js" location="/app.js" />
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/repo/**" location="/repo/" />
+	
+	<!-- 
+	405 에러 방지 <mvc:resources mapping="/static/**" location="/static/" /> 대신 아래설정 사용.
+	 -->
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+	     <property name="urlMap">
+	         <map>
+	              <entry key="/static/**" value="staticResourceHandler" />
+	         </map>
+	     </property>
+	     <property name="order" value="100" />
+	</bean>
+	<bean id="staticResourceHandler" class="org.springframework.web.servlet.resource.ResourceHttpRequestHandler">
+	      <property name="locations" value="/static/" />
+	      <property name="supportedMethods">
+	         <list>
+	            <value>GET</value>
+	            <value>HEAD</value>
+	            <value>POST</value>
+	         </list>
+	     </property>
+	</bean>
+
+    
+    <!-- View Resolver Setting for Spring 3.2.x -->
+	<!--     
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+	    <property name="order" value="1" /> 
+		<property name="contentNegotiationManager">
+			<bean class="org.springframework.web.accept.ContentNegotiationManager">
+				<constructor-arg>
+					<bean class="org.springframework.web.accept.PathExtensionContentNegotiationStrategy">
+						<constructor-arg>
+							<map>
+								<entry key="json" value="application/json" />
+								<entry key="xml" value="application/xml" />
+							</map>
+						</constructor-arg>
+					</bean>
+				</constructor-arg>
+			</bean>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
+			</list>
+		</property>
+	</bean>
+	-->
+	
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="order" value="1" />
+		<property name="defaultContentType" value="application/json" />
+		<property name="ignoreAcceptHeader" value="true" />
+		<property name="mediaTypes">
+			<map>
+				<entry key="xml" value="application/xml" />
+				<entry key="rss" value="application/rss+xml" />
+			</map>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".jsp" />
+		<property name="order" value="2" />
+	</bean>
+</beans>

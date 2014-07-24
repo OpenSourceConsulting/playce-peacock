@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="LBMachineMapMapper">
+
+	<insert id="insertLBMachineMap" parameterType="com.athena.peacock.controller.web.lb.LoadBalancerDto">
+		INSERT INTO lb_machine_map_tbl 
+			        (LOAD_BALANCER_ID, MACHINE_ID, BACKUP_YN, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
+		     VALUES (#{loadBalancerId}, #{machineId}, #{backupYn}, #{regUserId}, NOW(), #{updUserId}, NOW())
+	</insert>
+
+	<select id="getLBMachineMap" parameterType="int" resultType="com.athena.peacock.controller.web.lb.LoadBalancerDto">
+		SELECT A.LOAD_BALANCER_ID AS loadBalancerId
+			   , A.MACHINE_ID AS machineId
+			   , A.BACKUP_YN AS backupYn
+			   , B.IP_ADDR AS ipAddr
+			   , A.REG_USER_ID AS regUserId
+			   , A.REG_DT AS regDt
+			   , A.UPD_USER_ID AS updUserId
+			   , A.UPD_DT AS updDt
+		  FROM lb_machine_map_tbl A JOIN machine_tbl B
+		    ON A.MACHINE_ID = B.MACHINE_ID
+		 WHERE A.LOAD_BALANCER_ID = #{loadBalancerId}
+		   AND A.MACHINE_ID = #{machineId}
+	</select>
+	
+	<delete id="deleteLBMachineMap" parameterType="com.athena.peacock.controller.web.lb.LoadBalancerDto">
+		DELETE FROM lb_machine_map_tbl 
+		 WHERE LOAD_BALANCER_ID = #{loadBalancerId}
+		   AND MACHINE_ID = #{machineId}
+	</delete>
+	
+	<select id="getLBMachineMapListCnt" parameterType="com.athena.peacock.controller.web.lb.LoadBalancerDto" resultType="int">
+		SELECT COUNT(*)
+		  FROM lb_machine_map_tbl A JOIN machine_tbl B
+		    ON A.MACHINE_ID = B.MACHINE_ID
+		 WHERE 1=1
+		<if test="loadBalancerId != null">AND A.LOAD_BALANCER_ID = #{loadBalancerId}</if>
+		<if test="machineId != null">AND A.MACHINE_ID = #{machineId}</if>
+	</select>
+	
+	<select id="getLBMachineMapList" parameterType="com.athena.peacock.controller.web.lb.LoadBalancerDto" resultType="com.athena.peacock.controller.web.lb.LoadBalancerDto">
+		SELECT A.LOAD_BALANCER_ID AS loadBalancerId
+			   , A.MACHINE_ID AS machineId
+			   , A.BACKUP_YN AS backupYn
+			   , B.IP_ADDR AS ipAddr
+			   , A.REG_USER_ID AS regUserId
+			   , A.REG_DT AS regDt
+			   , A.UPD_USER_ID AS updUserId
+			   , A.UPD_DT AS updDt
+		  FROM lb_machine_map_tbl A JOIN machine_tbl B
+		    ON A.MACHINE_ID = B.MACHINE_ID
+		 WHERE 1=1
+		<if test="loadBalancerId != null">AND A.LOAD_BALANCER_ID = #{loadBalancerId}</if>
+		<if test="machineId != null">AND A.MACHINE_ID = #{machineId}</if>
+		 ORDER BY A.BACKUP_YN
+		 LIMIT #{start}, #{limit}
+	</select>
+
+</mapper>

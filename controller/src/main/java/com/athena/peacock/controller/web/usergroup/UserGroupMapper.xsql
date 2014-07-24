@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserGroupMapper">
+
+	<sql id="getUserGroupListBase">
+		SELECT 
+			a.group_id
+		    ,a.group_name
+		    ,a.description
+		    ,a.reg_user_id
+		    ,a.reg_dt
+		    ,a.upd_user_id
+		    ,a.upd_dt
+		    ,(SELECT COUNT(*) FROM user_group_map_tbl b WHERE b.group_id = a.group_id) AS users
+		FROM user_group_tbl a
+		<where>
+			<if test="search != null">
+			a.group_name LIKE concat('%',#{search},'%')
+			</if>
+		</where>
+		LIMIT #{start}, #{limit} 
+	</sql>
+
+	<select id="getUserGroupList" resultType="com.athena.peacock.controller.web.usergroup.UserGroupDto" parameterType="ExtjsGridParam">
+		<include refid="getUserGroupListBase"/>
+	</select>
+	
+	<select id="getUserGroupListTotalCount" resultType="int" parameterType="ExtjsGridParam">
+		SELECT COUNT(*)
+		FROM (
+			<include refid="getUserGroupListBase"/>
+		) AS T
+	</select>
+
+	<insert id="insertUserGroup" parameterType="com.athena.peacock.controller.web.usergroup.UserGroupDto">
+		<selectKey keyProperty="group_id" resultType="int" order="BEFORE">SELECT IFNULL(MAX(group_id),0)+1 FROM user_group_tbl</selectKey>
+		INSERT INTO 
+			user_group_tbl
+		(
+			group_id
+		    ,group_name
+		    ,description
+		    ,reg_user_id
+		    ,reg_dt
+		    ,upd_user_id
+		    ,upd_dt
+		)
+		VALUES (
+			#{group_id}
+			,#{group_name}
+			,#{description}
+			,#{reg_user_id}
+			,NOW()
+			,#{upd_user_id}
+			,NOW()
+		)
+		
+	</insert>
+
+	<select id="getUserGroup" parameterType="int" resultType="com.athena.peacock.controller.web.usergroup.UserGroupDto">
+		SELECT 
+			group_id
+		    ,group_name
+		    ,description
+		    ,reg_user_id
+		    ,reg_dt
+		    ,upd_user_id
+		    ,upd_dt
+		FROM user_group_tbl
+		WHERE 
+			group_id = #{group_id}
+	</select>
+	
+	<update id="updateUserGroup" parameterType="com.athena.peacock.controller.web.usergroup.UserGroupDto">
+		UPDATE 
+			user_group_tbl
+		SET
+			group_name = #{group_name}
+			,description = #{description}
+			,upd_user_id = #{upd_user_id}
+			,upd_dt = NOW()
+		WHERE
+			group_id = #{group_id}
+		
+	</update>
+	
+	<delete id="deleteUserGroup" parameterType="int">
+		DELETE FROM 
+			user_group_tbl
+		WHERE
+			group_id = #{group_id}
+		
+	</delete>
+	
+	<select id="getGroupUserList" parameterType="int" resultType="com.athena.peacock.controller.web.user.UserDto">
+		SELECT
+			b.user_id
+			,b.user_name
+		FROM
+			user_group_map_tbl a
+			,users_tbl b
+		WHERE
+			a.group_id = #{group_id}
+			AND a.user_id = b.user_id
+	</select>
+	
+	<delete id="deleteUser" parameterType="hashmap">
+		DELETE FROM
+			user_group_map_tbl
+		WHERE
+			group_id = #{group_id}
+			AND user_id = #{user_id}
+	</delete>
+	
+	<select id="getUserListForGroup" parameterType="int" resultType="com.athena.peacock.controller.web.user.UserDto">
+		SELECT
+			user_id
+		    ,role_id
+		    ,login_id
+		    ,user_name
+		    ,dept_name
+		    ,email
+		    ,is_admin
+		    ,status
+		    ,last_logon
+		    ,reg_user_id
+		    ,reg_dt
+		    ,upd_user_id
+		    ,upd_dt
+		FROM users_tbl
+			
+		WHERE
+			user_id not in (SELECT user_id FROM user_group_map_tbl WHERE group_id = #{group_id})
+		ORDER BY
+			user_name
+	</select>
+	
+	<insert id="addUser" parameterType="com.athena.peacock.controller.web.usergroup.UserGroupDto">
+		INSERT INTO user_group_map_tbl
+			(
+				group_id,
+				user_id,
+				reg_user_id,
+				reg_dt,
+				upd_user_id,
+				upd_dt
+			)
+			VALUES
+			(
+				#{group_id}
+				,#{user_id}
+				,#{reg_user_id}
+				,NOW()
+				,#{upd_user_id}
+				,NOW()
+			)
+	</insert>
+
+
+</mapper>

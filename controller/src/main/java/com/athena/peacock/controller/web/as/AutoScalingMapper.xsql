@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AutoScalingMapper">
+
+	<select id="inspectMachineStatus" resultType="com.athena.peacock.controller.web.as.AutoScalingDto">
+		SELECT *
+		  FROM (SELECT mon.MACHINE_ID AS machineId,
+					   auto.VM_TEMPLATE_ID AS vmTemplateId,
+					   auto.AUTO_SCALING_NAME AS autoScalingName,
+					   lb.LOAD_BALANCER_ID AS loadBalancerId,
+					   lb.MACHINE_ID AS lbMachineId,
+					   mon.MON_FACTOR_ID AS monFactorId,
+					   CASE
+						   WHEN mon.MON_FACTOR_ID = 'FACTOR_005' 
+								THEN AVG(mon.MON_DATA_VALUE) /
+									 (SELECT MAX(MON_DATA_VALUE)
+										FROM mon_data_tbl M
+									   WHERE M.MACHINE_ID = mon.MACHINE_ID
+										 AND M.MON_FACTOR_ID = 'FACTOR_003'
+										 AND M.REG_DT &lt;= NOW()
+										 AND M.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL policy.THRESHOLD_UP_PERIOD MINUTE)) * 100
+						   ELSE AVG(mon.MON_DATA_VALUE)
+					   END monDataValue,
+					   'SCALE OUT' AS scaleType,
+					   policy.AUTO_SCALING_ID AS autoScalingId,
+					   policy.THRESHOLD_UP_LIMIT AS thresholdUpLimit,
+					   policy.THRESHOLD_DOWN_LIMIT AS thresholdDownLimit,
+					   policy.INCREASE_UNIT AS increaseUnit,
+					   policy.DECREASE_UNIT AS decreaseUnit,
+					   (SELECT COUNT(*) 
+						  FROM lb_machine_map_tbl m 
+						 WHERE m.LOAD_BALANCER_ID = lb.LOAD_BALANCER_ID) AS currentMachineSize,
+					   auto.MIN_MACHINE_SIZE AS minMachineSize,
+					   auto.MAX_MACHINE_SIZE AS maxMachineSize,
+					   map.reg_dt
+				  FROM mon_data_tbl mon 
+				  JOIN as_policy_tbl policy ON mon.MON_FACTOR_ID = policy.MON_FACTOR_ID
+				  JOIN lb_machine_map_tbl map ON mon.MACHINE_ID = map.MACHINE_ID
+				  JOIN load_balancer_tbl lb ON lb.AUTO_SCALING_ID = policy.AUTO_SCALING_ID
+				  JOIN auto_scaling_tbl auto ON auto.AUTO_SCALING_ID = policy.AUTO_SCALING_ID
+				   AND lb.LOAD_BALANCER_ID = map.LOAD_BALANCER_ID
+				 WHERE mon.REG_DT &lt;= NOW()
+				   AND mon.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL policy.THRESHOLD_UP_PERIOD MINUTE)
+				 GROUP BY mon.MACHINE_ID, mon.MON_FACTOR_ID
+				 ORDER BY policy.AUTO_SCALING_ID, map.REG_DT DESC) A
+		UNION ALL
+		SELECT *
+		  FROM (SELECT mon.MACHINE_ID AS machineId,
+					   auto.VM_TEMPLATE_ID AS vmTemplateId,
+					   auto.AUTO_SCALING_NAME AS autoScalingName,
+					   lb.LOAD_BALANCER_ID AS loadBalancerId,
+					   lb.MACHINE_ID AS lbMachineId,
+					   mon.MON_FACTOR_ID AS monFactorId,
+					   CASE
+						   WHEN mon.MON_FACTOR_ID = 'FACTOR_005' 
+								THEN AVG(mon.MON_DATA_VALUE) /
+									 (SELECT MAX(MON_DATA_VALUE)
+										FROM mon_data_tbl M
+									   WHERE M.MACHINE_ID = mon.MACHINE_ID
+										 AND M.MON_FACTOR_ID = 'FACTOR_003'
+										 AND M.REG_DT &lt;= NOW()
+										 AND M.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL policy.THRESHOLD_DOWN_PERIOD MINUTE)) * 100
+						   ELSE AVG(mon.MON_DATA_VALUE)
+					   END monDataValue,
+					   'SCALE IN' AS scaleType,
+					   policy.AUTO_SCALING_ID AS autoScalingId,
+					   policy.THRESHOLD_UP_LIMIT AS thresholdUpLimit,
+					   policy.THRESHOLD_DOWN_LIMIT AS thresholdDownLimit,
+					   policy.INCREASE_UNIT AS increaseUnit,
+					   policy.DECREASE_UNIT AS decreaseUnit,
+					   (SELECT COUNT(*) 
+						  FROM lb_machine_map_tbl m 
+						 WHERE m.LOAD_BALANCER_ID = lb.LOAD_BALANCER_ID) AS currentMachineSize,
+					   auto.MIN_MACHINE_SIZE AS minMachineSize,
+					   auto.MAX_MACHINE_SIZE AS maxMachineSize,
+					   map.reg_dt
+				  FROM mon_data_tbl mon 
+				  JOIN as_policy_tbl policy ON mon.MON_FACTOR_ID = policy.MON_FACTOR_ID
+				  JOIN lb_machine_map_tbl map ON mon.MACHINE_ID = map.MACHINE_ID
+				  JOIN load_balancer_tbl lb ON lb.AUTO_SCALING_ID = policy.AUTO_SCALING_ID 
+				  JOIN auto_scaling_tbl auto ON auto.AUTO_SCALING_ID = policy.AUTO_SCALING_ID
+				   AND lb.LOAD_BALANCER_ID = map.LOAD_BALANCER_ID
+				 WHERE mon.REG_DT &lt;= NOW()
+				   AND mon.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL policy.THRESHOLD_DOWN_PERIOD MINUTE)
+				 GROUP BY mon.MACHINE_ID, mon.MON_FACTOR_ID
+				 ORDER BY policy.AUTO_SCALING_ID, map.REG_DT DESC) B
+	</select>
+	
+	<insert id="insertAutoScaling" parameterType="com.athena.peacock.controller.web.as.AutoScalingDto" useGeneratedKeys="true" keyProperty="autoScalingId">
+		INSERT INTO auto_scaling_tbl 
+			        (AUTO_SCALING_NAME, VM_TEMPLATE_ID, MIN_MACHINE_SIZE, MAX_MACHINE_SIZE, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
+		     VALUES (#{autoScalingName}, #{vmTemplateId}, #{minMachineSize}, #{maxMachineSize}, #{regUserId}, NOW(), #{updUserId}, NOW())
+	</insert>
+	
+	<insert id="insertASPolicy" parameterType="com.athena.peacock.controller.web.as.AutoScalingDto">
+		INSERT INTO as_policy_tbl 
+			        (AUTO_SCALING_ID, POLICY_NAME, MON_FACTOR_ID, THRESHOLD_UP_LIMIT, THRESHOLD_DOWN_LIMIT, THRESHOLD_UP_PERIOD
+			        , THRESHOLD_DOWN_PERIOD, INCREASE_UNIT, DECREASE_UNIT, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
+		     VALUES (#{autoScalingId}, #{policyName}, #{monFactorId}, #{thresholdUpLimit}, #{thresholdDownLimit}, #{thresholdUpPeriod}
+		     		, #{thresholdDownPeriod}, #{increaseUnit}, #{decreaseUnit}, #{regUserId}, NOW(), #{updUserId}, NOW())
+	</insert>
+
+	<select id="getAutoScaling" parameterType="String" resultType="com.athena.peacock.controller.web.as.AutoScalingDto">
+		SELECT A.AUTO_SCALING_ID AS autoScalingId
+			   , A.AUTO_SCALING_NAME AS autoScalingName
+			   , A.VM_TEMPLATE_ID AS vmTemplateId
+			   , A.MIN_MACHINE_SIZE AS minMachineSize
+			   , A.MAX_MACHINE_SIZE AS maxMachineSize
+			   , B.POLICY_NAME AS policyName
+			   , B.MON_FACTOR_ID AS monFactorId
+			   , (SELECT F.DISPLAY_NAME 
+					FROM mon_factor_tbl F
+                   WHERE F.MON_FACTOR_ID = B.MON_FACTOR_ID) AS displayName
+			   , B.THRESHOLD_UP_LIMIT AS thresholdUpLimit
+			   , B.THRESHOLD_DOWN_LIMIT AS thresholdDownLimit
+			   , B.THRESHOLD_UP_PERIOD AS thresholdUpPeriod
+			   , B.THRESHOLD_DOWN_PERIOD AS thresholdDownPeriod
+			   , B.INCREASE_UNIT AS increaseUnit
+			   , B.DECREASE_UNIT AS decreaseUnit
+			   , C.LOAD_BALANCER_ID AS loadBalancerID
+			   , A.REG_USER_ID AS regUserId
+			   , A.REG_DT AS regDt
+			   , A.UPD_USER_ID AS updUserId
+			   , A.UPD_DT AS updDt
+		  FROM auto_scaling_tbl A JOIN as_policy_tbl B ON A.AUTO_SCALING_ID = B.AUTO_SCALING_ID
+		  JOIN load_balancer_tbl C ON A.AUTO_SCALING_ID = C.AUTO_SCALING_ID
+		 WHERE A.AUTO_SCALING_ID = #{autoScalingId}
+	</select>
+	
+	<update id="updateAutoScaling" parameterType="com.athena.peacock.controller.web.as.AutoScalingDto">
+		UPDATE auto_scaling_tbl
+		   SET AUTO_SCALING_NAME = #{autoScalingName}
+			   , VM_TEMPLATE_ID = #{vmTemplateId}
+			   , MIN_MACHINE_SIZE = #{minMachineSize}
+			   , MAX_MACHINE_SIZE = #{maxMachineSize}
+			   , UPD_USER_ID = #{updUserId}
+			   , UPD_DT = NOW()
+		 WHERE AUTO_SCALING_ID = #{autoScalingId}
+	</update>
+	
+	<update id="updateASPolicy" parameterType="com.athena.peacock.controller.web.as.AutoScalingDto">
+		UPDATE as_policy_tbl
+		   SET POLICY_NAME = #{policyName}
+			   , MON_FACTOR_ID = #{monFactorId}
+			   , THRESHOLD_UP_LIMIT = #{thresholdUpLimit}
+			   , THRESHOLD_DOWN_LIMIT = #{thresholdDownLimit}
+			   , THRESHOLD_UP_PERIOD = #{thresholdUpPeriod}
+			   , THRESHOLD_DOWN_PERIOD = #{thresholdDownPeriod}
+			   , INCREASE_UNIT = #{increaseUnit}
+			   , DECREASE_UNIT = #{decreaseUnit}
+			   , UPD_USER_ID = #{updUserId}
+			   , UPD_DT = NOW()
+		 WHERE AUTO_SCALING_ID = #{autoScalingId}
+	</update>
+	
+	<delete id="deleteAutoScaling" parameterType="String">
+		DELETE FROM auto_scaling_tbl
+		 WHERE AUTO_SCALING_ID = #{autoScalingId}
+	</delete>
+	
+	<delete id="deleteASPolicy" parameterType="String">
+		DELETE FROM as_policy_tbl
+		 WHERE AUTO_SCALING_ID = #{autoScalingId}
+	</delete>
+	
+	<select id="getAutoScalingListCnt" parameterType="com.athena.peacock.controller.web.as.AutoScalingDto" resultType="int">
+		SELECT COUNT(*)
+		  FROM auto_scaling_tbl A JOIN as_policy_tbl B ON A.AUTO_SCALING_ID = B.AUTO_SCALING_ID
+		  JOIN load_balancer_tbl C ON A.AUTO_SCALING_ID = C.AUTO_SCALING_ID
+		 WHERE 1=1
+		<if test="autoScalingName != null">AND A.AUTO_SCALING_NAME LIKE CONCAT('%', #{autoScalingName}, '%')</if>
+		<if test="vmTemplateId != null">AND A.VM_TEMPLATE_ID = #{vmTemplateId}</if>
+		<if test="policyName != null">AND B.POLICY_NAME LIKE CONCAT('%', #{policyName}, '%')</if>
+	</select>
+	
+	<select id="getAutoScalingList" parameterType="com.athena.peacock.controller.web.as.AutoScalingDto" resultType="com.athena.peacock.controller.web.as.AutoScalingDto">
+		SELECT A.AUTO_SCALING_ID AS autoScalingId
+			   , A.AUTO_SCALING_NAME AS autoScalingName
+			   , A.VM_TEMPLATE_ID AS vmTemplateId
+			   , A.MIN_MACHINE_SIZE AS minMachineSize
+			   , A.MAX_MACHINE_SIZE AS maxMachineSize
+			   , B.POLICY_NAME AS policyName
+			   , B.MON_FACTOR_ID AS monFactorId
+			   , (SELECT F.DISPLAY_NAME 
+					FROM mon_factor_tbl F
+                   WHERE F.MON_FACTOR_ID = B.MON_FACTOR_ID) AS displayName
+			   , B.THRESHOLD_UP_LIMIT AS thresholdUpLimit
+			   , B.THRESHOLD_DOWN_LIMIT AS thresholdDownLimit
+			   , B.THRESHOLD_UP_PERIOD AS thresholdUpPeriod
+			   , B.THRESHOLD_DOWN_PERIOD AS thresholdDownPeriod
+			   , B.INCREASE_UNIT AS increaseUnit
+			   , B.DECREASE_UNIT AS decreaseUnit
+			   , C.LOAD_BALANCER_ID AS loadBalancerID
+			   , A.REG_USER_ID AS regUserId
+			   , A.REG_DT AS regDt
+			   , A.UPD_USER_ID AS updUserId
+			   , A.UPD_DT AS updDt
+		  FROM auto_scaling_tbl A JOIN as_policy_tbl B ON A.AUTO_SCALING_ID = B.AUTO_SCALING_ID
+		  JOIN load_balancer_tbl C ON A.AUTO_SCALING_ID = C.AUTO_SCALING_ID
+		 WHERE 1=1
+		<if test="autoScalingName != null">AND A.AUTO_SCALING_NAME LIKE CONCAT('%', #{autoScalingName}, '%')</if>
+		<if test="vmTemplateId != null">AND A.VM_TEMPLATE_ID = #{vmTemplateId}</if>
+		<if test="policyName != null">AND B.POLICY_NAME LIKE CONCAT('%', #{policyName}, '%')</if>
+		 ORDER BY A.AUTO_SCALING_ID
+		 LIMIT #{start}, #{limit}
+	</select>
+
+</mapper>

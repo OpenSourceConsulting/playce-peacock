@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PackageMapper">
+
+	<insert id="insertPackage" parameterType="com.athena.peacock.controller.web.ospackage.PackageDto">
+		INSERT INTO os_package_tbl
+					(PKG_ID, MACHINE_ID, NAME, ARCH, SIZE, VERSION, RELEASE_INFO, INSTALL_DATE
+					 , SUMMARY, DESCRIPTION, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT)
+			 VALUES (#{pkgId}, #{machineId}, #{name}, #{arch}, #{size}, #{version}, #{releaseInfo}, #{installDate}
+			 		 , #{summary}, #{description}, #{regUserId}, NOW(), #{updUserId}, NOW())
+	</insert>
+
+	<select id="getPackageListCnt" parameterType="com.athena.peacock.controller.web.ospackage.PackageDto" resultType="int">
+		SELECT COUNT(*)
+		  FROM os_package_tbl
+		 WHERE MACHINE_ID = #{machineId}
+		<if test="name != null">AND NAME LIKE CONCAT('%', #{name}, '%')</if>
+	</select>
+
+	<select id="getPackageList" parameterType="com.athena.peacock.controller.web.ospackage.PackageDto" resultType="com.athena.peacock.controller.web.ospackage.PackageDto">
+		SELECT PKG_ID AS pkgId,
+			   MACHINE_ID AS machineId,
+			   NAME AS name,
+			   ARCH AS arch,
+			   SIZE AS size,
+			   VERSION AS version,
+			   RELEASE_INFO AS releaseInfo,
+			   INSTALL_DATE AS installDate,
+			   SUMMARY AS summary,
+			   DESCRIPTION AS description,
+			   REG_USER_ID AS regUserId,
+			   REG_DT AS regDt,
+			   UPD_USER_ID AS updUserId,
+			   UPD_DT AS updDt
+		  FROM os_package_tbl
+		 WHERE MACHINE_ID = #{machineId}
+		<if test="name != null">AND NAME LIKE CONCAT('%', #{name}, '%')</if>
+		 ORDER BY NAME
+		 LIMIT #{start}, #{limit}
+	</select>
+	
+	<delete id="deletePackage" parameterType="String">
+		DELETE FROM os_package_tbl
+		 WHERE MACHINE_ID = #{machineId}
+	</delete>
+
+</mapper>

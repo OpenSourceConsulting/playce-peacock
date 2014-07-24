@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MachineMapper">
+
+	<insert id="insertMachine" parameterType="com.athena.peacock.controller.web.machine.MachineDto">
+		INSERT INTO machine_tbl 
+			        (MACHINE_ID, MACHINE_MAC_ADDR, IS_VM, OS_NAME, OS_VER, OS_ARCH, CPU_CLOCK, CPU_NUM
+			        , MEM_SIZE, IP_ADDR, HOST_NAME, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
+		     VALUES (#{machineId}, #{machineMacAddr}, #{isVm}, #{osName}, #{osVer}, #{osArch}, #{cpuClock}, #{cpuNum}
+		     		, #{memSize}, #{ipAddr}, #{hostName}, #{regUserId}, NOW(), #{updUserId}, NOW())
+	</insert>
+
+	<select id="getMachine" parameterType="String" resultType="com.athena.peacock.controller.web.machine.MachineDto">
+		SELECT MACHINE_ID AS machineId
+		       , MACHINE_MAC_ADDR AS machineMacAddr
+		       , IS_VM AS isVm
+		       , OS_NAME AS osName
+		       , OS_VER AS osVer
+		       , OS_ARCH AS osArch
+		       , CPU_CLOCK AS cpuClock
+		       , CPU_NUM AS cpuNum
+			   , MEM_SIZE AS memSize
+			   , IP_ADDR AS ipAddr
+			   , HOST_NAME AS hostName
+			   , SSH_PORT AS sshPort
+			   , SSH_USERNAME AS sshUsername
+			   , SSH_PASSWORD AS sshPassword
+			   , SSH_KEY_FILE AS sshKeyFile
+			   , DELETE_YN AS deleteYn
+			   , REG_USER_ID AS regUserId
+			   , REG_DT AS regDt
+			   , UPD_USER_ID AS updUserId
+			   , UPD_DT AS updDt
+		  FROM machine_tbl
+		 WHERE MACHINE_ID = #{machineId}
+	</select>
+	
+	<update id="updateMachine" parameterType="com.athena.peacock.controller.web.machine.MachineDto">
+		UPDATE machine_tbl
+		   SET MACHINE_MAC_ADDR = #{machineMacAddr}
+		       , IS_VM = #{isVm}
+		       , OS_NAME = #{osName}
+		       , OS_VER = #{osVer}
+		       , OS_ARCH = #{osArch}
+		       , CPU_CLOCK = #{cpuClock}
+		       , CPU_NUM = #{cpuNum}
+			   , MEM_SIZE = #{memSize}
+			   , IP_ADDR = #{ipAddr}
+			   , HOST_NAME = #{hostName}
+			   , SSH_PORT = #{sshPort}
+			   , SSH_USERNAME = #{sshUsername}
+			   , SSH_PASSWORD = #{sshPassword}
+			   , SSH_KEY_FILE = #{sshKeyFile}
+			   , UPD_USER_ID = #{updUserId}
+			   , UPD_DT = NOW()
+		 WHERE MACHINE_ID = #{machineId}
+	</update>
+	
+	<update id="deleteMachine" parameterType="String">
+		UPDATE machine_tbl
+		   SET DELETE_YN = 'Y'
+		 WHERE MACHINE_ID = #{machineId}
+	</update>
+	
+	<select id="getMachineListCnt" parameterType="com.athena.peacock.controller.web.machine.MachineDto" resultType="int">
+		SELECT COUNT(*)
+		  FROM machine_tbl
+		 WHERE DELETE_YN = 'N'
+		   AND MACHINE_ID NOT IN (SELECT MACHINE_ID FROM load_balancer_tbl)
+		<if test="machineId != null">AND MACHINE_ID = #{machineId}</if>
+		<if test="machineMacAddr != null">AND MACHINE_MAC_ADDR = #{machineMacAddr}</if>
+		<if test="isVm != null">AND IS_VM = #{isVm}</if>
+		<if test="osName != null">AND OS_NAME = #{osName}</if>
+		<if test="osVer != null">AND OS_VER = #{osVer}</if>
+		<if test="osArch != null">AND OS_ARCH = #{osArch}</if>
+		<if test="cpuClock != null">AND CPU_CLOCK = #{cpuClock}</if>
+		<if test="cpuNum != null">AND CPU_NUM = #{cpuNum}</if>
+		<if test="memSize != null">AND MEM_SIZE = #{memSize}</if>
+		<if test="ipAddr != null">AND IP_ADDR = #{ipAddr}</if>
+		<if test="hostName != null">AND HOST_NAME = #{hostName}</if>
+		<if test="sshPort != null">AND SSH_PORT = #{sshPort}</if>
+		<if test="sshUsername != null">AND SSH_USERNAME = #{sshUsername}</if>
+		<if test="sshPassword != null">AND SSH_PASSWORD = #{sshPassword}</if>
+		<if test="sshKeyFile != null">AND SSH_KEY_FILE = #{sshKeyFile}</if>
+	</select>
+	
+	<select id="getMachineList" parameterType="com.athena.peacock.controller.web.machine.MachineDto" resultType="com.athena.peacock.controller.web.machine.MachineDto">
+		SELECT MACHINE_ID AS machineId
+		       , MACHINE_MAC_ADDR AS machineMacAddr
+		       , IS_VM AS isVm
+		       , OS_NAME AS osName
+		       , OS_VER AS osVer
+		       , OS_ARCH AS osArch
+		       , CPU_CLOCK AS cpuClock
+		       , CPU_NUM AS cpuNum
+			   , MEM_SIZE AS memSize
+			   , IP_ADDR AS ipAddr
+			   , HOST_NAME AS hostName
+			   , SSH_PORT AS sshPort
+			   , SSH_USERNAME AS sshUsername
+			   , SSH_PASSWORD AS sshPassword
+			   , SSH_KEY_FILE AS sshKeyFile
+			   , DELETE_YN AS deleteYn
+			   , REG_USER_ID AS regUserId
+			   , REG_DT AS regDt
+			   , UPD_USER_ID AS updUserId
+			   , UPD_DT AS updDt
+		  FROM machine_tbl
+		 WHERE DELETE_YN = 'N'
+		   AND MACHINE_ID NOT IN (SELECT MACHINE_ID FROM load_balancer_tbl)
+		<if test="machineId != null">AND MACHINE_ID = #{machineId}</if>
+		<if test="machineMacAddr != null">AND MACHINE_MAC_ADDR = #{machineMacAddr}</if>
+		<if test="isVm != null">AND IS_VM = #{isVm}</if>
+		<if test="osName != null">AND OS_NAME = #{osName}</if>
+		<if test="osVer != null">AND OS_VER = #{osVer}</if>
+		<if test="osArch != null">AND OS_ARCH = #{osArch}</if>
+		<if test="cpuClock != null">AND CPU_CLOCK = #{cpuClock}</if>
+		<if test="cpuNum != null">AND CPU_NUM = #{cpuNum}</if>
+		<if test="memSize != null">AND MEM_SIZE = #{memSize}</if>
+		<if test="ipAddr != null">AND IP_ADDR = #{ipAddr}</if>
+		<if test="hostName != null">AND HOST_NAME = #{hostName}</if>
+		<if test="sshPort != null">AND SSH_PORT = #{sshPort}</if>
+		<if test="sshUsername != null">AND SSH_USERNAME = #{sshUsername}</if>
+		<if test="sshPassword != null">AND SSH_PASSWORD = #{sshPassword}</if>
+		<if test="sshKeyFile != null">AND SSH_KEY_FILE = #{sshKeyFile}</if>
+		 ORDER BY REG_DT
+		 LIMIT #{start}, #{limit}
+	</select>
+
+</mapper>
