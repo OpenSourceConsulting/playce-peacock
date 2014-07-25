@@ -872,14 +872,16 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.controller.RHEVMController": [],
   "MyApp.controller.SettingsMenuController": [],
   "MyApp.controller.SoftwareInstallController": [],
+  "MyApp.model.instanceModel": [],
   "MyApp.store.MenuTreeStore": [],
+  "MyApp.store.instanceListStore": [],
   "MyApp.store.tempChartData": [],
   "MyApp.store.tempGridData": [],
   "MyApp.view.CLIWindow": [],
   "MyApp.view.Main": [],
-  "MyApp.view.MyWindow1": [],
   "MyApp.view.Viewport": [],
   "MyApp.view.almPanel": [],
+  "MyApp.view.blankPanel": [],
   "MyApp.view.crontabWindow": [],
   "MyApp.view.dashboardPanel": [],
   "MyApp.view.fstabWindow": [],
@@ -1908,7 +1910,9 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.controller.RHEVMController": [],
   "MyApp.controller.SettingsMenuController": [],
   "MyApp.controller.SoftwareInstallController": [],
+  "MyApp.model.instanceModel": [],
   "MyApp.store.MenuTreeStore": [],
+  "MyApp.store.instanceListStore": [],
   "MyApp.store.tempChartData": [],
   "MyApp.store.tempGridData": [],
   "MyApp.view.CLIWindow": [
@@ -1917,11 +1921,11 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.Main": [
     "widget.app-main"
   ],
-  "MyApp.view.MyWindow1": [],
   "MyApp.view.Viewport": [],
   "MyApp.view.almPanel": [
     "widget.almPanel"
   ],
+  "MyApp.view.blankPanel": [],
   "MyApp.view.crontabWindow": [
     "widget.crontabWindow"
   ],

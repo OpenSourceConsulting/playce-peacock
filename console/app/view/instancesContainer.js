@@ -22,10 +22,11 @@ Ext.define('MyApp.view.instancesContainer', {
         'Ext.grid.View',
         'Ext.toolbar.Separator',
         'Ext.toolbar.TextItem',
-        'Ext.button.Cycle',
+        'Ext.button.Split',
         'Ext.menu.Menu',
-        'Ext.menu.CheckItem',
+        'Ext.menu.Item',
         'Ext.form.field.Text',
+        'Ext.form.field.Hidden',
         'Ext.toolbar.Paging',
         'Ext.tab.Panel',
         'Ext.tab.Tab',
@@ -62,7 +63,8 @@ Ext.define('MyApp.view.instancesContainer', {
                     minHeight: 100,
                     autoScroll: true,
                     columnLines: true,
-                    store: 'tempGridData',
+                    forceFit: true,
+                    store: 'instanceListStore',
                     dockedItems: [
                         {
                             xtype: 'toolbar',
@@ -96,30 +98,28 @@ Ext.define('MyApp.view.instancesContainer', {
                                     text: 'Filter : '
                                 },
                                 {
-                                    xtype: 'cycle',
+                                    xtype: 'splitbutton',
                                     id: 'categoryCycle',
                                     itemId: 'categoryCycle',
-                                    showText: true,
+                                    text: 'All Categories',
                                     menu: {
                                         xtype: 'menu',
                                         id: 'categoryList',
-                                        itemId: 'categoryList',
-                                        width: 120,
                                         items: [
                                             {
-                                                xtype: 'menucheckitem',
+                                                xtype: 'menuitem',
                                                 id: 'allCategories',
                                                 itemId: 'allCategories',
-                                                text: 'All categories'
+                                                text: 'All Categories'
                                             },
                                             {
-                                                xtype: 'menucheckitem',
+                                                xtype: 'menuitem',
                                                 id: 'development',
                                                 itemId: 'development',
                                                 text: 'Development'
                                             },
                                             {
-                                                xtype: 'menucheckitem',
+                                                xtype: 'menuitem',
                                                 id: 'production',
                                                 itemId: 'production',
                                                 text: 'Production'
@@ -128,10 +128,10 @@ Ext.define('MyApp.view.instancesContainer', {
                                     }
                                 },
                                 {
-                                    xtype: 'cycle',
+                                    xtype: 'splitbutton',
                                     id: 'rhevmCycle',
                                     itemId: 'rhevmCycle',
-                                    showText: true,
+                                    text: 'All RHEV Manager',
                                     menu: {
                                         xtype: 'menu',
                                         id: 'rhevmList',
@@ -139,19 +139,19 @@ Ext.define('MyApp.view.instancesContainer', {
                                         width: 120,
                                         items: [
                                             {
-                                                xtype: 'menucheckitem',
+                                                xtype: 'menuitem',
                                                 id: 'allRhevm',
                                                 itemId: 'allRhevm',
-                                                text: 'All RHEVM'
+                                                text: 'All RHEV Manager'
                                             },
                                             {
-                                                xtype: 'menucheckitem',
+                                                xtype: 'menuitem',
                                                 id: 'rhevm1',
                                                 itemId: 'rhevm1',
                                                 text: 'RHEV-M1'
                                             },
                                             {
-                                                xtype: 'menucheckitem',
+                                                xtype: 'menuitem',
                                                 id: 'rhevm2',
                                                 itemId: 'rhevm2',
                                                 text: 'RHEV-M2'
@@ -161,10 +161,22 @@ Ext.define('MyApp.view.instancesContainer', {
                                 },
                                 {
                                     xtype: 'textfield',
-                                    id: 'inputInstanceName',
-                                    itemId: 'inputInstanceName',
+                                    id: 'searchInstanceName',
+                                    itemId: 'searchInstanceName',
                                     fieldLabel: '',
                                     emptyText: 'Search Instance'
+                                },
+                                {
+                                    xtype: 'hiddenfield',
+                                    id: 'searchCategory',
+                                    itemId: 'searchCategory',
+                                    fieldLabel: 'Label'
+                                },
+                                {
+                                    xtype: 'hiddenfield',
+                                    id: 'searchRhvm',
+                                    itemId: 'searchRhvm',
+                                    fieldLabel: 'Label'
                                 }
                             ]
                         },
@@ -172,14 +184,50 @@ Ext.define('MyApp.view.instancesContainer', {
                             xtype: 'pagingtoolbar',
                             dock: 'bottom',
                             width: 360,
-                            displayInfo: true
+                            displayInfo: true,
+                            store: 'instanceListStore'
                         }
                     ],
                     columns: [
                         {
                             xtype: 'gridcolumn',
-                            dataIndex: 'id',
-                            text: 'Id'
+                            dataIndex: 'instanceID',
+                            text: 'InstanceID'
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            dataIndex: 'instanceName',
+                            text: 'InstanceName'
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            dataIndex: 'category',
+                            text: 'Category'
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            dataIndex: 'rhevManager',
+                            text: 'RhevManager'
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            dataIndex: 'cluster',
+                            text: 'Cluster'
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            dataIndex: 'host',
+                            text: 'Host'
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            dataIndex: 'ipAddress',
+                            text: 'IpAddress'
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            dataIndex: 'agentStatus',
+                            text: 'AgentStatus'
                         }
                     ]
                 },

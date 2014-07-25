@@ -29,6 +29,29 @@ Ext.define('MyApp.controller.InstancesController', {
 
     },
 
+    onInstancesGridAfterRender: function(component, eOpts) {
+        component.getStore().load();
+    },
+
+    onCategoryCycleClick: function(item, e, eOpts) {
+        var gridStore = Ext.getCmp("instancesGrid").getStore();
+
+        gridStore.getProxy().setExtraParam("search", item.getId());
+        gridStore.load();
+
+
+        /*
+               if(e.getKey() == e.ENTER){
+
+                    var mainGridStore = Ext.getCmp("mainGridPanel").getStore();
+
+                    mainGridStore.getProxy().setExtraParam( "search", textfield.getRawValue() );
+
+                    mainGridStore.load();
+                }
+        */
+    },
+
     init: function(application) {
                 var instances = this;
 
@@ -69,9 +92,17 @@ Ext.define('MyApp.controller.InstancesController', {
 
         this.control({
             "#instancesGrid": {
-                beforeitemcontextmenu: this.onInstancesGridBeforeItemContextMenu
+                beforeitemcontextmenu: this.onInstancesGridBeforeItemContextMenu,
+                afterrender: this.onInstancesGridAfterRender
+            },
+            "#categoryCycle menuitem": {
+                click: this.onCategoryCycleClick
             }
         });
+    },
+
+    searchInstance: function() {
+
     },
 
     showCLIWindow: function() {

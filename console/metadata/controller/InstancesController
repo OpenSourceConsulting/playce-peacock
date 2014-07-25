@@ -98,6 +98,21 @@
             },
             "codeClass": null,
             "userConfig": {
+                "fn": "searchInstance",
+                "implHandler": [
+                    ""
+                ]
+            },
+            "designerId": "be575cdc-0f2c-4d5a-9046-e8371787c032"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
                 "fn": "showCLIWindow",
                 "implHandler": [
                     "var CLIWindow = Ext.create(\"widget.CLIWindow\");",
@@ -157,6 +172,59 @@
                 ]
             },
             "designerId": "2ccd2a67-191e-4df8-9930-cf9db429afe2"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#instancesGrid",
+                "designer|targetType": "Ext.grid.Panel",
+                "fn": "onInstancesGridAfterRender",
+                "implHandler": [
+                    "component.getStore().load();"
+                ],
+                "name": "afterrender",
+                "scope": "me"
+            },
+            "designerId": "a0d86a11-4cd7-4971-867f-f079c3ab55cc"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#categoryCycle menuitem",
+                "designer|targetType": "Ext.menu.Item",
+                "fn": "onCategoryCycleClick",
+                "implHandler": [
+                    "var gridStore = Ext.getCmp(\"instancesGrid\").getStore();",
+                    "",
+                    "gridStore.getProxy().setExtraParam(\"search\", item.getId());",
+                    "gridStore.load();",
+                    "",
+                    "",
+                    "/*",
+                    "       if(e.getKey() == e.ENTER){",
+                    "",
+                    "            var mainGridStore = Ext.getCmp(\"mainGridPanel\").getStore();",
+                    "",
+                    "            mainGridStore.getProxy().setExtraParam( \"search\", textfield.getRawValue() );",
+                    "",
+                    "            mainGridStore.load();",
+                    "        }",
+                    "*/"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "5801d9c7-a705-404c-be19-3c8480fa1cef"
         }
     ]
 }

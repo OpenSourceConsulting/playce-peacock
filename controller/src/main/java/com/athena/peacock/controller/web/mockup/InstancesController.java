@@ -22,9 +22,16 @@
  */
 package com.athena.peacock.controller.web.mockup;
 
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,6 +40,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 import com.athena.peacock.controller.web.machine.MachineDto;
+import com.athena.peacock.controller.web.software.SoftwareController;
 
 /**
  * <pre>
@@ -46,6 +54,8 @@ import com.athena.peacock.controller.web.machine.MachineDto;
 @RequestMapping("/instance")
 public class InstancesController {
 
+    protected final Logger logger = LoggerFactory.getLogger(SoftwareController.class);
+
 	/**
 	 * <pre>
 	 * ExtJS Grid 목록 조회용 메소드
@@ -55,25 +65,18 @@ public class InstancesController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/list")
-	public @ResponseBody GridJsonResponse list(GridJsonResponse jsonRes, MachineDto machine) throws Exception {
+	@RequestMapping("/listInstance")
+	public @ResponseBody GridJsonResponse listInstance(GridJsonResponse jsonRes, String search) throws Exception {
 		
-		List<MachineDto> machineList = new ArrayList<MachineDto>();
-		MachineDto machineDto = new MachineDto();
-		machineDto.setMachineId("i-11111111");
-		machineDto.setCpuClock("");
-		machineDto.setMemSize("4096 MB");
-		machineDto.setCpuNum("2");
-		machineDto.setHostName("Test");
-//		machineDto.set
-//		machineDto.set
-//		machineDto.set
-//		machineDto.set
-//		machineDto.set
-		machineList.add(machineDto);
+		logger.debug(search);
 		
-		jsonRes.setTotal(machineList.size());
-		jsonRes.setList(machineList);
+	    JSONParser parser = new JSONParser();
+	    Object obj = parser.parse(new FileReader(getClass().getResource("/json/InstanceGridData.json").getPath()));
+
+	    JSONArray jsonArray =  (JSONArray) obj;
+
+		jsonRes.setTotal(jsonArray.size());
+		jsonRes.setList(jsonArray);
 		
 		return jsonRes;
 	}

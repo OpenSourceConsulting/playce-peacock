@@ -15,6 +15,9 @@
             "SoftwareInstallController",
             "RHEVMController"
         ],
+        "models": [
+            "instanceModel"
+        ],
         "name": "MyApp",
         "requires": [
             "Ext.util.Point"
@@ -22,7 +25,8 @@
         "stores": [
             "MenuTreeStore",
             "tempChartData",
-            "tempGridData"
+            "tempGridData",
+            "instanceListStore"
         ],
         "views": [
             "peacockViewport",
@@ -39,9 +43,9 @@
             "regInstanceWindow",
             "rhevmContainer",
             "regTemplateWindow",
-            "MyWindow1",
             "regRhevmWindow",
-            "userContainer"
+            "userContainer",
+            "blankPanel"
         ]
     },
     "designerId": "application"

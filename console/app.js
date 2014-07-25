@@ -24,10 +24,14 @@ Ext.application({
     requires: [
         'Ext.util.Point'
     ],
+    models: [
+        'instanceModel'
+    ],
     stores: [
         'MenuTreeStore',
         'tempChartData',
-        'tempGridData'
+        'tempGridData',
+        'instanceListStore'
     ],
     views: [
         'peacockViewport',
@@ -44,9 +48,9 @@ Ext.application({
         'regInstanceWindow',
         'rhevmContainer',
         'regTemplateWindow',
-        'MyWindow1',
         'regRhevmWindow',
-        'userContainer'
+        'userContainer',
+        'blankPanel'
     ],
     controllers: [
         'LoginController',

@@ -1,0 +1,5 @@
+[{"instanceID":"i-ak2354ua","instanceName":"Peacock Dev Server","category":"Development","rhevManager":"RHEV-M1","cluster":"Cluster-1","host":"localhost.localdomain","ipAddress":"192.168.0.108","agentStatus":"Running"},
+ {"instanceID":"i-dy4576yh","instanceName":"Peacock Prd Web Server-01","category":"Production","rhevManager":"RHEV-M1","cluster":"Cluster-1","host":"localhost.localdomain","ipAddress":"192.168.0.109","agentStatus":"Down"},
+ {"instanceID":"i-hj2385be","instanceName":"Peacock Prd Web Server-02","category":"Production","rhevManager":"RHEV-M2","cluster":"Cluster-1","host":"localhost.localdomain","ipAddress":"192.168.0.110","agentStatus":"Down"},
+ {"instanceID":"i-yu7864wd","instanceName":"Peacock Prd Tomcat Server-01","category":"Production","rhevManager":"RHEV-M1","cluster":"Cluster-1","host":"localhost.localdomain","ipAddress":"192.168.0.111","agentStatus":"Down"},
+ {"instanceID":"i-uj03634re","instanceName":"Peacock Prd Tomcat Server-02","category":"Production","rhevManager":"RHEV-M2","cluster":"Cluster-1","host":"localhost.localdomain","ipAddress":"192.168.0.112","agentStatus":"Down"}]

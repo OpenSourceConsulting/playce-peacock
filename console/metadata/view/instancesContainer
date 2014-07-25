@@ -26,12 +26,13 @@
             "userConfig": {
                 "autoScroll": true,
                 "columnLines": true,
+                "forceFit": true,
                 "id": "instancesGrid",
                 "itemId": "instancesGrid",
                 "layout|flex": 1,
                 "layout|region": "center",
                 "minHeight": 100,
-                "store": "tempGridData",
+                "store": "instanceListStore",
                 "title": null
             },
             "designerId": "c9c95bad-4663-4d3e-94b7-7d825f67037d",
@@ -140,7 +141,7 @@
                             "designerId": "4be5ce2a-92da-479f-b07a-b2b1f07601d4"
                         },
                         {
-                            "type": "Ext.button.Cycle",
+                            "type": "Ext.button.Split",
                             "reference": {
                                 "name": "items",
                                 "type": "array"
@@ -150,7 +151,7 @@
                                 "id": "categoryCycle",
                                 "itemId": "categoryCycle",
                                 "layout|flex": null,
-                                "showText": true
+                                "text": "All Categories"
                             },
                             "designerId": "be5819fa-143a-482d-ac84-aff33f507e8a",
                             "cn": [
@@ -162,14 +163,12 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "id": "categoryList",
-                                        "itemId": "categoryList",
-                                        "width": 120
+                                        "id": "categoryList"
                                     },
-                                    "designerId": "1c6b76ef-ac22-496e-9b91-e1799c4b91dc",
+                                    "designerId": "a48cb8d9-8bf1-4a03-ae94-06dc00cf79ae",
                                     "cn": [
                                         {
-                                            "type": "Ext.menu.CheckItem",
+                                            "type": "Ext.menu.Item",
                                             "reference": {
                                                 "name": "items",
                                                 "type": "array"
@@ -178,12 +177,12 @@
                                             "userConfig": {
                                                 "id": "allCategories",
                                                 "itemId": "allCategories",
-                                                "text": "All categories"
+                                                "text": "All Categories"
                                             },
-                                            "designerId": "19eccb85-f7f3-435d-9b83-755721ce6dbf"
+                                            "designerId": "7e1f1794-6866-4228-9e9e-5ef10aae593a"
                                         },
                                         {
-                                            "type": "Ext.menu.CheckItem",
+                                            "type": "Ext.menu.Item",
                                             "reference": {
                                                 "name": "items",
                                                 "type": "array"
@@ -194,10 +193,10 @@
                                                 "itemId": "development",
                                                 "text": "Development"
                                             },
-                                            "designerId": "43335274-c6b1-4b29-9839-47be10380efd"
+                                            "designerId": "75291915-04e7-43a4-a0c9-09649b692a35"
                                         },
                                         {
-                                            "type": "Ext.menu.CheckItem",
+                                            "type": "Ext.menu.Item",
                                             "reference": {
                                                 "name": "items",
                                                 "type": "array"
@@ -208,14 +207,14 @@
                                                 "itemId": "production",
                                                 "text": "Production"
                                             },
-                                            "designerId": "acbfb56b-e4a1-44f0-a3ce-a7e9c4dd1690"
+                                            "designerId": "4bf2153b-cf1f-4163-a006-e0570a5049a9"
                                         }
                                     ]
                                 }
                             ]
                         },
                         {
-                            "type": "Ext.button.Cycle",
+                            "type": "Ext.button.Split",
                             "reference": {
                                 "name": "items",
                                 "type": "array"
@@ -225,7 +224,7 @@
                                 "id": "rhevmCycle",
                                 "itemId": "rhevmCycle",
                                 "layout|flex": null,
-                                "showText": true
+                                "text": "All RHEV Manager"
                             },
                             "designerId": "24245cbf-ef9d-48b5-a9c9-21bdb03dcecd",
                             "cn": [
@@ -244,7 +243,7 @@
                                     "designerId": "62c6e0d3-65ce-42b8-b61c-2b408c8076df",
                                     "cn": [
                                         {
-                                            "type": "Ext.menu.CheckItem",
+                                            "type": "Ext.menu.Item",
                                             "reference": {
                                                 "name": "items",
                                                 "type": "array"
@@ -253,12 +252,12 @@
                                             "userConfig": {
                                                 "id": "allRhevm",
                                                 "itemId": "allRhevm",
-                                                "text": "All RHEVM"
+                                                "text": "All RHEV Manager"
                                             },
-                                            "designerId": "b2bfde4f-baba-48a1-b191-a816af9a8310"
+                                            "designerId": "768ffd9f-b707-4c47-b5d9-d855d8f336ce"
                                         },
                                         {
-                                            "type": "Ext.menu.CheckItem",
+                                            "type": "Ext.menu.Item",
                                             "reference": {
                                                 "name": "items",
                                                 "type": "array"
@@ -269,10 +268,10 @@
                                                 "itemId": "rhevm1",
                                                 "text": "RHEV-M1"
                                             },
-                                            "designerId": "8e70ed15-c61d-4b5d-bae4-449a23201485"
+                                            "designerId": "717d1331-55bf-4b96-abae-31a49b1ceebf"
                                         },
                                         {
-                                            "type": "Ext.menu.CheckItem",
+                                            "type": "Ext.menu.Item",
                                             "reference": {
                                                 "name": "items",
                                                 "type": "array"
@@ -283,7 +282,7 @@
                                                 "itemId": "rhevm2",
                                                 "text": "RHEV-M2"
                                             },
-                                            "designerId": "501eedb2-c0d2-4de6-b7d5-b3a5faae44e5"
+                                            "designerId": "eba95660-fda6-42c6-84a0-3a5aca47b612"
                                         }
                                     ]
                                 }
@@ -301,11 +300,41 @@
                                 "emptyText": "Search Instance",
                                 "fieldLabel": "",
                                 "fieldStyle": null,
-                                "id": "inputInstanceName",
-                                "itemId": "inputInstanceName",
+                                "id": "searchInstanceName",
+                                "itemId": "searchInstanceName",
                                 "layout|flex": null
                             },
                             "designerId": "7674e61c-4717-4b84-9657-3364368d8806"
+                        },
+                        {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Label",
+                                "id": "searchCategory",
+                                "itemId": "searchCategory",
+                                "layout|flex": null
+                            },
+                            "designerId": "c729ed41-0c2e-4fb4-b284-004712e699b2"
+                        },
+                        {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Label",
+                                "id": "searchRhvm",
+                                "itemId": "searchRhvm",
+                                "layout|flex": null
+                            },
+                            "designerId": "02d1d2b6-0b4f-4cae-bc91-4c5ce7ab6bea"
                         }
                     ]
                 },
@@ -319,6 +348,7 @@
                     "userConfig": {
                         "displayInfo": true,
                         "dock": "bottom",
+                        "store": "instanceListStore",
                         "width": 360
                     },
                     "designerId": "a2e2c242-0573-447b-89b3-17e59b9b1971"
@@ -331,10 +361,101 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "id",
-                        "text": "Id"
+                        "dataIndex": "instanceID",
+                        "text": "InstanceID"
                     },
-                    "designerId": "606a8698-58ab-4d35-9f6e-84c0036423d5"
+                    "designerId": "90389196-635f-45a9-b095-17caebce5c65"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "instanceName",
+                        "text": "InstanceName"
+                    },
+                    "designerId": "6b7c8442-e03e-4b3e-affa-a376263a4085"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "category",
+                        "text": "Category"
+                    },
+                    "designerId": "bb76023e-714c-4c51-96c0-239aa2ae86d2"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "rhevManager",
+                        "text": "RhevManager"
+                    },
+                    "designerId": "ec805e2f-310f-4fff-9ebe-5c438c4e855a"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "cluster",
+                        "text": "Cluster"
+                    },
+                    "designerId": "0a677d61-76bd-4a50-bdc4-5c040c005042"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "host",
+                        "text": "Host"
+                    },
+                    "designerId": "9f4aebef-d1b5-4bff-afb4-e2b9232258a3"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "ipAddress",
+                        "text": "IpAddress"
+                    },
+                    "designerId": "1cc78802-2227-45f8-b023-0d76f85e9ad6"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "agentStatus",
+                        "text": "AgentStatus"
+                    },
+                    "designerId": "89f92e8c-7544-4593-b55f-f981ca7e1fb8"
                 }
             ]
         },
