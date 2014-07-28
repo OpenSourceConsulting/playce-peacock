@@ -6,6 +6,7 @@
     },
     "codeClass": null,
     "userConfig": {
+        "designer|userAlias": "blankpanel",
         "designer|userClassName": "blankPanel",
         "height": 1000,
         "id": "blankPanel",

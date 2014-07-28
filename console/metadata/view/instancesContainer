@@ -141,7 +141,7 @@
                             "designerId": "4be5ce2a-92da-479f-b07a-b2b1f07601d4"
                         },
                         {
-                            "type": "Ext.button.Split",
+                            "type": "Ext.button.Cycle",
                             "reference": {
                                 "name": "items",
                                 "type": "array"
@@ -151,9 +151,9 @@
                                 "id": "categoryCycle",
                                 "itemId": "categoryCycle",
                                 "layout|flex": null,
-                                "text": "All Categories"
+                                "showText": true
                             },
-                            "designerId": "be5819fa-143a-482d-ac84-aff33f507e8a",
+                            "designerId": "d59e46d4-653c-4e28-8d6a-7ed290e2040b",
                             "cn": [
                                 {
                                     "type": "Ext.menu.Menu",
@@ -163,12 +163,13 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "id": "categoryList"
+                                        "id": "categoryList",
+                                        "width": null
                                     },
-                                    "designerId": "a48cb8d9-8bf1-4a03-ae94-06dc00cf79ae",
+                                    "designerId": "14c75968-2db3-4cd4-afc3-e2da264037ac",
                                     "cn": [
                                         {
-                                            "type": "Ext.menu.Item",
+                                            "type": "Ext.menu.CheckItem",
                                             "reference": {
                                                 "name": "items",
                                                 "type": "array"
@@ -179,10 +180,10 @@
                                                 "itemId": "allCategories",
                                                 "text": "All Categories"
                                             },
-                                            "designerId": "7e1f1794-6866-4228-9e9e-5ef10aae593a"
+                                            "designerId": "ea72cda9-7a1a-4d1a-b3c1-de8e71739e3b"
                                         },
                                         {
-                                            "type": "Ext.menu.Item",
+                                            "type": "Ext.menu.CheckItem",
                                             "reference": {
                                                 "name": "items",
                                                 "type": "array"
@@ -193,10 +194,10 @@
                                                 "itemId": "development",
                                                 "text": "Development"
                                             },
-                                            "designerId": "75291915-04e7-43a4-a0c9-09649b692a35"
+                                            "designerId": "e095a976-7df4-4119-b1e3-49aea8b284b8"
                                         },
                                         {
-                                            "type": "Ext.menu.Item",
+                                            "type": "Ext.menu.CheckItem",
                                             "reference": {
                                                 "name": "items",
                                                 "type": "array"
@@ -207,14 +208,31 @@
                                                 "itemId": "production",
                                                 "text": "Production"
                                             },
-                                            "designerId": "4bf2153b-cf1f-4163-a006-e0570a5049a9"
+                                            "designerId": "352f49f6-b38f-4001-8e9b-5c828334bf85"
                                         }
                                     ]
+                                },
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onCycleClick",
+                                        "implHandler": [
+                                            "return false;"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "designerId": "4143acc2-f83e-4190-8586-a3bfe533e722"
                                 }
                             ]
                         },
                         {
-                            "type": "Ext.button.Split",
+                            "type": "Ext.button.Cycle",
                             "reference": {
                                 "name": "items",
                                 "type": "array"
@@ -224,9 +242,9 @@
                                 "id": "rhevmCycle",
                                 "itemId": "rhevmCycle",
                                 "layout|flex": null,
-                                "text": "All RHEV Manager"
+                                "showText": true
                             },
-                            "designerId": "24245cbf-ef9d-48b5-a9c9-21bdb03dcecd",
+                            "designerId": "4dc1daec-3e0b-4e00-aad3-8eb3565abace",
                             "cn": [
                                 {
                                     "type": "Ext.menu.Menu",
@@ -238,12 +256,12 @@
                                     "userConfig": {
                                         "id": "rhevmList",
                                         "itemId": "rhevmList",
-                                        "width": 120
+                                        "width": null
                                     },
-                                    "designerId": "62c6e0d3-65ce-42b8-b61c-2b408c8076df",
+                                    "designerId": "3435bf88-906b-430d-9041-3a3cf855be3e",
                                     "cn": [
                                         {
-                                            "type": "Ext.menu.Item",
+                                            "type": "Ext.menu.CheckItem",
                                             "reference": {
                                                 "name": "items",
                                                 "type": "array"
@@ -254,10 +272,10 @@
                                                 "itemId": "allRhevm",
                                                 "text": "All RHEV Manager"
                                             },
-                                            "designerId": "768ffd9f-b707-4c47-b5d9-d855d8f336ce"
+                                            "designerId": "4fc8c24c-377d-4366-b421-436aa96c3f73"
                                         },
                                         {
-                                            "type": "Ext.menu.Item",
+                                            "type": "Ext.menu.CheckItem",
                                             "reference": {
                                                 "name": "items",
                                                 "type": "array"
@@ -268,10 +286,10 @@
                                                 "itemId": "rhevm1",
                                                 "text": "RHEV-M1"
                                             },
-                                            "designerId": "717d1331-55bf-4b96-abae-31a49b1ceebf"
+                                            "designerId": "621fc0f8-d6f8-4de4-87ae-ee5e13455419"
                                         },
                                         {
-                                            "type": "Ext.menu.Item",
+                                            "type": "Ext.menu.CheckItem",
                                             "reference": {
                                                 "name": "items",
                                                 "type": "array"
@@ -282,9 +300,26 @@
                                                 "itemId": "rhevm2",
                                                 "text": "RHEV-M2"
                                             },
-                                            "designerId": "eba95660-fda6-42c6-84a0-3a5aca47b612"
+                                            "designerId": "941b27ac-e91b-4acc-8647-e7b9f41e1908"
                                         }
                                     ]
+                                },
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onRhevmCycleClick",
+                                        "implHandler": [
+                                            "return false;"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "designerId": "c24f7a0f-6e75-40c3-b697-01a5d5c3b41c"
                                 }
                             ]
                         },
@@ -298,6 +333,7 @@
                             "userConfig": {
                                 "cls": null,
                                 "emptyText": "Search Instance",
+                                "enableKeyEvents": true,
                                 "fieldLabel": "",
                                 "fieldStyle": null,
                                 "id": "searchInstanceName",
@@ -319,7 +355,7 @@
                                 "itemId": "searchCategory",
                                 "layout|flex": null
                             },
-                            "designerId": "c729ed41-0c2e-4fb4-b284-004712e699b2"
+                            "designerId": "a205ee9a-faa0-45ab-bcf9-0bc2a6b2e198"
                         },
                         {
                             "type": "Ext.form.field.Hidden",
@@ -330,11 +366,11 @@
                             "codeClass": null,
                             "userConfig": {
                                 "fieldLabel": "Label",
-                                "id": "searchRhvm",
-                                "itemId": "searchRhvm",
+                                "id": "searchRhevm",
+                                "itemId": "searchRhevm",
                                 "layout|flex": null
                             },
-                            "designerId": "02d1d2b6-0b4f-4cae-bc91-4c5ce7ab6bea"
+                            "designerId": "f2aa2c02-3806-4d3d-bf9a-b21378441667"
                         }
                     ]
                 },
@@ -470,6 +506,7 @@
                 "height": null,
                 "id": "instanceDetailPanel",
                 "itemId": "instanceDetailPanel",
+                "layout": "card",
                 "layout|flex": 1,
                 "layout|region": "south",
                 "layout|split": true,
@@ -477,6 +514,16 @@
             },
             "designerId": "48e27abc-6d81-4c19-8066-1f9313b2c210",
             "cn": [
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "designerId": "9ab7bf38-dcf5-4be2-9712-864b5c2c5bfa",
+                    "masterInstanceId": "e7b23fbb-645f-4ed9-9597-a17739e34568"
+                },
                 {
                     "type": "Ext.tab.Panel",
                     "reference": {
@@ -491,7 +538,7 @@
                         "padding": "5 0 0 0",
                         "plain": true
                     },
-                    "designerId": "2d5276b9-f25a-41d0-8a47-1b9cf104c93d",
+                    "designerId": "938e49ff-7a92-43ec-b773-25ea9900c6ef",
                     "cn": [
                         {
                             "type": "Ext.panel.Panel",
@@ -586,7 +633,8 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "fieldLabel": "Instance ID",
-                                                        "layout|flex": null
+                                                        "layout|flex": null,
+                                                        "name": "instanceID"
                                                     },
                                                     "designerId": "48d1b528-5229-4616-b0aa-2caceb7ae28a"
                                                 },
@@ -599,7 +647,8 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "fieldLabel": "Host",
-                                                        "layout|flex": null
+                                                        "layout|flex": null,
+                                                        "name": "host"
                                                     },
                                                     "designerId": "72c668c3-bc10-409a-bb14-1f03db1cf40e"
                                                 }
@@ -737,7 +786,8 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "fieldLabel": "IP Address",
-                                                        "layout|flex": null
+                                                        "layout|flex": null,
+                                                        "name": "ipAddress"
                                                     },
                                                     "designerId": "1099ca36-3e4e-4554-a8d5-4ad233175a8a"
                                                 },
@@ -895,64 +945,14 @@
                                     "userConfig": {
                                         "autoScroll": true,
                                         "columnLines": true,
+                                        "forceFit": true,
                                         "id": "instanceSoftwareGrid",
                                         "itemId": "instanceSoftwareGrid",
+                                        "store": "instanceSoftwareListStore",
                                         "title": null
                                     },
                                     "designerId": "3ccf5286-cd31-47fb-9175-e26d384742d0",
                                     "cn": [
-                                        {
-                                            "type": "Ext.grid.column.Column",
-                                            "reference": {
-                                                "name": "columns",
-                                                "type": "array"
-                                            },
-                                            "codeClass": null,
-                                            "userConfig": {
-                                                "dataIndex": "string",
-                                                "text": "String"
-                                            },
-                                            "designerId": "a1ac2496-3e35-4cf1-9ebf-e53cb5000210"
-                                        },
-                                        {
-                                            "type": "Ext.grid.column.Number",
-                                            "reference": {
-                                                "name": "columns",
-                                                "type": "array"
-                                            },
-                                            "codeClass": null,
-                                            "userConfig": {
-                                                "dataIndex": "number",
-                                                "text": "Number"
-                                            },
-                                            "designerId": "15c85268-382c-4a90-94d9-f07742f71f9b"
-                                        },
-                                        {
-                                            "type": "Ext.grid.column.Date",
-                                            "reference": {
-                                                "name": "columns",
-                                                "type": "array"
-                                            },
-                                            "codeClass": null,
-                                            "userConfig": {
-                                                "dataIndex": "date",
-                                                "text": "Date"
-                                            },
-                                            "designerId": "68fd74f8-02c2-4537-8bd8-3dafda8a880f"
-                                        },
-                                        {
-                                            "type": "Ext.grid.column.Boolean",
-                                            "reference": {
-                                                "name": "columns",
-                                                "type": "array"
-                                            },
-                                            "codeClass": null,
-                                            "userConfig": {
-                                                "dataIndex": "bool",
-                                                "text": "Boolean"
-                                            },
-                                            "designerId": "58f72572-a652-4c1c-86ae-37ee40b10b44"
-                                        },
                                         {
                                             "type": "Ext.grid.View",
                                             "reference": {
@@ -1011,6 +1011,353 @@
                                                             "designerId": "9087863d-0373-4d2d-9ad3-cf6923c34960"
                                                         }
                                                     ]
+                                                },
+                                                {
+                                                    "type": "Ext.toolbar.Separator",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "layout|flex": null
+                                                    },
+                                                    "designerId": "f80c6ba7-6d95-4d72-8dc4-71972872d76e"
+                                                },
+                                                {
+                                                    "type": "Ext.button.Cycle",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "id": "softwareCycle",
+                                                        "itemId": "softwareCycle",
+                                                        "layout|flex": null,
+                                                        "showText": true
+                                                    },
+                                                    "designerId": "a33ca4da-736f-4815-94ff-24b799497d3a",
+                                                    "cn": [
+                                                        {
+                                                            "type": "Ext.menu.Menu",
+                                                            "reference": {
+                                                                "name": "menu",
+                                                                "type": "object"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "id": "softwareList",
+                                                                "itemId": "softwareList",
+                                                                "width": null
+                                                            },
+                                                            "designerId": "36191185-482f-460b-8451-e730ddda764e",
+                                                            "cn": [
+                                                                {
+                                                                    "type": "Ext.menu.CheckItem",
+                                                                    "reference": {
+                                                                        "name": "items",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "text": "Select Software"
+                                                                    },
+                                                                    "designerId": "4c6c3984-d058-4455-9747-caacf78551c3"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.menu.CheckItem",
+                                                                    "reference": {
+                                                                        "name": "items",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "text": "Apache"
+                                                                    },
+                                                                    "designerId": "12605e84-b79d-4492-94c2-86c15ec3cc79"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.menu.CheckItem",
+                                                                    "reference": {
+                                                                        "name": "items",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "text": "JBoss EAP"
+                                                                    },
+                                                                    "designerId": "d9753833-109a-4373-aecc-d591d68da7ea"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.menu.CheckItem",
+                                                                    "reference": {
+                                                                        "name": "items",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "text": "JBoss EWS"
+                                                                    },
+                                                                    "designerId": "a60bebde-02d8-44cd-959e-b3f85c67f06c"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.menu.CheckItem",
+                                                                    "reference": {
+                                                                        "name": "items",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "text": "Tomcat"
+                                                                    },
+                                                                    "designerId": "4fd5fcb6-cb5d-44ef-a127-f3b2c88b653e"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "Ext.button.Cycle",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "id": "versionCycle",
+                                                        "itemId": "versionCycle",
+                                                        "layout|flex": null,
+                                                        "showText": true
+                                                    },
+                                                    "designerId": "ded42002-077f-44e1-b549-6b5b5714f606",
+                                                    "cn": [
+                                                        {
+                                                            "type": "Ext.menu.Menu",
+                                                            "reference": {
+                                                                "name": "menu",
+                                                                "type": "object"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "id": "versionList",
+                                                                "itemId": "versionList",
+                                                                "width": null
+                                                            },
+                                                            "designerId": "a627fadc-6714-4991-a683-22a3753b359d",
+                                                            "cn": [
+                                                                {
+                                                                    "type": "Ext.menu.CheckItem",
+                                                                    "reference": {
+                                                                        "name": "items",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "text": "Select Version"
+                                                                    },
+                                                                    "designerId": "ab5bb621-d046-4ae6-ba49-3618a09b45da"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "Ext.grid.RowNumberer",
+                                            "reference": {
+                                                "name": "columns",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "designerId": "6c92f5b4-f3b5-4f01-bd95-928ac1115111"
+                                        },
+                                        {
+                                            "type": "Ext.grid.column.Column",
+                                            "reference": {
+                                                "name": "columns",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "dataIndex": "name",
+                                                "text": "Name"
+                                            },
+                                            "designerId": "95237c7d-c975-4aca-b81d-d0a846d71d0c"
+                                        },
+                                        {
+                                            "type": "Ext.grid.column.Column",
+                                            "reference": {
+                                                "name": "columns",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "dataIndex": "version",
+                                                "text": "Version"
+                                            },
+                                            "designerId": "ab9ca566-4423-49aa-b1d9-25ca94ab42d9"
+                                        },
+                                        {
+                                            "type": "Ext.grid.column.Column",
+                                            "reference": {
+                                                "name": "columns",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "dataIndex": "installDate",
+                                                "text": "InstallDate"
+                                            },
+                                            "designerId": "8bd50451-0d61-4b96-8ffb-6d1a98d8c5a3"
+                                        },
+                                        {
+                                            "type": "Ext.grid.column.Column",
+                                            "reference": {
+                                                "name": "columns",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "dataIndex": "description",
+                                                "text": "Description"
+                                            },
+                                            "designerId": "ed61b9ed-93c2-47b0-977f-9ad8ba21dada"
+                                        },
+                                        {
+                                            "type": "Ext.grid.column.Column",
+                                            "reference": {
+                                                "name": "columns",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "dataIndex": "status",
+                                                "text": "Status"
+                                            },
+                                            "designerId": "b64e6c32-4cd1-45ad-9fdf-e2e540b0dfc8"
+                                        },
+                                        {
+                                            "type": "Ext.grid.column.Action",
+                                            "reference": {
+                                                "name": "columns",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "align": "center",
+                                                "maxWidth": 100,
+                                                "menuText": "",
+                                                "style": [
+                                                    "\"text-align:left;\""
+                                                ],
+                                                "text": "Edit Config",
+                                                "width": 65
+                                            },
+                                            "designerId": "08243f34-fab1-45bc-9981-52602195bae1",
+                                            "customConfigs": [
+                                                {
+                                                    "group": "(Custom Properties)",
+                                                    "name": "text",
+                                                    "type": "string"
+                                                }
+                                            ],
+                                            "cn": [
+                                                {
+                                                    "type": "actioncolumnitem",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "icon": "resources/images/icons/cog.png",
+                                                        "iconCls": ""
+                                                    },
+                                                    "designerId": "3b05b292-411f-480e-81f3-2d2464fb4c65"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "Ext.grid.column.Action",
+                                            "reference": {
+                                                "name": "columns",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "align": "center",
+                                                "maxWidth": 100,
+                                                "menuText": "",
+                                                "style": [
+                                                    "\"text-align:left;\""
+                                                ],
+                                                "text": "Install Log",
+                                                "width": 65
+                                            },
+                                            "designerId": "a2f3a887-c1a4-48b3-b04e-8ce7bd25bac7",
+                                            "customConfigs": [
+                                                {
+                                                    "group": "(Custom Properties)",
+                                                    "name": "text",
+                                                    "type": "string"
+                                                }
+                                            ],
+                                            "cn": [
+                                                {
+                                                    "type": "actioncolumnitem",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "icon": "resources/images/icons/application_view_list.png",
+                                                        "iconCls": ""
+                                                    },
+                                                    "designerId": "c49de747-f90c-427c-b1e5-09daa27a817d"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "Ext.grid.column.Action",
+                                            "reference": {
+                                                "name": "columns",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "align": "center",
+                                                "maxWidth": 100,
+                                                "menuText": "",
+                                                "style": [
+                                                    "\"text-align:left;\""
+                                                ],
+                                                "text": "Uninstall",
+                                                "width": 60
+                                            },
+                                            "designerId": "840fbaba-a1c3-45cf-a906-742f639d0aeb",
+                                            "customConfigs": [
+                                                {
+                                                    "group": "(Custom Properties)",
+                                                    "name": "text",
+                                                    "type": "string"
+                                                }
+                                            ],
+                                            "cn": [
+                                                {
+                                                    "type": "actioncolumnitem",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "icon": "resources/images/icons/delete.png",
+                                                        "iconCls": ""
+                                                    },
+                                                    "designerId": "1cc8af0b-896e-463e-a3e2-6e8b04cba80e"
                                                 }
                                             ]
                                         }
@@ -1053,6 +1400,7 @@
                                     "userConfig": {
                                         "autoScroll": true,
                                         "columnLines": true,
+                                        "forceFit": true,
                                         "id": "instanceOsGrid",
                                         "itemId": "instanceOsGrid",
                                         "title": null
@@ -1177,6 +1525,20 @@
                                             },
                                             "codeClass": null,
                                             "designerId": "974d0264-aeac-4daa-8971-6dccc2f1da67"
+                                        },
+                                        {
+                                            "type": "Ext.toolbar.Paging",
+                                            "reference": {
+                                                "name": "dockedItems",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "displayInfo": true,
+                                                "dock": "bottom",
+                                                "width": 360
+                                            },
+                                            "designerId": "87800358-59ef-456a-9ecf-feef1335205f"
                                         }
                                     ]
                                 }

@@ -1,0 +1,4 @@
+[
+	{"name":"Apache","version":"2.2.27","installDate":"2014.07.01 13:01:00 KST","description":"Apache HTTPD 2.2.27","status":"설치완료"},
+	{"name":"Tomcat","version":"7.0.47","installDate":"2014.07.02 13:01:00 KST","description":"Apache Tomcat 7.0.47","status":"설치완료"}
+ ]

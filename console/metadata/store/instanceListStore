@@ -21,7 +21,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "url": "/instance/listInstance"
+                "url": "http://localhost:8080/instance/listInstance"
             },
             "designerId": "969f7952-07e6-4aea-abea-8a7e1b2f37d2",
             "cn": [

@@ -31,7 +31,7 @@ Ext.define('MyApp.store.instanceListStore', {
             storeId: 'instanceListStore',
             proxy: me.processMyAjaxProxy({
                 type: 'ajax',
-                url: '/instance/listInstance',
+                url: 'http://localhost:8080/instance/listInstance',
                 reader: {
                     type: 'json',
                     root: 'list'

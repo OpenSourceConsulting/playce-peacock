@@ -25,13 +25,15 @@ Ext.application({
         'Ext.util.Point'
     ],
     models: [
-        'instanceModel'
+        'instanceModel',
+        'instanceSoftwareModel'
     ],
     stores: [
         'MenuTreeStore',
         'tempChartData',
         'tempGridData',
-        'instanceListStore'
+        'instanceListStore',
+        'instanceSoftwareListStore'
     ],
     views: [
         'peacockViewport',

@@ -15,6 +15,7 @@
 
 Ext.define('MyApp.view.blankPanel', {
     extend: 'Ext.panel.Panel',
+    alias: 'widget.blankpanel',
 
     height: 1000,
     id: 'blankPanel',

@@ -66,9 +66,9 @@ public class InstancesController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/listInstance")
-	public @ResponseBody GridJsonResponse listInstance(GridJsonResponse jsonRes, String search) throws Exception {
+	public @ResponseBody GridJsonResponse listInstance(GridJsonResponse jsonRes, String search1, String search2, String search3) throws Exception {
 		
-		logger.debug(search);
+		logger.debug(search1 + ":" + search2 + ":" + search3);
 		
 	    JSONParser parser = new JSONParser();
 	    Object obj = parser.parse(new FileReader(getClass().getResource("/json/InstanceGridData.json").getPath()));
@@ -90,21 +90,31 @@ public class InstancesController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/getInstance")
-	public @ResponseBody DtoJsonResponse getInstance(DtoJsonResponse jsonRes, String machineId) throws Exception {
-		MachineDto machineDto = new MachineDto();
-		machineDto.setMachineId("i-11111111");
-		machineDto.setCpuClock("");
-		machineDto.setMemSize("4096 MB");
-		machineDto.setCpuNum("2");
-		machineDto.setHostName("Test");
-//		machineDto.set
-//		machineDto.set
-//		machineDto.set
-//		machineDto.set
-//		machineDto.set
+	@RequestMapping("/getInstanceDescription")
+	public @ResponseBody DtoJsonResponse getInstanceDescription(DtoJsonResponse jsonRes, String machineId) throws Exception {
 		
-		jsonRes.setData(machineDto);
+	    JSONParser parser = new JSONParser();
+	    Object obj = parser.parse(new FileReader(getClass().getResource("/json/InstanceGridData.json").getPath()));
+
+	    JSONArray jsonArray =  (JSONArray) obj;
+
+		jsonRes.setData(jsonArray.get(0));
+		
+		return jsonRes;
+	}
+	
+	@RequestMapping("/listInstanceSoftware")
+	public @ResponseBody GridJsonResponse listInstanceSoftware(GridJsonResponse jsonRes, String search1, String search2, String search3) throws Exception {
+		
+		logger.debug(search1 + ":" + search2 + ":" + search3);
+		
+	    JSONParser parser = new JSONParser();
+	    Object obj = parser.parse(new FileReader(getClass().getResource("/json/InstanceSoftwareGridData.json").getPath()));
+
+	    JSONArray jsonArray =  (JSONArray) obj;
+
+		jsonRes.setTotal(jsonArray.size());
+		jsonRes.setList(jsonArray);
 		
 		return jsonRes;
 	}

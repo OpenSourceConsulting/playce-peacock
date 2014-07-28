@@ -16,7 +16,8 @@
             "RHEVMController"
         ],
         "models": [
-            "instanceModel"
+            "instanceModel",
+            "instanceSoftwareModel"
         ],
         "name": "MyApp",
         "requires": [
@@ -26,7 +27,8 @@
             "MenuTreeStore",
             "tempChartData",
             "tempGridData",
-            "instanceListStore"
+            "instanceListStore",
+            "instanceSoftwareListStore"
         ],
         "views": [
             "peacockViewport",

@@ -18,13 +18,14 @@ Ext.define('MyApp.view.instancesContainer', {
     alias: 'widget.instancesContainer',
 
     requires: [
+        'MyApp.view.blankPanel',
         'Ext.grid.Panel',
         'Ext.grid.View',
         'Ext.toolbar.Separator',
         'Ext.toolbar.TextItem',
-        'Ext.button.Split',
+        'Ext.button.Cycle',
         'Ext.menu.Menu',
-        'Ext.menu.Item',
+        'Ext.menu.CheckItem',
         'Ext.form.field.Text',
         'Ext.form.field.Hidden',
         'Ext.toolbar.Paging',
@@ -33,6 +34,8 @@ Ext.define('MyApp.view.instancesContainer', {
         'Ext.form.Panel',
         'Ext.form.FieldContainer',
         'Ext.form.field.Checkbox',
+        'Ext.grid.RowNumberer',
+        'Ext.grid.column.Action',
         'Ext.grid.column.Number',
         'Ext.grid.column.Date',
         'Ext.grid.column.Boolean',
@@ -98,65 +101,76 @@ Ext.define('MyApp.view.instancesContainer', {
                                     text: 'Filter : '
                                 },
                                 {
-                                    xtype: 'splitbutton',
+                                    xtype: 'cycle',
                                     id: 'categoryCycle',
                                     itemId: 'categoryCycle',
-                                    text: 'All Categories',
+                                    showText: true,
                                     menu: {
                                         xtype: 'menu',
                                         id: 'categoryList',
                                         items: [
                                             {
-                                                xtype: 'menuitem',
+                                                xtype: 'menucheckitem',
                                                 id: 'allCategories',
                                                 itemId: 'allCategories',
                                                 text: 'All Categories'
                                             },
                                             {
-                                                xtype: 'menuitem',
+                                                xtype: 'menucheckitem',
                                                 id: 'development',
                                                 itemId: 'development',
                                                 text: 'Development'
                                             },
                                             {
-                                                xtype: 'menuitem',
+                                                xtype: 'menucheckitem',
                                                 id: 'production',
                                                 itemId: 'production',
                                                 text: 'Production'
                                             }
                                         ]
+                                    },
+                                    listeners: {
+                                        click: {
+                                            fn: me.onCycleClick,
+                                            scope: me
+                                        }
                                     }
                                 },
                                 {
-                                    xtype: 'splitbutton',
+                                    xtype: 'cycle',
                                     id: 'rhevmCycle',
                                     itemId: 'rhevmCycle',
-                                    text: 'All RHEV Manager',
+                                    showText: true,
                                     menu: {
                                         xtype: 'menu',
                                         id: 'rhevmList',
                                         itemId: 'rhevmList',
-                                        width: 120,
                                         items: [
                                             {
-                                                xtype: 'menuitem',
+                                                xtype: 'menucheckitem',
                                                 id: 'allRhevm',
                                                 itemId: 'allRhevm',
                                                 text: 'All RHEV Manager'
                                             },
                                             {
-                                                xtype: 'menuitem',
+                                                xtype: 'menucheckitem',
                                                 id: 'rhevm1',
                                                 itemId: 'rhevm1',
                                                 text: 'RHEV-M1'
                                             },
                                             {
-                                                xtype: 'menuitem',
+                                                xtype: 'menucheckitem',
                                                 id: 'rhevm2',
                                                 itemId: 'rhevm2',
                                                 text: 'RHEV-M2'
                                             }
                                         ]
+                                    },
+                                    listeners: {
+                                        click: {
+                                            fn: me.onRhevmCycleClick,
+                                            scope: me
+                                        }
                                     }
                                 },
                                 {
@@ -164,7 +178,8 @@ Ext.define('MyApp.view.instancesContainer', {
                                     id: 'searchInstanceName',
                                     itemId: 'searchInstanceName',
                                     fieldLabel: '',
-                                    emptyText: 'Search Instance'
+                                    emptyText: 'Search Instance',
+                                    enableKeyEvents: true
                                 },
                                 {
                                     xtype: 'hiddenfield',
@@ -174,8 +189,8 @@ Ext.define('MyApp.view.instancesContainer', {
                                 },
                                 {
                                     xtype: 'hiddenfield',
-                                    id: 'searchRhvm',
-                                    itemId: 'searchRhvm',
+                                    id: 'searchRhevm',
+                                    itemId: 'searchRhevm',
                                     fieldLabel: 'Label'
                                 }
                             ]
@@ -238,7 +253,11 @@ Ext.define('MyApp.view.instancesContainer', {
                     split: true,
                     id: 'instanceDetailPanel',
                     itemId: 'instanceDetailPanel',
+                    layout: 'card',
                     items: [
+                        {
+                            xtype: 'blankpanel'
+                        },
                         {
                             xtype: 'tabpanel',
                             id: 'instanceTabPanel',
@@ -288,11 +307,13 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     items: [
                                                         {
                                                             xtype: 'textfield',
-                                                            fieldLabel: 'Instance ID'
+                                                            fieldLabel: 'Instance ID',
+                                                            name: 'instanceID'
                                                         },
                                                         {
                                                             xtype: 'textfield',
-                                                            fieldLabel: 'Host'
+                                                            fieldLabel: 'Host',
+                                                            name: 'host'
                                                         }
                                                     ]
                                                 },
@@ -359,7 +380,8 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     items: [
                                                         {
                                                             xtype: 'textfield',
-                                                            fieldLabel: 'IP Address'
+                                                            fieldLabel: 'IP Address',
+                                                            name: 'ipAddress'
                                                         },
                                                         {
                                                             xtype: 'textfield',
@@ -429,28 +451,8 @@ Ext.define('MyApp.view.instancesContainer', {
                                             itemId: 'instanceSoftwareGrid',
                                             autoScroll: true,
                                             columnLines: true,
-                                            columns: [
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    dataIndex: 'string',
-                                                    text: 'String'
-                                                },
-                                                {
-                                                    xtype: 'numbercolumn',
-                                                    dataIndex: 'number',
-                                                    text: 'Number'
-                                                },
-                                                {
-                                                    xtype: 'datecolumn',
-                                                    dataIndex: 'date',
-                                                    text: 'Date'
-                                                },
-                                                {
-                                                    xtype: 'booleancolumn',
-                                                    dataIndex: 'bool',
-                                                    text: 'Boolean'
-                                                }
-                                            ],
+                                            forceFit: true,
+                                            store: 'instanceSoftwareListStore',
                                             dockedItems: [
                                                 {
                                                     xtype: 'toolbar',
@@ -466,6 +468,134 @@ Ext.define('MyApp.view.instancesContainer', {
                                                             id: 'softwareInstallBtn',
                                                             itemId: 'softwareInstallBtn',
                                                             text: 'Software Install'
+                                                        },
+                                                        {
+                                                            xtype: 'tbseparator'
+                                                        },
+                                                        {
+                                                            xtype: 'cycle',
+                                                            id: 'softwareCycle',
+                                                            itemId: 'softwareCycle',
+                                                            showText: true,
+                                                            menu: {
+                                                                xtype: 'menu',
+                                                                id: 'softwareList',
+                                                                itemId: 'softwareList',
+                                                                items: [
+                                                                    {
+                                                                        xtype: 'menucheckitem',
+                                                                        text: 'Select Software'
+                                                                    },
+                                                                    {
+                                                                        xtype: 'menucheckitem',
+                                                                        text: 'Apache'
+                                                                    },
+                                                                    {
+                                                                        xtype: 'menucheckitem',
+                                                                        text: 'JBoss EAP'
+                                                                    },
+                                                                    {
+                                                                        xtype: 'menucheckitem',
+                                                                        text: 'JBoss EWS'
+                                                                    },
+                                                                    {
+                                                                        xtype: 'menucheckitem',
+                                                                        text: 'Tomcat'
+                                                                    }
+                                                                ]
+                                                            }
+                                                        },
+                                                        {
+                                                            xtype: 'cycle',
+                                                            id: 'versionCycle',
+                                                            itemId: 'versionCycle',
+                                                            showText: true,
+                                                            menu: {
+                                                                xtype: 'menu',
+                                                                id: 'versionList',
+                                                                itemId: 'versionList',
+                                                                items: [
+                                                                    {
+                                                                        xtype: 'menucheckitem',
+                                                                        text: 'Select Version'
+                                                                    }
+                                                                ]
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            columns: [
+                                                {
+                                                    xtype: 'rownumberer'
+                                                },
+                                                {
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'name',
+                                                    text: 'Name'
+                                                },
+                                                {
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'version',
+                                                    text: 'Version'
+                                                },
+                                                {
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'installDate',
+                                                    text: 'InstallDate'
+                                                },
+                                                {
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'description',
+                                                    text: 'Description'
+                                                },
+                                                {
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'status',
+                                                    text: 'Status'
+                                                },
+                                                {
+                                                    xtype: 'actioncolumn',
+                                                    text: 'Edit Config',
+                                                    maxWidth: 100,
+                                                    style: 'text-align:left;',
+                                                    width: 65,
+                                                    align: 'center',
+                                                    menuText: '',
+                                                    items: [
+                                                        {
+                                                            icon: 'resources/images/icons/cog.png',
+                                                            iconCls: ''
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    xtype: 'actioncolumn',
+                                                    text: 'Install Log',
+                                                    maxWidth: 100,
+                                                    style: 'text-align:left;',
+                                                    width: 65,
+                                                    align: 'center',
+                                                    menuText: '',
+                                                    items: [
+                                                        {
+                                                            icon: 'resources/images/icons/application_view_list.png',
+                                                            iconCls: ''
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    xtype: 'actioncolumn',
+                                                    text: 'Uninstall',
+                                                    maxWidth: 100,
+                                                    style: 'text-align:left;',
+                                                    width: 60,
+                                                    align: 'center',
+                                                    menuText: '',
+                                                    items: [
+                                                        {
+                                                            icon: 'resources/images/icons/delete.png',
+                                                            iconCls: ''
                                                         }
                                                     ]
                                                 }
@@ -485,6 +615,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                             itemId: 'instanceOsGrid',
                                             autoScroll: true,
                                             columnLines: true,
+                                            forceFit: true,
                                             dockedItems: [
                                                 {
                                                     xtype: 'toolbar',
@@ -508,6 +639,12 @@ Ext.define('MyApp.view.instancesContainer', {
                                                             emptyText: 'Search Package'
                                                         }
                                                     ]
+                                                },
+                                                {
+                                                    xtype: 'pagingtoolbar',
+                                                    dock: 'bottom',
+                                                    width: 360,
+                                                    displayInfo: true
                                                 }
                                             ],
                                             columns: [
@@ -757,6 +894,14 @@ Ext.define('MyApp.view.instancesContainer', {
         });
 
         me.callParent(arguments);
+    },
+
+    onCycleClick: function(button, e, eOpts) {
+        return false;
+    },
+
+    onRhevmCycleClick: function(button, e, eOpts) {
+        return false;
     }
 
 });

@@ -23,10 +23,12 @@
                 "designer|targetType": "Ext.grid.Panel",
                 "fn": "onInstancesGridBeforeItemContextMenu",
                 "implHandler": [
+                    "//Instaces Grid Right Click Menu 호출",
+                    "",
                     "var position = e.getXY();",
                     "e.stopEvent();",
                     "",
-                    "instancesConstants.selectRowId = record.get('id');",
+                    "instancesConstants.selectRow = record;",
                     "",
                     "instancesConstants.contextMenu.showAt(position);",
                     "",
@@ -50,40 +52,43 @@
                 ],
                 "fn": "init",
                 "implHandler": [
+                    "//Instances Menu Config Setting",
+                    "",
                     "var instances = this;",
                     "",
                     "var instancesGridContextMenu = new Ext.menu.Menu({",
-                    "        items:",
-                    "        [",
-                    "            { text: 'CLI(Command Line Interface)',",
-                    "              handler: function() {",
-                    "                   instances.showCLIWindow();",
-                    "              }",
-                    "            },",
-                    "            { text: 'Manage Account',",
-                    "              handler: function() {",
-                    "                  instances.showManageAccountWindow();",
-                    "              }",
-                    "            },",
-                    "            { text: 'Edit Fstab',",
-                    "              handler: function() {",
-                    "                  instances.showFstabWindow();",
-                    "              }",
-                    "            },",
-                    "            { text: 'Edit Crontab',",
-                    "              handler: function() {",
-                    "                  instances.showCrontabWindow();",
-                    "              }",
-                    "            }",
-                    "        ]",
+                    "    items:",
+                    "    [",
+                    "        { text: 'CLI(Command Line Interface)',",
+                    "         handler: function() {",
+                    "             instances.showCLIWindow();",
+                    "         }",
+                    "        },",
+                    "        { text: 'Manage Account',",
+                    "         handler: function() {",
+                    "             instances.showManageAccountWindow();",
+                    "         }",
+                    "        },",
+                    "        { text: 'Edit Fstab',",
+                    "         handler: function() {",
+                    "             instances.showFstabWindow();",
+                    "         }",
+                    "        },",
+                    "        { text: 'Edit Crontab',",
+                    "         handler: function() {",
+                    "             instances.showCrontabWindow();",
+                    "         }",
+                    "        }",
+                    "    ]",
                     "",
                     "});",
                     "",
                     "//Instances Menu Constants",
                     "Ext.define('instancesConstants', {",
                     "    singleton: true,",
+                    "    me : instances,",
                     "    contextMenu: instancesGridContextMenu,",
-                    "    selectRowId : null",
+                    "    selectRow : null",
                     "});",
                     ""
                 ]
@@ -100,7 +105,17 @@
             "userConfig": {
                 "fn": "searchInstance",
                 "implHandler": [
-                    ""
+                    "//Instances Grid Data Search",
+                    "Ext.getCmp(\"instancesGrid\").getStore().load({",
+                    "    params:{",
+                    "        search1 : Ext.getCmp(\"searchCategory\").getRawValue(),",
+                    "        search2 : Ext.getCmp(\"searchRhevm\").getRawValue(),",
+                    "        search3 : Ext.getCmp(\"searchInstanceName\").getRawValue()",
+                    "    }",
+                    "});",
+                    "",
+                    "var detailPanel = Ext.getCmp(\"instanceDetailPanel\");",
+                    "detailPanel.layout.setActiveItem(0);"
                 ]
             },
             "designerId": "be575cdc-0f2c-4d5a-9046-e8371787c032"
@@ -185,7 +200,8 @@
                 "designer|targetType": "Ext.grid.Panel",
                 "fn": "onInstancesGridAfterRender",
                 "implHandler": [
-                    "component.getStore().load();"
+                    "//Instances Grid rendering",
+                    "this.searchInstance();"
                 ],
                 "name": "afterrender",
                 "scope": "me"
@@ -201,30 +217,123 @@
             "codeClass": null,
             "userConfig": {
                 "designer|controlQuery": "#categoryCycle menuitem",
-                "designer|targetType": "Ext.menu.Item",
+                "designer|targetType": "Ext.menu.CheckItem",
                 "fn": "onCategoryCycleClick",
                 "implHandler": [
-                    "var gridStore = Ext.getCmp(\"instancesGrid\").getStore();",
+                    "// Category Menu Click",
+                    "if(Ext.getCmp(\"searchCategory\").getRawValue() != item.getId()) {",
                     "",
-                    "gridStore.getProxy().setExtraParam(\"search\", item.getId());",
-                    "gridStore.load();",
+                    "    Ext.getCmp(\"searchCategory\").setRawValue(item.getId());",
                     "",
-                    "",
-                    "/*",
-                    "       if(e.getKey() == e.ENTER){",
-                    "",
-                    "            var mainGridStore = Ext.getCmp(\"mainGridPanel\").getStore();",
-                    "",
-                    "            mainGridStore.getProxy().setExtraParam( \"search\", textfield.getRawValue() );",
-                    "",
-                    "            mainGridStore.load();",
-                    "        }",
-                    "*/"
+                    "    this.searchInstance();",
+                    "}",
+                    ""
                 ],
                 "name": "click",
                 "scope": "me"
             },
             "designerId": "5801d9c7-a705-404c-be19-3c8480fa1cef"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#rhevmCycle menuitem",
+                "designer|targetType": "Ext.menu.CheckItem",
+                "fn": "onRhevmCycleClick",
+                "implHandler": [
+                    "//RHEVM Menu Click",
+                    "if(Ext.getCmp(\"searchRhevm\").getRawValue() != item.getId()) {",
+                    "",
+                    "    Ext.getCmp(\"searchRhevm\").setRawValue(item.getId());",
+                    "",
+                    "    this.searchInstance();",
+                    "}",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "54ff767f-c05d-4e42-99c7-7f3c41ce6beb"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#searchInstanceName",
+                "designer|targetType": "Ext.form.field.Text",
+                "fn": "onSearchInstanceNameKeydown",
+                "implHandler": [
+                    "//Instance Name Search",
+                    "if(e.getKey() == e.ENTER){",
+                    "    this.searchInstance();",
+                    "}"
+                ],
+                "name": "keydown",
+                "scope": "me"
+            },
+            "designerId": "a68b97d7-00d3-47e8-b111-d5db205fb7ac"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#instancesGrid",
+                "designer|targetType": "Ext.grid.Panel",
+                "fn": "onInstancesGridSelect",
+                "implHandler": [
+                    "//Instances Grid Item Click",
+                    "",
+                    "instancesConstants.selectRow = record;",
+                    "",
+                    "var detailPanel = Ext.getCmp(\"instanceDetailPanel\");",
+                    "detailPanel.layout.setActiveItem(1);",
+                    "",
+                    "Ext.getCmp(\"instanceTabPanel\").setActiveTab(0);",
+                    "",
+                    "",
+                    "//Description Data Loading",
+                    "var descform = Ext.getCmp(\"instanceDescForm\");",
+                    "",
+                    "descform.getForm().reset();",
+                    "",
+                    "descform.getForm().waitMsgTarget = descform.getEl();",
+                    "",
+                    "descform.getForm().load({",
+                    "    params : {",
+                    "        instanceID : record.get(\"instanceID\")",
+                    "    }",
+                    "    ,url : \"http://localhost:8080/instance/getInstanceDescription\"",
+                    "    ,waitMsg:'Loading...'",
+                    "});",
+                    "",
+                    "",
+                    "//Software Data Loading",
+                    "var softwareGrid = Ext.getCmp('instanceSoftwareGrid');",
+                    "",
+                    "softwareGrid.getStore().load({",
+                    "    params:{",
+                    "        instanceID : record.get(\"instanceID\")",
+                    "    }",
+                    "});",
+                    ""
+                ],
+                "name": "select",
+                "scope": "me"
+            },
+            "designerId": "7cc8272e-956b-44cd-811f-60f601258eaf"
         }
     ]
 }

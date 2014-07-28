@@ -19,10 +19,12 @@ Ext.define('MyApp.controller.InstancesController', {
     id: 'InstancesController',
 
     onInstancesGridBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
+        //Instaces Grid Right Click Menu 호출
+
         var position = e.getXY();
         e.stopEvent();
 
-        instancesConstants.selectRowId = record.get('id');
+        instancesConstants.selectRow = record;
 
         instancesConstants.contextMenu.showAt(position);
 
@@ -30,29 +32,80 @@ Ext.define('MyApp.controller.InstancesController', {
     },
 
     onInstancesGridAfterRender: function(component, eOpts) {
-        component.getStore().load();
+        //Instances Grid rendering
+        this.searchInstance();
     },
 
     onCategoryCycleClick: function(item, e, eOpts) {
-        var gridStore = Ext.getCmp("instancesGrid").getStore();
+        // Category Menu Click
+        if(Ext.getCmp("searchCategory").getRawValue() != item.getId()) {
 
-        gridStore.getProxy().setExtraParam("search", item.getId());
-        gridStore.load();
+            Ext.getCmp("searchCategory").setRawValue(item.getId());
+
+            this.searchInstance();
+        }
+
+    },
+
+    onRhevmCycleClick: function(item, e, eOpts) {
+        //RHEVM Menu Click
+        if(Ext.getCmp("searchRhevm").getRawValue() != item.getId()) {
+
+            Ext.getCmp("searchRhevm").setRawValue(item.getId());
+
+            this.searchInstance();
+        }
+
+    },
+
+    onSearchInstanceNameKeydown: function(textfield, e, eOpts) {
+        //Instance Name Search
+        if(e.getKey() == e.ENTER){
+            this.searchInstance();
+        }
+    },
+
+    onInstancesGridSelect: function(rowmodel, record, index, eOpts) {
+        //Instances Grid Item Click
+
+        instancesConstants.selectRow = record;
+
+        var detailPanel = Ext.getCmp("instanceDetailPanel");
+        detailPanel.layout.setActiveItem(1);
+
+        Ext.getCmp("instanceTabPanel").setActiveTab(0);
 
 
-        /*
-               if(e.getKey() == e.ENTER){
+        //Description Data Loading
+        var descform = Ext.getCmp("instanceDescForm");
 
-                    var mainGridStore = Ext.getCmp("mainGridPanel").getStore();
+        descform.getForm().reset();
 
-                    mainGridStore.getProxy().setExtraParam( "search", textfield.getRawValue() );
+        descform.getForm().waitMsgTarget = descform.getEl();
 
-                    mainGridStore.load();
-                }
-        */
+        descform.getForm().load({
+            params : {
+                instanceID : record.get("instanceID")
+            }
+            ,url : "http://localhost:8080/instance/getInstanceDescription"
+            ,waitMsg:'Loading...'
+        });
+
+
+        //Software Data Loading
+        var softwareGrid = Ext.getCmp('instanceSoftwareGrid');
+
+        softwareGrid.getStore().load({
+            params:{
+                instanceID : record.get("instanceID")
+            }
+        });
+
     },
 
     init: function(application) {
+                //Instances Menu Config Setting
+
                 var instances = this;
 
                 var instancesGridContextMenu = new Ext.menu.Menu({
@@ -85,24 +138,42 @@ Ext.define('MyApp.controller.InstancesController', {
                 //Instances Menu Constants
                 Ext.define('instancesConstants', {
                     singleton: true,
+                    me : instances,
                     contextMenu: instancesGridContextMenu,
-                    selectRowId : null
+                    selectRow : null
                 });
 
 
         this.control({
             "#instancesGrid": {
                 beforeitemcontextmenu: this.onInstancesGridBeforeItemContextMenu,
-                afterrender: this.onInstancesGridAfterRender
+                afterrender: this.onInstancesGridAfterRender,
+                select: this.onInstancesGridSelect
             },
             "#categoryCycle menuitem": {
                 click: this.onCategoryCycleClick
+            },
+            "#rhevmCycle menuitem": {
+                click: this.onRhevmCycleClick
+            },
+            "#searchInstanceName": {
+                keydown: this.onSearchInstanceNameKeydown
             }
         });
     },
 
     searchInstance: function() {
+        //Instances Grid Data Search
+        Ext.getCmp("instancesGrid").getStore().load({
+            params:{
+                search1 : Ext.getCmp("searchCategory").getRawValue(),
+                search2 : Ext.getCmp("searchRhevm").getRawValue(),
+                search3 : Ext.getCmp("searchInstanceName").getRawValue()
+            }
+        });
 
+        var detailPanel = Ext.getCmp("instanceDetailPanel");
+        detailPanel.layout.setActiveItem(0);
     },
 
     showCLIWindow: function() {

@@ -1,0 +1,6 @@
+[
+	{"name":"abrt","arch":"x86_64","version":"2.0.8","release":"6.el6","size":"888298","summary":"Automatic bug detection an..","description":"abrt is tool to help users to detect defects.."},
+	{"name":"abrt-addon-ccpp","arch":"x86_64","version":"2.0.8","release":"6.el6","size":"185512","summary":"abrt's C/C++ addon","description":"This package contains hook for C/C++ crash ..."},
+	{"name":"abrt-addon-kerneloops","arch":"x86_64","version":"2.0.8","release":"6.el6","size":"31038","summary":"abrt's kerneloops addon","description":"This package contains plugin for collection ke..."},
+	{"name":"abrt-addon-python","arch":"x86_64","version":"2.0.8","release":"6.el6","size":"20191","summary":"abrt's addon for catching an..","description":"This package contains python hook and pyth..."}
+ ]
