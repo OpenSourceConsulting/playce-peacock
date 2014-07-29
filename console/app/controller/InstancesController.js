@@ -101,6 +101,16 @@ Ext.define('MyApp.controller.InstancesController', {
             }
         });
 
+
+        //OS Package Data Loading
+        this.searchInstanceOs();
+    },
+
+    onSearchPackageNameKeydown: function(textfield, e, eOpts) {
+        //Instance Package Name Search
+        if(e.getKey() == e.ENTER){
+            this.searchInstanceOs();
+        }
     },
 
     init: function(application) {
@@ -158,6 +168,9 @@ Ext.define('MyApp.controller.InstancesController', {
             },
             "#searchInstanceName": {
                 keydown: this.onSearchInstanceNameKeydown
+            },
+            "#searchPackageName": {
+                keydown: this.onSearchPackageNameKeydown
             }
         });
     },
@@ -174,6 +187,18 @@ Ext.define('MyApp.controller.InstancesController', {
 
         var detailPanel = Ext.getCmp("instanceDetailPanel");
         detailPanel.layout.setActiveItem(0);
+    },
+
+    searchInstanceOs: function() {
+        //Instances Os Package Grid Data Search
+
+        Ext.getCmp('instanceOsGrid').getStore().load({
+            params:{
+                instanceID : instancesConstants.selectRow.get("instanceID"),
+                search : Ext.getCmp("searchPackageName").getRawValue()
+            }
+        });
+
     },
 
     showCLIWindow: function() {

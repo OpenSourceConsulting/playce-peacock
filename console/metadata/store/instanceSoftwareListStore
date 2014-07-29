@@ -1,0 +1,64 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "instanceSoftwareListStore",
+        "model": "instanceSoftwareModel",
+        "storeId": "instanceSoftwareListStore"
+    },
+    "designerId": "0e4f25ab-084f-468d-952f-c41d3175f3f7",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "url": "http://localhost:8080/instance/listInstanceSoftware"
+            },
+            "designerId": "e054ab5b-1bd3-4c0c-82d8-2f49dba81750",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "list"
+                    },
+                    "designerId": "7cf29d99-2d46-4442-9f71-2c99cd97f382",
+                    "cn": [
+                        {
+                            "type": "processcfgfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "config"
+                                ],
+                                "fn": "processMyAjaxProxy",
+                                "implHandler": [
+                                    "config.actionMethods = {create: \"POST\", read: \"POST\", update: \"POST\", destroy: \"POST\"};",
+                                    "",
+                                    "return config;"
+                                ]
+                            },
+                            "designerId": "165dd13d-00f1-492a-b806-84edddec9001"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

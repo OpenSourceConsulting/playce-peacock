@@ -36,9 +36,6 @@ Ext.define('MyApp.view.instancesContainer', {
         'Ext.form.field.Checkbox',
         'Ext.grid.RowNumberer',
         'Ext.grid.column.Action',
-        'Ext.grid.column.Number',
-        'Ext.grid.column.Date',
-        'Ext.grid.column.Boolean',
         'Ext.form.Label',
         'Ext.chart.Chart',
         'Ext.chart.axis.Category',
@@ -616,6 +613,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                             autoScroll: true,
                                             columnLines: true,
                                             forceFit: true,
+                                            store: 'instanceOsListStore',
                                             dockedItems: [
                                                 {
                                                     xtype: 'toolbar',
@@ -623,6 +621,9 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     items: [
                                                         {
                                                             xtype: 'button',
+                                                            handler: function(button, e) {
+                                                                instancesConstants.me.searchInstanceOs();
+                                                            },
                                                             id: 'osReloadBtn',
                                                             itemId: 'osReloadBtn',
                                                             text: 'Reload'
@@ -632,11 +633,12 @@ Ext.define('MyApp.view.instancesContainer', {
                                                         },
                                                         {
                                                             xtype: 'textfield',
-                                                            id: 'inputPackageName',
-                                                            itemId: 'inputPackageName',
+                                                            id: 'searchPackageName',
+                                                            itemId: 'searchPackageName',
                                                             fieldLabel: 'Name',
                                                             labelWidth: 45,
-                                                            emptyText: 'Search Package'
+                                                            emptyText: 'Search Package',
+                                                            enableKeyEvents: true
                                                         }
                                                     ]
                                                 },
@@ -644,29 +646,48 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     xtype: 'pagingtoolbar',
                                                     dock: 'bottom',
                                                     width: 360,
-                                                    displayInfo: true
+                                                    displayInfo: true,
+                                                    store: 'instanceOsListStore'
                                                 }
                                             ],
                                             columns: [
                                                 {
+                                                    xtype: 'rownumberer'
+                                                },
+                                                {
                                                     xtype: 'gridcolumn',
-                                                    dataIndex: 'string',
-                                                    text: 'String'
+                                                    dataIndex: 'name',
+                                                    text: 'Name'
                                                 },
                                                 {
-                                                    xtype: 'numbercolumn',
-                                                    dataIndex: 'number',
-                                                    text: 'Number'
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'arch',
+                                                    text: 'Arch'
                                                 },
                                                 {
-                                                    xtype: 'datecolumn',
-                                                    dataIndex: 'date',
-                                                    text: 'Date'
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'version',
+                                                    text: 'Version'
                                                 },
                                                 {
-                                                    xtype: 'booleancolumn',
-                                                    dataIndex: 'bool',
-                                                    text: 'Boolean'
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'release',
+                                                    text: 'Release'
+                                                },
+                                                {
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'size',
+                                                    text: 'Size'
+                                                },
+                                                {
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'summary',
+                                                    text: 'Summary'
+                                                },
+                                                {
+                                                    xtype: 'gridcolumn',
+                                                    dataIndex: 'description',
+                                                    text: 'Description'
                                                 }
                                             ]
                                         }

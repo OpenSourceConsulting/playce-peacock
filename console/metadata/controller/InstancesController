@@ -128,6 +128,29 @@
             },
             "codeClass": null,
             "userConfig": {
+                "fn": "searchInstanceOs",
+                "implHandler": [
+                    "//Instances Os Package Grid Data Search",
+                    "",
+                    "Ext.getCmp('instanceOsGrid').getStore().load({",
+                    "    params:{",
+                    "        instanceID : instancesConstants.selectRow.get(\"instanceID\"),",
+                    "        search : Ext.getCmp(\"searchPackageName\").getRawValue()",
+                    "    }",
+                    "});",
+                    ""
+                ]
+            },
+            "designerId": "95ae4b48-6781-48b0-889b-b0b3dd10284c"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
                 "fn": "showCLIWindow",
                 "implHandler": [
                     "var CLIWindow = Ext.create(\"widget.CLIWindow\");",
@@ -328,12 +351,37 @@
                     "        instanceID : record.get(\"instanceID\")",
                     "    }",
                     "});",
-                    ""
+                    "",
+                    "",
+                    "//OS Package Data Loading",
+                    "this.searchInstanceOs();"
                 ],
                 "name": "select",
                 "scope": "me"
             },
             "designerId": "7cc8272e-956b-44cd-811f-60f601258eaf"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#searchPackageName",
+                "designer|targetType": "Ext.form.field.Text",
+                "fn": "onSearchPackageNameKeydown",
+                "implHandler": [
+                    "//Instance Package Name Search",
+                    "if(e.getKey() == e.ENTER){",
+                    "    this.searchInstanceOs();",
+                    "}"
+                ],
+                "name": "keydown",
+                "scope": "me"
+            },
+            "designerId": "e1235ba0-220b-4a6b-90f5-111f8f653343"
         }
     ]
 }

@@ -1,0 +1,173 @@
+{
+    "type": "Ext.app.Controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "ALMController"
+    },
+    "designerId": "073aff72-9093-4a46-9a88-85438b36ed4e",
+    "cn": [
+        {
+            "type": "fixedfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "application"
+                ],
+                "fn": "init",
+                "implHandler": [
+                    "//ALM Menu Config Setting",
+                    "",
+                    "var alm = this;",
+                    "",
+                    "var almUserGridContextMenu = new Ext.menu.Menu({",
+                    "    items:",
+                    "    [",
+                    "        { text: 'Edit',",
+                    "         handler: function() {",
+                    "             alm.showAlmUserWindow();",
+                    "         }",
+                    "        },",
+                    "        { text: 'Delete',",
+                    "         handler: function() {",
+                    "             alert('delete');",
+                    "         }",
+                    "        },",
+                    "        { text: 'Clone User',",
+                    "         handler: function() {",
+                    "             alm.showAlmUserWindow();",
+                    "         }",
+                    "        }",
+                    "    ]",
+                    "",
+                    "});",
+                    "",
+                    "var almGroupGridContextMenu = new Ext.menu.Menu({",
+                    "    items:",
+                    "    [",
+                    "        { text: 'Edit',",
+                    "         handler: function() {",
+                    "             alm.showAlmGroupWindow();",
+                    "         }",
+                    "        },",
+                    "        { text: 'Delete',",
+                    "         handler: function() {",
+                    "             alert('delete');",
+                    "         }",
+                    "        }",
+                    "    ]",
+                    "",
+                    "});",
+                    "",
+                    "//ALM Menu Constants",
+                    "Ext.define('almConstants', {",
+                    "    singleton: true,",
+                    "    me : alm,",
+                    "    userContextMenu: almUserGridContextMenu,",
+                    "    groupContextMenu: almGroupGridContextMenu,",
+                    "    selectRow : null",
+                    "});",
+                    ""
+                ]
+            },
+            "designerId": "f5879386-c0c1-445c-b561-66a682cd0aa2"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#almUserGrid",
+                "designer|targetType": "Ext.grid.Panel",
+                "fn": "onAlmUserGridBeforeItemContextMenu",
+                "implHandler": [
+                    "//ALM User Grid Right Click Menu 호출",
+                    "",
+                    "var position = e.getXY();",
+                    "e.stopEvent();",
+                    "",
+                    "almConstants.selectRow = record;",
+                    "",
+                    "almConstants.userContextMenu.showAt(position);",
+                    "",
+                    ""
+                ],
+                "name": "beforeitemcontextmenu",
+                "scope": "me"
+            },
+            "designerId": "de4acbc9-116a-4ef8-90ae-86912e55edf9"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#almGroupGrid",
+                "designer|targetType": "Ext.grid.Panel",
+                "fn": "onAlmGroupGridBeforeItemContextMenu",
+                "implHandler": [
+                    "//ALM Group Grid Right Click Menu 호출",
+                    "",
+                    "var position = e.getXY();",
+                    "e.stopEvent();",
+                    "",
+                    "almConstants.selectRow = record;",
+                    "",
+                    "almConstants.groupContextMenu.showAt(position);",
+                    "",
+                    ""
+                ],
+                "name": "beforeitemcontextmenu",
+                "scope": "me"
+            },
+            "designerId": "e28a2f99-9c9c-4644-953c-45b89c4348b7"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "showAlmUserWindow",
+                "implHandler": [
+                    "var almUserWindow = Ext.create(\"widget.almUserWindow\");",
+                    "",
+                    "almUserWindow.show();"
+                ]
+            },
+            "designerId": "eeda4dc7-9b9d-46ab-ace8-304a105420c0"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "showAlmGroupWindow",
+                "implHandler": [
+                    "var almGroupWindow = Ext.create(\"widget.almGroupWindow\");",
+                    "",
+                    "almGroupWindow.show();"
+                ]
+            },
+            "designerId": "6b3488ff-15ca-48d3-8023-ce87c6dcf516"
+        }
+    ]
+}

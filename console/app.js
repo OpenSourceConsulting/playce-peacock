@@ -26,20 +26,21 @@ Ext.application({
     ],
     models: [
         'instanceModel',
-        'instanceSoftwareModel'
+        'instanceSoftwareModel',
+        'instanceOsModel'
     ],
     stores: [
         'MenuTreeStore',
         'tempChartData',
         'tempGridData',
         'instanceListStore',
-        'instanceSoftwareListStore'
+        'instanceSoftwareListStore',
+        'instanceOsListStore'
     ],
     views: [
         'peacockViewport',
         'loginWindow',
         'dashboardPanel',
-        'almPanel',
         'instancesContainer',
         'CLIWindow',
         'fstabWindow',
@@ -52,7 +53,11 @@ Ext.application({
         'regTemplateWindow',
         'regRhevmWindow',
         'userContainer',
-        'blankPanel'
+        'blankPanel',
+        'almContainer',
+        'almUserWindow',
+        'almGroupWindow',
+        'almGroupUsersWindow'
     ],
     controllers: [
         'LoginController',
@@ -61,7 +66,8 @@ Ext.application({
         'GlobalController',
         'InstancesController',
         'SoftwareInstallController',
-        'RHEVMController'
+        'RHEVMController',
+        'ALMController'
     ],
     name: 'MyApp',
 

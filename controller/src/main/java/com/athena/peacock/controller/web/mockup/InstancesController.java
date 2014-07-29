@@ -104,12 +104,24 @@ public class InstancesController {
 	}
 	
 	@RequestMapping("/listInstanceSoftware")
-	public @ResponseBody GridJsonResponse listInstanceSoftware(GridJsonResponse jsonRes, String search1, String search2, String search3) throws Exception {
-		
-		logger.debug(search1 + ":" + search2 + ":" + search3);
+	public @ResponseBody GridJsonResponse listInstanceSoftware(GridJsonResponse jsonRes, String instanceID) throws Exception {
 		
 	    JSONParser parser = new JSONParser();
 	    Object obj = parser.parse(new FileReader(getClass().getResource("/json/InstanceSoftwareGridData.json").getPath()));
+
+	    JSONArray jsonArray =  (JSONArray) obj;
+
+		jsonRes.setTotal(jsonArray.size());
+		jsonRes.setList(jsonArray);
+		
+		return jsonRes;
+	}
+
+	@RequestMapping("/listInstanceOs")
+	public @ResponseBody GridJsonResponse listInstanceOs(GridJsonResponse jsonRes, String instanceID) throws Exception {
+		
+	    JSONParser parser = new JSONParser();
+	    Object obj = parser.parse(new FileReader(getClass().getResource("/json/InstanceOSGridData.json").getPath()));
 
 	    JSONArray jsonArray =  (JSONArray) obj;
 

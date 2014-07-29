@@ -13,11 +13,13 @@
             "GlobalController",
             "InstancesController",
             "SoftwareInstallController",
-            "RHEVMController"
+            "RHEVMController",
+            "ALMController"
         ],
         "models": [
             "instanceModel",
-            "instanceSoftwareModel"
+            "instanceSoftwareModel",
+            "instanceOsModel"
         ],
         "name": "MyApp",
         "requires": [
@@ -28,13 +30,13 @@
             "tempChartData",
             "tempGridData",
             "instanceListStore",
-            "instanceSoftwareListStore"
+            "instanceSoftwareListStore",
+            "instanceOsListStore"
         ],
         "views": [
             "peacockViewport",
             "loginWindow",
             "dashboardPanel",
-            "almPanel",
             "instancesContainer",
             "CLIWindow",
             "fstabWindow",
@@ -47,7 +49,11 @@
             "regTemplateWindow",
             "regRhevmWindow",
             "userContainer",
-            "blankPanel"
+            "blankPanel",
+            "almContainer",
+            "almUserWindow",
+            "almGroupwindow",
+            "almGroupUsersWindow"
         ]
     },
     "designerId": "application"

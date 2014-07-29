@@ -27,6 +27,7 @@ Ext.Loader.addClassPathMappings({
   "GLOBAL": "../../app/controller/GlobalController.js",
   "MyApp": "../../app",
   "RHEVMConstants": "../../app/controller/RHEVMController.js",
+  "almConstants": "../../app/controller/ALMController.js",
   "instancesConstants": "../../app/controller/InstancesController.js"
 });
 Ext.ClassManager.addNameAlternateMappings({
@@ -864,6 +865,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "ExtThemeNeptune.toolbar.Toolbar": [],
   "GLOBAL": [],
   "MyApp.Application": [],
+  "MyApp.controller.ALMController": [],
   "MyApp.controller.GlobalController": [],
   "MyApp.controller.InstancesController": [],
   "MyApp.controller.LoginController": [],
@@ -873,14 +875,21 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.controller.SettingsMenuController": [],
   "MyApp.controller.SoftwareInstallController": [],
   "MyApp.model.instanceModel": [],
+  "MyApp.model.instanceOsModel": [],
+  "MyApp.model.instanceSoftwareModel": [],
   "MyApp.store.MenuTreeStore": [],
   "MyApp.store.instanceListStore": [],
+  "MyApp.store.instanceOsListStore": [],
+  "MyApp.store.instanceSoftwareListStore": [],
   "MyApp.store.tempChartData": [],
   "MyApp.store.tempGridData": [],
   "MyApp.view.CLIWindow": [],
   "MyApp.view.Main": [],
   "MyApp.view.Viewport": [],
-  "MyApp.view.almPanel": [],
+  "MyApp.view.almContainer": [],
+  "MyApp.view.almGroupUsersWindow": [],
+  "MyApp.view.almGroupWindow": [],
+  "MyApp.view.almUserWindow": [],
   "MyApp.view.blankPanel": [],
   "MyApp.view.crontabWindow": [],
   "MyApp.view.dashboardPanel": [],
@@ -897,6 +906,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.softwareInstallWindow": [],
   "MyApp.view.userContainer": [],
   "RHEVMConstants": [],
+  "almConstants": [],
   "instancesConstants": []
 });
 Ext.ClassManager.addNameAliasMappings({
@@ -1902,6 +1912,7 @@ Ext.ClassManager.addNameAliasMappings({
   "ExtThemeNeptune.toolbar.Toolbar": [],
   "GLOBAL": [],
   "MyApp.Application": [],
+  "MyApp.controller.ALMController": [],
   "MyApp.controller.GlobalController": [],
   "MyApp.controller.InstancesController": [],
   "MyApp.controller.LoginController": [],
@@ -1911,8 +1922,12 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.controller.SettingsMenuController": [],
   "MyApp.controller.SoftwareInstallController": [],
   "MyApp.model.instanceModel": [],
+  "MyApp.model.instanceOsModel": [],
+  "MyApp.model.instanceSoftwareModel": [],
   "MyApp.store.MenuTreeStore": [],
   "MyApp.store.instanceListStore": [],
+  "MyApp.store.instanceOsListStore": [],
+  "MyApp.store.instanceSoftwareListStore": [],
   "MyApp.store.tempChartData": [],
   "MyApp.store.tempGridData": [],
   "MyApp.view.CLIWindow": [
@@ -1922,10 +1937,21 @@ Ext.ClassManager.addNameAliasMappings({
     "widget.app-main"
   ],
   "MyApp.view.Viewport": [],
-  "MyApp.view.almPanel": [
-    "widget.almPanel"
+  "MyApp.view.almContainer": [
+    "widget.almcontainer"
   ],
-  "MyApp.view.blankPanel": [],
+  "MyApp.view.almGroupUsersWindow": [
+    "widget.almGroupUsersWindow"
+  ],
+  "MyApp.view.almGroupWindow": [
+    "widget.almGroupWindow"
+  ],
+  "MyApp.view.almUserWindow": [
+    "widget.almUserWindow"
+  ],
+  "MyApp.view.blankPanel": [
+    "widget.blankpanel"
+  ],
   "MyApp.view.crontabWindow": [
     "widget.crontabWindow"
   ],
@@ -1969,6 +1995,7 @@ Ext.ClassManager.addNameAliasMappings({
     "widget.usercontainer"
   ],
   "RHEVMConstants": [],
+  "almConstants": [],
   "instancesConstants": []
 });
 Ext.setVersion("ext-theme-base", "4.2.1");

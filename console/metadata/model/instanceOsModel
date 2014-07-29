@@ -1,0 +1,98 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "instanceOsModel"
+    },
+    "designerId": "9933f2e0-99c6-4185-a25d-45aa60bb6ba2",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "name"
+            },
+            "designerId": "bb9a4e09-fc20-40d5-a30d-f38c44cbaaae"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "arch"
+            },
+            "designerId": "db65d4c7-5786-4721-bb5a-e45c786d86f4"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "version"
+            },
+            "designerId": "64a2afee-6137-48ae-8ab5-42aff38724aa"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "release"
+            },
+            "designerId": "ca854260-a14e-4188-bf12-a2fbdbfd3ba8"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "size"
+            },
+            "designerId": "1f1ca63a-8d42-4f41-a724-d7d1552851e6"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "summary"
+            },
+            "designerId": "858a12e1-17ac-46f3-a8a9-7b24eabd7632"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "description"
+            },
+            "designerId": "9a0e3768-4388-4165-89d5-c325db15ac2f"
+        }
+    ]
+}

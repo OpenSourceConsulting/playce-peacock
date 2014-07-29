@@ -1,0 +1,174 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "almGroupUsersWindow",
+        "designer|userClassName": "almGroupUsersWindow",
+        "height": 250,
+        "id": "almGroupUsersWindow",
+        "itemId": "almGroupUsersWindow",
+        "layout": "border",
+        "title": "Add Users",
+        "width": 300
+    },
+    "designerId": "098fa0d0-8df6-4303-ae48-9a2740772d0c",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyBorder": false,
+                "bodyPadding": 10,
+                "header": false,
+                "layout|flex": 1,
+                "layout|region": "center",
+                "title": "almUsersPanel"
+            },
+            "designerId": "2027c09d-a8d0-40e8-866e-10faf4b4af0a",
+            "cn": [
+                {
+                    "type": "Ext.grid.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "autoScroll": true,
+                        "bodyBorder": false,
+                        "columnLines": true,
+                        "height": 358,
+                        "title": null
+                    },
+                    "designerId": "b080beab-f846-4a2a-8826-9c366eda9126",
+                    "cn": [
+                        {
+                            "type": "Ext.selection.CheckboxModel",
+                            "reference": {
+                                "name": "selModel",
+                                "type": "object"
+                            },
+                            "codeClass": "Ext.selection.CheckboxModel",
+                            "designerId": "e568a3fc-e2eb-47d7-a7f2-23a4c645f01f"
+                        },
+                        {
+                            "type": "Ext.grid.column.Column",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dataIndex": "string",
+                                "text": "String"
+                            },
+                            "designerId": "9b4549e4-6369-4e9a-9af1-d7be88d8a060"
+                        },
+                        {
+                            "type": "Ext.grid.column.Boolean",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dataIndex": "bool",
+                                "text": "Boolean"
+                            },
+                            "designerId": "f72eb1f8-0729-4638-a08b-b10ad44fe4ce"
+                        },
+                        {
+                            "type": "Ext.grid.View",
+                            "reference": {
+                                "name": "viewConfig",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "designerId": "195475ee-312a-4237-a7e5-3b9e247baa8b"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|pack": "center",
+                        "designer|uiInterfaceName": "footer",
+                        "dock": "bottom",
+                        "ui": "footer"
+                    },
+                    "designerId": "81a98b7e-b0a3-4e5b-976a-321c7caa4609",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "makeTemplateBtn1",
+                                "itemId": "makeTemplateBtn",
+                                "layout|flex": null,
+                                "margin": "0 15 0 0",
+                                "padding": "2 5 2 5",
+                                "text": "Create"
+                            },
+                            "designerId": "3648e9de-7cb2-47e6-b28d-a649b2cf9977"
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "templateCancelBtn1",
+                                "itemId": "templateCancelBtn",
+                                "layout|flex": null,
+                                "margin": "0 0 0 0",
+                                "padding": "2 5 2 5",
+                                "text": "Cancel"
+                            },
+                            "designerId": "caac28b0-7c14-46ff-9517-30dd91109543",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "button.up(\"window\").close();"
+                                        ]
+                                    },
+                                    "designerId": "36174180-067a-4cf7-a773-7e182eed7829"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
