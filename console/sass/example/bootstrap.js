@@ -877,8 +877,10 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.model.instanceModel": [],
   "MyApp.model.instanceOsModel": [],
   "MyApp.model.instanceSoftwareModel": [],
+  "MyApp.model.monitoringChartModel": [],
   "MyApp.store.MenuTreeStore": [],
   "MyApp.store.instanceListStore": [],
+  "MyApp.store.instanceMonitoringChartStore": [],
   "MyApp.store.instanceOsListStore": [],
   "MyApp.store.instanceSoftwareListStore": [],
   "MyApp.store.tempChartData": [],
@@ -903,6 +905,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.regRhevmWindow": [],
   "MyApp.view.regTemplateWindow": [],
   "MyApp.view.rhevmContainer": [],
+  "MyApp.view.softwareConfigWindow": [],
+  "MyApp.view.softwareInstallLogWindow": [],
   "MyApp.view.softwareInstallWindow": [],
   "MyApp.view.userContainer": [],
   "RHEVMConstants": [],
@@ -1924,8 +1928,10 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.model.instanceModel": [],
   "MyApp.model.instanceOsModel": [],
   "MyApp.model.instanceSoftwareModel": [],
+  "MyApp.model.monitoringChartModel": [],
   "MyApp.store.MenuTreeStore": [],
   "MyApp.store.instanceListStore": [],
+  "MyApp.store.instanceMonitoringChartStore": [],
   "MyApp.store.instanceOsListStore": [],
   "MyApp.store.instanceSoftwareListStore": [],
   "MyApp.store.tempChartData": [],
@@ -1987,6 +1993,12 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.rhevmContainer": [
     "widget.rhevmcontainer"
+  ],
+  "MyApp.view.softwareConfigWindow": [
+    "widget.softwareConfigWindow"
+  ],
+  "MyApp.view.softwareInstallLogWindow": [
+    "widget.softwareInstallLogWindow"
   ],
   "MyApp.view.softwareInstallWindow": [
     "widget.softwareInstallWindow"

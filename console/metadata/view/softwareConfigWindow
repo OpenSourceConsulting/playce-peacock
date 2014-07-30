@@ -1,0 +1,295 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "softwareConfigWindow",
+        "designer|userClassName": "softwareConfigWindow",
+        "height": 720,
+        "id": "softwareConfigWindow",
+        "itemId": "softwareConfigWindow",
+        "layout": "border",
+        "title": "Edit Config",
+        "width": 500
+    },
+    "designerId": "5cb08927-3fe3-45bf-82e1-4167803988d6",
+    "cn": [
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "border": "",
+                "dock": "top",
+                "padding": "10 0 0 10",
+                "vertical": true
+            },
+            "designerId": "d9695176-474d-4bde-95a0-117cf9f23044",
+            "cn": [
+                {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "Config File Name",
+                        "itemId": "mycombobox3",
+                        "labelWidth": 130,
+                        "layout|flex": null,
+                        "queryMode": "local",
+                        "store": [
+                            "[",
+                            "    'Apache HTTP Server',",
+                            "    'Apache Tomcat',",
+                            "    'JBoss EWS',",
+                            "    'JBoss EAP'",
+                            "]"
+                        ],
+                        "typeAhead": true,
+                        "width": 350
+                    },
+                    "configAlternates": {
+                        "store": "array"
+                    },
+                    "designerId": "c8e29697-3228-43a6-acb8-9721fcbc42de"
+                },
+                {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "Config File Version",
+                        "itemId": "mycombobox4",
+                        "labelWidth": 130,
+                        "layout|flex": null,
+                        "queryMode": "local",
+                        "store": [
+                            "[",
+                            "    'Apache HTTP Server',",
+                            "    'Apache Tomcat',",
+                            "    'JBoss EWS',",
+                            "    'JBoss EAP'",
+                            "]"
+                        ],
+                        "typeAhead": true,
+                        "width": 350
+                    },
+                    "configAlternates": {
+                        "store": "array"
+                    },
+                    "designerId": "db319e56-393b-451b-9aa1-9e5edc694d87"
+                },
+                {
+                    "type": "Ext.form.Label",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "padding": "15 0 0 0",
+                        "text": "Path : /etc/httpd/conf/httpd.conf",
+                        "width": 150
+                    },
+                    "designerId": "4e0954c7-24fc-4775-88cb-1df83e851dc0"
+                }
+            ]
+        },
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "container|pack": "center",
+                "designer|uiInterfaceName": "footer",
+                "dock": "bottom",
+                "ui": "footer"
+            },
+            "designerId": "f463ab52-b0ad-46dd-89fc-991a372708ba",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "installSofrwareBtn1",
+                        "itemId": "installSofrwareBtn",
+                        "layout|flex": null,
+                        "margin": "0 15 0 0",
+                        "padding": "2 7 2 7",
+                        "text": "Save"
+                    },
+                    "designerId": "6748da08-135e-4c92-903c-de5a862c6819"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "installCancelBtn1",
+                        "itemId": "installCancelBtn",
+                        "layout|flex": null,
+                        "margin": "0 0 0 0",
+                        "padding": "2 5 2 5",
+                        "text": "Cancel"
+                    },
+                    "designerId": "c5463ceb-2992-4d1d-adc5-ec8ed5cdf8b2",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "button",
+                                    "e"
+                                ],
+                                "fn": "handler",
+                                "implHandler": [
+                                    "button.up(\"window\").close();"
+                                ]
+                            },
+                            "designerId": "491241f2-845f-4357-b1f1-dba45556658d"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "header": false,
+                "id": "softwareInstallPanel1",
+                "itemId": "softwareInstallPanel",
+                "layout": "card",
+                "layout|flex": 1,
+                "layout|region": "center",
+                "title": "sofrwareInstallPanel"
+            },
+            "designerId": "cf776456-f4d4-4002-a822-7cf2506ce2cd",
+            "cn": [
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "autoScroll": true,
+                        "bodyPadding": "",
+                        "height": null,
+                        "id": "jbossEWSInstallForm1",
+                        "itemId": "jbossEWSInstallForm",
+                        "padding": "0 15 15 15",
+                        "title": null
+                    },
+                    "designerId": "8c57a861-2fee-479c-937d-c1f6c053968f",
+                    "cn": [
+                        {
+                            "type": "Ext.form.FieldSet",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "title": "Configuration in DataBase"
+                            },
+                            "designerId": "32c3b30b-1d22-4afc-9757-fad88b3a7d95",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.TextArea",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Label",
+                                        "height": 200,
+                                        "hideLabel": true,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "3fae729d-d2f3-49a0-826a-f068c69b73cb"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.form.FieldSet",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "title": "     Configuration in System"
+                            },
+                            "designerId": "4d952d47-5f45-41d5-875b-5e38db2ccb53",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.TextArea",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Label",
+                                        "height": 200,
+                                        "hideLabel": true,
+                                        "layout|anchor": "100%"
+                                    },
+                                    "designerId": "4316a8c5-f190-45b6-a43e-32a631cd9bef"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.form.field.Checkbox",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "boxLabel": "Restart Service after Save",
+                                "fieldLabel": "Restart Service",
+                                "layout|anchor": "100%"
+                            },
+                            "designerId": "3af0ad35-bd7f-47df-8160-f84200c1756c"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

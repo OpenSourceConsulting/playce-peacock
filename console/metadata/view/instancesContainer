@@ -1707,8 +1707,8 @@
                                                         "insetPadding": 20,
                                                         "itemId": "cpuChart",
                                                         "shadow": true,
-                                                        "store": "tempChartData",
-                                                        "width": 400
+                                                        "store": "instanceMonitoringChartStore",
+                                                        "width": 320
                                                     },
                                                     "designerId": "dcb17b3d-f910-4c9a-9ecb-d86cb7ca68e1",
                                                     "isBuiltIn": true,
@@ -1723,9 +1723,14 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
+                                                                "aggregateOp": null,
+                                                                "constrain": [
+                                                                    "true"
+                                                                ],
                                                                 "fields": [
                                                                     "date"
                                                                 ],
+                                                                "hidden": true,
                                                                 "label": [
                                                                     "{",
                                                                     "    rotate: {",
@@ -1733,9 +1738,30 @@
                                                                     "    }",
                                                                     "}"
                                                                 ],
-                                                                "title": null
+                                                                "title": null,
+                                                                "type": null
                                                             },
-                                                            "designerId": "0f90e83e-4589-4260-95f4-9cbb936c9369"
+                                                            "configAlternates": {
+                                                                "constrain": "object"
+                                                            },
+                                                            "designerId": "0f90e83e-4589-4260-95f4-9cbb936c9369",
+                                                            "customConfigs": [
+                                                                {
+                                                                    "group": "(Custom Properties)",
+                                                                    "name": "type",
+                                                                    "type": "string"
+                                                                },
+                                                                {
+                                                                    "group": "(Custom Properties)",
+                                                                    "name": "constrain",
+                                                                    "type": "string"
+                                                                },
+                                                                {
+                                                                    "group": "(Custom Properties)",
+                                                                    "name": "aggregateOp",
+                                                                    "type": "string"
+                                                                }
+                                                            ]
                                                         },
                                                         {
                                                             "type": "Ext.chart.axis.Numeric",
@@ -1746,7 +1772,8 @@
                                                             "codeClass": null,
                                                             "userConfig": {
                                                                 "fields": [
-                                                                    "cpu"
+                                                                    "cpu_use",
+                                                                    "cpu_free"
                                                                 ],
                                                                 "maximum": 100,
                                                                 "minimum": null,
@@ -1762,19 +1789,93 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
+                                                                "label": [
+                                                                    "{",
+                                                                    "    display: 'none',",
+                                                                    "    field: 'visits',",
+                                                                    "    renderer: function(v) { return v >> 0; },",
+                                                                    "    'text-anchor': 'middle'",
+                                                                    "}"
+                                                                ],
                                                                 "markerConfig": [
                                                                     "{",
                                                                     "    radius: 3,",
                                                                     "    size: 3",
                                                                     "}"
                                                                 ],
-                                                                "smooth": 3,
-                                                                "xField": "x",
+                                                                "showMarkers": false,
+                                                                "style": [
+                                                                    "{",
+                                                                    "     stroke: '#ff0000',",
+                                                                    "     fill: '#ff0000'",
+                                                                    "}"
+                                                                ],
+                                                                "title": [
+                                                                    "Idle CPU"
+                                                                ],
+                                                                "xField": "date",
                                                                 "yField": [
-                                                                    "y"
+                                                                    "cpu_use"
                                                                 ]
                                                             },
+                                                            "configAlternates": {
+                                                                "smooth": "boolean"
+                                                            },
                                                             "designerId": "055c7355-3f4d-47f5-87d1-61189a94c008"
+                                                        },
+                                                        {
+                                                            "type": "Ext.chart.series.Line",
+                                                            "reference": {
+                                                                "name": "series",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "label": [
+                                                                    "{",
+                                                                    "    display: 'none',",
+                                                                    "    field: 'visits',",
+                                                                    "    renderer: function(v) { return v >> 0; },",
+                                                                    "    'text-anchor': 'middle'",
+                                                                    "}"
+                                                                ],
+                                                                "markerConfig": [
+                                                                    "{",
+                                                                    "    radius: 3,",
+                                                                    "    size: 3",
+                                                                    "}"
+                                                                ],
+                                                                "showMarkers": false,
+                                                                "style": [
+                                                                    "{",
+                                                                    "     stroke: '#0000ff',",
+                                                                    "     fill: '#0000ff'",
+                                                                    "}"
+                                                                ],
+                                                                "title": [
+                                                                    "Combined CPU"
+                                                                ],
+                                                                "xField": "date",
+                                                                "yField": [
+                                                                    "cpu_free"
+                                                                ]
+                                                            },
+                                                            "configAlternates": {
+                                                                "smooth": "boolean"
+                                                            },
+                                                            "designerId": "eb4f3d58-0e76-4d70-a985-cc361c753294"
+                                                        },
+                                                        {
+                                                            "type": "Ext.chart.Legend",
+                                                            "reference": {
+                                                                "name": "legend",
+                                                                "type": "object"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "designer|displayName": ""
+                                                            },
+                                                            "designerId": "563a943a-1058-473c-a422-7273f13415f6"
                                                         }
                                                     ]
                                                 }
@@ -1823,16 +1924,16 @@
                                                         "animate": [
                                                             "true"
                                                         ],
-                                                        "designer|displayName": "cpu",
+                                                        "designer|displayName": "memory",
                                                         "height": 250,
-                                                        "id": "cpuChart1",
+                                                        "id": "cpuChart3",
                                                         "insetPadding": 20,
-                                                        "itemId": "cpuChart",
+                                                        "itemId": "cpuChart1",
                                                         "shadow": true,
-                                                        "store": "tempChartData",
-                                                        "width": 400
+                                                        "store": "instanceMonitoringChartStore",
+                                                        "width": 320
                                                     },
-                                                    "designerId": "655126a6-5b87-44f0-afda-d3095f336f5b",
+                                                    "designerId": "facc1bf8-a505-4ebe-911b-f38e40b8dfa4",
                                                     "isBuiltIn": true,
                                                     "iconCls": "icon-line-chart",
                                                     "autoName": "LineChart",
@@ -1845,9 +1946,14 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
+                                                                "aggregateOp": null,
+                                                                "constrain": [
+                                                                    "true"
+                                                                ],
                                                                 "fields": [
                                                                     "date"
                                                                 ],
+                                                                "hidden": true,
                                                                 "label": [
                                                                     "{",
                                                                     "    rotate: {",
@@ -1855,9 +1961,30 @@
                                                                     "    }",
                                                                     "}"
                                                                 ],
-                                                                "title": null
+                                                                "title": null,
+                                                                "type": null
                                                             },
-                                                            "designerId": "74555132-c16f-44de-82a9-ca168da33e78"
+                                                            "configAlternates": {
+                                                                "constrain": "object"
+                                                            },
+                                                            "designerId": "fdd5aff2-0b39-433c-8d19-12c9d5919864",
+                                                            "customConfigs": [
+                                                                {
+                                                                    "group": "(Custom Properties)",
+                                                                    "name": "type",
+                                                                    "type": "string"
+                                                                },
+                                                                {
+                                                                    "group": "(Custom Properties)",
+                                                                    "name": "constrain",
+                                                                    "type": "string"
+                                                                },
+                                                                {
+                                                                    "group": "(Custom Properties)",
+                                                                    "name": "aggregateOp",
+                                                                    "type": "string"
+                                                                }
+                                                            ]
                                                         },
                                                         {
                                                             "type": "Ext.chart.axis.Numeric",
@@ -1868,13 +1995,14 @@
                                                             "codeClass": null,
                                                             "userConfig": {
                                                                 "fields": [
-                                                                    "cpu"
+                                                                    "memory_use",
+                                                                    "memory_free"
                                                                 ],
                                                                 "maximum": 100,
                                                                 "minimum": null,
                                                                 "title": null
                                                             },
-                                                            "designerId": "3d33c121-77a0-4525-8ca2-92f51e271f86"
+                                                            "designerId": "1a87c383-65df-4f9f-9366-72c1c778b257"
                                                         },
                                                         {
                                                             "type": "Ext.chart.series.Line",
@@ -1884,19 +2012,93 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
+                                                                "label": [
+                                                                    "{",
+                                                                    "    display: 'none',",
+                                                                    "    field: 'visits',",
+                                                                    "    renderer: function(v) { return v >> 0; },",
+                                                                    "    'text-anchor': 'middle'",
+                                                                    "}"
+                                                                ],
                                                                 "markerConfig": [
                                                                     "{",
                                                                     "    radius: 3,",
                                                                     "    size: 3",
                                                                     "}"
                                                                 ],
-                                                                "smooth": 3,
-                                                                "xField": "x",
+                                                                "showMarkers": false,
+                                                                "style": [
+                                                                    "{",
+                                                                    "     stroke: '#ff0000',",
+                                                                    "     fill: '#ff0000'",
+                                                                    "}"
+                                                                ],
+                                                                "title": [
+                                                                    "Free"
+                                                                ],
+                                                                "xField": "date",
                                                                 "yField": [
-                                                                    "y"
+                                                                    "memory_use"
                                                                 ]
                                                             },
-                                                            "designerId": "3c228a96-92ea-4590-91bd-0c5882f3ac79"
+                                                            "configAlternates": {
+                                                                "smooth": "boolean"
+                                                            },
+                                                            "designerId": "dc37af21-5284-46e8-b9d6-575938d57aad"
+                                                        },
+                                                        {
+                                                            "type": "Ext.chart.series.Line",
+                                                            "reference": {
+                                                                "name": "series",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "label": [
+                                                                    "{",
+                                                                    "    display: 'none',",
+                                                                    "    field: 'visits',",
+                                                                    "    renderer: function(v) { return v >> 0; },",
+                                                                    "    'text-anchor': 'middle'",
+                                                                    "}"
+                                                                ],
+                                                                "markerConfig": [
+                                                                    "{",
+                                                                    "    radius: 3,",
+                                                                    "    size: 3",
+                                                                    "}"
+                                                                ],
+                                                                "showMarkers": false,
+                                                                "style": [
+                                                                    "{",
+                                                                    "     stroke: '#0000ff',",
+                                                                    "     fill: '#0000ff'",
+                                                                    "}"
+                                                                ],
+                                                                "title": [
+                                                                    "Used"
+                                                                ],
+                                                                "xField": "date",
+                                                                "yField": [
+                                                                    "memory_free"
+                                                                ]
+                                                            },
+                                                            "configAlternates": {
+                                                                "smooth": "boolean"
+                                                            },
+                                                            "designerId": "eef3b5b2-0c97-4fca-9fec-e2c7f566bcc8"
+                                                        },
+                                                        {
+                                                            "type": "Ext.chart.Legend",
+                                                            "reference": {
+                                                                "name": "legend",
+                                                                "type": "object"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "designer|displayName": ""
+                                                            },
+                                                            "designerId": "c260e6a4-6a14-4698-a5fa-ebb884d5e6e4"
                                                         }
                                                     ]
                                                 }
@@ -1946,16 +2148,16 @@
                                                         "animate": [
                                                             "true"
                                                         ],
-                                                        "designer|displayName": "cpu",
+                                                        "designer|displayName": "disk",
                                                         "height": 250,
-                                                        "id": "cpuChart2",
+                                                        "id": "cpuChart4",
                                                         "insetPadding": 20,
-                                                        "itemId": "cpuChart",
+                                                        "itemId": "cpuChart2",
                                                         "shadow": true,
-                                                        "store": "tempChartData",
-                                                        "width": 400
+                                                        "store": "instanceMonitoringChartStore",
+                                                        "width": 320
                                                     },
-                                                    "designerId": "4005b579-1d19-4f49-b9ca-67708a8abc8b",
+                                                    "designerId": "2c5b519c-d046-4e6c-accf-59ebd3bb76bc",
                                                     "isBuiltIn": true,
                                                     "iconCls": "icon-line-chart",
                                                     "autoName": "LineChart",
@@ -1968,9 +2170,14 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
+                                                                "aggregateOp": null,
+                                                                "constrain": [
+                                                                    "true"
+                                                                ],
                                                                 "fields": [
                                                                     "date"
                                                                 ],
+                                                                "hidden": true,
                                                                 "label": [
                                                                     "{",
                                                                     "    rotate: {",
@@ -1978,9 +2185,30 @@
                                                                     "    }",
                                                                     "}"
                                                                 ],
-                                                                "title": null
+                                                                "title": null,
+                                                                "type": null
                                                             },
-                                                            "designerId": "46de64df-a474-480f-8f72-fb71a690cdf1"
+                                                            "configAlternates": {
+                                                                "constrain": "object"
+                                                            },
+                                                            "designerId": "9e92c537-9c1c-4a8f-9b35-bf2493ee5820",
+                                                            "customConfigs": [
+                                                                {
+                                                                    "group": "(Custom Properties)",
+                                                                    "name": "type",
+                                                                    "type": "string"
+                                                                },
+                                                                {
+                                                                    "group": "(Custom Properties)",
+                                                                    "name": "constrain",
+                                                                    "type": "string"
+                                                                },
+                                                                {
+                                                                    "group": "(Custom Properties)",
+                                                                    "name": "aggregateOp",
+                                                                    "type": "string"
+                                                                }
+                                                            ]
                                                         },
                                                         {
                                                             "type": "Ext.chart.axis.Numeric",
@@ -1991,13 +2219,14 @@
                                                             "codeClass": null,
                                                             "userConfig": {
                                                                 "fields": [
-                                                                    "cpu"
+                                                                    "disk_use",
+                                                                    "disk_free"
                                                                 ],
                                                                 "maximum": 100,
                                                                 "minimum": null,
                                                                 "title": null
                                                             },
-                                                            "designerId": "6032e11c-1920-468b-82a4-be42b7c9ed79"
+                                                            "designerId": "525ea277-1552-40b7-aa8b-746ed72f3882"
                                                         },
                                                         {
                                                             "type": "Ext.chart.series.Line",
@@ -2007,19 +2236,93 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
+                                                                "label": [
+                                                                    "{",
+                                                                    "    display: 'none',",
+                                                                    "    field: 'visits',",
+                                                                    "    renderer: function(v) { return v >> 0; },",
+                                                                    "    'text-anchor': 'middle'",
+                                                                    "}"
+                                                                ],
                                                                 "markerConfig": [
                                                                     "{",
                                                                     "    radius: 3,",
                                                                     "    size: 3",
                                                                     "}"
                                                                 ],
-                                                                "smooth": 3,
-                                                                "xField": "x",
+                                                                "showMarkers": false,
+                                                                "style": [
+                                                                    "{",
+                                                                    "     stroke: '#ff0000',",
+                                                                    "     fill: '#ff0000'",
+                                                                    "}"
+                                                                ],
+                                                                "title": [
+                                                                    "Free"
+                                                                ],
+                                                                "xField": "date",
                                                                 "yField": [
-                                                                    "y"
+                                                                    "disk_use"
                                                                 ]
                                                             },
-                                                            "designerId": "ff4a9341-6ef6-49b9-9886-50be199e0471"
+                                                            "configAlternates": {
+                                                                "smooth": "boolean"
+                                                            },
+                                                            "designerId": "97009a11-3ced-4af0-a626-e1dcc814d483"
+                                                        },
+                                                        {
+                                                            "type": "Ext.chart.series.Line",
+                                                            "reference": {
+                                                                "name": "series",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "label": [
+                                                                    "{",
+                                                                    "    display: 'none',",
+                                                                    "    field: 'visits',",
+                                                                    "    renderer: function(v) { return v >> 0; },",
+                                                                    "    'text-anchor': 'middle'",
+                                                                    "}"
+                                                                ],
+                                                                "markerConfig": [
+                                                                    "{",
+                                                                    "    radius: 3,",
+                                                                    "    size: 3",
+                                                                    "}"
+                                                                ],
+                                                                "showMarkers": false,
+                                                                "style": [
+                                                                    "{",
+                                                                    "     stroke: '#0000ff',",
+                                                                    "     fill: '#0000ff'",
+                                                                    "}"
+                                                                ],
+                                                                "title": [
+                                                                    "Used"
+                                                                ],
+                                                                "xField": "date",
+                                                                "yField": [
+                                                                    "disk_free"
+                                                                ]
+                                                            },
+                                                            "configAlternates": {
+                                                                "smooth": "boolean"
+                                                            },
+                                                            "designerId": "09fe8e4e-54c0-4d96-98c4-6e160cd572e6"
+                                                        },
+                                                        {
+                                                            "type": "Ext.chart.Legend",
+                                                            "reference": {
+                                                                "name": "legend",
+                                                                "type": "object"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "designer|displayName": ""
+                                                            },
+                                                            "designerId": "58a13161-d604-48fb-979d-52bf90838c21"
                                                         }
                                                     ]
                                                 }

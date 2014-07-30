@@ -27,7 +27,8 @@ Ext.application({
     models: [
         'instanceModel',
         'instanceSoftwareModel',
-        'instanceOsModel'
+        'instanceOsModel',
+        'monitoringChartModel'
     ],
     stores: [
         'MenuTreeStore',
@@ -35,7 +36,8 @@ Ext.application({
         'tempGridData',
         'instanceListStore',
         'instanceSoftwareListStore',
-        'instanceOsListStore'
+        'instanceOsListStore',
+        'instanceMonitoringChartStore'
     ],
     views: [
         'peacockViewport',
@@ -57,7 +59,9 @@ Ext.application({
         'almContainer',
         'almUserWindow',
         'almGroupWindow',
-        'almGroupUsersWindow'
+        'almGroupUsersWindow',
+        'softwareInstallLogWindow',
+        'softwareConfigWindow'
     ],
     controllers: [
         'LoginController',

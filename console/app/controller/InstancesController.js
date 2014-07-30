@@ -31,6 +31,67 @@ Ext.define('MyApp.controller.InstancesController', {
 
     },
 
+    onInstancesGridSelect: function(rowmodel, record, index, eOpts) {
+        //Instances Grid Item Click
+
+        instancesConstants.selectRow = record;
+
+        var detailPanel = Ext.getCmp("instanceDetailPanel");
+        detailPanel.layout.setActiveItem(1);
+
+        Ext.getCmp("instanceTabPanel").setActiveTab(0);
+
+        //init clear
+        clearInterval(instancesConstants.chartInterval);
+        Ext.getStore("instanceMonitoringChartStore").removeAll();
+
+        //Description Data Loading
+        var descform = Ext.getCmp("instanceDescForm");
+
+        descform.getForm().reset();
+
+        descform.getForm().waitMsgTarget = descform.getEl();
+
+        descform.getForm().load({
+            params : {
+                instanceID : record.get("instanceID")
+            }
+            ,url : "http://localhost:8080/instance/getInstanceDescription"
+            ,waitMsg:'Loading...'
+        });
+
+
+        //Software Data Loading
+        var softwareGrid = Ext.getCmp('instanceSoftwareGrid');
+
+        softwareGrid.getStore().load({
+            params:{
+                instanceID : record.get("instanceID")
+            }
+        });
+
+
+        //OS Package Data Loading
+        this.searchInstanceOs();
+
+
+        //Monitoring Data Loading
+
+        instancesConstants.chartInterval = setInterval(function() {
+
+            var chartStore = Ext.getStore("instanceMonitoringChartStore");
+            chartStore.load({
+                addRecords : true
+            });
+
+            if(chartStore.getCount() > 10) {
+                chartStore.remove(chartStore.getAt(0));
+            }
+
+        }, 1000);
+
+    },
+
     onInstancesGridAfterRender: function(component, eOpts) {
         //Instances Grid rendering
         this.searchInstance();
@@ -63,47 +124,6 @@ Ext.define('MyApp.controller.InstancesController', {
         if(e.getKey() == e.ENTER){
             this.searchInstance();
         }
-    },
-
-    onInstancesGridSelect: function(rowmodel, record, index, eOpts) {
-        //Instances Grid Item Click
-
-        instancesConstants.selectRow = record;
-
-        var detailPanel = Ext.getCmp("instanceDetailPanel");
-        detailPanel.layout.setActiveItem(1);
-
-        Ext.getCmp("instanceTabPanel").setActiveTab(0);
-
-
-        //Description Data Loading
-        var descform = Ext.getCmp("instanceDescForm");
-
-        descform.getForm().reset();
-
-        descform.getForm().waitMsgTarget = descform.getEl();
-
-        descform.getForm().load({
-            params : {
-                instanceID : record.get("instanceID")
-            }
-            ,url : "http://localhost:8080/instance/getInstanceDescription"
-            ,waitMsg:'Loading...'
-        });
-
-
-        //Software Data Loading
-        var softwareGrid = Ext.getCmp('instanceSoftwareGrid');
-
-        softwareGrid.getStore().load({
-            params:{
-                instanceID : record.get("instanceID")
-            }
-        });
-
-
-        //OS Package Data Loading
-        this.searchInstanceOs();
     },
 
     onSearchPackageNameKeydown: function(textfield, e, eOpts) {
@@ -149,6 +169,7 @@ Ext.define('MyApp.controller.InstancesController', {
                 Ext.define('instancesConstants', {
                     singleton: true,
                     me : instances,
+                    chartInterval : null,
                     contextMenu: instancesGridContextMenu,
                     selectRow : null
                 });
@@ -157,8 +178,8 @@ Ext.define('MyApp.controller.InstancesController', {
         this.control({
             "#instancesGrid": {
                 beforeitemcontextmenu: this.onInstancesGridBeforeItemContextMenu,
-                afterrender: this.onInstancesGridAfterRender,
-                select: this.onInstancesGridSelect
+                select: this.onInstancesGridSelect,
+                afterrender: this.onInstancesGridAfterRender
             },
             "#categoryCycle menuitem": {
                 click: this.onCategoryCycleClick

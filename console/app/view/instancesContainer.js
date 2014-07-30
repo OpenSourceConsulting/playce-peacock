@@ -40,7 +40,8 @@ Ext.define('MyApp.view.instancesContainer', {
         'Ext.chart.Chart',
         'Ext.chart.axis.Category',
         'Ext.chart.axis.Numeric',
-        'Ext.chart.series.Line'
+        'Ext.chart.series.Line',
+        'Ext.chart.Legend'
     ],
 
     height: 755,
@@ -730,14 +731,15 @@ Ext.define('MyApp.view.instancesContainer', {
                                                             height: 250,
                                                             id: 'cpuChart',
                                                             itemId: 'cpuChart',
-                                                            width: 400,
+                                                            width: 320,
                                                             shadow: true,
                                                             animate: true,
                                                             insetPadding: 20,
-                                                            store: 'tempChartData',
+                                                            store: 'instanceMonitoringChartStore',
                                                             axes: [
                                                                 {
                                                                     type: 'Category',
+                                                                    constrain: true,
                                                                     fields: [
                                                                         'date'
                                                                     ],
@@ -746,12 +748,14 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                             degrees: 315
                                                                         }
                                                                     },
+                                                                    hidden: true,
                                                                     position: 'bottom'
                                                                 },
                                                                 {
                                                                     type: 'Numeric',
                                                                     fields: [
-                                                                        'cpu'
+                                                                        'cpu_use',
+                                                                        'cpu_free'
                                                                     ],
                                                                     maximum: 100,
                                                                     position: 'left'
@@ -760,15 +764,50 @@ Ext.define('MyApp.view.instancesContainer', {
                                                             series: [
                                                                 {
                                                                     type: 'line',
-                                                                    xField: 'x',
-                                                                    yField: 'y',
+                                                                    label: {
+                                                                        display: 'none',
+                                                                        field: 'visits',
+                                                                        renderer: function(v) { return v >> 0; },
+                                                                        'text-anchor': 'middle'
+                                                                    },
+                                                                    title: 'Idle CPU',
+                                                                    xField: 'date',
+                                                                    yField: 'cpu_use',
                                                                     markerConfig: {
                                                                         radius: 3,
                                                                         size: 3
                                                                     },
-                                                                    smooth: 3
+                                                                    showMarkers: false,
+                                                                    style: {
+                                                                        stroke: '#ff0000',
+                                                                        fill: '#ff0000'
+                                                                    }
+                                                                },
+                                                                {
+                                                                    type: 'line',
+                                                                    label: {
+                                                                        display: 'none',
+                                                                        field: 'visits',
+                                                                        renderer: function(v) { return v >> 0; },
+                                                                        'text-anchor': 'middle'
+                                                                    },
+                                                                    title: 'Combined CPU',
+                                                                    xField: 'date',
+                                                                    yField: 'cpu_free',
+                                                                    markerConfig: {
+                                                                        radius: 3,
+                                                                        size: 3
+                                                                    },
+                                                                    showMarkers: false,
+                                                                    style: {
+                                                                        stroke: '#0000ff',
+                                                                        fill: '#0000ff'
+                                                                    }
                                                                 }
-                                                            ]
+                                                            ],
+                                                            legend: {
+
+                                                            }
                                                         }
                                                     ]
                                                 },
@@ -793,16 +832,17 @@ Ext.define('MyApp.view.instancesContainer', {
                                                         {
                                                             xtype: 'chart',
                                                             height: 250,
-                                                            id: 'cpuChart1',
-                                                            itemId: 'cpuChart',
-                                                            width: 400,
+                                                            id: 'cpuChart3',
+                                                            itemId: 'cpuChart1',
+                                                            width: 320,
                                                             shadow: true,
                                                             animate: true,
                                                             insetPadding: 20,
-                                                            store: 'tempChartData',
+                                                            store: 'instanceMonitoringChartStore',
                                                             axes: [
                                                                 {
                                                                     type: 'Category',
+                                                                    constrain: true,
                                                                     fields: [
                                                                         'date'
                                                                     ],
@@ -811,12 +851,14 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                             degrees: 315
                                                                         }
                                                                     },
+                                                                    hidden: true,
                                                                     position: 'bottom'
                                                                 },
                                                                 {
                                                                     type: 'Numeric',
                                                                     fields: [
-                                                                        'cpu'
+                                                                        'memory_use',
+                                                                        'memory_free'
                                                                     ],
                                                                     maximum: 100,
                                                                     position: 'left'
@@ -825,15 +867,50 @@ Ext.define('MyApp.view.instancesContainer', {
                                                             series: [
                                                                 {
                                                                     type: 'line',
-                                                                    xField: 'x',
-                                                                    yField: 'y',
+                                                                    label: {
+                                                                        display: 'none',
+                                                                        field: 'visits',
+                                                                        renderer: function(v) { return v >> 0; },
+                                                                        'text-anchor': 'middle'
+                                                                    },
+                                                                    title: 'Free',
+                                                                    xField: 'date',
+                                                                    yField: 'memory_use',
                                                                     markerConfig: {
                                                                         radius: 3,
                                                                         size: 3
                                                                     },
-                                                                    smooth: 3
+                                                                    showMarkers: false,
+                                                                    style: {
+                                                                        stroke: '#ff0000',
+                                                                        fill: '#ff0000'
+                                                                    }
+                                                                },
+                                                                {
+                                                                    type: 'line',
+                                                                    label: {
+                                                                        display: 'none',
+                                                                        field: 'visits',
+                                                                        renderer: function(v) { return v >> 0; },
+                                                                        'text-anchor': 'middle'
+                                                                    },
+                                                                    title: 'Used',
+                                                                    xField: 'date',
+                                                                    yField: 'memory_free',
+                                                                    markerConfig: {
+                                                                        radius: 3,
+                                                                        size: 3
+                                                                    },
+                                                                    showMarkers: false,
+                                                                    style: {
+                                                                        stroke: '#0000ff',
+                                                                        fill: '#0000ff'
+                                                                    }
                                                                 }
-                                                            ]
+                                                            ],
+                                                            legend: {
+
+                                                            }
                                                         }
                                                     ]
                                                 },
@@ -859,16 +936,17 @@ Ext.define('MyApp.view.instancesContainer', {
                                                         {
                                                             xtype: 'chart',
                                                             height: 250,
-                                                            id: 'cpuChart2',
-                                                            itemId: 'cpuChart',
-                                                            width: 400,
+                                                            id: 'cpuChart4',
+                                                            itemId: 'cpuChart2',
+                                                            width: 320,
                                                             shadow: true,
                                                             animate: true,
                                                             insetPadding: 20,
-                                                            store: 'tempChartData',
+                                                            store: 'instanceMonitoringChartStore',
                                                             axes: [
                                                                 {
                                                                     type: 'Category',
+                                                                    constrain: true,
                                                                     fields: [
                                                                         'date'
                                                                     ],
@@ -877,12 +955,14 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                             degrees: 315
                                                                         }
                                                                     },
+                                                                    hidden: true,
                                                                     position: 'bottom'
                                                                 },
                                                                 {
                                                                     type: 'Numeric',
                                                                     fields: [
-                                                                        'cpu'
+                                                                        'disk_use',
+                                                                        'disk_free'
                                                                     ],
                                                                     maximum: 100,
                                                                     position: 'left'
@@ -891,15 +971,50 @@ Ext.define('MyApp.view.instancesContainer', {
                                                             series: [
                                                                 {
                                                                     type: 'line',
-                                                                    xField: 'x',
-                                                                    yField: 'y',
+                                                                    label: {
+                                                                        display: 'none',
+                                                                        field: 'visits',
+                                                                        renderer: function(v) { return v >> 0; },
+                                                                        'text-anchor': 'middle'
+                                                                    },
+                                                                    title: 'Free',
+                                                                    xField: 'date',
+                                                                    yField: 'disk_use',
                                                                     markerConfig: {
                                                                         radius: 3,
                                                                         size: 3
                                                                     },
-                                                                    smooth: 3
+                                                                    showMarkers: false,
+                                                                    style: {
+                                                                        stroke: '#ff0000',
+                                                                        fill: '#ff0000'
+                                                                    }
+                                                                },
+                                                                {
+                                                                    type: 'line',
+                                                                    label: {
+                                                                        display: 'none',
+                                                                        field: 'visits',
+                                                                        renderer: function(v) { return v >> 0; },
+                                                                        'text-anchor': 'middle'
+                                                                    },
+                                                                    title: 'Used',
+                                                                    xField: 'date',
+                                                                    yField: 'disk_free',
+                                                                    markerConfig: {
+                                                                        radius: 3,
+                                                                        size: 3
+                                                                    },
+                                                                    showMarkers: false,
+                                                                    style: {
+                                                                        stroke: '#0000ff',
+                                                                        fill: '#0000ff'
+                                                                    }
                                                                 }
-                                                            ]
+                                                            ],
+                                                            legend: {
+
+                                                            }
                                                         }
                                                     ]
                                                 }

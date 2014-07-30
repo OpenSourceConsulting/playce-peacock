@@ -28,7 +28,7 @@ Ext.define('MyApp.view.almGroupWindow', {
     height: 200,
     id: 'almGroupWindow',
     itemId: 'almGroupWindow',
-    width: 450,
+    width: 460,
     layout: 'border',
     title: 'Add Group',
 

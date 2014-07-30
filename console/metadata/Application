@@ -19,7 +19,8 @@
         "models": [
             "instanceModel",
             "instanceSoftwareModel",
-            "instanceOsModel"
+            "instanceOsModel",
+            "monitoringChartModel"
         ],
         "name": "MyApp",
         "requires": [
@@ -31,7 +32,8 @@
             "tempGridData",
             "instanceListStore",
             "instanceSoftwareListStore",
-            "instanceOsListStore"
+            "instanceOsListStore",
+            "instanceMonitoringChartStore"
         ],
         "views": [
             "peacockViewport",
@@ -52,8 +54,10 @@
             "blankPanel",
             "almContainer",
             "almUserWindow",
-            "almGroupwindow",
-            "almGroupUsersWindow"
+            "almGroupWindow",
+            "almGroupUsersWindow",
+            "softwareInstallLogWindow",
+            "softwareConfigWindow"
         ]
     },
     "designerId": "application"

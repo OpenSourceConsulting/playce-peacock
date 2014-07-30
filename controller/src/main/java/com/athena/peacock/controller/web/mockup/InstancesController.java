@@ -23,9 +23,14 @@
 package com.athena.peacock.controller.web.mockup;
 
 import java.io.FileReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -131,6 +136,36 @@ public class InstancesController {
 		return jsonRes;
 	}
 
+	/**
+	 * <pre>
+	 * ExtJS Detail 조회용 메소드
+	 * </pre>
+	 * @param jsonRes
+	 * @param machineId
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/getInstanceMonitoring")
+	public @ResponseBody Map<String, Object> getInstanceMonitoring(DtoJsonResponse jsonRes, String machineId) throws Exception {
+		
+		Random random = new Random(); 
+		Map<String, Object> chartData = new HashMap<String, Object>();
+		
+		SimpleDateFormat fm = new SimpleDateFormat("mm:ss");
+		
+		chartData.put("date", fm.format(new Date()));
+		chartData.put("cpu_use", random.nextInt(100));
+		chartData.put("cpu_free", 100 - Integer.parseInt(String.valueOf(chartData.get("cpu_use"))));
+		chartData.put("memory_use", random.nextInt(100));
+		chartData.put("memory_free", 100 - Integer.parseInt(String.valueOf(chartData.get("memory_use"))));
+		chartData.put("disk_use", random.nextInt(100));
+		chartData.put("disk_free", 100 - Integer.parseInt(String.valueOf(chartData.get("disk_use"))));
+		
+		//jsonRes.setData(chartData);
+		
+		return chartData;
+	}
+	
 	/**
 	 * <pre>
 	 * 각종 제어 명령 요청에 따른 처리 메소드

@@ -1,0 +1,124 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "monitoringChartModel"
+    },
+    "designerId": "8e88d45e-5fb3-4537-b8d7-9cc0f93ee76b",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dateReadFormat": null,
+                "name": "date",
+                "type": null
+            },
+            "designerId": "5cd27530-ab55-4a59-b6d9-d0667ebb59cb"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "cpu_use"
+            },
+            "designerId": "297589a1-958d-4add-ab35-7f8c50c09522"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "cpu_free"
+            },
+            "designerId": "386a3039-2a35-4502-9b51-48462d879b40"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "memory_use"
+            },
+            "designerId": "33c3fda4-ce1a-4eda-9743-87f85e4b1a27"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "memory_free"
+            },
+            "designerId": "41678d39-41f8-43a9-8a3f-08490d7a88c9"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "disk_use"
+            },
+            "designerId": "f0cb11d3-966e-4946-89a4-e61fbd49ae66"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "disk_free"
+            },
+            "designerId": "28818382-cc6b-4dd2-926f-15fc69c4df33"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "cur_in"
+            },
+            "designerId": "78375268-d491-4877-9c7b-5310f47ff4c3"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "cur_out"
+            },
+            "designerId": "55fb3d44-0e67-428b-ae10-61ac0adcb6e4"
+        }
+    ]
+}
