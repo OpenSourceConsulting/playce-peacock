@@ -20,7 +20,12 @@
             "instanceModel",
             "instanceSoftwareModel",
             "instanceOsModel",
-            "monitoringChartModel"
+            "monitoringChartModel",
+            "rhevmModel",
+            "rhevmVmModel",
+            "rhevmTemplateModel",
+            "rhevmNetworkModel",
+            "rhevmDiskModel"
         ],
         "name": "MyApp",
         "requires": [
@@ -33,7 +38,12 @@
             "instanceListStore",
             "instanceSoftwareListStore",
             "instanceOsListStore",
-            "instanceMonitoringChartStore"
+            "instanceMonitoringChartStore",
+            "rhevmListStore",
+            "rhevmVmListStore",
+            "rhevmTemplateListStore",
+            "rhevmNetworkListStore",
+            "rhevmDiskListStore"
         ],
         "views": [
             "peacockViewport",
@@ -57,7 +67,8 @@
             "almGroupWindow",
             "almGroupUsersWindow",
             "softwareInstallLogWindow",
-            "softwareConfigWindow"
+            "softwareConfigWindow",
+            "monitoringChartWindow"
         ]
     },
     "designerId": "application"

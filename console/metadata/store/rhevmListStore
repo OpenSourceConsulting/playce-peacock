@@ -1,0 +1,63 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": false,
+        "designer|userClassName": "rhevmListStore",
+        "model": "rhevmModel",
+        "storeId": "rhevmListStore"
+    },
+    "designerId": "2cb97f8d-f340-4026-b32c-9002e0efa1ac",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "url": "/rhevm/listRhevm"
+            },
+            "designerId": "2567c408-7e4d-4b6f-b13e-eae2cb026caf",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "list"
+                    },
+                    "designerId": "c161e196-860f-4bf6-ac44-58fafa4be6de"
+                },
+                {
+                    "type": "processcfgfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|params": [
+                            "config"
+                        ],
+                        "fn": "processMyAjaxProxy",
+                        "implHandler": [
+                            "config.actionMethods = {create: \"POST\", read: \"POST\", update: \"POST\", destroy: \"POST\"};",
+                            "",
+                            "return config;"
+                        ]
+                    },
+                    "designerId": "1bc49586-bcdf-428c-a470-84cca3933929"
+                }
+            ]
+        }
+    ]
+}

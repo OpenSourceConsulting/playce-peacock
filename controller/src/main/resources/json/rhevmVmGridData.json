@@ -1,0 +1,5 @@
+[
+	{"name":"Peacock Dev Server","host":"RHEV-H1","ipAddress":"192.168.0.108","cluster":"Cluster-M1","os":"rhel6.x64","status":"up","uptime":"2014.07.01 12:34:50 KST"},
+	{"name":"Peacock Prd Web Server-01","host":"RHEV-H2","ipAddress":"192.168.0.109","cluster":"Cluster-M1","os":"rhel6.x64","status":"Down","uptime":"2014.07.01 13:34:50 KST"},
+	{"name":"Peacock Prd Tomcat Server-01","host":"RHEV-H2","ipAddress":"192.168.0.111","cluster":"Cluster-M1","os":"rhel6.x64","status":"up","uptime":"2014.07.01 12:35:50 KST"}
+ ]

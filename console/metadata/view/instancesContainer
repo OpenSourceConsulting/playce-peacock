@@ -515,14 +515,20 @@
             "designerId": "48e27abc-6d81-4c19-8066-1f9313b2c210",
             "cn": [
                 {
-                    "type": "linkedinstance",
+                    "type": "Ext.panel.Panel",
                     "reference": {
                         "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
-                    "designerId": "9ab7bf38-dcf5-4be2-9712-864b5c2c5bfa",
-                    "masterInstanceId": "e7b23fbb-645f-4ed9-9597-a17739e34568"
+                    "userConfig": {
+                        "height": 1000,
+                        "id": "blankPanel2",
+                        "itemId": "blankPanel",
+                        "title": null,
+                        "width": 1000
+                    },
+                    "designerId": "e2ce37fa-cc78-4165-943d-67d338e08d09"
                 },
                 {
                     "type": "Ext.tab.Panel",
@@ -1275,7 +1281,35 @@
                                                         "icon": "resources/images/icons/cog.png",
                                                         "iconCls": ""
                                                     },
-                                                    "designerId": "3b05b292-411f-480e-81f3-2d2464fb4c65"
+                                                    "designerId": "3b05b292-411f-480e-81f3-2d2464fb4c65",
+                                                    "cn": [
+                                                        {
+                                                            "type": "fixedfunction",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "designer|params": [
+                                                                    "view",
+                                                                    "rowIndex",
+                                                                    "colIndex",
+                                                                    "item",
+                                                                    "e",
+                                                                    "record",
+                                                                    "row"
+                                                                ],
+                                                                "fn": "handler",
+                                                                "implHandler": [
+                                                                    "var softwareConfigWindow = Ext.create(\"widget.softwareConfigWindow\");",
+                                                                    "",
+                                                                    "softwareConfigWindow.show();"
+                                                                ]
+                                                            },
+                                                            "designerId": "6d2725ad-8820-4878-9722-12368b7c2cb9"
+                                                        }
+                                                    ]
                                                 }
                                             ]
                                         },
@@ -1316,7 +1350,35 @@
                                                         "icon": "resources/images/icons/application_view_list.png",
                                                         "iconCls": ""
                                                     },
-                                                    "designerId": "c49de747-f90c-427c-b1e5-09daa27a817d"
+                                                    "designerId": "c49de747-f90c-427c-b1e5-09daa27a817d",
+                                                    "cn": [
+                                                        {
+                                                            "type": "fixedfunction",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "designer|params": [
+                                                                    "view",
+                                                                    "rowIndex",
+                                                                    "colIndex",
+                                                                    "item",
+                                                                    "e",
+                                                                    "record",
+                                                                    "row"
+                                                                ],
+                                                                "fn": "handler",
+                                                                "implHandler": [
+                                                                    "var softwareInstallLogWindow = Ext.create(\"widget.softwareInstallLogWindow\");",
+                                                                    "",
+                                                                    "softwareInstallLogWindow.show();"
+                                                                ]
+                                                            },
+                                                            "designerId": "2c06445d-9036-4b3c-8cc0-23701b8c1031"
+                                                        }
+                                                    ]
                                                 }
                                             ]
                                         },
@@ -1876,6 +1938,25 @@
                                                                 "designer|displayName": ""
                                                             },
                                                             "designerId": "563a943a-1058-473c-a422-7273f13415f6"
+                                                        },
+                                                        {
+                                                            "type": "basiceventbinding",
+                                                            "reference": {
+                                                                "name": "listeners",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "fn": "onCpuChartClick",
+                                                                "implHandler": [
+                                                                    "var monitoringChartWindow = Ext.create(\"widget.monitoringChartWindow\");",
+                                                                    "",
+                                                                    "monitoringChartWindow.show();"
+                                                                ],
+                                                                "name": "click",
+                                                                "scope": "me"
+                                                            },
+                                                            "designerId": "31142988-3c8f-4d42-b733-7775e546193e"
                                                         }
                                                     ]
                                                 }
@@ -2099,6 +2180,25 @@
                                                                 "designer|displayName": ""
                                                             },
                                                             "designerId": "c260e6a4-6a14-4698-a5fa-ebb884d5e6e4"
+                                                        },
+                                                        {
+                                                            "type": "basiceventbinding",
+                                                            "reference": {
+                                                                "name": "listeners",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "fn": "onCpuChart3Click",
+                                                                "implHandler": [
+                                                                    "var monitoringChartWindow = Ext.create(\"widget.monitoringChartWindow\");",
+                                                                    "",
+                                                                    "monitoringChartWindow.show();"
+                                                                ],
+                                                                "name": "click",
+                                                                "scope": "me"
+                                                            },
+                                                            "designerId": "6cee4ad3-c8cf-45a8-8b86-d52c57f58dce"
                                                         }
                                                     ]
                                                 }
@@ -2323,6 +2423,25 @@
                                                                 "designer|displayName": ""
                                                             },
                                                             "designerId": "58a13161-d604-48fb-979d-52bf90838c21"
+                                                        },
+                                                        {
+                                                            "type": "basiceventbinding",
+                                                            "reference": {
+                                                                "name": "listeners",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "fn": "onCpuChart4Click",
+                                                                "implHandler": [
+                                                                    "var monitoringChartWindow = Ext.create(\"widget.monitoringChartWindow\");",
+                                                                    "",
+                                                                    "monitoringChartWindow.show();"
+                                                                ],
+                                                                "name": "click",
+                                                                "scope": "me"
+                                                            },
+                                                            "designerId": "53c0100a-c2da-4660-bd90-0c4cd35e54b4"
                                                         }
                                                     ]
                                                 }

@@ -21,11 +21,9 @@ Ext.define('MyApp.view.rhevmContainer', {
         'Ext.grid.Panel',
         'Ext.grid.View',
         'Ext.toolbar.Toolbar',
+        'Ext.grid.column.Action',
         'Ext.tab.Panel',
         'Ext.tab.Tab',
-        'Ext.grid.column.Number',
-        'Ext.grid.column.Date',
-        'Ext.grid.column.Boolean',
         'Ext.form.Panel',
         'Ext.form.FieldContainer',
         'Ext.form.field.Text'
@@ -51,7 +49,8 @@ Ext.define('MyApp.view.rhevmContainer', {
                     minHeight: 100,
                     autoScroll: true,
                     columnLines: true,
-                    store: 'tempGridData',
+                    forceFit: true,
+                    store: 'rhevmListStore',
                     dockedItems: [
                         {
                             xtype: 'toolbar',
@@ -76,44 +75,58 @@ Ext.define('MyApp.view.rhevmContainer', {
                     columns: [
                         {
                             xtype: 'gridcolumn',
-                            dataIndex: 'id',
-                            text: 'No'
-                        },
-                        {
-                            xtype: 'gridcolumn',
+                            dataIndex: 'host',
                             text: 'Host'
                         },
                         {
                             xtype: 'gridcolumn',
+                            dataIndex: 'name',
                             text: 'Name'
                         },
                         {
                             xtype: 'gridcolumn',
+                            dataIndex: 'domain',
                             text: 'Domain'
                         },
                         {
                             xtype: 'gridcolumn',
+                            dataIndex: 'protocol',
                             text: 'Protocol'
                         },
                         {
                             xtype: 'gridcolumn',
+                            dataIndex: 'port',
                             text: 'Port'
                         },
                         {
                             xtype: 'gridcolumn',
-                            text: 'Username'
+                            dataIndex: 'userName',
+                            text: 'UserName'
                         },
                         {
                             xtype: 'gridcolumn',
+                            dataIndex: 'password',
                             text: 'Password'
                         },
                         {
                             xtype: 'gridcolumn',
-                            text: 'Create Date'
+                            dataIndex: 'createDate',
+                            text: 'CreateDate'
                         },
                         {
-                            xtype: 'gridcolumn',
-                            text: 'Delete'
+                            xtype: 'actioncolumn',
+                            text: 'Delete',
+                            maxWidth: 100,
+                            style: 'text-align:left;',
+                            width: 60,
+                            align: 'center',
+                            menuText: '',
+                            items: [
+                                {
+                                    icon: 'resources/images/icons/delete.png',
+                                    iconCls: ''
+                                }
+                            ]
                         }
                     ]
                 },
@@ -124,105 +137,28 @@ Ext.define('MyApp.view.rhevmContainer', {
                     split: true,
                     id: 'rhevmDetailPanel',
                     itemId: 'rhevmDetailPanel',
-                    layout: 'border',
+                    layout: 'card',
                     items: [
                         {
-                            xtype: 'tabpanel',
-                            flex: 1,
-                            region: 'center',
-                            id: 'rhevmTabPanel',
-                            itemId: 'rhevmTabPanel',
-                            padding: '5 0 0 0',
-                            style: 'background-color:#ffffff;',
-                            activeTab: 0,
-                            plain: true,
-                            items: [
-                                {
-                                    xtype: 'panel',
-                                    autoScroll: true,
-                                    layout: 'fit',
-                                    title: 'Virtual Machines',
-                                    items: [
-                                        {
-                                            xtype: 'gridpanel',
-                                            id: 'rhevmVMGrid',
-                                            itemId: 'rhevmVMGrid',
-                                            autoScroll: true,
-                                            columnLines: true,
-                                            store: 'tempGridData',
-                                            viewConfig: {
-                                                itemId: 'mygridview4'
-                                            },
-                                            columns: [
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    dataIndex: 'id',
-                                                    text: 'Id'
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    xtype: 'panel',
-                                    autoScroll: true,
-                                    layout: 'fit',
-                                    title: 'Templates',
-                                    items: [
-                                        {
-                                            xtype: 'gridpanel',
-                                            id: 'rhevmTemplateGrid',
-                                            itemId: 'rhevmTemplateGrid',
-                                            autoScroll: true,
-                                            columnLines: true,
-                                            columns: [
-                                                {
-                                                    xtype: 'gridcolumn',
-                                                    dataIndex: 'string',
-                                                    text: 'String'
-                                                },
-                                                {
-                                                    xtype: 'numbercolumn',
-                                                    dataIndex: 'number',
-                                                    text: 'Number'
-                                                },
-                                                {
-                                                    xtype: 'datecolumn',
-                                                    dataIndex: 'date',
-                                                    text: 'Date'
-                                                },
-                                                {
-                                                    xtype: 'booleancolumn',
-                                                    dataIndex: 'bool',
-                                                    text: 'Boolean'
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
+                            xtype: 'panel',
+                            id: 'blankPanel1',
+                            itemId: 'blankPanel',
+                            width: 150
                         },
                         {
                             xtype: 'panel',
-                            flex: 2,
-                            region: 'south',
-                            split: true,
-                            height: 150,
-                            id: 'rhevmTabDetailPanel',
-                            itemId: 'rhevmTabDetailPanel',
-                            padding: '5 0 0 0 ',
-                            animCollapse: true,
-                            collapsed: true,
-                            collapsible: true,
-                            title: 'Detail',
+                            id: 'rhevmDetail',
+                            width: 150,
+                            layout: 'border',
                             items: [
                                 {
                                     xtype: 'tabpanel',
-                                    id: 'rhevmTabDetailTabPanel',
-                                    itemId: 'rhevmTabDetailTabPanel',
+                                    flex: 1,
+                                    region: 'center',
+                                    id: 'rhevmTabPanel',
+                                    itemId: 'rhevmTabPanel',
                                     padding: '5 0 0 0',
-                                    width: 1000,
-                                    collapsible: false,
+                                    style: 'background-color:#ffffff;',
                                     activeTab: 0,
                                     plain: true,
                                     items: [
@@ -230,239 +166,433 @@ Ext.define('MyApp.view.rhevmContainer', {
                                             xtype: 'panel',
                                             autoScroll: true,
                                             layout: 'fit',
-                                            title: 'General',
+                                            title: 'Virtual Machines',
                                             items: [
                                                 {
-                                                    xtype: 'form',
-                                                    id: 'instanceDescForm1',
-                                                    itemId: 'instanceDescForm',
-                                                    defaults: {
-                                                        border: false,
-                                                        xtype: 'panel',
-                                                        flex: 1,
-                                                        layout: 'anchor'
+                                                    xtype: 'gridpanel',
+                                                    id: 'rhevmVMGrid',
+                                                    itemId: 'rhevmVMGrid',
+                                                    autoScroll: true,
+                                                    columnLines: true,
+                                                    forceFit: true,
+                                                    store: 'rhevmVmListStore',
+                                                    viewConfig: {
+                                                        itemId: 'mygridview4'
                                                     },
-                                                    bodyPadding: 10,
-                                                    bodyStyle: 'padding:5px 5px 0',
-                                                    header: false,
-                                                    fieldDefaults: {
-                                                        msgTarget: 'side',
-                                                        margin: '0 10',
-                                                        readOnly: true
-                                                    },
-                                                    waitMsgTarget: 'instDescForm',
+                                                    columns: [
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'name',
+                                                            text: 'Name'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'host',
+                                                            text: 'Host'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'ipAddress',
+                                                            text: 'IpAddress'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'cluster',
+                                                            text: 'Cluster'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'os',
+                                                            text: 'Os'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'status',
+                                                            text: 'Status'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'uptime',
+                                                            text: 'Uptime'
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            xtype: 'panel',
+                                            autoScroll: true,
+                                            layout: 'fit',
+                                            title: 'Templates',
+                                            items: [
+                                                {
+                                                    xtype: 'gridpanel',
+                                                    id: 'rhevmTemplateGrid',
+                                                    itemId: 'rhevmTemplateGrid',
+                                                    autoScroll: true,
+                                                    columnLines: true,
+                                                    forceFit: true,
+                                                    store: 'rhevmTemplateListStore',
+                                                    columns: [
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'name',
+                                                            text: 'Name'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'type',
+                                                            text: 'Type'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'status',
+                                                            text: 'Status'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'memory',
+                                                            text: 'Memory'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'cpuCores',
+                                                            text: 'CpuCores'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'creationDate',
+                                                            text: 'CreationDate'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'description',
+                                                            text: 'Description'
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    xtype: 'panel',
+                                    flex: 2,
+                                    region: 'south',
+                                    split: true,
+                                    height: 150,
+                                    id: 'rhevmTabDetailPanel',
+                                    itemId: 'rhevmTabDetailPanel',
+                                    padding: '5 0 0 0 ',
+                                    layout: 'card',
+                                    animCollapse: true,
+                                    collapsed: true,
+                                    collapsible: true,
+                                    title: 'Detail',
+                                    items: [
+                                        {
+                                            xtype: 'panel',
+                                            height: 1000,
+                                            id: 'blankPanel3',
+                                            itemId: 'blankPanel',
+                                            width: 1000
+                                        },
+                                        {
+                                            xtype: 'tabpanel',
+                                            id: 'rhevmTabDetailTabPanel',
+                                            itemId: 'rhevmTabDetailTabPanel',
+                                            padding: '5 0 0 0',
+                                            width: 1000,
+                                            collapsed: false,
+                                            collapsible: false,
+                                            activeTab: 0,
+                                            plain: true,
+                                            items: [
+                                                {
+                                                    xtype: 'panel',
+                                                    autoScroll: true,
+                                                    layout: 'fit',
+                                                    title: 'General',
                                                     items: [
                                                         {
-                                                            xtype: 'fieldcontainer',
-                                                            height: 34,
+                                                            xtype: 'form',
+                                                            id: 'rhevmGeneralForm',
+                                                            itemId: 'rhevmGeneralForm',
                                                             defaults: {
-                                                                flex: 1
+                                                                border: false,
+                                                                xtype: 'panel',
+                                                                flex: 1,
+                                                                layout: 'anchor'
                                                             },
-                                                            fieldLabel: 'Label',
-                                                            hideLabel: true,
-                                                            layout: {
-                                                                type: 'hbox',
-                                                                align: 'middle'
+                                                            bodyPadding: 10,
+                                                            bodyStyle: 'padding:5px 5px 0',
+                                                            header: false,
+                                                            fieldDefaults: {
+                                                                msgTarget: 'side',
+                                                                margin: '0 10',
+                                                                readOnly: true
                                                             },
+                                                            waitMsgTarget: 'instDescForm',
                                                             items: [
                                                                 {
-                                                                    xtype: 'textfield',
-                                                                    fieldLabel: 'Name'
+                                                                    xtype: 'fieldcontainer',
+                                                                    height: 34,
+                                                                    defaults: {
+                                                                        flex: 1
+                                                                    },
+                                                                    fieldLabel: 'Label',
+                                                                    hideLabel: true,
+                                                                    layout: {
+                                                                        type: 'hbox',
+                                                                        align: 'middle'
+                                                                    },
+                                                                    items: [
+                                                                        {
+                                                                            xtype: 'textfield',
+                                                                            fieldLabel: 'Name',
+                                                                            name: 'name'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'textfield',
+                                                                            fieldLabel: 'Status',
+                                                                            name: 'status'
+                                                                        }
+                                                                    ]
                                                                 },
                                                                 {
-                                                                    xtype: 'textfield',
-                                                                    fieldLabel: 'Status'
-                                                                }
-                                                            ]
-                                                        },
-                                                        {
-                                                            xtype: 'fieldcontainer',
-                                                            height: 34,
-                                                            defaults: {
-                                                                flex: 1
-                                                            },
-                                                            fieldLabel: 'Label',
-                                                            hideLabel: true,
-                                                            layout: {
-                                                                type: 'hbox',
-                                                                align: 'middle'
-                                                            },
-                                                            items: [
-                                                                {
-                                                                    xtype: 'textfield',
-                                                                    fieldLabel: 'Description'
+                                                                    xtype: 'fieldcontainer',
+                                                                    height: 34,
+                                                                    defaults: {
+                                                                        flex: 1
+                                                                    },
+                                                                    fieldLabel: 'Label',
+                                                                    hideLabel: true,
+                                                                    layout: {
+                                                                        type: 'hbox',
+                                                                        align: 'middle'
+                                                                    },
+                                                                    items: [
+                                                                        {
+                                                                            xtype: 'textfield',
+                                                                            fieldLabel: 'Description',
+                                                                            name: 'description'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'textfield',
+                                                                            fieldLabel: 'Display Type'
+                                                                        }
+                                                                    ]
                                                                 },
                                                                 {
-                                                                    xtype: 'textfield',
-                                                                    fieldLabel: 'Display Type'
-                                                                }
-                                                            ]
-                                                        },
-                                                        {
-                                                            xtype: 'fieldcontainer',
-                                                            height: 34,
-                                                            defaults: {
-                                                                flex: 1
-                                                            },
-                                                            fieldLabel: 'Label',
-                                                            hideLabel: true,
-                                                            layout: {
-                                                                type: 'hbox',
-                                                                align: 'middle'
-                                                            },
-                                                            items: [
-                                                                {
-                                                                    xtype: 'textfield',
-                                                                    fieldLabel: 'Template'
+                                                                    xtype: 'fieldcontainer',
+                                                                    height: 34,
+                                                                    defaults: {
+                                                                        flex: 1
+                                                                    },
+                                                                    fieldLabel: 'Label',
+                                                                    hideLabel: true,
+                                                                    layout: {
+                                                                        type: 'hbox',
+                                                                        align: 'middle'
+                                                                    },
+                                                                    items: [
+                                                                        {
+                                                                            xtype: 'textfield',
+                                                                            fieldLabel: 'Template'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'textfield',
+                                                                            fieldLabel: 'Origin'
+                                                                        }
+                                                                    ]
                                                                 },
                                                                 {
-                                                                    xtype: 'textfield',
-                                                                    fieldLabel: 'Origin'
-                                                                }
-                                                            ]
-                                                        },
-                                                        {
-                                                            xtype: 'fieldcontainer',
-                                                            height: 34,
-                                                            defaults: {
-                                                                flex: 1
-                                                            },
-                                                            fieldLabel: 'Label',
-                                                            hideLabel: true,
-                                                            layout: {
-                                                                type: 'hbox',
-                                                                align: 'middle'
-                                                            },
-                                                            items: [
-                                                                {
-                                                                    xtype: 'textfield',
-                                                                    fieldLabel: 'Memory'
+                                                                    xtype: 'fieldcontainer',
+                                                                    height: 34,
+                                                                    defaults: {
+                                                                        flex: 1
+                                                                    },
+                                                                    fieldLabel: 'Label',
+                                                                    hideLabel: true,
+                                                                    layout: {
+                                                                        type: 'hbox',
+                                                                        align: 'middle'
+                                                                    },
+                                                                    items: [
+                                                                        {
+                                                                            xtype: 'textfield',
+                                                                            fieldLabel: 'Memory',
+                                                                            name: 'memory'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'textfield',
+                                                                            fieldLabel: 'CPU Cores',
+                                                                            name: 'cpuCores'
+                                                                        }
+                                                                    ]
                                                                 },
                                                                 {
-                                                                    xtype: 'textfield',
-                                                                    fieldLabel: 'CPU Cores'
-                                                                }
-                                                            ]
-                                                        },
-                                                        {
-                                                            xtype: 'fieldcontainer',
-                                                            height: 34,
-                                                            defaults: {
-                                                                flex: 1
-                                                            },
-                                                            fieldLabel: 'Label',
-                                                            hideLabel: true,
-                                                            layout: {
-                                                                type: 'hbox',
-                                                                align: 'middle'
-                                                            },
-                                                            items: [
-                                                                {
-                                                                    xtype: 'textfield',
-                                                                    fieldLabel: 'HA Enabled'
+                                                                    xtype: 'fieldcontainer',
+                                                                    height: 34,
+                                                                    defaults: {
+                                                                        flex: 1
+                                                                    },
+                                                                    fieldLabel: 'Label',
+                                                                    hideLabel: true,
+                                                                    layout: {
+                                                                        type: 'hbox',
+                                                                        align: 'middle'
+                                                                    },
+                                                                    items: [
+                                                                        {
+                                                                            xtype: 'textfield',
+                                                                            fieldLabel: 'HA Enabled'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'textfield',
+                                                                            fieldLabel: 'HA Priority'
+                                                                        }
+                                                                    ]
                                                                 },
                                                                 {
-                                                                    xtype: 'textfield',
-                                                                    fieldLabel: 'HA Priority'
-                                                                }
-                                                            ]
-                                                        },
-                                                        {
-                                                            xtype: 'fieldcontainer',
-                                                            height: 34,
-                                                            defaults: {
-                                                                flex: 1
-                                                            },
-                                                            fieldLabel: 'Label',
-                                                            hideLabel: true,
-                                                            layout: {
-                                                                type: 'hbox',
-                                                                align: 'middle'
-                                                            },
-                                                            items: [
-                                                                {
-                                                                    xtype: 'textfield',
-                                                                    fieldLabel: 'OS Type'
-                                                                },
-                                                                {
-                                                                    xtype: 'textfield',
-                                                                    fieldLabel: 'Create Date'
+                                                                    xtype: 'fieldcontainer',
+                                                                    height: 34,
+                                                                    defaults: {
+                                                                        flex: 1
+                                                                    },
+                                                                    fieldLabel: 'Label',
+                                                                    hideLabel: true,
+                                                                    layout: {
+                                                                        type: 'hbox',
+                                                                        align: 'middle'
+                                                                    },
+                                                                    items: [
+                                                                        {
+                                                                            xtype: 'textfield',
+                                                                            fieldLabel: 'OS Type',
+                                                                            name: 'os'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'textfield',
+                                                                            fieldLabel: 'Create Date',
+                                                                            name: 'creationDate'
+                                                                        }
+                                                                    ]
                                                                 }
                                                             ]
                                                         }
                                                     ]
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            xtype: 'panel',
-                                            autoScroll: true,
-                                            layout: 'fit',
-                                            title: 'Network Interfaces',
-                                            items: [
+                                                },
                                                 {
-                                                    xtype: 'gridpanel',
-                                                    id: 'instanceSoftwareGrid2',
-                                                    itemId: 'instanceSoftwareGrid',
+                                                    xtype: 'panel',
                                                     autoScroll: true,
-                                                    columnLines: true,
-                                                    columns: [
+                                                    layout: 'fit',
+                                                    title: 'Network Interfaces',
+                                                    items: [
                                                         {
-                                                            xtype: 'gridcolumn',
-                                                            dataIndex: 'string',
-                                                            text: 'String'
-                                                        },
-                                                        {
-                                                            xtype: 'numbercolumn',
-                                                            dataIndex: 'number',
-                                                            text: 'Number'
-                                                        },
-                                                        {
-                                                            xtype: 'datecolumn',
-                                                            dataIndex: 'date',
-                                                            text: 'Date'
-                                                        },
-                                                        {
-                                                            xtype: 'booleancolumn',
-                                                            dataIndex: 'bool',
-                                                            text: 'Boolean'
+                                                            xtype: 'gridpanel',
+                                                            id: 'rhevmNetworkGrid',
+                                                            itemId: 'rhevmNetworkGrid',
+                                                            autoScroll: true,
+                                                            columnLines: true,
+                                                            forceFit: true,
+                                                            store: 'rhevmNetworkListStore',
+                                                            columns: [
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'name',
+                                                                    text: 'Name'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'networkName',
+                                                                    text: 'NetworkName'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'active',
+                                                                    text: 'Active'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'linked',
+                                                                    text: 'Linked'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'plugged',
+                                                                    text: 'Plugged'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'type',
+                                                                    text: 'Type'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'macAddress',
+                                                                    text: 'MacAddress'
+                                                                }
+                                                            ]
                                                         }
                                                     ]
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            xtype: 'panel',
-                                            autoScroll: true,
-                                            layout: 'fit',
-                                            title: 'Disks',
-                                            items: [
+                                                },
                                                 {
-                                                    xtype: 'gridpanel',
-                                                    id: 'instanceOsGrid2',
-                                                    itemId: 'instanceOsGrid',
+                                                    xtype: 'panel',
                                                     autoScroll: true,
-                                                    columnLines: true,
-                                                    columns: [
+                                                    layout: 'fit',
+                                                    title: 'Disks',
+                                                    items: [
                                                         {
-                                                            xtype: 'gridcolumn',
-                                                            dataIndex: 'string',
-                                                            text: 'String'
-                                                        },
-                                                        {
-                                                            xtype: 'numbercolumn',
-                                                            dataIndex: 'number',
-                                                            text: 'Number'
-                                                        },
-                                                        {
-                                                            xtype: 'datecolumn',
-                                                            dataIndex: 'date',
-                                                            text: 'Date'
-                                                        },
-                                                        {
-                                                            xtype: 'booleancolumn',
-                                                            dataIndex: 'bool',
-                                                            text: 'Boolean'
+                                                            xtype: 'gridpanel',
+                                                            id: 'rhevmDiskGrid',
+                                                            itemId: 'rhevmDiskGrid',
+                                                            autoScroll: true,
+                                                            columnLines: true,
+                                                            forceFit: true,
+                                                            store: 'rhevmDiskListStore',
+                                                            columns: [
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'name',
+                                                                    text: 'Name'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'active',
+                                                                    text: 'Active'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'virtualSize',
+                                                                    text: 'VirtualSize'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'actualSize',
+                                                                    text: 'ActualSize'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'bootable',
+                                                                    text: 'Bootable'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'shareable',
+                                                                    text: 'Shareable'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'interfaces',
+                                                                    text: 'Interfaces'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'status',
+                                                                    text: 'Status'
+                                                                }
+                                                            ]
                                                         }
                                                     ]
                                                 }

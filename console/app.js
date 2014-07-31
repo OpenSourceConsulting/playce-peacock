@@ -28,7 +28,12 @@ Ext.application({
         'instanceModel',
         'instanceSoftwareModel',
         'instanceOsModel',
-        'monitoringChartModel'
+        'monitoringChartModel',
+        'rhevmModel',
+        'rhevmVmModel',
+        'rhevmTemplateModel',
+        'rhevmNetworkModel',
+        'rhevmDiskModel'
     ],
     stores: [
         'MenuTreeStore',
@@ -37,7 +42,12 @@ Ext.application({
         'instanceListStore',
         'instanceSoftwareListStore',
         'instanceOsListStore',
-        'instanceMonitoringChartStore'
+        'instanceMonitoringChartStore',
+        'rhevmListStore',
+        'rhevmVmListStore',
+        'rhevmTemplateListStore',
+        'rhevmNetworkListStore',
+        'rhevmDiskListStore'
     ],
     views: [
         'peacockViewport',
@@ -61,7 +71,8 @@ Ext.application({
         'almGroupWindow',
         'almGroupUsersWindow',
         'softwareInstallLogWindow',
-        'softwareConfigWindow'
+        'softwareConfigWindow',
+        'monitoringChartWindow'
     ],
     controllers: [
         'LoginController',

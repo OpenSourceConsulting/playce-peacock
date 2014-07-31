@@ -18,7 +18,6 @@ Ext.define('MyApp.view.instancesContainer', {
     alias: 'widget.instancesContainer',
 
     requires: [
-        'MyApp.view.blankPanel',
         'Ext.grid.Panel',
         'Ext.grid.View',
         'Ext.toolbar.Separator',
@@ -254,7 +253,11 @@ Ext.define('MyApp.view.instancesContainer', {
                     layout: 'card',
                     items: [
                         {
-                            xtype: 'blankpanel'
+                            xtype: 'panel',
+                            height: 1000,
+                            id: 'blankPanel2',
+                            itemId: 'blankPanel',
+                            width: 1000
                         },
                         {
                             xtype: 'tabpanel',
@@ -562,6 +565,11 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     menuText: '',
                                                     items: [
                                                         {
+                                                            handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                                                var softwareConfigWindow = Ext.create("widget.softwareConfigWindow");
+
+                                                                softwareConfigWindow.show();
+                                                            },
                                                             icon: 'resources/images/icons/cog.png',
                                                             iconCls: ''
                                                         }
@@ -577,6 +585,11 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     menuText: '',
                                                     items: [
                                                         {
+                                                            handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                                                var softwareInstallLogWindow = Ext.create("widget.softwareInstallLogWindow");
+
+                                                                softwareInstallLogWindow.show();
+                                                            },
                                                             icon: 'resources/images/icons/application_view_list.png',
                                                             iconCls: ''
                                                         }
@@ -807,6 +820,12 @@ Ext.define('MyApp.view.instancesContainer', {
                                                             ],
                                                             legend: {
 
+                                                            },
+                                                            listeners: {
+                                                                click: {
+                                                                    fn: me.onCpuChartClick,
+                                                                    scope: me
+                                                                }
                                                             }
                                                         }
                                                     ]
@@ -910,6 +929,12 @@ Ext.define('MyApp.view.instancesContainer', {
                                                             ],
                                                             legend: {
 
+                                                            },
+                                                            listeners: {
+                                                                click: {
+                                                                    fn: me.onCpuChart3Click,
+                                                                    scope: me
+                                                                }
                                                             }
                                                         }
                                                     ]
@@ -1014,6 +1039,12 @@ Ext.define('MyApp.view.instancesContainer', {
                                                             ],
                                                             legend: {
 
+                                                            },
+                                                            listeners: {
+                                                                click: {
+                                                                    fn: me.onCpuChart4Click,
+                                                                    scope: me
+                                                                }
                                                             }
                                                         }
                                                     ]
@@ -1038,6 +1069,24 @@ Ext.define('MyApp.view.instancesContainer', {
 
     onRhevmCycleClick: function(button, e, eOpts) {
         return false;
+    },
+
+    onCpuChartClick: function(e, eOpts) {
+        var monitoringChartWindow = Ext.create("widget.monitoringChartWindow");
+
+        monitoringChartWindow.show();
+    },
+
+    onCpuChart3Click: function(e, eOpts) {
+        var monitoringChartWindow = Ext.create("widget.monitoringChartWindow");
+
+        monitoringChartWindow.show();
+    },
+
+    onCpuChart4Click: function(e, eOpts) {
+        var monitoringChartWindow = Ext.create("widget.monitoringChartWindow");
+
+        monitoringChartWindow.show();
     }
 
 });

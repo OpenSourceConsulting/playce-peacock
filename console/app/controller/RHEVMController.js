@@ -19,21 +19,162 @@ Ext.define('MyApp.controller.RHEVMController', {
     onRhevmTabPanelTabChange: function(tabPanel, newCard, oldCard, eOpts) {
         var detailTab = Ext.getCmp("rhevmTabDetailPanel");
         detailTab.collapse();
+        detailTab.layout.setActiveItem(0);
 
     },
 
-    onRhevmVMGridItemClick: function(dataview, record, item, index, e, eOpts) {
+    onRhevmVMGridItemClick: function(rowmodel, record, index, eOpts) {
+        //RHEVM VM Grid Item Click
         var detailTab = Ext.getCmp("rhevmTabDetailPanel");
         detailTab.expand();
+
+        detailTab.layout.setActiveItem(1);
+
+        RHEVMConstants.selectRow = record;
+
+        Ext.getCmp("rhevmTabDetailTabPanel").setActiveTab(0);
+
+
+        //General Data Loading
+        var generalform = Ext.getCmp("rhevmGeneralForm");
+
+        generalform.getForm().reset();
+
+        generalform.getForm().waitMsgTarget = generalform.getEl();
+
+        generalform.getForm().load({
+            params : {
+                name : record.get("name")
+            }
+            ,url : GLOBAL.urlPrefix + "/rhevm/getRhevmGeneral"
+            ,waitMsg:'Loading...'
+        });
+
+
+        //Network Interfaces Data Loading
+        var networkGrid = Ext.getCmp('rhevmNetworkGrid');
+
+        networkGrid.getStore().load({
+            params:{
+                name : record.get("name")
+            }
+        });
+
+
+        //Disk Data Loading
+        var diskGrid = Ext.getCmp('rhevmDiskGrid');
+
+        diskGrid.getStore().load({
+            params:{
+                name : record.get("name")
+            }
+        });
+
+
+
     },
 
     onRhevmVMGridBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
         var position = e.getXY();
         e.stopEvent();
 
-        RHEVMConstants.selectRowId = record.get('id');
+        RHEVMConstants.selectRow = record;
 
         RHEVMConstants.contextMenu.showAt(position);
+    },
+
+    onRhevmsGridRender: function(component, eOpts) {
+        //RHEVM Grid Data Search
+        Ext.getCmp("rhevmsGrid").getStore().load();
+
+        var detailPanel = Ext.getCmp("rhevmDetailPanel");
+        detailPanel.layout.setActiveItem(0);
+    },
+
+    onRhevmsGridSelect: function(rowmodel, record, index, eOpts) {
+        //RHEVM Grid Item Click
+
+        RHEVMConstants.selectRow = record;
+
+        var detailPanel = Ext.getCmp("rhevmDetailPanel");
+        detailPanel.layout.setActiveItem(1);
+
+        Ext.getCmp("rhevmTabPanel").setActiveTab(0);
+
+        var detailDPanel = Ext.getCmp("rhevmTabDetailPanel");
+        detailDPanel.layout.setActiveItem(0);
+        detailDPanel.collapse();
+
+        //Virtual Machines Data Loading
+        var vmGrid = Ext.getCmp('rhevmVMGrid');
+
+        vmGrid.getStore().load({
+            params:{
+                host : record.get("host")
+            }
+        });
+
+
+        //Template Data Loading
+        var templateGrid = Ext.getCmp('rhevmTemplateGrid');
+
+        templateGrid.getStore().load({
+            params:{
+                host : record.get("host")
+            }
+        });
+
+    },
+
+    onRhevmTemplateGridSelect: function(rowmodel, record, index, eOpts) {
+        //RHEVM VM Grid Item Click
+        var detailTab = Ext.getCmp("rhevmTabDetailPanel");
+        detailTab.expand();
+
+        detailTab.layout.setActiveItem(1);
+
+        RHEVMConstants.selectRow = record;
+
+        Ext.getCmp("rhevmTabDetailTabPanel").setActiveTab(0);
+
+
+        //General Data Loading
+        var generalform = Ext.getCmp("rhevmGeneralForm");
+
+        generalform.getForm().reset();
+
+        generalform.getForm().waitMsgTarget = generalform.getEl();
+
+        generalform.getForm().load({
+            params : {
+                name : record.get("name")
+            }
+            ,url : GLOBAL.urlPrefix + "/rhevm/getRhevmTemplateGeneral"
+            ,waitMsg:'Loading...'
+        });
+
+
+        //Network Interfaces Data Loading
+        var networkGrid = Ext.getCmp('rhevmNetworkGrid');
+
+        networkGrid.getStore().load({
+            params:{
+                name : record.get("name")
+            }
+        });
+
+
+        //Disk Data Loading
+        var diskGrid = Ext.getCmp('rhevmDiskGrid');
+
+        diskGrid.getStore().load({
+            params:{
+                name : record.get("name")
+            }
+        });
+
+
+
     },
 
     init: function(application) {
@@ -83,7 +224,7 @@ Ext.define('MyApp.controller.RHEVMController', {
                 Ext.define('RHEVMConstants', {
                     singleton: true,
                     contextMenu: rhevmVMGridContextMenu,
-                    selectRowId : null
+                    selectRow : null
                 });
 
         this.control({
@@ -91,8 +232,15 @@ Ext.define('MyApp.controller.RHEVMController', {
                 tabchange: this.onRhevmTabPanelTabChange
             },
             "#rhevmVMGrid": {
-                itemclick: this.onRhevmVMGridItemClick,
+                select: this.onRhevmVMGridItemClick,
                 beforeitemcontextmenu: this.onRhevmVMGridBeforeItemContextMenu
+            },
+            "#rhevmsGrid": {
+                afterrender: this.onRhevmsGridRender,
+                select: this.onRhevmsGridSelect
+            },
+            "#rhevmTemplateGrid": {
+                select: this.onRhevmTemplateGridSelect
             }
         });
     }

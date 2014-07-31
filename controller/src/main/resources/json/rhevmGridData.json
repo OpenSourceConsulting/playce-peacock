@@ -1,0 +1,4 @@
+[
+	{"host":"192.168.0.174","name":"RHEV-M1","domain":"internal","protocol":"https","port":"443","userName":"admin","password":"re****","createDate":"2014.06.01 13:34:24"},
+	{"host":"192.168.0.175","name":"RHEV-M2","domain":"internal","protocol":"https","port":"443","userName":"admin","password":"re****","createDate":"2014.06.01 13:35:24"}
+ ]

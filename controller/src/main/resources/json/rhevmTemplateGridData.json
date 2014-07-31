@@ -1,0 +1,5 @@
+[
+	{"name":"Blank","type":"desktop","status":"ok","memory":"512MB","cpuCores":"1","creationDate":"2014.07.01 12:34:21","description":""},
+	{"name":"Peacock-Template","type":"server","status":"ok","memory":"2048MB","cpuCores":"2","creationDate":"2014.07.01 12:34:21","description":"Athena Peacock Template"},
+	{"name":"RHEL-Base","type":"server","status":"ok","memory":"2048MB","cpuCores":"2","creationDate":"2014.07.01 12:34:21","description":""}
+ ]

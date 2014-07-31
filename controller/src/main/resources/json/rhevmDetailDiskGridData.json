@@ -1,0 +1,3 @@
+[
+	{"name":"RHEL_Peacock_Disk1","active":"true","virtualSize":"32GB","actualSize":"14GB","bootable":"true","shareable":"false","interfaces":"virtio","status":"ok"}
+ ]

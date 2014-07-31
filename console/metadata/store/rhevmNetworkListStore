@@ -1,0 +1,63 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": false,
+        "designer|userClassName": "rhevmNetworkListStore",
+        "model": "rhevmNetworkModel",
+        "storeId": "rhevmNetworkListStore"
+    },
+    "designerId": "48dced43-6c1e-4e8c-99d3-9ffcc3b6d09d",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "url": "/rhevm/listRhevmNetwork"
+            },
+            "designerId": "5c04be78-a3bf-4a26-87bc-917330038cb7",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "list"
+                    },
+                    "designerId": "f1281734-c326-4861-85c1-cd14526e4713"
+                },
+                {
+                    "type": "processcfgfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|params": [
+                            "config"
+                        ],
+                        "fn": "processMyAjaxProxy",
+                        "implHandler": [
+                            "config.actionMethods = {create: \"POST\", read: \"POST\", update: \"POST\", destroy: \"POST\"};",
+                            "",
+                            "return config;"
+                        ]
+                    },
+                    "designerId": "51f67083-2e4e-4d13-bdd1-e423c96075cf"
+                }
+            ]
+        }
+    ]
+}
