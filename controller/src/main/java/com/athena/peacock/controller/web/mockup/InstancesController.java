@@ -130,7 +130,7 @@ public class InstancesController {
 
 	    JSONArray jsonArray =  (JSONArray) obj;
 
-		jsonRes.setTotal(jsonArray.size());
+		jsonRes.setTotal(jsonArray.size()); 
 		jsonRes.setList(jsonArray);
 		
 		return jsonRes;
