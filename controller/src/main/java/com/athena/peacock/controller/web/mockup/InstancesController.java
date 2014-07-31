@@ -122,10 +122,10 @@ public class InstancesController {
 		return jsonRes;
 	}
 
-	@RequestMapping("/listInstanceOs")
-	public @ResponseBody GridJsonResponse listInstanceOs(GridJsonResponse jsonRes, String instanceID) throws Exception {
+	@RequestMapping("/listInstanceOs1")
+	public @ResponseBody GridJsonResponse listInstanceOs1(GridJsonResponse jsonRes, String instanceID) throws Exception {
 		
-	    JSONParser parser = new JSONParser();
+	    JSONParser parser = new JSONParser();  
 	    Object obj = parser.parse(new FileReader(getClass().getResource("/json/InstanceOSGridData.json").getPath()));
 
 	    JSONArray jsonArray =  (JSONArray) obj;
