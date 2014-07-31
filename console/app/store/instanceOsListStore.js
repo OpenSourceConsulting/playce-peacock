@@ -30,7 +30,7 @@ Ext.define('MyApp.store.instanceOsListStore', {
             storeId: 'instanceOsListStore',
             proxy: {
                 type: 'ajax',
-                url: 'http://localhost:8080/instance/listInstanceOs',
+                url: '/instance/listInstanceOs',
                 reader: me.processMyAjaxProxy({
                     type: 'json',
                     root: 'list'

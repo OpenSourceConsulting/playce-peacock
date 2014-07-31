@@ -56,7 +56,7 @@ Ext.define('MyApp.controller.InstancesController', {
             params : {
                 instanceID : record.get("instanceID")
             }
-            ,url : "http://localhost:8080/instance/getInstanceDescription"
+            ,url : GLOBAL.urlPrefix + "/instance/getInstanceDescription"
             ,waitMsg:'Loading...'
         });
 

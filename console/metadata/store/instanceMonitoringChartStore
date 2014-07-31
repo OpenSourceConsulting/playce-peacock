@@ -20,7 +20,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "url": "http://localhost:8080/instance/getInstanceMonitoring"
+                "url": "/instance/getInstanceMonitoring"
             },
             "designerId": "c2d1e10a-6a83-47b4-97bb-4f7eccb9a1f6",
             "cn": [

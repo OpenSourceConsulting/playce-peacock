@@ -25,8 +25,23 @@
                 "implHandler": [
                     "Ext.define('GLOBAL', {",
                     "    singleton: true,",
-                    "    lastSelectedMenuId: null",
-                    "});"
+                    "    lastSelectedMenuId: null,",
+                    "    urlPrefix:\"http://localhost:8080\"",
+                    "});",
+                    "",
+                    "",
+                    "//store url에 GLOBAL.urlPrefix 추가",
+                    "var stores = MyApp.getApplication().stores;",
+                    "",
+                    "for(var i = 0; i < stores.length ; i++ ) {",
+                    "    ",
+                    "    var store = Ext.getStore(stores[i]);",
+                    "    ",
+                    "    if(store.getProxy().url !== null) {",
+                    "        store.getProxy().url = GLOBAL.urlPrefix + store.getProxy().url;",
+                    "    }",
+                    "    ",
+                    "}"
                 ]
             },
             "designerId": "5aad5c6f-f046-40cc-abb5-d8784d7d72db"

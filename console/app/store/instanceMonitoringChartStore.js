@@ -30,7 +30,7 @@ Ext.define('MyApp.store.instanceMonitoringChartStore', {
             storeId: 'instanceMonitoringChartStore',
             proxy: {
                 type: 'ajax',
-                url: 'http://localhost:8080/instance/getInstanceMonitoring',
+                url: '/instance/getInstanceMonitoring',
                 reader: me.processMyAjaxProxy({
                     type: 'json'
                 })

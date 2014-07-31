@@ -19,8 +19,23 @@ Ext.define('MyApp.controller.GlobalController', {
     init: function(application) {
         Ext.define('GLOBAL', {
             singleton: true,
-            lastSelectedMenuId: null
+            lastSelectedMenuId: null,
+            urlPrefix:"http://localhost:8080"
         });
+
+
+        //store url에 GLOBAL.urlPrefix 추가
+        var stores = MyApp.getApplication().stores;
+
+        for(var i = 0; i < stores.length ; i++ ) {
+
+            var store = Ext.getStore(stores[i]);
+
+            if(store.getProxy().url !== null) {
+                store.getProxy().url = GLOBAL.urlPrefix + store.getProxy().url;
+            }
+
+        }
     }
 
 });
