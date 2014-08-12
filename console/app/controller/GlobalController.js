@@ -20,7 +20,7 @@ Ext.define('MyApp.controller.GlobalController', {
         Ext.define('GLOBAL', {
             singleton: true,
             lastSelectedMenuId: null,
-            urlPrefix:""
+            urlPrefix:""//http://localhost:8080"
         });
 
 

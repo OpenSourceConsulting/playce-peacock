@@ -28,7 +28,8 @@ Ext.Loader.addClassPathMappings({
   "MyApp": "../../app",
   "RHEVMConstants": "../../app/controller/RHEVMController.js",
   "almConstants": "../../app/controller/ALMController.js",
-  "instancesConstants": "../../app/controller/InstancesController.js"
+  "instancesConstants": "../../app/controller/InstancesController.js",
+  "userConstants": "../../app/controller/UserController.js"
 });
 Ext.ClassManager.addNameAlternateMappings({
   "Ext.AbstractComponent": [],
@@ -874,6 +875,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.controller.RHEVMController": [],
   "MyApp.controller.SettingsMenuController": [],
   "MyApp.controller.SoftwareInstallController": [],
+  "MyApp.controller.UserController": [],
+  "MyApp.model.SessionModel": [],
+  "MyApp.model.UserModel": [],
   "MyApp.model.instanceModel": [],
   "MyApp.model.instanceOsModel": [],
   "MyApp.model.instanceSoftwareModel": [],
@@ -884,6 +888,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.model.rhevmTemplateModel": [],
   "MyApp.model.rhevmVmModel": [],
   "MyApp.store.MenuTreeStore": [],
+  "MyApp.store.SessionStore": [],
+  "MyApp.store.UserStore": [],
   "MyApp.store.instanceListStore": [],
   "MyApp.store.instanceMonitoringChartStore": [],
   "MyApp.store.instanceOsListStore": [],
@@ -897,6 +903,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.tempGridData": [],
   "MyApp.view.CLIWindow": [],
   "MyApp.view.Main": [],
+  "MyApp.view.UserWindow": [],
   "MyApp.view.Viewport": [],
   "MyApp.view.almContainer": [],
   "MyApp.view.almGroupUsersWindow": [],
@@ -922,7 +929,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.userContainer": [],
   "RHEVMConstants": [],
   "almConstants": [],
-  "instancesConstants": []
+  "instancesConstants": [],
+  "userConstants": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1936,6 +1944,9 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.controller.RHEVMController": [],
   "MyApp.controller.SettingsMenuController": [],
   "MyApp.controller.SoftwareInstallController": [],
+  "MyApp.controller.UserController": [],
+  "MyApp.model.SessionModel": [],
+  "MyApp.model.UserModel": [],
   "MyApp.model.instanceModel": [],
   "MyApp.model.instanceOsModel": [],
   "MyApp.model.instanceSoftwareModel": [],
@@ -1946,6 +1957,8 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.model.rhevmTemplateModel": [],
   "MyApp.model.rhevmVmModel": [],
   "MyApp.store.MenuTreeStore": [],
+  "MyApp.store.SessionStore": [],
+  "MyApp.store.UserStore": [],
   "MyApp.store.instanceListStore": [],
   "MyApp.store.instanceMonitoringChartStore": [],
   "MyApp.store.instanceOsListStore": [],
@@ -1962,6 +1975,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.Main": [
     "widget.app-main"
+  ],
+  "MyApp.view.UserWindow": [
+    "widget.userWindow"
   ],
   "MyApp.view.Viewport": [],
   "MyApp.view.almContainer": [
@@ -2032,7 +2048,8 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "RHEVMConstants": [],
   "almConstants": [],
-  "instancesConstants": []
+  "instancesConstants": [],
+  "userConstants": []
 });
 Ext.setVersion("ext-theme-base", "4.2.1");
 Ext.setVersion("ext-theme-neptune", "4.2.1");

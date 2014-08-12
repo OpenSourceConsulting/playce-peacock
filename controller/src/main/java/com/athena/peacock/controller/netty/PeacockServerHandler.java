@@ -101,8 +101,8 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 	@Named("packageService")
 	private PackageService packageService;
 	
-	@Inject
-	@Named("restTemplate")
+//	@Inject
+//	@Named("restTemplate")
 	private RHEVMRestTemplate restTemplate;
 
 	@SuppressWarnings("unchecked")

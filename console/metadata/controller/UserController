@@ -1,0 +1,227 @@
+{
+    "type": "Ext.app.Controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "UserController"
+    },
+    "designerId": "95851f8a-909a-42c8-9fab-b107e59de51f",
+    "cn": [
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#userGrid",
+                "designer|targetType": "Ext.grid.Panel",
+                "fn": "onUserGridAfterRender",
+                "implHandler": [
+                    "//RHEVM Grid Data Search",
+                    "Ext.getCmp(\"userGrid\").getStore().load();",
+                    "",
+                    "var detailPanel = Ext.getCmp(\"userDetailPanel\");",
+                    "detailPanel.layout.setActiveItem(0);",
+                    ""
+                ],
+                "name": "afterrender",
+                "scope": "me"
+            },
+            "designerId": "ee017ad3-5921-4a78-bef0-8dc2b47d7fc6"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#searchUserName",
+                "designer|targetType": "Ext.form.field.Text",
+                "fn": "onSearchUserNameKeydown",
+                "implHandler": [
+                    "//Instance Name Search",
+                    "if(e.getKey() == e.ENTER){",
+                    "    this.searchUser();",
+                    "}"
+                ],
+                "name": "keydown",
+                "scope": "me"
+            },
+            "designerId": "92d21db4-4c6f-481d-a8b3-3bcb3f424260"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "searchUser",
+                "implHandler": [
+                    "//Instances Grid Data Search",
+                    "Ext.getCmp(\"userGrid\").getStore().load({",
+                    "    params:{",
+                    "        search : Ext.getCmp(\"searchUserName\").getRawValue()",
+                    "    }",
+                    "});",
+                    "",
+                    "var detailPanel = Ext.getCmp(\"userDetailPanel\");",
+                    "detailPanel.layout.setActiveItem(0);"
+                ]
+            },
+            "designerId": "2f70fe96-8006-453d-b9d5-917fcd72cf10"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#userGrid",
+                "designer|targetType": "Ext.grid.Panel",
+                "fn": "onUserGridSelect",
+                "implHandler": [
+                    "//User Grid Item Click",
+                    "",
+                    "userConstants.selectRow = record;",
+                    "",
+                    "var userDetailPanel = Ext.getCmp(\"userDetailPanel\");",
+                    "userDetailPanel.layout.setActiveItem(1);",
+                    "",
+                    "//User Data Loading",
+                    "",
+                    "var userForm = Ext.getCmp(\"getUserForm\");",
+                    "",
+                    "userForm.getForm().reset();",
+                    "",
+                    "userForm.getForm().waitMsgTarget = userForm.getEl();",
+                    "",
+                    "userForm.getForm().load({",
+                    "    params : {",
+                    "        user_id : record.get(\"user_id\")",
+                    "    }",
+                    "    ,url : GLOBAL.urlPrefix + \"/user/getUser\"",
+                    "    ,waitMsg:'Loading...'",
+                    "});",
+                    "",
+                    "Ext.getCmp(\"userTitleLabel\").setText(\"<h2>\"+record.get(\"user_name\")+\"</h2>\", false);",
+                    ""
+                ],
+                "name": "select",
+                "scope": "me"
+            },
+            "designerId": "8c5e10f9-065e-4797-b348-b74ca817968b"
+        },
+        {
+            "type": "fixedfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "application"
+                ],
+                "fn": "init",
+                "implHandler": [
+                    "//User Menu Config Setting",
+                    "",
+                    "var user = this;",
+                    "",
+                    "var userGridContextMenu = new Ext.menu.Menu({",
+                    "    items:",
+                    "    [",
+                    "        { text: 'Edit',",
+                    "         handler: function() {",
+                    "             user.showUserWindow('edit');",
+                    "         }",
+                    "        }",
+                    "    ]",
+                    "",
+                    "});",
+                    "",
+                    "//User Menu Constants",
+                    "Ext.define('userConstants', {",
+                    "    singleton: true,",
+                    "    me : user,",
+                    "    contextMenu: userGridContextMenu,",
+                    "    selectRow : null",
+                    "});",
+                    ""
+                ]
+            },
+            "designerId": "6f2da724-5241-4bb2-8e1d-17a8130030b2"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#userGrid",
+                "designer|targetType": "Ext.grid.Panel",
+                "fn": "onUserGridBeforeItemContextMenu",
+                "implHandler": [
+                    "var position = e.getXY();",
+                    "e.stopEvent();",
+                    "",
+                    "userConstants.selectRow = record;",
+                    "",
+                    "userConstants.contextMenu.showAt(position);"
+                ],
+                "name": "beforeitemcontextmenu",
+                "scope": "me"
+            },
+            "designerId": "acc14fb9-a51d-4d28-b5c4-c4f0cad7befa"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "type"
+                ],
+                "fn": "showUserWindow",
+                "implHandler": [
+                    "var userWindow = Ext.create(\"widget.userWindow\");",
+                    "",
+                    "userWindow.show();",
+                    "",
+                    "if(type == 'edit') {",
+                    "    var userForm = Ext.getCmp(\"userForm\");",
+                    "",
+                    "    userForm.getForm().waitMsgTarget = userForm.getEl();",
+                    "",
+                    "    userForm.getForm().load({",
+                    "        params : {",
+                    "            user_id : userConstants.selectRow.get(\"user_id\")",
+                    "        }",
+                    "        ,url : GLOBAL.urlPrefix + \"/user/getUser\"",
+                    "        ,waitMsg:'Loading...'",
+                    "    });",
+                    "}",
+                    "",
+                    ""
+                ]
+            },
+            "designerId": "d7295575-fbff-477e-ae28-e52002e33a2f"
+        }
+    ]
+}

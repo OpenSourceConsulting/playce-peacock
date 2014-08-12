@@ -14,7 +14,8 @@
             "InstancesController",
             "SoftwareInstallController",
             "RHEVMController",
-            "ALMController"
+            "ALMController",
+            "UserController"
         ],
         "models": [
             "instanceModel",
@@ -25,7 +26,9 @@
             "rhevmVmModel",
             "rhevmTemplateModel",
             "rhevmNetworkModel",
-            "rhevmDiskModel"
+            "rhevmDiskModel",
+            "SessionModel",
+            "UserModel"
         ],
         "name": "MyApp",
         "requires": [
@@ -43,7 +46,9 @@
             "rhevmVmListStore",
             "rhevmTemplateListStore",
             "rhevmNetworkListStore",
-            "rhevmDiskListStore"
+            "rhevmDiskListStore",
+            "SessionStore",
+            "UserStore"
         ],
         "views": [
             "peacockViewport",
@@ -68,7 +73,8 @@
             "almGroupUsersWindow",
             "softwareInstallLogWindow",
             "softwareConfigWindow",
-            "monitoringChartWindow"
+            "monitoringChartWindow",
+            "UserWindow"
         ]
     },
     "designerId": "application"

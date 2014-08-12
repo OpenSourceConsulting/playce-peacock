@@ -725,7 +725,6 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     flex: 1,
                                                     region: 'west',
                                                     id: 'cpuPanel',
-                                                    width: 150,
                                                     layout: {
                                                         type: 'hbox',
                                                         align: 'stretch'
@@ -744,7 +743,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                             height: 250,
                                                             id: 'cpuChart',
                                                             itemId: 'cpuChart',
-                                                            width: 320,
+                                                            minWidth: 320,
                                                             shadow: true,
                                                             animate: true,
                                                             insetPadding: 20,
@@ -761,7 +760,6 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                             degrees: 315
                                                                         }
                                                                     },
-                                                                    hidden: true,
                                                                     position: 'bottom'
                                                                 },
                                                                 {
@@ -853,7 +851,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                             height: 250,
                                                             id: 'cpuChart3',
                                                             itemId: 'cpuChart1',
-                                                            width: 320,
+                                                            minWidth: 320,
                                                             shadow: true,
                                                             animate: true,
                                                             insetPadding: 20,
@@ -870,7 +868,6 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                             degrees: 315
                                                                         }
                                                                     },
-                                                                    hidden: true,
                                                                     position: 'bottom'
                                                                 },
                                                                 {
@@ -944,7 +941,6 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     flex: 1,
                                                     region: 'east',
                                                     id: 'cpuPanel2',
-                                                    width: 150,
                                                     layout: {
                                                         type: 'hbox',
                                                         align: 'stretch'
@@ -963,7 +959,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                             height: 250,
                                                             id: 'cpuChart4',
                                                             itemId: 'cpuChart2',
-                                                            width: 320,
+                                                            minWidth: 320,
                                                             shadow: true,
                                                             animate: true,
                                                             insetPadding: 20,
@@ -980,7 +976,6 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                             degrees: 315
                                                                         }
                                                                     },
-                                                                    hidden: true,
                                                                     position: 'bottom'
                                                                 },
                                                                 {

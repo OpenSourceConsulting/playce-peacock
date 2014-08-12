@@ -33,7 +33,9 @@ Ext.application({
         'rhevmVmModel',
         'rhevmTemplateModel',
         'rhevmNetworkModel',
-        'rhevmDiskModel'
+        'rhevmDiskModel',
+        'SessionModel',
+        'UserModel'
     ],
     stores: [
         'MenuTreeStore',
@@ -47,7 +49,9 @@ Ext.application({
         'rhevmVmListStore',
         'rhevmTemplateListStore',
         'rhevmNetworkListStore',
-        'rhevmDiskListStore'
+        'rhevmDiskListStore',
+        'SessionStore',
+        'UserStore'
     ],
     views: [
         'peacockViewport',
@@ -72,7 +76,8 @@ Ext.application({
         'almGroupUsersWindow',
         'softwareInstallLogWindow',
         'softwareConfigWindow',
-        'monitoringChartWindow'
+        'monitoringChartWindow',
+        'UserWindow'
     ],
     controllers: [
         'LoginController',
@@ -82,7 +87,8 @@ Ext.application({
         'InstancesController',
         'SoftwareInstallController',
         'RHEVMController',
-        'ALMController'
+        'ALMController',
+        'UserController'
     ],
     name: 'MyApp',
 

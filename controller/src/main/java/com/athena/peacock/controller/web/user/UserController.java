@@ -64,7 +64,6 @@ public class UserController {
 	
 	@RequestMapping("/list")
 	public @ResponseBody GridJsonResponse list(GridJsonResponse jsonRes, ExtjsGridParam gridParam){
-		
 		jsonRes.setTotal(service.getUserListTotalCount(gridParam));
 		jsonRes.setList(service.getUserList(gridParam));
 		

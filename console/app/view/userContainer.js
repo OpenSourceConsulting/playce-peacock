@@ -26,10 +26,13 @@ Ext.define('MyApp.view.userContainer', {
         'Ext.toolbar.Separator',
         'Ext.form.field.Text',
         'Ext.toolbar.Paging',
-        'Ext.grid.column.Column',
+        'Ext.grid.column.Number',
+        'Ext.grid.column.Date',
+        'Ext.grid.column.Action',
         'Ext.form.Label',
         'Ext.form.Panel',
-        'Ext.form.FieldContainer'
+        'Ext.form.FieldContainer',
+        'Ext.toolbar.Spacer'
     ],
 
     height: 755,
@@ -52,7 +55,8 @@ Ext.define('MyApp.view.userContainer', {
                     minHeight: 100,
                     autoScroll: true,
                     columnLines: true,
-                    store: 'tempGridData',
+                    forceFit: true,
+                    store: 'UserStore',
                     dockedItems: [
                         {
                             xtype: 'toolbar',
@@ -64,9 +68,9 @@ Ext.define('MyApp.view.userContainer', {
                                 {
                                     xtype: 'button',
                                     handler: function(button, e) {
-                                        var regInstanceWindow = Ext.create("widget.regInstanceWindow");
+                                        var userWindow = Ext.create("widget.userWindow");
 
-                                        regInstanceWindow.show();
+                                        userWindow.show();
                                     },
                                     id: 'createUserBtn',
                                     itemId: 'createUserBtn',
@@ -97,11 +101,13 @@ Ext.define('MyApp.view.userContainer', {
                                 },
                                 {
                                     xtype: 'textfield',
-                                    id: 'inputUserName',
-                                    itemId: 'inputUserName',
+                                    id: 'searchUserName',
+                                    itemId: 'searchUserName',
                                     fieldLabel: 'Filtering',
                                     labelWidth: 60,
-                                    emptyText: 'Search User Name'
+                                    name: 'searchUserName',
+                                    emptyText: 'Search User Name',
+                                    enableKeyEvents: true
                                 }
                             ]
                         },
@@ -109,14 +115,122 @@ Ext.define('MyApp.view.userContainer', {
                             xtype: 'pagingtoolbar',
                             dock: 'bottom',
                             width: 360,
-                            displayInfo: true
+                            displayInfo: true,
+                            store: 'UserStore'
                         }
                     ],
                     columns: [
                         {
+                            xtype: 'numbercolumn',
+                            maxWidth: 100,
+                            dataIndex: 'user_id',
+                            text: 'ID',
+                            format: '0000'
+                        },
+                        {
                             xtype: 'gridcolumn',
-                            dataIndex: 'id',
-                            text: 'Id'
+                            hidden: true,
+                            defaultWidth: 150,
+                            dataIndex: 'login_id',
+                            text: 'Login_id'
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            defaultWidth: 150,
+                            dataIndex: 'user_name',
+                            text: 'User Name'
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            defaultWidth: 150,
+                            dataIndex: 'dept_name',
+                            text: 'Dept Name'
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            hidden: true,
+                            defaultWidth: 150,
+                            dataIndex: 'passwd',
+                            text: 'Password'
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            defaultWidth: 200,
+                            dataIndex: 'email',
+                            text: 'Email'
+                        },
+                        {
+                            xtype: 'datecolumn',
+                            hidden: true,
+                            dataIndex: 'last_logon',
+                            text: 'Last_logon'
+                        },
+                        {
+                            xtype: 'numbercolumn',
+                            hidden: true,
+                            dataIndex: 'regUserId',
+                            text: 'RegUserId'
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            defaultWidth: 200,
+                            dataIndex: 'regDt',
+                            text: 'Create Date'
+                        },
+                        {
+                            xtype: 'numbercolumn',
+                            hidden: true,
+                            dataIndex: 'updUserId',
+                            text: 'UpdUserId'
+                        },
+                        {
+                            xtype: 'datecolumn',
+                            hidden: true,
+                            dataIndex: 'updDt',
+                            text: 'UpdDt'
+                        },
+                        {
+                            xtype: 'actioncolumn',
+                            text: 'Delete',
+                            maxWidth: 60,
+                            style: 'text-align:left;',
+                            width: 60,
+                            defaultWidth: 60,
+                            align: 'center',
+                            menuText: '',
+                            items: [
+                                {
+                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+
+                                        Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){
+
+                                            if(btn == "yes"){
+                                                //view.setLoading(true);
+                                                Ext.Ajax.request({
+                                                    url: GLOBAL.urlPrefix + "/user/delete",
+                                                    params : {
+                                                        user_id : record.get("user_id")
+                                                    },
+                                                    disableCaching : true,
+                                                    waitMsg: 'Delete User...',
+                                                    success: function(response){
+                                                        var msg = Ext.JSON.decode(response.responseText).msg;
+                                                        Ext.MessageBox.alert('알림', msg);
+
+                                                        view.getStore().reload();
+
+                                                        Ext.getCmp("userDetailPanel").layout.setActiveItem(0);
+
+                                                    }
+                                                });
+                                            }
+
+                                        });
+                                    },
+                                    icon: 'resources/images/icons/delete.png',
+                                    iconCls: ''
+                                }
+                            ]
                         }
                     ]
                 },
@@ -127,147 +241,157 @@ Ext.define('MyApp.view.userContainer', {
                     split: true,
                     id: 'userDetailPanel',
                     itemId: 'userDetailPanel',
+                    layout: 'card',
                     items: [
                         {
-                            xtype: 'label',
-                            html: '<h2>&nbsp;&nbsp;Administrator</h2>',
-                            margin: '',
-                            padding: '0 10 0 0',
-                            text: ''
+                            xtype: 'panel',
+                            height: 1000,
+                            id: 'blankPanel4',
+                            itemId: 'blankPanel',
+                            width: 1000
                         },
                         {
-                            xtype: 'form',
-                            id: 'userForm',
-                            itemId: 'userForm',
-                            padding: '',
-                            defaults: {
-                                border: false,
-                                xtype: 'panel',
-                                flex: 1,
-                                layout: 'anchor'
-                            },
-                            bodyPadding: 10,
-                            bodyStyle: 'padding:5px 5px 0',
-                            header: false,
-                            fieldDefaults: {
-                                msgTarget: 'side',
-                                margin: '0 10',
-                                readOnly: true
-                            },
-                            waitMsgTarget: 'instDescForm',
+                            xtype: 'panel',
+                            id: 'userDetail',
+                            dockedItems: [
+                                {
+                                    xtype: 'toolbar',
+                                    dock: 'top',
+                                    items: [
+                                        {
+                                            xtype: 'label',
+                                            html: '<h2></h2>',
+                                            id: 'userTitleLabel',
+                                            itemId: 'userTitleLabel',
+                                            margin: '',
+                                            padding: '10 10 10 10',
+                                            text: ''
+                                        }
+                                    ]
+                                }
+                            ],
                             items: [
                                 {
-                                    xtype: 'fieldcontainer',
-                                    height: 34,
+                                    xtype: 'form',
+                                    id: 'getUserForm',
+                                    itemId: 'getUserForm',
+                                    padding: '',
                                     defaults: {
-                                        flex: 1
+                                        border: false,
+                                        xtype: 'panel',
+                                        flex: 1,
+                                        layout: 'anchor'
                                     },
-                                    fieldLabel: 'Label',
-                                    hideLabel: true,
-                                    layout: {
-                                        type: 'hbox',
-                                        align: 'middle'
+                                    bodyPadding: 10,
+                                    bodyStyle: 'padding:5px 5px 0',
+                                    header: false,
+                                    fieldDefaults: {
+                                        msgTarget: 'side',
+                                        margin: '0 10',
+                                        readOnly: true
                                     },
+                                    waitMsgTarget: 'instDescForm',
                                     items: [
                                         {
-                                            xtype: 'textfield',
-                                            fieldLabel: 'User ID'
+                                            xtype: 'fieldcontainer',
+                                            height: 34,
+                                            defaults: {
+                                                flex: 1
+                                            },
+                                            fieldLabel: 'Label',
+                                            hideLabel: true,
+                                            layout: {
+                                                type: 'hbox',
+                                                align: 'middle'
+                                            },
+                                            items: [
+                                                {
+                                                    xtype: 'textfield',
+                                                    fieldLabel: 'User ID',
+                                                    name: 'user_id'
+                                                },
+                                                {
+                                                    xtype: 'textfield',
+                                                    fieldLabel: 'User Name',
+                                                    name: 'user_name'
+                                                }
+                                            ]
                                         },
                                         {
-                                            xtype: 'textfield',
-                                            fieldLabel: 'Dept Name'
-                                        }
-                                    ]
-                                },
-                                {
-                                    xtype: 'fieldcontainer',
-                                    height: 34,
-                                    defaults: {
-                                        flex: 1
-                                    },
-                                    fieldLabel: 'Label',
-                                    hideLabel: true,
-                                    layout: {
-                                        type: 'hbox',
-                                        align: 'middle'
-                                    },
-                                    items: [
-                                        {
-                                            xtype: 'textfield',
-                                            fieldLabel: 'Role ID'
+                                            xtype: 'fieldcontainer',
+                                            height: 34,
+                                            defaults: {
+                                                flex: 1
+                                            },
+                                            fieldLabel: 'Label',
+                                            hideLabel: true,
+                                            layout: {
+                                                type: 'hbox',
+                                                align: 'middle'
+                                            },
+                                            items: [
+                                                {
+                                                    xtype: 'textfield',
+                                                    fieldLabel: 'Login ID',
+                                                    name: 'login_id'
+                                                },
+                                                {
+                                                    xtype: 'textfield',
+                                                    fieldLabel: 'Password',
+                                                    name: 'passwd'
+                                                }
+                                            ]
                                         },
                                         {
-                                            xtype: 'textfield',
-                                            fieldLabel: 'Email'
-                                        }
-                                    ]
-                                },
-                                {
-                                    xtype: 'fieldcontainer',
-                                    height: 34,
-                                    defaults: {
-                                        flex: 1
-                                    },
-                                    fieldLabel: 'Label',
-                                    hideLabel: true,
-                                    layout: {
-                                        type: 'hbox',
-                                        align: 'middle'
-                                    },
-                                    items: [
-                                        {
-                                            xtype: 'textfield',
-                                            fieldLabel: 'Login ID'
+                                            xtype: 'fieldcontainer',
+                                            height: 34,
+                                            defaults: {
+                                                flex: 1
+                                            },
+                                            fieldLabel: 'Label',
+                                            hideLabel: true,
+                                            layout: {
+                                                type: 'hbox',
+                                                align: 'middle'
+                                            },
+                                            items: [
+                                                {
+                                                    xtype: 'textfield',
+                                                    fieldLabel: 'Dept Name',
+                                                    name: 'dept_name'
+                                                },
+                                                {
+                                                    xtype: 'textfield',
+                                                    fieldLabel: 'Email',
+                                                    name: 'email'
+                                                }
+                                            ]
                                         },
                                         {
-                                            xtype: 'textfield',
-                                            fieldLabel: 'Is Admin'
-                                        }
-                                    ]
-                                },
-                                {
-                                    xtype: 'fieldcontainer',
-                                    height: 34,
-                                    defaults: {
-                                        flex: 1
-                                    },
-                                    fieldLabel: 'Label',
-                                    hideLabel: true,
-                                    layout: {
-                                        type: 'hbox',
-                                        align: 'middle'
-                                    },
-                                    items: [
-                                        {
-                                            xtype: 'textfield',
-                                            fieldLabel: 'Password'
-                                        },
-                                        {
-                                            xtype: 'textfield',
-                                            fieldLabel: 'Status'
-                                        }
-                                    ]
-                                },
-                                {
-                                    xtype: 'fieldcontainer',
-                                    height: 34,
-                                    defaults: {
-                                        flex: 1
-                                    },
-                                    fieldLabel: 'Label',
-                                    hideLabel: true,
-                                    layout: {
-                                        type: 'hbox',
-                                        align: 'middle'
-                                    },
-                                    items: [
-                                        {
-                                            xtype: 'textfield',
-                                            fieldLabel: 'User Name'
-                                        },
-                                        {
-                                            xtype: 'textfield',
-                                            fieldLabel: 'Last Logon'
+                                            xtype: 'fieldcontainer',
+                                            height: 34,
+                                            defaults: {
+                                                flex: 1
+                                            },
+                                            fieldLabel: 'Label',
+                                            hideLabel: true,
+                                            layout: {
+                                                type: 'hbox',
+                                                align: 'middle'
+                                            },
+                                            items: [
+                                                {
+                                                    xtype: 'textfield',
+                                                    margins: '0 20 0 0',
+                                                    padding: '',
+                                                    fieldLabel: 'Last Logon',
+                                                    name: 'last_logon'
+                                                },
+                                                {
+                                                    xtype: 'tbspacer',
+                                                    flex: 1
+                                                }
+                                            ]
                                         }
                                     ]
                                 }

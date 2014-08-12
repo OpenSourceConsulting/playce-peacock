@@ -37,7 +37,6 @@ Ext.define('MyApp.view.peacockViewport', {
         'Ext.layout.container.Card'
     ],
 
-    activeItem: 1,
     id: 'peacockViewport',
     itemId: 'peacockViewport',
     layout: 'card',

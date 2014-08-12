@@ -105,6 +105,7 @@ Ext.define('MyApp.controller.RHEVMController', {
         detailDPanel.layout.setActiveItem(0);
         detailDPanel.collapse();
 
+
         //Virtual Machines Data Loading
         var vmGrid = Ext.getCmp('rhevmVMGrid');
 

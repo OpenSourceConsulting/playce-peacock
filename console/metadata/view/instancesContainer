@@ -1733,7 +1733,7 @@
                                                 "layout|flex": 1,
                                                 "layout|region": "west",
                                                 "title": null,
-                                                "width": 150
+                                                "width": null
                                             },
                                             "designerId": "270aad23-6482-4401-8d63-7e7544ccfbd0",
                                             "cn": [
@@ -1768,9 +1768,10 @@
                                                         "id": "cpuChart",
                                                         "insetPadding": 20,
                                                         "itemId": "cpuChart",
+                                                        "minWidth": 320,
                                                         "shadow": true,
                                                         "store": "instanceMonitoringChartStore",
-                                                        "width": 320
+                                                        "width": null
                                                     },
                                                     "designerId": "dcb17b3d-f910-4c9a-9ecb-d86cb7ca68e1",
                                                     "isBuiltIn": true,
@@ -1792,7 +1793,6 @@
                                                                 "fields": [
                                                                     "date"
                                                                 ],
-                                                                "hidden": true,
                                                                 "label": [
                                                                     "{",
                                                                     "    rotate: {",
@@ -2010,9 +2010,10 @@
                                                         "id": "cpuChart3",
                                                         "insetPadding": 20,
                                                         "itemId": "cpuChart1",
+                                                        "minWidth": 320,
                                                         "shadow": true,
                                                         "store": "instanceMonitoringChartStore",
-                                                        "width": 320
+                                                        "width": null
                                                     },
                                                     "designerId": "facc1bf8-a505-4ebe-911b-f38e40b8dfa4",
                                                     "isBuiltIn": true,
@@ -2034,7 +2035,6 @@
                                                                 "fields": [
                                                                     "date"
                                                                 ],
-                                                                "hidden": true,
                                                                 "label": [
                                                                     "{",
                                                                     "    rotate: {",
@@ -2218,7 +2218,7 @@
                                                 "layout|flex": 1,
                                                 "layout|region": "east",
                                                 "title": null,
-                                                "width": 150
+                                                "width": null
                                             },
                                             "designerId": "dc37692f-6fe9-4e39-99e7-768821b4d5e2",
                                             "cn": [
@@ -2253,9 +2253,10 @@
                                                         "id": "cpuChart4",
                                                         "insetPadding": 20,
                                                         "itemId": "cpuChart2",
+                                                        "minWidth": 320,
                                                         "shadow": true,
                                                         "store": "instanceMonitoringChartStore",
-                                                        "width": 320
+                                                        "width": null
                                                     },
                                                     "designerId": "2c5b519c-d046-4e6c-accf-59ebd3bb76bc",
                                                     "isBuiltIn": true,
@@ -2277,7 +2278,6 @@
                                                                 "fields": [
                                                                     "date"
                                                                 ],
-                                                                "hidden": true,
                                                                 "label": [
                                                                     "{",
                                                                     "    rotate: {",

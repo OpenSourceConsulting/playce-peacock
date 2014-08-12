@@ -84,11 +84,11 @@ Ext.define('MyApp.controller.InstancesController', {
                 addRecords : true
             });
 
-            if(chartStore.getCount() > 10) {
+            if(chartStore.getCount() > 30) {
                 chartStore.remove(chartStore.getAt(0));
             }
 
-        }, 1000);
+        }, 5000);
 
     },
 

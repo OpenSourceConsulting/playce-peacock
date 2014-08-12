@@ -1,0 +1,5 @@
+[{"account":"root"},
+ {"account":"bin"},
+ {"account":"daemon"},
+ {"account":"halt"},
+ {"account":"shutdown"}]

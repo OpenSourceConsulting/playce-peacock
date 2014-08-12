@@ -36,13 +36,6 @@ Ext.define('MyApp.controller.LoginController', {
     ],
 
     doLogin: function(button, e, eOpts) {
-        /*
-        // loginBtn에 fireEvent()를 이용한 click 이벤트 실행 시 button 은 undefined로 넘어옴.
-
-        var form = button.up('form'),				// Login form
-            formWindow = button.up('window'),		// Login form window
-            values = form.getValues();				// Form values
-        */
 
         var form = Ext.getCmp("loginForm"),			// Login form
             formWindow = Ext.getCmp('loginWindow'),	// Login form window
@@ -59,26 +52,28 @@ Ext.define('MyApp.controller.LoginController', {
         // Success
         var successCallback = function(resp, ops) {
 
-            // Close window
-            formWindow.destroy();
-            Ext.getCmp("peacockViewport").layout.setActiveItem(1);
-            me.getUserSplitBtn().setText(userNameVal);
+            var response = Ext.decode(resp.responseText);
+            if(response.success){
+                me.successfulLogin(response.data.login_id);
+            }
+            else {
+                failureCallback(response, ops);
+            }
 
-            var menuTreeStore = Ext.getStore("MenuTreeStore");
-
-            // show settings menu when logged in as admin
-
-            Ext.getCmp("menuTreeView").selModel.select(0);
-            Ext.getCmp("menuTreeView").fireEvent('cellclick', Ext.getCmp("menuTreeView"), null, null, menuTreeStore.getRootNode().firstChild);
         };
+
 
         // Failure
         var failureCallback = function(resp, ops) {
 
+            var msg = "로그인에 실패하였습니다.";
+            if(resp.msg !== null) {
+                msg = resp.msg;
+            }
             // Show login failure error
             Ext.Msg.alert({
                 title: "Login Failure",
-                msg: resp,
+                msg: msg,
                 buttons: Ext.Msg.OK,
                 fn: function(choice) {
                     password.setValue("");
@@ -114,21 +109,15 @@ Ext.define('MyApp.controller.LoginController', {
             });
         } else {
 
-            /*
+
             //TODO: Login using server-side authentication service
             Ext.Ajax.request({
-                url: "/login",
+                url: GLOBAL.urlPrefix + "/user/login",
                 params: values,
                 success: successCallback,
                 failure: failureCallback
             });
-            */
 
-            // Just run success for now
-            successCallback();
-
-            // Just run failure for now
-            //failureCallback("Not implemented yet.");
         }
     },
 
@@ -161,7 +150,6 @@ Ext.define('MyApp.controller.LoginController', {
     },
 
     popupLoginWindow: function(button, e, eOpts) {
-        // Create new login form window
         var login = Ext.create("widget.loginWindow");
 
         // Show window
@@ -170,8 +158,8 @@ Ext.define('MyApp.controller.LoginController', {
         this.getUserName().focus();
 
         /**
-         * 비밀번호 재설정 Label click event를 catch 하도록 설정
-         */
+          * 비밀번호 재설정 Label click event를 catch 하도록 설정
+          */
         this.getPasswdResetLabel().getEl().on('click', function() {
             Ext.Msg.show({
                 title: "Message",
@@ -183,6 +171,7 @@ Ext.define('MyApp.controller.LoginController', {
                 icon: Ext.Msg.QUESTION
             });
         });
+
     },
 
     doEditProfile: function(item, e, eOpts) {
@@ -198,8 +187,22 @@ Ext.define('MyApp.controller.LoginController', {
     },
 
     doLogout: function(item, e, eOpts) {
-        Ext.getCmp("centerContainer").layout.setActiveItem(0);
-        Ext.getCmp("peacockViewport").layout.setActiveItem(0);
+
+        Ext.Ajax.request({
+            url: GLOBAL.urlPrefix + '/user/logout',
+            disableCaching : true,
+            success: function(response){
+
+                var sessionInfo = Ext.getStore('SessionInfo');
+                sessionInfo.removeAll();
+                sessionInfo.sync();
+
+                Ext.getCmp("centerContainer").layout.setActiveItem(0);
+                Ext.getCmp("peacockViewport").layout.setActiveItem(0);
+
+            }
+        });
+
     },
 
     doSettings: function(item, e, eOpts) {
@@ -207,28 +210,69 @@ Ext.define('MyApp.controller.LoginController', {
     },
 
     introPanelActivate: function(component, eOpts) {
-        // Create new login form window
-        var login = Ext.create("widget.loginWindow");
+        //Login Session Check
+        var sessionInfo = Ext.getStore('SessionStore');
+        sessionInfo.load();
 
-        // Show window
-        login.show();
+        if(null != sessionInfo.getAt(0)){
+            this.successfulLogin(sessionInfo.getAt(0).get('sessionId'));
 
-        this.getUserName().focus();
+        } else {
 
-        /**
-         * 비밀번호 재설정 Label click event를 catch 하도록 설정
-         */
-        this.getPasswdResetLabel().getEl().on('click', function() {
-            Ext.Msg.show({
-                title: "Message",
-                msg: "Password reset funtion isn't implemented yet.",
-                buttons: Ext.Msg.OK,
-                fn: function(choice) {
-                    // do nothing.
-                },
-                icon: Ext.Msg.QUESTION
+            // Create new login form window
+            var login = Ext.create("widget.loginWindow");
+
+            // Show window
+            login.show();
+
+            this.getUserName().focus();
+
+            /**
+             * 비밀번호 재설정 Label click event를 catch 하도록 설정
+             */
+            this.getPasswdResetLabel().getEl().on('click', function() {
+                Ext.Msg.show({
+                    title: "Message",
+                    msg: "Password reset funtion isn't implemented yet.",
+                    buttons: Ext.Msg.OK,
+                    fn: function(choice) {
+                        // do nothing.
+                    },
+                    icon: Ext.Msg.QUESTION
+                });
             });
-        });
+
+        }
+
+    },
+
+    successfulLogin: function(sessionId, ops) {
+
+            this.sessionId = sessionId;
+
+            var sessionInfo = Ext.getStore('SessionStore');
+            sessionInfo.removeAll();
+            sessionInfo.sync();
+            var newRecord = new MyApp.model.SessionModel({
+                sessionId: this.sessionId
+            });
+            sessionInfo.add(newRecord);
+            sessionInfo.sync();
+
+            // Close window
+            var loginWindow = Ext.getCmp('loginWindow');
+            if(loginWindow != null) {
+                Ext.getCmp('loginWindow').destroy();
+            }
+            Ext.getCmp("peacockViewport").layout.setActiveItem(1);
+            this.getUserSplitBtn().setText(sessionId);
+
+            var menuTreeStore = Ext.getStore("MenuTreeStore");
+
+            // show settings menu when logged in as admin
+
+            Ext.getCmp("menuTreeView").selModel.select(0);
+            Ext.getCmp("menuTreeView").fireEvent('cellclick', Ext.getCmp("menuTreeView"), null, null, menuTreeStore.getRootNode().firstChild);
     },
 
     init: function(application) {

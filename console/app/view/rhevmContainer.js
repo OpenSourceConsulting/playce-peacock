@@ -21,12 +21,13 @@ Ext.define('MyApp.view.rhevmContainer', {
         'Ext.grid.Panel',
         'Ext.grid.View',
         'Ext.toolbar.Toolbar',
+        'Ext.form.field.Text',
         'Ext.grid.column.Action',
+        'Ext.grid.plugin.CellEditing',
         'Ext.tab.Panel',
         'Ext.tab.Tab',
         'Ext.form.Panel',
-        'Ext.form.FieldContainer',
-        'Ext.form.field.Text'
+        'Ext.form.FieldContainer'
     ],
 
     height: 755,
@@ -76,7 +77,11 @@ Ext.define('MyApp.view.rhevmContainer', {
                         {
                             xtype: 'gridcolumn',
                             dataIndex: 'host',
-                            text: 'Host'
+                            text: 'Host',
+                            editor: {
+                                xtype: 'textfield',
+                                allowBlank: false
+                            }
                         },
                         {
                             xtype: 'gridcolumn',
@@ -105,6 +110,31 @@ Ext.define('MyApp.view.rhevmContainer', {
                         },
                         {
                             xtype: 'gridcolumn',
+                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                if(value !== null) {
+
+                                    if(value.length > 2) {
+
+                                        var mark = "";
+
+                                        for(var i=2;i<value.length;i++) {
+                                            mark += "*";
+                                        }
+
+                                        return value.substring(0,2) + mark;
+
+                                    } else {
+
+                                        return value;
+
+                                    }
+
+                                } else {
+
+                                    return "";
+
+                                }
+                            },
                             dataIndex: 'password',
                             text: 'Password'
                         },
@@ -128,6 +158,11 @@ Ext.define('MyApp.view.rhevmContainer', {
                                 }
                             ]
                         }
+                    ],
+                    plugins: [
+                        Ext.create('Ext.grid.plugin.CellEditing', {
+
+                        })
                     ]
                 },
                 {

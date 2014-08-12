@@ -112,7 +112,21 @@
                         "dataIndex": "host",
                         "text": "Host"
                     },
-                    "designerId": "5a314fb6-e412-4c2a-aef1-4d73c183e10b"
+                    "designerId": "5a314fb6-e412-4c2a-aef1-4d73c183e10b",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "editor",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false
+                            },
+                            "designerId": "98046585-e8a3-465b-826a-4bb8fcc54377"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.grid.column.Column",
@@ -190,7 +204,55 @@
                         "dataIndex": "password",
                         "text": "Password"
                     },
-                    "designerId": "990d8c20-5dab-4440-8e60-48a077464097"
+                    "designerId": "990d8c20-5dab-4440-8e60-48a077464097",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "metaData",
+                                    "record",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "store",
+                                    "view"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "if(value !== null) {",
+                                    "    ",
+                                    "    if(value.length > 2) {",
+                                    "        ",
+                                    "        var mark = \"\";",
+                                    "        ",
+                                    "        for(var i=2;i<value.length;i++) {",
+                                    "            mark += \"*\";",
+                                    "        }",
+                                    "        ",
+                                    "        return value.substring(0,2) + mark;",
+                                    "        ",
+                                    "    } else {",
+                                    "        ",
+                                    "        return value;",
+                                    "        ",
+                                    "    }",
+                                    "    ",
+                                    "} else {",
+                                    "    ",
+                                    "    return \"\";",
+                                    "    ",
+                                    "}"
+                                ]
+                            },
+                            "designerId": "8e432897-0e3f-47b9-ae2d-f72d20abad9a"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.grid.column.Column",
@@ -222,7 +284,7 @@
                         "text": "Delete",
                         "width": 60
                     },
-                    "designerId": "fcc4c609-8854-4984-8610-bbf2cd66dd11",
+                    "designerId": "1bd828b8-5cea-4ef1-8107-10297a4c2916",
                     "customConfigs": [
                         {
                             "group": "(Custom Properties)",
@@ -245,6 +307,15 @@
                             "designerId": "83754c25-6e64-4ab7-af91-4621b9ac8957"
                         }
                     ]
+                },
+                {
+                    "type": "Ext.grid.plugin.CellEditing",
+                    "reference": {
+                        "name": "plugins",
+                        "type": "array"
+                    },
+                    "codeClass": "Ext.grid.plugin.CellEditing",
+                    "designerId": "344a672b-033b-4969-8d64-fd1ab57978c7"
                 }
             ]
         },

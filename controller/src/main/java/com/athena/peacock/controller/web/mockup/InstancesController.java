@@ -166,6 +166,20 @@ public class InstancesController {
 		return chartData;
 	}
 	
+	@RequestMapping("/listAccount")
+	public @ResponseBody GridJsonResponse listAccount(GridJsonResponse jsonRes) throws Exception {
+		
+	    JSONParser parser = new JSONParser();
+	    Object obj = parser.parse(new FileReader(getClass().getResource("/json/AccountGridData.json").getPath()));
+
+	    JSONArray jsonArray =  (JSONArray) obj;
+
+		jsonRes.setTotal(jsonArray.size());
+		jsonRes.setList(jsonArray);
+		
+		return jsonRes;
+	}
+	
 	/**
 	 * <pre>
 	 * 각종 제어 명령 요청에 따른 처리 메소드

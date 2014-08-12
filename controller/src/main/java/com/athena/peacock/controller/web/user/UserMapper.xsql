@@ -13,10 +13,10 @@
 		    ,a.dept_name
 		    ,a.email
 		    ,a.last_logon
-		    ,a.reg_user_id
-		    ,a.reg_dt
-		    ,a.upd_user_id
-		    ,a.upd_dt
+		    ,a.reg_user_id as regUserId
+		    ,a.reg_dt as regDt
+		    ,a.upd_user_id as updUserId
+		    ,a.upd_dt as updDt
 		FROM users_tbl a
 		<where>
 			<if test="search != null">
@@ -60,9 +60,9 @@
 			,#{user_name}
 			,#{dept_name}
 			,#{email}
-			,#{reg_user_id}
+			,#{regUserId}
 			,NOW()
-			,#{upd_user_id}
+			,#{updUserId}
 			,NOW()
 		)
 		
@@ -94,7 +94,7 @@
 			,user_name = #{user_name}
 			,dept_name = #{dept_name}
 			,email = #{email}
-			,upd_user_id = #{upd_user_id}
+			,upd_user_id = #{updUserId}
 			,upd_dt = NOW()
 		WHERE
 			user_id = #{user_id}
