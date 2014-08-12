@@ -206,14 +206,14 @@ class ScaleOutThread extends Thread {
 			 */
 			String vmName = autoScaling.getAutoScalingName() + "-" + System.currentTimeMillis();
 			vmName = vmName.replaceAll(" ", "_");
-			VM vm = rhevmService.createVirtualMachine(vmName, autoScaling.getVmTemplateId());
+			VM vm = rhevmService.createVirtualMachine(autoScaling.getHypervisorId(), vmName, autoScaling.getVmTemplateId());
 
 			/**
 			 * 2. Thread.sleep(5000)을 이용하여 인스턴스 생성이 완료되었는지 확인한다.
 			 */
 			VMDto vmDto = null;
 			while (true) {
-				vmDto = rhevmService.getVirtualMachine(vm.getId());
+				vmDto = rhevmService.getVirtualMachine(autoScaling.getHypervisorId(), vm.getId());
 				
 				if (vmDto.getStatus().toLowerCase().equals("down")) {
 					break;
@@ -225,14 +225,14 @@ class ScaleOutThread extends Thread {
 			/**
 			 * 3. 인스턴스 생성이 완료되면 인스턴스를 시작한다.
 			 */
-			rhevmService.startVirtualMachine(vm.getId());
+			rhevmService.startVirtualMachine(autoScaling.getHypervisorId(), vm.getId());
 
 			/**
 			 * 4. Thread.sleep(5000)을 이용하여 인스턴스가 시작되었는지 확인한다.
 			 */
 			vmDto = null;
 			while (true) {
-				vmDto = rhevmService.getVirtualMachine(vm.getId());
+				vmDto = rhevmService.getVirtualMachine(autoScaling.getHypervisorId(), vm.getId());
 				
 				if (vmDto.getStatus().toLowerCase().equals("up")) {
 					break;
@@ -307,14 +307,14 @@ class ScaleInThread extends Thread {
 			/**
 			 * 2. RHEV Manager에게 해당 인스턴스를 중지(Power Off)하도록 요청한다.
 			 */
-			rhevmService.powerOffVirtualMachine(autoScaling.getMachineId());
+			rhevmService.powerOffVirtualMachine(autoScaling.getHypervisorId(), autoScaling.getMachineId());
 
 			/**
 			 * 3. Thread.sleep(5000)을 이용하여 인스턴스가 중지되었는지 확인한다.
 			 */
 			VMDto vmDto = null;
 			while (true) {
-				vmDto = rhevmService.getVirtualMachine(autoScaling.getMachineId());
+				vmDto = rhevmService.getVirtualMachine(autoScaling.getHypervisorId(), autoScaling.getMachineId());
 				
 				if (vmDto.getStatus().toLowerCase().equals("down")) {
 					break;
@@ -326,7 +326,7 @@ class ScaleInThread extends Thread {
 			/**
 			 * 4. RHEV Manager에세 해당 인스턴스를 제거(Remove) 하도록 요청한다.
 			 */
-			rhevmService.removeVirtualMachine(autoScaling.getMachineId());
+			rhevmService.removeVirtualMachine(autoScaling.getHypervisorId(), autoScaling.getMachineId());
 
 			/**
 			 * 5. machine_tbl에서 해당 인스턴스를 삭제 처리한다.

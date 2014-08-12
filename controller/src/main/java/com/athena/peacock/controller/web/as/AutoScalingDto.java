@@ -37,6 +37,8 @@ public class AutoScalingDto extends BaseDto {
 
 	private static final long serialVersionUID = 1L;
 	
+	private Integer hypervisorId;
+	
 	// Fields for auto_scaling_tbl
 	private Integer autoScalingId;
 	private String autoScalingName;
@@ -62,6 +64,20 @@ public class AutoScalingDto extends BaseDto {
 	private Integer currentMachineSize;
 	private Integer loadBalancerId;
 	private String lbMachineId;
+
+	/**
+	 * @return the hypervisorId
+	 */
+	public Integer getHypervisorId() {
+		return hypervisorId;
+	}
+
+	/**
+	 * @param hypervisorId the hypervisorId to set
+	 */
+	public void setHypervisorId(Integer hypervisorId) {
+		this.hypervisorId = hypervisorId;
+	}
 
 	/**
 	 * @return the autoScalingId

@@ -61,43 +61,38 @@ public class RHEVMController {
 	@Named("rhevmService")
 	private RHEVMService rhevmService;
 
-
-		
 	/**
 	 * <pre>
 	 * 지정된 RHEV-M(rhevmId)에 해당하는 Virtual Machine 목록을 조회
 	 * </pre>
 	 * @param jsonRes
-	 * @param machineId
+	 * @param dto
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/vms/list")
-	public @ResponseBody GridJsonResponse list(GridJsonResponse jsonRes, VMDto vms) throws Exception {
-		// 아래는 향후 Multi RHEV-M을 컨트롤할 때 rhevmId를 입력받아 처리하도록 함
-		//Assert.isTrue(!StringUtils.isEmpty(vms.getRhevmId()), "rhevmId must not be null.");
+	public @ResponseBody GridJsonResponse list(GridJsonResponse jsonRes, VMDto dto) throws Exception {
+		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
 		
-		jsonRes.setList(rhevmService.getVirtualList());
+		jsonRes.setList(rhevmService.getVirtualList(dto.getHypervisorId()));
 		return jsonRes;
 	}
-	
 	
 	/**
 	 * <pre>
 	 * 지정된 RHEV-M(rhevmId)에 해당하는 특정 Virtual Machine을 조회
 	 * </pre>
 	 * @param jsonRes
-	 * @param machineId
+	 * @param dto
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/vms/info")
-	public @ResponseBody SimpleJsonResponse retrieve(SimpleJsonResponse jsonRes, VMDto vm) throws Exception {
-		// 아래는 향후 Multi RHEV-M을 컨트롤할 때 rhevmId를 입력받아 처리하도록 함
-		//Assert.isTrue(!StringUtils.isEmpty(vm.getRhevmId()), "rhevmId must not be null.");
-		Assert.isTrue(!StringUtils.isEmpty(vm.getVmId()), "vmId must not be null.");
+	public @ResponseBody SimpleJsonResponse retrieve(SimpleJsonResponse jsonRes, VMDto dto) throws Exception {
+		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
+		Assert.notNull(dto.getVmId(), "vmId must not be null.");
 		
-		jsonRes.setData(rhevmService.getVirtualMachine(vm.getVmId()));
+		jsonRes.setData(rhevmService.getVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
 		return jsonRes;
 	}
 	
@@ -106,16 +101,15 @@ public class RHEVMController {
 	 * 지정된 Virtual Machine에 할당된 네트워크 인터페이스 조회
 	 * </pre>
 	 * @param jsonRes
-	 * @param machineId
+	 * @param dto
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/vms/nics")
-	public @ResponseBody GridJsonResponse getNics(GridJsonResponse jsonRes, VMDto vm) throws Exception {
-		// 아래는 향후 Multi RHEV-M을 컨트롤할 때 rhevmId를 입력받아 처리하도록 함
-		//Assert.isTrue(!StringUtils.isEmpty(vms.getRhevmId()), "rhevmId must not be null.");
+	public @ResponseBody GridJsonResponse getNics(GridJsonResponse jsonRes, VMDto dto) throws Exception {
+		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
 		
-		jsonRes.setList(rhevmService.getNicList(vm.getVmId()));
+		jsonRes.setList(rhevmService.getNicList(dto.getHypervisorId(), dto.getVmId()));
 		return jsonRes;
 	}
 	
@@ -124,16 +118,16 @@ public class RHEVMController {
 	 * 지정된 RHEV-M(rhevmId)에 해당하는 특정 Virtual Machine을 조회
 	 * </pre>
 	 * @param jsonRes
-	 * @param machineId
+	 * @param dto
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/templates")
 	public @ResponseBody GridJsonResponse getTemplateList(GridJsonResponse jsonRes, TemplateDto dto) throws Exception {
-		// 아래는 향후 Multi RHEV-M을 컨트롤할 때 rhevmId를 입력받아 처리하도록 함
-		//Assert.isTrue(!StringUtils.isEmpty(vm.getRhevmId()), "rhevmId must not be null.");
+		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
+		
 		try {
-			jsonRes.setList(rhevmService.getTemplateList());
+			jsonRes.setList(rhevmService.getTemplateList(dto.getHypervisorId()));
 			
 			jsonRes.setMsg("Success retriving the RHEV templates");
 		} catch (Exception e) {
@@ -150,18 +144,17 @@ public class RHEVMController {
 	 * RHEV-M의 템플릿을 이용하여 신규 VM을 생성한다. 
 	 * </pre>
 	 * @param jsonRes
-	 * @param templateId
+	 * @param dto
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/templates/info")
 	public @ResponseBody SimpleJsonResponse getTemplate(SimpleJsonResponse jsonRes, TemplateDto dto) throws Exception {
-		// 아래는 향후 Multi RHEV-M을 컨트롤할 때 rhevmId를 입력받아 처리하도록 함
-		//Assert.isTrue(!StringUtils.isEmpty(vm.getRhevmId()), "rhevmId must not be null.");
-		Assert.isTrue(!StringUtils.isEmpty(dto.getTemplateId()), "template must not be null.");
+		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
+		Assert.notNull(dto.getTemplateId(), "templateId must not be null.");
 		
 		try {
-			jsonRes.setData(rhevmService.getTemplate(dto.getTemplateId()));
+			jsonRes.setData(rhevmService.getTemplate(dto.getHypervisorId(), dto.getTemplateId()));
 			
 			jsonRes.setMsg("Success retrive template from RHEV");
 		} catch (Exception e) {
@@ -178,18 +171,17 @@ public class RHEVMController {
 	 * RHEV-M의 템플릿을 이용하여 신규 VM을 생성한다. 
 	 * </pre>
 	 * @param jsonRes
-	 * @param machineId
+	 * @param dto
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/vms/create")
 	public @ResponseBody SimpleJsonResponse createVirtualMachine(SimpleJsonResponse jsonRes, VMDto dto) throws Exception {
-		// 아래는 향후 Multi RHEV-M을 컨트롤할 때 rhevmId를 입력받아 처리하도록 함
-		//Assert.isTrue(!StringUtils.isEmpty(vm.getRhevmId()), "rhevmId must not be null.");
-		Assert.isTrue(!StringUtils.isEmpty(dto.getTemplate()), "template must not be null.");
+		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
+		Assert.notNull(dto.getTemplate(), "template must not be null.");
 		
 		try {
-			jsonRes.setData(rhevmService.createVirtualMachine(dto.getName(), dto.getTemplate()));
+			jsonRes.setData(rhevmService.createVirtualMachine(dto.getHypervisorId(), dto.getName(), dto.getTemplate()));
 			
 			jsonRes.setMsg("Success create a virtual machine to RHEV server");
 		} catch (Exception e) {
@@ -206,17 +198,16 @@ public class RHEVMController {
 	 * 입력받은 vmId를 사용하여 RHEV-M의 VM을 시작시킨다. 
 	 * </pre>
 	 * @param jsonRes
-	 * @param vmId
+	 * @param dto
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/vms/start")
 	public @ResponseBody SimpleJsonResponse startVirtualMachine(SimpleJsonResponse jsonRes, VMDto dto) throws Exception {
-		// 아래는 향후 Multi RHEV-M을 컨트롤할 때 rhevmId를 입력받아 처리하도록 함
-		//Assert.isTrue(!StringUtils.isEmpty(vm.getRhevmId()), "rhevmId must not be null.");
-		Assert.isTrue(!StringUtils.isEmpty(dto.getVmId()), "vmId must not be null.");
+		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
+		Assert.notNull(dto.getVmId(), "vmId must not be null.");
 		
-		jsonRes.setData(rhevmService.startVirtualMachine(dto.getVmId()));
+		jsonRes.setData(rhevmService.startVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
 		return jsonRes;
 	}
 	
@@ -225,17 +216,16 @@ public class RHEVMController {
 	 * 입력받은 vmId를 사용하여 RHEV-M의 VM을 중지시킨다. 
 	 * </pre>
 	 * @param jsonRes
-	 * @param vmId
+	 * @param dto
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/vms/stop")
 	public @ResponseBody SimpleJsonResponse stopVirtualMachine(SimpleJsonResponse jsonRes, VMDto dto) throws Exception {
-		// 아래는 향후 Multi RHEV-M을 컨트롤할 때 rhevmId를 입력받아 처리하도록 함
-		//Assert.isTrue(!StringUtils.isEmpty(vm.getRhevmId()), "rhevmId must not be null.");
-		Assert.isTrue(!StringUtils.isEmpty(dto.getVmId()), "vmId must not be null.");
+		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
+		Assert.notNull(dto.getVmId(), "vmId must not be null.");
 		
-		jsonRes.setData(rhevmService.stopVirtualMachine(dto.getVmId()));
+		jsonRes.setData(rhevmService.stopVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
 		return jsonRes;
 	}
 	
@@ -244,17 +234,16 @@ public class RHEVMController {
 	 * 입력받은 vmId를 사용하여 RHEV-M의 VM을 셧다운시킨다. 
 	 * </pre>
 	 * @param jsonRes
-	 * @param vmId
+	 * @param dto
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/vms/poweroff")
 	public @ResponseBody SimpleJsonResponse powerOffVirtualMachine(SimpleJsonResponse jsonRes, VMDto dto) throws Exception {
-		// 아래는 향후 Multi RHEV-M을 컨트롤할 때 rhevmId를 입력받아 처리하도록 함
-		//Assert.isTrue(!StringUtils.isEmpty(vm.getRhevmId()), "rhevmId must not be null.");
-		Assert.isTrue(!StringUtils.isEmpty(dto.getVmId()), "vmId must not be null.");
+		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
+		Assert.notNull(dto.getVmId(), "vmId must not be null.");
 		
-		jsonRes.setData(rhevmService.powerOffVirtualMachine(dto.getVmId()));
+		jsonRes.setData(rhevmService.powerOffVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
 		return jsonRes;
 	}
 	

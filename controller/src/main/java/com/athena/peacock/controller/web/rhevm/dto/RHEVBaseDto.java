@@ -34,11 +34,19 @@ package com.athena.peacock.controller.web.rhevm.dto;
  */
 
 public class RHEVBaseDto {
+	
+	private Integer hypervisorId;
 	private String rhevmId;
 	private String vmId;
 	private String name;
 	private String description;
 	
+	public Integer getHypervisorId() {
+		return hypervisorId;
+	}
+	public void setHypervisorId(Integer hypervisorId) {
+		this.hypervisorId = hypervisorId;
+	}
 	public String getRhevmId() {
 		return rhevmId;
 	}

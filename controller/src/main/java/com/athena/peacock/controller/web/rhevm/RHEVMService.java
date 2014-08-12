@@ -27,9 +27,6 @@ package com.athena.peacock.controller.web.rhevm;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
@@ -37,6 +34,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 
 import com.athena.peacock.controller.common.component.RHEVMRestTemplate;
+import com.athena.peacock.controller.common.component.RHEVMRestTemplateManager;
 import com.athena.peacock.controller.web.rhevm.dto.NetworkDto;
 import com.athena.peacock.controller.web.rhevm.dto.TemplateDto;
 import com.athena.peacock.controller.web.rhevm.dto.VMDto;
@@ -65,10 +63,10 @@ import com.redhat.rhevm.api.model.VMs;
 public class RHEVMService {
 	
 	protected final Logger logger = LoggerFactory.getLogger(RHEVMService.class);
-
-	@Inject
-	@Named("restTemplate")
-	private RHEVMRestTemplate rhevTemplate;
+	
+	private RHEVMRestTemplate getRHEVMRestTemplate(int hypervisorId) {
+		return RHEVMRestTemplateManager.getRHEVMRestTemplate(hypervisorId);
+	}
 
 	/**
 	 * RHEV에 생성되어 있는 가상머신의 목록을 조회한다.
@@ -76,15 +74,15 @@ public class RHEVMService {
 	 * @throws RestClientException
 	 * @throws Exception
 	 */
-	public List<VMDto> getVirtualList() throws RestClientException, Exception {
+	public List<VMDto> getVirtualList(int hypervisorId) throws RestClientException, Exception {
 		
 		List<VMDto> vmDtoList = new ArrayList<VMDto>();
 		
-		VMs vms = rhevTemplate.submit(RHEVApi.VMS, HttpMethod.GET, VMs.class);
+		VMs vms = getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.VMS, HttpMethod.GET, VMs.class);
 		List<VM> vmList = vms.getVMs();
 		
 		for( VM vm : vmList) {
-			vmDtoList.add(makeDto(vm));
+			vmDtoList.add(makeDto(hypervisorId, vm));
 		}
 		return vmDtoList;
 	}
@@ -95,14 +93,14 @@ public class RHEVMService {
 	 * @throws RestClientException
 	 * @throws Exception
 	 */
-	public List<TemplateDto> getTemplateList()  throws RestClientException, Exception {
+	public List<TemplateDto> getTemplateList(int hypervisorId)  throws RestClientException, Exception {
 		List<TemplateDto> templateDtoList = new ArrayList<TemplateDto>();
 		
-		Templates templates = rhevTemplate.submit(RHEVApi.TEMPLATES, HttpMethod.GET, Templates.class);
+		Templates templates = getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.TEMPLATES, HttpMethod.GET, Templates.class);
 		List<Template> templateList = templates.getTemplates();
 		
 		for( Template template : templateList) {
-			templateDtoList.add(makeDto(template));
+			templateDtoList.add(makeDto(hypervisorId, template));
 		}
 		return templateDtoList;
 	}
@@ -113,11 +111,11 @@ public class RHEVMService {
 	 * @throws RestClientException
 	 * @throws Exception
 	 */
-	public TemplateDto getTemplate(String templateId)  throws RestClientException, Exception {
+	public TemplateDto getTemplate(int hypervisorId, String templateId)  throws RestClientException, Exception {
 		String templateUrl =  RHEVApi.TEMPLATES + "/" + templateId;
-		Template template = rhevTemplate.submit(templateUrl, HttpMethod.GET, Template.class);
+		Template template = getRHEVMRestTemplate(hypervisorId).submit(templateUrl, HttpMethod.GET, Template.class);
 		
-		return makeDto(template);
+		return makeDto(hypervisorId, template);
 	}
 	
 	/**
@@ -128,7 +126,7 @@ public class RHEVMService {
 	 * @throws RestClientException
 	 * @throws Exception
 	 */
-	public VM createVirtualMachine(String vmName, String templateId) throws RestClientException, Exception {
+	public VM createVirtualMachine(int hypervisorId, String vmName, String templateId) throws RestClientException, Exception {
 		
 		logger.debug("vmName : {}, templateId : {}", vmName, templateId);
 		
@@ -139,7 +137,7 @@ public class RHEVMService {
 		vm.setName(vmName);
 		vm.setTemplate(template);
 		
-		return createVirtualMachine(vm);
+		return createVirtualMachine(hypervisorId, vm);
 	}
 	
 	/**
@@ -149,14 +147,14 @@ public class RHEVMService {
 	 * @throws RestClientException
 	 * @throws Exception
 	 */
-	public VM createVirtualMachine(VM vm) throws RestClientException, Exception {
+	public VM createVirtualMachine(int hypervisorId, VM vm) throws RestClientException, Exception {
 		
 		// Retrieve origin objects
 		String templateUrl =  RHEVApi.TEMPLATES + "/" + vm.getTemplate().getId();
-		Template template = rhevTemplate.submit(templateUrl, HttpMethod.GET, Template.class);
+		Template template = getRHEVMRestTemplate(hypervisorId).submit(templateUrl, HttpMethod.GET, Template.class);
 		
 		String clusterUrl = template.getCluster().getHref();
-		Cluster cluster = rhevTemplate.submit(clusterUrl,  HttpMethod.GET, Cluster.class);
+		Cluster cluster = getRHEVMRestTemplate(hypervisorId).submit(clusterUrl,  HttpMethod.GET, Cluster.class);
 		
 		// Make request paramater
 		Cluster requestCluster = new Cluster();
@@ -175,7 +173,7 @@ public class RHEVMService {
 		vm.setOs(os);
 		vm.setMemory(template.getMemory());
 	
-		return rhevTemplate.submit(RHEVApi.VMS, HttpMethod.POST, vm, "vm",VM.class);
+		return getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.VMS, HttpMethod.POST, vm, "vm",VM.class);
 	}
 	
 	/**
@@ -184,11 +182,10 @@ public class RHEVMService {
 	 * @throws RestClientException
 	 * @throws Exception
 	 */
-	public List<NetworkDto> getNicList(String vmId) throws RestClientException, Exception {
-		
+	public List<NetworkDto> getNicList(int hypervisorId, String vmId) throws RestClientException, Exception {
 		List<NetworkDto> networkDtoList = new ArrayList<NetworkDto>();
 		String callUrl = RHEVApi.VMS + "/" + vmId + "/nics";
-		Nics nics = rhevTemplate.submit(callUrl, HttpMethod.GET, Nics.class);
+		Nics nics = getRHEVMRestTemplate(hypervisorId).submit(callUrl, HttpMethod.GET, Nics.class);
 
 		List<NIC> nicList = nics.getNics();
 		
@@ -198,18 +195,16 @@ public class RHEVMService {
 		return networkDtoList;
 	}
 		
-	
-
 	/**
 	 * 특정 가상 머신을 조회한다.
 	 * @param vmId
 	 * @return
 	 * @throws Exception
 	 */
-	public VMDto getVirtualMachine(String vmId) throws Exception {
+	public VMDto getVirtualMachine(int hypervisorId, String vmId) throws Exception {
 		String callUrl = RHEVApi.VMS + "/" + vmId;
-		VM vm = rhevTemplate.submit(callUrl,  HttpMethod.GET, VM.class);
-		return makeDto(vm);
+		VM vm = getRHEVMRestTemplate(hypervisorId).submit(callUrl,  HttpMethod.GET, VM.class);
+		return makeDto(hypervisorId, vm);
 	}
 
 	/**
@@ -218,10 +213,10 @@ public class RHEVMService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Action startVirtualMachine(String vmId) throws Exception {
+	public Action startVirtualMachine(int hypervisorId, String vmId) throws Exception {
 		String callUrl = RHEVApi.VMS + "/" + vmId + "/start";
 		Action action = new Action();
-		action = rhevTemplate.submit(callUrl,  HttpMethod.POST, action, "action", Action.class);
+		action = getRHEVMRestTemplate(hypervisorId).submit(callUrl,  HttpMethod.POST, action, "action", Action.class);
 		return action;
 	}
 	
@@ -231,10 +226,10 @@ public class RHEVMService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Action stopVirtualMachine(String vmId) throws Exception {
+	public Action stopVirtualMachine(int hypervisorId, String vmId) throws Exception {
 		String callUrl = RHEVApi.VMS + "/" + vmId + "/stop";
 		Action action = new Action();
-		action = rhevTemplate.submit(callUrl,  HttpMethod.POST, action, "action", Action.class);
+		action = getRHEVMRestTemplate(hypervisorId).submit(callUrl,  HttpMethod.POST, action, "action", Action.class);
 		return action;
 	}
 	
@@ -244,10 +239,10 @@ public class RHEVMService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Action powerOffVirtualMachine(String vmId) throws Exception {
+	public Action powerOffVirtualMachine(int hypervisorId, String vmId) throws Exception {
 		String callUrl = RHEVApi.VMS + "/" + vmId + "/shutdown";
 		Action action = new Action();
-		action = rhevTemplate.submit(callUrl,  HttpMethod.POST, action, "action", Action.class);
+		action = getRHEVMRestTemplate(hypervisorId).submit(callUrl,  HttpMethod.POST, action, "action", Action.class);
 		return action;
 	}
 	
@@ -257,11 +252,11 @@ public class RHEVMService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Action removeVirtualMachine(String vmId) throws Exception {
+	public Action removeVirtualMachine(int hypervisorId, String vmId) throws Exception {
 		String callUrl = RHEVApi.VMS + "/" + vmId;
 		Action action = new Action();
 		action.setForce(true);
-		action = rhevTemplate.submit(callUrl,  HttpMethod.DELETE, action, "action", Action.class);
+		action = getRHEVMRestTemplate(hypervisorId).submit(callUrl,  HttpMethod.DELETE, action, "action", Action.class);
 		return action;
 	}
 	
@@ -270,7 +265,7 @@ public class RHEVMService {
 	 * @param template
 	 * @return
 	 */
-	private TemplateDto makeDto(Template template) {
+	private TemplateDto makeDto(int hypervisorId, Template template) {
 		TemplateDto dto = new TemplateDto();
 		
 		dto.setTemplateId(template.getId());
@@ -290,11 +285,11 @@ public class RHEVMService {
 		
 		try {
 			String clusterUrl = template.getCluster().getHref();
-			Cluster cluster = rhevTemplate.submit(clusterUrl,  HttpMethod.GET, Cluster.class);
+			Cluster cluster = getRHEVMRestTemplate(hypervisorId).submit(clusterUrl,  HttpMethod.GET, Cluster.class);
 			if(cluster != null) dto.setCluster(cluster.getName());
 			
 			String dcUrl = cluster.getDataCenter().getHref();
-			DataCenter dc = rhevTemplate.submit(dcUrl,  HttpMethod.GET, DataCenter.class);
+			DataCenter dc = getRHEVMRestTemplate(hypervisorId).submit(dcUrl,  HttpMethod.GET, DataCenter.class);
 			if( dc != null) dto.setDataCenter(dc.getName());
 		
 		} catch (Exception e) {
@@ -323,7 +318,7 @@ public class RHEVMService {
 	 * @param vm
 	 * @return
 	 */
-	private VMDto makeDto(VM vm) {
+	private VMDto makeDto(int hypervisorId, VM vm) {
 		VMDto dto = new VMDto();
 		dto.setVmId(vm.getId());
 		dto.setName(vm.getName());
@@ -352,21 +347,21 @@ public class RHEVMService {
 			}
 			
 			String clusterUrl = vm.getCluster().getHref();
-			Cluster cluster = rhevTemplate.submit(clusterUrl, HttpMethod.GET, Cluster.class);
+			Cluster cluster = getRHEVMRestTemplate(hypervisorId).submit(clusterUrl, HttpMethod.GET, Cluster.class);
 			if(cluster != null) dto.setCluster(cluster.getName());
 			
 			String dcUrl = cluster.getDataCenter().getHref();
-			DataCenter dc = rhevTemplate.submit(dcUrl, HttpMethod.GET, DataCenter.class);
+			DataCenter dc = getRHEVMRestTemplate(hypervisorId).submit(dcUrl, HttpMethod.GET, DataCenter.class);
 			if( dc != null) dto.setDataCenter(dc.getName());
 			
 			if( vm.getHost() != null ) {
 				String hostUrl = vm.getHost().getHref();
-				Host host = rhevTemplate.submit(hostUrl, HttpMethod.GET, Host.class);
+				Host host = getRHEVMRestTemplate(hypervisorId).submit(hostUrl, HttpMethod.GET, Host.class);
 				if( host != null ) dto.setHost(host.getName());
 			}
 			
 			String templateUrl = vm.getTemplate().getHref();
-			Template template = rhevTemplate.submit(templateUrl, HttpMethod.GET, Template.class);
+			Template template = getRHEVMRestTemplate(hypervisorId).submit(templateUrl, HttpMethod.GET, Template.class);
 			if( template != null ) dto.setTemplate(template.getName());
 			
 		} catch (Exception e) {

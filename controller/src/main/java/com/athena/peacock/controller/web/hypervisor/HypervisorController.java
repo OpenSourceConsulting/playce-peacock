@@ -35,6 +35,7 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.athena.peacock.controller.common.component.RHEVMRestTemplateManager;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 import com.athena.peacock.controller.web.common.model.SimpleJsonResponse;
 import com.athena.peacock.controller.web.user.UserController;
@@ -99,6 +100,9 @@ public class HypervisorController {
 			
 			hypervisorService.insertHypervisor(hypervisor);
 			jsonRes.setMsg("Hypervisor 생성이 완료되었습니다.");
+			
+			// RHEV Type의 Hypervisor가 추가될 경우 RHEVMRestTemplateManager에 해당 RHEV-M에 대한 RHEVMRestTemplate을 초기화한다.
+			RHEVMRestTemplateManager.setRHEVMRestTemplate(hypervisor);
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Hypervisor 생성 중 에러가 발생하였습니다.");
@@ -132,6 +136,9 @@ public class HypervisorController {
 			
 			hypervisorService.updateHypervisor(hypervisor);
 			jsonRes.setMsg("Hypervisor 수정이 완료되었습니다.");
+			
+			// RHEV Type의 Hypervisor가 수정될 경우 RHEVMRestTemplateManager에 해당 RHEV-M에 대한 RHEVMRestTemplate을 초기화한다.
+			RHEVMRestTemplateManager.setRHEVMRestTemplate(hypervisor);
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Hypervisor 수정 중 에러가 발생하였습니다.");
@@ -158,6 +165,9 @@ public class HypervisorController {
 		try {
 			hypervisorService.deleteHypervisor(hypervisor.getHypervisorId());
 			jsonRes.setMsg("Hypervisor 삭제가 완료되었습니다.");
+
+			// RHEV Type의 Hypervisor가 삭제될 경우 RHEVMRestTemplateManager에 해당 RHEV-M에 대한 RHEVMRestTemplate을 제거한다.
+			RHEVMRestTemplateManager.removeRHEVMRestTemplate(hypervisor.getHypervisorId());
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Hypervisor 삭제 중 에러가 발생하였습니다.");

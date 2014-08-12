@@ -52,14 +52,11 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -71,38 +68,45 @@ import org.springframework.web.client.RestTemplate;
  * @author Sang-cheon Park
  * @version 1.0
  */
-@Component("restTemplate")
-public class RHEVMRestTemplate implements InitializingBean {
+public class RHEVMRestTemplate {
 	
     private static final Logger logger = LoggerFactory.getLogger(RHEVMRestTemplate.class);
 	
 	private static final String HOST_HEADER_KEY = "Host";
 	private static final String AUTH_HEADER_KEY = "Authorization";
 	   
-	@Value("#{contextProperties['rhev.manager.protocol'] ?: 'https'}")
 	private String protocol;
-	@Value("#{contextProperties['rhev.manager.host']}")
 	private String host;
-	@Value("#{contextProperties['rhev.manager.domain']}")
 	private String domain;
-	@Value("#{contextProperties['rhev.manager.port'] ?: '443'}")
 	private String port;
-	@Value("#{contextProperties['rhev.manager.username']}")
 	private String username;
-	@Value("#{contextProperties['rhev.manager.password']}")
 	private String password;
 	
 	private String credential;
 	
-	/* (non-Javadoc)
-	 * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+	public RHEVMRestTemplate(String protocol, String host, String domain, String port, String username, String password) {
+		this.protocol = protocol;
+		this.host = host;
+		this.domain = domain;
+		this.port = port;
+		this.username = username;
+		this.password = password;
+		
+		try {
+			init();
+		} catch (Exception e) {
+			// ignore
+		}
+	}
+	
+	/**
+	 * <pre>
+	 * 유효하지 않은 인증서를 가진 호스트로 HTTPS 호출 시 HandShake Exception 및 인증서 관련 Exception이 발생하기 때문에
+	 * RHEV Manager(host) 및 SSL 인증서 관련 검증 시 예외를 발생하지 않도록 추가됨.
+	 * </pre>
+	 * @throws Exception
 	 */
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		/**
-		 * 유효하지 않은 인증서를 가진 호스트로 HTTPS 호출 시 HandShake Exception 및 인증서 관련 Exception이 발생하기 때문에
-		 * RHEV Manager(host) 및 SSL 인증서 관련 검증 시 예외를 발생하지 않도록 추가됨.
-		 */
+	public void init() throws Exception {
 		// Create a hostname verifier that does not validate hostname
 	    HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
 			@Override
@@ -145,7 +149,7 @@ public class RHEVMRestTemplate implements InitializingBean {
 		} catch (NoSuchAlgorithmException e) {
 			logger.error("NoSuchAlgorithmException has occurred.", e);
 		}
-	}//end of afterPropertiesSet()
+	}//end of init()
 	
 	/**
 	 * <pre>
@@ -154,7 +158,6 @@ public class RHEVMRestTemplate implements InitializingBean {
 	 * @return
 	 */
 	private HttpEntity<Object> setHTTPEntity(Object body, String rootElementName) {
-		
 		List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
 	    acceptableMediaTypes.add(MediaType.APPLICATION_XML);
 	    
