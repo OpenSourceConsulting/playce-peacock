@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="HypervisorMapper">
+
+	<insert id="insertHypervisor" parameterType="com.athena.peacock.controller.web.hypervisor.HypervisorDto">
+		INSERT INTO hypervisor_tbl
+					(HYPERVISOR_ID, HYPERVISOR_TYPE, RHEVM_NAME, RHEVM_PROTOCOL, RHEVM_PORT, RHEVM_DOMAIN,
+					 RHEVM_HOST, RHEVM_USERNAME, RHEVM_PASSWORD, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT)
+			 VALUES (#{hypervisorId}, #{hypervisorType}, #{rhevmName}, #{rhevmProtocol}, #{rhevmPort}, #{rhevmDomain}, 
+			 		 #{rhevmHost}, #{rhevmUsername}, #{rhevmPassword}, #{regUserId}, NOW(), #{updUserId}, NOW())
+	</insert>
+	
+	<update id="updateHypervisor" parameterType="com.athena.peacock.controller.web.hypervisor.HypervisorDto">
+		UPDATE hypervisor_tbl
+		   SET HYPERVISOR_TYPE = #{hypervisorType}
+		   	   , RHEVM_NAME = #{rhevmName}
+		       , RHEVM_PROTOCOL = #{rhevmProtocol}
+		       , RHEVM_PORT = #{rhevmPort}
+		       , RHEVM_DOMAIN = #{rhevmDomain}
+		   	   , RHEVM_HOST = #{rhevmHost}
+		       , RHEVM_USERNAME = #{rhevmUsername}
+		       , RHEVM_PASSWORD = #{rhevmPassword}
+			   , UPD_USER_ID = #{updUserId}
+			   , UPD_DT = NOW()
+		 WHERE HYPERVISOR_ID = #{hypervisorId}
+	</update>
+	
+	<delete id="deleteHypervisor" parameterType="int">
+		DELETE FROM hypervisor_tbl
+		 WHERE HYPERVISOR_ID = #{hypervisorId}
+	</delete>
+	
+	<select id="getHypervisorList" resultType="com.athena.peacock.controller.web.hypervisor.HypervisorDto">
+		SELECT HYPERVISOR_ID AS hypervisorId
+			   , HYPERVISOR_TYPE AS hypervisorType
+		   	   , RHEVM_NAME AS rhevmName
+		       , RHEVM_PROTOCOL AS rhevmProtocol
+		       , RHEVM_PORT AS rhevmPort
+		       , RHEVM_DOMAIN AS rhevmDomain
+		   	   , RHEVM_HOST AS rhevmHost
+		       , RHEVM_USERNAME AS rhevmUsername
+		       , RHEVM_PASSWORD AS rhevmPassword
+			   , REG_USER_ID AS regUserId
+			   , REG_DT AS regDt
+			   , UPD_USER_ID AS updUserId
+			   , UPD_DT AS updDt
+		  FROM hypervisor_tbl
+	</select>
+
+</mapper>

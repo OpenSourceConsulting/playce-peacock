@@ -8,19 +8,15 @@
 	<sql id="getUserListBase">
 		SELECT 
 			a.user_id
-		    ,a.role_id
 		    ,a.login_id
 		    ,a.user_name
 		    ,a.dept_name
 		    ,a.email
-		    ,a.is_admin
-		    ,a.status
 		    ,a.last_logon
 		    ,a.reg_user_id
 		    ,a.reg_dt
 		    ,a.upd_user_id
 		    ,a.upd_dt
-		    ,(SELECT COUNT(*) FROM user_group_map_tbl b WHERE b.user_id = a.user_id) AS groups
 		FROM users_tbl a
 		<where>
 			<if test="search != null">
@@ -47,15 +43,11 @@
 			users_tbl
 		(
 			user_id
-		    ,role_id
 		    ,login_id
 		    ,hashed_passwd
 		    ,user_name
 		    ,dept_name
 		    ,email
-		    ,is_admin
-		    ,status
-		    ,last_logon
 		    ,reg_user_id
 		    ,reg_dt
 		    ,upd_user_id
@@ -63,15 +55,11 @@
 		)
 		VALUES (
 			#{user_id}
-			,1
 			,#{login_id}
 			,password(#{passwd})
 			,#{user_name}
 			,#{dept_name}
 			,#{email}
-			,#{is_admin}
-			,#{status}
-			,#{last_logon}
 			,#{reg_user_id}
 			,NOW()
 			,#{upd_user_id}
@@ -83,13 +71,10 @@
 	<select id="getUser" parameterType="int" resultType="com.athena.peacock.controller.web.user.UserDto">
 		SELECT 
 			user_id
-		    ,role_id
 		    ,login_id
 		    ,user_name
 		    ,dept_name
 		    ,email
-		    ,is_admin
-		    ,status
 		    ,last_logon
 		    ,reg_user_id
 		    ,reg_dt
@@ -104,19 +89,24 @@
 		UPDATE 
 			users_tbl
 		SET
-			role_id = #{role_id}
-			,login_id = #{login_id}
+			login_id = #{login_id}
 			,hashed_passwd = password(#{passwd})
 			,user_name = #{user_name}
 			,dept_name = #{dept_name}
 			,email = #{email}
-			,is_admin = #{is_admin}
-			,status = #{status}
 			,upd_user_id = #{upd_user_id}
 			,upd_dt = NOW()
 		WHERE
 			user_id = #{user_id}
-		
+	</update>
+	
+	<update id="updateLastLogon" parameterType="int">
+		UPDATE 
+			users_tbl
+		SET
+			last_logon = NOW()
+		WHERE
+			user_id = #{user_id}
 	</update>
 	
 	<delete id="deleteUser" parameterType="int">
@@ -124,19 +114,15 @@
 			users_tbl
 		WHERE
 			user_id = #{user_id}
-		
 	</delete>
 	
 	<select id="getLoginUser" parameterType="com.athena.peacock.controller.web.user.UserDto" resultType="com.athena.peacock.controller.web.user.UserDto">
 		SELECT 
 			user_id
-		    ,role_id
 		    ,login_id
 		    ,user_name
 		    ,dept_name
 		    ,email
-		    ,is_admin
-		    ,status
 		    ,last_logon
 		    ,reg_user_id
 		    ,reg_dt
@@ -147,26 +133,5 @@
 			login_id = #{login_id}
 			AND hashed_passwd = password(#{passwd})
 	</select>
-	
-	<select id="getUserGroupList" parameterType="int" resultType="com.athena.peacock.controller.web.usergroup.UserGroupDto">
-		SELECT
-			a.group_id
-			,b.group_name
-		FROM
-			user_group_map_tbl a
-			,user_group_tbl b
-		WHERE
-			a.user_id = #{user_id}
-			AND a.group_id = b.group_id
-	</select>
-	
-	<delete id="deleteGroup" parameterType="hashmap">
-		DELETE FROM
-			user_group_map_tbl
-		WHERE
-			group_id = #{group_id}
-			AND user_id = #{user_id}
-	</delete>
-
 
 </mapper>

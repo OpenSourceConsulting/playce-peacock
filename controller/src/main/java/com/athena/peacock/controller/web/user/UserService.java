@@ -30,7 +30,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
-import com.athena.peacock.controller.web.usergroup.UserGroupDto;
 
 /**
  * <pre>
@@ -75,20 +74,14 @@ public class UserService {
 	}
 	
 	public UserDto getLoginUser(String loginId, String passwd){
-		UserDto user = new UserDto();
-		user.setLogin_id(loginId);
-		user.setPasswd(passwd);
+		UserDto user = dao.getLoginUser(loginId, passwd);
 		
-		return dao.getLoginUser(user);
+		if (user != null) {
+			dao.updateLastLogon(user.getUser_id());
+			return user;
+		} else {
+			return null;
+		}
 	}
-	
-	public List<UserGroupDto> getUserGroupList(int userId){
-		return dao.getUserGroupList(userId);
-	}
-	
-	public void deleteGroup(int userId, int groupId){
-		dao.deleteGroup(userId, groupId);
-	}
-
 }
 //end of UserService.java

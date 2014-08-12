@@ -24,8 +24,6 @@
  */
 package com.athena.peacock.controller.web.user;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +36,6 @@ import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 import com.athena.peacock.controller.web.common.model.SimpleJsonResponse;
-import com.athena.peacock.controller.web.usergroup.UserGroupDto;
 
 /**
  * <pre>
@@ -158,38 +155,9 @@ public class UserController {
 	@RequestMapping("/logout")
 	public @ResponseBody SimpleJsonResponse logout(SimpleJsonResponse jsonRes, HttpSession session){
 		
-		session.removeAttribute(SESSION_USER_KEY);
+		session.invalidate();
 		
 		jsonRes.setMsg("logout success.");
-		
-		return jsonRes;
-	}
-	
-	@RequestMapping("/grplist")
-	public @ResponseBody GridJsonResponse grpList(GridJsonResponse jsonRes, @RequestParam("user_id") int user_id){
-		
-		List<UserGroupDto> list = service.getUserGroupList(user_id);
-		
-		jsonRes.setTotal(list.size());
-		jsonRes.setList(list);
-		
-		return jsonRes;
-	}
-	
-	@RequestMapping("/grpdelete")
-	public @ResponseBody SimpleJsonResponse grpDelete(SimpleJsonResponse jsonRes, @RequestParam("user_id") int user_id, @RequestParam("group_id") int group_id){
-		
-		try{
-			service.deleteGroup(user_id, group_id);
-			jsonRes.setMsg("Delete success.");
-			
-		}catch(Exception e){
-			
-			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Delete fail.");
-			
-			e.printStackTrace();
-		}
 		
 		return jsonRes;
 	}

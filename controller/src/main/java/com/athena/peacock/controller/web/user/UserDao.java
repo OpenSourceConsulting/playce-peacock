@@ -24,15 +24,12 @@
  */
 package com.athena.peacock.controller.web.user;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
 import com.athena.peacock.controller.web.common.dao.AbstractBaseDao;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
-import com.athena.peacock.controller.web.usergroup.UserGroupDto;
 
 /**
  * UserDao
@@ -77,22 +74,15 @@ public class UserDao extends AbstractBaseDao {
 		sqlSession.delete("UserMapper.deleteUser", userId);
 	}
 	
-	public UserDto getLoginUser(UserDto user){
+	public UserDto getLoginUser(String loginId, String passwd){
+		UserDto user = new UserDto();
+		user.setLogin_id(loginId);
+		user.setPasswd(passwd);
+		
 		return sqlSession.selectOne("UserMapper.getLoginUser", user);
 	}
-	
-	public List<UserGroupDto> getUserGroupList(int userId){
-		return sqlSession.selectList("UserMapper.getUserGroupList", userId);
-	}
-	
-	public void deleteGroup(int userId, int groupId){
-		
-		Map<String, Integer> paramMap = new HashMap<String, Integer>();
-		paramMap.put("user_id", userId);
-		paramMap.put("group_id", groupId);
-		
-		sqlSession.delete("UserMapper.deleteGroup", paramMap);
-	}
 
-
+	public void updateLastLogon(int userId) {
+		sqlSession.update("UserMapper.updateLastLogon", userId);
+	}
 }
