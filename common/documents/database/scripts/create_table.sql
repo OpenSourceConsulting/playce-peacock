@@ -7,10 +7,34 @@ CREATE SCHEMA IF NOT EXISTS `peacock` DEFAULT CHARACTER SET utf8 COLLATE utf8_ge
 USE `peacock` ;
 
 -- -----------------------------------------------------
+-- Table `peacock`.`hypervisor_tbl`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `peacock`.`hypervisor_tbl` (
+  `HYPERVISOR_ID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '하이퍼바이저 아이디',
+  `HYPERVISOR_TYPE` VARCHAR(45) NULL COMMENT '하이퍼바이저 타입(RHEV, Xen, VMWare, AWS 등)',
+  `RHEVM_NAME` VARCHAR(45) NULL,
+  `RHEVM_PROTOCOL` VARCHAR(45) NULL,
+  `RHEVM_PORT` VARCHAR(5) NULL,
+  `RHEVM_DOMAIN` VARCHAR(45) NULL,
+  `RHEVM_HOST` VARCHAR(45) NULL,
+  `RHEVM_USERNAME` VARCHAR(45) NULL,
+  `RHEVM_PASSWORD` VARCHAR(45) NULL,
+  `REG_USER_ID` INT(11) NULL,
+  `REG_DT` DATETIME NULL,
+  `UPD_USER_ID` INT(11) NULL,
+  `UPD_DT` DATETIME NULL,
+  PRIMARY KEY (`HYPERVISOR_ID`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `peacock`.`machine_tbl`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `peacock`.`machine_tbl` (
   `MACHINE_ID` VARCHAR(36) NOT NULL,
+  `HYPERVISOR_ID` INT(11) NOT NULL,
+  `DISPLAY_ID` VARCHAR(10) NOT NULL COMMENT '사용자에게 보여지기 위한 Instance ID 값으로 테이블 내에서 유니크 하도록 생성',
+  `DISPLAY_NAME` VARCHAR(45) NULL COMMENT '사용자가 지정한 인스턴스 이름',
   `MACHINE_MAC_ADDR` VARCHAR(12) NULL,
   `IS_VM` CHAR(1) NULL,
   `OS_NAME` VARCHAR(50) NULL,
@@ -30,7 +54,14 @@ CREATE TABLE IF NOT EXISTS `peacock`.`machine_tbl` (
   `REG_DT` DATETIME NULL,
   `UPD_USER_ID` INT(11) NULL,
   `UPD_DT` DATETIME NULL,
-  PRIMARY KEY (`MACHINE_ID`))
+  PRIMARY KEY (`MACHINE_ID`),
+  INDEX `fk_machine_tbl_hypervisor_tbl1_idx` (`HYPERVISOR_ID` ASC),
+  UNIQUE INDEX `DISPLAY_ID_UNIQUE` (`DISPLAY_ID` ASC),
+  CONSTRAINT `fk_machine_tbl_hypervisor_tbl1`
+    FOREIGN KEY (`HYPERVISOR_ID`)
+    REFERENCES `peacock`.`hypervisor_tbl` (`HYPERVISOR_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -159,45 +190,22 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `peacock`.`roles_tbl`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `peacock`.`roles_tbl` (
-  `ROLE_ID` INT(11) NOT NULL,
-  `ROLE_NAME` VARCHAR(30) NULL,
-  `PERMISSION` VARCHAR(45) NULL,
-  `REG_USER_ID` INT(11) NULL,
-  `REG_DT` DATETIME NULL,
-  `UPD_USER_ID` INT(11) NULL,
-  `UPD_DT` DATETIME NULL,
-  PRIMARY KEY (`ROLE_ID`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `peacock`.`users_tbl`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `peacock`.`users_tbl` (
   `USER_ID` INT(11) NOT NULL,
-  `ROLE_ID` INT(11) NOT NULL,
   `LOGIN_ID` VARCHAR(30) NULL,
-  `HASHED_PASSWD` VARCHAR(50) NULL,
   `USER_NAME` VARCHAR(20) NULL,
-  `DEPT_NAME` VARCHAR(45) NULL,
+  `HASHED_PASSWD` VARCHAR(50) NULL,
+  `DEPT_NAME` VARCHAR(30) NULL,
   `EMAIL` VARCHAR(60) NULL,
-  `IS_ADMIN` TINYINT(1) NULL,
-  `STATUS` INT NULL DEFAULT 1,
   `LAST_LOGON` DATETIME NULL,
   `REG_USER_ID` INT(11) NULL,
   `REG_DT` DATETIME NULL,
   `UPD_USER_ID` INT(11) NULL,
   `UPD_DT` DATETIME NULL,
   PRIMARY KEY (`USER_ID`),
-  INDEX `fk_USERS_TBL_ROLES_TBL1_idx` (`ROLE_ID` ASC),
-  CONSTRAINT `fk_USERS_TBL_ROLES_TBL1`
-    FOREIGN KEY (`ROLE_ID`)
-    REFERENCES `peacock`.`roles_tbl` (`ROLE_ID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  UNIQUE INDEX `LOGIN_ID_UNIQUE` (`LOGIN_ID` ASC))
 ENGINE = InnoDB;
 
 
@@ -222,46 +230,6 @@ CREATE TABLE IF NOT EXISTS `peacock`.`user_machine_map_tbl` (
   CONSTRAINT `fk_USER_MACHINE_MAP_TBL_MACHINE_TBL1`
     FOREIGN KEY (`MACHINE_ID`)
     REFERENCES `peacock`.`machine_tbl` (`MACHINE_ID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `peacock`.`user_group_tbl`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `peacock`.`user_group_tbl` (
-  `GROUP_ID` INT(11) NOT NULL,
-  `GROUP_NAME` VARCHAR(20) NOT NULL,
-  `DESCRIPTION` VARCHAR(100) NULL,
-  `REG_USER_ID` INT(11) NULL,
-  `REG_DT` DATETIME NULL,
-  `UPD_USER_ID` INT(11) NULL,
-  `UPD_DT` DATETIME NULL,
-  PRIMARY KEY (`GROUP_ID`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `peacock`.`user_group_map_tbl`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `peacock`.`user_group_map_tbl` (
-  `GROUP_ID` INT(11) NOT NULL,
-  `USER_ID` INT(11) NOT NULL,
-  `REG_USER_ID` INT(11) NULL,
-  `REG_DT` DATETIME NULL,
-  `UPD_USER_ID` INT(11) NULL,
-  `UPD_DT` DATETIME NULL,
-  PRIMARY KEY (`GROUP_ID`, `USER_ID`),
-  INDEX `fk_USER_GROUP_MAP_TBL_USERS_TBL1_idx` (`USER_ID` ASC),
-  CONSTRAINT `fk_USER_GROUP_MAP_TBL_USER_GROUP_TBL1`
-    FOREIGN KEY (`GROUP_ID`)
-    REFERENCES `peacock`.`user_group_tbl` (`GROUP_ID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_USER_GROUP_MAP_TBL_USERS_TBL1`
-    FOREIGN KEY (`USER_ID`)
-    REFERENCES `peacock`.`users_tbl` (`USER_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -381,33 +349,6 @@ CREATE TABLE IF NOT EXISTS `peacock`.`config_repo_tbl` (
   PRIMARY KEY (`CONFIG_FILE_ID`, `SOFTWARE_ID`),
   INDEX `fk_config_file_tbl_software_repo_tbl1_idx` (`SOFTWARE_ID` ASC),
   CONSTRAINT `fk_config_file_tbl_software_repo_tbl1`
-    FOREIGN KEY (`SOFTWARE_ID`)
-    REFERENCES `peacock`.`software_repo_tbl` (`SOFTWARE_ID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `peacock`.`provisioning_item_tbl`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `peacock`.`provisioning_item_tbl` (
-  `PROVISIONING_ID` INT NOT NULL,
-  `SOFTWARE_ID` INT NOT NULL,
-  `ACTION_NAME` VARCHAR(45) NULL,
-  `SHELL_COMMAND` VARCHAR(45) NULL,
-  `WORKING_DIR` VARCHAR(255) NULL,
-  `SHELL_OPTIONS` VARCHAR(1000) NULL,
-  `VARIABLES` VARCHAR(1000) NULL COMMENT 'shell option 또는 config 파일 내에서 치환되어야 할 변수 목록으로 ,(comma)로 구분된다.\n(eg.)\nServerRoot,Port,ServerName',
-  `FILE_NAME` VARCHAR(255) NULL,
-  `FILE_CONTENTS` TEXT NULL,
-  `REG_USER_ID` INT(11) NULL,
-  `REG_DT` DATETIME NULL,
-  `UPD_USER_ID` INT(11) NULL,
-  `UPD_DT` DATETIME NULL,
-  PRIMARY KEY (`PROVISIONING_ID`, `SOFTWARE_ID`),
-  INDEX `fk_provisioning_item_tbl_software_repo_tbl1_idx` (`SOFTWARE_ID` ASC),
-  CONSTRAINT `fk_provisioning_item_tbl_software_repo_tbl1`
     FOREIGN KEY (`SOFTWARE_ID`)
     REFERENCES `peacock`.`software_repo_tbl` (`SOFTWARE_ID`)
     ON DELETE NO ACTION

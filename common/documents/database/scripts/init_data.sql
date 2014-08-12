@@ -39,16 +39,5 @@ VALUES (8,3,NULL,'${INSTALL_LOCATION}/bin/','env.sh','jbossHome,serverHome,serve
 INSERT INTO peacock.config_repo_tbl (CONFIG_FILE_ID,SOFTWARE_ID,CONFIG_FILE_SOURCE_LOCATION,CONFIG_FILE_TARGET_LOCATION,CONFIG_FILE_NAME,PROPERTIES,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
 VALUES (9,4,NULL,'${INSTALL_LOCATION}/bin/','env.sh','javaHome,serverName,catalinaHome,catalinaBase,portOffset,compUser',1,NOW(),1,NOW());
 
-INSERT INTO `peacock`.`roles_tbl` (`ROLE_ID`, `ROLE_NAME`, `PERMISSION`, `REG_DT`) VALUES ('1', 'admin', 'all', NOW());
-INSERT INTO `peacock`.`roles_tbl` (`ROLE_ID`, `ROLE_NAME`, `PERMISSION`, `REG_DT`) VALUES ('2', 'role2', 'write', NOW());
-
-INSERT INTO `peacock`.`users_tbl` (`USER_ID`, `ROLE_ID`, `LOGIN_ID`, `HASHED_PASSWD`, `USER_NAME`, `DEPT_NAME`, `EMAIL`, `IS_ADMIN`, `STATUS`, `REG_DT`) 
-VALUES ('1', '1', 'admin', password('admin'), 'Administrator', '개발팀', 'admin@osci.kr', '0', '1', NOW());
-
-
-INSERT INTO `peacock`.`user_group_tbl` (`GROUP_ID`, `GROUP_NAME`, `DESCRIPTION`, `REG_DT`) VALUES ('1', 'Administra', 'Open Source Consulting', NOW());
-INSERT INTO `peacock`.`user_group_tbl` (`GROUP_ID`, `GROUP_NAME`, `DESCRIPTION`, `REG_DT`) VALUES ('2', 'ncia', '...', NOW());
-
-
-INSERT INTO `peacock`.`machine_tbl` (`MACHINE_ID`, `MACHINE_MAC_ADDR`, `IS_VM`, `OS_NAME`, `OS_VER`, `OS_ARCH`, `CPU_CLOCK`, `CPU_NUM`, `MEM_SIZE`, `IP_ADDR`, `HOST_NAME`) 
-VALUES ('475e639f-3a07-492b-ad45-5254003a281d', '5254003a281d', 'Y', 'Linux', '2.6.32-358.el6.x86_64', 'amd64', '3400', '1', '1024', '10.211.55.5', 'localhost.localdomain');
+INSERT INTO users_tbl (USER_ID, LOGIN_ID, HASHED_PASSWD, USER_NAME, DEPT_NAME, EMAIL, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
+VALUES ('1', 'admin', password('admin'), 'Administrator', '개발팀', 'admin@osci.kr', 1, NOW(), 1, NOW());
