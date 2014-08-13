@@ -90,7 +90,7 @@ public class HypervisorController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/insertHypervisor")
-	public @ResponseBody SimpleJsonResponse insertHypervisor(HttpServletRequest request, SimpleJsonResponse jsonRes, @RequestBody HypervisorDto hypervisor) throws Exception {
+	public @ResponseBody SimpleJsonResponse insertHypervisor(HttpServletRequest request, SimpleJsonResponse jsonRes, HypervisorDto hypervisor) throws Exception {
 		// hypervisorId는 auto increment 됨.
 		
 		try {
@@ -118,6 +118,7 @@ public class HypervisorController {
 	/**
 	 * <pre>
 	 * 하이퍼바이저 수정
+	 * Update는 ExtJS Grid Panel 내에서 직접 수정되면서 JSON 형태로 전송되며 Hypervisor로의 변환을 위해 @ReuqestBody를 추가
 	 * </pre>
 	 * @param request
 	 * @param jsonRes
