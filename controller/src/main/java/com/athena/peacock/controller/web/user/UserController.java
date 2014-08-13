@@ -109,10 +109,10 @@ public class UserController {
 	}
 	
 	@RequestMapping("/delete")
-	public @ResponseBody SimpleJsonResponse delete(SimpleJsonResponse jsonRes, @RequestParam("user_id") int user_id){
+	public @ResponseBody SimpleJsonResponse delete(SimpleJsonResponse jsonRes, @RequestParam("userId") int userId){
 		
 		try{
-			service.deleteUser(user_id);
+			service.deleteUser(userId);
 			jsonRes.setMsg("Delete success.");
 			
 		}catch(Exception e){
@@ -127,17 +127,17 @@ public class UserController {
 	}
 	
 	@RequestMapping("/getUser")
-	public @ResponseBody DtoJsonResponse getUser(DtoJsonResponse jsonRes, @RequestParam("user_id") int user_id){
+	public @ResponseBody DtoJsonResponse getUser(DtoJsonResponse jsonRes, @RequestParam("userId") int userId){
 		
-		jsonRes.setData(service.getUser(user_id));
+		jsonRes.setData(service.getUser(userId));
 		
 		return jsonRes;
 	}
 	
 	@RequestMapping("/login")
-	public @ResponseBody SimpleJsonResponse login(SimpleJsonResponse jsonRes, @RequestParam("login_id") String login_id, @RequestParam("passwd") String passwd, HttpSession session){
+	public @ResponseBody SimpleJsonResponse login(SimpleJsonResponse jsonRes, @RequestParam("loginId") String loginId, @RequestParam("passwd") String passwd, HttpSession session){
 		
-		UserDto user = service.getLoginUser(login_id, passwd);
+		UserDto user = service.getLoginUser(loginId, passwd);
 		
 		if(user == null){
 			jsonRes.setSuccess(false);
