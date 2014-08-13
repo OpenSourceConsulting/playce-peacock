@@ -27,12 +27,12 @@
                 "autoScroll": true,
                 "columnLines": true,
                 "forceFit": true,
-                "id": "rhevmsGrid",
-                "itemId": "rhevmsGrid",
+                "id": "hypervisorGrid",
+                "itemId": "hypervisorGrid",
                 "layout|flex": 1,
                 "layout|region": "center",
                 "minHeight": 100,
-                "store": "rhevmListStore",
+                "store": "HypervisorStore",
                 "title": null
             },
             "designerId": "2a410f9e-c037-4656-9b80-f2c64be5bfe0",
@@ -56,8 +56,8 @@
                     "userConfig": {
                         "cls": null,
                         "dock": "top",
-                        "id": "rhevmsToolbar",
-                        "itemId": "rhevmsToolbar",
+                        "id": null,
+                        "itemId": null,
                         "width": 150
                     },
                     "designerId": "685ae4b8-5c15-4a80-bc41-b69c6d50ea64",
@@ -98,8 +98,99 @@
                                     "designerId": "233f7e0f-ca41-466f-8716-d946843e7b24"
                                 }
                             ]
+                        },
+                        {
+                            "type": "Ext.toolbar.Spacer",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": 1
+                            },
+                            "designerId": "08803b92-ff5d-4e59-ad88-567db3b6e24e"
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "iconCls": "x-tbar-loading",
+                                "iconMask": false,
+                                "layout|flex": null,
+                                "text": null
+                            },
+                            "configAlternates": {
+                                "iconMask": "boolean"
+                            },
+                            "designerId": "4524d743-9b53-42e2-9bf5-6f5d0264f681",
+                            "customConfigs": [
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "iconMask",
+                                    "type": "string"
+                                }
+                            ],
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "//hypervisor Grid Data Search",
+                                            "Ext.getCmp(\"hypervisorGrid\").getStore().load();",
+                                            "",
+                                            "var detailPanel = Ext.getCmp(\"rhevmDetailPanel\");",
+                                            "detailPanel.layout.setActiveItem(0);"
+                                        ]
+                                    },
+                                    "designerId": "489048db-e4ae-442b-9c92-314f839c150b"
+                                }
+                            ]
                         }
                     ]
+                },
+                {
+                    "type": "Ext.grid.RowNumberer",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "minWidth": 40,
+                        "text": "No",
+                        "width": 40
+                    },
+                    "designerId": "c82ca7d4-e054-47ab-996d-2b67b91a6b9e"
+                },
+                {
+                    "type": "Ext.grid.column.Number",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "hypervisorId",
+                        "format": "0000",
+                        "hidden": true,
+                        "text": "HypervisorId"
+                    },
+                    "designerId": "43c03fb9-4199-47d8-9617-54c14a8c6986"
                 },
                 {
                     "type": "Ext.grid.column.Column",
@@ -109,10 +200,11 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "host",
+                        "dataIndex": "rhevmHost",
+                        "minWidth": 120,
                         "text": "Host"
                     },
-                    "designerId": "5a314fb6-e412-4c2a-aef1-4d73c183e10b",
+                    "designerId": "30e1f4f5-f9fa-4b19-8388-422245121658",
                     "cn": [
                         {
                             "type": "Ext.form.field.Text",
@@ -124,7 +216,7 @@
                             "userConfig": {
                                 "allowBlank": false
                             },
-                            "designerId": "98046585-e8a3-465b-826a-4bb8fcc54377"
+                            "designerId": "7697caa9-cb66-46f2-b39f-ee49139c8f4c"
                         }
                     ]
                 },
@@ -136,10 +228,25 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "name",
+                        "dataIndex": "rhevmName",
+                        "minWidth": 100,
                         "text": "Name"
                     },
-                    "designerId": "438fea4a-f0c3-4cca-9113-336da98adc57"
+                    "designerId": "872b9001-df5f-4a7a-8be8-4ce7cb2cfa07",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "editor",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false
+                            },
+                            "designerId": "715465f3-bca1-4eb5-9832-af1b7137b8e9"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.grid.column.Column",
@@ -149,10 +256,25 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "domain",
+                        "dataIndex": "rhevmDomain",
+                        "minWidth": 80,
                         "text": "Domain"
                     },
-                    "designerId": "9e81c765-a04c-4eb0-bd9f-527ebfd7995c"
+                    "designerId": "b597f08c-5c77-4dbb-9c1a-7b69b9d666a7",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "editor",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false
+                            },
+                            "designerId": "840327fe-9583-4763-90aa-90d1ea3525ad"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.grid.column.Column",
@@ -162,10 +284,35 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "protocol",
+                        "dataIndex": "rhevmProtocol",
+                        "minWidth": 90,
                         "text": "Protocol"
                     },
-                    "designerId": "cc286b8f-fa6b-441b-b39a-0111bb3ac1b6"
+                    "designerId": "0ea7057d-06fa-4edf-840e-c576cb6e69d5",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.ComboBox",
+                            "reference": {
+                                "name": "editor",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "name": null,
+                                "store": [
+                                    "[",
+                                    "    'HTTP',",
+                                    "    'HTTPS'",
+                                    "]"
+                                ]
+                            },
+                            "configAlternates": {
+                                "store": "array"
+                            },
+                            "designerId": "4aac90e9-9794-439f-aa8c-b86ce5cf8435"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.grid.column.Column",
@@ -175,10 +322,25 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "port",
+                        "dataIndex": "rhevmPort",
+                        "minWidth": 60,
                         "text": "Port"
                     },
-                    "designerId": "903bf1a3-06eb-44b0-83e4-f55b9060ac97"
+                    "designerId": "a3b06747-95d1-4612-a5df-8663ce1601c6",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "editor",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false
+                            },
+                            "designerId": "c0c587ee-75d6-497b-8109-016b28b5c96d"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.grid.column.Column",
@@ -188,10 +350,25 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "userName",
-                        "text": "UserName"
+                        "dataIndex": "rhevmUsername",
+                        "minWidth": 100,
+                        "text": "Username"
                     },
-                    "designerId": "57dccfb0-9aab-432a-9bbd-aa817654684a"
+                    "designerId": "ebb20c6b-9d08-4983-a969-1d0aaa9715a1",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "editor",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false
+                            },
+                            "designerId": "377b4578-52da-4f28-b71c-ec2e92d26057"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.grid.column.Column",
@@ -201,10 +378,11 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "password",
+                        "dataIndex": "rhevmPassword",
+                        "minWidth": 100,
                         "text": "Password"
                     },
-                    "designerId": "990d8c20-5dab-4440-8e60-48a077464097",
+                    "designerId": "42e79abc-dae3-4658-9c45-ded14a523a26",
                     "cn": [
                         {
                             "type": "fixedfunction",
@@ -250,7 +428,20 @@
                                     "}"
                                 ]
                             },
-                            "designerId": "8e432897-0e3f-47b9-ae2d-f72d20abad9a"
+                            "designerId": "56033e94-588d-47af-9136-fe3bcd331a5a"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "editor",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "inputType": "password"
+                            },
+                            "designerId": "aba0837d-2bb8-486f-9d95-e810c885f226"
                         }
                     ]
                 },
@@ -262,10 +453,36 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "createDate",
-                        "text": "CreateDate"
+                        "dataIndex": "hypervisorType",
+                        "hidden": true,
+                        "text": "HypervisorType"
                     },
-                    "designerId": "5d9f61d0-10fa-42a0-a4ea-2659b0910cb8"
+                    "designerId": "656300f6-15f5-438b-8776-7d145df213fd"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "regDt",
+                        "defaultWidth": 200,
+                        "minWidth": 220,
+                        "text": "Create Date"
+                    },
+                    "configAlternates": {
+                        "renderer": "object"
+                    },
+                    "designerId": "1c52f06f-67d9-4f04-a031-ca1930749361",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "rende",
+                            "type": "string"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.grid.column.Action",
@@ -276,15 +493,17 @@
                     "codeClass": null,
                     "userConfig": {
                         "align": "center",
-                        "maxWidth": 100,
+                        "defaultWidth": 60,
+                        "maxWidth": 60,
                         "menuText": "",
+                        "minWidth": 60,
                         "style": [
                             "\"text-align:left;\""
                         ],
                         "text": "Delete",
                         "width": 60
                     },
-                    "designerId": "1bd828b8-5cea-4ef1-8107-10297a4c2916",
+                    "designerId": "d3afdc61-81cc-4063-96db-01654e4c8ea5",
                     "customConfigs": [
                         {
                             "group": "(Custom Properties)",
@@ -304,18 +523,71 @@
                                 "icon": "resources/images/icons/delete.png",
                                 "iconCls": ""
                             },
-                            "designerId": "83754c25-6e64-4ab7-af91-4621b9ac8957"
+                            "designerId": "1eeb970e-4fc3-49f6-adc9-243ee6cf3462",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "",
+                                            "Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){",
+                                            "",
+                                            "    if(btn == \"yes\"){",
+                                            "        //view.setLoading(true);",
+                                            "        Ext.Ajax.request({",
+                                            "            url: GLOBAL.urlPrefix + \"/hypervisor/deleteHypervisor\",",
+                                            "            params : {",
+                                            "                hypervisorId : record.get(\"hypervisorId\")",
+                                            "            },",
+                                            "            disableCaching : true,",
+                                            "            waitMsg: 'Delete RHEVM...',",
+                                            "            success: function(response){",
+                                            "                var msg = Ext.JSON.decode(response.responseText).msg;",
+                                            "                Ext.MessageBox.alert('알림', msg);",
+                                            "",
+                                            "                view.getStore().reload();",
+                                            "",
+                                            "                Ext.getCmp(\"rhevmDetailPanel\").layout.setActiveItem(0);",
+                                            "",
+                                            "            }",
+                                            "        });",
+                                            "    }",
+                                            "",
+                                            "});"
+                                        ]
+                                    },
+                                    "designerId": "8409ac7e-a3fc-4fa9-8165-186bc6c9b101"
+                                }
+                            ]
                         }
                     ]
                 },
                 {
-                    "type": "Ext.grid.plugin.CellEditing",
+                    "type": "Ext.grid.plugin.RowEditing",
                     "reference": {
                         "name": "plugins",
                         "type": "array"
                     },
-                    "codeClass": "Ext.grid.plugin.CellEditing",
-                    "designerId": "344a672b-033b-4969-8d64-fd1ab57978c7"
+                    "codeClass": "Ext.grid.plugin.RowEditing",
+                    "userConfig": {
+                        "autoCancel": false
+                    },
+                    "designerId": "f8e58b0c-fd27-431b-bd4d-0dd5e76fb45a"
                 }
             ]
         },
@@ -427,7 +699,7 @@
                                                 "forceFit": true,
                                                 "id": "rhevmVMGrid",
                                                 "itemId": "rhevmVMGrid",
-                                                "store": "rhevmVmListStore",
+                                                "store": "VMStore",
                                                 "title": null
                                             },
                                             "designerId": "88e7bf91-6e21-4b58-bc8e-7f672e64e8c1",
@@ -452,8 +724,10 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
-                                                        "dataIndex": "name",
-                                                        "text": "Name"
+                                                        "dataIndex": "hypervisorId",
+                                                        "hidden": true,
+                                                        "minWidth": 100,
+                                                        "text": null
                                                     },
                                                     "designerId": "89fd2830-1c10-41d3-b71a-4b2eb830181d"
                                                 },
@@ -465,7 +739,36 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
+                                                        "dataIndex": "vmId",
+                                                        "hidden": true,
+                                                        "text": ""
+                                                    },
+                                                    "designerId": "0c1b6998-33dd-47a6-9b7f-4f6652e48883"
+                                                },
+                                                {
+                                                    "type": "Ext.grid.column.Column",
+                                                    "reference": {
+                                                        "name": "columns",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "dataIndex": "name",
+                                                        "minWidth": 150,
+                                                        "text": "Name"
+                                                    },
+                                                    "designerId": "7227a87b-17ef-40e6-bd5d-587ea71e60c8"
+                                                },
+                                                {
+                                                    "type": "Ext.grid.column.Column",
+                                                    "reference": {
+                                                        "name": "columns",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
                                                         "dataIndex": "host",
+                                                        "minWidth": 100,
                                                         "text": "Host"
                                                     },
                                                     "designerId": "201efe76-60bf-48a6-821a-e0171b18e914"
@@ -478,8 +781,9 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
-                                                        "dataIndex": "ipAddress",
-                                                        "text": "IpAddress"
+                                                        "dataIndex": "ipAddr",
+                                                        "minWidth": 120,
+                                                        "text": "Ip Address"
                                                     },
                                                     "designerId": "b073c14d-3e25-4493-b22c-56160164d901"
                                                 },
@@ -492,6 +796,7 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "dataIndex": "cluster",
+                                                        "minWidth": 100,
                                                         "text": "Cluster"
                                                     },
                                                     "designerId": "b7c2495d-6c04-4dec-8b1b-efc0a556ba1e"
@@ -505,7 +810,8 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "dataIndex": "os",
-                                                        "text": "Os"
+                                                        "minWidth": 100,
+                                                        "text": "OS"
                                                     },
                                                     "designerId": "f84c1e99-39c2-4991-808d-193be7778a49"
                                                 },
@@ -518,6 +824,7 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "dataIndex": "status",
+                                                        "minWidth": 70,
                                                         "text": "Status"
                                                     },
                                                     "designerId": "08d965fb-ce6f-45c5-9e7b-3be5c247b806"
@@ -530,7 +837,8 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
-                                                        "dataIndex": "uptime",
+                                                        "dataIndex": "startTime",
+                                                        "minWidth": 220,
                                                         "text": "Uptime"
                                                     },
                                                     "designerId": "3a3611f9-3331-4b91-ade9-6edc24652e80"
@@ -906,7 +1214,8 @@
                                                                     "codeClass": null,
                                                                     "userConfig": {
                                                                         "fieldLabel": "Display Type",
-                                                                        "layout|flex": null
+                                                                        "layout|flex": null,
+                                                                        "name": "type"
                                                                     },
                                                                     "designerId": "17a280e6-e176-4a72-9564-325f790ead39"
                                                                 }
@@ -943,7 +1252,8 @@
                                                                     "codeClass": null,
                                                                     "userConfig": {
                                                                         "fieldLabel": "Template",
-                                                                        "layout|flex": null
+                                                                        "layout|flex": null,
+                                                                        "name": "template"
                                                                     },
                                                                     "designerId": "9ade0a19-db92-4881-9c29-84f2fef20d1d"
                                                                 },
@@ -956,7 +1266,8 @@
                                                                     "codeClass": null,
                                                                     "userConfig": {
                                                                         "fieldLabel": "Origin",
-                                                                        "layout|flex": null
+                                                                        "layout|flex": null,
+                                                                        "name": "origin"
                                                                     },
                                                                     "designerId": "e493b2dd-331b-4aa9-b953-d6e012661c7d"
                                                                 }
@@ -1008,7 +1319,7 @@
                                                                     "userConfig": {
                                                                         "fieldLabel": "CPU Cores",
                                                                         "layout|flex": null,
-                                                                        "name": "cpuCores"
+                                                                        "name": "cores"
                                                                     },
                                                                     "designerId": "81dbedb5-cbfb-42c4-808a-ce6bbf992128"
                                                                 }
@@ -1045,7 +1356,8 @@
                                                                     "codeClass": null,
                                                                     "userConfig": {
                                                                         "fieldLabel": "HA Enabled",
-                                                                        "layout|flex": null
+                                                                        "layout|flex": null,
+                                                                        "name": "haEnabled"
                                                                     },
                                                                     "designerId": "b2659326-8f86-4684-8584-923d1eb8eb88"
                                                                 },
@@ -1058,7 +1370,8 @@
                                                                     "codeClass": null,
                                                                     "userConfig": {
                                                                         "fieldLabel": "HA Priority",
-                                                                        "layout|flex": null
+                                                                        "layout|flex": null,
+                                                                        "name": "haPriority"
                                                                     },
                                                                     "designerId": "0f86949f-69b5-40ec-bca1-714fc3229de3"
                                                                 }
@@ -1110,7 +1423,7 @@
                                                                     "userConfig": {
                                                                         "fieldLabel": "Create Date",
                                                                         "layout|flex": null,
-                                                                        "name": "creationDate"
+                                                                        "name": "creationTime"
                                                                     },
                                                                     "designerId": "a74dfed7-1091-445d-a800-6e07ff119396"
                                                                 }
@@ -1158,7 +1471,7 @@
                                                         "forceFit": true,
                                                         "id": "rhevmNetworkGrid",
                                                         "itemId": "rhevmNetworkGrid",
-                                                        "store": "rhevmNetworkListStore",
+                                                        "store": "VMNetworkStore",
                                                         "title": null
                                                     },
                                                     "designerId": "ee66cd58-77ae-45dd-a046-a06e9b0c4e34",
@@ -1305,7 +1618,7 @@
                                                         "forceFit": true,
                                                         "id": "rhevmDiskGrid",
                                                         "itemId": "rhevmDiskGrid",
-                                                        "store": "rhevmDiskListStore",
+                                                        "store": "VMDiskStore",
                                                         "title": null
                                                     },
                                                     "designerId": "93174a9d-2f14-4697-a19c-06d57cb8a2e1",
@@ -1392,7 +1705,7 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
-                                                                "dataIndex": "shareable",
+                                                                "dataIndex": "sharable",
                                                                 "text": "Shareable"
                                                             },
                                                             "designerId": "41f48e00-0a14-40d1-ba4e-d4cfc35f0571"
@@ -1405,7 +1718,7 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
-                                                                "dataIndex": "interfaces",
+                                                                "dataIndex": "_interface",
                                                                 "text": "Interfaces"
                                                             },
                                                             "designerId": "fc83d719-07da-4754-a1fd-5ec0d5f56861"

@@ -21,9 +21,12 @@ Ext.define('MyApp.view.rhevmContainer', {
         'Ext.grid.Panel',
         'Ext.grid.View',
         'Ext.toolbar.Toolbar',
-        'Ext.form.field.Text',
+        'Ext.toolbar.Spacer',
+        'Ext.grid.RowNumberer',
+        'Ext.grid.column.Number',
+        'Ext.form.field.ComboBox',
         'Ext.grid.column.Action',
-        'Ext.grid.plugin.CellEditing',
+        'Ext.grid.plugin.RowEditing',
         'Ext.tab.Panel',
         'Ext.tab.Tab',
         'Ext.form.Panel',
@@ -45,19 +48,17 @@ Ext.define('MyApp.view.rhevmContainer', {
                     xtype: 'gridpanel',
                     flex: 1,
                     region: 'center',
-                    id: 'rhevmsGrid',
-                    itemId: 'rhevmsGrid',
+                    id: 'hypervisorGrid',
+                    itemId: 'hypervisorGrid',
                     minHeight: 100,
                     autoScroll: true,
                     columnLines: true,
                     forceFit: true,
-                    store: 'rhevmListStore',
+                    store: 'HypervisorStore',
                     dockedItems: [
                         {
                             xtype: 'toolbar',
                             dock: 'top',
-                            id: 'rhevmsToolbar',
-                            itemId: 'rhevmsToolbar',
                             width: 150,
                             items: [
                                 {
@@ -69,14 +70,44 @@ Ext.define('MyApp.view.rhevmContainer', {
                                     id: 'addRHEVMBtn',
                                     itemId: 'addRHEVMBtn',
                                     text: 'Add RHEVM'
+                                },
+                                {
+                                    xtype: 'tbspacer',
+                                    flex: 1
+                                },
+                                {
+                                    xtype: 'button',
+                                    handler: function(button, e) {
+                                        //hypervisor Grid Data Search
+                                        Ext.getCmp("hypervisorGrid").getStore().load();
+
+                                        var detailPanel = Ext.getCmp("rhevmDetailPanel");
+                                        detailPanel.layout.setActiveItem(0);
+                                    },
+                                    iconMask: false,
+                                    iconCls: 'x-tbar-loading'
                                 }
                             ]
                         }
                     ],
                     columns: [
                         {
+                            xtype: 'rownumberer',
+                            minWidth: 40,
+                            width: 40,
+                            text: 'No'
+                        },
+                        {
+                            xtype: 'numbercolumn',
+                            hidden: true,
+                            dataIndex: 'hypervisorId',
+                            text: 'HypervisorId',
+                            format: '0000'
+                        },
+                        {
                             xtype: 'gridcolumn',
-                            dataIndex: 'host',
+                            minWidth: 120,
+                            dataIndex: 'rhevmHost',
                             text: 'Host',
                             editor: {
                                 xtype: 'textfield',
@@ -85,28 +116,57 @@ Ext.define('MyApp.view.rhevmContainer', {
                         },
                         {
                             xtype: 'gridcolumn',
-                            dataIndex: 'name',
-                            text: 'Name'
+                            minWidth: 100,
+                            dataIndex: 'rhevmName',
+                            text: 'Name',
+                            editor: {
+                                xtype: 'textfield',
+                                allowBlank: false
+                            }
                         },
                         {
                             xtype: 'gridcolumn',
-                            dataIndex: 'domain',
-                            text: 'Domain'
+                            minWidth: 80,
+                            dataIndex: 'rhevmDomain',
+                            text: 'Domain',
+                            editor: {
+                                xtype: 'textfield',
+                                allowBlank: false
+                            }
                         },
                         {
                             xtype: 'gridcolumn',
-                            dataIndex: 'protocol',
-                            text: 'Protocol'
+                            minWidth: 90,
+                            dataIndex: 'rhevmProtocol',
+                            text: 'Protocol',
+                            editor: {
+                                xtype: 'combobox',
+                                allowBlank: false,
+                                store: [
+                                    'HTTP',
+                                    'HTTPS'
+                                ]
+                            }
                         },
                         {
                             xtype: 'gridcolumn',
-                            dataIndex: 'port',
-                            text: 'Port'
+                            minWidth: 60,
+                            dataIndex: 'rhevmPort',
+                            text: 'Port',
+                            editor: {
+                                xtype: 'textfield',
+                                allowBlank: false
+                            }
                         },
                         {
                             xtype: 'gridcolumn',
-                            dataIndex: 'userName',
-                            text: 'UserName'
+                            minWidth: 100,
+                            dataIndex: 'rhevmUsername',
+                            text: 'Username',
+                            editor: {
+                                xtype: 'textfield',
+                                allowBlank: false
+                            }
                         },
                         {
                             xtype: 'gridcolumn',
@@ -135,24 +195,67 @@ Ext.define('MyApp.view.rhevmContainer', {
 
                                 }
                             },
-                            dataIndex: 'password',
-                            text: 'Password'
+                            minWidth: 100,
+                            dataIndex: 'rhevmPassword',
+                            text: 'Password',
+                            editor: {
+                                xtype: 'textfield',
+                                inputType: 'password',
+                                allowBlank: false
+                            }
                         },
                         {
                             xtype: 'gridcolumn',
-                            dataIndex: 'createDate',
-                            text: 'CreateDate'
+                            hidden: true,
+                            dataIndex: 'hypervisorType',
+                            text: 'HypervisorType'
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            minWidth: 220,
+                            defaultWidth: 200,
+                            dataIndex: 'regDt',
+                            text: 'Create Date'
                         },
                         {
                             xtype: 'actioncolumn',
                             text: 'Delete',
-                            maxWidth: 100,
+                            maxWidth: 60,
+                            minWidth: 60,
                             style: 'text-align:left;',
                             width: 60,
+                            defaultWidth: 60,
                             align: 'center',
                             menuText: '',
                             items: [
                                 {
+                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+
+                                        Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){
+
+                                            if(btn == "yes"){
+                                                //view.setLoading(true);
+                                                Ext.Ajax.request({
+                                                    url: GLOBAL.urlPrefix + "/hypervisor/deleteHypervisor",
+                                                    params : {
+                                                        hypervisorId : record.get("hypervisorId")
+                                                    },
+                                                    disableCaching : true,
+                                                    waitMsg: 'Delete RHEVM...',
+                                                    success: function(response){
+                                                        var msg = Ext.JSON.decode(response.responseText).msg;
+                                                        Ext.MessageBox.alert('알림', msg);
+
+                                                        view.getStore().reload();
+
+                                                        Ext.getCmp("rhevmDetailPanel").layout.setActiveItem(0);
+
+                                                    }
+                                                });
+                                            }
+
+                                        });
+                                    },
                                     icon: 'resources/images/icons/delete.png',
                                     iconCls: ''
                                 }
@@ -160,8 +263,8 @@ Ext.define('MyApp.view.rhevmContainer', {
                         }
                     ],
                     plugins: [
-                        Ext.create('Ext.grid.plugin.CellEditing', {
-
+                        Ext.create('Ext.grid.plugin.RowEditing', {
+                            autoCancel: false
                         })
                     ]
                 },
@@ -210,44 +313,63 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                     autoScroll: true,
                                                     columnLines: true,
                                                     forceFit: true,
-                                                    store: 'rhevmVmListStore',
+                                                    store: 'VMStore',
                                                     viewConfig: {
                                                         itemId: 'mygridview4'
                                                     },
                                                     columns: [
                                                         {
                                                             xtype: 'gridcolumn',
+                                                            hidden: true,
+                                                            minWidth: 100,
+                                                            dataIndex: 'hypervisorId'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            hidden: true,
+                                                            dataIndex: 'vmId',
+                                                            text: ''
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            minWidth: 150,
                                                             dataIndex: 'name',
                                                             text: 'Name'
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
+                                                            minWidth: 100,
                                                             dataIndex: 'host',
                                                             text: 'Host'
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
-                                                            dataIndex: 'ipAddress',
-                                                            text: 'IpAddress'
+                                                            minWidth: 120,
+                                                            dataIndex: 'ipAddr',
+                                                            text: 'Ip Address'
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
+                                                            minWidth: 100,
                                                             dataIndex: 'cluster',
                                                             text: 'Cluster'
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
+                                                            minWidth: 100,
                                                             dataIndex: 'os',
-                                                            text: 'Os'
+                                                            text: 'OS'
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
+                                                            minWidth: 70,
                                                             dataIndex: 'status',
                                                             text: 'Status'
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
-                                                            dataIndex: 'uptime',
+                                                            minWidth: 220,
+                                                            dataIndex: 'startTime',
                                                             text: 'Uptime'
                                                         }
                                                     ]
@@ -414,7 +536,8 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                                         },
                                                                         {
                                                                             xtype: 'textfield',
-                                                                            fieldLabel: 'Display Type'
+                                                                            fieldLabel: 'Display Type',
+                                                                            name: 'type'
                                                                         }
                                                                     ]
                                                                 },
@@ -433,11 +556,13 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                                     items: [
                                                                         {
                                                                             xtype: 'textfield',
-                                                                            fieldLabel: 'Template'
+                                                                            fieldLabel: 'Template',
+                                                                            name: 'template'
                                                                         },
                                                                         {
                                                                             xtype: 'textfield',
-                                                                            fieldLabel: 'Origin'
+                                                                            fieldLabel: 'Origin',
+                                                                            name: 'origin'
                                                                         }
                                                                     ]
                                                                 },
@@ -462,7 +587,7 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                                         {
                                                                             xtype: 'textfield',
                                                                             fieldLabel: 'CPU Cores',
-                                                                            name: 'cpuCores'
+                                                                            name: 'cores'
                                                                         }
                                                                     ]
                                                                 },
@@ -481,11 +606,13 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                                     items: [
                                                                         {
                                                                             xtype: 'textfield',
-                                                                            fieldLabel: 'HA Enabled'
+                                                                            fieldLabel: 'HA Enabled',
+                                                                            name: 'haEnabled'
                                                                         },
                                                                         {
                                                                             xtype: 'textfield',
-                                                                            fieldLabel: 'HA Priority'
+                                                                            fieldLabel: 'HA Priority',
+                                                                            name: 'haPriority'
                                                                         }
                                                                     ]
                                                                 },
@@ -510,7 +637,7 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                                         {
                                                                             xtype: 'textfield',
                                                                             fieldLabel: 'Create Date',
-                                                                            name: 'creationDate'
+                                                                            name: 'creationTime'
                                                                         }
                                                                     ]
                                                                 }
@@ -531,7 +658,7 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                             autoScroll: true,
                                                             columnLines: true,
                                                             forceFit: true,
-                                                            store: 'rhevmNetworkListStore',
+                                                            store: 'VMNetworkStore',
                                                             columns: [
                                                                 {
                                                                     xtype: 'gridcolumn',
@@ -585,7 +712,7 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                             autoScroll: true,
                                                             columnLines: true,
                                                             forceFit: true,
-                                                            store: 'rhevmDiskListStore',
+                                                            store: 'VMDiskStore',
                                                             columns: [
                                                                 {
                                                                     xtype: 'gridcolumn',
@@ -614,12 +741,12 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
-                                                                    dataIndex: 'shareable',
+                                                                    dataIndex: 'sharable',
                                                                     text: 'Shareable'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
-                                                                    dataIndex: 'interfaces',
+                                                                    dataIndex: '_interface',
                                                                     text: 'Interfaces'
                                                                 },
                                                                 {

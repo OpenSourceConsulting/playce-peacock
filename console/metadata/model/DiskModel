@@ -1,0 +1,170 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "DiskModel"
+    },
+    "designerId": "0f508754-6fa4-4b2a-97fc-392621c50c2a",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "hypervisorId",
+                "type": "int"
+            },
+            "designerId": "c16635cf-42ee-436e-9816-f9adb20e61c8"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "rhevmId",
+                "type": "string"
+            },
+            "designerId": "9885df75-b0ac-469b-8eb7-8b59b7001ad1"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "vmId",
+                "type": "string"
+            },
+            "designerId": "77e2decc-56a9-4108-b6ff-6e5f6834bce1"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "name",
+                "type": "string"
+            },
+            "designerId": "c072dec4-7019-4209-9774-763e86c3d8b0"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "description",
+                "type": "string"
+            },
+            "designerId": "17a678dd-688e-434f-9fd0-bee75c7e1e61"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "active",
+                "type": "string"
+            },
+            "designerId": "1241b52c-482e-4d86-8c98-ab1ccd4e3553"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "virtualSize",
+                "type": "string"
+            },
+            "designerId": "973f9f00-f0ec-4d54-9c2b-b8004a4fe50c"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "actualSize",
+                "type": "string"
+            },
+            "designerId": "573f2b0d-2893-4e36-9ad3-ff7d00b93130"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "bootable",
+                "type": "string"
+            },
+            "designerId": "1fcf273f-cbb0-4a0c-8407-2deb98fcfd3f"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "sharable",
+                "type": "string"
+            },
+            "designerId": "e381bd21-de85-47dd-86cf-20ce710afa36"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "_interface",
+                "type": "string"
+            },
+            "designerId": "da34f0e1-66bd-46ef-a4c5-cec17407a452"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "status",
+                "type": "string"
+            },
+            "designerId": "9d572b38-26ed-49b5-a3d6-9d0cc1c1d840"
+        }
+    ]
+}

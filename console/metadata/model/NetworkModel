@@ -6,9 +6,9 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userClassName": "rhevmModel"
+        "designer|userClassName": "NetworkModel"
     },
-    "designerId": "9fb1a6e3-e178-4b9c-bcc6-95c0a8e662d9",
+    "designerId": "b094b0d9-8edd-4203-9a5d-d6d092bd43fd",
     "cn": [
         {
             "type": "Ext.data.Field",
@@ -18,9 +18,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "host"
+                "name": "hypervisorId",
+                "type": "int"
             },
-            "designerId": "250fefab-426c-4aca-99b2-03d85a625c63"
+            "designerId": "a41985a0-e411-4ca9-b335-ce20545d838a"
         },
         {
             "type": "Ext.data.Field",
@@ -30,9 +31,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "name"
+                "name": "rhevmId",
+                "type": "string"
             },
-            "designerId": "5e444067-c568-4213-9f26-5da45d995ae8"
+            "designerId": "d7b06dbe-9802-4d20-adfb-2e5e74f92c06"
         },
         {
             "type": "Ext.data.Field",
@@ -42,9 +44,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "domain"
+                "name": "vmId",
+                "type": "string"
             },
-            "designerId": "e5e24c3d-57af-4fd7-9f82-aa98010aa52e"
+            "designerId": "7fd0f086-e4e2-4cc4-8a1e-c756c85cd4a0"
         },
         {
             "type": "Ext.data.Field",
@@ -54,9 +57,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "protocol"
+                "name": "name",
+                "type": "string"
             },
-            "designerId": "e73d40c3-ba67-453f-9ef9-153d8ac35641"
+            "designerId": "577bf313-3d8b-4777-b2de-c7ca1817c50f"
         },
         {
             "type": "Ext.data.Field",
@@ -66,9 +70,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "port"
+                "name": "description",
+                "type": "string"
             },
-            "designerId": "3c91cec1-0cf4-4ab6-a261-a7d28c086960"
+            "designerId": "9637455c-456e-4dbc-9a57-0d22464463da"
         },
         {
             "type": "Ext.data.Field",
@@ -78,9 +83,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "userName"
+                "name": "networkName",
+                "type": "string"
             },
-            "designerId": "99ac99d7-91b3-4a6c-aa18-42b0fe6fa5e6"
+            "designerId": "bdb6ffc7-0a69-4551-85ea-50d752c61042"
         },
         {
             "type": "Ext.data.Field",
@@ -90,9 +96,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "password"
+                "name": "type",
+                "type": "string"
             },
-            "designerId": "8541ba31-b321-407c-874e-51a95a443e13"
+            "designerId": "5359100f-8616-4dfa-b301-b223319d3420"
         },
         {
             "type": "Ext.data.Field",
@@ -102,9 +109,23 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "createDate"
+                "name": "macAddress",
+                "type": "string"
             },
-            "designerId": "36f0f355-6c11-4a8e-abd5-641e23e5c0c6"
+            "designerId": "89163c48-161d-4d9f-91fa-87f23a337038"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "speed",
+                "type": "string"
+            },
+            "designerId": "adc5b53e-9819-46f7-890c-1c91e04a633a"
         }
     ]
 }

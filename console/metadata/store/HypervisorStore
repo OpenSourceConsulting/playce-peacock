@@ -6,12 +6,12 @@
     },
     "codeClass": null,
     "userConfig": {
-        "autoLoad": false,
-        "designer|userClassName": "rhevmListStore",
-        "model": "rhevmModel",
-        "storeId": "rhevmListStore"
+        "autoLoad": true,
+        "designer|userClassName": "HypervisorStore",
+        "model": "HypervisorModel",
+        "storeId": "HypervisorStore"
     },
-    "designerId": "2cb97f8d-f340-4026-b32c-9002e0efa1ac",
+    "designerId": "4749b68e-df91-43a3-a486-ccbdfb044f68",
     "cn": [
         {
             "type": "Ext.data.proxy.Ajax",
@@ -21,9 +21,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "url": "/rhevm/listRhevm"
+                "api": null,
+                "url": "/hypervisor/list"
             },
-            "designerId": "2567c408-7e4d-4b6f-b13e-eae2cb026caf",
+            "designerId": "e9b47394-d5a3-453e-8756-c1ce593518d4",
             "cn": [
                 {
                     "type": "Ext.data.reader.Json",
@@ -35,7 +36,7 @@
                     "userConfig": {
                         "root": "list"
                     },
-                    "designerId": "c161e196-860f-4bf6-ac44-58fafa4be6de"
+                    "designerId": "8043a964-3105-479e-a481-25f5e785ef9c"
                 },
                 {
                     "type": "processcfgfunction",
@@ -55,7 +56,7 @@
                             "return config;"
                         ]
                     },
-                    "designerId": "1bc49586-bcdf-428c-a470-84cca3933929"
+                    "designerId": "12b84503-c981-47ea-86e3-4112ac5ba6f6"
                 }
             ]
         }

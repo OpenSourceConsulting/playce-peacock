@@ -29,13 +29,16 @@ Ext.application({
         'instanceSoftwareModel',
         'instanceOsModel',
         'monitoringChartModel',
-        'rhevmModel',
         'rhevmVmModel',
         'rhevmTemplateModel',
         'rhevmNetworkModel',
         'rhevmDiskModel',
         'SessionModel',
-        'UserModel'
+        'UserModel',
+        'HypervisorModel',
+        'VMModel',
+        'NetworkModel',
+        'DiskModel'
     ],
     stores: [
         'MenuTreeStore',
@@ -45,13 +48,16 @@ Ext.application({
         'instanceSoftwareListStore',
         'instanceOsListStore',
         'instanceMonitoringChartStore',
-        'rhevmListStore',
         'rhevmVmListStore',
         'rhevmTemplateListStore',
         'rhevmNetworkListStore',
         'rhevmDiskListStore',
         'SessionStore',
-        'UserStore'
+        'UserStore',
+        'HypervisorStore',
+        'VMStore',
+        'VMNetworkStore',
+        'VMDiskStore'
     ],
     views: [
         'peacockViewport',

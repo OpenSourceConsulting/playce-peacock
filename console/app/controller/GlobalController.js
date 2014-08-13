@@ -107,7 +107,7 @@ Ext.define('MyApp.controller.GlobalController', {
 
             var store = Ext.getStore(stores[i]);
 
-            if(store.getProxy().url !== null) {
+            if(store.getProxy().url != null) {
                 store.getProxy().url = GLOBAL.urlPrefix + store.getProxy().url;
             }
 

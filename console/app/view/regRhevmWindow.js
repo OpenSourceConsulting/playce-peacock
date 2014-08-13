@@ -19,15 +19,16 @@ Ext.define('MyApp.view.regRhevmWindow', {
 
     requires: [
         'Ext.form.Panel',
+        'Ext.XTemplate',
         'Ext.form.field.ComboBox',
         'Ext.toolbar.Toolbar',
         'Ext.button.Button'
     ],
 
-    height: 280,
+    height: 365,
     id: 'regRhevmWindow',
     itemId: 'regRhevmWindow',
-    width: 350,
+    width: 380,
     layout: 'border',
     title: 'Add RHEVM',
 
@@ -48,43 +49,125 @@ Ext.define('MyApp.view.regRhevmWindow', {
                             id: 'rhevmForm',
                             itemId: 'rhevmForm',
                             bodyPadding: 15,
+                            fieldDefaults: {
+                                msgTarget: 'side',
+                                labelWidth: 120
+                            },
                             items: [
                                 {
                                     xtype: 'textfield',
                                     anchor: '100%',
+                                    afterLabelTextTpl: [
+                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                    ],
                                     fieldLabel: 'Name',
-                                    labelWidth: 80
+                                    labelWidth: 120,
+                                    name: 'rhevmName',
+                                    allowBlank: false
                                 },
                                 {
                                     xtype: 'combobox',
                                     anchor: '100%',
                                     padding: '',
+                                    afterLabelTextTpl: [
+                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                    ],
+                                    fieldLabel: 'Type',
+                                    labelWidth: 120,
+                                    name: 'hypervisorType',
+                                    allowBlank: false,
+                                    store: [
+                                        'RHEVM'
+                                    ]
+                                },
+                                {
+                                    xtype: 'combobox',
+                                    anchor: '100%',
+                                    padding: '',
+                                    afterLabelTextTpl: [
+                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                    ],
                                     fieldLabel: 'Protocol',
-                                    labelWidth: 80
+                                    labelWidth: 120,
+                                    name: 'rhevmProtocol',
+                                    allowBlank: false,
+                                    store: [
+                                        'HTTP',
+                                        'HTTPS',
+                                        
+                                    ]
                                 },
                                 {
                                     xtype: 'textfield',
                                     anchor: '100%',
+                                    afterLabelTextTpl: [
+                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                    ],
+                                    fieldLabel: 'Host',
+                                    labelWidth: 120,
+                                    name: 'rhevmHost',
+                                    allowBlank: false
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    anchor: '100%',
+                                    afterLabelTextTpl: [
+                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                    ],
                                     fieldLabel: 'Port',
-                                    labelWidth: 80
+                                    labelWidth: 120,
+                                    name: 'rhevmPort',
+                                    allowBlank: false
                                 },
                                 {
                                     xtype: 'textfield',
                                     anchor: '100%',
+                                    afterLabelTextTpl: [
+                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                    ],
                                     fieldLabel: 'Domain',
-                                    labelWidth: 80
+                                    labelWidth: 120,
+                                    name: 'rhevmDomain',
+                                    allowBlank: false
                                 },
                                 {
                                     xtype: 'textfield',
                                     anchor: '100%',
+                                    afterLabelTextTpl: [
+                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                    ],
                                     fieldLabel: 'Username',
-                                    labelWidth: 80
+                                    labelWidth: 120,
+                                    name: 'rhevmUsername',
+                                    allowBlank: false
                                 },
                                 {
                                     xtype: 'textfield',
                                     anchor: '100%',
+                                    componentCls: 'origin-passwd',
+                                    padding: '',
+                                    afterLabelTextTpl: [
+                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                    ],
                                     fieldLabel: 'Password',
-                                    labelWidth: 80
+                                    labelWidth: 120,
+                                    name: 'rhevmPassword',
+                                    inputType: 'password',
+                                    allowBlank: false
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    anchor: '100%',
+                                    padding: '',
+                                    afterLabelTextTpl: [
+                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                    ],
+                                    fieldLabel: 'Confirm Password',
+                                    labelWidth: 120,
+                                    name: 'confirmPasswd',
+                                    inputType: 'password',
+                                    allowBlank: false,
+                                    vtype: 'password'
                                 }
                             ]
                         }
@@ -101,6 +184,39 @@ Ext.define('MyApp.view.regRhevmWindow', {
                             items: [
                                 {
                                     xtype: 'button',
+                                    handler: function(button, e) {
+                                        var rhevmForm = Ext.getCmp("rhevmForm");
+
+                                        var action = GLOBAL.urlPrefix + "/hypervisor/insertHypervisor";
+
+                                        rhevmForm.getForm().submit({
+                                            clientValidation: true,
+                                            url: action,
+                                            method : "POST",
+                                            params: {
+                                                newStatus: 'delivered'
+                                            },
+                                            waitMsg: 'Saving Data...',
+                                            success: function(form, action) {
+                                                Ext.Msg.alert('Success', action.result.msg);
+
+                                                Ext.getCmp('hypervisorGrid').getStore().reload();
+                                                rhevmForm.up('window').close();
+                                            },
+                                            failure: function(form, action) {
+                                                switch (action.failureType) {
+                                                    case Ext.form.action.Action.CLIENT_INVALID:
+                                                    Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');
+                                                    break;
+                                                    case Ext.form.action.Action.CONNECT_FAILURE:
+                                                    Ext.Msg.alert('Failure', 'Server communication failed');
+                                                    break;
+                                                    case Ext.form.action.Action.SERVER_INVALID:
+                                                    Ext.Msg.alert('Failure', action.result.msg);
+                                                }
+                                            }
+                                        });
+                                    },
                                     id: 'rhevmCreateBtn',
                                     itemId: 'rhevmCreateBtn',
                                     margin: '0 15 0 0',
@@ -110,7 +226,14 @@ Ext.define('MyApp.view.regRhevmWindow', {
                                 {
                                     xtype: 'button',
                                     handler: function(button, e) {
-                                        button.up("window").close();
+                                        Ext.MessageBox.confirm('Confirm', '작업을 취소하시겠습니까?', function(btn){
+
+                                            if(btn == "yes"){
+                                                button.up("window").close();
+                                            }
+
+                                        });
+
                                     },
                                     id: 'rhevmCancelBtn',
                                     itemId: 'rhevmCancelBtn',

@@ -18,6 +18,80 @@
             },
             "codeClass": null,
             "userConfig": {
+                "designer|controlQuery": "#hypervisorGrid",
+                "designer|targetType": "Ext.grid.Panel",
+                "fn": "onHypervisorRender",
+                "implHandler": [
+                    "//hypervisor Grid Data Search",
+                    "Ext.getCmp(\"hypervisorGrid\").getStore().load();",
+                    "",
+                    "var detailPanel = Ext.getCmp(\"rhevmDetailPanel\");",
+                    "detailPanel.layout.setActiveItem(0);"
+                ],
+                "name": "afterrender",
+                "scope": "me"
+            },
+            "designerId": "ca2bc19b-3ff9-4cbf-bad4-cc09e59ffe49"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#hypervisorGrid",
+                "designer|targetType": "Ext.grid.Panel",
+                "fn": "onHypervisorGridSelect",
+                "implHandler": [
+                    "//RHEVM Grid Item Click",
+                    "",
+                    "RHEVMConstants.selectRow = record;",
+                    "",
+                    "var detailPanel = Ext.getCmp(\"rhevmDetailPanel\");",
+                    "detailPanel.layout.setActiveItem(1);",
+                    "",
+                    "Ext.getCmp(\"rhevmTabPanel\").setActiveTab(0);",
+                    "",
+                    "var detailDPanel = Ext.getCmp(\"rhevmTabDetailPanel\");",
+                    "detailDPanel.layout.setActiveItem(0);",
+                    "detailDPanel.collapse();",
+                    "",
+                    "",
+                    "//Virtual Machines Data Loading",
+                    "var vmGrid = Ext.getCmp('rhevmVMGrid');",
+                    "",
+                    "vmGrid.getStore().load({",
+                    "    params:{",
+                    "        hypervisorId : record.get(\"hypervisorId\")",
+                    "    }",
+                    "});",
+                    "",
+                    "",
+                    "//Template Data Loading",
+                    "var templateGrid = Ext.getCmp('rhevmTemplateGrid');",
+                    "",
+                    "templateGrid.getStore().load({",
+                    "    params:{",
+                    "        hypervisorId : record.get(\"hypervisorId\")",
+                    "    }",
+                    "});",
+                    ""
+                ],
+                "name": "select",
+                "scope": "me"
+            },
+            "designerId": "3f6ceed4-9073-4b9e-a8cc-bb6f9c0f953d"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
                 "designer|controlQuery": "#rhevmTabPanel",
                 "designer|targetType": "Ext.tab.Panel",
                 "fn": "onRhevmTabPanelTabChange",
@@ -50,7 +124,7 @@
                     "",
                     "detailTab.layout.setActiveItem(1);",
                     "",
-                    "RHEVMConstants.selectRow = record;",
+                    "RHEVMConstants.childSelectRow = record;",
                     "",
                     "Ext.getCmp(\"rhevmTabDetailTabPanel\").setActiveTab(0);",
                     "",
@@ -64,9 +138,10 @@
                     "",
                     "generalform.getForm().load({",
                     "    params : {",
-                    "        name : record.get(\"name\")",
+                    "        hypervisorId : RHEVMConstants.selectRow.get(\"hypervisorId\"),",
+                    "        vmId : record.get(\"vmId\")",
                     "    }",
-                    "    ,url : GLOBAL.urlPrefix + \"/rhevm/getRhevmGeneral\"",
+                    "    ,url : GLOBAL.urlPrefix + \"/rhevm/vms/info\"",
                     "    ,waitMsg:'Loading...'",
                     "});",
                     "",
@@ -76,7 +151,8 @@
                     "",
                     "networkGrid.getStore().load({",
                     "    params:{",
-                    "        name : record.get(\"name\")",
+                    "        hypervisorId : RHEVMConstants.selectRow.get(\"hypervisorId\"),",
+                    "        vmId : record.get(\"vmId\")",
                     "    }",
                     "});",
                     "",
@@ -86,7 +162,8 @@
                     "",
                     "diskGrid.getStore().load({",
                     "    params:{",
-                    "        name : record.get(\"name\")",
+                    "        hypervisorId : RHEVMConstants.selectRow.get(\"hypervisorId\"),",
+                    "        vmId : record.get(\"vmId\")",
                     "    }",
                     "});",
                     "",
@@ -157,7 +234,8 @@
                     "Ext.define('RHEVMConstants', {",
                     "    singleton: true,",
                     "    contextMenu: rhevmVMGridContextMenu,",
-                    "    selectRow : null",
+                    "    selectRow : null,",
+                    "    childSelectRow : null",
                     "});"
                 ]
             },
@@ -186,80 +264,6 @@
                 "scope": "me"
             },
             "designerId": "1b83a125-6744-43d5-8dea-f4acacae4b13"
-        },
-        {
-            "type": "controlleraction",
-            "reference": {
-                "name": "listeners",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "designer|controlQuery": "#rhevmsGrid",
-                "designer|targetType": "Ext.grid.Panel",
-                "fn": "onRhevmsGridRender",
-                "implHandler": [
-                    "//RHEVM Grid Data Search",
-                    "Ext.getCmp(\"rhevmsGrid\").getStore().load();",
-                    "",
-                    "var detailPanel = Ext.getCmp(\"rhevmDetailPanel\");",
-                    "detailPanel.layout.setActiveItem(0);"
-                ],
-                "name": "afterrender",
-                "scope": "me"
-            },
-            "designerId": "ca2bc19b-3ff9-4cbf-bad4-cc09e59ffe49"
-        },
-        {
-            "type": "controlleraction",
-            "reference": {
-                "name": "listeners",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "designer|controlQuery": "#rhevmsGrid",
-                "designer|targetType": "Ext.grid.Panel",
-                "fn": "onRhevmsGridSelect",
-                "implHandler": [
-                    "//RHEVM Grid Item Click",
-                    "",
-                    "RHEVMConstants.selectRow = record;",
-                    "",
-                    "var detailPanel = Ext.getCmp(\"rhevmDetailPanel\");",
-                    "detailPanel.layout.setActiveItem(1);",
-                    "",
-                    "Ext.getCmp(\"rhevmTabPanel\").setActiveTab(0);",
-                    "",
-                    "var detailDPanel = Ext.getCmp(\"rhevmTabDetailPanel\");",
-                    "detailDPanel.layout.setActiveItem(0);",
-                    "detailDPanel.collapse();",
-                    "",
-                    "",
-                    "//Virtual Machines Data Loading",
-                    "var vmGrid = Ext.getCmp('rhevmVMGrid');",
-                    "",
-                    "vmGrid.getStore().load({",
-                    "    params:{",
-                    "        host : record.get(\"host\")",
-                    "    }",
-                    "});",
-                    "",
-                    "",
-                    "//Template Data Loading",
-                    "var templateGrid = Ext.getCmp('rhevmTemplateGrid');",
-                    "",
-                    "templateGrid.getStore().load({",
-                    "    params:{",
-                    "        host : record.get(\"host\")",
-                    "    }",
-                    "});",
-                    ""
-                ],
-                "name": "select",
-                "scope": "me"
-            },
-            "designerId": "3f6ceed4-9073-4b9e-a8cc-bb6f9c0f953d"
         },
         {
             "type": "controlleraction",
@@ -326,6 +330,52 @@
                 "scope": "me"
             },
             "designerId": "8596a07a-5c52-4994-8ac1-bfd6a6d11251"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#hypervisorGrid",
+                "designer|targetType": "Ext.grid.plugin.RowEditing",
+                "fn": "onRowEditingEdit",
+                "implHandler": [
+                    "var record = context.record;",
+                    "",
+                    "Ext.Ajax.request({",
+                    "    url: GLOBAL.urlPrefix + \"/hypervisor/updateHypervisor\",",
+                    "    params: {",
+                    "        hypervisorId \t: record.get(\"hypervisorId\"),",
+                    "        hypervisorType \t: record.get(\"hypervisorType\"),",
+                    "        rhevmName \t\t: record.get(\"rhevmName\"),",
+                    "        rhevmProtocol \t: record.get(\"rhevmProtocol\"),",
+                    "        rhevmPort \t\t: record.get(\"rhevmPort\"),",
+                    "        rhevmDomain \t: record.get(\"rhevmDomain\"),",
+                    "        rhevmHost \t\t: record.get(\"rhevmHost\"),",
+                    "        rhevmUsername \t: record.get(\"rhevmUsername\"),",
+                    "        rhevmPassword \t: record.get(\"rhevmPassword\")",
+                    "    },",
+                    "    disableCaching : true,",
+                    "    waitMsg: 'update RHEVM...',",
+                    "    success: function(response){",
+                    "        var msg = Ext.JSON.decode(response.responseText).msg;",
+                    "        Ext.MessageBox.alert('알림', msg);",
+                    "        ",
+                    "        Ext.getCmp(\"hypervisorGrid\").getStore().load();",
+                    "        ",
+                    "        //Ext.getCmp(\"rhevmDetailPanel\").layout.setActiveItem(0);",
+                    "        ",
+                    "    }",
+                    "});",
+                    ""
+                ],
+                "name": "edit",
+                "scope": "me"
+            },
+            "designerId": "9827429c-8b7e-4b01-8f9d-b48a6e6f066b"
         }
     ]
 }

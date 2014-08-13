@@ -85,7 +85,7 @@
                                             "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
                                         ]
                                     },
-                                    "designerId": "84f790bd-8859-4309-9788-ef2c5f7b2dcb"
+                                    "designerId": "f7f3871f-176e-41a7-b240-01b966888d7c"
                                 }
                             ]
                         },
@@ -109,7 +109,7 @@
                                 "name": "passwd",
                                 "padding": ""
                             },
-                            "designerId": "a2a19dde-77a4-4aaf-89e6-ca63d2ef5408",
+                            "designerId": "8692e91a-eacf-4f60-b9f6-1f5159240f55",
                             "cn": [
                                 {
                                     "type": "Ext.XTemplate",
@@ -124,7 +124,7 @@
                                             "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
                                         ]
                                     },
-                                    "designerId": "5bc4380c-2a34-4805-b793-c76fe7804c72"
+                                    "designerId": "6960551f-d916-4529-be96-957cf1ac2773"
                                 }
                             ]
                         },
@@ -145,7 +145,7 @@
                                 "padding": "",
                                 "vtype": "password"
                             },
-                            "designerId": "68cc088b-ccd0-49fd-acff-2649b1bc387c",
+                            "designerId": "08ad7e6d-06a0-4b2d-98c8-0b78dbc951fd",
                             "cn": [
                                 {
                                     "type": "Ext.XTemplate",
@@ -160,7 +160,7 @@
                                             "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
                                         ]
                                     },
-                                    "designerId": "8c837432-2398-465c-a931-b76124a34d69"
+                                    "designerId": "8c199dbd-7e11-4959-8d74-f9aa12ec3b72"
                                 }
                             ]
                         },
