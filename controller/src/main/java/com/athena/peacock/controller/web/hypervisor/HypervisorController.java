@@ -27,11 +27,13 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.QueryParam;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -88,7 +90,7 @@ public class HypervisorController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/insertHypervisor")
-	public @ResponseBody SimpleJsonResponse insertAutoScaling(HttpServletRequest request, SimpleJsonResponse jsonRes, HypervisorDto hypervisor) throws Exception {
+	public @ResponseBody SimpleJsonResponse insertHypervisor(HttpServletRequest request, SimpleJsonResponse jsonRes, @RequestBody HypervisorDto hypervisor) throws Exception {
 		// hypervisorId는 auto increment 됨.
 		
 		try {
@@ -124,7 +126,7 @@ public class HypervisorController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/updateHypervisor")
-	public @ResponseBody SimpleJsonResponse updateAutoScaling(HttpServletRequest request, SimpleJsonResponse jsonRes, HypervisorDto hypervisor) throws Exception {
+	public @ResponseBody SimpleJsonResponse updateHypervisor(HttpServletRequest request, SimpleJsonResponse jsonRes, @RequestBody HypervisorDto hypervisor) throws Exception {
 		Assert.notNull(hypervisor.getHypervisorId(), "hypervisorId can not be null.");
 		
 		try {
@@ -154,20 +156,20 @@ public class HypervisorController {
 	 * 하이퍼바이저 삭제
 	 * </pre>
 	 * @param jsonRes
-	 * @param hypervisor
+	 * @param hypervisorId
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/deleteHypervisor")
-	public @ResponseBody SimpleJsonResponse deleteAutoScaling(SimpleJsonResponse jsonRes, HypervisorDto hypervisor) throws Exception {
-		Assert.notNull(hypervisor.getHypervisorId(), "hypervisorId can not be null.");
+	public @ResponseBody SimpleJsonResponse deleteHypervisor(SimpleJsonResponse jsonRes, @QueryParam("hypervisorId") Integer hypervisorId) throws Exception {
+		Assert.notNull(hypervisorId, "hypervisorId can not be null.");
 		
 		try {
-			hypervisorService.deleteHypervisor(hypervisor.getHypervisorId());
+			hypervisorService.deleteHypervisor(hypervisorId);
 			jsonRes.setMsg("Hypervisor 삭제가 완료되었습니다.");
 
 			// RHEV Type의 Hypervisor가 삭제될 경우 RHEVMRestTemplateManager에 해당 RHEV-M에 대한 RHEVMRestTemplate을 제거한다.
-			RHEVMRestTemplateManager.removeRHEVMRestTemplate(hypervisor.getHypervisorId());
+			RHEVMRestTemplateManager.removeRHEVMRestTemplate(hypervisorId);
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Hypervisor 삭제 중 에러가 발생하였습니다.");
