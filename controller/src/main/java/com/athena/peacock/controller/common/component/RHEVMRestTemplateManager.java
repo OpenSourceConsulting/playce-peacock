@@ -22,6 +22,8 @@
  */
 package com.athena.peacock.controller.common.component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -70,6 +72,16 @@ public class RHEVMRestTemplateManager {
 	 */
 	public synchronized static void removeRHEVMRestTemplate(int hypervisorId) {
 		templates.remove(hypervisorId);
-	}
+	}//end of removeRHEVMRestTemplate()
+	
+	/**
+	 * <pre>
+	 * Map에 존재하는 모든 RHEVMRestTemplate 객체를 반환한다.
+	 * </pre>
+	 * @return
+	 */
+	public static List<RHEVMRestTemplate> getAllTemplates() {
+		return new ArrayList<RHEVMRestTemplate>(templates.values());
+	}//end of getAllTemplates()
 }
 //end of RHEVRestTemplateManager.java

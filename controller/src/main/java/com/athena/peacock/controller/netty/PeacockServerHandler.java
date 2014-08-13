@@ -62,6 +62,7 @@ import com.athena.peacock.common.netty.message.PackageInfo;
 import com.athena.peacock.common.netty.message.ProvisioningResponseMessage;
 import com.athena.peacock.common.provider.AppContext;
 import com.athena.peacock.controller.common.component.RHEVMRestTemplate;
+import com.athena.peacock.controller.common.component.RHEVMRestTemplateManager;
 import com.athena.peacock.controller.common.core.handler.MonFactorHandler;
 import com.athena.peacock.controller.web.machine.MachineDto;
 import com.athena.peacock.controller.web.machine.MachineService;
@@ -100,18 +101,14 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 	@Inject
 	@Named("packageService")
 	private PackageService packageService;
-	
-//	@Inject
-//	@Named("restTemplate")
-	private RHEVMRestTemplate restTemplate;
 
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
-		logger.info("channelRead0() has invoked.");
-		logger.info("[Server] IP Address => " + ctx.channel().remoteAddress().toString());
-		logger.info("[Server] Object => " + msg.getClass().getName());
-		//logger.info("[Server] Contents => " + msg.toString());
+		logger.debug("channelRead0() has invoked.");
+		logger.debug("[Server] IP Address => " + ctx.channel().remoteAddress().toString());
+		logger.debug("[Server] Object => " + msg.getClass().getName());
+		//logger.debug("[Server] Contents => " + msg.toString());
 		
 		if("bye".equals(msg.toString())) {
 			// Response and exit.
@@ -171,32 +168,36 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 						String isVm = "N";
 						boolean isMatch = false;
 						try {
-							if (restTemplate == null) {
-								restTemplate = AppContext.getBean(RHEVMRestTemplate.class);
-							}
+							List<RHEVMRestTemplate> templates = RHEVMRestTemplateManager.getAllTemplates();
 							
-							VMs vms = restTemplate.submit("/api/vms?search=" + ipAddr, HttpMethod.GET, VMs.class);
-							
-							if (vms.getVMs().size() > 0) {
-								isVm = "Y";
+							for (RHEVMRestTemplate restTemplate : templates) {
+								VMs vms = restTemplate.submit("/api/vms?search=" + ipAddr, HttpMethod.GET, VMs.class);
 								
-								List<VM> vmList = vms.getVMs();
-								List<IP> ipList = null;
-								for (VM vm : vmList) {
-									// ip를 이용한 조회로써 getIps()가 null이 아님.
-									ipList = vm.getGuestInfo().getIps().getIPs();
+								if (vms.getVMs().size() > 0) {
+									isVm = "Y";
 									
-									for (IP ip : ipList) {
-										if (ip.getAddress().equals(ipAddr)) {
-											isMatch = true;
+									List<VM> vmList = vms.getVMs();
+									List<IP> ipList = null;
+									for (VM vm : vmList) {
+										// ip를 이용한 조회로써 getIps()가 null이 아님.
+										ipList = vm.getGuestInfo().getIps().getIPs();
+										
+										for (IP ip : ipList) {
+											if (ip.getAddress().equals(ipAddr)) {
+												isMatch = true;
+												machineId = vm.getId();
+												break;
+											}
+										}
+
+										if (isMatch) {
 											break;
 										}
 									}
+								}
 
-									if (isMatch) {
-										machineId = vm.getId();
-										break;
-									}
+								if (isMatch) {
+									break;
 								}
 							}
 						} catch (Exception e) {
@@ -274,17 +275,17 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 	
 	@Override
 	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-		logger.info("channelReadComplete() has invoked.");
+		logger.debug("channelReadComplete() has invoked.");
 	}
 	
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {	
-		logger.info("channelActive() has invoked.");
+		logger.debug("channelActive() has invoked.");
 	}
 	
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-		logger.info("channelInactive() has invoked.");
+		logger.debug("channelInactive() has invoked.");
 
 		// deregister a closed channel
 		ChannelManagement.deregisterChannel(ctx.channel());
@@ -292,7 +293,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 	
 	@Override
 	public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
-		logger.info("handlerAdded() has invoked.");
+		logger.debug("handlerAdded() has invoked.");
 	}
 
     @Override
