@@ -30,7 +30,7 @@ Ext.define('MyApp.view.peacockViewport', {
         'Ext.toolbar.Separator',
         'Ext.button.Split',
         'Ext.menu.Menu',
-        'Ext.menu.Separator',
+        'Ext.menu.Item',
         'Ext.tree.Panel',
         'Ext.tree.View',
         'Ext.layout.container.Border',
@@ -85,7 +85,7 @@ Ext.define('MyApp.view.peacockViewport', {
                                 },
                                 {
                                     xtype: 'tbspacer',
-                                    flex: 2
+                                    flex: 1
                                 },
                                 {
                                     xtype: 'panel',
@@ -102,7 +102,9 @@ Ext.define('MyApp.view.peacockViewport', {
                                                 },
                                                 {
                                                     xtype: 'tbtext',
-                                                    text: '(최근 접속시간 : 2014.07.07 14:48:48)'
+                                                    id: 'topLastLogonLabel',
+                                                    itemId: 'topLastLogonLabel',
+                                                    text: '(최근 접속시간 : 2014.08.13 09:24:33 GMT+09:00)'
                                                 },
                                                 {
                                                     xtype: 'tbseparator'
@@ -126,17 +128,6 @@ Ext.define('MyApp.view.peacockViewport', {
                                                                 id: 'logoutMenu',
                                                                 itemId: 'logoutMenu',
                                                                 text: 'Sign Out'
-                                                            },
-                                                            {
-                                                                xtype: 'menuseparator',
-                                                                id: 'adminMenuSeparator',
-                                                                itemId: 'adminMenuSeparator'
-                                                            },
-                                                            {
-                                                                xtype: 'menuitem',
-                                                                id: 'adminMenu',
-                                                                itemId: 'adminMenu',
-                                                                text: 'Settings'
                                                             }
                                                         ]
                                                     }

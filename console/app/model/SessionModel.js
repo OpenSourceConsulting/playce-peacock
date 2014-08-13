@@ -22,7 +22,48 @@ Ext.define('MyApp.model.SessionModel', {
 
     fields: [
         {
-            name: 'sessionId'
+            name: 'userId',
+            type: 'int'
+        },
+        {
+            name: 'loginId',
+            type: 'string'
+        },
+        {
+            name: 'userName',
+            type: 'string'
+        },
+        {
+            name: 'passwd',
+            type: 'string'
+        },
+        {
+            name: 'deptName',
+            type: 'string'
+        },
+        {
+            name: 'email',
+            type: 'string'
+        },
+        {
+            name: 'lastLogon',
+            type: 'string'
+        },
+        {
+            name: 'regUserId',
+            type: 'int'
+        },
+        {
+            name: 'regDt',
+            type: 'string'
+        },
+        {
+            name: 'updUserId',
+            type: 'int'
+        },
+        {
+            name: 'updDt',
+            type: 'string'
         }
     ]
 });

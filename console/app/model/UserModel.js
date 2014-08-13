@@ -22,15 +22,15 @@ Ext.define('MyApp.model.UserModel', {
 
     fields: [
         {
-            name: 'user_id',
+            name: 'userId',
             type: 'int'
         },
         {
-            name: 'login_id',
+            name: 'loginId',
             type: 'string'
         },
         {
-            name: 'user_name',
+            name: 'userName',
             type: 'string'
         },
         {
@@ -38,7 +38,7 @@ Ext.define('MyApp.model.UserModel', {
             type: 'string'
         },
         {
-            name: 'dept_name',
+            name: 'deptName',
             type: 'string'
         },
         {
@@ -46,7 +46,7 @@ Ext.define('MyApp.model.UserModel', {
             type: 'string'
         },
         {
-            name: 'last_logon',
+            name: 'lastLogon',
             type: 'string'
         },
         {

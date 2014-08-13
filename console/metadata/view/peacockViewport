@@ -99,7 +99,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "layout|flex": 2
+                                "layout|flex": 1
                             },
                             "designerId": "e9123bfc-cf86-4841-bbe8-67754ee23e0c"
                         },
@@ -149,8 +149,10 @@
                                             },
                                             "codeClass": null,
                                             "userConfig": {
+                                                "id": "topLastLogonLabel",
+                                                "itemId": "topLastLogonLabel",
                                                 "layout|flex": null,
-                                                "text": "(최근 접속시간 : 2014.07.07 14:48:48)"
+                                                "text": "(최근 접속시간 : 2014.08.13 09:24:33 GMT+09:00)"
                                             },
                                             "designerId": "4d7d738f-5f49-4647-9797-288760ef98c1"
                                         },
@@ -220,33 +222,6 @@
                                                                 "text": "Sign Out"
                                                             },
                                                             "designerId": "f59d400e-d8d1-4437-a300-718756f6c76b"
-                                                        },
-                                                        {
-                                                            "type": "Ext.menu.Separator",
-                                                            "reference": {
-                                                                "name": "items",
-                                                                "type": "array"
-                                                            },
-                                                            "codeClass": null,
-                                                            "userConfig": {
-                                                                "id": "adminMenuSeparator",
-                                                                "itemId": "adminMenuSeparator"
-                                                            },
-                                                            "designerId": "2e5a90a0-a4a6-47d2-af54-cf1f6b9cd44e"
-                                                        },
-                                                        {
-                                                            "type": "Ext.menu.Item",
-                                                            "reference": {
-                                                                "name": "items",
-                                                                "type": "array"
-                                                            },
-                                                            "codeClass": null,
-                                                            "userConfig": {
-                                                                "id": "adminMenu",
-                                                                "itemId": "adminMenu",
-                                                                "text": "Settings"
-                                                            },
-                                                            "designerId": "a4479366-69cd-46e9-ae7f-eeb28c92f2d2"
                                                         }
                                                     ]
                                                 }

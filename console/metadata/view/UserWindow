@@ -13,7 +13,7 @@
         "itemId": "UserWindow",
         "layout": "border",
         "title": "Add User",
-        "width": 360
+        "width": 400
     },
     "designerId": "a6e64140-c5ae-45b9-9a03-ae0760cf1948",
     "cn": [
@@ -68,7 +68,7 @@
                                 "allowBlank": false,
                                 "fieldLabel": "Login ID",
                                 "layout|anchor": "100%",
-                                "name": "login_id"
+                                "name": "loginId"
                             },
                             "designerId": "3ece1e56-5b26-48e5-9a0d-1555ffedf56d",
                             "cn": [
@@ -98,9 +98,14 @@
                             "codeClass": null,
                             "userConfig": {
                                 "allowBlank": false,
+                                "componentCls": "origin-passwd",
+                                "emptyText": "4 ~ 20자",
                                 "fieldLabel": "Password",
+                                "inputType": "password",
                                 "labelWidth": null,
                                 "layout|anchor": "100%",
+                                "maxLength": 20,
+                                "minLength": 4,
                                 "name": "passwd",
                                 "padding": ""
                             },
@@ -133,10 +138,12 @@
                             "userConfig": {
                                 "allowBlank": false,
                                 "fieldLabel": "Confirm Password",
+                                "inputType": "password",
                                 "labelWidth": null,
                                 "layout|anchor": "100%",
                                 "name": "confirmPasswd",
-                                "padding": ""
+                                "padding": "",
+                                "vtype": "password"
                             },
                             "designerId": "68cc088b-ccd0-49fd-acff-2649b1bc387c",
                             "cn": [
@@ -169,7 +176,7 @@
                                 "fieldLabel": "User Name",
                                 "labelWidth": null,
                                 "layout|anchor": "100%",
-                                "name": "user_name",
+                                "name": "userName",
                                 "padding": ""
                             },
                             "designerId": "816c0db5-18e2-42d3-bbb7-8616ad61726b",
@@ -202,7 +209,7 @@
                                 "fieldLabel": "Dept Name",
                                 "labelWidth": null,
                                 "layout|anchor": "100%",
-                                "name": "dept_name",
+                                "name": "deptName",
                                 "padding": ""
                             },
                             "designerId": "21df2750-4ffa-452e-9c80-ba73a607ae60"
@@ -233,7 +240,7 @@
                             "userConfig": {
                                 "fieldLabel": "Label",
                                 "layout|anchor": "100%",
-                                "name": "user_id"
+                                "name": "userId"
                             },
                             "designerId": "50eba8a5-181f-4422-bf48-dda6dadc34f6"
                         }
@@ -289,7 +296,7 @@
                                             "",
                                             "var action = GLOBAL.urlPrefix + \"/user/create\";",
                                             "",
-                                            "if(userForm.getForm().findField(\"user_id\").getValue() > 0){",
+                                            "if(userForm.getForm().findField(\"userId\").getValue() > 0){",
                                             "    action = GLOBAL.urlPrefix + \"/user/update\";",
                                             "}",
                                             "",
@@ -356,7 +363,7 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
-                                            "Ext.MessageBox.confirm('Confirm', 'Are you sure you want to do that?', function(btn){",
+                                            "Ext.MessageBox.confirm('Confirm', '작업을 취소하시겠습니까?', function(btn){",
                                             "",
                                             "    if(btn == \"yes\"){",
                                             "        button.up(\"window\").close();",

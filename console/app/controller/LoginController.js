@@ -54,7 +54,7 @@ Ext.define('MyApp.controller.LoginController', {
 
             var response = Ext.decode(resp.responseText);
             if(response.success){
-                me.successfulLogin(response.data.login_id);
+                me.successfulLogin(response.data, "json");
             }
             else {
                 failureCallback(response, ops);
@@ -175,15 +175,9 @@ Ext.define('MyApp.controller.LoginController', {
     },
 
     doEditProfile: function(item, e, eOpts) {
-        Ext.Msg.show({
-            title: "Message",
-            msg: "Edit Profile funtion isn't implemented yet.",
-            buttons: Ext.Msg.OK,
-            fn: function(choice) {
-                // do nothing.
-            },
-            icon: Ext.Msg.QUESTION
-        });
+        var sessionInfo = Ext.getStore('SessionStore');
+
+        userConstants.me.showUserWindow('edit', sessionInfo.getAt(0).get("userId"));
     },
 
     doLogout: function(item, e, eOpts) {
@@ -193,7 +187,7 @@ Ext.define('MyApp.controller.LoginController', {
             disableCaching : true,
             success: function(response){
 
-                var sessionInfo = Ext.getStore('SessionInfo');
+                var sessionInfo = Ext.getStore('SessionStore');
                 sessionInfo.removeAll();
                 sessionInfo.sync();
 
@@ -215,7 +209,7 @@ Ext.define('MyApp.controller.LoginController', {
         sessionInfo.load();
 
         if(null != sessionInfo.getAt(0)){
-            this.successfulLogin(sessionInfo.getAt(0).get('sessionId'));
+            this.successfulLogin(sessionInfo.getAt(0), "model");
 
         } else {
 
@@ -246,33 +240,57 @@ Ext.define('MyApp.controller.LoginController', {
 
     },
 
-    successfulLogin: function(sessionId, ops) {
+    successfulLogin: function(session, ops) {
 
-            this.sessionId = sessionId;
+        this.session = session;
 
-            var sessionInfo = Ext.getStore('SessionStore');
-            sessionInfo.removeAll();
-            sessionInfo.sync();
-            var newRecord = new MyApp.model.SessionModel({
-                sessionId: this.sessionId
+        var sessionInfo = Ext.getStore('SessionStore');
+        sessionInfo.removeAll();
+        sessionInfo.sync();
+        var newRecord;
+        if(ops == 'json') {
+
+            newRecord = new MyApp.model.SessionModel({
+                userId		: this.session.userId,
+                loginId		: this.session.loginId,
+                userName	: this.session.userName,
+                deptName	: this.session.deptName,
+                email		: this.session.email,
+                lastLogon	: this.session.lastLogon
             });
-            sessionInfo.add(newRecord);
-            sessionInfo.sync();
 
-            // Close window
-            var loginWindow = Ext.getCmp('loginWindow');
-            if(loginWindow != null) {
-                Ext.getCmp('loginWindow').destroy();
-            }
-            Ext.getCmp("peacockViewport").layout.setActiveItem(1);
-            this.getUserSplitBtn().setText(sessionId);
+        } else {
 
-            var menuTreeStore = Ext.getStore("MenuTreeStore");
+            newRecord = new MyApp.model.SessionModel({
+                userId		: this.session.get("userId"),
+                loginId		: this.session.get("loginId"),
+                userName	: this.session.get("userName"),
+                deptName	: this.session.get("deptName"),
+                email		: this.session.get("email"),
+                lastLogon	: this.session.get("lastLogon")
+            });
 
-            // show settings menu when logged in as admin
+        }
 
-            Ext.getCmp("menuTreeView").selModel.select(0);
-            Ext.getCmp("menuTreeView").fireEvent('cellclick', Ext.getCmp("menuTreeView"), null, null, menuTreeStore.getRootNode().firstChild);
+        sessionInfo.add(newRecord);
+        sessionInfo.sync();
+
+        // Close window
+        var loginWindow = Ext.getCmp('loginWindow');
+        if(loginWindow != null) {
+            Ext.getCmp('loginWindow').destroy();
+        }
+
+        Ext.getCmp("peacockViewport").layout.setActiveItem(1);
+        this.getUserSplitBtn().setText(newRecord.get("userName"));
+        Ext.getCmp("topLastLogonLabel").setText("(최근 접속시간 : "+newRecord.get("lastLogon")+")");
+
+        var menuTreeStore = Ext.getStore("MenuTreeStore");
+
+        // show settings menu when logged in as admin
+
+        Ext.getCmp("menuTreeView").selModel.select(0);
+        Ext.getCmp("menuTreeView").fireEvent('cellclick', Ext.getCmp("menuTreeView"), null, null, menuTreeStore.getRootNode().firstChild);
     },
 
     init: function(application) {

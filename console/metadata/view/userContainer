@@ -91,59 +91,10 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
-                                            "var userWindow = Ext.create(\"widget.userWindow\");",
-                                            "",
-                                            "userWindow.show();"
+                                            "userConstants.me.showUserWindow('new');"
                                         ]
                                     },
                                     "designerId": "36304546-24da-48f0-90f0-cb65a347190b"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "Ext.button.Cycle",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "id": "actionCycle",
-                                "itemId": "actionCycle",
-                                "layout|flex": null,
-                                "showText": true
-                            },
-                            "designerId": "cc010b64-eb1a-4d7b-8bfb-6c18a7d71ba4",
-                            "cn": [
-                                {
-                                    "type": "Ext.menu.Menu",
-                                    "reference": {
-                                        "name": "menu",
-                                        "type": "object"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "id": "actionList",
-                                        "itemId": "actionList",
-                                        "width": 120
-                                    },
-                                    "designerId": "dc406e5b-4eaa-4072-92ba-49517c54ccd6",
-                                    "cn": [
-                                        {
-                                            "type": "Ext.menu.CheckItem",
-                                            "reference": {
-                                                "name": "items",
-                                                "type": "array"
-                                            },
-                                            "codeClass": null,
-                                            "userConfig": {
-                                                "id": "actions",
-                                                "itemId": "actions",
-                                                "text": "Actions"
-                                            },
-                                            "designerId": "9d898471-f900-49e9-bcca-0bb08da3825e"
-                                        }
-                                    ]
                                 }
                             ]
                         },
@@ -205,7 +156,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "user_id",
+                        "dataIndex": "userId",
                         "format": "0000",
                         "maxWidth": 100,
                         "text": "ID"
@@ -220,7 +171,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "login_id",
+                        "dataIndex": "loginId",
                         "defaultWidth": 150,
                         "hidden": true,
                         "text": "Login_id"
@@ -235,7 +186,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "user_name",
+                        "dataIndex": "userName",
                         "defaultWidth": 150,
                         "text": "User Name"
                     },
@@ -249,7 +200,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "dept_name",
+                        "dataIndex": "deptName",
                         "defaultWidth": 150,
                         "text": "Dept Name"
                     },
@@ -292,7 +243,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "last_logon",
+                        "dataIndex": "lastLogon",
                         "hidden": true,
                         "text": "Last_logon"
                     },
@@ -322,6 +273,7 @@
                     "userConfig": {
                         "dataIndex": "regDt",
                         "defaultWidth": 200,
+                        "minWidth": 130,
                         "text": "Create Date"
                     },
                     "configAlternates": {
@@ -431,7 +383,7 @@
                                             "        Ext.Ajax.request({",
                                             "            url: GLOBAL.urlPrefix + \"/user/delete\",",
                                             "            params : {",
-                                            "                user_id : record.get(\"user_id\")",
+                                            "                userId : record.get(\"userId\")",
                                             "            },",
                                             "            disableCaching : true,",
                                             "            waitMsg: 'Delete User...',",
@@ -440,7 +392,7 @@
                                             "                Ext.MessageBox.alert('알림', msg);",
                                             "",
                                             "                view.getStore().reload();",
-                                            "                ",
+                                            "",
                                             "                Ext.getCmp(\"userDetailPanel\").layout.setActiveItem(0);",
                                             "",
                                             "            }",
@@ -609,7 +561,7 @@
                                             "userConfig": {
                                                 "fieldLabel": "User ID",
                                                 "layout|flex": null,
-                                                "name": "user_id"
+                                                "name": "userId"
                                             },
                                             "designerId": "186ff2ec-ed40-4408-870a-46005ed9e976"
                                         },
@@ -623,7 +575,7 @@
                                             "userConfig": {
                                                 "fieldLabel": "User Name",
                                                 "layout|flex": null,
-                                                "name": "user_name"
+                                                "name": "userName"
                                             },
                                             "designerId": "59600b38-169f-425e-bbef-f539b7f0ebe3"
                                         }
@@ -661,7 +613,7 @@
                                             "userConfig": {
                                                 "fieldLabel": "Login ID",
                                                 "layout|flex": null,
-                                                "name": "login_id"
+                                                "name": "loginId"
                                             },
                                             "designerId": "f5951b7b-0212-4f61-94fc-ad385d168dc3"
                                         },
@@ -674,6 +626,7 @@
                                             "codeClass": null,
                                             "userConfig": {
                                                 "fieldLabel": "Password",
+                                                "inputType": "password",
                                                 "layout|flex": null,
                                                 "name": "passwd"
                                             },
@@ -713,7 +666,7 @@
                                             "userConfig": {
                                                 "fieldLabel": "Dept Name",
                                                 "layout|flex": null,
-                                                "name": "dept_name"
+                                                "name": "deptName"
                                             },
                                             "designerId": "11420751-54a4-4869-87ba-15a1f57ad28e"
                                         },
@@ -766,7 +719,7 @@
                                                 "fieldLabel": "Last Logon",
                                                 "layout|flex": null,
                                                 "layout|margins": "0 20 0 0",
-                                                "name": "last_logon",
+                                                "name": "lastLogon",
                                                 "padding": ""
                                             },
                                             "designerId": "6f4f6eb1-89a9-48f0-9b2f-51553bfb20f3"

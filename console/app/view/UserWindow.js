@@ -29,7 +29,7 @@ Ext.define('MyApp.view.UserWindow', {
     height: 285,
     id: 'UserWindow',
     itemId: 'UserWindow',
-    width: 360,
+    width: 400,
     layout: 'border',
     title: 'Add User',
 
@@ -63,19 +63,24 @@ Ext.define('MyApp.view.UserWindow', {
                                         '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                     ],
                                     fieldLabel: 'Login ID',
-                                    name: 'login_id',
+                                    name: 'loginId',
                                     allowBlank: false
                                 },
                                 {
                                     xtype: 'textfield',
                                     anchor: '100%',
+                                    componentCls: 'origin-passwd',
                                     padding: '',
                                     afterLabelTextTpl: [
                                         '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                     ],
                                     fieldLabel: 'Password',
                                     name: 'passwd',
-                                    allowBlank: false
+                                    inputType: 'password',
+                                    allowBlank: false,
+                                    emptyText: '4 ~ 20자',
+                                    maxLength: 20,
+                                    minLength: 4
                                 },
                                 {
                                     xtype: 'textfield',
@@ -86,7 +91,9 @@ Ext.define('MyApp.view.UserWindow', {
                                     ],
                                     fieldLabel: 'Confirm Password',
                                     name: 'confirmPasswd',
-                                    allowBlank: false
+                                    inputType: 'password',
+                                    allowBlank: false,
+                                    vtype: 'password'
                                 },
                                 {
                                     xtype: 'textfield',
@@ -96,7 +103,7 @@ Ext.define('MyApp.view.UserWindow', {
                                         '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                     ],
                                     fieldLabel: 'User Name',
-                                    name: 'user_name',
+                                    name: 'userName',
                                     allowBlank: false
                                 },
                                 {
@@ -104,7 +111,7 @@ Ext.define('MyApp.view.UserWindow', {
                                     anchor: '100%',
                                     padding: '',
                                     fieldLabel: 'Dept Name',
-                                    name: 'dept_name'
+                                    name: 'deptName'
                                 },
                                 {
                                     xtype: 'textfield',
@@ -117,7 +124,7 @@ Ext.define('MyApp.view.UserWindow', {
                                     xtype: 'hiddenfield',
                                     anchor: '100%',
                                     fieldLabel: 'Label',
-                                    name: 'user_id'
+                                    name: 'userId'
                                 }
                             ]
                         }
@@ -139,7 +146,7 @@ Ext.define('MyApp.view.UserWindow', {
 
                                         var action = GLOBAL.urlPrefix + "/user/create";
 
-                                        if(userForm.getForm().findField("user_id").getValue() > 0){
+                                        if(userForm.getForm().findField("userId").getValue() > 0){
                                             action = GLOBAL.urlPrefix + "/user/update";
                                         }
 
@@ -179,7 +186,7 @@ Ext.define('MyApp.view.UserWindow', {
                                 {
                                     xtype: 'button',
                                     handler: function(button, e) {
-                                        Ext.MessageBox.confirm('Confirm', 'Are you sure you want to do that?', function(btn){
+                                        Ext.MessageBox.confirm('Confirm', '작업을 취소하시겠습니까?', function(btn){
 
                                             if(btn == "yes"){
                                                 button.up("window").close();

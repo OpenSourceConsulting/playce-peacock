@@ -78,7 +78,7 @@ Ext.define('MyApp.view.loginWindow', {
                                     labelAlign: 'right',
                                     labelStyle: 'search',
                                     labelWidth: 90,
-                                    name: 'login_id',
+                                    name: 'loginId',
                                     fieldStyle: '',
                                     allowBlank: false,
                                     blankText: '사용자아이디는 필수 입력 항목입니다.'

@@ -50,13 +50,13 @@ Ext.define('MyApp.controller.UserController', {
 
         userForm.getForm().load({
             params : {
-                user_id : record.get("user_id")
+                userId : record.get("userId")
             }
             ,url : GLOBAL.urlPrefix + "/user/getUser"
             ,waitMsg:'Loading...'
         });
 
-        Ext.getCmp("userTitleLabel").setText("<h2>"+record.get("user_name")+"</h2>", false);
+        Ext.getCmp("userTitleLabel").setText("<h2>"+record.get("userName")+"</h2>", false);
 
     },
 
@@ -119,10 +119,15 @@ Ext.define('MyApp.controller.UserController', {
         });
     },
 
-    showUserWindow: function(type) {
+    showUserWindow: function(type, user_id) {
         var userWindow = Ext.create("widget.userWindow");
 
+        userWindow.setTitle("Edit User");
         userWindow.show();
+
+        if(user_id == null) {
+            user_id = userConstants.selectRow.get("userId");
+        }
 
         if(type == 'edit') {
             var userForm = Ext.getCmp("userForm");
@@ -131,7 +136,7 @@ Ext.define('MyApp.controller.UserController', {
 
             userForm.getForm().load({
                 params : {
-                    user_id : userConstants.selectRow.get("user_id")
+                    userId : user_id
                 }
                 ,url : GLOBAL.urlPrefix + "/user/getUser"
                 ,waitMsg:'Loading...'

@@ -8,7 +8,7 @@
     "userConfig": {
         "designer|userClassName": "UserModel"
     },
-    "designerId": "273a8c5f-3c6d-4aa5-be38-058e5db1c11d",
+    "designerId": "ed2ceff6-0bd9-48c2-b89e-c53c5b28c666",
     "cn": [
         {
             "type": "Ext.data.Field",
@@ -18,10 +18,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "user_id",
+                "name": "userId",
                 "type": "int"
             },
-            "designerId": "d54092cd-c798-455c-b87d-975fa5138914"
+            "designerId": "523304b2-c48e-4603-80a7-11b504d94662"
         },
         {
             "type": "Ext.data.Field",
@@ -31,10 +31,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "login_id",
+                "name": "loginId",
                 "type": "string"
             },
-            "designerId": "ad9588a7-deef-4171-9b62-99f1d7b5f3ce"
+            "designerId": "362554fe-21f8-4e40-8a4d-18d2313fc279"
         },
         {
             "type": "Ext.data.Field",
@@ -44,10 +44,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "user_name",
+                "name": "userName",
                 "type": "string"
             },
-            "designerId": "32002621-8a2e-48e4-9a2f-af89a6d2644d"
+            "designerId": "70afc112-7345-47fe-841f-86e0e37ce94e"
         },
         {
             "type": "Ext.data.Field",
@@ -60,7 +60,7 @@
                 "name": "passwd",
                 "type": "string"
             },
-            "designerId": "7b70643d-eecf-4a8b-a328-fa3072d0e018"
+            "designerId": "f6f8cd05-d087-4dca-9dd7-46b20108c78f"
         },
         {
             "type": "Ext.data.Field",
@@ -70,10 +70,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "dept_name",
+                "name": "deptName",
                 "type": "string"
             },
-            "designerId": "81e20fa0-6d52-4abf-a8db-aa988e37653b"
+            "designerId": "be212de3-5a5d-4117-8dbb-f613d7e1a0de"
         },
         {
             "type": "Ext.data.Field",
@@ -86,7 +86,7 @@
                 "name": "email",
                 "type": "string"
             },
-            "designerId": "607f2cb2-18b7-418a-9999-8707bb85ff0e"
+            "designerId": "3030e267-5023-4e38-a3e1-160fc449cb36"
         },
         {
             "type": "Ext.data.Field",
@@ -96,10 +96,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "last_logon",
+                "name": "lastLogon",
                 "type": "string"
             },
-            "designerId": "756ebfaa-3dfb-4990-a30f-67ff327317b0"
+            "designerId": "fb4513e0-bf36-420e-a12d-aaccc8c60a45"
         },
         {
             "type": "Ext.data.Field",
@@ -112,7 +112,7 @@
                 "name": "regUserId",
                 "type": "int"
             },
-            "designerId": "84630a86-a612-43ff-bad4-1979cc2ed978"
+            "designerId": "9f1bf841-0583-45e9-bdea-62b3ed3e97f0"
         },
         {
             "type": "Ext.data.Field",
@@ -126,7 +126,7 @@
                 "name": "regDt",
                 "type": "string"
             },
-            "designerId": "6d44c625-ad48-40d3-b6d8-b4c9c33f595b"
+            "designerId": "0e13a8c3-7e2b-4416-9883-470f9f35c4fc"
         },
         {
             "type": "Ext.data.Field",
@@ -139,7 +139,7 @@
                 "name": "updUserId",
                 "type": "int"
             },
-            "designerId": "c057c98a-5c70-4f6c-8c15-33ded221256a"
+            "designerId": "9c78f10e-f451-49f3-87ee-672beb11f795"
         },
         {
             "type": "Ext.data.Field",
@@ -153,7 +153,7 @@
                 "name": "updDt",
                 "type": "string"
             },
-            "designerId": "ac107ebd-0b67-4c2e-8343-18f2f7bddf92"
+            "designerId": "b2029a9a-511d-480b-ab6b-ed1259f777fe"
         }
     ]
 }

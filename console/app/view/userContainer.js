@@ -20,9 +20,7 @@ Ext.define('MyApp.view.userContainer', {
     requires: [
         'Ext.grid.Panel',
         'Ext.grid.View',
-        'Ext.button.Cycle',
-        'Ext.menu.Menu',
-        'Ext.menu.CheckItem',
+        'Ext.button.Button',
         'Ext.toolbar.Separator',
         'Ext.form.field.Text',
         'Ext.toolbar.Paging',
@@ -68,33 +66,11 @@ Ext.define('MyApp.view.userContainer', {
                                 {
                                     xtype: 'button',
                                     handler: function(button, e) {
-                                        var userWindow = Ext.create("widget.userWindow");
-
-                                        userWindow.show();
+                                        userConstants.me.showUserWindow('new');
                                     },
                                     id: 'createUserBtn',
                                     itemId: 'createUserBtn',
                                     text: 'Create New User'
-                                },
-                                {
-                                    xtype: 'cycle',
-                                    id: 'actionCycle',
-                                    itemId: 'actionCycle',
-                                    showText: true,
-                                    menu: {
-                                        xtype: 'menu',
-                                        id: 'actionList',
-                                        itemId: 'actionList',
-                                        width: 120,
-                                        items: [
-                                            {
-                                                xtype: 'menucheckitem',
-                                                id: 'actions',
-                                                itemId: 'actions',
-                                                text: 'Actions'
-                                            }
-                                        ]
-                                    }
                                 },
                                 {
                                     xtype: 'tbseparator'
@@ -123,7 +99,7 @@ Ext.define('MyApp.view.userContainer', {
                         {
                             xtype: 'numbercolumn',
                             maxWidth: 100,
-                            dataIndex: 'user_id',
+                            dataIndex: 'userId',
                             text: 'ID',
                             format: '0000'
                         },
@@ -131,19 +107,19 @@ Ext.define('MyApp.view.userContainer', {
                             xtype: 'gridcolumn',
                             hidden: true,
                             defaultWidth: 150,
-                            dataIndex: 'login_id',
+                            dataIndex: 'loginId',
                             text: 'Login_id'
                         },
                         {
                             xtype: 'gridcolumn',
                             defaultWidth: 150,
-                            dataIndex: 'user_name',
+                            dataIndex: 'userName',
                             text: 'User Name'
                         },
                         {
                             xtype: 'gridcolumn',
                             defaultWidth: 150,
-                            dataIndex: 'dept_name',
+                            dataIndex: 'deptName',
                             text: 'Dept Name'
                         },
                         {
@@ -162,7 +138,7 @@ Ext.define('MyApp.view.userContainer', {
                         {
                             xtype: 'datecolumn',
                             hidden: true,
-                            dataIndex: 'last_logon',
+                            dataIndex: 'lastLogon',
                             text: 'Last_logon'
                         },
                         {
@@ -173,6 +149,7 @@ Ext.define('MyApp.view.userContainer', {
                         },
                         {
                             xtype: 'gridcolumn',
+                            minWidth: 130,
                             defaultWidth: 200,
                             dataIndex: 'regDt',
                             text: 'Create Date'
@@ -209,7 +186,7 @@ Ext.define('MyApp.view.userContainer', {
                                                 Ext.Ajax.request({
                                                     url: GLOBAL.urlPrefix + "/user/delete",
                                                     params : {
-                                                        user_id : record.get("user_id")
+                                                        userId : record.get("userId")
                                                     },
                                                     disableCaching : true,
                                                     waitMsg: 'Delete User...',
@@ -308,12 +285,12 @@ Ext.define('MyApp.view.userContainer', {
                                                 {
                                                     xtype: 'textfield',
                                                     fieldLabel: 'User ID',
-                                                    name: 'user_id'
+                                                    name: 'userId'
                                                 },
                                                 {
                                                     xtype: 'textfield',
                                                     fieldLabel: 'User Name',
-                                                    name: 'user_name'
+                                                    name: 'userName'
                                                 }
                                             ]
                                         },
@@ -333,12 +310,13 @@ Ext.define('MyApp.view.userContainer', {
                                                 {
                                                     xtype: 'textfield',
                                                     fieldLabel: 'Login ID',
-                                                    name: 'login_id'
+                                                    name: 'loginId'
                                                 },
                                                 {
                                                     xtype: 'textfield',
                                                     fieldLabel: 'Password',
-                                                    name: 'passwd'
+                                                    name: 'passwd',
+                                                    inputType: 'password'
                                                 }
                                             ]
                                         },
@@ -358,7 +336,7 @@ Ext.define('MyApp.view.userContainer', {
                                                 {
                                                     xtype: 'textfield',
                                                     fieldLabel: 'Dept Name',
-                                                    name: 'dept_name'
+                                                    name: 'deptName'
                                                 },
                                                 {
                                                     xtype: 'textfield',
@@ -385,7 +363,7 @@ Ext.define('MyApp.view.userContainer', {
                                                     margins: '0 20 0 0',
                                                     padding: '',
                                                     fieldLabel: 'Last Logon',
-                                                    name: 'last_logon'
+                                                    name: 'lastLogon'
                                                 },
                                                 {
                                                     xtype: 'tbspacer',

@@ -98,7 +98,7 @@
                                 "labelStyle": "search",
                                 "labelWidth": 90,
                                 "layout|anchor": "100%",
-                                "name": "login_id",
+                                "name": "loginId",
                                 "style": null,
                                 "width": null
                             },

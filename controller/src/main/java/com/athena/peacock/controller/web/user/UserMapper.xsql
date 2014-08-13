@@ -39,7 +39,7 @@
 	</select>
 
 	<insert id="insertUser" parameterType="com.athena.peacock.controller.web.user.UserDto">
-		<selectKey keyProperty="user_id" resultType="int" order="BEFORE">SELECT IFNULL(MAX(user_id),0)+1 FROM users_tbl</selectKey>
+		<selectKey keyProperty="userId" resultType="int" order="BEFORE">SELECT IFNULL(MAX(user_id),0)+1 FROM users_tbl</selectKey>
 		INSERT INTO 
 			users_tbl
 		(
@@ -79,7 +79,7 @@
 		    ,user_name AS userName
 		    ,dept_name AS deptName
 		    ,email AS email
-		    ,last_logon AS lastLogin
+		    ,last_logon AS lastLogon
 		    ,reg_user_id AS regUserId
 		    ,reg_dt AS regDt
 		    ,upd_user_id AS updUserId
@@ -101,7 +101,7 @@
 			,upd_user_id = #{updUserId}
 			,upd_dt = NOW()
 		WHERE
-			user_id = #{user_id}
+			user_id = #{userId}
 	</update>
 	
 	<update id="updateLastLogon" parameterType="int">
@@ -110,14 +110,14 @@
 		SET
 			last_logon = NOW()
 		WHERE
-			user_id = #{user_id}
+			user_id = #{userId}
 	</update>
 	
 	<delete id="deleteUser" parameterType="int">
 		DELETE FROM 
 			users_tbl
 		WHERE
-			user_id = #{user_id}
+			user_id = #{userId}
 	</delete>
 	
 	<select id="getLoginUser" parameterType="com.athena.peacock.controller.web.user.UserDto" resultType="com.athena.peacock.controller.web.user.UserDto">
@@ -128,14 +128,14 @@
 		    ,user_name AS userName
 		    ,dept_name AS deptName
 		    ,email AS email
-		    ,last_logon AS lastLogin
+		    ,last_logon AS lastLogon
 		    ,reg_user_id AS regUserId
 		    ,reg_dt AS regDt
 		    ,upd_user_id AS updUserId
 		    ,upd_dt AS updDt
 		FROM users_tbl
 		WHERE 
-			login_id = #{login_id}
+			login_id = #{loginId}
 			AND hashed_passwd = password(#{passwd})
 	</select>
 
