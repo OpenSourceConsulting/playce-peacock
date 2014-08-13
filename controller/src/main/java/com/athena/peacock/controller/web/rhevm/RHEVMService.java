@@ -415,11 +415,21 @@ public class RHEVMService {
 		dto.setDisplay(vm.getDisplay().getType());
 		dto.setStatus(vm.getStatus().getState());
 		dto.setCreationTime(vm.getCreationTime().toString());
+		dto.setHaEnabled(Boolean.toString(vm.getHighAvailability().isEnabled()));
+		
+		int haPriority = vm.getHighAvailability().getPriority();
+		
+		if (haPriority == 1) {
+			dto.setHaPriority("Low");
+		} else if (haPriority == 2) {
+			dto.setHaPriority("Middle");
+		} else if (haPriority == 3) {
+			dto.setHaPriority("High");
+		}
 		
 		if(vm.getStartTime() != null) dto.setStartTime(vm.getStartTime().toString());
 		
 		// Optional information
-		
 		try {
 			// Getting IP Address
 			if( vm.getGuestInfo() != null ) {
