@@ -3,7 +3,7 @@
 
 <mapper namespace="HypervisorMapper">
 
-	<insert id="insertHypervisor" parameterType="com.athena.peacock.controller.web.hypervisor.HypervisorDto">
+	<insert id="insertHypervisor" parameterType="com.athena.peacock.controller.web.hypervisor.HypervisorDto" useGeneratedKeys="true" keyProperty="hypervisorId">
 		INSERT INTO hypervisor_tbl
 					(HYPERVISOR_ID, HYPERVISOR_TYPE, RHEVM_NAME, RHEVM_PROTOCOL, RHEVM_PORT, RHEVM_DOMAIN,
 					 RHEVM_HOST, RHEVM_USERNAME, RHEVM_PASSWORD, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT)
