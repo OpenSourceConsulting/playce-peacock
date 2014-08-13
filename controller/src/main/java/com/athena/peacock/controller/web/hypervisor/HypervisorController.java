@@ -33,7 +33,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -118,7 +117,6 @@ public class HypervisorController {
 	/**
 	 * <pre>
 	 * 하이퍼바이저 수정
-	 * Update는 ExtJS Grid Panel 내에서 직접 수정되면서 JSON 형태로 전송되며 Hypervisor로의 변환을 위해 @ReuqestBody를 추가
 	 * </pre>
 	 * @param request
 	 * @param jsonRes
@@ -127,7 +125,7 @@ public class HypervisorController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/updateHypervisor")
-	public @ResponseBody SimpleJsonResponse updateHypervisor(HttpServletRequest request, SimpleJsonResponse jsonRes, @RequestBody HypervisorDto hypervisor) throws Exception {
+	public @ResponseBody SimpleJsonResponse updateHypervisor(HttpServletRequest request, SimpleJsonResponse jsonRes, HypervisorDto hypervisor) throws Exception {
 		Assert.notNull(hypervisor.getHypervisorId(), "hypervisorId can not be null.");
 		
 		try {
