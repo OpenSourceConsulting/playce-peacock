@@ -35,6 +35,9 @@ import org.springframework.web.client.RestClientException;
 
 import com.athena.peacock.controller.common.component.RHEVMRestTemplate;
 import com.athena.peacock.controller.common.component.RHEVMRestTemplateManager;
+import com.athena.peacock.controller.web.rhevm.domain.Disk;
+import com.athena.peacock.controller.web.rhevm.domain.Disks;
+import com.athena.peacock.controller.web.rhevm.dto.DiskDto;
 import com.athena.peacock.controller.web.rhevm.dto.NetworkDto;
 import com.athena.peacock.controller.web.rhevm.dto.TemplateDto;
 import com.athena.peacock.controller.web.rhevm.dto.VMDto;
@@ -177,12 +180,12 @@ public class RHEVMService {
 	}
 	
 	/**
-	 * RHEV에 생성되어 있는 가상머신의 목록을 조회한다.
+	 * 지정된 RHEV-M(hypervisorId)에 해당하는 특정 Virtual Machine의 네트워크 인터페이스 조회
 	 * @return 가상 머신 목록
 	 * @throws RestClientException
 	 * @throws Exception
 	 */
-	public List<NetworkDto> getNicList(int hypervisorId, String vmId) throws RestClientException, Exception {
+	public List<NetworkDto> getVMNics(int hypervisorId, String vmId) throws RestClientException, Exception {
 		List<NetworkDto> networkDtoList = new ArrayList<NetworkDto>();
 		String callUrl = RHEVApi.VMS + "/" + vmId + "/nics";
 		Nics nics = getRHEVMRestTemplate(hypervisorId).submit(callUrl, HttpMethod.GET, Nics.class);
@@ -193,6 +196,65 @@ public class RHEVMService {
 			networkDtoList.add(makeDto(nic));
 		}
 		return networkDtoList;
+	}
+	
+	/**
+	 * 지정된 RHEV-M(hypervisorId)에 해당하는 특정 Virtual Machine의 Disk 정보 조회
+	 * @return 가상 머신 목록
+	 * @throws RestClientException
+	 * @throws Exception
+	 */
+	public List<DiskDto> getVMDisks(int hypervisorId, String vmId) throws RestClientException, Exception {
+		List<DiskDto> diskDtoList = new ArrayList<DiskDto>();
+		String callUrl = RHEVApi.VMS + "/" + vmId + "/disks";
+		Disks disks = getRHEVMRestTemplate(hypervisorId).submit(callUrl, HttpMethod.GET, Disks.class);
+
+		List<Disk> diskList = disks.getDisks();
+		
+		for (Disk disk : diskList) {
+			diskDtoList.add(makeDto(disk));
+		}
+		
+		return diskDtoList;
+	}
+	
+	/**
+	 * 지정된 RHEV-M(hypervisorId)에 해당하는 특정 Template의 네트워크 인터페이스 조회
+	 * @return 가상 머신 목록
+	 * @throws RestClientException
+	 * @throws Exception
+	 */
+	public List<NetworkDto> getTemplateNics(int hypervisorId, String templateId) throws RestClientException, Exception {
+		List<NetworkDto> networkDtoList = new ArrayList<NetworkDto>();
+		String callUrl = RHEVApi.TEMPLATES + "/" + templateId + "/nics";
+		Nics nics = getRHEVMRestTemplate(hypervisorId).submit(callUrl, HttpMethod.GET, Nics.class);
+
+		List<NIC> nicList = nics.getNics();
+		
+		for( NIC nic : nicList) {
+			networkDtoList.add(makeDto(nic));
+		}
+		return networkDtoList;
+	}
+	
+	/**
+	 * 지정된 RHEV-M(hypervisorId)에 해당하는 특정 Template의 Disk 정보 조회
+	 * @return 가상 머신 목록
+	 * @throws RestClientException
+	 * @throws Exception
+	 */
+	public List<DiskDto> getTemplateDisks(int hypervisorId, String templateId) throws RestClientException, Exception {
+		List<DiskDto> diskDtoList = new ArrayList<DiskDto>();
+		String callUrl = RHEVApi.TEMPLATES + "/" + templateId + "/disks";
+		Disks disks = getRHEVMRestTemplate(hypervisorId).submit(callUrl, HttpMethod.GET, Disks.class);
+
+		List<Disk> diskList = disks.getDisks();
+		
+		for (Disk disk : diskList) {
+			diskDtoList.add(makeDto(disk));
+		}
+		
+		return diskDtoList;
 	}
 		
 	/**
@@ -311,7 +373,26 @@ public class RHEVMService {
 		dto.setType(nic.getInterface());
 		return dto;
 	}
+	
+	/**
+	 * Disk로부터 값을 추출하여 DiskDto로 맵핑시킨다.
+	 * 
+	 * @param disk
+	 * @return
+	 */
+	private DiskDto makeDto(Disk disk) {
+		DiskDto dto = new DiskDto();
+		
+		dto.setActive(disk.getActive());
+		dto.setVirtualSize((disk.getSize()/1024/1024) + "MB");
+		dto.setActualSize((disk.getActualSize()/1024/1024) + "MB");
+		dto.setBootable(Boolean.toString(disk.isBootable()));
+		dto.setSharable(Boolean.toString(disk.isShareable()));
+		dto.setInterface(disk.getInterface());
+		dto.setStatus(disk.getStatus().getState());
 
+		return dto;
+	}
 
 	/**
 	 * Internal하게 VM으로부터 필요한 데이터를 추출하도록 한다. 

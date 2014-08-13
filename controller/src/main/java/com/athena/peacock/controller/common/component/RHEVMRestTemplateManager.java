@@ -22,12 +22,27 @@
  */
 package com.athena.peacock.controller.common.component;
 
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.Marshaller;
+import javax.xml.namespace.QName;
+
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.http.HttpMethod;
+import org.springframework.stereotype.Component;
+
 import com.athena.peacock.controller.web.hypervisor.HypervisorDto;
+import com.athena.peacock.controller.web.hypervisor.HypervisorService;
+import com.athena.peacock.controller.web.rhevm.RHEVApi;
+import com.athena.peacock.controller.web.rhevm.domain.Disks;
 
 /**
  * <pre>
@@ -36,9 +51,23 @@ import com.athena.peacock.controller.web.hypervisor.HypervisorDto;
  * @author Sang-cheon Park
  * @version 1.0
  */
-public class RHEVMRestTemplateManager {
+@Component
+public class RHEVMRestTemplateManager implements InitializingBean {
 
 	private static Map<Integer, RHEVMRestTemplate> templates = new ConcurrentHashMap<Integer, RHEVMRestTemplate>();
+	
+	@Inject
+	@Named("hypervisorService")
+	private HypervisorService hypervisorService;
+	
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		List<HypervisorDto> hypervisorList = hypervisorService.getHypervisorList();
+		
+		for (HypervisorDto hypervisor : hypervisorList) {
+			setRHEVMRestTemplate(hypervisor);
+		}
+	}
 	
 	/**
 	 * <pre>
@@ -83,5 +112,29 @@ public class RHEVMRestTemplateManager {
 	public static List<RHEVMRestTemplate> getAllTemplates() {
 		return new ArrayList<RHEVMRestTemplate>(templates.values());
 	}//end of getAllTemplates()
+	
+	public static void main(String[] args) throws Exception {
+		RHEVMRestTemplate rhevTemplate = new RHEVMRestTemplate("HTTPS", "121.138.109.61", "internal", "8543", "admin", "redhat");
+
+		String callUrl = RHEVApi.VMS + "/907df084-d7d6-4ecd-bf23-20531df58922/disks";
+		Disks disks = rhevTemplate.submit(callUrl, HttpMethod.GET, Disks.class);
+		
+		JAXBContext context = JAXBContext.newInstance(Disks.class);
+		Marshaller marshaller = context.createMarshaller();
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+
+		StringWriter writer = new StringWriter();
+		
+		QName qName = new QName("com.redhat.rhevm.api.model", "disks");
+	    JAXBElement<Disks> root = new JAXBElement<Disks>(qName, Disks.class, disks);
+		
+	    //*
+	    marshaller.marshal(root, writer);
+	    /*/
+		marshaller.marshal(disks, writer);
+		//*/
+		
+		System.out.println(writer.toString());
+	}
 }
 //end of RHEVRestTemplateManager.java

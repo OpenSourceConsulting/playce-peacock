@@ -63,7 +63,7 @@ public class RHEVMController {
 
 	/**
 	 * <pre>
-	 * 지정된 RHEV-M(rhevmId)에 해당하는 Virtual Machine 목록을 조회
+	 * 지정된 RHEV-M(hypervisorId)에 해당하는 Virtual Machine 목록을 조회
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto
@@ -71,7 +71,7 @@ public class RHEVMController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/vms/list")
-	public @ResponseBody GridJsonResponse list(GridJsonResponse jsonRes, VMDto dto) throws Exception {
+	public @ResponseBody GridJsonResponse getVMList(GridJsonResponse jsonRes, VMDto dto) throws Exception {
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
 		
 		jsonRes.setList(rhevmService.getVirtualList(dto.getHypervisorId()));
@@ -80,7 +80,7 @@ public class RHEVMController {
 	
 	/**
 	 * <pre>
-	 * 지정된 RHEV-M(rhevmId)에 해당하는 특정 Virtual Machine을 조회
+	 * 지정된 RHEV-M(hypervisorId)에 해당하는 특정 Virtual Machine을 조회
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto
@@ -88,7 +88,7 @@ public class RHEVMController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/vms/info")
-	public @ResponseBody SimpleJsonResponse retrieve(SimpleJsonResponse jsonRes, VMDto dto) throws Exception {
+	public @ResponseBody SimpleJsonResponse getVMInfo(SimpleJsonResponse jsonRes, VMDto dto) throws Exception {
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
 		Assert.notNull(dto.getVmId(), "vmId must not be null.");
 		
@@ -98,7 +98,7 @@ public class RHEVMController {
 	
 	/**
 	 * <pre>
-	 * 지정된 Virtual Machine에 할당된 네트워크 인터페이스 조회
+	 * 지정된 RHEV-M(hypervisorId)에 해당하는 특정 Virtual Machine의 네트워크 인터페이스 조회
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto
@@ -106,16 +106,35 @@ public class RHEVMController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/vms/nics")
-	public @ResponseBody GridJsonResponse getNics(GridJsonResponse jsonRes, VMDto dto) throws Exception {
+	public @ResponseBody GridJsonResponse getVMNics(GridJsonResponse jsonRes, VMDto dto) throws Exception {
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
+		Assert.notNull(dto.getVmId(), "vmId must not be null.");
 		
-		jsonRes.setList(rhevmService.getNicList(dto.getHypervisorId(), dto.getVmId()));
+		jsonRes.setList(rhevmService.getVMNics(dto.getHypervisorId(), dto.getVmId()));
 		return jsonRes;
 	}
 	
 	/**
 	 * <pre>
-	 * 지정된 RHEV-M(rhevmId)에 해당하는 특정 Virtual Machine을 조회
+	 * 지정된 RHEV-M(hypervisorId)에 해당하는 특정 Virtual Machine의 Disk 정보 조회
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/vms/disks")
+	public @ResponseBody GridJsonResponse getVMDisks(GridJsonResponse jsonRes, VMDto dto) throws Exception {
+		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
+		Assert.notNull(dto.getVmId(), "vmId must not be null.");
+		
+		jsonRes.setList(rhevmService.getVMDisks(dto.getHypervisorId(), dto.getVmId()));
+		return jsonRes;
+	}
+	
+	/**
+	 * <pre>
+	 * 지정된 RHEV-M(hypervisorId)에 해당하는 Template 목록을 조회
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto
@@ -141,7 +160,7 @@ public class RHEVMController {
 	
 	/**
 	 * <pre>
-	 * RHEV-M의 템플릿을 이용하여 신규 VM을 생성한다. 
+	 * 지정된 RHEV-M(hypervisorId)에 해당하는 특정 Template 정보를 조회한다.
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto
@@ -149,7 +168,7 @@ public class RHEVMController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/templates/info")
-	public @ResponseBody SimpleJsonResponse getTemplate(SimpleJsonResponse jsonRes, TemplateDto dto) throws Exception {
+	public @ResponseBody SimpleJsonResponse getTemplateInfo(SimpleJsonResponse jsonRes, TemplateDto dto) throws Exception {
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
 		Assert.notNull(dto.getTemplateId(), "templateId must not be null.");
 		
@@ -168,7 +187,43 @@ public class RHEVMController {
 	
 	/**
 	 * <pre>
-	 * RHEV-M의 템플릿을 이용하여 신규 VM을 생성한다. 
+	 * 지정된 RHEV-M(hypervisorId)에 해당하는 특정 Template의 네트워크 인터페이스 조회
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/templates/nics")
+	public @ResponseBody GridJsonResponse getTemplateNics(GridJsonResponse jsonRes, TemplateDto dto) throws Exception {
+		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
+		Assert.notNull(dto.getTemplateId(), "templateId must not be null.");
+		
+		jsonRes.setList(rhevmService.getTemplateNics(dto.getHypervisorId(), dto.getTemplateId()));
+		return jsonRes;
+	}
+	
+	/**
+	 * <pre>
+	 * 지정된 RHEV-M(hypervisorId)에 해당하는 특정 Template의 Disk 정보 조회
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/templates/disks")
+	public @ResponseBody GridJsonResponse getTemplateDisks(GridJsonResponse jsonRes, TemplateDto dto) throws Exception {
+		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
+		Assert.notNull(dto.getTemplateId(), "templateId must not be null.");
+		
+		jsonRes.setList(rhevmService.getTemplateDisks(dto.getHypervisorId(), dto.getTemplateId()));
+		return jsonRes;
+	}
+	
+	/**
+	 * <pre>
+	 * RHEV-M의 템플릿을 이용하여 신규 VM을 생성한다.
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto
