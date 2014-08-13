@@ -77,7 +77,7 @@ public class UserService {
 		UserDto user = dao.getLoginUser(loginId, passwd);
 		
 		if (user != null) {
-			dao.updateLastLogon(user.getUser_id());
+			dao.updateLastLogon(user.getUserId());
 			return user;
 		} else {
 			return null;

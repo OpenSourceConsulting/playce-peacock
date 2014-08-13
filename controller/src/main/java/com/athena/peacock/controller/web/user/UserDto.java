@@ -37,56 +37,57 @@ import com.athena.peacock.controller.web.common.dto.BaseDto;
  */
 public class UserDto extends BaseDto {
 	
-	private static final long serialVersionUID = -4346478396894103423L;
+	private static final long serialVersionUID = -1083153050593982734L;
 	
-	private int user_id;
-	private String login_id;
-	private String user_name;
+	private int userId;
+	private String loginId;
+	private String userName;
 	private String passwd;
-	private String dept_name;
+	private String hassedPasswd;
+	private String deptName;
 	private String email;
-	private Date last_logon;
+	private Date lastLogon;
 
 	/**
-	 * @return the user_id
+	 * @return the userId
 	 */
-	public int getUser_id() {
-		return user_id;
+	public int getUserId() {
+		return userId;
 	}
 
 	/**
-	 * @param user_id the user_id to set
+	 * @param userId the userId to set
 	 */
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	/**
-	 * @return the login_id
+	 * @return the loginId
 	 */
-	public String getLogin_id() {
-		return login_id;
+	public String getLoginId() {
+		return loginId;
 	}
 
 	/**
-	 * @param login_id the login_id to set
+	 * @param loginId the loginId to set
 	 */
-	public void setLogin_id(String login_id) {
-		this.login_id = login_id;
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
 	}
 
 	/**
-	 * @return the user_name
+	 * @return the userName
 	 */
-	public String getUser_name() {
-		return user_name;
+	public String getUserName() {
+		return userName;
 	}
 
 	/**
-	 * @param user_name the user_name to set
+	 * @param userName the userName to set
 	 */
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	/**
@@ -104,17 +105,31 @@ public class UserDto extends BaseDto {
 	}
 
 	/**
-	 * @return the dept_name
+	 * @return the hassedPasswd
 	 */
-	public String getDept_name() {
-		return dept_name;
+	public String getHassedPasswd() {
+		return hassedPasswd;
 	}
 
 	/**
-	 * @param dept_name the dept_name to set
+	 * @param hassedPasswd the hassedPasswd to set
 	 */
-	public void setDept_name(String dept_name) {
-		this.dept_name = dept_name;
+	public void setHassedPasswd(String hassedPasswd) {
+		this.hassedPasswd = hassedPasswd;
+	}
+
+	/**
+	 * @return the deptName
+	 */
+	public String getDeptName() {
+		return deptName;
+	}
+
+	/**
+	 * @param deptName the deptName to set
+	 */
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
 	}
 
 	/**
@@ -132,18 +147,17 @@ public class UserDto extends BaseDto {
 	}
 
 	/**
-	 * @return the last_logon
+	 * @return the lastLogon
 	 */
-	public Date getLast_logon() {
-		return last_logon;
+	public Date getLastLogon() {
+		return lastLogon;
 	}
 
 	/**
-	 * @param last_logon the last_logon to set
+	 * @param lastLogon the lastLogon to set
 	 */
-	public void setLast_logon(Date last_logon) {
-		this.last_logon = last_logon;
+	public void setLastLogon(Date lastLogon) {
+		this.lastLogon = lastLogon;
 	}
-
 }
 //end of User.java

@@ -76,7 +76,7 @@ public class UserDao extends AbstractBaseDao {
 	
 	public UserDto getLoginUser(String loginId, String passwd){
 		UserDto user = new UserDto();
-		user.setLogin_id(loginId);
+		user.setLoginId(loginId);
 		user.setPasswd(passwd);
 		
 		return sqlSession.selectOne("UserMapper.getLoginUser", user);

@@ -94,8 +94,8 @@ public class HypervisorController {
 		try {
 			UserDto userDto = (UserDto)request.getSession().getAttribute(UserController.SESSION_USER_KEY);
 			if (userDto != null) {
-				hypervisor.setRegUserId(userDto.getUser_id());
-				hypervisor.setUpdUserId(userDto.getUser_id());
+				hypervisor.setRegUserId(userDto.getUserId());
+				hypervisor.setUpdUserId(userDto.getUserId());
 			}
 			
 			hypervisorService.insertHypervisor(hypervisor);
@@ -130,8 +130,8 @@ public class HypervisorController {
 		try {
 			UserDto userDto = (UserDto)request.getSession().getAttribute(UserController.SESSION_USER_KEY);
 			if (userDto != null) {
-				hypervisor.setRegUserId(userDto.getUser_id());
-				hypervisor.setUpdUserId(userDto.getUser_id());
+				hypervisor.setRegUserId(userDto.getUserId());
+				hypervisor.setUpdUserId(userDto.getUserId());
 			}
 			
 			hypervisorService.updateHypervisor(hypervisor);

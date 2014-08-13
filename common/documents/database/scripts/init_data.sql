@@ -39,5 +39,5 @@ VALUES (8,3,NULL,'${INSTALL_LOCATION}/bin/','env.sh','jbossHome,serverHome,serve
 INSERT INTO peacock.config_repo_tbl (CONFIG_FILE_ID,SOFTWARE_ID,CONFIG_FILE_SOURCE_LOCATION,CONFIG_FILE_TARGET_LOCATION,CONFIG_FILE_NAME,PROPERTIES,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
 VALUES (9,4,NULL,'${INSTALL_LOCATION}/bin/','env.sh','javaHome,serverName,catalinaHome,catalinaBase,portOffset,compUser',1,NOW(),1,NOW());
 
-INSERT INTO users_tbl (USER_ID, LOGIN_ID, HASHED_PASSWD, USER_NAME, DEPT_NAME, EMAIL, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
-VALUES ('1', 'admin', password('admin'), 'Administrator', '개발팀', 'admin@osci.kr', 1, NOW(), 1, NOW());
+INSERT INTO users_tbl (USER_ID, LOGIN_ID, PASSWD, HASHED_PASSWD, USER_NAME, DEPT_NAME, EMAIL, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
+VALUES ('1', 'admin', 'admin', password('admin'), 'Administrator', '개발팀', 'admin@osci.kr', 1, NOW(), 1, NOW());

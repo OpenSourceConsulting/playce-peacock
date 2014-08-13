@@ -84,8 +84,8 @@ public class AutoScalingController {
 		try {
 			UserDto userDto = (UserDto)request.getSession().getAttribute(UserController.SESSION_USER_KEY);
 			if (userDto != null) {
-				autoScaling.setRegUserId(userDto.getUser_id());
-				autoScaling.setUpdUserId(userDto.getUser_id());
+				autoScaling.setRegUserId(userDto.getUserId());
+				autoScaling.setUpdUserId(userDto.getUserId());
 			}
 			
 			autoScalingService.insertAutoScaling(autoScaling);
@@ -109,8 +109,8 @@ public class AutoScalingController {
 		try {
 			UserDto userDto = (UserDto)request.getSession().getAttribute(UserController.SESSION_USER_KEY);
 			if (userDto != null) {
-				autoScaling.setRegUserId(userDto.getUser_id());
-				autoScaling.setUpdUserId(userDto.getUser_id());
+				autoScaling.setRegUserId(userDto.getUserId());
+				autoScaling.setUpdUserId(userDto.getUserId());
 			}
 			
 			autoScalingService.updateAutoScaling(autoScaling);
@@ -132,8 +132,8 @@ public class AutoScalingController {
 		try {
 			UserDto userDto = (UserDto)request.getSession().getAttribute(UserController.SESSION_USER_KEY);
 			if (userDto != null) {
-				autoScaling.setRegUserId(userDto.getUser_id());
-				autoScaling.setUpdUserId(userDto.getUser_id());
+				autoScaling.setRegUserId(userDto.getUserId());
+				autoScaling.setUpdUserId(userDto.getUserId());
 			}
 			
 			autoScalingService.deleteAutoScaling(autoScaling);

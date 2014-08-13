@@ -160,7 +160,7 @@ public class SoftwareController {
 		try {
 			UserDto userDto = (UserDto)request.getSession().getAttribute(UserController.SESSION_USER_KEY);
 			if (userDto != null) {
-				provisioningDetail.setUserId(userDto.getUser_id());
+				provisioningDetail.setUserId(userDto.getUserId());
 			}
 			
 			// 기 설치 여부 검사
@@ -227,7 +227,7 @@ public class SoftwareController {
 		try {
 			UserDto userDto = (UserDto)request.getSession().getAttribute(UserController.SESSION_USER_KEY);
 			if (userDto != null) {
-				provisioningDetail.setUserId(userDto.getUser_id());
+				provisioningDetail.setUserId(userDto.getUserId());
 			}
 			
 			// 기 삭제 여부 검사

@@ -7,12 +7,13 @@
 
 	<sql id="getUserListBase">
 		SELECT 
-			a.user_id
-		    ,a.login_id
-		    ,a.user_name
-		    ,a.dept_name
-		    ,a.email
-		    ,a.last_logon
+			a.user_id AS userId
+		    ,a.login_id AS loginId
+		    ,a.user_name AS userName
+		    ,a.dept_name AS deptName
+		    ,a.passwd AS passwd
+		    ,a.email AS email
+		    ,a.last_logon AS lastLogon
 		    ,a.reg_user_id as regUserId
 		    ,a.reg_dt as regDt
 		    ,a.upd_user_id as updUserId
@@ -44,6 +45,7 @@
 		(
 			user_id
 		    ,login_id
+		    ,passwd
 		    ,hashed_passwd
 		    ,user_name
 		    ,dept_name
@@ -54,11 +56,12 @@
 		    ,upd_dt
 		)
 		VALUES (
-			#{user_id}
-			,#{login_id}
+			#{userId}
+			,#{loginId}
+			,#{passwd}
 			,password(#{passwd})
-			,#{user_name}
-			,#{dept_name}
+			,#{userName}
+			,#{deptName}
 			,#{email}
 			,#{regUserId}
 			,NOW()
@@ -70,16 +73,17 @@
 
 	<select id="getUser" parameterType="int" resultType="com.athena.peacock.controller.web.user.UserDto">
 		SELECT 
-			user_id
-		    ,login_id
-		    ,user_name
-		    ,dept_name
-		    ,email
-		    ,last_logon
-		    ,reg_user_id
-		    ,reg_dt
-		    ,upd_user_id
-		    ,upd_dt
+			user_id AS userId
+		    ,login_id AS loginId
+		    ,passwd AS passwd
+		    ,user_name AS userName
+		    ,dept_name AS deptName
+		    ,email AS email
+		    ,last_logon AS lastLogin
+		    ,reg_user_id AS regUserId
+		    ,reg_dt AS regDt
+		    ,upd_user_id AS updUserId
+		    ,upd_dt AS updDt
 		FROM users_tbl
 		WHERE 
 			user_id = #{userId}
@@ -89,10 +93,10 @@
 		UPDATE 
 			users_tbl
 		SET
-			login_id = #{login_id}
+			login_id = #{loginId}
 			,hashed_passwd = password(#{passwd})
-			,user_name = #{user_name}
-			,dept_name = #{dept_name}
+			,user_name = #{userName}
+			,dept_name = #{deptName}
 			,email = #{email}
 			,upd_user_id = #{updUserId}
 			,upd_dt = NOW()
@@ -118,16 +122,17 @@
 	
 	<select id="getLoginUser" parameterType="com.athena.peacock.controller.web.user.UserDto" resultType="com.athena.peacock.controller.web.user.UserDto">
 		SELECT 
-			user_id
-		    ,login_id
-		    ,user_name
-		    ,dept_name
-		    ,email
-		    ,last_logon
-		    ,reg_user_id
-		    ,reg_dt
-		    ,upd_user_id
-		    ,upd_dt
+			user_id AS userId
+		    ,login_id AS loginId
+		    ,passwd AS passwd
+		    ,user_name AS userName
+		    ,dept_name AS deptName
+		    ,email AS email
+		    ,last_logon AS lastLogin
+		    ,reg_user_id AS regUserId
+		    ,reg_dt AS regDt
+		    ,upd_user_id AS updUserId
+		    ,upd_dt AS updDt
 		FROM users_tbl
 		WHERE 
 			login_id = #{login_id}

@@ -135,8 +135,8 @@ public class LoadBalancerController {
 		try {
 			UserDto userDto = (UserDto)request.getSession().getAttribute(UserController.SESSION_USER_KEY);
 			if (userDto != null) {
-				loadBalancer.setRegUserId(userDto.getUser_id());
-				loadBalancer.setUpdUserId(userDto.getUser_id());
+				loadBalancer.setRegUserId(userDto.getUserId());
+				loadBalancer.setUpdUserId(userDto.getUserId());
 			}
 			
 			loadBalancerService.createLoadBalancer(loadBalancer);
@@ -169,8 +169,8 @@ public class LoadBalancerController {
 		try {
 			UserDto userDto = (UserDto)request.getSession().getAttribute(UserController.SESSION_USER_KEY);
 			if (userDto != null) {
-				loadBalancer.setRegUserId(userDto.getUser_id());
-				loadBalancer.setUpdUserId(userDto.getUser_id());
+				loadBalancer.setRegUserId(userDto.getUserId());
+				loadBalancer.setUpdUserId(userDto.getUserId());
 			}
 			
 			loadBalancerService.insertLBMachineMap(loadBalancer);
@@ -203,8 +203,8 @@ public class LoadBalancerController {
 		try {
 			UserDto userDto = (UserDto)request.getSession().getAttribute(UserController.SESSION_USER_KEY);
 			if (userDto != null) {
-				loadBalancer.setRegUserId(userDto.getUser_id());
-				loadBalancer.setUpdUserId(userDto.getUser_id());
+				loadBalancer.setRegUserId(userDto.getUserId());
+				loadBalancer.setUpdUserId(userDto.getUserId());
 			}
 			
 			loadBalancerService.deleteLBMachineMap(loadBalancer);
@@ -227,8 +227,8 @@ public class LoadBalancerController {
 		try {
 			UserDto userDto = (UserDto)request.getSession().getAttribute(UserController.SESSION_USER_KEY);
 			if (userDto != null) {
-				lbListener.setRegUserId(userDto.getUser_id());
-				lbListener.setUpdUserId(userDto.getUser_id());
+				lbListener.setRegUserId(userDto.getUserId());
+				lbListener.setUpdUserId(userDto.getUserId());
 			}
 			
 			lbListenerService.insertLBListener(lbListener);
@@ -251,8 +251,8 @@ public class LoadBalancerController {
 		try {
 			UserDto userDto = (UserDto)request.getSession().getAttribute(UserController.SESSION_USER_KEY);
 			if (userDto != null) {
-				lbListener.setRegUserId(userDto.getUser_id());
-				lbListener.setUpdUserId(userDto.getUser_id());
+				lbListener.setRegUserId(userDto.getUserId());
+				lbListener.setUpdUserId(userDto.getUserId());
 			}
 			
 			lbListenerService.updateLBListener(lbListener);
@@ -275,8 +275,8 @@ public class LoadBalancerController {
 		try {
 			UserDto userDto = (UserDto)request.getSession().getAttribute(UserController.SESSION_USER_KEY);
 			if (userDto != null) {
-				lbListener.setRegUserId(userDto.getUser_id());
-				lbListener.setUpdUserId(userDto.getUser_id());
+				lbListener.setRegUserId(userDto.getUserId());
+				lbListener.setUpdUserId(userDto.getUserId());
 			}
 			
 			lbListenerService.deleteLBListener(lbListener);
