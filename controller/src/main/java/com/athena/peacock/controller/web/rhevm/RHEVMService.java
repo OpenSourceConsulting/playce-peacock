@@ -341,7 +341,7 @@ public class RHEVMService {
 		dto.setDisplay(template.getDisplay().getType());
 		dto.setCreationTime(template.getCreationTime().toString());
 		
-		dto.setMemory((template.getMemory()/1024/1024) + "MB");
+		dto.setMemory((template.getMemory()/1024/1024) + "");
 		dto.setSockets(template.getCpu().getTopology().getSockets());
 		dto.setCores(template.getCpu().getTopology().getCores());
 		
@@ -407,8 +407,8 @@ public class RHEVMService {
 		DiskDto dto = new DiskDto();
 		
 		dto.setActive(disk.getActive());
-		dto.setVirtualSize((disk.getSize()/1024/1024) + "MB");
-		dto.setActualSize((disk.getActualSize()/1024/1024) + "MB");
+		dto.setVirtualSize((disk.getSize()/1024/1024) + "");
+		dto.setActualSize((disk.getActualSize()/1024/1024) + "");
 		dto.setBootable(Boolean.toString(disk.isBootable()));
 		dto.setSharable(Boolean.toString(disk.isShareable()));
 		dto.setInterface(disk.getInterface());
@@ -430,7 +430,7 @@ public class RHEVMService {
 		dto.setType(vm.getType());
 
 		dto.setOs(vm.getOs().getType());
-		dto.setMemory((vm.getMemory()/1024/1024) + "MB");
+		dto.setMemory((vm.getMemory()/1024/1024) + "");
 		dto.setSocket(vm.getCpu().getTopology().getSockets());
 		dto.setCores(vm.getCpu().getTopology().getCores());
 		dto.setOrigin(vm.getOrigin());
