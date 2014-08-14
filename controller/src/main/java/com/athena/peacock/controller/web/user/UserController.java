@@ -75,12 +75,12 @@ public class UserController {
 		
 		try{
 			service.insertUser(user);
-			jsonRes.setMsg("Create success.");
+			jsonRes.setMsg("사용자가 정상적으로 생성되었습니다.");
 			
 		}catch(Exception e){
 			
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Create fail.");
+			jsonRes.setMsg("사용자 생성 중 에러가 발생하였습니다.");
 			
 			e.printStackTrace();
 		}
@@ -94,12 +94,12 @@ public class UserController {
 		
 		try{
 			service.updateUser(user);
-			jsonRes.setMsg("Update success.");
+			jsonRes.setMsg("사용자 정보가 정상적으로 수정되었습니다.");
 			
 		}catch(Exception e){
 			
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Update fail.");
+			jsonRes.setMsg("사용자 정보 수정 중 에러가 발생하였습니다.");
 			
 			e.printStackTrace();
 		}
@@ -113,12 +113,12 @@ public class UserController {
 		
 		try{
 			service.deleteUser(userId);
-			jsonRes.setMsg("Delete success.");
+			jsonRes.setMsg("사용자 정보가 정상적으로 삭제되었습니다.");
 			
 		}catch(Exception e){
 			
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Delete fail.");
+			jsonRes.setMsg("사용자 정보 삭제 중 에러가 발생하였습니다.");
 			
 			e.printStackTrace();
 		}
@@ -156,7 +156,7 @@ public class UserController {
 		
 		session.invalidate();
 		
-		jsonRes.setMsg("logout success.");
+		jsonRes.setMsg("로그아웃 되었습니다.");
 		
 		return jsonRes;
 	}
