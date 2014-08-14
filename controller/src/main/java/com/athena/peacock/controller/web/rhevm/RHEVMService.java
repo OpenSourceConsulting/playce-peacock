@@ -31,6 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestClientException;
 
 import com.athena.peacock.controller.common.component.RHEVMRestTemplate;
@@ -78,11 +79,16 @@ public class RHEVMService {
 	 * @throws RestClientException
 	 * @throws Exception
 	 */
-	public List<VMDto> getVirtualList(int hypervisorId) throws RestClientException, Exception {
-		
+	public List<VMDto> getVirtualList(int hypervisorId, String name) throws RestClientException, Exception {
 		List<VMDto> vmDtoList = new ArrayList<VMDto>();
 		
-		VMs vms = getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.VMS, HttpMethod.GET, VMs.class);
+		String url = RHEVApi.VMS;
+		
+		if (!StringUtils.isEmpty(name)) {
+			url =  url + "?search=" + name;
+		}
+		
+		VMs vms = getRHEVMRestTemplate(hypervisorId).submit(url, HttpMethod.GET, VMs.class);
 		List<VM> vmList = vms.getVMs();
 		
 		for( VM vm : vmList) {
@@ -97,10 +103,16 @@ public class RHEVMService {
 	 * @throws RestClientException
 	 * @throws Exception
 	 */
-	public List<TemplateDto> getTemplateList(int hypervisorId)  throws RestClientException, Exception {
+	public List<TemplateDto> getTemplateList(int hypervisorId, String name)  throws RestClientException, Exception {
 		List<TemplateDto> templateDtoList = new ArrayList<TemplateDto>();
 		
-		Templates templates = getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.TEMPLATES, HttpMethod.GET, Templates.class);
+		String url = RHEVApi.TEMPLATES;
+		
+		if (!StringUtils.isEmpty(name)) {
+			url =  url + "?search=" + name;
+		}
+		
+		Templates templates = getRHEVMRestTemplate(hypervisorId).submit(url, HttpMethod.GET, Templates.class);
 		List<Template> templateList = templates.getTemplates();
 		
 		for( Template template : templateList) {

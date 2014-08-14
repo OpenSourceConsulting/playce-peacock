@@ -75,7 +75,7 @@ public class RHEVMController {
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
 		
 		try {
-			jsonRes.setList(rhevmService.getVirtualList(dto.getHypervisorId()));
+			jsonRes.setList(rhevmService.getVirtualList(dto.getHypervisorId(), dto.getName()));
 			jsonRes.setMsg("VM 목록이 정상적으로 조회되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
@@ -182,7 +182,7 @@ public class RHEVMController {
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
 		
 		try {
-			jsonRes.setList(rhevmService.getTemplateList(dto.getHypervisorId()));
+			jsonRes.setList(rhevmService.getTemplateList(dto.getHypervisorId(), dto.getName()));
 			jsonRes.setMsg("템플릿 목록이 정상적으로 조회되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
