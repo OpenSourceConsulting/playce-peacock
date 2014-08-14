@@ -377,7 +377,7 @@ public class RHEVMService {
 		dto.setName(nic.getName());
 		dto.setType(nic.getInterface());
 		dto.setLinked(Boolean.toString(nic.isLinked()));
-		dto.setPluged(Boolean.toString(nic.isPlugged()));
+		dto.setPlugged(Boolean.toString(nic.isPlugged()));
 		dto.setActive(Boolean.toString(nic.isActive()));
 		
 		if (nic.getMac() != null) {

@@ -31,7 +31,7 @@ public class NetworkDto extends RHEVBaseDto {
 	private String macAddress;
 	private String speed;
 	private String active;
-	private String pluged;
+	private String plugged;
 	private String linked;
 	
 	public String getNetworkName() {
@@ -64,11 +64,11 @@ public class NetworkDto extends RHEVBaseDto {
 	public void setActive(String active) {
 		this.active = active;
 	}
-	public String getPluged() {
-		return pluged;
+	public String getPlugged() {
+		return plugged;
 	}
-	public void setPluged(String pluged) {
-		this.pluged = pluged;
+	public void setPlugged(String plugged) {
+		this.plugged = plugged;
 	}
 	public String getLinked() {
 		return linked;
