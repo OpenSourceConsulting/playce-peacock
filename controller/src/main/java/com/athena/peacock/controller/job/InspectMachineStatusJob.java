@@ -305,9 +305,9 @@ class ScaleInThread extends Thread {
 			lbListenerService.applyListener(loadBalancer);
 			
 			/**
-			 * 2. RHEV Manager에게 해당 인스턴스를 중지(Power Off)하도록 요청한다.
+			 * 2. RHEV Manager에게 해당 인스턴스를 중지(Shutdown)하도록 요청한다.
 			 */
-			rhevmService.powerOffVirtualMachine(autoScaling.getHypervisorId(), autoScaling.getMachineId());
+			rhevmService.shutdownVirtualMachine(autoScaling.getHypervisorId(), autoScaling.getMachineId());
 
 			/**
 			 * 3. Thread.sleep(5000)을 이용하여 인스턴스가 중지되었는지 확인한다.

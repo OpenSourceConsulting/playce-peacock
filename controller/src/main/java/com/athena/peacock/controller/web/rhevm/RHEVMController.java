@@ -293,12 +293,76 @@ public class RHEVMController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/vms/poweroff")
-	public @ResponseBody SimpleJsonResponse powerOffVirtualMachine(SimpleJsonResponse jsonRes, VMDto dto) throws Exception {
+	@RequestMapping("/vms/shutdown")
+	public @ResponseBody SimpleJsonResponse shutdownVirtualMachine(SimpleJsonResponse jsonRes, VMDto dto) throws Exception {
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
 		Assert.notNull(dto.getVmId(), "vmId must not be null.");
 		
-		jsonRes.setData(rhevmService.powerOffVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
+		jsonRes.setData(rhevmService.shutdownVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
+		return jsonRes;
+	}
+	
+	/**
+	 * <pre>
+	 * 입력받은 vmId를 사용하여 RHEV-M의 VM을 제거시킨다. 
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/vms/remove")
+	public @ResponseBody SimpleJsonResponse removeVirtualMachine(SimpleJsonResponse jsonRes, VMDto dto) throws Exception {
+		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
+		Assert.notNull(dto.getVmId(), "vmId must not be null.");
+		
+		jsonRes.setData(rhevmService.removeVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
+		return jsonRes;
+	}
+	
+	/**
+	 * <pre>
+	 * 입력받은 vmId를 사용하여 RHEV-M의 VM을 export 시킨다. 
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/vms/export")
+	public @ResponseBody SimpleJsonResponse exportVirtualMachine(SimpleJsonResponse jsonRes, VMDto dto) throws Exception {
+		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
+		Assert.notNull(dto.getVmId(), "vmId must not be null.");
+		
+		jsonRes.setData(rhevmService.exportVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
+		return jsonRes;
+	}
+	
+	/**
+	 * <pre>
+	 * 입력받은 vmId를 사용하여 RHEV-M의 VM을 템플릿으로 만든다. 
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/vms/makeTemplate")
+	public @ResponseBody SimpleJsonResponse makeTemplate(SimpleJsonResponse jsonRes, VMDto dto) throws Exception {
+		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
+		Assert.notNull(dto.getName(), "name must not be null.");
+		Assert.notNull(dto.getVmId(), "vmId must not be null.");
+		
+		try {
+			jsonRes.setData(rhevmService.makeTemplate(dto.getHypervisorId(), dto.getName(), dto.getVmId()));
+			
+			jsonRes.setMsg("Success create a template to RHEV server");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("Error occured during creating a template");
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
 		return jsonRes;
 	}
 	

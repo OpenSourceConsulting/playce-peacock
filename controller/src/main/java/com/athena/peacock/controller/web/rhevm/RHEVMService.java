@@ -177,7 +177,7 @@ public class RHEVMService {
 		vm.setOs(os);
 		vm.setMemory(template.getMemory());
 	
-		return getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.VMS, HttpMethod.POST, vm, "vm",VM.class);
+		return getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.VMS, HttpMethod.POST, vm, "vm", VM.class);
 	}
 	
 	/**
@@ -302,7 +302,7 @@ public class RHEVMService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Action powerOffVirtualMachine(int hypervisorId, String vmId) throws Exception {
+	public Action shutdownVirtualMachine(int hypervisorId, String vmId) throws Exception {
 		String callUrl = RHEVApi.VMS + "/" + vmId + "/shutdown";
 		Action action = new Action();
 		action = getRHEVMRestTemplate(hypervisorId).submit(callUrl,  HttpMethod.POST, action, "action", Action.class);
@@ -321,6 +321,43 @@ public class RHEVMService {
 		action.setForce(true);
 		action = getRHEVMRestTemplate(hypervisorId).submit(callUrl,  HttpMethod.DELETE, action, "action", Action.class);
 		return action;
+	}
+
+	/**
+	 * <pre>
+	 * 특정 가상 머신을 export 시킨다.
+	 * </pre>
+	 * @param hypervisorId
+	 * @param vmId
+	 * @return
+	 */
+	public Action exportVirtualMachine(Integer hypervisorId, String vmId) throws Exception {
+		String callUrl = RHEVApi.VMS + "/" + vmId + "/export";
+		Action action = new Action();
+		action = getRHEVMRestTemplate(hypervisorId).submit(callUrl,  HttpMethod.POST, action, "action", Action.class);
+		return action;
+	}
+
+	/**
+	 * <pre>
+	 * 선택된 VM을 이용하여 템플릿을 생성한다.
+	 * </pre>
+	 * @param hypervisorId
+	 * @param templateName
+	 * @param vmId
+	 * @return
+	 * @throws RestClientException
+	 * @throws Exception
+	 */
+	public Template makeTemplate(int hypervisorId, String templateName, String vmId) throws RestClientException, Exception {
+		VM vm = new VM();
+		vm.setId(vmId);
+
+		Template template = new Template();
+		template.setName(templateName);
+		template.setVm(vm);
+		
+		return getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.TEMPLATES, HttpMethod.POST, template, "template", Template.class);
 	}
 	
 	/**
@@ -406,6 +443,7 @@ public class RHEVMService {
 	private DiskDto makeDto(Disk disk) {
 		DiskDto dto = new DiskDto();
 		
+		dto.setName(disk.getName());
 		dto.setActive(disk.getActive());
 		dto.setVirtualSize((disk.getSize()/1024/1024) + "");
 		dto.setActualSize((disk.getActualSize()/1024/1024) + "");
