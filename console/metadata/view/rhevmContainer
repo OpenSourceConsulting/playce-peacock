@@ -681,6 +681,9 @@
                                     "                }",
                                     "            });",
                                     "            ",
+                                    "            var detailTab = Ext.getCmp(\"rhevmTabDetailPanel\");",
+                                    "            detailTab.collapse();",
+                                    "            detailTab.layout.setActiveItem(0);",
                                     "        },",
                                     "        ",
                                     "        iconCls: 'x-tbar-loading',",
@@ -871,7 +874,7 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "dataIndex": "status",
-                                                        "minWidth": 70,
+                                                        "minWidth": 120,
                                                         "text": "Status"
                                                     },
                                                     "designerId": "08d965fb-ce6f-45c5-9e7b-3be5c247b806"

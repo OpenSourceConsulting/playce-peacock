@@ -41,6 +41,11 @@
                     "codeClass": null,
                     "userConfig": {
                         "bodyPadding": 15,
+                        "fieldDefaults": [
+                            "{",
+                            "    msgTarget: 'side'",
+                            "}"
+                        ],
                         "height": null,
                         "id": "templateForm",
                         "itemId": "templateForm",
@@ -56,11 +61,30 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "allowBlank": false,
                                 "fieldLabel": "Name",
                                 "labelWidth": 120,
-                                "layout|anchor": "100%"
+                                "layout|anchor": "100%",
+                                "name": "name"
                             },
-                            "designerId": "27ed8eb3-3e14-4207-b041-f79e71d94dd0"
+                            "designerId": "27ed8eb3-3e14-4207-b041-f79e71d94dd0",
+                            "cn": [
+                                {
+                                    "type": "Ext.XTemplate",
+                                    "reference": {
+                                        "name": "afterLabelTextTpl",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "afterLabelTextTpl",
+                                        "implHandler": [
+                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                        ]
+                                    },
+                                    "designerId": "d93b8652-d8e0-40ed-8f5b-000778727eee"
+                                }
+                            ]
                         },
                         {
                             "type": "Ext.form.field.Text",
@@ -72,9 +96,38 @@
                             "userConfig": {
                                 "fieldLabel": "Description",
                                 "labelWidth": 120,
-                                "layout|anchor": "100%"
+                                "layout|anchor": "100%",
+                                "name": "description"
                             },
                             "designerId": "d235033c-d80f-4902-9755-5dde625a4a2b"
+                        },
+                        {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Label",
+                                "layout|anchor": "100%",
+                                "name": "hypervisorId"
+                            },
+                            "designerId": "1d80d2f6-2ed4-44ab-a705-ad7f143f70dc"
+                        },
+                        {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Label",
+                                "layout|anchor": "100%",
+                                "name": "vmId"
+                            },
+                            "designerId": "15424e5e-3301-421f-94e0-28cbbee5be08"
                         }
                     ]
                 },
@@ -108,7 +161,55 @@
                                 "padding": "2 10 2 10",
                                 "text": "OK"
                             },
-                            "designerId": "72cb69ce-9318-416e-921a-70483199a9d0"
+                            "designerId": "72cb69ce-9318-416e-921a-70483199a9d0",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var templateForm = Ext.getCmp(\"templateForm\");",
+                                            "",
+                                            "templateForm.getForm().submit({",
+                                            "    clientValidation: true,",
+                                            "    url: GLOBAL.urlPrefix + \"/rhevm/vms/makeTemplate\",",
+                                            "    params: {",
+                                            "        newStatus: 'delivered'",
+                                            "    },",
+                                            "    waitMsg: 'Saving Data...',",
+                                            "    success: function(form, action) {",
+                                            "        Ext.Msg.alert('Success', action.result.msg);",
+                                            "",
+                                            "        Ext.getCmp('rhevmVMGrid').getStore().reload();",
+                                            "        templateForm.up('window').close();",
+                                            "    },",
+                                            "    failure: function(form, action) {",
+                                            "        switch (action.failureType) {",
+                                            "            case Ext.form.action.Action.CLIENT_INVALID:",
+                                            "            Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');",
+                                            "            break;",
+                                            "            case Ext.form.action.Action.CONNECT_FAILURE:",
+                                            "            Ext.Msg.alert('Failure', 'Server communication failed');",
+                                            "            break;",
+                                            "            case Ext.form.action.Action.SERVER_INVALID:",
+                                            "            Ext.Msg.alert('Failure', action.result.msg);",
+                                            "        }",
+                                            "    }",
+                                            "});"
+                                        ]
+                                    },
+                                    "designerId": "9531462e-5924-4aff-acdb-76989ed71ff4"
+                                }
+                            ]
                         },
                         {
                             "type": "Ext.button.Button",
@@ -141,7 +242,14 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
-                                            "button.up(\"window\").close();"
+                                            "Ext.MessageBox.confirm('Confirm', '작업을 취소하시겠습니까?', function(btn){",
+                                            "",
+                                            "    if(btn == \"yes\"){",
+                                            "        button.up(\"window\").close();",
+                                            "    }",
+                                            "",
+                                            "});",
+                                            ""
                                         ]
                                     },
                                     "designerId": "c84746b7-9e0e-4d66-9736-96251cad7ed0"

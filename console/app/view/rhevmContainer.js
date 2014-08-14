@@ -317,6 +317,9 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                             }
                                                         });
                                                         
+                                                        var detailTab = Ext.getCmp("rhevmTabDetailPanel");
+                                                        detailTab.collapse();
+                                                        detailTab.layout.setActiveItem(0);
                                                     },
                                                 iconCls: 'x-tbar-loading',
                                                 scale: 'toolbar-small',
@@ -393,7 +396,7 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
-                                                            minWidth: 70,
+                                                            minWidth: 120,
                                                             dataIndex: 'status',
                                                             text: 'Status'
                                                         },

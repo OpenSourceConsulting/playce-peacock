@@ -71,7 +71,7 @@ Ext.define('MyApp.controller.RHEVMController', {
         } else {
             grid = Ext.getCmp('rhevmVMGrid');
         }
-        grid.getSelectionModel().deselectAll();
+        grid.getStore().reload();
     },
 
     onRhevmVMGridItemClick: function(rowmodel, record, index, eOpts) {
@@ -141,60 +141,38 @@ Ext.define('MyApp.controller.RHEVMController', {
         var position = e.getXY();
         e.stopEvent();
 
-        RHEVMConstants.selectRow = record;
+        RHEVMConstants.childSelectRow = record;
 
-        RHEVMConstants.contextMenu.showAt(position);
-    },
+        var menu = RHEVMConstants.contextMenu;
+        var status = record.get('status');
 
-    onRhevmTemplateGridSelect: function(rowmodel, record, index, eOpts) {
-        //RHEVM VM Grid Item Click
-        var detailTab = Ext.getCmp("rhevmTabDetailPanel");
-        detailTab.expand();
+        menu.items.each(function( item ) {
 
-        detailTab.layout.setActiveItem(1);
+            if(status == 'up') {
 
-        RHEVMConstants.selectRow = record;
+                if(item.text == 'Start')				item.setDisabled(true);
+                else if(item.text == 'Stop')			item.setDisabled(false);
+                else if(item.text == 'Shutdown')		item.setDisabled(false);
+                else if(item.text == 'Remove')			item.setDisabled(true);
+                else if(item.text == 'Export')			item.setDisabled(true);
+                else if(item.text == 'Make Template')	item.setDisabled(true);
 
-        Ext.getCmp("rhevmTabDetailTabPanel").setActiveTab(0);
+            } else if(status == 'down') {
 
+                if(item.text == 'Start')				item.setDisabled(false);
+                else if(item.text == 'Stop')			item.setDisabled(true);
+                else if(item.text == 'Shutdown')		item.setDisabled(true);
+                else if(item.text == 'Remove')			item.setDisabled(false);
+                else if(item.text == 'Export')			item.setDisabled(false);
+                else if(item.text == 'Make Template')	item.setDisabled(false);
 
-        //General Data Loading
-        var generalform = Ext.getCmp("rhevmGeneralForm");
-
-        generalform.getForm().reset();
-
-        generalform.getForm().waitMsgTarget = generalform.getEl();
-
-        generalform.getForm().load({
-            params : {
-                name : record.get("name")
+            } else {
+                item.setDisabled(true);
             }
-            ,url : GLOBAL.urlPrefix + "/rhevm/getRhevmTemplateGeneral"
-            ,waitMsg:'Loading...'
+
         });
 
-
-        //Network Interfaces Data Loading
-        var networkGrid = Ext.getCmp('rhevmNetworkGrid');
-
-        networkGrid.getStore().load({
-            params:{
-                name : record.get("name")
-            }
-        });
-
-
-        //Disk Data Loading
-        var diskGrid = Ext.getCmp('rhevmDiskGrid');
-
-        diskGrid.getStore().load({
-            params:{
-                name : record.get("name")
-            }
-        });
-
-
-
+        menu.showAt(position);
     },
 
     onRowEditingEdit: function(editor, context, eOpts) {
@@ -296,35 +274,32 @@ Ext.define('MyApp.controller.RHEVMController', {
                     [
                     { text: 'Start',
                         handler: function() {
-                            alert('Start');
+                            rhevm.controlVMStatus('Start');
                         }
                     },
                     { text: 'Stop',
                         handler: function() {
-                            alert('Stop');
+                            rhevm.controlVMStatus('Stop');
                         }
                     },
                     { text: 'Shutdown',
                         handler: function() {
-                            alert('Shutdown');
+                            rhevm.controlVMStatus('Shutdown');
                         }
                     },
                     { text: 'Remove',
-                        disabled : true,
                         handler: function() {
-                            alert('Remove');
+                            rhevm.controlVMStatus('Remove');
                         }
                     },
                     { text: 'Export',
                         handler: function() {
-                            alert('Export');
+                            rhevm.controlVMStatus('Export');
                         }
                     },
                     { text: 'Make Template',
                         handler: function() {
-                            var templateWindow = Ext.create("widget.regTemplateWindow");
-                            templateWindow.show();
-
+                            rhevm.showTemplateWindow();
                         }
                     }
                     ]
@@ -353,10 +328,70 @@ Ext.define('MyApp.controller.RHEVMController', {
                 beforeitemcontextmenu: this.onRhevmVMGridBeforeItemContextMenu
             },
             "#rhevmTemplateGrid": {
-                select: this.onRhevmTemplateGridSelect,
                 select: this.onRhevmTemplateGridSelect
             }
         });
+    },
+
+    controlVMStatus: function(status) {
+
+        var controlUrl = '';
+
+        if(status == 'Start') {
+
+            controlUrl = '/rhevm/vms/start';
+
+        } else if(status == 'Stop') {
+
+            controlUrl = '/rhevm/vms/stop';
+
+        } else if(status == 'Shutdown') {
+
+            controlUrl = '/rhevm/vms/shutdown';
+
+        } else if(status == 'Remove') {
+
+            controlUrl = ' /rhevm/vms/remove';
+
+        } else if(status == 'Export') {
+
+            controlUrl = '/rhevm/vms/export';
+
+        }
+
+        Ext.MessageBox.confirm('Confirm', 'VM을 ' + status + '하시겠습니까?', function(btn){
+
+            if(btn == "yes"){
+
+                Ext.Ajax.request({
+                    url: GLOBAL.urlPrefix + controlUrl,
+                    params : {
+                        hypervisorId : RHEVMConstants.selectRow.get("hypervisorId"),
+                        vmId : RHEVMConstants.childSelectRow.get("vmId")
+                    },
+                    disableCaching : true,
+                    waitMsg: status + ' VM...',
+                    success: function(response){
+                        var msg = Ext.JSON.decode(response.responseText).msg;
+                        Ext.MessageBox.alert('알림', msg);
+
+                        Ext.getCmp('rhevmVMGrid').getStore().reload();
+                    }
+                });
+            }
+
+        });
+    },
+
+    showTemplateWindow: function() {
+        var templateWindow = Ext.create("widget.regTemplateWindow");
+
+        templateWindow.show();
+
+        var templateForm = Ext.getCmp('templateForm');
+        templateForm.getForm().findField('hypervisorId').setRawValue(RHEVMConstants.selectRow.get('hypervisorId'));
+        templateForm.getForm().findField('vmId').setRawValue(RHEVMConstants.childSelectRow.get('vmId'));
+
     }
 
 });
