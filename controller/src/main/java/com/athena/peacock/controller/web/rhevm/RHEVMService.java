@@ -349,13 +349,14 @@ public class RHEVMService {
 	 * @throws RestClientException
 	 * @throws Exception
 	 */
-	public Template makeTemplate(int hypervisorId, String templateName, String vmId) throws RestClientException, Exception {
+	public Template makeTemplate(int hypervisorId, String templateName, String vmId, String description) throws RestClientException, Exception {
 		VM vm = new VM();
 		vm.setId(vmId);
 
 		Template template = new Template();
 		template.setName(templateName);
 		template.setVm(vm);
+		template.setDescription(description);		
 		
 		return getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.TEMPLATES, HttpMethod.POST, template, "template", Template.class);
 	}

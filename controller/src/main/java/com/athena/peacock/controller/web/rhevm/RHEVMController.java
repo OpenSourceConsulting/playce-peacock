@@ -74,7 +74,16 @@ public class RHEVMController {
 	public @ResponseBody GridJsonResponse getVMList(GridJsonResponse jsonRes, VMDto dto) throws Exception {
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
 		
-		jsonRes.setList(rhevmService.getVirtualList(dto.getHypervisorId()));
+		try {
+			jsonRes.setList(rhevmService.getVirtualList(dto.getHypervisorId()));
+			jsonRes.setMsg("VM 목록이 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("VM 목록 조회 중 에러가 발생하였습니다.");
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
 		return jsonRes;
 	}
 	
@@ -92,7 +101,16 @@ public class RHEVMController {
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
 		Assert.notNull(dto.getVmId(), "vmId must not be null.");
 		
-		jsonRes.setData(rhevmService.getVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
+		try {
+			jsonRes.setData(rhevmService.getVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
+			jsonRes.setMsg("VM 정보가 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("VM 정보 조회 중 에러가 발생하였습니다.");
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
 		return jsonRes;
 	}
 	
@@ -110,7 +128,16 @@ public class RHEVMController {
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
 		Assert.notNull(dto.getVmId(), "vmId must not be null.");
 		
-		jsonRes.setList(rhevmService.getVMNics(dto.getHypervisorId(), dto.getVmId()));
+		try {
+			jsonRes.setList(rhevmService.getVMNics(dto.getHypervisorId(), dto.getVmId()));
+			jsonRes.setMsg("VM의 네트워크 정보가 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("VM의 네트워크 정보 조회 중 에러가 발생하였습니다.");
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
 		return jsonRes;
 	}
 	
@@ -128,7 +155,16 @@ public class RHEVMController {
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
 		Assert.notNull(dto.getVmId(), "vmId must not be null.");
 		
-		jsonRes.setList(rhevmService.getVMDisks(dto.getHypervisorId(), dto.getVmId()));
+		try {
+			jsonRes.setList(rhevmService.getVMDisks(dto.getHypervisorId(), dto.getVmId()));
+			jsonRes.setMsg("VM의 디스크 정보가 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("VM의 디스크 정보 조회 중 에러가 발생하였습니다.");
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
 		return jsonRes;
 	}
 	
@@ -147,14 +183,14 @@ public class RHEVMController {
 		
 		try {
 			jsonRes.setList(rhevmService.getTemplateList(dto.getHypervisorId()));
-			
-			jsonRes.setMsg("Success retriving the RHEV templates");
+			jsonRes.setMsg("템플릿 목록이 정상적으로 조회되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Error occured during RHEV template query");
+			jsonRes.setMsg("템플릿 목록 조회 중 에러가 발생하였습니다.");
 			
 			logger.error("Unhandled Expeption has occurred. ", e);
 		}
+		
 		return jsonRes;
 	}
 	
@@ -174,14 +210,14 @@ public class RHEVMController {
 		
 		try {
 			jsonRes.setData(rhevmService.getTemplate(dto.getHypervisorId(), dto.getTemplateId()));
-			
-			jsonRes.setMsg("Success retrive template from RHEV");
+			jsonRes.setMsg("템플릿 정보가 정상적으로 조회되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Error occured during retrieve the template");
+			jsonRes.setMsg("템플릿 정보 조회 중 에러가 발생하였습니다.");
 			
 			logger.error("Unhandled Expeption has occurred. ", e);
 		}
+		
 		return jsonRes;
 	}
 	
@@ -199,7 +235,16 @@ public class RHEVMController {
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
 		Assert.notNull(dto.getTemplateId(), "templateId must not be null.");
 		
-		jsonRes.setList(rhevmService.getTemplateNics(dto.getHypervisorId(), dto.getTemplateId()));
+		try {
+			jsonRes.setList(rhevmService.getTemplateNics(dto.getHypervisorId(), dto.getTemplateId()));
+			jsonRes.setMsg("템플릿의 네트워크 정보가 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("템플릿의 네트워크 정보 조회 중 에러가 발생하였습니다.");
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
 		return jsonRes;
 	}
 	
@@ -217,7 +262,16 @@ public class RHEVMController {
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
 		Assert.notNull(dto.getTemplateId(), "templateId must not be null.");
 		
-		jsonRes.setList(rhevmService.getTemplateDisks(dto.getHypervisorId(), dto.getTemplateId()));
+		try {
+			jsonRes.setList(rhevmService.getTemplateDisks(dto.getHypervisorId(), dto.getTemplateId()));
+			jsonRes.setMsg("템플릿의 디스크 정보가 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("템플릿의 디스크 정보 조회 중 에러가 발생하였습니다.");
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
 		return jsonRes;
 	}
 	
@@ -237,14 +291,14 @@ public class RHEVMController {
 		
 		try {
 			jsonRes.setData(rhevmService.createVirtualMachine(dto.getHypervisorId(), dto.getName(), dto.getTemplate()));
-			
-			jsonRes.setMsg("Success create a virtual machine to RHEV server");
+			jsonRes.setMsg("VM 생성이 정상적으로 요청되었습니다. 잠시만 기다려주십시오.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Error occured during creating a virtual machine");
+			jsonRes.setMsg("VM 생성 요청 중 에러가 발생하였습니다.");
 			
 			logger.error("Unhandled Expeption has occurred. ", e);
 		}
+		
 		return jsonRes;
 	}
 	
@@ -262,7 +316,16 @@ public class RHEVMController {
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
 		Assert.notNull(dto.getVmId(), "vmId must not be null.");
 		
-		jsonRes.setData(rhevmService.startVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
+		try {
+			jsonRes.setData(rhevmService.startVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
+			jsonRes.setMsg("VM 시작이 정상적으로 요청되었습니다. 잠시만 기다려주십시오.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("VM 시작 요청 중 에러가 발생하였습니다.");
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
 		return jsonRes;
 	}
 	
@@ -280,7 +343,16 @@ public class RHEVMController {
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
 		Assert.notNull(dto.getVmId(), "vmId must not be null.");
 		
-		jsonRes.setData(rhevmService.stopVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
+		try {
+			jsonRes.setData(rhevmService.stopVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
+			jsonRes.setMsg("VM 중지가 정상적으로 요청되었습니다. 잠시만 기다려주십시오.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("VM 중지 요청 중 에러가 발생하였습니다.");
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
 		return jsonRes;
 	}
 	
@@ -298,7 +370,16 @@ public class RHEVMController {
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
 		Assert.notNull(dto.getVmId(), "vmId must not be null.");
 		
-		jsonRes.setData(rhevmService.shutdownVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
+		try {
+			jsonRes.setData(rhevmService.shutdownVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
+			jsonRes.setMsg("VM 종료가 정상적으로 요청되었습니다. 잠시만 기다려주십시오.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("VM 종료 요청 중 에러가 발생하였습니다.");
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
 		return jsonRes;
 	}
 	
@@ -316,7 +397,16 @@ public class RHEVMController {
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
 		Assert.notNull(dto.getVmId(), "vmId must not be null.");
 		
-		jsonRes.setData(rhevmService.removeVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
+		try {
+			jsonRes.setData(rhevmService.removeVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
+			jsonRes.setMsg("VM 삭제가 정상적으로 요청되었습니다. 잠시만 기다려주십시오.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("VM 삭제 요청 중 에러가 발생하였습니다.");
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
 		return jsonRes;
 	}
 	
@@ -334,7 +424,16 @@ public class RHEVMController {
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
 		Assert.notNull(dto.getVmId(), "vmId must not be null.");
 		
-		jsonRes.setData(rhevmService.exportVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
+		try {
+			jsonRes.setData(rhevmService.exportVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
+			jsonRes.setMsg("VM Export가 정상적으로 요청되었습니다. 잠시만 기다려주십시오.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("VM Export 요청 중 에러가 발생하였습니다.");
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
 		return jsonRes;
 	}
 	
@@ -354,15 +453,15 @@ public class RHEVMController {
 		Assert.notNull(dto.getVmId(), "vmId must not be null.");
 		
 		try {
-			jsonRes.setData(rhevmService.makeTemplate(dto.getHypervisorId(), dto.getName(), dto.getVmId()));
-			
-			jsonRes.setMsg("Success create a template to RHEV server");
+			jsonRes.setData(rhevmService.makeTemplate(dto.getHypervisorId(), dto.getName(), dto.getVmId(), dto.getDescription()));
+			jsonRes.setMsg("VM을 이용한 템플릿 생성이 정상적으로 요청되었습니다. 잠시만 기다려주십시오.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Error occured during creating a template");
+			jsonRes.setMsg("VM을 이용한 템플릿 생성 요청 중 에러가 발생하였습니다.");
 			
 			logger.error("Unhandled Expeption has occurred. ", e);
 		}
+		
 		return jsonRes;
 	}
 	
