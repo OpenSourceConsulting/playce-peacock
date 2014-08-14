@@ -6,9 +6,9 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userClassName": "NetworkModel"
+        "designer|userClassName": "TemplateModel"
     },
-    "designerId": "b094b0d9-8edd-4203-9a5d-d6d092bd43fd",
+    "designerId": "39ddbfae-53f2-4d6d-b418-afbd409ed0bf",
     "cn": [
         {
             "type": "Ext.data.Field",
@@ -21,7 +21,7 @@
                 "name": "hypervisorId",
                 "type": "int"
             },
-            "designerId": "a41985a0-e411-4ca9-b335-ce20545d838a"
+            "designerId": "7b62763b-f7b5-4b43-9c54-4cad8333d568"
         },
         {
             "type": "Ext.data.Field",
@@ -34,7 +34,7 @@
                 "name": "rhevmId",
                 "type": "string"
             },
-            "designerId": "d7b06dbe-9802-4d20-adfb-2e5e74f92c06"
+            "designerId": "07d6f4f5-8b06-4d9c-8edb-10e3abc41b8e"
         },
         {
             "type": "Ext.data.Field",
@@ -47,7 +47,7 @@
                 "name": "vmId",
                 "type": "string"
             },
-            "designerId": "7fd0f086-e4e2-4cc4-8a1e-c756c85cd4a0"
+            "designerId": "18d0cdb6-5ee4-477b-b88a-b0b272deaedf"
         },
         {
             "type": "Ext.data.Field",
@@ -60,7 +60,7 @@
                 "name": "name",
                 "type": "string"
             },
-            "designerId": "577bf313-3d8b-4777-b2de-c7ca1817c50f"
+            "designerId": "0a2d8b91-576c-4672-aef4-642d662a6e03"
         },
         {
             "type": "Ext.data.Field",
@@ -73,7 +73,7 @@
                 "name": "description",
                 "type": "string"
             },
-            "designerId": "9637455c-456e-4dbc-9a57-0d22464463da"
+            "designerId": "48bc66f3-0443-4955-983b-782dcde72de6"
         },
         {
             "type": "Ext.data.Field",
@@ -83,10 +83,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "networkName",
+                "name": "templateId",
                 "type": "string"
             },
-            "designerId": "bdb6ffc7-0a69-4551-85ea-50d752c61042"
+            "designerId": "73a81890-351e-4d57-8b86-eaec38274a8e"
         },
         {
             "type": "Ext.data.Field",
@@ -99,7 +99,7 @@
                 "name": "type",
                 "type": "string"
             },
-            "designerId": "5359100f-8616-4dfa-b301-b223319d3420"
+            "designerId": "d4989ba9-9cf3-49e2-b21c-c030d36ff5a2"
         },
         {
             "type": "Ext.data.Field",
@@ -109,10 +109,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "macAddress",
+                "name": "status",
                 "type": "string"
             },
-            "designerId": "89163c48-161d-4d9f-91fa-87f23a337038"
+            "designerId": "515ca9b6-0bda-4a14-be68-fe3957c87af0"
         },
         {
             "type": "Ext.data.Field",
@@ -122,10 +122,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "speed",
+                "name": "memory",
                 "type": "string"
             },
-            "designerId": "adc5b53e-9819-46f7-890c-1c91e04a633a"
+            "designerId": "4e520088-cf8a-4060-ab08-d820ceb91478"
         },
         {
             "type": "Ext.data.Field",
@@ -135,10 +135,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "active",
-                "type": "string"
+                "name": "sockets",
+                "type": "int"
             },
-            "designerId": "10145e9d-be67-4cc7-96b6-73464f1a9051"
+            "designerId": "e964f928-0005-4e77-a2f1-babce322723a"
         },
         {
             "type": "Ext.data.Field",
@@ -148,10 +148,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "plugged",
-                "type": "string"
+                "name": "cores",
+                "type": "int"
             },
-            "designerId": "e5a6a3ba-7334-452c-b01e-2f7e83890d7b"
+            "designerId": "cc54943f-bb27-4feb-8c77-762824ef89f7"
         },
         {
             "type": "Ext.data.Field",
@@ -161,10 +161,62 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "linked",
+                "name": "creationTime",
                 "type": "string"
             },
-            "designerId": "8bac9d67-e696-4f13-8675-aa958ddc8b21"
+            "designerId": "221492bd-333a-471b-854c-188a6c0fc43e"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "origin",
+                "type": "string"
+            },
+            "designerId": "83f0b35e-a95e-41ef-845e-9ac8f13dabad"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "display",
+                "type": "string"
+            },
+            "designerId": "7b42c85b-b25d-482a-aea7-0abfebee9f70"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "dataCenter",
+                "type": "string"
+            },
+            "designerId": "bcfdff4e-820b-4c26-816b-e909a20d57f1"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "cluster",
+                "type": "string"
+            },
+            "designerId": "46d65898-ca1b-475f-bb6c-9852295f49a7"
         }
     ]
 }

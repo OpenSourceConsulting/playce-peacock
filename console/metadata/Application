@@ -31,7 +31,8 @@
             "HypervisorModel",
             "VMModel",
             "NetworkModel",
-            "DiskModel"
+            "DiskModel",
+            "TemplateModel"
         ],
         "name": "MyApp",
         "requires": [
@@ -54,7 +55,8 @@
             "HypervisorStore",
             "VMStore",
             "VMNetworkStore",
-            "VMDiskStore"
+            "VMDiskStore",
+            "TemplateStore"
         ],
         "views": [
             "peacockViewport",

@@ -30,6 +30,7 @@ Ext.define('MyApp.view.userContainer', {
         'Ext.form.Label',
         'Ext.form.Panel',
         'Ext.form.FieldContainer',
+        'Ext.form.field.Display',
         'Ext.toolbar.Spacer'
     ],
 
@@ -265,7 +266,9 @@ Ext.define('MyApp.view.userContainer', {
                                     fieldDefaults: {
                                         msgTarget: 'side',
                                         margin: '0 10',
-                                        readOnly: true
+                                        readOnly: true,
+                                        labelStyle: 'font-weight: bold;',
+                                        labelSeparator: ' :'
                                     },
                                     waitMsgTarget: 'instDescForm',
                                     items: [
@@ -283,12 +286,14 @@ Ext.define('MyApp.view.userContainer', {
                                             },
                                             items: [
                                                 {
-                                                    xtype: 'textfield',
+                                                    xtype: 'displayfield',
                                                     fieldLabel: 'User ID',
+                                                    labelSeparator: ' :',
+                                                    labelStyle: 'font-weight: bold;',
                                                     name: 'userId'
                                                 },
                                                 {
-                                                    xtype: 'textfield',
+                                                    xtype: 'displayfield',
                                                     fieldLabel: 'User Name',
                                                     name: 'userName'
                                                 }
@@ -308,15 +313,14 @@ Ext.define('MyApp.view.userContainer', {
                                             },
                                             items: [
                                                 {
-                                                    xtype: 'textfield',
+                                                    xtype: 'displayfield',
                                                     fieldLabel: 'Login ID',
                                                     name: 'loginId'
                                                 },
                                                 {
-                                                    xtype: 'textfield',
+                                                    xtype: 'displayfield',
                                                     fieldLabel: 'Password',
-                                                    name: 'passwd',
-                                                    inputType: 'password'
+                                                    name: 'passwd'
                                                 }
                                             ]
                                         },
@@ -334,12 +338,12 @@ Ext.define('MyApp.view.userContainer', {
                                             },
                                             items: [
                                                 {
-                                                    xtype: 'textfield',
+                                                    xtype: 'displayfield',
                                                     fieldLabel: 'Dept Name',
                                                     name: 'deptName'
                                                 },
                                                 {
-                                                    xtype: 'textfield',
+                                                    xtype: 'displayfield',
                                                     fieldLabel: 'Email',
                                                     name: 'email'
                                                 }
@@ -359,7 +363,7 @@ Ext.define('MyApp.view.userContainer', {
                                             },
                                             items: [
                                                 {
-                                                    xtype: 'textfield',
+                                                    xtype: 'displayfield',
                                                     margins: '0 20 0 0',
                                                     padding: '',
                                                     fieldLabel: 'Last Logon',

@@ -47,7 +47,7 @@ Ext.define('MyApp.model.DiskModel', {
         },
         {
             name: 'virtualSize',
-            type: 'string'
+            type: 'int'
         },
         {
             name: 'actualSize',
@@ -62,7 +62,7 @@ Ext.define('MyApp.model.DiskModel', {
             type: 'string'
         },
         {
-            name: '_interface',
+            name: 'interface',
             type: 'string'
         },
         {

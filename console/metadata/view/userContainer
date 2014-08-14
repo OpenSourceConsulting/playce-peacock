@@ -515,7 +515,10 @@
                                     "{",
                                     "    msgTarget: 'side',",
                                     "    margin: '0 10',",
-                                    "    readOnly: true",
+                                    "    readOnly: true,",
+                                    "    labelStyle: 'font-weight: bold;',",
+                                    "    labelSeparator: ' :'",
+                                    "",
                                     "}"
                                 ],
                                 "header": false,
@@ -552,7 +555,7 @@
                                     "designerId": "ac9e8c6c-6ca2-4c8d-b353-9e1dee1080de",
                                     "cn": [
                                         {
-                                            "type": "Ext.form.field.Text",
+                                            "type": "Ext.form.field.Display",
                                             "reference": {
                                                 "name": "items",
                                                 "type": "array"
@@ -560,13 +563,15 @@
                                             "codeClass": null,
                                             "userConfig": {
                                                 "fieldLabel": "User ID",
+                                                "labelSeparator": " :",
+                                                "labelStyle": "font-weight: bold;",
                                                 "layout|flex": null,
                                                 "name": "userId"
                                             },
                                             "designerId": "186ff2ec-ed40-4408-870a-46005ed9e976"
                                         },
                                         {
-                                            "type": "Ext.form.field.Text",
+                                            "type": "Ext.form.field.Display",
                                             "reference": {
                                                 "name": "items",
                                                 "type": "array"
@@ -604,7 +609,7 @@
                                     "designerId": "1884e781-64a2-4915-9b20-b25c7851b665",
                                     "cn": [
                                         {
-                                            "type": "Ext.form.field.Text",
+                                            "type": "Ext.form.field.Display",
                                             "reference": {
                                                 "name": "items",
                                                 "type": "array"
@@ -618,7 +623,7 @@
                                             "designerId": "f5951b7b-0212-4f61-94fc-ad385d168dc3"
                                         },
                                         {
-                                            "type": "Ext.form.field.Text",
+                                            "type": "Ext.form.field.Display",
                                             "reference": {
                                                 "name": "items",
                                                 "type": "array"
@@ -626,7 +631,6 @@
                                             "codeClass": null,
                                             "userConfig": {
                                                 "fieldLabel": "Password",
-                                                "inputType": "password",
                                                 "layout|flex": null,
                                                 "name": "passwd"
                                             },
@@ -657,7 +661,7 @@
                                     "designerId": "3e079193-8ea4-48c5-9579-1f1b1d79743b",
                                     "cn": [
                                         {
-                                            "type": "Ext.form.field.Text",
+                                            "type": "Ext.form.field.Display",
                                             "reference": {
                                                 "name": "items",
                                                 "type": "array"
@@ -671,7 +675,7 @@
                                             "designerId": "11420751-54a4-4869-87ba-15a1f57ad28e"
                                         },
                                         {
-                                            "type": "Ext.form.field.Text",
+                                            "type": "Ext.form.field.Display",
                                             "reference": {
                                                 "name": "items",
                                                 "type": "array"
@@ -709,7 +713,7 @@
                                     "designerId": "bf91ee08-0925-4178-8439-65498c6ffd54",
                                     "cn": [
                                         {
-                                            "type": "Ext.form.field.Text",
+                                            "type": "Ext.form.field.Display",
                                             "reference": {
                                                 "name": "items",
                                                 "type": "array"

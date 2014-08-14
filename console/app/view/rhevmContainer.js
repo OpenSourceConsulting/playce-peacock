@@ -30,7 +30,8 @@ Ext.define('MyApp.view.rhevmContainer', {
         'Ext.tab.Panel',
         'Ext.tab.Tab',
         'Ext.form.Panel',
-        'Ext.form.FieldContainer'
+        'Ext.form.FieldContainer',
+        'Ext.form.field.Display'
     ],
 
     height: 755,
@@ -293,6 +294,36 @@ Ext.define('MyApp.view.rhevmContainer', {
                                     xtype: 'tabpanel',
                                     flex: 1,
                                     region: 'center',
+                                    tabBar: {
+                                        items: [
+                                            {
+                                                xtype: 'tbfill'
+                                            },
+                                            {
+                                                xtype: 'button',
+                                                handler: function(button, e) {
+                                                        
+                                                        var tabPanel = Ext.getCmp("rhevmTabPanel");
+                                                        
+                                                        var grid;
+                                                        if(tabPanel.getActiveTab().title == "Templates"){
+                                                            grid = Ext.getCmp('rhevmTemplateGrid');
+                                                        } else {
+                                                            grid = Ext.getCmp('rhevmVMGrid');
+                                                        }
+                                                        grid.getStore().load({
+                                                            params:{
+                                                                hypervisorId : RHEVMConstants.selectRow.get("hypervisorId")
+                                                            }
+                                                        });
+                                                        
+                                                    },
+                                                iconCls: 'x-tbar-loading',
+                                                scale: 'toolbar-small',
+                                                margin: '0 10 0 0'
+                                            }
+                                        ]
+                                    },
                                     id: 'rhevmTabPanel',
                                     itemId: 'rhevmTabPanel',
                                     padding: '5 0 0 0',
@@ -389,40 +420,59 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                     autoScroll: true,
                                                     columnLines: true,
                                                     forceFit: true,
-                                                    store: 'rhevmTemplateListStore',
+                                                    store: 'TemplateStore',
                                                     columns: [
                                                         {
                                                             xtype: 'gridcolumn',
+                                                            hidden: true,
+                                                            minWidth: 100,
+                                                            dataIndex: 'hypervisorId'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            hidden: true,
+                                                            dataIndex: 'templateId',
+                                                            text: ''
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            minWidth: 120,
                                                             dataIndex: 'name',
                                                             text: 'Name'
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
+                                                            minWidth: 80,
                                                             dataIndex: 'type',
                                                             text: 'Type'
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
+                                                            minWidth: 70,
                                                             dataIndex: 'status',
                                                             text: 'Status'
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
+                                                            minWidth: 80,
                                                             dataIndex: 'memory',
                                                             text: 'Memory'
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
-                                                            dataIndex: 'cpuCores',
-                                                            text: 'CpuCores'
+                                                            minWidth: 90,
+                                                            dataIndex: 'cores',
+                                                            text: 'CPU Cores'
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
-                                                            dataIndex: 'creationDate',
-                                                            text: 'CreationDate'
+                                                            minWidth: 220,
+                                                            dataIndex: 'creationTime',
+                                                            text: 'Creation Date'
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
+                                                            minWidth: 150,
                                                             dataIndex: 'description',
                                                             text: 'Description'
                                                         }
@@ -487,7 +537,9 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                             fieldDefaults: {
                                                                 msgTarget: 'side',
                                                                 margin: '0 10',
-                                                                readOnly: true
+                                                                readOnly: true,
+                                                                labelStyle: 'font-weight: bold;',
+                                                                labelSeparator: ' :'
                                                             },
                                                             waitMsgTarget: 'instDescForm',
                                                             items: [
@@ -505,12 +557,12 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                                     },
                                                                     items: [
                                                                         {
-                                                                            xtype: 'textfield',
+                                                                            xtype: 'displayfield',
                                                                             fieldLabel: 'Name',
                                                                             name: 'name'
                                                                         },
                                                                         {
-                                                                            xtype: 'textfield',
+                                                                            xtype: 'displayfield',
                                                                             fieldLabel: 'Status',
                                                                             name: 'status'
                                                                         }
@@ -530,14 +582,14 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                                     },
                                                                     items: [
                                                                         {
-                                                                            xtype: 'textfield',
+                                                                            xtype: 'displayfield',
                                                                             fieldLabel: 'Description',
                                                                             name: 'description'
                                                                         },
                                                                         {
-                                                                            xtype: 'textfield',
+                                                                            xtype: 'displayfield',
                                                                             fieldLabel: 'Display Type',
-                                                                            name: 'type'
+                                                                            name: 'display'
                                                                         }
                                                                     ]
                                                                 },
@@ -555,12 +607,18 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                                     },
                                                                     items: [
                                                                         {
-                                                                            xtype: 'textfield',
+                                                                            xtype: 'displayfield',
                                                                             fieldLabel: 'Template',
                                                                             name: 'template'
                                                                         },
                                                                         {
-                                                                            xtype: 'textfield',
+                                                                            xtype: 'displayfield',
+                                                                            hidden: true,
+                                                                            fieldLabel: 'Type',
+                                                                            name: 'type'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'displayfield',
                                                                             fieldLabel: 'Origin',
                                                                             name: 'origin'
                                                                         }
@@ -580,12 +638,19 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                                     },
                                                                     items: [
                                                                         {
-                                                                            xtype: 'textfield',
-                                                                            fieldLabel: 'Memory',
+                                                                            xtype: 'displayfield',
+                                                                            renderer: function(value, displayField) {
+                                                                                if(value != null) {
+                                                                                    return Ext.util.Format.number(value, '000,000,000');
+                                                                                } else {
+                                                                                    return "0";
+                                                                                }
+                                                                            },
+                                                                            fieldLabel: 'Memory(MB)',
                                                                             name: 'memory'
                                                                         },
                                                                         {
-                                                                            xtype: 'textfield',
+                                                                            xtype: 'displayfield',
                                                                             fieldLabel: 'CPU Cores',
                                                                             name: 'cores'
                                                                         }
@@ -605,12 +670,12 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                                     },
                                                                     items: [
                                                                         {
-                                                                            xtype: 'textfield',
+                                                                            xtype: 'displayfield',
                                                                             fieldLabel: 'HA Enabled',
                                                                             name: 'haEnabled'
                                                                         },
                                                                         {
-                                                                            xtype: 'textfield',
+                                                                            xtype: 'displayfield',
                                                                             fieldLabel: 'HA Priority',
                                                                             name: 'haPriority'
                                                                         }
@@ -630,12 +695,12 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                                     },
                                                                     items: [
                                                                         {
-                                                                            xtype: 'textfield',
+                                                                            xtype: 'displayfield',
                                                                             fieldLabel: 'OS Type',
                                                                             name: 'os'
                                                                         },
                                                                         {
-                                                                            xtype: 'textfield',
+                                                                            xtype: 'displayfield',
                                                                             fieldLabel: 'Create Date',
                                                                             name: 'creationTime'
                                                                         }
@@ -662,38 +727,45 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                             columns: [
                                                                 {
                                                                     xtype: 'gridcolumn',
+                                                                    minWidth: 80,
                                                                     dataIndex: 'name',
                                                                     text: 'Name'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
+                                                                    minWidth: 140,
                                                                     dataIndex: 'networkName',
-                                                                    text: 'NetworkName'
+                                                                    text: 'Network Name'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
+                                                                    minWidth: 80,
                                                                     dataIndex: 'active',
                                                                     text: 'Active'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
+                                                                    minWidth: 80,
                                                                     dataIndex: 'linked',
                                                                     text: 'Linked'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
+                                                                    minWidth: 80,
                                                                     dataIndex: 'plugged',
                                                                     text: 'Plugged'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
+                                                                    minWidth: 120,
                                                                     dataIndex: 'type',
-                                                                    text: 'Type'
+                                                                    text: 'Type(Interface)'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
+                                                                    minWidth: 130,
                                                                     dataIndex: 'macAddress',
-                                                                    text: 'MacAddress'
+                                                                    text: 'Mac Address'
                                                                 }
                                                             ]
                                                         }
@@ -716,41 +788,51 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                             columns: [
                                                                 {
                                                                     xtype: 'gridcolumn',
+                                                                    minWidth: 130,
                                                                     dataIndex: 'name',
                                                                     text: 'Name'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
+                                                                    minWidth: 80,
                                                                     dataIndex: 'active',
                                                                     text: 'Active'
                                                                 },
                                                                 {
-                                                                    xtype: 'gridcolumn',
+                                                                    xtype: 'numbercolumn',
+                                                                    minWidth: 120,
                                                                     dataIndex: 'virtualSize',
-                                                                    text: 'VirtualSize'
+                                                                    text: 'Virtual Size(MB)',
+                                                                    format: '000,000,000'
                                                                 },
                                                                 {
-                                                                    xtype: 'gridcolumn',
+                                                                    xtype: 'numbercolumn',
+                                                                    minWidth: 120,
                                                                     dataIndex: 'actualSize',
-                                                                    text: 'ActualSize'
+                                                                    text: 'Actual Size(MB)',
+                                                                    format: '000,000,000'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
+                                                                    minWidth: 80,
                                                                     dataIndex: 'bootable',
                                                                     text: 'Bootable'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
+                                                                    minWidth: 100,
                                                                     dataIndex: 'sharable',
                                                                     text: 'Shareable'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
-                                                                    dataIndex: '_interface',
-                                                                    text: 'Interfaces'
+                                                                    minWidth: 100,
+                                                                    dataIndex: 'interface',
+                                                                    text: 'Interface'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
+                                                                    minWidth: 80,
                                                                     dataIndex: 'status',
                                                                     text: 'Status'
                                                                 }

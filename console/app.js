@@ -38,7 +38,8 @@ Ext.application({
         'HypervisorModel',
         'VMModel',
         'NetworkModel',
-        'DiskModel'
+        'DiskModel',
+        'TemplateModel'
     ],
     stores: [
         'MenuTreeStore',
@@ -57,7 +58,8 @@ Ext.application({
         'HypervisorStore',
         'VMStore',
         'VMNetworkStore',
-        'VMDiskStore'
+        'VMDiskStore',
+        'TemplateStore'
     ],
     views: [
         'peacockViewport',

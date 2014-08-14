@@ -97,7 +97,7 @@
             "codeClass": null,
             "userConfig": {
                 "name": "virtualSize",
-                "type": "string"
+                "type": "int"
             },
             "designerId": "973f9f00-f0ec-4d54-9c2b-b8004a4fe50c"
         },
@@ -148,7 +148,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "_interface",
+                "name": "interface",
                 "type": "string"
             },
             "designerId": "da34f0e1-66bd-46ef-a4c5-cec17407a452"
