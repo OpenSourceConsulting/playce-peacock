@@ -47,5 +47,23 @@
 			   , UPD_DT AS updDt
 		  FROM hypervisor_tbl
 	</select>
+	
+	<select id="selectHypervisor" resultType="com.athena.peacock.controller.web.hypervisor.HypervisorDto" parameterType="int">
+		SELECT HYPERVISOR_ID AS hypervisorId
+			   , HYPERVISOR_TYPE AS hypervisorType
+		   	   , RHEVM_NAME AS rhevmName
+		       , RHEVM_PROTOCOL AS rhevmProtocol
+		       , RHEVM_PORT AS rhevmPort
+		       , RHEVM_DOMAIN AS rhevmDomain
+		   	   , RHEVM_HOST AS rhevmHost
+		       , RHEVM_USERNAME AS rhevmUsername
+		       , RHEVM_PASSWORD AS rhevmPassword
+			   , REG_USER_ID AS regUserId
+			   , REG_DT AS regDt
+			   , UPD_USER_ID AS updUserId
+			   , UPD_DT AS updDt
+		  FROM hypervisor_tbl
+		 WHERE HYPERVISOR_ID = #{hypervisorId}
+	</select>
 
 </mapper>

@@ -116,6 +116,33 @@ public class HypervisorController {
 
 	/**
 	 * <pre>
+	 * 하이퍼바이저 조회
+	 * </pre>
+	 * @param request
+	 * @param jsonRes
+	 * @param hypervisor
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/selectHypervisor")
+	public @ResponseBody SimpleJsonResponse selectHypervisor(SimpleJsonResponse jsonRes, @QueryParam("hypervisorId") Integer hypervisorId) throws Exception {
+		Assert.notNull(hypervisorId, "hypervisorId can not be null.");
+		
+		try {
+			jsonRes.setData(hypervisorService.selectHypervisor(hypervisorId));
+			jsonRes.setMsg("Hypervisor 조회가 완료되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("Hypervisor 조회 중 에러가 발생하였습니다.");
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+
+	/**
+	 * <pre>
 	 * 하이퍼바이저 수정
 	 * </pre>
 	 * @param request

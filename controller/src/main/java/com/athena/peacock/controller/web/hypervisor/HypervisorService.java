@@ -49,6 +49,10 @@ public class HypervisorService {
 	public void insertHypervisor(HypervisorDto hypervisor) throws Exception {	
 		hypervisorDao.insertHypervisor(hypervisor);
 	}
+
+	public HypervisorDto selectHypervisor(Integer hypervisorId) {	
+		return hypervisorDao.selectHypervisor(hypervisorId);
+	}
 	
 	public void updateHypervisor(HypervisorDto hypervisor) throws Exception {
 		hypervisorDao.updateHypervisor(hypervisor);

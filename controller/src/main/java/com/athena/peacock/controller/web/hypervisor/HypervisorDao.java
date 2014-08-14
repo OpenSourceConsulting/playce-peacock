@@ -41,6 +41,10 @@ public class HypervisorDao  extends AbstractBaseDao {
 	public void insertHypervisor(HypervisorDto hypervisor) {
 		sqlSession.insert("HypervisorMapper.insertHypervisor", hypervisor);
 	}
+
+	public HypervisorDto selectHypervisor(Integer hypervisorId) {
+		return sqlSession.selectOne("HypervisorMapper.selectHypervisor", hypervisorId);
+	}
 	
 	public void updateHypervisor(HypervisorDto hypervisor) {
 		sqlSession.update("HypervisorMapper.updateHypervisor", hypervisor);
