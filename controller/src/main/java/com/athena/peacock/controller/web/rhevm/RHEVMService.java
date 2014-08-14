@@ -500,7 +500,7 @@ public class RHEVMService {
 
 		dto.setOs(vm.getOs().getType());
 		dto.setMemory((vm.getMemory()/1024/1024) + "");
-		dto.setSocket(vm.getCpu().getTopology().getSockets());
+		dto.setSockets(vm.getCpu().getTopology().getSockets());
 		dto.setCores(vm.getCpu().getTopology().getCores());
 		dto.setOrigin(vm.getOrigin());
 		dto.setPriority(vm.getHighAvailability().getPriority().toString());

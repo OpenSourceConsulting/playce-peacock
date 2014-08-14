@@ -43,7 +43,7 @@ public class VMDto extends RHEVBaseDto {
 	private String os;
 	private String template;
 	private String memory;
-	private int socket;
+	private int sockets;
 	private int cores;
 	private String priority;
 	private String origin;
@@ -112,11 +112,11 @@ public class VMDto extends RHEVBaseDto {
 		this.memory = memory;
 	}
 	
-	public int getSocket() {
-		return socket;
+	public int getSockets() {
+		return sockets;
 	}
-	public void setSocket(int socket) {
-		this.socket = socket;
+	public void setSockets(int sockets) {
+		this.sockets = sockets;
 	}
 	public int getCores() {
 		return cores;
