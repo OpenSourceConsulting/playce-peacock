@@ -51,7 +51,7 @@ public class VMDto extends RHEVBaseDto {
 	private String ipAddr;
 	private String boot;
 	private String haEnabled;
-	private String haPriority;
+	private Integer haPriority;
 	
 	private String startTime;
 	private String creationTime;
@@ -172,10 +172,10 @@ public class VMDto extends RHEVBaseDto {
 	public void setHaEnabled(String haEnabled) {
 		this.haEnabled = haEnabled;
 	}
-	public String getHaPriority() {
+	public Integer getHaPriority() {
 		return haPriority;
 	}
-	public void setHaPriority(String haPriority) {
+	public void setHaPriority(Integer haPriority) {
 		this.haPriority = haPriority;
 	}
 }

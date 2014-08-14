@@ -37,6 +37,8 @@ import com.athena.peacock.controller.common.component.RHEVMRestTemplate;
 import com.athena.peacock.controller.common.component.RHEVMRestTemplateManager;
 import com.athena.peacock.controller.web.rhevm.domain.Disk;
 import com.athena.peacock.controller.web.rhevm.domain.Disks;
+import com.athena.peacock.controller.web.rhevm.domain.NIC;
+import com.athena.peacock.controller.web.rhevm.domain.Nics;
 import com.athena.peacock.controller.web.rhevm.dto.DiskDto;
 import com.athena.peacock.controller.web.rhevm.dto.NetworkDto;
 import com.athena.peacock.controller.web.rhevm.dto.TemplateDto;
@@ -47,8 +49,7 @@ import com.redhat.rhevm.api.model.Cluster;
 import com.redhat.rhevm.api.model.DataCenter;
 import com.redhat.rhevm.api.model.Host;
 import com.redhat.rhevm.api.model.IP;
-import com.redhat.rhevm.api.model.NIC;
-import com.redhat.rhevm.api.model.Nics;
+import com.redhat.rhevm.api.model.Network;
 import com.redhat.rhevm.api.model.OperatingSystem;
 import com.redhat.rhevm.api.model.Template;
 import com.redhat.rhevm.api.model.Templates;
@@ -193,7 +194,7 @@ public class RHEVMService {
 		List<NIC> nicList = nics.getNics();
 		
 		for( NIC nic : nicList) {
-			networkDtoList.add(makeDto(nic));
+			networkDtoList.add(makeDto(hypervisorId, nic));
 		}
 		return networkDtoList;
 	}
@@ -232,7 +233,7 @@ public class RHEVMService {
 		List<NIC> nicList = nics.getNics();
 		
 		for( NIC nic : nicList) {
-			networkDtoList.add(makeDto(nic));
+			networkDtoList.add(makeDto(hypervisorId, nic));
 		}
 		return networkDtoList;
 	}
@@ -335,6 +336,7 @@ public class RHEVMService {
 		dto.setDescription(template.getDescription());
 		dto.setStatus(template.getStatus().getState());
 		dto.setType(template.getType());
+		dto.setOs(template.getOs().getType());
 		
 		dto.setDisplay(template.getDisplay().getType());
 		dto.setCreationTime(template.getCreationTime().toString());
@@ -342,6 +344,9 @@ public class RHEVMService {
 		dto.setMemory((template.getMemory()/1024/1024) + "MB");
 		dto.setSockets(template.getCpu().getTopology().getSockets());
 		dto.setCores(template.getCpu().getTopology().getCores());
+		
+		dto.setHaEnabled(Boolean.toString(template.getHighAvailability().isEnabled()));
+		dto.setHaPriority(template.getHighAvailability().getPriority());
 		
 		// Optional information
 		
@@ -366,11 +371,29 @@ public class RHEVMService {
 	 * @param nic
 	 * @return
 	 */
-	private NetworkDto makeDto(NIC nic) {
+	private NetworkDto makeDto(int hypervisorId, NIC nic) {
 		NetworkDto dto = new NetworkDto();
+		
 		dto.setName(nic.getName());
-		dto.setMacAddress(nic.getMac().getAddress());
 		dto.setType(nic.getInterface());
+		dto.setLinked(Boolean.toString(nic.isLinked()));
+		dto.setPluged(Boolean.toString(nic.isPlugged()));
+		dto.setActive(Boolean.toString(nic.isActive()));
+		
+		if (nic.getMac() != null) {
+			dto.setMacAddress(nic.getMac().getAddress());
+		}
+		
+		try {
+			String networkHref = nic.getNetwork().getHref();
+			Network network = getRHEVMRestTemplate(hypervisorId).submit(networkHref, HttpMethod.GET, Network.class);
+			if (network != null) {
+				dto.setNetworkName(network.getName());
+			}
+		} catch (Exception e) {
+			logger.error("Unhandler Exception has occurred : ", e);
+		}
+		
 		return dto;
 	}
 	
@@ -416,16 +439,7 @@ public class RHEVMService {
 		dto.setStatus(vm.getStatus().getState());
 		dto.setCreationTime(vm.getCreationTime().toString());
 		dto.setHaEnabled(Boolean.toString(vm.getHighAvailability().isEnabled()));
-		
-		int haPriority = vm.getHighAvailability().getPriority();
-		
-		if (haPriority == 1) {
-			dto.setHaPriority("Low");
-		} else if (haPriority == 2) {
-			dto.setHaPriority("Middle");
-		} else if (haPriority == 3) {
-			dto.setHaPriority("High");
-		}
+		dto.setHaPriority(vm.getHighAvailability().getPriority());
 		
 		if(vm.getStartTime() != null) dto.setStartTime(vm.getStartTime().toString());
 		

@@ -43,6 +43,9 @@ public class TemplateDto extends RHEVBaseDto {
 	private String display;
 	private String dataCenter;
 	private String cluster;
+	private String os;
+	private String haEnabled;
+	private Integer haPriority;
 	
 	public String getTemplateId() {
 		return templateId;
@@ -109,6 +112,24 @@ public class TemplateDto extends RHEVBaseDto {
 	}
 	public void setCluster(String cluster) {
 		this.cluster = cluster;
+	}
+	public String getOs() {
+		return os;
+	}
+	public void setOs(String os) {
+		this.os = os;
+	}
+	public String getHaEnabled() {
+		return haEnabled;
+	}
+	public void setHaEnabled(String haEnabled) {
+		this.haEnabled = haEnabled;
+	}
+	public Integer getHaPriority() {
+		return haPriority;
+	}
+	public void setHaPriority(Integer haPriority) {
+		this.haPriority = haPriority;
 	}
 	
 }
