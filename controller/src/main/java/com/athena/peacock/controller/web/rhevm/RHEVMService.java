@@ -372,6 +372,24 @@ public class RHEVMService {
 		
 		return getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.TEMPLATES, HttpMethod.POST, template, "template", Template.class);
 	}
+
+	/**
+	 * <pre>
+	 * 특정 템플릿을 제거한다.
+	 * </pre>
+	 * @param hypervisorId
+	 * @param templateId
+	 * @return
+	 * @throws RestClientException
+	 * @throws Exception
+	 */
+	public Action removeTemplate(Integer hypervisorId, String templateId) throws RestClientException, Exception {
+		String callUrl = RHEVApi.TEMPLATES + "/" + templateId;
+		Action action = new Action();
+		action.setForce(true);
+		action = getRHEVMRestTemplate(hypervisorId).submit(callUrl,  HttpMethod.DELETE, action, "action", Action.class);
+		return action;
+	}
 	
 	/**
 	 * RHEV Template 데이터를 추출하여 DTO로 저장한다.

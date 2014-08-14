@@ -488,5 +488,32 @@ public class RHEVMController {
 		return jsonRes;
 	}
 	
+	/**
+	 * <pre>
+	 * 입력받은 templateId를 사용하여 템플릿을 제거한다. 
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/templates/remove")
+	public @ResponseBody SimpleJsonResponse removeTemplate(SimpleJsonResponse jsonRes, TemplateDto dto) throws Exception {
+		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
+		Assert.notNull(dto.getTemplateId(), "templateId must not be null.");
+		
+		try {
+			jsonRes.setData(rhevmService.removeTemplate(dto.getHypervisorId(), dto.getTemplateId()));
+			jsonRes.setMsg("템플릿 삭제가 정상적으로 요청되었습니다. 잠시만 기다려주십시오.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("템플릿 삭제 요청 중 에러가 발생하였습니다.");
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+	
 	
 }
