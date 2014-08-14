@@ -93,6 +93,11 @@ Ext.define('MyApp.controller.UserController', {
                         handler: function() {
                             user.showUserWindow('edit');
                         }
+                    },
+                    { text: 'Delete',
+                        handler: function() {
+                            user.deleteUser();
+                        }
                     }
                     ]
 
@@ -144,6 +149,34 @@ Ext.define('MyApp.controller.UserController', {
         }
 
 
+    },
+
+    deleteUser: function() {
+
+        Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){
+
+            if(btn == "yes"){
+
+                Ext.Ajax.request({
+                    url: GLOBAL.urlPrefix + "/user/delete",
+                    params : {
+                        userId : userConstants.selectRow.get("userId")
+                    },
+                    disableCaching : true,
+                    waitMsg: 'Delete User...',
+                    success: function(response){
+                        var msg = Ext.JSON.decode(response.responseText).msg;
+                        Ext.MessageBox.alert('알림', msg);
+
+                        Ext.getCmp("userGrid").getStore().reload();
+
+                        Ext.getCmp("userDetailPanel").layout.setActiveItem(0);
+
+                    }
+                });
+            }
+
+        });
     }
 
 });

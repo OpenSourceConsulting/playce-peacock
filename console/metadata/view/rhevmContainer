@@ -91,8 +91,7 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
-                                            "var rhevmWindow = Ext.create(\"widget.regRhevmWindow\");",
-                                            "rhevmWindow.show();"
+                                            "RHEVMConstants.me.showRhevmWindow('new');"
                                         ]
                                     },
                                     "designerId": "233f7e0f-ca41-466f-8716-d946843e7b24"
@@ -151,11 +150,7 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
-                                            "//hypervisor Grid Data Search",
-                                            "Ext.getCmp(\"hypervisorGrid\").getStore().load();",
-                                            "",
-                                            "var detailPanel = Ext.getCmp(\"rhevmDetailPanel\");",
-                                            "detailPanel.layout.setActiveItem(0);"
+                                            "RHEVMConstants.me.searchHypervisor();"
                                         ]
                                     },
                                     "designerId": "489048db-e4ae-442b-9c92-314f839c150b"
@@ -189,6 +184,7 @@
                         "dataIndex": "hypervisorId",
                         "format": "0000",
                         "hidden": true,
+                        "hideable": false,
                         "text": "HypervisorId"
                     },
                     "designerId": "43c03fb9-4199-47d8-9617-54c14a8c6986"
@@ -456,6 +452,7 @@
                     "userConfig": {
                         "dataIndex": "hypervisorType",
                         "hidden": true,
+                        "hideable": false,
                         "text": "HypervisorType"
                     },
                     "designerId": "656300f6-15f5-438b-8776-7d145df213fd"
@@ -482,6 +479,77 @@
                             "group": "(Custom Properties)",
                             "name": "rende",
                             "type": "string"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Action",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "align": "center",
+                        "maxWidth": 65,
+                        "menuText": "",
+                        "minWidth": 65,
+                        "style": [
+                            "\"text-align:left;\""
+                        ],
+                        "text": "Edit",
+                        "width": 65
+                    },
+                    "designerId": "51205ddd-45da-42b2-bb1b-de4d7b2303c7",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "text",
+                            "type": "string"
+                        }
+                    ],
+                    "cn": [
+                        {
+                            "type": "actioncolumnitem",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "icon": "resources/images/icons/cog.png",
+                                "iconCls": ""
+                            },
+                            "designerId": "72607506-3190-41c1-85e1-6ce8a4da02cc",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "RHEVMConstants.selectRow = record;",
+                                            "",
+                                            "RHEVMConstants.me.showRhevmWindow('edit');",
+                                            ""
+                                        ]
+                                    },
+                                    "designerId": "a59b36e3-0403-43ca-82d6-ebea6fc4bac7"
+                                }
+                            ]
                         }
                     ]
                 },
@@ -545,31 +613,10 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
+                                            "RHEVMConstants.selectRow = record;",
                                             "",
-                                            "Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){",
-                                            "",
-                                            "    if(btn == \"yes\"){",
-                                            "        //view.setLoading(true);",
-                                            "        Ext.Ajax.request({",
-                                            "            url: GLOBAL.urlPrefix + \"/hypervisor/deleteHypervisor\",",
-                                            "            params : {",
-                                            "                hypervisorId : record.get(\"hypervisorId\")",
-                                            "            },",
-                                            "            disableCaching : true,",
-                                            "            waitMsg: 'Delete RHEVM...',",
-                                            "            success: function(response){",
-                                            "                var msg = Ext.JSON.decode(response.responseText).msg;",
-                                            "                Ext.MessageBox.alert('알림', msg);",
-                                            "",
-                                            "                view.getStore().reload();",
-                                            "",
-                                            "                Ext.getCmp(\"rhevmDetailPanel\").layout.setActiveItem(0);",
-                                            "",
-                                            "            }",
-                                            "        });",
-                                            "    }",
-                                            "",
-                                            "});"
+                                            "RHEVMConstants.me.deleteRhevm();",
+                                            ""
                                         ]
                                     },
                                     "designerId": "8409ac7e-a3fc-4fa9-8165-186bc6c9b101"
@@ -577,18 +624,6 @@
                             ]
                         }
                     ]
-                },
-                {
-                    "type": "Ext.grid.plugin.RowEditing",
-                    "reference": {
-                        "name": "plugins",
-                        "type": "array"
-                    },
-                    "codeClass": "Ext.grid.plugin.RowEditing",
-                    "userConfig": {
-                        "autoCancel": false
-                    },
-                    "designerId": "f8e58b0c-fd27-431b-bd4d-0dd5e76fb45a"
                 }
             ]
         },
@@ -659,40 +694,7 @@
                                 "style": [
                                     "'background-color:#ffffff;'"
                                 ],
-                                "tabBar": [
-                                    "{",
-                                    "    items: [{",
-                                    "        xtype: 'tbfill'",
-                                    "    }, {",
-                                    "        xtype: 'button',",
-                                    "        handler: function(button, e) {",
-                                    "            ",
-                                    "            var tabPanel = Ext.getCmp(\"rhevmTabPanel\");",
-                                    "            ",
-                                    "            var grid;",
-                                    "            if(tabPanel.getActiveTab().title == \"Templates\"){",
-                                    "                grid = Ext.getCmp('rhevmTemplateGrid');",
-                                    "            } else {",
-                                    "                grid = Ext.getCmp('rhevmVMGrid');",
-                                    "            }",
-                                    "            grid.getStore().load({",
-                                    "                params:{",
-                                    "                    hypervisorId : RHEVMConstants.selectRow.get(\"hypervisorId\")",
-                                    "                }",
-                                    "            });",
-                                    "            ",
-                                    "            var detailTab = Ext.getCmp(\"rhevmTabDetailPanel\");",
-                                    "            detailTab.collapse();",
-                                    "            detailTab.layout.setActiveItem(0);",
-                                    "        },",
-                                    "        ",
-                                    "        iconCls: 'x-tbar-loading',",
-                                    "        scale : 'toolbar-small',",
-                                    "        margin : '0 10 0 0'",
-                                    "    }]",
-                                    "}",
-                                    ""
-                                ]
+                                "tabBar": null
                             },
                             "configAlternates": {
                                 "tabBar": "object"
@@ -776,6 +778,7 @@
                                                     "userConfig": {
                                                         "dataIndex": "hypervisorId",
                                                         "hidden": true,
+                                                        "hideable": false,
                                                         "minWidth": 100,
                                                         "text": null
                                                     },
@@ -791,6 +794,7 @@
                                                     "userConfig": {
                                                         "dataIndex": "vmId",
                                                         "hidden": true,
+                                                        "hideable": false,
                                                         "text": ""
                                                     },
                                                     "designerId": "70e2377f-9535-44cc-b1ab-f3a2b2b6d975"
@@ -833,7 +837,7 @@
                                                     "userConfig": {
                                                         "dataIndex": "ipAddr",
                                                         "minWidth": 120,
-                                                        "text": "Ip Address"
+                                                        "text": "IP Address"
                                                     },
                                                     "designerId": "b073c14d-3e25-4493-b22c-56160164d901"
                                                 },
@@ -889,9 +893,87 @@
                                                     "userConfig": {
                                                         "dataIndex": "startTime",
                                                         "minWidth": 220,
-                                                        "text": "Uptime"
+                                                        "text": "Start Time"
                                                     },
                                                     "designerId": "3a3611f9-3331-4b91-ade9-6edc24652e80"
+                                                },
+                                                {
+                                                    "type": "Ext.toolbar.Toolbar",
+                                                    "reference": {
+                                                        "name": "dockedItems",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "dock": "top"
+                                                    },
+                                                    "designerId": "9ab68820-1259-4a4d-a8a5-28e4a1fba663",
+                                                    "cn": [
+                                                        {
+                                                            "type": "Ext.form.field.Text",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "enableKeyEvents": true,
+                                                                "fieldLabel": "Filtering",
+                                                                "id": "searchRhevmVMName",
+                                                                "itemId": "searchRhevmVMName",
+                                                                "labelWidth": 60,
+                                                                "layout|flex": null
+                                                            },
+                                                            "designerId": "509e57af-bf1a-4bff-88b8-e638581cb1e1"
+                                                        },
+                                                        {
+                                                            "type": "Ext.button.Button",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "iconCls": "x-tbar-loading",
+                                                                "iconMask": false,
+                                                                "layout|flex": null,
+                                                                "text": null,
+                                                                "tooltipType": null
+                                                            },
+                                                            "configAlternates": {
+                                                                "iconMask": "boolean"
+                                                            },
+                                                            "designerId": "69f3b16b-a95c-418a-9f98-7e67b339f7b4",
+                                                            "customConfigs": [
+                                                                {
+                                                                    "group": "(Custom Properties)",
+                                                                    "name": "iconMask",
+                                                                    "type": "string"
+                                                                }
+                                                            ],
+                                                            "cn": [
+                                                                {
+                                                                    "type": "fixedfunction",
+                                                                    "reference": {
+                                                                        "name": "items",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "designer|params": [
+                                                                            "button",
+                                                                            "e"
+                                                                        ],
+                                                                        "fn": "handler",
+                                                                        "implHandler": [
+                                                                            "RHEVMConstants.me.searchRhevmChildGrid('rhevmVMGrid');"
+                                                                        ]
+                                                                    },
+                                                                    "designerId": "c206f659-e7d1-43cf-befc-7badc1d0d321"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
                                                 }
                                             ]
                                         }
@@ -959,6 +1041,7 @@
                                                     "userConfig": {
                                                         "dataIndex": "hypervisorId",
                                                         "hidden": true,
+                                                        "hideable": false,
                                                         "minWidth": 100,
                                                         "text": null
                                                     },
@@ -974,6 +1057,7 @@
                                                     "userConfig": {
                                                         "dataIndex": "templateId",
                                                         "hidden": true,
+                                                        "hideable": false,
                                                         "text": ""
                                                     },
                                                     "designerId": "0c1b6998-33dd-47a6-9b7f-4f6652e48883"
@@ -1075,6 +1159,84 @@
                                                         "text": "Description"
                                                     },
                                                     "designerId": "defe5126-5388-41a8-aaca-2aff7e415418"
+                                                },
+                                                {
+                                                    "type": "Ext.toolbar.Toolbar",
+                                                    "reference": {
+                                                        "name": "dockedItems",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "dock": "top"
+                                                    },
+                                                    "designerId": "cf985988-e88b-48e8-8b65-4910e5c18c57",
+                                                    "cn": [
+                                                        {
+                                                            "type": "Ext.form.field.Text",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "enableKeyEvents": true,
+                                                                "fieldLabel": "Filtering",
+                                                                "id": "searchRhevmTemplateName",
+                                                                "itemId": "searchRhevmTemplateName",
+                                                                "labelWidth": 60,
+                                                                "layout|flex": null
+                                                            },
+                                                            "designerId": "348b3395-44a4-46d0-a1fc-589ebcb3083f"
+                                                        },
+                                                        {
+                                                            "type": "Ext.button.Button",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "iconCls": "x-tbar-loading",
+                                                                "iconMask": false,
+                                                                "layout|flex": null,
+                                                                "text": null,
+                                                                "tooltipType": null
+                                                            },
+                                                            "configAlternates": {
+                                                                "iconMask": "boolean"
+                                                            },
+                                                            "designerId": "a3c3c2b8-8b4f-49ec-bcbb-253b2350b1ca",
+                                                            "customConfigs": [
+                                                                {
+                                                                    "group": "(Custom Properties)",
+                                                                    "name": "iconMask",
+                                                                    "type": "string"
+                                                                }
+                                                            ],
+                                                            "cn": [
+                                                                {
+                                                                    "type": "fixedfunction",
+                                                                    "reference": {
+                                                                        "name": "items",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "designer|params": [
+                                                                            "button",
+                                                                            "e"
+                                                                        ],
+                                                                        "fn": "handler",
+                                                                        "implHandler": [
+                                                                            "RHEVMConstants.me.searchRhevmChildGrid('rhevmTemplateGrid');"
+                                                                        ]
+                                                                    },
+                                                                    "designerId": "6ccdcf3f-abec-4006-ad04-80f0dfbb209e"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
                                                 }
                                             ]
                                         }
@@ -1448,9 +1610,37 @@
                                                                     "userConfig": {
                                                                         "fieldLabel": "CPU Cores",
                                                                         "layout|flex": null,
-                                                                        "name": "cores"
+                                                                        "name": "core_socket"
                                                                     },
                                                                     "designerId": "81dbedb5-cbfb-42c4-808a-ce6bbf992128"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.form.field.Hidden",
+                                                                    "reference": {
+                                                                        "name": "items",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "fieldLabel": "Label",
+                                                                        "layout|flex": 1,
+                                                                        "name": "sockets"
+                                                                    },
+                                                                    "designerId": "da117dd3-44c8-4ad8-b3f6-a3a1e1ef3abe"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.form.field.Hidden",
+                                                                    "reference": {
+                                                                        "name": "items",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "fieldLabel": "Label",
+                                                                        "layout|flex": 1,
+                                                                        "name": "cores"
+                                                                    },
+                                                                    "designerId": "48740b20-a17b-43bb-97b5-02314575016a"
                                                                 }
                                                             ]
                                                         },
@@ -1791,6 +1981,7 @@
                                                             "codeClass": null,
                                                             "userConfig": {
                                                                 "dataIndex": "active",
+                                                                "maxWidth": null,
                                                                 "minWidth": 80,
                                                                 "text": "Active"
                                                             },

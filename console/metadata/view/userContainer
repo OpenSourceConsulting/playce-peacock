@@ -159,6 +159,7 @@
                         "dataIndex": "userId",
                         "format": "0000",
                         "maxWidth": 100,
+                        "minWidth": 60,
                         "text": "ID"
                     },
                     "designerId": "c3021e3e-4c93-4591-958e-2ebbe40b8a80"
@@ -173,8 +174,8 @@
                     "userConfig": {
                         "dataIndex": "loginId",
                         "defaultWidth": 150,
-                        "hidden": true,
-                        "text": "Login_id"
+                        "minWidth": 100,
+                        "text": "Login ID"
                     },
                     "designerId": "b343c638-7100-430b-84e8-51c1571cda32"
                 },
@@ -188,6 +189,7 @@
                     "userConfig": {
                         "dataIndex": "userName",
                         "defaultWidth": 150,
+                        "minWidth": 100,
                         "text": "User Name"
                     },
                     "designerId": "a7f8b707-7cc1-4a66-986b-9c5bfd3759d1"
@@ -202,6 +204,7 @@
                     "userConfig": {
                         "dataIndex": "deptName",
                         "defaultWidth": 150,
+                        "minWidth": 100,
                         "text": "Dept Name"
                     },
                     "designerId": "f0745e7c-080f-4d4d-9c08-395e71e6678c"
@@ -217,6 +220,7 @@
                         "dataIndex": "passwd",
                         "defaultWidth": 150,
                         "hidden": true,
+                        "hideable": false,
                         "text": "Password"
                     },
                     "designerId": "866e5d0a-95f9-49e4-a57f-342cff92ae8d"
@@ -231,6 +235,7 @@
                     "userConfig": {
                         "dataIndex": "email",
                         "defaultWidth": 200,
+                        "minWidth": 150,
                         "text": "Email"
                     },
                     "designerId": "65082660-6359-4018-8026-5328d7940f7c"
@@ -245,6 +250,7 @@
                     "userConfig": {
                         "dataIndex": "lastLogon",
                         "hidden": true,
+                        "hideable": false,
                         "text": "Last_logon"
                     },
                     "designerId": "9d18b3a7-d48a-4d17-b638-12afad2edfbd"
@@ -259,6 +265,7 @@
                     "userConfig": {
                         "dataIndex": "regUserId",
                         "hidden": true,
+                        "hideable": false,
                         "text": "RegUserId"
                     },
                     "designerId": "0002d7a6-08e2-4907-8d95-46c59ce61816"
@@ -273,7 +280,7 @@
                     "userConfig": {
                         "dataIndex": "regDt",
                         "defaultWidth": 200,
-                        "minWidth": 130,
+                        "minWidth": 220,
                         "text": "Create Date"
                     },
                     "configAlternates": {
@@ -298,6 +305,7 @@
                     "userConfig": {
                         "dataIndex": "updUserId",
                         "hidden": true,
+                        "hideable": false,
                         "text": "UpdUserId"
                     },
                     "designerId": "587677a5-66f5-484d-95c0-8c286a668b23"
@@ -312,6 +320,7 @@
                     "userConfig": {
                         "dataIndex": "updDt",
                         "hidden": true,
+                        "hideable": false,
                         "text": "UpdDt"
                     },
                     "designerId": "f1a2ba3a-0cef-4f9d-8e57-43273314540b"
@@ -325,9 +334,81 @@
                     "codeClass": null,
                     "userConfig": {
                         "align": "center",
+                        "maxWidth": 65,
+                        "menuText": "",
+                        "minWidth": 65,
+                        "style": [
+                            "\"text-align:left;\""
+                        ],
+                        "text": "Edit",
+                        "width": 65
+                    },
+                    "designerId": "8cd2fabb-beb1-4378-80e1-924a36739aed",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "text",
+                            "type": "string"
+                        }
+                    ],
+                    "cn": [
+                        {
+                            "type": "actioncolumnitem",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "icon": "resources/images/icons/cog.png",
+                                "iconCls": ""
+                            },
+                            "designerId": "1b504af8-6edf-4c49-bca1-71f31af48c60",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "userConstants.selectRow = record;",
+                                            "",
+                                            "userConstants.me.showUserWindow('edit');",
+                                            ""
+                                        ]
+                                    },
+                                    "designerId": "722f995c-d5af-4fc9-8d6a-54d15b653911"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Action",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "align": "center",
                         "defaultWidth": 60,
                         "maxWidth": 60,
                         "menuText": "",
+                        "minWidth": 70,
                         "style": [
                             "\"text-align:left;\""
                         ],
@@ -375,31 +456,10 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
+                                            "userConstants.selectRow = record;",
                                             "",
-                                            "Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){",
-                                            "",
-                                            "    if(btn == \"yes\"){",
-                                            "        //view.setLoading(true);",
-                                            "        Ext.Ajax.request({",
-                                            "            url: GLOBAL.urlPrefix + \"/user/delete\",",
-                                            "            params : {",
-                                            "                userId : record.get(\"userId\")",
-                                            "            },",
-                                            "            disableCaching : true,",
-                                            "            waitMsg: 'Delete User...',",
-                                            "            success: function(response){",
-                                            "                var msg = Ext.JSON.decode(response.responseText).msg;",
-                                            "                Ext.MessageBox.alert('알림', msg);",
-                                            "",
-                                            "                view.getStore().reload();",
-                                            "",
-                                            "                Ext.getCmp(\"userDetailPanel\").layout.setActiveItem(0);",
-                                            "",
-                                            "            }",
-                                            "        });",
-                                            "    }",
-                                            "",
-                                            "});"
+                                            "userConstants.me.deleteUser();",
+                                            ""
                                         ]
                                     },
                                     "designerId": "9972c396-cd85-4f66-b4ce-a228f7f316a9"

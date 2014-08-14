@@ -49,37 +49,9 @@
                     "",
                     "RHEVMConstants.selectRow = record;",
                     "",
-                    "var detailPanel = Ext.getCmp(\"rhevmDetailPanel\");",
-                    "detailPanel.layout.setActiveItem(1);",
-                    "",
-                    "Ext.getCmp(\"rhevmTabPanel\").setActiveTab(0);",
-                    "",
-                    "var detailDPanel = Ext.getCmp(\"rhevmTabDetailPanel\");",
-                    "detailDPanel.layout.setActiveItem(0);",
-                    "detailDPanel.collapse();",
-                    "",
-                    "",
-                    "//Virtual Machines Data Loading",
-                    "var vmGrid = Ext.getCmp('rhevmVMGrid');",
-                    "",
-                    "vmGrid.getStore().load({",
-                    "    params:{",
-                    "        hypervisorId : record.get(\"hypervisorId\")",
-                    "    }",
-                    "});",
-                    "",
-                    "",
-                    "//Template Data Loading",
-                    "var templateGrid = Ext.getCmp('rhevmTemplateGrid');",
-                    "",
-                    "templateGrid.getStore().load({",
-                    "    params:{",
-                    "        hypervisorId : record.get(\"hypervisorId\")",
-                    "    }",
-                    "});",
-                    ""
+                    "this.selectHypervisorGrid();"
                 ],
-                "name": "select",
+                "name": "itemclick",
                 "scope": "me"
             },
             "designerId": "3f6ceed4-9073-4b9e-a8cc-bb6f9c0f953d"
@@ -106,7 +78,7 @@
                     "} else {",
                     "    grid = Ext.getCmp('rhevmVMGrid');",
                     "}",
-                    "grid.getStore().reload();"
+                    "grid.getSelectionModel().deselectAll();"
                 ],
                 "name": "tabchange",
                 "scope": "me"
@@ -153,13 +125,19 @@
                     "    }",
                     "    ,url : GLOBAL.urlPrefix + \"/rhevm/vms/info\"",
                     "    ,waitMsg:'Loading...'",
-                    "});",
+                    "    ,success: function(form, action) {",
+                    "        var socket = form.findField('sockets').getRawValue();",
+                    "        var cores = form.findField('cores').getRawValue();",
                     "",
+                    "        form.findField('core_socket').setRawValue((socket*cores) + ' (' + socket + ' Socket(s), ' + cores + ' Core(s) per Socket)');",
+                    "    }",
+                    "});",
                     "",
                     "//Network Interfaces Data Loading",
                     "var networkGrid = Ext.getCmp('rhevmNetworkGrid');",
                     "",
                     "networkGrid.columns[6].setVisible(true);",
+                    "networkGrid.columns[6].hideable = true;",
                     "",
                     "networkGrid.getStore().getProxy().url = GLOBAL.urlPrefix + \"/rhevm/vms/nics\";",
                     "networkGrid.getStore().load({",
@@ -169,11 +147,11 @@
                     "    }",
                     "});",
                     "",
-                    "",
                     "//Disk Data Loading",
                     "var diskGrid = Ext.getCmp('rhevmDiskGrid');",
                     "",
                     "diskGrid.columns[1].setVisible(true);",
+                    "diskGrid.columns[1].hideable = true;",
                     "",
                     "diskGrid.getStore().getProxy().url = GLOBAL.urlPrefix + \"/rhevm/vms/disks\";",
                     "diskGrid.getStore().load({",
@@ -182,11 +160,9 @@
                     "        vmId : record.get(\"vmId\")",
                     "    }",
                     "});",
-                    "",
-                    "",
                     ""
                 ],
-                "name": "select",
+                "name": "itemclick",
                 "scope": "me"
             },
             "designerId": "3e5fd3cd-6bc4-4809-a35c-05e4ae797829"
@@ -205,6 +181,23 @@
                 "fn": "init",
                 "implHandler": [
                     "var rhevm = this;",
+                    "",
+                    "var rhevmGridContextMenu = new Ext.menu.Menu({",
+                    "    items:",
+                    "    [",
+                    "        { text: 'Edit',",
+                    "         handler: function() {",
+                    "             rhevm.showRhevmWindow('edit');",
+                    "         }",
+                    "        },",
+                    "        { text: 'Delete',",
+                    "         handler: function() {",
+                    "             rhevm.deleteRhevm();",
+                    "         }",
+                    "        }",
+                    "    ]",
+                    "",
+                    "});",
                     "",
                     "var rhevmVMGridContextMenu = new Ext.menu.Menu({",
                     "    items:",
@@ -237,7 +230,28 @@
                     "        { text: 'Make Template',",
                     "          handler: function() {",
                     "             rhevm.showTemplateWindow();",
+                    "             var templateWindow = Ext.create(\"widget.regTemplateWindow\");",
+                    "",
+                    "             templateWindow.show();",
+                    "",
                     "          }",
+                    "        }",
+                    "    ]",
+                    "",
+                    "});",
+                    "",
+                    "var rhevmTemplateGridContextMenu = new Ext.menu.Menu({",
+                    "    items:",
+                    "    [",
+                    "        { text: 'Instance Create',",
+                    "         handler: function() {",
+                    "             alert('Instance Create');",
+                    "         }",
+                    "        },",
+                    "        { text: 'Remove',",
+                    "         handler: function() {",
+                    "             rhevm.deleteTemplate();",
+                    "         }",
                     "        }",
                     "    ]",
                     "",
@@ -246,7 +260,10 @@
                     "//RHEVM Menu Constants",
                     "Ext.define('RHEVMConstants', {",
                     "    singleton: true,",
-                    "    contextMenu: rhevmVMGridContextMenu,",
+                    "    me : rhevm,",
+                    "    rhevmContextMenu: rhevmGridContextMenu,",
+                    "    rhevmVMContextMenu: rhevmVMGridContextMenu,",
+                    "    rhevmTemplateContextMenu: rhevmTemplateGridContextMenu,",
                     "    selectRow : null,",
                     "    childSelectRow : null",
                     "});"
@@ -271,33 +288,33 @@
                     "",
                     "RHEVMConstants.childSelectRow = record;",
                     "",
-                    "var menu = RHEVMConstants.contextMenu;",
+                    "var menu = RHEVMConstants.rhevmVMContextMenu;",
                     "var status = record.get('status');",
                     "",
                     "menu.items.each(function( item ) {",
-                    "    ",
+                    "",
                     "    if(status == 'up') {",
-                    "    ",
+                    "",
                     "        if(item.text == 'Start')\t\t\t\titem.setDisabled(true);",
                     "        else if(item.text == 'Stop')\t\t\titem.setDisabled(false);",
                     "        else if(item.text == 'Shutdown')\t\titem.setDisabled(false);",
                     "        else if(item.text == 'Remove')\t\t\titem.setDisabled(true);",
                     "        else if(item.text == 'Export')\t\t\titem.setDisabled(true);",
                     "        else if(item.text == 'Make Template')\titem.setDisabled(true);",
-                    "        ",
+                    "",
                     "    } else if(status == 'down') {",
-                    "        ",
+                    "",
                     "        if(item.text == 'Start')\t\t\t\titem.setDisabled(false);",
                     "        else if(item.text == 'Stop')\t\t\titem.setDisabled(true);",
                     "        else if(item.text == 'Shutdown')\t\titem.setDisabled(true);",
                     "        else if(item.text == 'Remove')\t\t\titem.setDisabled(false);",
                     "        else if(item.text == 'Export')\t\t\titem.setDisabled(false);",
                     "        else if(item.text == 'Make Template')\titem.setDisabled(false);",
-                    "        ",
+                    "",
                     "    } else {",
                     "        item.setDisabled(true);",
                     "    }",
-                    "    ",
+                    "",
                     "});",
                     "",
                     "menu.showAt(position);"
@@ -306,52 +323,6 @@
                 "scope": "me"
             },
             "designerId": "1b83a125-6744-43d5-8dea-f4acacae4b13"
-        },
-        {
-            "type": "controlleraction",
-            "reference": {
-                "name": "listeners",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "designer|controlQuery": "#hypervisorGrid",
-                "designer|targetType": "Ext.grid.plugin.RowEditing",
-                "fn": "onRowEditingEdit",
-                "implHandler": [
-                    "var record = context.record;",
-                    "",
-                    "Ext.Ajax.request({",
-                    "    url: GLOBAL.urlPrefix + \"/hypervisor/updateHypervisor\",",
-                    "    params: {",
-                    "        hypervisorId \t: record.get(\"hypervisorId\"),",
-                    "        hypervisorType \t: record.get(\"hypervisorType\"),",
-                    "        rhevmName \t\t: record.get(\"rhevmName\"),",
-                    "        rhevmProtocol \t: record.get(\"rhevmProtocol\"),",
-                    "        rhevmPort \t\t: record.get(\"rhevmPort\"),",
-                    "        rhevmDomain \t: record.get(\"rhevmDomain\"),",
-                    "        rhevmHost \t\t: record.get(\"rhevmHost\"),",
-                    "        rhevmUsername \t: record.get(\"rhevmUsername\"),",
-                    "        rhevmPassword \t: record.get(\"rhevmPassword\")",
-                    "    },",
-                    "    disableCaching : true,",
-                    "    waitMsg: 'update RHEVM...',",
-                    "    success: function(response){",
-                    "        var msg = Ext.JSON.decode(response.responseText).msg;",
-                    "        Ext.MessageBox.alert('알림', msg);",
-                    "",
-                    "        Ext.getCmp(\"hypervisorGrid\").getStore().load();",
-                    "",
-                    "        //Ext.getCmp(\"rhevmDetailPanel\").layout.setActiveItem(0);",
-                    "",
-                    "    }",
-                    "});",
-                    ""
-                ],
-                "name": "edit",
-                "scope": "me"
-            },
-            "designerId": "9827429c-8b7e-4b01-8f9d-b48a6e6f066b"
         },
         {
             "type": "controlleraction",
@@ -400,6 +371,7 @@
                     "var networkGrid = Ext.getCmp('rhevmNetworkGrid');",
                     "",
                     "networkGrid.columns[6].setVisible(false);",
+                    "networkGrid.columns[6].hideable = false;",
                     "",
                     "networkGrid.getStore().getProxy().url = GLOBAL.urlPrefix + \"/rhevm/templates/nics\";",
                     "networkGrid.getStore().load({",
@@ -414,6 +386,7 @@
                     "var diskGrid = Ext.getCmp('rhevmDiskGrid');",
                     "",
                     "diskGrid.columns[1].setVisible(false);",
+                    "diskGrid.columns[1].hideable = false;",
                     "",
                     "diskGrid.getStore().getProxy().url = GLOBAL.urlPrefix + \"/rhevm/templates/disks\";",
                     "diskGrid.getStore().load({",
@@ -423,10 +396,279 @@
                     "    }",
                     "});"
                 ],
-                "name": "select",
+                "name": "itemclick",
                 "scope": "me"
             },
             "designerId": "33c04ce4-a288-4fcd-9152-d8766fedd98c"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "searchHypervisor",
+                "implHandler": [
+                    "Ext.getCmp(\"hypervisorGrid\").getStore().load();",
+                    "",
+                    "var detailPanel = Ext.getCmp(\"rhevmDetailPanel\");",
+                    "detailPanel.layout.setActiveItem(0);"
+                ]
+            },
+            "designerId": "a1a27b99-e094-4625-b3f5-b4a9bf158251"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "selectHypervisorGrid",
+                "implHandler": [
+                    "var detailPanel = Ext.getCmp(\"rhevmDetailPanel\");",
+                    "detailPanel.layout.setActiveItem(1);",
+                    "",
+                    "Ext.getCmp(\"rhevmTabPanel\").setActiveTab(0);",
+                    "",
+                    "var detailDPanel = Ext.getCmp(\"rhevmTabDetailPanel\");",
+                    "detailDPanel.layout.setActiveItem(0);",
+                    "detailDPanel.collapse();",
+                    "",
+                    "Ext.getCmp(\"searchRhevmVMName\").setRawValue(\"\");",
+                    "Ext.getCmp(\"searchRhevmTemplateName\").setRawValue(\"\");",
+                    "",
+                    "this.searchRhevmChildGrid();",
+                    ""
+                ]
+            },
+            "designerId": "c4c459a0-4f68-4852-8189-0d312f349b7f"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "type"
+                ],
+                "fn": "showRhevmWindow",
+                "implHandler": [
+                    "var rhevmWindow = Ext.create(\"widget.regRhevmWindow\");",
+                    "rhevmWindow.show();",
+                    "",
+                    "if(type == 'edit') {",
+                    "",
+                    "    rhevmWindow.setTitle(\"Edit RHEVM\");",
+                    "",
+                    "    var rhevmForm = Ext.getCmp(\"rhevmForm\");",
+                    "",
+                    "    rhevmForm.getForm().waitMsgTarget = rhevmForm.getEl();",
+                    "",
+                    "    rhevmForm.getForm().load({",
+                    "        params : {",
+                    "            hypervisorId : RHEVMConstants.selectRow.get(\"hypervisorId\")",
+                    "        }",
+                    "        ,url : GLOBAL.urlPrefix + \"/hypervisor/selectHypervisor\"",
+                    "        ,waitMsg:'Loading...'",
+                    "    });",
+                    "    ",
+                    "}",
+                    "",
+                    ""
+                ]
+            },
+            "designerId": "36a23d42-fe6b-4dde-bc5e-cfdf01bf13be"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "deleteRhevm",
+                "implHandler": [
+                    "",
+                    "Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){",
+                    "",
+                    "    if(btn == \"yes\"){",
+                    "",
+                    "        Ext.Ajax.request({",
+                    "            url: GLOBAL.urlPrefix + \"/hypervisor/deleteHypervisor\",",
+                    "            params : {",
+                    "                hypervisorId : RHEVMConstants.selectRow.get(\"hypervisorId\")",
+                    "            },",
+                    "            disableCaching : true,",
+                    "            waitMsg: 'Delete RHEVM...',",
+                    "            success: function(response){",
+                    "                var msg = Ext.JSON.decode(response.responseText).msg;",
+                    "                Ext.MessageBox.alert('알림', msg);",
+                    "",
+                    "                Ext.getCmp(\"hypervisorGrid\").getStore().reload();",
+                    "",
+                    "                Ext.getCmp(\"rhevmDetailPanel\").layout.setActiveItem(0);",
+                    "",
+                    "            }",
+                    "        });",
+                    "    }",
+                    "",
+                    "});",
+                    ""
+                ]
+            },
+            "designerId": "badb64bd-3419-4f3e-aec2-5d802ae1dabe"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "grid_id"
+                ],
+                "fn": "searchRhevmChildGrid",
+                "implHandler": [
+                    "",
+                    "var detailDPanel = Ext.getCmp(\"rhevmTabDetailPanel\");",
+                    "detailDPanel.layout.setActiveItem(0);",
+                    "detailDPanel.collapse();",
+                    "",
+                    "if(grid_id == null) {",
+                    "        ",
+                    "    //Virtual Machines Data Loading",
+                    "    var vmGrid = Ext.getCmp('rhevmVMGrid');",
+                    "    ",
+                    "    vmGrid.getStore().load({",
+                    "        params:{",
+                    "            hypervisorId : RHEVMConstants.selectRow.get(\"hypervisorId\")",
+                    "        }",
+                    "    });",
+                    "    ",
+                    "    ",
+                    "    //Template Data Loading",
+                    "    var templateGrid = Ext.getCmp('rhevmTemplateGrid');",
+                    "    ",
+                    "    templateGrid.getStore().load({",
+                    "        params:{",
+                    "            hypervisorId : RHEVMConstants.selectRow.get(\"hypervisorId\")",
+                    "        }",
+                    "    });",
+                    "",
+                    "} else {",
+                    "    ",
+                    "    var searchName = '';",
+                    "    if(grid_id == 'rhevmVMGrid') {",
+                    "        searchName = Ext.getCmp(\"searchRhevmVMName\").getRawValue();",
+                    "    } else {",
+                    "        ",
+                    "    }",
+                    "    ",
+                    "    var grid = Ext.getCmp(grid_id);",
+                    "    grid.getStore().load({",
+                    "        params:{",
+                    "            hypervisorId : RHEVMConstants.selectRow.get(\"hypervisorId\"),",
+                    "            name : Ext.getCmp(\"searchRhevmTemplateName\").getRawValue()",
+                    "        }",
+                    "    });",
+                    "",
+                    "}"
+                ]
+            },
+            "designerId": "088debd5-3032-4ff9-bc95-97e9e48353d2"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "showTemplateWindow",
+                "implHandler": [
+                    ""
+                ]
+            },
+            "designerId": "8ae67d63-ac7d-4aba-89ee-be6544f2c220"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#hypervisorGrid",
+                "designer|targetType": "Ext.grid.Panel",
+                "fn": "onHypervisorGridBeforeItemContextMenu",
+                "implHandler": [
+                    "var position = e.getXY();",
+                    "e.stopEvent();",
+                    "",
+                    "RHEVMConstants.selectRow = record;",
+                    "",
+                    "RHEVMConstants.rhevmContextMenu.showAt(position);"
+                ],
+                "name": "beforeitemcontextmenu",
+                "scope": "me"
+            },
+            "designerId": "58850b1c-1b48-479e-8105-cfc352d4ed76"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#searchRhevmVMName",
+                "designer|targetType": "Ext.form.field.Text",
+                "fn": "onSearchRhevmVMNameKeydown",
+                "implHandler": [
+                    "//Instance Name Search",
+                    "if(e.getKey() == e.ENTER){",
+                    "    this.searchRhevmChildGrid('rhevmVMGrid');",
+                    "}"
+                ],
+                "name": "keydown",
+                "scope": "me"
+            },
+            "designerId": "36dd9dd5-b0be-4700-b8b0-316c3c050b02"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#searchRhevmTemplateName",
+                "designer|targetType": "Ext.form.field.Text",
+                "fn": "onSearchRhevmTemplateNameKeydown",
+                "implHandler": [
+                    "//Instance Name Search",
+                    "if(e.getKey() == e.ENTER){",
+                    "    this.searchRhevmChildGrid('rhevmTemplateGrid');",
+                    "}"
+                ],
+                "name": "keydown",
+                "scope": "me"
+            },
+            "designerId": "152daea6-c2a0-45ee-afdf-b7be5076a08c"
         },
         {
             "type": "basicfunction",
@@ -445,25 +687,25 @@
                     "var controlUrl = '';",
                     "",
                     "if(status == 'Start') {",
-                    "    ",
+                    "",
                     "    controlUrl = '/rhevm/vms/start';",
-                    "    ",
+                    "",
                     "} else if(status == 'Stop') {",
-                    "    ",
+                    "",
                     "    controlUrl = '/rhevm/vms/stop';",
-                    "    ",
+                    "",
                     "} else if(status == 'Shutdown') {",
-                    "    ",
+                    "",
                     "    controlUrl = '/rhevm/vms/shutdown';",
-                    "    ",
+                    "",
                     "} else if(status == 'Remove') {",
-                    "    ",
-                    "    controlUrl = ' /rhevm/vms/remove';",
-                    "    ",
+                    "",
+                    "    controlUrl = '/rhevm/vms/remove';",
+                    "",
                     "} else if(status == 'Export') {",
-                    "    ",
+                    "",
                     "    controlUrl = '/rhevm/vms/export';",
-                    "    ",
+                    "",
                     "}",
                     "",
                     "Ext.MessageBox.confirm('Confirm', 'VM을 ' + status + '하시겠습니까?', function(btn){",
@@ -500,19 +742,60 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "showTemplateWindow",
+                "fn": "deleteTemplate",
                 "implHandler": [
-                    "var templateWindow = Ext.create(\"widget.regTemplateWindow\");",
                     "",
-                    "templateWindow.show();",
+                    "Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){",
                     "",
-                    "var templateForm = Ext.getCmp('templateForm');",
-                    "templateForm.getForm().findField('hypervisorId').setRawValue(RHEVMConstants.selectRow.get('hypervisorId'));",
-                    "templateForm.getForm().findField('vmId').setRawValue(RHEVMConstants.childSelectRow.get('vmId'));",
+                    "    if(btn == \"yes\"){",
+                    "",
+                    "        Ext.Ajax.request({",
+                    "            url: GLOBAL.urlPrefix + \"/rhevm/templates/remove\",",
+                    "            params : {",
+                    "                hypervisorId : RHEVMConstants.selectRow.get(\"hypervisorId\"),",
+                    "                templateId : RHEVMConstants.childSelectRow.get(\"templateId\")",
+                    "            },",
+                    "            disableCaching : true,",
+                    "            waitMsg: 'Delete Template...',",
+                    "            success: function(response){",
+                    "                var msg = Ext.JSON.decode(response.responseText).msg;",
+                    "                Ext.MessageBox.alert('알림', msg);",
+                    "",
+                    "                Ext.getCmp('rhevmTemplateGrid').getStore().reload();",
+                    "",
+                    "            }",
+                    "        });",
+                    "    }",
+                    "",
+                    "});",
                     ""
                 ]
             },
-            "designerId": "8ae67d63-ac7d-4aba-89ee-be6544f2c220"
+            "designerId": "2af50313-ed54-4a0d-bd22-76871c65be86"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#rhevmTemplateGrid",
+                "designer|targetType": "Ext.grid.Panel",
+                "fn": "onRhevmTemplateGridBeforeItemContextMenu",
+                "implHandler": [
+                    "var position = e.getXY();",
+                    "e.stopEvent();",
+                    "",
+                    "RHEVMConstants.childSelectRow = record;",
+                    "",
+                    "RHEVMConstants.rhevmTemplateContextMenu.showAt(position);"
+                ],
+                "name": "beforeitemcontextmenu",
+                "scope": "me"
+            },
+            "designerId": "eb436f94-8c83-4a49-b374-c4717c299b89"
         }
     ]
 }

@@ -32,6 +32,7 @@ Ext.define('MyApp.view.regTemplateWindow', {
     width: 450,
     layout: 'border',
     title: 'Make Template',
+    modal: true,
 
     initComponent: function() {
         var me = this;
@@ -63,7 +64,8 @@ Ext.define('MyApp.view.regTemplateWindow', {
                                     fieldLabel: 'Name',
                                     labelWidth: 120,
                                     name: 'name',
-                                    allowBlank: false
+                                    allowBlank: false,
+                                    vtype: 'template'
                                 },
                                 {
                                     xtype: 'textfield',

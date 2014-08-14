@@ -12,6 +12,7 @@
         "id": "UserWindow",
         "itemId": "UserWindow",
         "layout": "border",
+        "modal": true,
         "title": "Add User",
         "width": 400
     },

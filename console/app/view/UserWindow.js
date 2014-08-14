@@ -32,6 +32,7 @@ Ext.define('MyApp.view.UserWindow', {
     width: 400,
     layout: 'border',
     title: 'Add User',
+    modal: true,
 
     initComponent: function() {
         var me = this;

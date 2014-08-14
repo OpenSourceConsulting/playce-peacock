@@ -21,6 +21,7 @@ Ext.define('MyApp.view.regRhevmWindow', {
         'Ext.form.Panel',
         'Ext.XTemplate',
         'Ext.form.field.ComboBox',
+        'Ext.form.field.Hidden',
         'Ext.toolbar.Toolbar',
         'Ext.button.Button'
     ],
@@ -31,6 +32,7 @@ Ext.define('MyApp.view.regRhevmWindow', {
     width: 380,
     layout: 'border',
     title: 'Add RHEVM',
+    modal: true,
 
     initComponent: function() {
         var me = this;
@@ -168,6 +170,12 @@ Ext.define('MyApp.view.regRhevmWindow', {
                                     inputType: 'password',
                                     allowBlank: false,
                                     vtype: 'password'
+                                },
+                                {
+                                    xtype: 'hiddenfield',
+                                    anchor: '100%',
+                                    fieldLabel: 'Label',
+                                    name: 'hypervisorId'
                                 }
                             ]
                         }
@@ -188,6 +196,12 @@ Ext.define('MyApp.view.regRhevmWindow', {
                                         var rhevmForm = Ext.getCmp("rhevmForm");
 
                                         var action = GLOBAL.urlPrefix + "/hypervisor/insertHypervisor";
+                                        var mode = "insert";
+
+                                        if(rhevmForm.getForm().findField("hypervisorId").getValue() > 0){
+                                            action = GLOBAL.urlPrefix + "/hypervisor/updateHypervisor";
+                                            mode = "update";
+                                        }
 
                                         rhevmForm.getForm().submit({
                                             clientValidation: true,
@@ -201,6 +215,11 @@ Ext.define('MyApp.view.regRhevmWindow', {
                                                 Ext.Msg.alert('Success', action.result.msg);
 
                                                 Ext.getCmp('hypervisorGrid').getStore().reload();
+
+                                                if(mode == 'update') {
+                                                    RHEVMConstants.me.selectHypervisorGrid();
+                                                }
+
                                                 rhevmForm.up('window').close();
                                             },
                                             failure: function(form, action) {
@@ -221,7 +240,7 @@ Ext.define('MyApp.view.regRhevmWindow', {
                                     itemId: 'rhevmCreateBtn',
                                     margin: '0 15 0 0',
                                     padding: '2 10 2 10',
-                                    text: 'OK'
+                                    text: 'Save'
                                 },
                                 {
                                     xtype: 'button',

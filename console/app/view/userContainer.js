@@ -100,25 +100,28 @@ Ext.define('MyApp.view.userContainer', {
                         {
                             xtype: 'numbercolumn',
                             maxWidth: 100,
+                            minWidth: 60,
                             dataIndex: 'userId',
                             text: 'ID',
                             format: '0000'
                         },
                         {
                             xtype: 'gridcolumn',
-                            hidden: true,
+                            minWidth: 100,
                             defaultWidth: 150,
                             dataIndex: 'loginId',
-                            text: 'Login_id'
+                            text: 'Login ID'
                         },
                         {
                             xtype: 'gridcolumn',
+                            minWidth: 100,
                             defaultWidth: 150,
                             dataIndex: 'userName',
                             text: 'User Name'
                         },
                         {
                             xtype: 'gridcolumn',
+                            minWidth: 100,
                             defaultWidth: 150,
                             dataIndex: 'deptName',
                             text: 'Dept Name'
@@ -128,10 +131,12 @@ Ext.define('MyApp.view.userContainer', {
                             hidden: true,
                             defaultWidth: 150,
                             dataIndex: 'passwd',
+                            hideable: false,
                             text: 'Password'
                         },
                         {
                             xtype: 'gridcolumn',
+                            minWidth: 150,
                             defaultWidth: 200,
                             dataIndex: 'email',
                             text: 'Email'
@@ -140,17 +145,19 @@ Ext.define('MyApp.view.userContainer', {
                             xtype: 'datecolumn',
                             hidden: true,
                             dataIndex: 'lastLogon',
+                            hideable: false,
                             text: 'Last_logon'
                         },
                         {
                             xtype: 'numbercolumn',
                             hidden: true,
                             dataIndex: 'regUserId',
+                            hideable: false,
                             text: 'RegUserId'
                         },
                         {
                             xtype: 'gridcolumn',
-                            minWidth: 130,
+                            minWidth: 220,
                             defaultWidth: 200,
                             dataIndex: 'regDt',
                             text: 'Create Date'
@@ -159,18 +166,43 @@ Ext.define('MyApp.view.userContainer', {
                             xtype: 'numbercolumn',
                             hidden: true,
                             dataIndex: 'updUserId',
+                            hideable: false,
                             text: 'UpdUserId'
                         },
                         {
                             xtype: 'datecolumn',
                             hidden: true,
                             dataIndex: 'updDt',
+                            hideable: false,
                             text: 'UpdDt'
+                        },
+                        {
+                            xtype: 'actioncolumn',
+                            text: 'Edit',
+                            maxWidth: 65,
+                            minWidth: 65,
+                            style: 'text-align:left;',
+                            width: 65,
+                            align: 'center',
+                            menuText: '',
+                            items: [
+                                {
+                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                        userConstants.selectRow = record;
+
+                                        userConstants.me.showUserWindow('edit');
+
+                                    },
+                                    icon: 'resources/images/icons/cog.png',
+                                    iconCls: ''
+                                }
+                            ]
                         },
                         {
                             xtype: 'actioncolumn',
                             text: 'Delete',
                             maxWidth: 60,
+                            minWidth: 70,
                             style: 'text-align:left;',
                             width: 60,
                             defaultWidth: 60,
@@ -179,31 +211,10 @@ Ext.define('MyApp.view.userContainer', {
                             items: [
                                 {
                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                        userConstants.selectRow = record;
 
-                                        Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){
+                                        userConstants.me.deleteUser();
 
-                                            if(btn == "yes"){
-                                                //view.setLoading(true);
-                                                Ext.Ajax.request({
-                                                    url: GLOBAL.urlPrefix + "/user/delete",
-                                                    params : {
-                                                        userId : record.get("userId")
-                                                    },
-                                                    disableCaching : true,
-                                                    waitMsg: 'Delete User...',
-                                                    success: function(response){
-                                                        var msg = Ext.JSON.decode(response.responseText).msg;
-                                                        Ext.MessageBox.alert('알림', msg);
-
-                                                        view.getStore().reload();
-
-                                                        Ext.getCmp("userDetailPanel").layout.setActiveItem(0);
-
-                                                    }
-                                                });
-                                            }
-
-                                        });
                                     },
                                     icon: 'resources/images/icons/delete.png',
                                     iconCls: ''

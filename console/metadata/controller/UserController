@@ -146,6 +146,11 @@
                     "         handler: function() {",
                     "             user.showUserWindow('edit');",
                     "         }",
+                    "        },",
+                    "        { text: 'Delete',",
+                    "         handler: function() {",
+                    "             user.deleteUser();",
+                    "         }",
                     "        }",
                     "    ]",
                     "",
@@ -227,6 +232,45 @@
                 ]
             },
             "designerId": "d7295575-fbff-477e-ae28-e52002e33a2f"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "deleteUser",
+                "implHandler": [
+                    "",
+                    "Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){",
+                    "",
+                    "    if(btn == \"yes\"){",
+                    "",
+                    "        Ext.Ajax.request({",
+                    "            url: GLOBAL.urlPrefix + \"/user/delete\",",
+                    "            params : {",
+                    "                userId : userConstants.selectRow.get(\"userId\")",
+                    "            },",
+                    "            disableCaching : true,",
+                    "            waitMsg: 'Delete User...',",
+                    "            success: function(response){",
+                    "                var msg = Ext.JSON.decode(response.responseText).msg;",
+                    "                Ext.MessageBox.alert('알림', msg);",
+                    "",
+                    "                Ext.getCmp(\"userGrid\").getStore().reload();",
+                    "",
+                    "                Ext.getCmp(\"userDetailPanel\").layout.setActiveItem(0);",
+                    "",
+                    "            }",
+                    "        });",
+                    "    }",
+                    "",
+                    "});"
+                ]
+            },
+            "designerId": "aad8d0ee-a7f9-4c63-9379-0287e432c82c"
         }
     ]
 }

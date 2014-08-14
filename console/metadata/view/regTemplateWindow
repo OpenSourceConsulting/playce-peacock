@@ -12,6 +12,7 @@
         "id": "regTemplateWindow",
         "itemId": "regTemplateWindow",
         "layout": "border",
+        "modal": true,
         "title": "Make Template",
         "width": 450
     },
@@ -65,7 +66,8 @@
                                 "fieldLabel": "Name",
                                 "labelWidth": 120,
                                 "layout|anchor": "100%",
-                                "name": "name"
+                                "name": "name",
+                                "vtype": "template"
                             },
                             "designerId": "27ed8eb3-3e14-4207-b041-f79e71d94dd0",
                             "cn": [

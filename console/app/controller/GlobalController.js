@@ -96,7 +96,13 @@ Ext.define('MyApp.controller.GlobalController', {
                 return numericRe.test(val);
             },
             numericText : 'Not a valid numeric number. Must be numbers',
-            numericMask : /[.0-9]/
+            numericMask : /[.0-9]/,
+
+            template: function(val, field) {
+                var templateRe = /^[a-zA-Z0-9_\.\-]*$/;
+                return templateRe.test(val);
+            },
+            templateText : "영문 대소문자, 숫자, '_', '-', '.' 만 가능합니다."
         });
 
 

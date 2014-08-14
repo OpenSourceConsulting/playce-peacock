@@ -12,6 +12,7 @@
         "id": "regRhevmWindow",
         "itemId": "regRhevmWindow",
         "layout": "border",
+        "modal": true,
         "title": "Add RHEVM",
         "width": 380
     },
@@ -378,6 +379,20 @@
                                     "designerId": "8c837432-2398-465c-a931-b76124a34d69"
                                 }
                             ]
+                        },
+                        {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Label",
+                                "layout|anchor": "100%",
+                                "name": "hypervisorId"
+                            },
+                            "designerId": "908b374f-9c88-438a-9832-57995edff4eb"
                         }
                     ]
                 },
@@ -409,7 +424,7 @@
                                 "layout|flex": null,
                                 "margin": "0 15 0 0",
                                 "padding": "2 10 2 10",
-                                "text": "OK"
+                                "text": "Save"
                             },
                             "designerId": "84ce0483-59e6-460a-8db1-0af28ef52609",
                             "cn": [
@@ -430,6 +445,12 @@
                                             "var rhevmForm = Ext.getCmp(\"rhevmForm\");",
                                             "",
                                             "var action = GLOBAL.urlPrefix + \"/hypervisor/insertHypervisor\";",
+                                            "var mode = \"insert\";",
+                                            "",
+                                            "if(rhevmForm.getForm().findField(\"hypervisorId\").getValue() > 0){",
+                                            "    action = GLOBAL.urlPrefix + \"/hypervisor/updateHypervisor\";",
+                                            "    mode = \"update\";",
+                                            "}",
                                             "",
                                             "rhevmForm.getForm().submit({",
                                             "    clientValidation: true,",
@@ -443,6 +464,11 @@
                                             "        Ext.Msg.alert('Success', action.result.msg);",
                                             "",
                                             "        Ext.getCmp('hypervisorGrid').getStore().reload();",
+                                            "",
+                                            "        if(mode == 'update') {",
+                                            "            RHEVMConstants.me.selectHypervisorGrid();",
+                                            "        }",
+                                            "",
                                             "        rhevmForm.up('window').close();",
                                             "    },",
                                             "    failure: function(form, action) {",
