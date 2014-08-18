@@ -345,7 +345,7 @@ public class RHEVMService {
 				String url = getRHEVMRestTemplate(hypervisorId).getUrl(RHEVApi.VMS + "/" + vmId);
 				
 				/*
-				// curl 실행파일이 Path에 정의되저 있지 않은 경우
+				// curl 실행파일이 Path에 정의되어 있지 않은 경우
 				File executable = new File("/usr/bin/curl");
 				Commandline commandLine = new Commandline();
 				commandLine.setExecutable(executable.getAbsolutePath());
