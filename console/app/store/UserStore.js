@@ -26,7 +26,7 @@ Ext.define('MyApp.store.UserStore', {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
-            autoLoad: true,
+            autoLoad: false,
             model: 'MyApp.model.UserModel',
             storeId: 'UserStore',
             proxy: me.processMyAjaxProxy({

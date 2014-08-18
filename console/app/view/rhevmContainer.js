@@ -791,6 +791,7 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                                 {
                                                                     xtype: 'gridcolumn',
                                                                     minWidth: 130,
+                                                                    defaultWidth: 200,
                                                                     dataIndex: 'macAddress',
                                                                     text: 'Mac Address'
                                                                 }

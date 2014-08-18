@@ -18,30 +18,6 @@
             },
             "codeClass": null,
             "userConfig": {
-                "designer|controlQuery": "#userGrid",
-                "designer|targetType": "Ext.grid.Panel",
-                "fn": "onUserGridAfterRender",
-                "implHandler": [
-                    "//RHEVM Grid Data Search",
-                    "Ext.getCmp(\"userGrid\").getStore().load();",
-                    "",
-                    "var detailPanel = Ext.getCmp(\"userDetailPanel\");",
-                    "detailPanel.layout.setActiveItem(0);",
-                    ""
-                ],
-                "name": "afterrender",
-                "scope": "me"
-            },
-            "designerId": "ee017ad3-5921-4a78-bef0-8dc2b47d7fc6"
-        },
-        {
-            "type": "controlleraction",
-            "reference": {
-                "name": "listeners",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
                 "designer|controlQuery": "#searchUserName",
                 "designer|targetType": "Ext.form.field.Text",
                 "fn": "onSearchUserNameKeydown",
@@ -64,9 +40,21 @@
             },
             "codeClass": null,
             "userConfig": {
+                "designer|params": [
+                    "init"
+                ],
                 "fn": "searchUser",
                 "implHandler": [
                     "//Instances Grid Data Search",
+                    "if(init) {",
+                    "    ",
+                    "    Ext.getCmp(\"searchUserName\").setValue(\"\");",
+                    "    Ext.getCmp(\"userGrid\").reconfigure(Ext.getCmp(\"userGrid\").store, Ext.getCmp(\"userGrid\").initialConfig.columns);",
+                    "    ",
+                    "}",
+                    "",
+                    "userConstants.selectRow = null;",
+                    "",
                     "Ext.getCmp(\"userGrid\").getStore().load({",
                     "    params:{",
                     "        search : Ext.getCmp(\"searchUserName\").getRawValue()",

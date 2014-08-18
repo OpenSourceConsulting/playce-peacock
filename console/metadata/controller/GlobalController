@@ -27,6 +27,7 @@
                     "    singleton: true,",
                     "    lastSelectedMenuId: null,",
                     "    urlPrefix:\"\"//http://localhost:8080\"",
+                    "",
                     "});",
                     "",
                     "",
