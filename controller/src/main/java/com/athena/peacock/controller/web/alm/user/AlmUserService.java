@@ -29,14 +29,19 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
+import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 import com.atlassian.crowd.exception.ApplicationPermissionException;
 import com.atlassian.crowd.exception.InvalidAuthenticationException;
 import com.atlassian.crowd.exception.OperationFailedException;
+import com.atlassian.crowd.exception.UserNotFoundException;
 import com.atlassian.crowd.integration.rest.service.factory.RestCrowdClientFactory;
+import com.atlassian.crowd.model.group.Group;
 import com.atlassian.crowd.model.user.User;
 import com.atlassian.crowd.search.builder.Restriction;
 import com.atlassian.crowd.search.query.entity.restriction.PropertyRestriction;
+import com.atlassian.crowd.search.query.entity.restriction.constants.GroupTermKeys;
 import com.atlassian.crowd.search.query.entity.restriction.constants.UserTermKeys;
 import com.atlassian.crowd.service.client.CrowdClient;
 
@@ -65,42 +70,101 @@ public class AlmUserService {
 
 	}
 
-	public List<AlmUserDto> getUserList(ExtjsGridParam gridParam) {
+	public GridJsonResponse getList(String type, ExtjsGridParam gridParam) {
+
+		GridJsonResponse response = new GridJsonResponse();
+
+		try {
+			if (type.equals("USER")) {
+				response.setList(getUserList(gridParam));
+			} else {
+				response.setList(getGroupList(gridParam));
+			}
+		} catch (OperationFailedException e) {
+			response.setSuccess(false);
+			response.setMsg("OperationFailedException");
+		} catch (InvalidAuthenticationException e) {
+			response.setSuccess(false);
+			response.setMsg("InvalidAuthenticationException");
+		} catch (ApplicationPermissionException e) {
+			response.setSuccess(false);
+			response.setMsg("InvalidAuthenticationException");
+		}
+
+		return response;
+	}
+
+	private List<AlmUserDto> getUserList(ExtjsGridParam gridParam)
+			throws OperationFailedException, InvalidAuthenticationException,
+			ApplicationPermissionException {
 
 		List<AlmUserDto> userLists = new ArrayList<AlmUserDto>();
 
-		try {
+		// UserList
+		PropertyRestriction<Boolean> restriction = Restriction.on(
+				UserTermKeys.ACTIVE).containing(true);
 
-			// UserList
-			PropertyRestriction<Boolean> restriction = Restriction.on(
-					UserTermKeys.ACTIVE).containing(true);
+		Iterable<User> usernames = crowdClient.searchUsers(restriction, 0, 10);
 
-			Iterable<User> usernames = crowdClient.searchUsers(restriction, 0,
-					10);
-
-			for (User profile : usernames) {
-				AlmUserDto tmp = new AlmUserDto();
-				tmp.setUserId(profile.getName()); // id
-				tmp.setDisplayName(profile.getDisplayName());// displayName;
-				tmp.setEmailAddress(profile.getEmailAddress()); //email;
-				tmp.setFirstName(profile.getFirstName()); //first name
-				tmp.setLastName(profile.getLastName()); //last name
-				userLists.add(tmp);
-			}
-
-		} catch (OperationFailedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ApplicationPermissionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidAuthenticationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		for (User profile : usernames) {
+			AlmUserDto tmp = new AlmUserDto();
+			tmp.setUserId(profile.getName()); // id
+			tmp.setDisplayName(profile.getDisplayName());// displayName;
+			tmp.setEmailAddress(profile.getEmailAddress()); // email;
+			tmp.setFirstName(profile.getFirstName()); // first name
+			tmp.setLastName(profile.getLastName()); // last name
+			userLists.add(tmp);
 		}
-		
+
 		return userLists;
 
+	}
+
+	private List<AlmGroupDto> getGroupList(ExtjsGridParam gridParam)
+			throws OperationFailedException, InvalidAuthenticationException,
+			ApplicationPermissionException {
+
+		List<AlmGroupDto> groupLists = new ArrayList<AlmGroupDto>();
+
+		PropertyRestriction<Boolean> groupRestriction = Restriction.on(
+				GroupTermKeys.ACTIVE).containing(true);
+
+		Iterable<Group> groupnames = crowdClient.searchGroups(groupRestriction,
+				0, 10);
+
+		for (Group profile : groupnames) {
+			AlmGroupDto tmp = new AlmGroupDto();
+			tmp.setName(profile.getName());
+			tmp.setDescription(profile.getDescription());
+			tmp.setActive(profile.isActive());
+			groupLists.add(tmp);
+		}
+
+		return groupLists;
+
+	}
+
+	public DtoJsonResponse getUser(String userId) {
+
+		DtoJsonResponse response = new DtoJsonResponse();
+
+		try {
+			User user = crowdClient.getUser(userId);
+			response.setData(user);
+		} catch (OperationFailedException e) {
+			response.setSuccess(false);
+			response.setMsg("OperationFailedException");
+		} catch (ApplicationPermissionException e) {
+			response.setSuccess(false);
+			response.setMsg("ApplicationPermissionException");
+		} catch (InvalidAuthenticationException e) {
+			response.setSuccess(false);
+			response.setMsg("InvalidAuthenticationException");
+		} catch (UserNotFoundException e) {
+			response.setSuccess(false);
+			response.setMsg("UserNotFoundException");
+		}
+		return response;
 	}
 
 }

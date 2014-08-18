@@ -42,8 +42,8 @@ import com.athena.peacock.controller.web.common.model.GridJsonResponse;
  * @version 1.0
  */
 @Controller
-@RequestMapping("/alm/usermanagement")
-public class AlmUserController {
+@RequestMapping("/alm/groupmanagement")
+public class AlmGroupController {
 	
 	
 	@Autowired
@@ -54,18 +54,18 @@ public class AlmUserController {
 	 * 
 	 * </pre>
 	 */
-	public AlmUserController() {
+	public AlmGroupController() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	@RequestMapping("/list")
-	public @ResponseBody GridJsonResponse userList(ExtjsGridParam gridParam){
-		return service.getList("USER", gridParam);
+	public @ResponseBody GridJsonResponse list(ExtjsGridParam gridParam){
+		return service.getList("GROUP", gridParam);
 	}
 	
-	@RequestMapping("/get/{username}")
-	public @ResponseBody DtoJsonResponse getUser(DtoJsonResponse jsonRes, @PathVariable String username){
-		return service.getUser(username);
+	@RequestMapping("/get/{groupname}")
+	public @ResponseBody DtoJsonResponse getUser(DtoJsonResponse jsonRes, @PathVariable String groupname){
+		return service.getUser(groupname);
 	}
 	
 
