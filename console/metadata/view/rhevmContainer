@@ -1897,6 +1897,7 @@
                                                             "codeClass": null,
                                                             "userConfig": {
                                                                 "dataIndex": "macAddress",
+                                                                "defaultWidth": 200,
                                                                 "minWidth": 130,
                                                                 "text": "Mac Address"
                                                             },

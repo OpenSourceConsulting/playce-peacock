@@ -26,7 +26,7 @@ Ext.define('MyApp.store.HypervisorStore', {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
-            autoLoad: true,
+            autoLoad: false,
             model: 'MyApp.model.HypervisorModel',
             storeId: 'HypervisorStore',
             proxy: me.processMyAjaxProxy({

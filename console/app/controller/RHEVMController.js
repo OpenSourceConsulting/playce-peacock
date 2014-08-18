@@ -16,101 +16,44 @@
 Ext.define('MyApp.controller.RHEVMController', {
     extend: 'Ext.app.Controller',
 
-    onHypervisorRender: function(component, eOpts) {
-        //hypervisor Grid Data Search
-        Ext.getCmp("hypervisorGrid").getStore().load();
-
-        var detailPanel = Ext.getCmp("rhevmDetailPanel");
-        detailPanel.layout.setActiveItem(0);
-    },
-
     onHypervisorGridSelect: function(dataview, record, item, index, e, eOpts) {
         //RHEVM Grid Item Click
 
-        RHEVMConstants.selectRow = record;
+        if(RHEVMConstants.selectRow == null || RHEVMConstants.selectRow.get("hypervisorId") != record.get("hypervisorId")) {
 
-        this.selectHypervisorGrid();
+            RHEVMConstants.selectRow = record;
+
+            this.selectHypervisorGrid();
+        }
     },
 
     onRhevmTabPanelTabChange: function(tabPanel, newCard, oldCard, eOpts) {
-        var detailTab = Ext.getCmp("rhevmTabDetailPanel");
-        detailTab.collapse();
-        detailTab.layout.setActiveItem(0);
 
-        var grid;
         if(newCard.title == "Templates"){
-            grid = Ext.getCmp('rhevmTemplateGrid');
+
+            Ext.getCmp("searchRhevmTemplateName").setValue("");
+            Ext.getCmp("rhevmTemplateGrid").reconfigure(Ext.getCmp("rhevmTemplateGrid").store, Ext.getCmp("rhevmTemplateGrid").initialConfig.columns);
+
+            this.searchRhevmChildGrid("rhevmTemplateGrid");
+
         } else {
-            grid = Ext.getCmp('rhevmVMGrid');
+
+            Ext.getCmp("searchRhevmVMName").setValue("");
+            Ext.getCmp("rhevmVMGrid").reconfigure(Ext.getCmp("rhevmVMGrid").store, Ext.getCmp("rhevmVMGrid").initialConfig.columns);
+
+            this.searchRhevmChildGrid("rhevmVMGrid");
+
         }
-        grid.getSelectionModel().deselectAll();
     },
 
     onRhevmVMGridItemClick: function(dataview, record, item, index, e, eOpts) {
-        //RHEVM VM Grid Item Click
-        var detailTab = Ext.getCmp("rhevmTabDetailPanel");
-        detailTab.expand();
 
-        detailTab.layout.setActiveItem(1);
+        if(RHEVMConstants.childSelectRow == null || RHEVMConstants.childSelectRow.get("vmId") != record.get("vmId")) {
 
-        RHEVMConstants.childSelectRow = record;
+            RHEVMConstants.childSelectRow = record;
 
-        Ext.getCmp("rhevmTabDetailTabPanel").setActiveTab(0);
-
-
-        //General Data Loading
-        var generalform = Ext.getCmp("rhevmGeneralForm");
-
-        generalform.getForm().reset();
-
-        generalform.getForm().findField('template').show();
-        generalform.getForm().findField('type').hide();
-
-        generalform.getForm().waitMsgTarget = generalform.getEl();
-
-        generalform.getForm().load({
-            params : {
-                hypervisorId : RHEVMConstants.selectRow.get("hypervisorId"),
-                vmId : record.get("vmId")
-            }
-            ,url : GLOBAL.urlPrefix + "/rhevm/vms/info"
-            ,waitMsg:'Loading...'
-            ,success: function(form, action) {
-                var socket = form.findField('sockets').getRawValue();
-                var cores = form.findField('cores').getRawValue();
-
-                form.findField('core_socket').setRawValue((socket*cores) + ' (' + socket + ' Socket(s), ' + cores + ' Core(s) per Socket)');
-            }
-        });
-
-        //Network Interfaces Data Loading
-        var networkGrid = Ext.getCmp('rhevmNetworkGrid');
-
-        networkGrid.columns[6].setVisible(true);
-        networkGrid.columns[6].hideable = true;
-
-        networkGrid.getStore().getProxy().url = GLOBAL.urlPrefix + "/rhevm/vms/nics";
-        networkGrid.getStore().load({
-            params:{
-                hypervisorId : RHEVMConstants.selectRow.get("hypervisorId"),
-                vmId : record.get("vmId")
-            }
-        });
-
-        //Disk Data Loading
-        var diskGrid = Ext.getCmp('rhevmDiskGrid');
-
-        diskGrid.columns[1].setVisible(true);
-        diskGrid.columns[1].hideable = true;
-
-        diskGrid.getStore().getProxy().url = GLOBAL.urlPrefix + "/rhevm/vms/disks";
-        diskGrid.getStore().load({
-            params:{
-                hypervisorId : RHEVMConstants.selectRow.get("hypervisorId"),
-                vmId : record.get("vmId")
-            }
-        });
-
+            this.selectRhevmChildGrid('vm');
+        }
     },
 
     onRhevmVMGridBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
@@ -152,65 +95,14 @@ Ext.define('MyApp.controller.RHEVMController', {
     },
 
     onRhevmTemplateGridSelect: function(dataview, record, item, index, e, eOpts) {
-        //RHEVM VM Grid Item Click
-        var detailTab = Ext.getCmp("rhevmTabDetailPanel");
-        detailTab.expand();
 
-        detailTab.layout.setActiveItem(1);
+        if(RHEVMConstants.childSelectRow == null || RHEVMConstants.childSelectRow.get("templateId") != record.get("templateId")) {
 
-        RHEVMConstants.childSelectRow = record;
+            RHEVMConstants.childSelectRow = record;
 
-        Ext.getCmp("rhevmTabDetailTabPanel").setActiveTab(0);
+            this.selectRhevmChildGrid('template');
+        }
 
-
-        //General Data Loading
-        var generalform = Ext.getCmp("rhevmGeneralForm");
-
-        generalform.getForm().reset();
-
-        generalform.getForm().findField('template').hide();
-        generalform.getForm().findField('type').show();
-
-        generalform.getForm().waitMsgTarget = generalform.getEl();
-
-        generalform.getForm().load({
-            params : {
-                hypervisorId : RHEVMConstants.selectRow.get("hypervisorId"),
-                templateId : record.get("templateId")
-            }
-            ,url : GLOBAL.urlPrefix + "/rhevm/templates/info"
-            ,waitMsg:'Loading...'
-        });
-
-
-        //Network Interfaces Data Loading
-        var networkGrid = Ext.getCmp('rhevmNetworkGrid');
-
-        networkGrid.columns[6].setVisible(false);
-        networkGrid.columns[6].hideable = false;
-
-        networkGrid.getStore().getProxy().url = GLOBAL.urlPrefix + "/rhevm/templates/nics";
-        networkGrid.getStore().load({
-            params:{
-                hypervisorId : RHEVMConstants.selectRow.get("hypervisorId"),
-                templateId : record.get("templateId")
-            }
-        });
-
-
-        //Disk Data Loading
-        var diskGrid = Ext.getCmp('rhevmDiskGrid');
-
-        diskGrid.columns[1].setVisible(false);
-        diskGrid.columns[1].hideable = false;
-
-        diskGrid.getStore().getProxy().url = GLOBAL.urlPrefix + "/rhevm/templates/disks";
-        diskGrid.getStore().load({
-            params:{
-                hypervisorId : RHEVMConstants.selectRow.get("hypervisorId"),
-                templateId : record.get("templateId")
-            }
-        });
     },
 
     onHypervisorGridBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
@@ -243,6 +135,20 @@ Ext.define('MyApp.controller.RHEVMController', {
         RHEVMConstants.childSelectRow = record;
 
         RHEVMConstants.rhevmTemplateContextMenu.showAt(position);
+    },
+
+    onRhevmTabDetailTabPanelTabChange: function(tabPanel, newCard, oldCard, eOpts) {
+
+        var type;
+
+        if(Ext.getCmp("rhevmTabPanel").getActiveTab().title == "Virtual Machines"){
+            type = "vm";
+        } else {
+            type = "template";
+        }
+
+        this.searchRhevmChildDetailTab(type, newCard.title);
+
     },
 
     init: function(application) {
@@ -296,10 +202,6 @@ Ext.define('MyApp.controller.RHEVMController', {
                     { text: 'Make Template',
                         handler: function() {
                             rhevm.showTemplateWindow();
-                            var templateWindow = Ext.create("widget.regTemplateWindow");
-
-                            templateWindow.show();
-
                         }
                     }
                     ]
@@ -336,7 +238,6 @@ Ext.define('MyApp.controller.RHEVMController', {
 
         this.control({
             "#hypervisorGrid": {
-                afterrender: this.onHypervisorRender,
                 itemclick: this.onHypervisorGridSelect,
                 beforeitemcontextmenu: this.onHypervisorGridBeforeItemContextMenu
             },
@@ -356,11 +257,22 @@ Ext.define('MyApp.controller.RHEVMController', {
             },
             "#searchRhevmTemplateName": {
                 keydown: this.onSearchRhevmTemplateNameKeydown
+            },
+            "#rhevmTabDetailTabPanel": {
+                tabchange: this.onRhevmTabDetailTabPanelTabChange
             }
         });
     },
 
-    searchHypervisor: function() {
+    searchHypervisor: function(init) {
+
+        if(init) {
+            Ext.getCmp("hypervisorGrid").reconfigure(Ext.getCmp("hypervisorGrid").store, Ext.getCmp("hypervisorGrid").initialConfig.columns);
+        }
+
+        RHEVMConstants.selectRow = null;
+        RHEVMConstants.childSelectRow = null;
+
         Ext.getCmp("hypervisorGrid").getStore().load();
 
         var detailPanel = Ext.getCmp("rhevmDetailPanel");
@@ -372,10 +284,6 @@ Ext.define('MyApp.controller.RHEVMController', {
         detailPanel.layout.setActiveItem(1);
 
         Ext.getCmp("rhevmTabPanel").setActiveTab(0);
-
-        var detailDPanel = Ext.getCmp("rhevmTabDetailPanel");
-        detailDPanel.layout.setActiveItem(0);
-        detailDPanel.collapse();
 
         Ext.getCmp("searchRhevmVMName").setRawValue("");
         Ext.getCmp("searchRhevmTemplateName").setRawValue("");
@@ -440,6 +348,8 @@ Ext.define('MyApp.controller.RHEVMController', {
 
     searchRhevmChildGrid: function(grid_id) {
 
+        RHEVMConstants.childSelectRow = null;
+
         var detailDPanel = Ext.getCmp("rhevmTabDetailPanel");
         detailDPanel.layout.setActiveItem(0);
         detailDPanel.collapse();
@@ -448,18 +358,9 @@ Ext.define('MyApp.controller.RHEVMController', {
 
             //Virtual Machines Data Loading
             var vmGrid = Ext.getCmp('rhevmVMGrid');
+            vmGrid.reconfigure(vmGrid.store, vmGrid.initialConfig.columns);
 
             vmGrid.getStore().load({
-                params:{
-                    hypervisorId : RHEVMConstants.selectRow.get("hypervisorId")
-                }
-            });
-
-
-            //Template Data Loading
-            var templateGrid = Ext.getCmp('rhevmTemplateGrid');
-
-            templateGrid.getStore().load({
                 params:{
                     hypervisorId : RHEVMConstants.selectRow.get("hypervisorId")
                 }
@@ -471,14 +372,14 @@ Ext.define('MyApp.controller.RHEVMController', {
             if(grid_id == 'rhevmVMGrid') {
                 searchName = Ext.getCmp("searchRhevmVMName").getRawValue();
             } else {
-
+                searchName = Ext.getCmp("searchRhevmTemplateName").getRawValue();
             }
 
             var grid = Ext.getCmp(grid_id);
             grid.getStore().load({
                 params:{
                     hypervisorId : RHEVMConstants.selectRow.get("hypervisorId"),
-                    name : Ext.getCmp("searchRhevmTemplateName").getRawValue()
+                    name : searchName
                 }
             });
 
@@ -486,7 +387,13 @@ Ext.define('MyApp.controller.RHEVMController', {
     },
 
     showTemplateWindow: function() {
+        var templateWindow = Ext.create("widget.regTemplateWindow");
 
+        templateWindow.show();
+
+        var templateForm = Ext.getCmp("templateForm");
+        templateForm.getForm().findField("hypervisorId").setRawValue(RHEVMConstants.selectRow.get("hypervisorId"));
+        templateForm.getForm().findField("vmId").setRawValue(RHEVMConstants.childSelectRow.get("vmId"));
     },
 
     controlVMStatus: function(status) {
@@ -565,6 +472,134 @@ Ext.define('MyApp.controller.RHEVMController', {
 
         });
 
+    },
+
+    selectRhevmChildGrid: function(type) {
+
+        //RHEVM VM Grid Item Click
+        var detailTab = Ext.getCmp("rhevmTabDetailPanel");
+        detailTab.expand();
+
+        detailTab.layout.setActiveItem(1);
+
+        Ext.getCmp("rhevmTabDetailTabPanel").setActiveTab(0);
+
+        this.searchRhevmChildDetailTab(type, "General");
+    },
+
+    searchRhevmChildDetailTab: function(type, tabTitle) {
+
+        var searchParam, searchUrl;
+
+        if(tabTitle == "General") {
+
+            //General Data Loading
+            var generalform = Ext.getCmp("rhevmGeneralForm");
+
+            generalform.getForm().reset();
+
+            if(type == 'vm') {
+
+                searchUrl = GLOBAL.urlPrefix + "/rhevm/vms/info";
+                searchParam = {
+                    hypervisorId : RHEVMConstants.selectRow.get("hypervisorId"),
+                    vmId : RHEVMConstants.childSelectRow.get("vmId")
+                };
+
+                generalform.getForm().findField('template').show();
+                generalform.getForm().findField('type').hide();
+
+            } else {
+
+                searchUrl = GLOBAL.urlPrefix + "/rhevm/templates/info";
+                searchParam = {
+                    hypervisorId : RHEVMConstants.selectRow.get("hypervisorId"),
+                    templateId : RHEVMConstants.childSelectRow.get("templateId")
+                };
+
+                generalform.getForm().findField('template').hide();
+                generalform.getForm().findField('type').show();
+
+            }
+
+            generalform.getForm().waitMsgTarget = generalform.getEl();
+
+            generalform.getForm().load({
+                params : searchParam
+                ,url : searchUrl
+                ,waitMsg:'Loading...'
+                ,success: function(form, action) {
+                    var socket = form.findField('sockets').getRawValue();
+                    var cores = form.findField('cores').getRawValue();
+
+                    form.findField('core_socket').setRawValue((socket*cores) + ' (' + socket + ' Socket(s), ' + cores + ' Core(s) per Socket)');
+                }
+            });
+
+        } else if(tabTitle == "Network Interfaces") {
+
+            //Network Interfaces Data Loading
+            var networkGrid = Ext.getCmp('rhevmNetworkGrid');
+            networkGrid.reconfigure(networkGrid.store, networkGrid.initialConfig.columns);
+
+            if(type == 'vm') {
+
+                searchUrl = GLOBAL.urlPrefix + "/rhevm/vms/nics";
+                searchParam = {
+                    hypervisorId : RHEVMConstants.selectRow.get("hypervisorId"),
+                    vmId : RHEVMConstants.childSelectRow.get("vmId")
+                };
+
+            } else {
+
+                searchUrl = GLOBAL.urlPrefix + "/rhevm/templates/nics";
+                searchParam = {
+                    hypervisorId : RHEVMConstants.selectRow.get("hypervisorId"),
+                    templateId : RHEVMConstants.childSelectRow.get("templateId")
+                };
+
+                networkGrid.getView().headerCt.getGridColumns()[6].setVisible(false);
+                networkGrid.getView().headerCt.getGridColumns()[6].hideable = false;
+            }
+
+            networkGrid.getStore().getProxy().url = searchUrl;
+            networkGrid.getStore().load({
+                params:searchParam
+            });
+
+        } else if(tabTitle == "Disks") {
+
+            //Disk Data Loading
+            var diskGrid = Ext.getCmp('rhevmDiskGrid');
+            diskGrid.reconfigure(diskGrid.store, diskGrid.initialConfig.columns);
+
+            if(type == 'vm') {
+
+                searchUrl = GLOBAL.urlPrefix + "/rhevm/vms/disks";
+                searchParam = {
+                    hypervisorId : RHEVMConstants.selectRow.get("hypervisorId"),
+                    vmId : RHEVMConstants.childSelectRow.get("vmId")
+                };
+
+            } else {
+
+                searchUrl = GLOBAL.urlPrefix + "/rhevm/templates/disks";
+                searchParam = {
+                    hypervisorId : RHEVMConstants.selectRow.get("hypervisorId"),
+                    templateId : RHEVMConstants.childSelectRow.get("templateId")
+                };
+
+                diskGrid.getView().headerCt.getGridColumns()[1].setVisible(false);
+                diskGrid.getView().headerCt.getGridColumns()[1].hideable = false;
+
+            }
+
+            diskGrid.getStore().getProxy().url = searchUrl;
+            diskGrid.getStore().load({
+                params:searchParam
+            });
+
+        }
     }
 
 });

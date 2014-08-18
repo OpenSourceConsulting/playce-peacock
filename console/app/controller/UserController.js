@@ -16,15 +16,6 @@
 Ext.define('MyApp.controller.UserController', {
     extend: 'Ext.app.Controller',
 
-    onUserGridAfterRender: function(component, eOpts) {
-        //RHEVM Grid Data Search
-        Ext.getCmp("userGrid").getStore().load();
-
-        var detailPanel = Ext.getCmp("userDetailPanel");
-        detailPanel.layout.setActiveItem(0);
-
-    },
-
     onSearchUserNameKeydown: function(textfield, e, eOpts) {
         //Instance Name Search
         if(e.getKey() == e.ENTER){
@@ -69,8 +60,17 @@ Ext.define('MyApp.controller.UserController', {
         userConstants.contextMenu.showAt(position);
     },
 
-    searchUser: function() {
+    searchUser: function(init) {
         //Instances Grid Data Search
+        if(init) {
+
+            Ext.getCmp("searchUserName").setValue("");
+            Ext.getCmp("userGrid").reconfigure(Ext.getCmp("userGrid").store, Ext.getCmp("userGrid").initialConfig.columns);
+
+        }
+
+        userConstants.selectRow = null;
+
         Ext.getCmp("userGrid").getStore().load({
             params:{
                 search : Ext.getCmp("searchUserName").getRawValue()
@@ -113,13 +113,12 @@ Ext.define('MyApp.controller.UserController', {
 
 
         this.control({
-            "#userGrid": {
-                afterrender: this.onUserGridAfterRender,
-                select: this.onUserGridSelect,
-                beforeitemcontextmenu: this.onUserGridBeforeItemContextMenu
-            },
             "#searchUserName": {
                 keydown: this.onSearchUserNameKeydown
+            },
+            "#userGrid": {
+                select: this.onUserGridSelect,
+                beforeitemcontextmenu: this.onUserGridBeforeItemContextMenu
             }
         });
     },
