@@ -27,6 +27,9 @@ package com.athena.peacock.controller.web.rhevm;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.codehaus.plexus.util.cli.CommandLineUtils;
+import org.codehaus.plexus.util.cli.CommandLineUtils.StringStreamConsumer;
+import org.codehaus.plexus.util.cli.Commandline;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
@@ -327,12 +330,66 @@ public class RHEVMService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Action removeVirtualMachine(int hypervisorId, String vmId) throws Exception {
-		String callUrl = RHEVApi.VMS + "/" + vmId;
-		Action action = new Action();
-		action.setForce(true);
-		action = getRHEVMRestTemplate(hypervisorId).submit(callUrl,  HttpMethod.DELETE, action, "action", Action.class);
-		return action;
+	public Object removeVirtualMachine(int hypervisorId, String vmId) throws Exception {
+		Object result = null;
+		try {
+			String callUrl = RHEVApi.VMS + "/" + vmId;
+			Action action = new Action();
+			action.setForce(true);
+			action = getRHEVMRestTemplate(hypervisorId).submit(callUrl,  HttpMethod.DELETE, action, "action", Action.class);
+			result = action;
+		} catch (Exception e) {
+			if (e instanceof RestClientException) {
+				// VM 삭제 API 호출 시 400 Bad Request 에러가 발생할 경우, curl 명령을 직접 실행한다.
+				String auth = getRHEVMRestTemplate(hypervisorId).getCredential();
+				String url = getRHEVMRestTemplate(hypervisorId).getUrl(RHEVApi.VMS + "/" + vmId);
+				
+				/*
+				// curl 실행파일이 Path에 정의되어 있지 않은 경우
+				File executable = new File("/usr/bin/curl");
+				Commandline commandLine = new Commandline();
+				commandLine.setExecutable(executable.getAbsolutePath());
+				/*/
+				// curl 실행파일이 Path에 정의되어 있는 경우
+				Commandline commandLine = new Commandline();
+				commandLine.setExecutable("curl");
+				//*/
+				
+				/** change working directory if necessary */
+				//commandLine.setWorkingDirectory("/");
+				
+				/** invoke createArg() and setValue() one by one for each arguments */
+				//commandLine.createArg().setValue("-X");
+				//commandLine.createArg().setValue("GET");
+				// ...
+
+				/** invoke createArg() and setLine() for entire arguments */
+				commandLine.createArg().setLine("--insecure -H \"Content-Type: application/xml\" -H \"Accept: application/xml\" -H \"Authorization: " + auth + "\" -X DELETE -d \"<action><force>true</force></action>\" \"" + url + "\"");
+				
+				/** verify command string */
+				logger.debug("CURL Command : [{}]", commandLine.toString());
+				
+				/** also enable StringWriter, PrintWriter, WriterStreamConsumer and etc. */
+				StringStreamConsumer consumer = new CommandLineUtils.StringStreamConsumer();
+
+				int returnCode = CommandLineUtils.executeCommandLine(commandLine, consumer, consumer, Integer.MAX_VALUE);
+
+				result = consumer.getOutput();
+				
+				if (returnCode == 0) {
+					// success
+					logger.debug("Succeed : [{}]", consumer.getOutput());
+				} else {
+					// fail
+					logger.debug("Failed : [{}]", consumer.getOutput());
+					throw new Exception(consumer.getOutput());
+				}
+			} else {
+				throw e;
+			}
+		}
+		
+		return result;
 	}
 
 	/**
@@ -500,7 +557,7 @@ public class RHEVMService {
 
 		dto.setOs(vm.getOs().getType());
 		dto.setMemory((vm.getMemory()/1024/1024) + "");
-		dto.setSocket(vm.getCpu().getTopology().getSockets());
+		dto.setSockets(vm.getCpu().getTopology().getSockets());
 		dto.setCores(vm.getCpu().getTopology().getCores());
 		dto.setOrigin(vm.getOrigin());
 		dto.setPriority(vm.getHighAvailability().getPriority().toString());

@@ -133,7 +133,7 @@ public class RHEVMRestTemplateManager implements InitializingBean {
 	    /*/
 		marshaller.marshal(nics, writer);
 		//*/
-		
+	    
 		System.out.println(writer.toString());
 	}
 }
