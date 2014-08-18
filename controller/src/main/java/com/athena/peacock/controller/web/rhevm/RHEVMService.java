@@ -344,7 +344,7 @@ public class RHEVMService {
 				String auth = getRHEVMRestTemplate(hypervisorId).getCredential();
 				String url = getRHEVMRestTemplate(hypervisorId).getUrl(RHEVApi.VMS + "/" + vmId);
 				
-				String cmd = "curl --insecure -H \"Content-Type: application/xml\" -H \"Accept: application/xml\" -H \"Authorization: " + auth + "\" -X DELETE -d '<action><force>true</force></action>' \"" + url + "\"";
+				String cmd = "curl --insecure -H \"Content-Type: application/xml\" -H \"Accept: application/xml\" -H \"Authorization: " + auth + "\" -X DELETE -d \"<action><force>true</force></action>\" \"" + url + "\"";
 				
 				Process process = runtime.exec(cmd);
 				
