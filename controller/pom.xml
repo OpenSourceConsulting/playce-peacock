@@ -22,6 +22,29 @@
 		    <version>1.1.1</version>
 		</dependency>
 		
+		<!-- ALM Integration -->
+		<dependency>
+			<groupId>com.atlassian.crowd</groupId>
+			<artifactId>embedded-crowd-api</artifactId>
+			<version>2.7.2</version>
+			<exclusions>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.atlassian.crowd</groupId>
+			<artifactId>crowd-integration-client-rest</artifactId>
+			<version>2.7.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.atlassian.crowd</groupId>
+			<artifactId>crowd-api</artifactId>
+			<version>2.7.2</version>
+		</dependency> 
+		
     </dependencies>
     
 	<!-- Build Profile -->
@@ -120,4 +143,12 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<repositories>
+		<repository>
+			<id>com.atlassian</id>
+			<name>Atlassian Repository</name>
+			<url>http://maven.atlassian.com/public</url>
+		</repository>
+	</repositories>
 </project>
