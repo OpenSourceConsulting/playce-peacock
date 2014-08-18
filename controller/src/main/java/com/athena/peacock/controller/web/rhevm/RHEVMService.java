@@ -24,6 +24,8 @@
  */
 package com.athena.peacock.controller.web.rhevm;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -327,12 +329,40 @@ public class RHEVMService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Action removeVirtualMachine(int hypervisorId, String vmId) throws Exception {
-		String callUrl = RHEVApi.VMS + "/" + vmId;
-		Action action = new Action();
-		action.setForce(true);
-		action = getRHEVMRestTemplate(hypervisorId).submit(callUrl,  HttpMethod.DELETE, action, "action", Action.class);
-		return action;
+	public Object removeVirtualMachine(int hypervisorId, String vmId) throws Exception {
+		Object result = null;
+		try {
+			String callUrl = RHEVApi.VMS + "/" + vmId;
+			Action action = new Action();
+			action.setForce(true);
+			action = getRHEVMRestTemplate(hypervisorId).submit(callUrl,  HttpMethod.DELETE, action, "action", Action.class);
+			result = action;
+		} catch (Exception e) {
+			if (e instanceof RestClientException) {
+				Runtime runtime = Runtime.getRuntime();
+				
+				String auth = getRHEVMRestTemplate(hypervisorId).getCredential();
+				String url = getRHEVMRestTemplate(hypervisorId).getUrl(RHEVApi.VMS + "/" + vmId);
+				
+				String cmd = "curl --insecure -H \"Content-Type: application/xml\" -H \"Accept: application/xml\" -H \"Authorization: " + auth + "\" -X DELETE -d '<action><force>true</force></action>' \"" + url + "\"";
+				
+				Process process = runtime.exec(cmd);
+				
+				BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));  
+				StringBuffer sb = new StringBuffer();  
+				String line;  
+				while ((line = br.readLine()) != null) {  
+				  sb.append(line).append("\n");  
+				}  
+				
+				String answer = sb.toString();  
+				result = answer;
+				
+				logger.debug("CMD : [{}], Result : [{}]", cmd, answer);
+			}
+		}
+		
+		return result;
 	}
 
 	/**
