@@ -24,6 +24,9 @@
  */
 package com.athena.peacock.common.netty.message;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * <pre>
  * 
@@ -36,7 +39,7 @@ public class AgentInitialInfoMessage extends AbstractMessage {
 	private static final long serialVersionUID = 1L;
 
 	/** mac address */
-	private String macAddr;
+	private Map<String, String> macAddrMap;
 	/** os.name */
 	private String osName;
 	/** os.arch */
@@ -63,17 +66,29 @@ public class AgentInitialInfoMessage extends AbstractMessage {
 	}
 
 	/**
-	 * @return the macAddr
+	 * @return the macAddrMap
 	 */
-	public String getMacAddr() {
-		return macAddr;
+	public Map<String, String> getMacAddrMap() {
+		return macAddrMap;
 	}
 
 	/**
-	 * @param macAddr the macAddr to set
+	 * @param macAddrMap the macAddrMap to set
 	 */
-	public void setMacAddr(String macAddr) {
-		this.macAddr = macAddr;
+	public void setMacAddrMap(Map<String, String> macAddrMap) {
+		this.macAddrMap = macAddrMap;
+	}
+	
+	public String getMacAddr(String ipAddr) {
+		return this.macAddrMap.get(ipAddr);
+	}
+	
+	public void putMacAddr(String ipAddr, String macAddr) {
+		if (this.macAddrMap == null) {
+			this.macAddrMap = new HashMap<String, String>();
+		}
+		
+		this.macAddrMap.put(ipAddr, macAddr);
 	}
 
 	/**

@@ -228,7 +228,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 						}
 						machine.setIsPrd(isPrd);
 						
-						machine.setMachineMacAddr(infoMsg.getMacAddr());
+						machine.setMachineMacAddr(infoMsg.getMacAddrMap().get(ipAddr));
 						machine.setIsVm(isVm);
 						machine.setCluster(cluster);
 						machine.setOsName(infoMsg.getOsName());
