@@ -20,68 +20,47 @@
  * Revision History
  * Author			Date				Description
  * ---------------	----------------	------------
- * Sang-cheon Park	2013. 8. 19.		First Draft.
+ * Bong-Jin Kwon	2013. 9. 24.		First Draft.
  */
-package com.athena.peacock.controller.web.alm.user;
+package com.athena.peacock.controller.web.alm.confluence;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
+import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 
 /**
  * <pre>
- * 
+ * 사용자 관리 컨트롤러.
  * </pre>
  * 
  * @author Bong-Jin Kwon
  * @version 1.0
  */
-public class AlmUserDto {
+@Controller
+@RequestMapping("/alm/confluence")
+public class AlmConfluenceController {
 
-	private static final long serialVersionUID = -1083153050593982734L;
+	@Autowired
+	private AlmConfluenceService service;
 
-	private String userId;
-	private String displayName;
-	private String emailAddress;
-	private String firstName;
-	private String lastName;
-
-	public String getUserId() {
-		return userId;
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 */
+	public AlmConfluenceController() {
+		// TODO Auto-generated constructor stub
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-	public String getDisplayName() {
-		return displayName;
-	}
-
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
-	}
-
-	public String getEmailAddress() {
-		return emailAddress;
-	}
-
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	@RequestMapping("/list")
+	public @ResponseBody
+	GridJsonResponse list(ExtjsGridParam gridParam) {
+		return service.getList(gridParam);
 	}
 
 }
-// end of User.java
+// end of AlmUserController.java
