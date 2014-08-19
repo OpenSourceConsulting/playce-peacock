@@ -384,6 +384,17 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
     
     /**
      * <pre>
+     * channelMap 내에 agentId에 해당하는 Channel이 등록되어 있으면 true, 아니면 false
+     * </pre>
+     * @param agentId
+     * @return
+     */
+    public boolean isActive(String agentId) {
+    	return ChannelManagement.getChannel(agentId) != null ? true : false;
+    }
+    
+    /**
+     * <pre>
      * Channel 관리를 위한 클래스
      * </pre>
      * @author Sang-cheon Park

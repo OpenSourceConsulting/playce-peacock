@@ -58,6 +58,7 @@ public class MachineDto extends BaseDto {
 	private String sshPassword;
 	private String sshKeyFile;
 	private String deleteYn;
+	private String status;
 	
 	/**
 	 * @return the machineId
@@ -351,6 +352,20 @@ public class MachineDto extends BaseDto {
 	 */
 	public void setDeleteYn(String deleteYn) {
 		this.deleteYn = deleteYn;
+	}
+
+	/**
+	 * @return the status
+	 */
+	public String getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }
 //end of MachineDto.java
