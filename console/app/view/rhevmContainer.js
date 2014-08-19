@@ -47,12 +47,15 @@ Ext.define('MyApp.view.rhevmContainer', {
             items: [
                 {
                     xtype: 'gridpanel',
-                    flex: 1,
-                    region: 'center',
+                    region: 'north',
+                    split: true,
+                    height: 135,
                     id: 'hypervisorGrid',
                     itemId: 'hypervisorGrid',
-                    minHeight: 100,
+                    maxHeight: 135,
+                    minHeight: 135,
                     autoScroll: true,
+                    collapsible: false,
                     columnLines: true,
                     forceFit: true,
                     store: 'HypervisorStore',
@@ -227,7 +230,7 @@ Ext.define('MyApp.view.rhevmContainer', {
                             items: [
                                 {
                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                        RHEVMConstants.selectRow = record;
+                                        RHEVMConstants.actionRow = record;
 
                                         RHEVMConstants.me.showRhevmWindow('edit');
 
@@ -250,7 +253,7 @@ Ext.define('MyApp.view.rhevmContainer', {
                             items: [
                                 {
                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                        RHEVMConstants.selectRow = record;
+                                        RHEVMConstants.actionRow = record;
 
                                         RHEVMConstants.me.deleteRhevm();
 
@@ -264,12 +267,12 @@ Ext.define('MyApp.view.rhevmContainer', {
                 },
                 {
                     xtype: 'panel',
-                    flex: 3,
-                    region: 'south',
+                    region: 'center',
                     split: true,
                     id: 'rhevmDetailPanel',
                     itemId: 'rhevmDetailPanel',
                     layout: 'card',
+                    collapsible: false,
                     items: [
                         {
                             xtype: 'panel',
@@ -285,7 +288,6 @@ Ext.define('MyApp.view.rhevmContainer', {
                             items: [
                                 {
                                     xtype: 'tabpanel',
-                                    flex: 1,
                                     region: 'center',
                                     id: 'rhevmTabPanel',
                                     itemId: 'rhevmTabPanel',
@@ -499,10 +501,9 @@ Ext.define('MyApp.view.rhevmContainer', {
                                 },
                                 {
                                     xtype: 'panel',
-                                    flex: 2,
                                     region: 'south',
                                     split: true,
-                                    height: 150,
+                                    height: 320,
                                     id: 'rhevmTabDetailPanel',
                                     itemId: 'rhevmTabDetailPanel',
                                     padding: '5 0 0 0 ',

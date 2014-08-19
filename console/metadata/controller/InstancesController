@@ -21,36 +21,9 @@
             "userConfig": {
                 "designer|controlQuery": "#instancesGrid",
                 "designer|targetType": "Ext.grid.Panel",
-                "fn": "onInstancesGridBeforeItemContextMenu",
-                "implHandler": [
-                    "//Instaces Grid Right Click Menu 호출",
-                    "",
-                    "var position = e.getXY();",
-                    "e.stopEvent();",
-                    "",
-                    "instancesConstants.selectRow = record;",
-                    "",
-                    "instancesConstants.contextMenu.showAt(position);",
-                    "",
-                    ""
-                ],
-                "name": "beforeitemcontextmenu",
-                "scope": "me"
-            },
-            "designerId": "27b3cbb8-bae5-4563-9928-26f2f79e396d"
-        },
-        {
-            "type": "controlleraction",
-            "reference": {
-                "name": "listeners",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "designer|controlQuery": "#instancesGrid",
-                "designer|targetType": "Ext.grid.Panel",
                 "fn": "onInstancesGridSelect",
                 "implHandler": [
+                    "/*",
                     "//Instances Grid Item Click",
                     "",
                     "instancesConstants.selectRow = record;",
@@ -108,12 +81,41 @@
                     "    }",
                     "",
                     "}, 5000);",
-                    ""
+                    "",
+                    "*/"
                 ],
                 "name": "select",
                 "scope": "me"
             },
             "designerId": "7cc8272e-956b-44cd-811f-60f601258eaf"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#instancesGrid",
+                "designer|targetType": "Ext.grid.Panel",
+                "fn": "onInstancesGridBeforeItemContextMenu",
+                "implHandler": [
+                    "//Instaces Grid Right Click Menu 호출",
+                    "",
+                    "var position = e.getXY();",
+                    "e.stopEvent();",
+                    "",
+                    "instancesConstants.selectRow = record;",
+                    "",
+                    "instancesConstants.contextMenu.showAt(position);",
+                    "",
+                    ""
+                ],
+                "name": "beforeitemcontextmenu",
+                "scope": "me"
+            },
+            "designerId": "27b3cbb8-bae5-4563-9928-26f2f79e396d"
         },
         {
             "type": "fixedfunction",
@@ -165,7 +167,8 @@
                     "    me : instances,",
                     "    chartInterval : null,",
                     "    contextMenu: instancesGridContextMenu,",
-                    "    selectRow : null",
+                    "    selectRow : null,",
+                    "    actionRow : null",
                     "});",
                     ""
                 ]
@@ -301,7 +304,7 @@
                 "fn": "onInstancesGridAfterRender",
                 "implHandler": [
                     "//Instances Grid rendering",
-                    "this.searchInstance();"
+                    "//this.searchInstance();"
                 ],
                 "name": "afterrender",
                 "scope": "me"

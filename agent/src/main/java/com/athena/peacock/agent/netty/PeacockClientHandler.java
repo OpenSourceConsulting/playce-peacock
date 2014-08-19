@@ -261,7 +261,7 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
     	String agentId = IOUtils.toString(new File(PropertyUtil.getProperty(PeacockConstant.AGENT_ID_FILE_KEY)).toURI());
 		
 		AgentInitialInfoMessage message = new AgentInitialInfoMessage();
-		message.setMacAddr(MacAddressUtil.getMacAddressList().get(0));
+		message.setMacAddrMap(MacAddressUtil.getMacAddressMap());
 		message.setAgentId(agentId);
 		message.setOsName(System.getProperty("os.name"));
 		message.setOsArch(System.getProperty("os.arch"));

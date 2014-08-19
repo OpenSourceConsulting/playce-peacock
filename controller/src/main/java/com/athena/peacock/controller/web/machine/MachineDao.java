@@ -44,6 +44,10 @@ public class MachineDao extends AbstractBaseDao {
 		return sqlSession.selectOne("MachineMapper.getMachine", machineId);
 	}
 	
+	public int checkDuplicateDisplayId(String displayId) {
+		return sqlSession.selectOne("MachineMapper.checkDuplicateDisplayId", displayId);
+	}
+	
 	public void insertMachine(MachineDto machine) {
 		sqlSession.insert("MachineMapper.insertMachine", machine);
 	}

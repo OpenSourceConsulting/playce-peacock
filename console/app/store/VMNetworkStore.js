@@ -31,7 +31,7 @@ Ext.define('MyApp.store.VMNetworkStore', {
             storeId: 'VMNetworkStore',
             proxy: me.processMyAjaxProxy({
                 type: 'ajax',
-                url: '/rhevm/vms/nics',
+                url: 'rhevm/vms/nics',
                 reader: {
                     type: 'json',
                     root: 'list'

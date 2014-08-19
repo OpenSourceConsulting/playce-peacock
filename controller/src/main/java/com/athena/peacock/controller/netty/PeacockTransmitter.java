@@ -60,5 +60,16 @@ public class PeacockTransmitter {
     public ProvisioningResponseMessage sendMessage(PeacockDatagram<AbstractMessage> datagram) throws Exception {
 		return handler.sendMessage(datagram);
 	}//end of sendMessage()
+    
+    /**
+     * <pre>
+     * 
+     * </pre>
+     * @param agentId
+     * @return
+     */
+    public boolean isActive(String agentId) {
+    	return handler.isActive(agentId);
+    }//end of isActive()
 }
 //end of PeacockTransmitter.java

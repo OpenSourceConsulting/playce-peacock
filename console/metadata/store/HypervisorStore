@@ -22,7 +22,7 @@
             "codeClass": null,
             "userConfig": {
                 "api": null,
-                "url": "/hypervisor/list"
+                "url": "hypervisor/list"
             },
             "designerId": "e9b47394-d5a3-453e-8756-c1ce593518d4",
             "cn": [

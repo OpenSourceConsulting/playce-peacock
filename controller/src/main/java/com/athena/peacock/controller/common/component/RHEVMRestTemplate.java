@@ -75,6 +75,7 @@ public class RHEVMRestTemplate {
 	private static final String HOST_HEADER_KEY = "Host";
 	private static final String AUTH_HEADER_KEY = "Authorization";
 	   
+	private Integer hypervisorId;
 	private String protocol;
 	private String host;
 	private String domain;
@@ -99,6 +100,20 @@ public class RHEVMRestTemplate {
 		}
 	}
 	
+	/**
+	 * @return the hypervisorId
+	 */
+	public Integer getHypervisorId() {
+		return hypervisorId;
+	}
+
+	/**
+	 * @param hypervisorId the hypervisorId to set
+	 */
+	public void setHypervisorId(Integer hypervisorId) {
+		this.hypervisorId = hypervisorId;
+	}
+
 	/**
 	 * <pre>
 	 * 유효하지 않은 인증서를 가진 호스트로 HTTPS 호출 시 HandShake Exception 및 인증서 관련 Exception이 발생하기 때문에

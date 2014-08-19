@@ -25,8 +25,10 @@ import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -185,6 +187,44 @@ public class MacAddressUtil {
 		
 		return macAddressList;
 	}//end of getMacAddressList()
+
+	/**
+	 * <pre>
+	 * 전체 mac address 목록을 조회한다.
+	 * </pre>
+	 * @return
+	 * @throws Exception
+	 */
+	public static Map<String, String> getMacAddressMap() throws Exception {
+		Map<String, String> macAddressMap = new HashMap<String, String>();
+		Enumeration<NetworkInterface> ifs = NetworkInterface.getNetworkInterfaces();
+		
+		if (ifs != null) {
+            while (ifs.hasMoreElements()) {
+            	Enumeration<InetAddress> hosts = ifs.nextElement().getInetAddresses();
+                
+            	if (hosts != null) {
+            		InetAddress host = null;
+            		String macAddress = null;
+            		
+            		while (hosts.hasMoreElements()) {
+            			host = hosts.nextElement();
+            			macAddress = getMacAddress(host);
+            			
+            			if (macAddress != null) {
+            				macAddressMap.put(host.getHostAddress(), macAddress);
+            			}
+            		}
+            	}
+            }
+        }
+		
+		if(macAddressMap.size() == 0) {
+			return null;
+		}
+		
+		return macAddressMap;
+	}//end of getMacAddressMap()
 
 }
 //end of MacAddressUtil.java

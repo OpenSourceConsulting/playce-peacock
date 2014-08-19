@@ -22,7 +22,7 @@
             "codeClass": null,
             "userConfig": {
                 "api": null,
-                "url": "/rhevm/templates"
+                "url": "rhevm/templates"
             },
             "designerId": "6af04e01-cef1-4003-b690-bfba5a4f6b0b",
             "cn": [

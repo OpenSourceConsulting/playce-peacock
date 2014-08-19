@@ -22,7 +22,7 @@
             "codeClass": null,
             "userConfig": {
                 "api": null,
-                "url": "/rhevm/vms/list"
+                "url": "rhevm/vms/list"
             },
             "designerId": "95c50202-781b-48fb-b196-0a8344701599",
             "cn": [

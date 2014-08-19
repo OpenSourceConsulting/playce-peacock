@@ -18,20 +18,8 @@ Ext.define('MyApp.controller.InstancesController', {
 
     id: 'InstancesController',
 
-    onInstancesGridBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
-        //Instaces Grid Right Click Menu 호출
-
-        var position = e.getXY();
-        e.stopEvent();
-
-        instancesConstants.selectRow = record;
-
-        instancesConstants.contextMenu.showAt(position);
-
-
-    },
-
     onInstancesGridSelect: function(rowmodel, record, index, eOpts) {
+        /*
         //Instances Grid Item Click
 
         instancesConstants.selectRow = record;
@@ -90,11 +78,25 @@ Ext.define('MyApp.controller.InstancesController', {
 
         }, 5000);
 
+        */
+    },
+
+    onInstancesGridBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
+        //Instaces Grid Right Click Menu 호출
+
+        var position = e.getXY();
+        e.stopEvent();
+
+        instancesConstants.selectRow = record;
+
+        instancesConstants.contextMenu.showAt(position);
+
+
     },
 
     onInstancesGridAfterRender: function(component, eOpts) {
         //Instances Grid rendering
-        this.searchInstance();
+        //this.searchInstance();
     },
 
     onCategoryCycleClick: function(item, e, eOpts) {
@@ -171,14 +173,15 @@ Ext.define('MyApp.controller.InstancesController', {
                     me : instances,
                     chartInterval : null,
                     contextMenu: instancesGridContextMenu,
-                    selectRow : null
+                    selectRow : null,
+                    actionRow : null
                 });
 
 
         this.control({
             "#instancesGrid": {
-                beforeitemcontextmenu: this.onInstancesGridBeforeItemContextMenu,
                 select: this.onInstancesGridSelect,
+                beforeitemcontextmenu: this.onInstancesGridBeforeItemContextMenu,
                 afterrender: this.onInstancesGridAfterRender
             },
             "#categoryCycle menuitem": {

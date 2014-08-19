@@ -72,7 +72,13 @@ public class MachineController {
 	@RequestMapping("/list")
 	public @ResponseBody GridJsonResponse list(GridJsonResponse jsonRes, MachineDto machine) throws Exception {
 		jsonRes.setTotal(machineService.getMachineListCnt(machine));
-		jsonRes.setList(machineService.getMachineList(machine));
+		
+		List<MachineDto> machineList = machineService.getMachineList(machine);
+		for (MachineDto m : machineList) {
+			m.setStatus(peacockTransmitter.isActive(m.getMachineId()) == true ? "Running" : "Down");
+		}
+		
+		jsonRes.setList(machineList);
 		
 		return jsonRes;
 	}

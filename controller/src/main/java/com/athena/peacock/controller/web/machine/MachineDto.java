@@ -38,6 +38,11 @@ public class MachineDto extends BaseDto {
 	private static final long serialVersionUID = 1L;
 
 	private String machineId;
+	private Integer hypervisorId;
+	private String displayId;
+	private String displayName;
+	private String cluster;
+	private String isPrd;
 	private String machineMacAddr;
 	private String isVm;
 	private String osName;
@@ -53,6 +58,7 @@ public class MachineDto extends BaseDto {
 	private String sshPassword;
 	private String sshKeyFile;
 	private String deleteYn;
+	private String status;
 	
 	/**
 	 * @return the machineId
@@ -66,6 +72,76 @@ public class MachineDto extends BaseDto {
 	 */
 	public void setMachineId(String machineId) {
 		this.machineId = machineId;
+	}
+
+	/**
+	 * @return the hypervisorId
+	 */
+	public Integer getHypervisorId() {
+		return hypervisorId;
+	}
+
+	/**
+	 * @param hypervisorId the hypervisorId to set
+	 */
+	public void setHypervisorId(Integer hypervisorId) {
+		this.hypervisorId = hypervisorId;
+	}
+
+	/**
+	 * @return the displayId
+	 */
+	public String getDisplayId() {
+		return displayId;
+	}
+
+	/**
+	 * @param displayId the displayId to set
+	 */
+	public void setDisplayId(String displayId) {
+		this.displayId = displayId;
+	}
+
+	/**
+	 * @return the displayName
+	 */
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	/**
+	 * @param displayName the displayName to set
+	 */
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+
+	/**
+	 * @return the cluster
+	 */
+	public String getCluster() {
+		return cluster;
+	}
+
+	/**
+	 * @param cluster the cluster to set
+	 */
+	public void setCluster(String cluster) {
+		this.cluster = cluster;
+	}
+
+	/**
+	 * @return the isPrd
+	 */
+	public String getIsPrd() {
+		return isPrd;
+	}
+
+	/**
+	 * @param isPrd the isPrd to set
+	 */
+	public void setIsPrd(String isPrd) {
+		this.isPrd = isPrd;
 	}
 
 	/**
@@ -276,6 +352,20 @@ public class MachineDto extends BaseDto {
 	 */
 	public void setDeleteYn(String deleteYn) {
 		this.deleteYn = deleteYn;
+	}
+
+	/**
+	 * @return the status
+	 */
+	public String getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }
 //end of MachineDto.java

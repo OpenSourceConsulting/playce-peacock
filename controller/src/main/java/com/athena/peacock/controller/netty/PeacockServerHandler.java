@@ -46,6 +46,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -165,6 +166,10 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 						
 						// ipAddr에 해당하는 rhev_id를 RHEV Manager로부터 조회한다.
 						String machineId = infoMsg.getAgentId();
+						Integer hypervisorId = null;
+						String displayName = null;
+						String cluster = null;
+						String isPrd = "N";
 						String isVm = "N";
 						boolean isMatch = false;
 						try {
@@ -186,6 +191,9 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 											if (ip.getAddress().equals(ipAddr)) {
 												isMatch = true;
 												machineId = vm.getId();
+												hypervisorId = restTemplate.getHypervisorId();
+												displayName = vm.getName();
+												cluster = vm.getCluster().getName();
 												break;
 											}
 										}
@@ -210,8 +218,19 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 						
 						MachineDto machine = new MachineDto();
 						machine.setMachineId(machineId);
-						machine.setMachineMacAddr(infoMsg.getMacAddr());
+						machine.setHypervisorId(hypervisorId);
+						machine.setDisplayName(displayName);
+						
+						if (StringUtils.isNotEmpty(displayName)) {
+							if (displayName.toLowerCase().startsWith("hhilws") && !displayName.toLowerCase().startsWith("hhilwsd")) {
+								isPrd = "Y";
+							}
+						}
+						machine.setIsPrd(isPrd);
+						
+						machine.setMachineMacAddr(infoMsg.getMacAddrMap().get(ipAddr));
 						machine.setIsVm(isVm);
+						machine.setCluster(cluster);
 						machine.setOsName(infoMsg.getOsName());
 						machine.setOsVer(infoMsg.getOsVersion());
 						machine.setOsArch(infoMsg.getOsArch());
@@ -362,6 +381,17 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
     		return null;
     	}
     }//end of sendMessage()
+    
+    /**
+     * <pre>
+     * channelMap 내에 agentId에 해당하는 Channel이 등록되어 있으면 true, 아니면 false
+     * </pre>
+     * @param agentId
+     * @return
+     */
+    public boolean isActive(String agentId) {
+    	return ChannelManagement.getChannel(agentId) != null ? true : false;
+    }
     
     /**
      * <pre>

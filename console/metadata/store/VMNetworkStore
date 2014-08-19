@@ -22,7 +22,7 @@
             "codeClass": null,
             "userConfig": {
                 "api": null,
-                "url": "/rhevm/vms/nics"
+                "url": "rhevm/vms/nics"
             },
             "designerId": "0077c317-4761-467b-b7d2-3d49726275c8",
             "cn": [

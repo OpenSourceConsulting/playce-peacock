@@ -5,14 +5,19 @@
 
 	<insert id="insertMachine" parameterType="com.athena.peacock.controller.web.machine.MachineDto">
 		INSERT INTO machine_tbl 
-			        (MACHINE_ID, MACHINE_MAC_ADDR, IS_VM, OS_NAME, OS_VER, OS_ARCH, CPU_CLOCK, CPU_NUM
-			        , MEM_SIZE, IP_ADDR, HOST_NAME, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
-		     VALUES (#{machineId}, #{machineMacAddr}, #{isVm}, #{osName}, #{osVer}, #{osArch}, #{cpuClock}, #{cpuNum}
-		     		, #{memSize}, #{ipAddr}, #{hostName}, #{regUserId}, NOW(), #{updUserId}, NOW())
+			        (MACHINE_ID, HYPERVISOR_ID, DISPLAY_ID, DISPLAY_NAME, CLUSTER, IS_PRD, MACHINE_MAC_ADDR, IS_VM, OS_NAME, OS_VER, OS_ARCH
+			        , CPU_CLOCK, CPU_NUM, MEM_SIZE, IP_ADDR, HOST_NAME, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
+		     VALUES (#{machineId}, #{hypervisorId}, #{displayId}, #{displayName}, #{cluster}, #{isPrd}, #{machineMacAddr}, #{isVm}, #{osName}, #{osVer}, #{osArch}
+		     		, #{cpuClock}, #{cpuNum}, #{memSize}, #{ipAddr}, #{hostName}, #{regUserId}, NOW(), #{updUserId}, NOW())
 	</insert>
 
 	<select id="getMachine" parameterType="String" resultType="com.athena.peacock.controller.web.machine.MachineDto">
 		SELECT MACHINE_ID AS machineId
+			   , HYPERVISOR_ID AS hypervisorId
+			   , DISPLAY_ID AS displayId
+			   , DISPLAY_NAME AS displayName
+			   , CLUSTER AS cluster
+			   , IS_PRD AS isPrd
 		       , MACHINE_MAC_ADDR AS machineMacAddr
 		       , IS_VM AS isVm
 		       , OS_NAME AS osName
@@ -35,10 +40,21 @@
 		  FROM machine_tbl
 		 WHERE MACHINE_ID = #{machineId}
 	</select>
+
+	<select id="checkDuplicateDisplayId" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		  FROM machine_tbl
+		 WHERE DISPLAY_ID = #{displayId}
+	</select>
 	
 	<update id="updateMachine" parameterType="com.athena.peacock.controller.web.machine.MachineDto">
 		UPDATE machine_tbl
-		   SET MACHINE_MAC_ADDR = #{machineMacAddr}
+		   SET HYPERVISOR_ID = #{hypervisorId}
+			   , DISPLAY_ID = #{displayId}
+			   , DISPLAY_NAME = #{displayName}
+			   , CLUSTER = #{cluster}
+			   , IS_PRD = #{isPrd}
+			   , MACHINE_MAC_ADDR = #{machineMacAddr}
 		       , IS_VM = #{isVm}
 		       , OS_NAME = #{osName}
 		       , OS_VER = #{osVer}
@@ -69,6 +85,11 @@
 		 WHERE DELETE_YN = 'N'
 		   AND MACHINE_ID NOT IN (SELECT MACHINE_ID FROM load_balancer_tbl)
 		<if test="machineId != null">AND MACHINE_ID = #{machineId}</if>
+		<if test="hypervisorId != null">AND HYPERVISOR_ID = #{hypervisorId}</if>
+		<if test="displayId != null">AND DISPLAY_ID = #{displayId}</if>
+		<if test="displayName != null">AND DISPLAY_NAME = #{displayName}</if>
+		<if test="cluster != null">AND CLUSTER = #{cluster}</if>
+		<if test="isPrd != null">AND IS_PRD = #{isPrd}</if>
 		<if test="machineMacAddr != null">AND MACHINE_MAC_ADDR = #{machineMacAddr}</if>
 		<if test="isVm != null">AND IS_VM = #{isVm}</if>
 		<if test="osName != null">AND OS_NAME = #{osName}</if>
@@ -87,6 +108,11 @@
 	
 	<select id="getMachineList" parameterType="com.athena.peacock.controller.web.machine.MachineDto" resultType="com.athena.peacock.controller.web.machine.MachineDto">
 		SELECT MACHINE_ID AS machineId
+			   , HYPERVISOR_ID AS hypervisorId
+			   , DISPLAY_ID AS displayId
+			   , DISPLAY_NAME AS displayName
+			   , CLUSTER AS cluster
+			   , IS_PRD AS isPrd
 		       , MACHINE_MAC_ADDR AS machineMacAddr
 		       , IS_VM AS isVm
 		       , OS_NAME AS osName
@@ -110,6 +136,11 @@
 		 WHERE DELETE_YN = 'N'
 		   AND MACHINE_ID NOT IN (SELECT MACHINE_ID FROM load_balancer_tbl)
 		<if test="machineId != null">AND MACHINE_ID = #{machineId}</if>
+		<if test="hypervisorId != null">AND HYPERVISOR_ID = #{hypervisorId}</if>
+		<if test="displayId != null">AND DISPLAY_ID = #{displayId}</if>
+		<if test="displayName != null">AND DISPLAY_NAME = #{displayName}</if>
+		<if test="cluster != null">AND CLUSTER = #{cluster}</if>
+		<if test="isPrd != null">AND IS_PRD = #{isPrd}</if>
 		<if test="machineMacAddr != null">AND MACHINE_MAC_ADDR = #{machineMacAddr}</if>
 		<if test="isVm != null">AND IS_VM = #{isVm}</if>
 		<if test="osName != null">AND OS_NAME = #{osName}</if>

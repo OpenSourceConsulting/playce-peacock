@@ -126,6 +126,12 @@ Ext.define('MyApp.view.UserWindow', {
                                     anchor: '100%',
                                     fieldLabel: 'Label',
                                     name: 'userId'
+                                },
+                                {
+                                    xtype: 'hiddenfield',
+                                    anchor: '100%',
+                                    fieldLabel: 'Label',
+                                    name: 'editType'
                                 }
                             ]
                         }
@@ -145,10 +151,13 @@ Ext.define('MyApp.view.UserWindow', {
                                     handler: function(button, e) {
                                         var userForm = Ext.getCmp("userForm");
 
-                                        var action = GLOBAL.urlPrefix + "/user/create";
+                                        var action = GLOBAL.urlPrefix + "user/create";
+                                        var editType = userForm.getForm().findField("editType").getValue();
 
+                                        var userId = null;
                                         if(userForm.getForm().findField("userId").getValue() > 0){
-                                            action = GLOBAL.urlPrefix + "/user/update";
+                                            action = GLOBAL.urlPrefix + "user/update";
+                                            userId = userForm.getForm().findField("userId").getValue();
                                         }
 
                                         userForm.getForm().submit({
@@ -161,7 +170,29 @@ Ext.define('MyApp.view.UserWindow', {
                                             success: function(form, action) {
                                                 Ext.Msg.alert('Success', action.result.msg);
 
-                                                Ext.getCmp('userGrid').getStore().reload();
+                                                if(editType != 'myAccount') {
+
+                                                    Ext.getCmp('userGrid').getStore().load({
+
+                                                        callback:function(records, operation, success){
+
+                                                            if(userId){
+
+                                                                Ext.each(records, function(record) {
+
+                                                                    if(record.get("userId") == userId) {
+                                                                        Ext.getCmp('userGrid').getSelectionModel().select(record,true,false);
+
+                                                                        userConstants.selectRow = record;
+                                                                        userConstants.me.searchUserDetail();
+                                                                    }
+
+                                                                });
+                                                            }
+                                                        }
+                                                    });
+                                                }
+
                                                 userForm.up('window').close();
                                             },
                                             failure: function(form, action) {

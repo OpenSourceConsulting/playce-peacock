@@ -146,7 +146,6 @@ public class RHEVMService {
 	 * @throws Exception
 	 */
 	public VM createVirtualMachine(int hypervisorId, String vmName, String templateId) throws RestClientException, Exception {
-		
 		logger.debug("vmName : {}, templateId : {}", vmName, templateId);
 		
 		Template template = new Template();

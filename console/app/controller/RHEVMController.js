@@ -16,8 +16,13 @@
 Ext.define('MyApp.controller.RHEVMController', {
     extend: 'Ext.app.Controller',
 
-    onHypervisorGridSelect: function(dataview, record, item, index, e, eOpts) {
+    onHypervisorGridSelect: function(tableview, td, cellIndex, record, tr, rowIndex, e, eOpts) {
         //RHEVM Grid Item Click
+
+        if(cellIndex > 8) {
+            //Action Column 예외처리
+            return;
+        }
 
         if(RHEVMConstants.selectRow == null || RHEVMConstants.selectRow.get("hypervisorId") != record.get("hypervisorId")) {
 
@@ -60,7 +65,7 @@ Ext.define('MyApp.controller.RHEVMController', {
         var position = e.getXY();
         e.stopEvent();
 
-        RHEVMConstants.childSelectRow = record;
+        RHEVMConstants.childActionRow = record;
 
         var menu = RHEVMConstants.rhevmVMContextMenu;
         var status = record.get('status');
@@ -109,7 +114,7 @@ Ext.define('MyApp.controller.RHEVMController', {
         var position = e.getXY();
         e.stopEvent();
 
-        RHEVMConstants.selectRow = record;
+        RHEVMConstants.actionRow = record;
 
         RHEVMConstants.rhevmContextMenu.showAt(position);
     },
@@ -132,7 +137,7 @@ Ext.define('MyApp.controller.RHEVMController', {
         var position = e.getXY();
         e.stopEvent();
 
-        RHEVMConstants.childSelectRow = record;
+        RHEVMConstants.childActionRow = record;
 
         RHEVMConstants.rhevmTemplateContextMenu.showAt(position);
     },
@@ -233,12 +238,14 @@ Ext.define('MyApp.controller.RHEVMController', {
                     rhevmVMContextMenu: rhevmVMGridContextMenu,
                     rhevmTemplateContextMenu: rhevmTemplateGridContextMenu,
                     selectRow : null,
-                    childSelectRow : null
+                    actionRow : null,
+                    childSelectRow : null,
+                    childActionRow : null
                 });
 
         this.control({
             "#hypervisorGrid": {
-                itemclick: this.onHypervisorGridSelect,
+                cellclick: this.onHypervisorGridSelect,
                 beforeitemcontextmenu: this.onHypervisorGridBeforeItemContextMenu
             },
             "#rhevmTabPanel": {
@@ -293,7 +300,7 @@ Ext.define('MyApp.controller.RHEVMController', {
     },
 
     showRhevmWindow: function(type) {
-        var rhevmWindow = Ext.create("widget.regRhevmWindow");
+        var rhevmWindow = Ext.create("widget.RegRhevmWindow");
         rhevmWindow.show();
 
         if(type == 'edit') {
@@ -306,10 +313,16 @@ Ext.define('MyApp.controller.RHEVMController', {
 
             rhevmForm.getForm().load({
                 params : {
-                    hypervisorId : RHEVMConstants.selectRow.get("hypervisorId")
+                    hypervisorId : RHEVMConstants.actionRow.get("hypervisorId")
                 }
-                ,url : GLOBAL.urlPrefix + "/hypervisor/selectHypervisor"
+                ,url : GLOBAL.urlPrefix + "hypervisor/selectHypervisor"
                 ,waitMsg:'Loading...'
+                ,success: function(form, action) {
+
+                    var password = form.findField('rhevmPassword').getValue();
+
+                    form.findField('confirmPasswd').setRawValue(password);
+                }
             });
 
         }
@@ -324,9 +337,9 @@ Ext.define('MyApp.controller.RHEVMController', {
             if(btn == "yes"){
 
                 Ext.Ajax.request({
-                    url: GLOBAL.urlPrefix + "/hypervisor/deleteHypervisor",
+                    url: GLOBAL.urlPrefix + "hypervisor/deleteHypervisor",
                     params : {
-                        hypervisorId : RHEVMConstants.selectRow.get("hypervisorId")
+                        hypervisorId : RHEVMConstants.actionRow.get("hypervisorId")
                     },
                     disableCaching : true,
                     waitMsg: 'Delete RHEVM...',
@@ -334,8 +347,9 @@ Ext.define('MyApp.controller.RHEVMController', {
                         var msg = Ext.JSON.decode(response.responseText).msg;
                         Ext.MessageBox.alert('알림', msg);
 
-                        Ext.getCmp("hypervisorGrid").getStore().reload();
+                        RHEVMConstants.selectRow = null;
 
+                        Ext.getCmp("hypervisorGrid").getStore().reload();
                         Ext.getCmp("rhevmDetailPanel").layout.setActiveItem(0);
 
                     }
@@ -387,13 +401,13 @@ Ext.define('MyApp.controller.RHEVMController', {
     },
 
     showTemplateWindow: function() {
-        var templateWindow = Ext.create("widget.regTemplateWindow");
+        var templateWindow = Ext.create("widget.RegTemplateWindow");
 
         templateWindow.show();
 
         var templateForm = Ext.getCmp("templateForm");
         templateForm.getForm().findField("hypervisorId").setRawValue(RHEVMConstants.selectRow.get("hypervisorId"));
-        templateForm.getForm().findField("vmId").setRawValue(RHEVMConstants.childSelectRow.get("vmId"));
+        templateForm.getForm().findField("vmId").setRawValue(RHEVMConstants.childActionRow.get("vmId"));
     },
 
     controlVMStatus: function(status) {
@@ -402,23 +416,23 @@ Ext.define('MyApp.controller.RHEVMController', {
 
         if(status == 'Start') {
 
-            controlUrl = '/rhevm/vms/start';
+            controlUrl = 'rhevm/vms/start';
 
         } else if(status == 'Stop') {
 
-            controlUrl = '/rhevm/vms/stop';
+            controlUrl = 'rhevm/vms/stop';
 
         } else if(status == 'Shutdown') {
 
-            controlUrl = '/rhevm/vms/shutdown';
+            controlUrl = 'rhevm/vms/shutdown';
 
         } else if(status == 'Remove') {
 
-            controlUrl = '/rhevm/vms/remove';
+            controlUrl = 'rhevm/vms/remove';
 
         } else if(status == 'Export') {
 
-            controlUrl = '/rhevm/vms/export';
+            controlUrl = 'rhevm/vms/export';
 
         }
 
@@ -430,7 +444,7 @@ Ext.define('MyApp.controller.RHEVMController', {
                     url: GLOBAL.urlPrefix + controlUrl,
                     params : {
                         hypervisorId : RHEVMConstants.selectRow.get("hypervisorId"),
-                        vmId : RHEVMConstants.childSelectRow.get("vmId")
+                        vmId : RHEVMConstants.childActionRow.get("vmId")
                     },
                     disableCaching : true,
                     waitMsg: status + ' VM...',
@@ -453,10 +467,10 @@ Ext.define('MyApp.controller.RHEVMController', {
             if(btn == "yes"){
 
                 Ext.Ajax.request({
-                    url: GLOBAL.urlPrefix + "/rhevm/templates/remove",
+                    url: GLOBAL.urlPrefix + "rhevm/templates/remove",
                     params : {
                         hypervisorId : RHEVMConstants.selectRow.get("hypervisorId"),
-                        templateId : RHEVMConstants.childSelectRow.get("templateId")
+                        templateId : RHEVMConstants.childActionRow.get("templateId")
                     },
                     disableCaching : true,
                     waitMsg: 'Delete Template...',
@@ -500,7 +514,7 @@ Ext.define('MyApp.controller.RHEVMController', {
 
             if(type == 'vm') {
 
-                searchUrl = GLOBAL.urlPrefix + "/rhevm/vms/info";
+                searchUrl = GLOBAL.urlPrefix + "rhevm/vms/info";
                 searchParam = {
                     hypervisorId : RHEVMConstants.selectRow.get("hypervisorId"),
                     vmId : RHEVMConstants.childSelectRow.get("vmId")
@@ -511,7 +525,7 @@ Ext.define('MyApp.controller.RHEVMController', {
 
             } else {
 
-                searchUrl = GLOBAL.urlPrefix + "/rhevm/templates/info";
+                searchUrl = GLOBAL.urlPrefix + "rhevm/templates/info";
                 searchParam = {
                     hypervisorId : RHEVMConstants.selectRow.get("hypervisorId"),
                     templateId : RHEVMConstants.childSelectRow.get("templateId")
@@ -544,7 +558,7 @@ Ext.define('MyApp.controller.RHEVMController', {
 
             if(type == 'vm') {
 
-                searchUrl = GLOBAL.urlPrefix + "/rhevm/vms/nics";
+                searchUrl = GLOBAL.urlPrefix + "rhevm/vms/nics";
                 searchParam = {
                     hypervisorId : RHEVMConstants.selectRow.get("hypervisorId"),
                     vmId : RHEVMConstants.childSelectRow.get("vmId")
@@ -552,7 +566,7 @@ Ext.define('MyApp.controller.RHEVMController', {
 
             } else {
 
-                searchUrl = GLOBAL.urlPrefix + "/rhevm/templates/nics";
+                searchUrl = GLOBAL.urlPrefix + "rhevm/templates/nics";
                 searchParam = {
                     hypervisorId : RHEVMConstants.selectRow.get("hypervisorId"),
                     templateId : RHEVMConstants.childSelectRow.get("templateId")
@@ -575,7 +589,7 @@ Ext.define('MyApp.controller.RHEVMController', {
 
             if(type == 'vm') {
 
-                searchUrl = GLOBAL.urlPrefix + "/rhevm/vms/disks";
+                searchUrl = GLOBAL.urlPrefix + "rhevm/vms/disks";
                 searchParam = {
                     hypervisorId : RHEVMConstants.selectRow.get("hypervisorId"),
                     vmId : RHEVMConstants.childSelectRow.get("vmId")
@@ -583,7 +597,7 @@ Ext.define('MyApp.controller.RHEVMController', {
 
             } else {
 
-                searchUrl = GLOBAL.urlPrefix + "/rhevm/templates/disks";
+                searchUrl = GLOBAL.urlPrefix + "rhevm/templates/disks";
                 searchParam = {
                     hypervisorId : RHEVMConstants.selectRow.get("hypervisorId"),
                     templateId : RHEVMConstants.childSelectRow.get("templateId")
