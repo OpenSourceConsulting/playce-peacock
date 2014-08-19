@@ -46,6 +46,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -168,6 +169,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 						Integer hypervisorId = null;
 						String displayName = null;
 						String cluster = null;
+						String isPrd = "N";
 						String isVm = "N";
 						boolean isMatch = false;
 						try {
@@ -218,6 +220,14 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 						machine.setMachineId(machineId);
 						machine.setHypervisorId(hypervisorId);
 						machine.setDisplayName(displayName);
+						
+						if (StringUtils.isNotEmpty(displayName)) {
+							if (displayName.toLowerCase().startsWith("hhilws") && !displayName.toLowerCase().startsWith("hhilwsd")) {
+								isPrd = "Y";
+							}
+						}
+						machine.setIsPrd(isPrd);
+						
 						machine.setMachineMacAddr(infoMsg.getMacAddr());
 						machine.setIsVm(isVm);
 						machine.setCluster(cluster);

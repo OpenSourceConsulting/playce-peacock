@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS `peacock`.`machine_tbl` (
   `DISPLAY_ID` VARCHAR(10) NOT NULL COMMENT '사용자에게 보여지기 위한 Instance ID 값으로 테이블 내에서 유니크 하도록 생성',
   `DISPLAY_NAME` VARCHAR(45) NULL COMMENT '사용자가 지정한 인스턴스 이름',
   `CLUSTER` VARCHAR(45) NULL,
+  `IS_PRD` CHAR(1) NOT NULL DEFAULT 'N' COMMENT '운영용 인스턴스 여부',
   `MACHINE_MAC_ADDR` VARCHAR(12) NULL,
   `IS_VM` CHAR(1) NULL,
   `OS_NAME` VARCHAR(50) NULL,

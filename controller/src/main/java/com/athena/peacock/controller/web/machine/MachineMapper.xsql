@@ -5,9 +5,9 @@
 
 	<insert id="insertMachine" parameterType="com.athena.peacock.controller.web.machine.MachineDto">
 		INSERT INTO machine_tbl 
-			        (MACHINE_ID, HYPERVISOR_ID, DISPLAY_ID, DISPLAY_NAME, CLUSTER, MACHINE_MAC_ADDR, IS_VM, OS_NAME, OS_VER, OS_ARCH
+			        (MACHINE_ID, HYPERVISOR_ID, DISPLAY_ID, DISPLAY_NAME, CLUSTER, IS_PRD, MACHINE_MAC_ADDR, IS_VM, OS_NAME, OS_VER, OS_ARCH
 			        , CPU_CLOCK, CPU_NUM, MEM_SIZE, IP_ADDR, HOST_NAME, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
-		     VALUES (#{machineId}, #{hypervisorId}, #{displayId}, #{displayName}, #{cluster}, #{machineMacAddr}, #{isVm}, #{osName}, #{osVer}, #{osArch}
+		     VALUES (#{machineId}, #{hypervisorId}, #{displayId}, #{displayName}, #{cluster}, #{isPrd}, #{machineMacAddr}, #{isVm}, #{osName}, #{osVer}, #{osArch}
 		     		, #{cpuClock}, #{cpuNum}, #{memSize}, #{ipAddr}, #{hostName}, #{regUserId}, NOW(), #{updUserId}, NOW())
 	</insert>
 
@@ -17,6 +17,7 @@
 			   , DISPLAY_ID AS displayId
 			   , DISPLAY_NAME AS displayName
 			   , CLUSTER AS cluster
+			   , IS_PRD AS isPrd
 		       , MACHINE_MAC_ADDR AS machineMacAddr
 		       , IS_VM AS isVm
 		       , OS_NAME AS osName
@@ -52,6 +53,7 @@
 			   , DISPLAY_ID = #{displayId}
 			   , DISPLAY_NAME = #{displayName}
 			   , CLUSTER = #{cluster}
+			   , IS_PRD = #{isPrd}
 			   , MACHINE_MAC_ADDR = #{machineMacAddr}
 		       , IS_VM = #{isVm}
 		       , OS_NAME = #{osName}
@@ -87,6 +89,7 @@
 		<if test="displayId != null">AND DISPLAY_ID = #{displayId}</if>
 		<if test="displayName != null">AND DISPLAY_NAME = #{displayName}</if>
 		<if test="cluster != null">AND CLUSTER = #{cluster}</if>
+		<if test="isPrd != null">AND IS_PRD = #{isPrd}</if>
 		<if test="machineMacAddr != null">AND MACHINE_MAC_ADDR = #{machineMacAddr}</if>
 		<if test="isVm != null">AND IS_VM = #{isVm}</if>
 		<if test="osName != null">AND OS_NAME = #{osName}</if>
@@ -109,6 +112,7 @@
 			   , DISPLAY_ID AS displayId
 			   , DISPLAY_NAME AS displayName
 			   , CLUSTER AS cluster
+			   , IS_PRD AS isPrd
 		       , MACHINE_MAC_ADDR AS machineMacAddr
 		       , IS_VM AS isVm
 		       , OS_NAME AS osName
@@ -136,6 +140,7 @@
 		<if test="displayId != null">AND DISPLAY_ID = #{displayId}</if>
 		<if test="displayName != null">AND DISPLAY_NAME = #{displayName}</if>
 		<if test="cluster != null">AND CLUSTER = #{cluster}</if>
+		<if test="isPrd != null">AND IS_PRD = #{isPrd}</if>
 		<if test="machineMacAddr != null">AND MACHINE_MAC_ADDR = #{machineMacAddr}</if>
 		<if test="isVm != null">AND IS_VM = #{isVm}</if>
 		<if test="osName != null">AND OS_NAME = #{osName}</if>

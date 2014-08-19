@@ -42,6 +42,7 @@ public class MachineDto extends BaseDto {
 	private String displayId;
 	private String displayName;
 	private String cluster;
+	private String isPrd;
 	private String machineMacAddr;
 	private String isVm;
 	private String osName;
@@ -126,6 +127,20 @@ public class MachineDto extends BaseDto {
 	 */
 	public void setCluster(String cluster) {
 		this.cluster = cluster;
+	}
+
+	/**
+	 * @return the isPrd
+	 */
+	public String getIsPrd() {
+		return isPrd;
+	}
+
+	/**
+	 * @param isPrd the isPrd to set
+	 */
+	public void setIsPrd(String isPrd) {
+		this.isPrd = isPrd;
 	}
 
 	/**
