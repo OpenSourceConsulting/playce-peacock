@@ -7,11 +7,11 @@
     "codeClass": null,
     "userConfig": {
         "autoLoad": false,
-        "designer|userClassName": "rhevmDiskListStore",
-        "model": "rhevmDiskModel",
-        "storeId": "rhevmDiskListStore"
+        "designer|userClassName": "MachineStore",
+        "model": "MachineModel",
+        "storeId": "MachineStore"
     },
-    "designerId": "0faca281-d2c9-450a-8303-9d27605a2ac4",
+    "designerId": "4f25575c-b6dc-45a5-aac1-7f8dcef88ccc",
     "cn": [
         {
             "type": "Ext.data.proxy.Ajax",
@@ -21,9 +21,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "url": "/rhevm//listRhevmDisk"
+                "api": null,
+                "url": "machine/list"
             },
-            "designerId": "a5f2d6b8-f5b9-4219-8875-e066f353bab3",
+            "designerId": "12b34f19-cf12-4659-be81-318348a6d183",
             "cn": [
                 {
                     "type": "Ext.data.reader.Json",
@@ -35,7 +36,7 @@
                     "userConfig": {
                         "root": "list"
                     },
-                    "designerId": "e08254d3-eb21-4538-837b-fe2377355838"
+                    "designerId": "8c0da50e-cb3a-4d66-9b28-316530b1796b"
                 },
                 {
                     "type": "processcfgfunction",
@@ -55,7 +56,7 @@
                             "return config;"
                         ]
                     },
-                    "designerId": "876c6d05-848f-4e95-af07-168f8145ebb6"
+                    "designerId": "00e8d7db-2114-480a-b1dd-519075ffbe3a"
                 }
             ]
         }

@@ -384,10 +384,8 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
-                                            "userConstants.selectRow = record;",
-                                            "",
-                                            "userConstants.me.showUserWindow('edit');",
-                                            ""
+                                            "userConstants.actionRow = record;",
+                                            "userConstants.me.showUserWindow('edit');"
                                         ]
                                     },
                                     "designerId": "722f995c-d5af-4fc9-8d6a-54d15b653911"
@@ -456,7 +454,7 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
-                                            "userConstants.selectRow = record;",
+                                            "userConstants.actionRow = record;",
                                             "",
                                             "userConstants.me.deleteUser();",
                                             ""

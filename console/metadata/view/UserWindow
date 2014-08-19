@@ -244,6 +244,20 @@
                                 "name": "userId"
                             },
                             "designerId": "50eba8a5-181f-4422-bf48-dda6dadc34f6"
+                        },
+                        {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Label",
+                                "layout|anchor": "100%",
+                                "name": "editType"
+                            },
+                            "designerId": "6b0e4378-c955-4cb1-b7a4-b9c80a8fad9e"
                         }
                     ]
                 },
@@ -295,10 +309,13 @@
                                         "implHandler": [
                                             "var userForm = Ext.getCmp(\"userForm\");",
                                             "",
-                                            "var action = GLOBAL.urlPrefix + \"/user/create\";",
+                                            "var action = GLOBAL.urlPrefix + \"user/create\";",
+                                            "var editType = userForm.getForm().findField(\"editType\").getValue();",
                                             "",
+                                            "var userId = null;",
                                             "if(userForm.getForm().findField(\"userId\").getValue() > 0){",
-                                            "    action = GLOBAL.urlPrefix + \"/user/update\";",
+                                            "    action = GLOBAL.urlPrefix + \"user/update\";",
+                                            "    userId = userForm.getForm().findField(\"userId\").getValue();",
                                             "}",
                                             "",
                                             "userForm.getForm().submit({",
@@ -311,7 +328,29 @@
                                             "    success: function(form, action) {",
                                             "        Ext.Msg.alert('Success', action.result.msg);",
                                             "",
-                                            "        Ext.getCmp('userGrid').getStore().reload();",
+                                            "        if(editType != 'myAccount') {",
+                                            "            ",
+                                            "            Ext.getCmp('userGrid').getStore().load({",
+                                            "                ",
+                                            "                callback:function(records, operation, success){",
+                                            "                    ",
+                                            "                    if(userId){",
+                                            "                        ",
+                                            "                        Ext.each(records, function(record) {",
+                                            "                            ",
+                                            "                            if(record.get(\"userId\") == userId) {",
+                                            "                                Ext.getCmp('userGrid').getSelectionModel().select(record,true,false);",
+                                            "                                             ",
+                                            "                                userConstants.selectRow = record;",
+                                            "                                userConstants.me.searchUserDetail();",
+                                            "                            }",
+                                            "",
+                                            "                        });",
+                                            "                    }",
+                                            "                }",
+                                            "            }); ",
+                                            "        }",
+                                            "                ",
                                             "        userForm.up('window').close();",
                                             "    },",
                                             "    failure: function(form, action) {",

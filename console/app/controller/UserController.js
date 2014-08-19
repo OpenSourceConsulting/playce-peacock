@@ -23,39 +23,26 @@ Ext.define('MyApp.controller.UserController', {
         }
     },
 
-    onUserGridSelect: function(rowmodel, record, index, eOpts) {
+    onUserGridSelect: function(tableview, td, cellIndex, record, tr, rowIndex, e, eOpts) {
         //User Grid Item Click
+        if(cellIndex > 5) {
+            //Action Column 예외처리
+            return;
+        }
 
-        userConstants.selectRow = record;
+        if(userConstants.selectRow == null || userConstants.selectRow.get("userId") != record.get("userId")) {
 
-        var userDetailPanel = Ext.getCmp("userDetailPanel");
-        userDetailPanel.layout.setActiveItem(1);
+            userConstants.selectRow = record;
 
-        //User Data Loading
-
-        var userForm = Ext.getCmp("getUserForm");
-
-        userForm.getForm().reset();
-
-        userForm.getForm().waitMsgTarget = userForm.getEl();
-
-        userForm.getForm().load({
-            params : {
-                userId : record.get("userId")
-            }
-            ,url : GLOBAL.urlPrefix + "/user/getUser"
-            ,waitMsg:'Loading...'
-        });
-
-        Ext.getCmp("userTitleLabel").setText("<h2>"+record.get("userName")+"</h2>", false);
-
+            this.searchUserDetail();
+        }
     },
 
     onUserGridBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
         var position = e.getXY();
         e.stopEvent();
 
-        userConstants.selectRow = record;
+        userConstants.actionRow = record;
 
         userConstants.contextMenu.showAt(position);
     },
@@ -108,7 +95,8 @@ Ext.define('MyApp.controller.UserController', {
                     singleton: true,
                     me : user,
                     contextMenu: userGridContextMenu,
-                    selectRow : null
+                    selectRow : null,
+                    actionRow : null
                 });
 
 
@@ -117,7 +105,7 @@ Ext.define('MyApp.controller.UserController', {
                 keydown: this.onSearchUserNameKeydown
             },
             "#userGrid": {
-                select: this.onUserGridSelect,
+                cellclick: this.onUserGridSelect,
                 beforeitemcontextmenu: this.onUserGridBeforeItemContextMenu
             }
         });
@@ -129,11 +117,12 @@ Ext.define('MyApp.controller.UserController', {
         userWindow.setTitle("Edit User");
         userWindow.show();
 
-        if(user_id == null) {
-            user_id = userConstants.selectRow.get("userId");
-        }
+        if(type != 'new') {
 
-        if(type == 'edit') {
+            if(user_id == null) {
+                user_id = userConstants.actionRow.get("userId");
+            }
+
             var userForm = Ext.getCmp("userForm");
 
             userForm.getForm().waitMsgTarget = userForm.getEl();
@@ -142,8 +131,15 @@ Ext.define('MyApp.controller.UserController', {
                 params : {
                     userId : user_id
                 }
-                ,url : GLOBAL.urlPrefix + "/user/getUser"
+                ,url : GLOBAL.urlPrefix + "user/getUser"
                 ,waitMsg:'Loading...'
+                ,success: function(form, action) {
+
+                    var password = form.findField('passwd').getValue();
+
+                    form.findField('confirmPasswd').setRawValue(password);
+                    form.findField('editType').setRawValue(type);
+                }
             });
         }
 
@@ -157,9 +153,9 @@ Ext.define('MyApp.controller.UserController', {
             if(btn == "yes"){
 
                 Ext.Ajax.request({
-                    url: GLOBAL.urlPrefix + "/user/delete",
+                    url: GLOBAL.urlPrefix + "user/delete",
                     params : {
-                        userId : userConstants.selectRow.get("userId")
+                        userId : userConstants.actionRow.get("userId")
                     },
                     disableCaching : true,
                     waitMsg: 'Delete User...',
@@ -167,8 +163,9 @@ Ext.define('MyApp.controller.UserController', {
                         var msg = Ext.JSON.decode(response.responseText).msg;
                         Ext.MessageBox.alert('알림', msg);
 
-                        Ext.getCmp("userGrid").getStore().reload();
+                        userConstants.selectRow = null;
 
+                        Ext.getCmp("userGrid").getStore().reload();
                         Ext.getCmp("userDetailPanel").layout.setActiveItem(0);
 
                     }
@@ -176,6 +173,30 @@ Ext.define('MyApp.controller.UserController', {
             }
 
         });
+    },
+
+    searchUserDetail: function() {
+
+        var userDetailPanel = Ext.getCmp("userDetailPanel");
+        userDetailPanel.layout.setActiveItem(1);
+
+        //User Data Loading
+
+        var userForm = Ext.getCmp("getUserForm");
+
+        userForm.getForm().reset();
+
+        userForm.getForm().waitMsgTarget = userForm.getEl();
+
+        userForm.getForm().load({
+            params : {
+                userId : userConstants.selectRow.get("userId")
+            }
+            ,url : GLOBAL.urlPrefix + "user/getUser"
+            ,waitMsg:'Loading...'
+        });
+
+        Ext.getCmp("userTitleLabel").setText("<h2>"+userConstants.selectRow.get("userName")+"</h2>", false);
     }
 
 });

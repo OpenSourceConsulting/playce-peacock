@@ -21,7 +21,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "url": "/user/list"
+                "url": "user/list"
             },
             "designerId": "bc478a05-d3d2-41f8-a155-5f3874325105",
             "cn": [

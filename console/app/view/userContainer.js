@@ -188,10 +188,8 @@ Ext.define('MyApp.view.userContainer', {
                             items: [
                                 {
                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                        userConstants.selectRow = record;
-
+                                        userConstants.actionRow = record;
                                         userConstants.me.showUserWindow('edit');
-
                                     },
                                     icon: 'resources/images/icons/cog.png',
                                     iconCls: ''
@@ -211,7 +209,7 @@ Ext.define('MyApp.view.userContainer', {
                             items: [
                                 {
                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                        userConstants.selectRow = record;
+                                        userConstants.actionRow = record;
 
                                         userConstants.me.deleteUser();
 

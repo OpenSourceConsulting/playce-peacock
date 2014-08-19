@@ -22,7 +22,7 @@
             "codeClass": null,
             "userConfig": {
                 "api": null,
-                "url": "/rhevm/vms/disks"
+                "url": "rhevm/vms/disks"
             },
             "designerId": "3ac8c93c-6ca1-4388-8ec7-56e371fad9f8",
             "cn": [

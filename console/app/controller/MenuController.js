@@ -25,7 +25,11 @@ Ext.define('MyApp.controller.MenuController', {
             GLOBAL.lastSelectedMenuId = record.get('id');
             Ext.getCmp('centerContainer').layout.setActiveItem(record.get('activeRow'));
 
-            if(record.get('id') == 'MENU_03') {
+            if(record.get('id') == 'MENU_02') {
+
+                instancesConstants.me.searchInstance(true);
+
+            } else if(record.get('id') == 'MENU_03') {
 
                 RHEVMConstants.me.searchHypervisor(true);
 

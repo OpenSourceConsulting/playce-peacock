@@ -6,8 +6,8 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userAlias": "regTemplateWindow",
-        "designer|userClassName": "regTemplateWindow",
+        "designer|userAlias": "RegTemplateWindow",
+        "designer|userClassName": "RegTemplateWindow",
         "height": 160,
         "id": "regTemplateWindow",
         "itemId": "regTemplateWindow",

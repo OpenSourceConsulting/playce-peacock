@@ -31,7 +31,7 @@ Ext.define('MyApp.store.HypervisorStore', {
             storeId: 'HypervisorStore',
             proxy: me.processMyAjaxProxy({
                 type: 'ajax',
-                url: '/hypervisor/list',
+                url: 'hypervisor/list',
                 reader: {
                     type: 'json',
                     root: 'list'

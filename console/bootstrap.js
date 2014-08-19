@@ -878,6 +878,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.controller.UserController": [],
   "MyApp.model.DiskModel": [],
   "MyApp.model.HypervisorModel": [],
+  "MyApp.model.MachineModel": [],
   "MyApp.model.NetworkModel": [],
   "MyApp.model.SessionModel": [],
   "MyApp.model.TemplateModel": [],
@@ -887,11 +888,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.model.instanceOsModel": [],
   "MyApp.model.instanceSoftwareModel": [],
   "MyApp.model.monitoringChartModel": [],
-  "MyApp.model.rhevmDiskModel": [],
-  "MyApp.model.rhevmNetworkModel": [],
-  "MyApp.model.rhevmTemplateModel": [],
-  "MyApp.model.rhevmVmModel": [],
   "MyApp.store.HypervisorStore": [],
+  "MyApp.store.MachineStore": [],
   "MyApp.store.MenuTreeStore": [],
   "MyApp.store.SessionStore": [],
   "MyApp.store.TemplateStore": [],
@@ -903,14 +901,12 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.instanceMonitoringChartStore": [],
   "MyApp.store.instanceOsListStore": [],
   "MyApp.store.instanceSoftwareListStore": [],
-  "MyApp.store.rhevmDiskListStore": [],
-  "MyApp.store.rhevmNetworkListStore": [],
-  "MyApp.store.rhevmTemplateListStore": [],
-  "MyApp.store.rhevmVmListStore": [],
   "MyApp.store.tempChartData": [],
   "MyApp.store.tempGridData": [],
   "MyApp.view.CLIWindow": [],
   "MyApp.view.Main": [],
+  "MyApp.view.RegRhevmWindow": [],
+  "MyApp.view.RegTemplateWindow": [],
   "MyApp.view.UserWindow": [],
   "MyApp.view.Viewport": [],
   "MyApp.view.almContainer": [],
@@ -928,8 +924,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.peacockViewport": [],
   "MyApp.view.regAccountWindow": [],
   "MyApp.view.regInstanceWindow": [],
-  "MyApp.view.regRhevmWindow": [],
-  "MyApp.view.regTemplateWindow": [],
   "MyApp.view.rhevmContainer": [],
   "MyApp.view.softwareConfigWindow": [],
   "MyApp.view.softwareInstallLogWindow": [],
@@ -1955,6 +1949,7 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.controller.UserController": [],
   "MyApp.model.DiskModel": [],
   "MyApp.model.HypervisorModel": [],
+  "MyApp.model.MachineModel": [],
   "MyApp.model.NetworkModel": [],
   "MyApp.model.SessionModel": [],
   "MyApp.model.TemplateModel": [],
@@ -1964,11 +1959,8 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.model.instanceOsModel": [],
   "MyApp.model.instanceSoftwareModel": [],
   "MyApp.model.monitoringChartModel": [],
-  "MyApp.model.rhevmDiskModel": [],
-  "MyApp.model.rhevmNetworkModel": [],
-  "MyApp.model.rhevmTemplateModel": [],
-  "MyApp.model.rhevmVmModel": [],
   "MyApp.store.HypervisorStore": [],
+  "MyApp.store.MachineStore": [],
   "MyApp.store.MenuTreeStore": [],
   "MyApp.store.SessionStore": [],
   "MyApp.store.TemplateStore": [],
@@ -1980,10 +1972,6 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.store.instanceMonitoringChartStore": [],
   "MyApp.store.instanceOsListStore": [],
   "MyApp.store.instanceSoftwareListStore": [],
-  "MyApp.store.rhevmDiskListStore": [],
-  "MyApp.store.rhevmNetworkListStore": [],
-  "MyApp.store.rhevmTemplateListStore": [],
-  "MyApp.store.rhevmVmListStore": [],
   "MyApp.store.tempChartData": [],
   "MyApp.store.tempGridData": [],
   "MyApp.view.CLIWindow": [
@@ -1991,6 +1979,12 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.Main": [
     "widget.app-main"
+  ],
+  "MyApp.view.RegRhevmWindow": [
+    "widget.RegRhevmWindow"
+  ],
+  "MyApp.view.RegTemplateWindow": [
+    "widget.RegTemplateWindow"
   ],
   "MyApp.view.UserWindow": [
     "widget.userWindow"
@@ -2040,12 +2034,6 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.regInstanceWindow": [
     "widget.regInstanceWindow"
-  ],
-  "MyApp.view.regRhevmWindow": [
-    "widget.regRhevmWindow"
-  ],
-  "MyApp.view.regTemplateWindow": [
-    "widget.regTemplateWindow"
   ],
   "MyApp.view.rhevmContainer": [
     "widget.rhevmcontainer"

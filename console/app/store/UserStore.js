@@ -31,7 +31,7 @@ Ext.define('MyApp.store.UserStore', {
             storeId: 'UserStore',
             proxy: me.processMyAjaxProxy({
                 type: 'ajax',
-                url: '/user/list',
+                url: 'user/list',
                 reader: {
                     type: 'json',
                     root: 'list'

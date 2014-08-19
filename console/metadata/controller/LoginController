@@ -124,7 +124,7 @@
                     "",
                     "    //TODO: Login using server-side authentication service",
                     "    Ext.Ajax.request({",
-                    "        url: GLOBAL.urlPrefix + \"/user/login\",",
+                    "        url: GLOBAL.urlPrefix + \"user/login\",",
                     "        params: values,",
                     "        success: successCallback,",
                     "        failure: failureCallback",
@@ -275,7 +275,7 @@
                 "implHandler": [
                     "var sessionInfo = Ext.getStore('SessionStore');",
                     "",
-                    "userConstants.me.showUserWindow('edit', sessionInfo.getAt(0).get(\"userId\"));"
+                    "userConstants.me.showUserWindow('myAccount', sessionInfo.getAt(0).get(\"userId\"));"
                 ],
                 "name": "click",
                 "scope": "me"
@@ -296,7 +296,7 @@
                 "implHandler": [
                     "",
                     "Ext.Ajax.request({",
-                    "    url: GLOBAL.urlPrefix + '/user/logout',",
+                    "    url: GLOBAL.urlPrefix + 'user/logout',",
                     "    disableCaching : true,",
                     "    success: function(response){",
                     "",

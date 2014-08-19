@@ -31,7 +31,7 @@ Ext.define('MyApp.store.VMDiskStore', {
             storeId: 'VMDiskStore',
             proxy: me.processMyAjaxProxy({
                 type: 'ajax',
-                url: '/rhevm/vms/disks',
+                url: 'rhevm/vms/disks',
                 reader: {
                     type: 'json',
                     root: 'list'

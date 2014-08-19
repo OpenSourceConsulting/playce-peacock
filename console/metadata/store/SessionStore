@@ -11,7 +11,7 @@
         "model": "SessionModel",
         "storeId": "SessionStore"
     },
-    "designerId": "f79cdc90-2ccf-4687-94d6-93b26a8fffe7",
+    "designerId": "e0cdf92d-9011-405e-ac08-ecce2fd176ae",
     "cn": [
         {
             "type": "Ext.data.proxy.SessionStorage",
@@ -23,7 +23,7 @@
             "userConfig": {
                 "id": "notificationKey"
             },
-            "designerId": "7d09eb26-32f7-4d3f-81ea-403ceb49262a"
+            "designerId": "420401dd-cc1b-4816-9bc0-59d383dcc1d9"
         }
     ]
 }

@@ -112,7 +112,7 @@ Ext.define('MyApp.controller.LoginController', {
 
             //TODO: Login using server-side authentication service
             Ext.Ajax.request({
-                url: GLOBAL.urlPrefix + "/user/login",
+                url: GLOBAL.urlPrefix + "user/login",
                 params: values,
                 success: successCallback,
                 failure: failureCallback
@@ -177,13 +177,13 @@ Ext.define('MyApp.controller.LoginController', {
     doEditProfile: function(item, e, eOpts) {
         var sessionInfo = Ext.getStore('SessionStore');
 
-        userConstants.me.showUserWindow('edit', sessionInfo.getAt(0).get("userId"));
+        userConstants.me.showUserWindow('myAccount', sessionInfo.getAt(0).get("userId"));
     },
 
     doLogout: function(item, e, eOpts) {
 
         Ext.Ajax.request({
-            url: GLOBAL.urlPrefix + '/user/logout',
+            url: GLOBAL.urlPrefix + 'user/logout',
             disableCaching : true,
             success: function(response){
 
