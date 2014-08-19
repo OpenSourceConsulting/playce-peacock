@@ -29,6 +29,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,6 +53,17 @@ public class MachineService {
 		if (machineDao.getMachine(machine.getMachineId()) != null) {
 			machineDao.updateMachine(machine);
 		} else {
+			String displayId = "i-" + RandomStringUtils.randomAlphanumeric(8).toLowerCase();
+			
+			while (true) {
+				if (machineDao.checkDuplicateDisplayId(displayId) == 0) {
+					machine.setDisplayId(displayId);
+					break;
+				} else {
+					displayId = "i-" + RandomStringUtils.randomAlphanumeric(8).toLowerCase();
+				}
+			}
+
 			machineDao.insertMachine(machine);
 		}
 	}

@@ -90,6 +90,8 @@ public class RHEVMRestTemplateManager implements InitializingBean {
 		RHEVMRestTemplate template = new RHEVMRestTemplate(hypervisor.getRhevmProtocol(), hypervisor.getRhevmHost(), hypervisor.getRhevmDomain(), 
 				hypervisor.getRhevmPort(), hypervisor.getRhevmUsername(), hypervisor.getRhevmPassword());
 		
+		template.setHypervisorId(hypervisor.getHypervisorId());
+		
 		templates.put(hypervisor.getHypervisorId(), template);
 	}//end of setRHEVMRestTemplate()
 	

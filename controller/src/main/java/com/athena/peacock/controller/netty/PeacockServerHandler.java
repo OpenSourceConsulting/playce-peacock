@@ -165,6 +165,9 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 						
 						// ipAddr에 해당하는 rhev_id를 RHEV Manager로부터 조회한다.
 						String machineId = infoMsg.getAgentId();
+						Integer hypervisorId = null;
+						String displayName = null;
+						String cluster = null;
 						String isVm = "N";
 						boolean isMatch = false;
 						try {
@@ -186,6 +189,9 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 											if (ip.getAddress().equals(ipAddr)) {
 												isMatch = true;
 												machineId = vm.getId();
+												hypervisorId = restTemplate.getHypervisorId();
+												displayName = vm.getName();
+												cluster = vm.getCluster().getName();
 												break;
 											}
 										}
@@ -210,8 +216,11 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 						
 						MachineDto machine = new MachineDto();
 						machine.setMachineId(machineId);
+						machine.setHypervisorId(hypervisorId);
+						machine.setDisplayName(displayName);
 						machine.setMachineMacAddr(infoMsg.getMacAddr());
 						machine.setIsVm(isVm);
+						machine.setCluster(cluster);
 						machine.setOsName(infoMsg.getOsName());
 						machine.setOsVer(infoMsg.getOsVersion());
 						machine.setOsArch(infoMsg.getOsArch());
