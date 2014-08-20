@@ -1,0 +1,79 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "AlmUserModel"
+    },
+    "designerId": "9e8669be-ea6e-467c-8a7f-d4ed4c44af63",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "userId",
+                "type": "string"
+            },
+            "designerId": "60c24a5f-6801-45e4-9f8b-b2138a0ba119"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "displayName",
+                "type": "string"
+            },
+            "designerId": "0e17107f-350c-40ee-8f0a-1652a372db29"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "emailAddress",
+                "type": "string"
+            },
+            "designerId": "2cc4e3f7-af87-40c7-b94f-8b973f798708"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "firstName",
+                "type": "string"
+            },
+            "designerId": "533c25f0-735d-4af7-bbd3-e4c452bef942"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "lastName",
+                "type": "string"
+            },
+            "designerId": "fdf5c1d3-8403-4f3a-a198-52f711f9d58f"
+        }
+    ]
+}

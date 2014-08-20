@@ -6,17 +6,16 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userAlias": "RegRhevmWindow",
-        "designer|userClassName": "RegRhevmWindow",
-        "height": 365,
-        "id": "regRhevmWindow",
-        "itemId": "regRhevmWindow",
+        "designer|userAlias": "RegInstanceWindow",
+        "designer|userClassName": "RegInstanceWindow",
+        "height": 390,
+        "id": "regInstanceWindow1",
         "layout": "border",
         "modal": true,
-        "title": "Add RHEVM",
-        "width": 380
+        "title": "Create Instance",
+        "width": 450
     },
-    "designerId": "e7675f91-d126-4470-ac73-784eee1a49d5",
+    "designerId": "efa116e2-6103-4b77-a962-3dff5587e5c3",
     "cn": [
         {
             "type": "Ext.panel.Panel",
@@ -29,9 +28,9 @@
                 "header": false,
                 "layout|flex": 1,
                 "layout|region": "center",
-                "title": "regRhevmPanel"
+                "title": "regInstancePanel"
             },
-            "designerId": "e835fe64-c17e-4e3c-a48f-5d7eb11c3a3e",
+            "designerId": "074efb6b-fc8b-4c9a-ab13-966eb36c730c",
             "cn": [
                 {
                     "type": "Ext.form.Panel",
@@ -45,16 +44,244 @@
                         "fieldDefaults": [
                             "{",
                             "    msgTarget: 'side',",
-                            "    labelWidth: 120",
+                            "    labelWidth: 130",
                             "}"
                         ],
                         "height": null,
-                        "id": "rhevmForm",
-                        "itemId": "rhevmForm",
+                        "id": "instanceForm",
+                        "itemId": "instanceForm",
                         "title": null
                     },
-                    "designerId": "6665fc0f-8f74-4e12-b9d5-2712bd9b7992",
+                    "designerId": "528874cb-d486-4df6-b8d2-85ecced4838b",
                     "cn": [
+                        {
+                            "type": "Ext.form.field.Display",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "RHEM Manager",
+                                "hidden": true,
+                                "labelWidth": 130,
+                                "layout|anchor": "100%",
+                                "name": "displayHypervisor",
+                                "padding": "0 0 15 0",
+                                "value": [
+                                    "Display Field"
+                                ]
+                            },
+                            "designerId": "d76edeac-76ec-4e01-b474-5732a1b1e1ac",
+                            "cn": [
+                                {
+                                    "type": "Ext.XTemplate",
+                                    "reference": {
+                                        "name": "afterLabelTextTpl",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "",
+                                        "implHandler": [
+                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                        ]
+                                    },
+                                    "designerId": "d6d66f44-eee6-410d-a330-269dda4d8e87"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.form.field.ComboBox",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "displayField": "rhevmName",
+                                "fieldLabel": "RHEM Manager",
+                                "labelWidth": 130,
+                                "layout|anchor": "100%",
+                                "name": "hypervisorId",
+                                "padding": "0 0 15 0",
+                                "store": "ComboHypervisorStore",
+                                "valueField": "hypervisorId"
+                            },
+                            "designerId": "b9e57cfc-c434-42c7-848e-44726c857c9e",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onComboboxChange",
+                                        "implHandler": [
+                                            "",
+                                            "var form = field.up('form').getForm();",
+                                            "",
+                                            "var dataCenter = field.up('form').getForm().findField(\"dataCenter\");",
+                                            "var dateCenterStore = Ext.getStore(\"ComboDataCenterStore\");",
+                                            "",
+                                            "var template = form.findField(\"template\");",
+                                            "var templateStore = Ext.getStore(\"ComboTemplateStore\");",
+                                            "",
+                                            "dataCenter.setValue(\"\");",
+                                            "",
+                                            "form.findField(\"cluster\").setValue(\"\");",
+                                            "",
+                                            "dataCenter.bindStore(dateCenterStore);",
+                                            "",
+                                            "dateCenterStore.getProxy().extraParams = {",
+                                            "    hypervisorId : newValue",
+                                            "};",
+                                            "dateCenterStore.load();",
+                                            "",
+                                            "if(form.findField(\"displayTemplate\").getValue() != \"\") {",
+                                            "    ",
+                                            "    template.setValue(\"\");",
+                                            "    form.findField(\"memory\").setValue(\"\");",
+                                            "    form.findField(\"sockets\").setValue(\"\");",
+                                            "    ",
+                                            "    template.bindStore(templateStore);",
+                                            "    ",
+                                            "    templateStore.getProxy().extraParams = {",
+                                            "        hypervisorId : newValue",
+                                            "    };",
+                                            "    templateStore.load();",
+                                            "    ",
+                                            "}"
+                                        ],
+                                        "name": "change",
+                                        "scope": "me"
+                                    },
+                                    "designerId": "6655d9e6-7b73-4774-8bed-f4e1efb0483b"
+                                },
+                                {
+                                    "type": "Ext.XTemplate",
+                                    "reference": {
+                                        "name": "afterLabelTextTpl",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "afterLabelTextTpl",
+                                        "implHandler": [
+                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                        ]
+                                    },
+                                    "designerId": "8419d169-c6d8-47b3-a431-12a88a592be9"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.form.field.ComboBox",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "displayField": "name",
+                                "fieldLabel": "Data Center",
+                                "labelWidth": 130,
+                                "layout|anchor": "100%",
+                                "name": "dataCenter",
+                                "store": null,
+                                "valueField": "id"
+                            },
+                            "designerId": "1492daa3-078c-40f8-b018-425e401f98cf",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onComboboxChange1",
+                                        "implHandler": [
+                                            "if(newValue != '') {",
+                                            "",
+                                            "    var cluster = field.up('form').getForm().findField(\"cluster\");",
+                                            "    var clusterStore = Ext.getStore(\"ComboClusterStore\");",
+                                            "",
+                                            "    cluster.bindStore(clusterStore);",
+                                            "",
+                                            "    clusterStore.getProxy().extraParams = {",
+                                            "        hypervisorId : field.up('form').getForm().findField(\"hypervisorId\").getValue(),",
+                                            "        dataCenterId : newValue",
+                                            "    };",
+                                            "    clusterStore.load();",
+                                            "",
+                                            "    cluster.setValue(\"\");",
+                                            "",
+                                            "}"
+                                        ],
+                                        "name": "change",
+                                        "scope": "me"
+                                    },
+                                    "designerId": "d794342e-113c-4d7c-887c-f15bfa7289d5"
+                                },
+                                {
+                                    "type": "Ext.XTemplate",
+                                    "reference": {
+                                        "name": "afterLabelTextTpl",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "afterLabelTextTpl",
+                                        "implHandler": [
+                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                        ]
+                                    },
+                                    "designerId": "e0db0087-7865-436c-a847-6712919f1ce8"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.form.field.ComboBox",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "displayField": "name",
+                                "fieldLabel": "Host Cluster",
+                                "labelWidth": 130,
+                                "layout|anchor": "100%",
+                                "name": "cluster",
+                                "padding": "0 0 15 0",
+                                "valueField": "name"
+                            },
+                            "designerId": "e82559dc-9031-449e-b710-abb9684263e8",
+                            "cn": [
+                                {
+                                    "type": "Ext.XTemplate",
+                                    "reference": {
+                                        "name": "afterLabelTextTpl",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "afterLabelTextTpl",
+                                        "implHandler": [
+                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                        ]
+                                    },
+                                    "designerId": "b7253f6c-6fb3-4a27-8450-cb4a5db18178"
+                                }
+                            ]
+                        },
                         {
                             "type": "Ext.form.field.Text",
                             "reference": {
@@ -65,11 +292,12 @@
                             "userConfig": {
                                 "allowBlank": false,
                                 "fieldLabel": "Name",
-                                "labelWidth": 120,
+                                "labelWidth": 130,
                                 "layout|anchor": "100%",
-                                "name": "rhevmName"
+                                "name": "name",
+                                "vtype": "template"
                             },
-                            "designerId": "760fcf5d-7488-4f48-8397-1821a1818cdb",
+                            "designerId": "630acedb-3cad-466e-8287-04ad89810cbf",
                             "cn": [
                                 {
                                     "type": "Ext.XTemplate",
@@ -84,7 +312,77 @@
                                             "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
                                         ]
                                     },
-                                    "designerId": "d6a08ac1-4314-46e9-a22f-a2bb8deb5e0c"
+                                    "designerId": "5da1c745-0f20-46ec-82c3-eb7017ac49a4"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "fieldLabel": "Description",
+                                "labelWidth": 130,
+                                "layout|anchor": "100%",
+                                "name": "description"
+                            },
+                            "designerId": "4e724b5d-e7ca-46b3-b6dc-6cc7cee8fc92",
+                            "cn": [
+                                {
+                                    "type": "Ext.XTemplate",
+                                    "reference": {
+                                        "name": "afterLabelTextTpl",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "afterLabelTextTpl",
+                                        "implHandler": [
+                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                        ]
+                                    },
+                                    "designerId": "e459b61d-0012-4bd3-841d-6e87e9d13aa7"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.form.field.Display",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Based on Template",
+                                "hidden": true,
+                                "labelWidth": 130,
+                                "layout|anchor": "100%",
+                                "name": "displayTemplate",
+                                "padding": "0 0 15 0",
+                                "value": [
+                                    "Display Field"
+                                ]
+                            },
+                            "designerId": "0affb8e3-8822-4e69-bc5b-cc1899de3cfe",
+                            "cn": [
+                                {
+                                    "type": "Ext.XTemplate",
+                                    "reference": {
+                                        "name": "afterLabelTextTpl",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "afterLabelTextTpl",
+                                        "implHandler": [
+                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                        ]
+                                    },
+                                    "designerId": "a82097fd-d42e-412c-b03b-508dc8ef3197"
                                 }
                             ]
                         },
@@ -97,22 +395,36 @@
                             "codeClass": null,
                             "userConfig": {
                                 "allowBlank": false,
-                                "fieldLabel": "Type",
-                                "labelWidth": 120,
+                                "displayField": "name",
+                                "fieldLabel": "Based on Template",
+                                "labelWidth": 130,
                                 "layout|anchor": "100%",
-                                "name": "hypervisorType",
-                                "padding": "",
-                                "store": [
-                                    "[",
-                                    "    'RHEVM'",
-                                    "]"
-                                ]
+                                "name": "template",
+                                "padding": "0 0 15 0",
+                                "valueField": "templateId"
                             },
-                            "configAlternates": {
-                                "store": "array"
-                            },
-                            "designerId": "52877405-398d-4118-824a-b57e55a48b2d",
+                            "designerId": "5c7ba828-1976-4f3f-ab81-0408ff77ece4",
                             "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onComboboxSelect",
+                                        "implHandler": [
+                                            "combo.up('form').getForm().findField(\"memory\").setValue(records[0].get(\"memory\"));",
+                                            "combo.up('form').getForm().findField(\"sockets\").setValue(records[0].get(\"sockets\"));",
+                                            "combo.up('form').getForm().findField(\"cores\").setValue(\"1\");",
+                                            ""
+                                        ],
+                                        "name": "select",
+                                        "scope": "me"
+                                    },
+                                    "designerId": "804441ef-ab21-4789-9d85-5e65b18679bd"
+                                },
                                 {
                                     "type": "Ext.XTemplate",
                                     "reference": {
@@ -126,50 +438,7 @@
                                             "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
                                         ]
                                     },
-                                    "designerId": "0d52739e-e640-4808-8784-b33332be116a"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "Ext.form.field.ComboBox",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "allowBlank": false,
-                                "fieldLabel": "Protocol",
-                                "labelWidth": 120,
-                                "layout|anchor": "100%",
-                                "name": "rhevmProtocol",
-                                "padding": "",
-                                "store": [
-                                    "[",
-                                    "    'HTTP',",
-                                    "    'HTTPS',",
-                                    "]"
-                                ]
-                            },
-                            "configAlternates": {
-                                "store": "array"
-                            },
-                            "designerId": "a42c70d6-9b41-4b5a-9f25-192541db84d1",
-                            "cn": [
-                                {
-                                    "type": "Ext.XTemplate",
-                                    "reference": {
-                                        "name": "afterLabelTextTpl",
-                                        "type": "object"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "designer|displayName": "afterLabelTextTpl",
-                                        "implHandler": [
-                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
-                                        ]
-                                    },
-                                    "designerId": "5e5a1c3d-b11c-43c2-becc-d5b673739d0b"
+                                    "designerId": "3975a617-7d8f-4f0d-9adf-9180e2728380"
                                 }
                             ]
                         },
@@ -182,12 +451,13 @@
                             "codeClass": null,
                             "userConfig": {
                                 "allowBlank": false,
-                                "fieldLabel": "Host",
-                                "labelWidth": 120,
+                                "fieldLabel": "Memory Size(MB)",
+                                "labelWidth": 130,
                                 "layout|anchor": "100%",
-                                "name": "rhevmHost"
+                                "name": "memory",
+                                "vtype": "numeric"
                             },
-                            "designerId": "f1fd9792-c575-43fe-993c-2073922b2672",
+                            "designerId": "3de5eaf0-61c8-4978-9974-fd21c7838781",
                             "cn": [
                                 {
                                     "type": "Ext.XTemplate",
@@ -202,7 +472,7 @@
                                             "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
                                         ]
                                     },
-                                    "designerId": "47eb33d1-8768-47d8-ae07-24c833b4c672"
+                                    "designerId": "01c931c0-ed08-4243-aea1-7f981f8a9ba9"
                                 }
                             ]
                         },
@@ -215,12 +485,13 @@
                             "codeClass": null,
                             "userConfig": {
                                 "allowBlank": false,
-                                "fieldLabel": "Port",
-                                "labelWidth": 120,
+                                "fieldLabel": "Total Virtual CPUs",
+                                "labelWidth": 130,
                                 "layout|anchor": "100%",
-                                "name": "rhevmPort"
+                                "name": "sockets",
+                                "vtype": "numeric"
                             },
-                            "designerId": "a906f209-c607-4a43-a28e-26d42bfb9d82",
+                            "designerId": "139301f2-3679-49ec-bd7a-ac310eb91f78",
                             "cn": [
                                 {
                                     "type": "Ext.XTemplate",
@@ -235,148 +506,7 @@
                                             "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
                                         ]
                                     },
-                                    "designerId": "83dc1838-f07f-47ff-8fa9-68895e2c6653"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "Ext.form.field.Text",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "allowBlank": false,
-                                "fieldLabel": "Domain",
-                                "labelWidth": 120,
-                                "layout|anchor": "100%",
-                                "name": "rhevmDomain"
-                            },
-                            "designerId": "3705fe87-df63-4a78-b9d9-ee738ecd0119",
-                            "cn": [
-                                {
-                                    "type": "Ext.XTemplate",
-                                    "reference": {
-                                        "name": "afterLabelTextTpl",
-                                        "type": "object"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "designer|displayName": "afterLabelTextTpl",
-                                        "implHandler": [
-                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
-                                        ]
-                                    },
-                                    "designerId": "7ac74b41-edff-422b-b8ac-842f7e80ff15"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "Ext.form.field.Text",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "allowBlank": false,
-                                "fieldLabel": "Username",
-                                "labelWidth": 120,
-                                "layout|anchor": "100%",
-                                "name": "rhevmUsername"
-                            },
-                            "designerId": "ecf4ffe2-1e62-461c-a87f-c7ea6a8e2904",
-                            "cn": [
-                                {
-                                    "type": "Ext.XTemplate",
-                                    "reference": {
-                                        "name": "afterLabelTextTpl",
-                                        "type": "object"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "designer|displayName": "afterLabelTextTpl",
-                                        "implHandler": [
-                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
-                                        ]
-                                    },
-                                    "designerId": "20bd9f7a-203b-401d-94fc-95e7bf4b1bad"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "Ext.form.field.Text",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "allowBlank": false,
-                                "componentCls": "origin-passwd",
-                                "emptyText": null,
-                                "fieldLabel": "Password",
-                                "inputType": "password",
-                                "labelWidth": 120,
-                                "layout|anchor": "100%",
-                                "maxLength": null,
-                                "minLength": null,
-                                "name": "rhevmPassword",
-                                "padding": ""
-                            },
-                            "designerId": "ecce0a6a-e77a-4428-aea9-d029147d45c7",
-                            "cn": [
-                                {
-                                    "type": "Ext.XTemplate",
-                                    "reference": {
-                                        "name": "afterLabelTextTpl",
-                                        "type": "object"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "designer|displayName": "afterLabelTextTpl",
-                                        "implHandler": [
-                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
-                                        ]
-                                    },
-                                    "designerId": "5bc4380c-2a34-4805-b793-c76fe7804c72"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "Ext.form.field.Text",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "allowBlank": false,
-                                "fieldLabel": "Confirm Password",
-                                "inputType": "password",
-                                "labelWidth": 120,
-                                "layout|anchor": "100%",
-                                "name": "confirmPasswd",
-                                "padding": "",
-                                "vtype": "password"
-                            },
-                            "designerId": "5b90e62d-d025-49a4-80c2-96f08dd56b60",
-                            "cn": [
-                                {
-                                    "type": "Ext.XTemplate",
-                                    "reference": {
-                                        "name": "afterLabelTextTpl",
-                                        "type": "object"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "designer|displayName": "afterLabelTextTpl",
-                                        "implHandler": [
-                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
-                                        ]
-                                    },
-                                    "designerId": "8c837432-2398-465c-a931-b76124a34d69"
+                                    "designerId": "bb036f20-56ee-42df-b983-31aba575904b"
                                 }
                             ]
                         },
@@ -390,9 +520,23 @@
                             "userConfig": {
                                 "fieldLabel": "Label",
                                 "layout|anchor": "100%",
-                                "name": "hypervisorId"
+                                "name": "cores"
                             },
-                            "designerId": "908b374f-9c88-438a-9832-57995edff4eb"
+                            "designerId": "d4f203ab-88e9-4372-8a9a-97c9a165505d"
+                        },
+                        {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Label",
+                                "layout|anchor": "100%",
+                                "name": "initTemplate"
+                            },
+                            "designerId": "6ce33c6f-06da-4742-9e38-ddd8d54d1a95"
                         }
                     ]
                 },
@@ -409,7 +553,7 @@
                         "dock": "bottom",
                         "ui": "footer"
                     },
-                    "designerId": "bbd46e1e-a275-4d65-8779-b89b3dc2202d",
+                    "designerId": "01d8b475-52bd-4243-a44c-40af1fe3fd47",
                     "cn": [
                         {
                             "type": "Ext.button.Button",
@@ -419,14 +563,14 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "id": "rhevmCreateBtn",
-                                "itemId": "rhevmCreateBtn",
+                                "id": "instanceCreateBtn3",
+                                "itemId": "instanceCreateBtn",
                                 "layout|flex": null,
                                 "margin": "0 15 0 0",
                                 "padding": "2 10 2 10",
-                                "text": "Save"
+                                "text": "OK"
                             },
-                            "designerId": "84ce0483-59e6-460a-8db1-0af28ef52609",
+                            "designerId": "a23282b2-6e6d-4be8-953f-9181417f3358",
                             "cn": [
                                 {
                                     "type": "fixedfunction",
@@ -442,19 +586,11 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
-                                            "var rhevmForm = Ext.getCmp(\"rhevmForm\");",
+                                            "var instanceForm = Ext.getCmp(\"instanceForm\");",
                                             "",
-                                            "var action = GLOBAL.urlPrefix + \"machine/insertHypervisor\";",
-                                            "var hypervisorId = null;",
-                                            "",
-                                            "if(rhevmForm.getForm().findField(\"hypervisorId\").getValue() > 0){",
-                                            "    action = GLOBAL.urlPrefix + \"hypervisor/updateHypervisor\";",
-                                            "    hypervisorId = rhevmForm.getForm().findField(\"hypervisorId\").getValue();",
-                                            "}",
-                                            "",
-                                            "rhevmForm.getForm().submit({",
+                                            "instanceForm.getForm().submit({",
                                             "    clientValidation: true,",
-                                            "    url: action,",
+                                            "    url: GLOBAL.urlPrefix + \"rhevm/vms/create\",",
                                             "    method : \"POST\",",
                                             "    params: {",
                                             "        newStatus: 'delivered'",
@@ -463,27 +599,9 @@
                                             "    success: function(form, action) {",
                                             "        Ext.Msg.alert('Success', action.result.msg);",
                                             "",
-                                            "        Ext.getCmp('hypervisorGrid').getStore().load({",
+                                            "        Ext.getCmp('instancesGrid').getStore().load();",
                                             "",
-                                            "            callback:function(records, operation, success){",
-                                            "",
-                                            "                if(hypervisorId) {",
-                                            "",
-                                            "                    Ext.each(records, function(record) {",
-                                            "",
-                                            "                        if(record.get(\"hypervisorId\") == hypervisorId) {",
-                                            "                            Ext.getCmp('hypervisorGrid').getSelectionModel().select(record,true,false);",
-                                            "",
-                                            "                            RHEVMConstants.selectRow = record;",
-                                            "                            RHEVMConstants.me.selectHypervisorGrid();",
-                                            "                        }",
-                                            "                    });",
-                                            "                }",
-                                            "            }",
-                                            "",
-                                            "        });",
-                                            "",
-                                            "        rhevmForm.up('window').close();",
+                                            "        instanceForm.up('window').close();",
                                             "    },",
                                             "    failure: function(form, action) {",
                                             "        switch (action.failureType) {",
@@ -500,7 +618,7 @@
                                             "});"
                                         ]
                                     },
-                                    "designerId": "7abcd068-da4f-489a-9282-924a59cfcdb9"
+                                    "designerId": "63e041db-5f7f-455d-bea0-cc912ccbc8d7"
                                 }
                             ]
                         },
@@ -512,14 +630,14 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "id": "rhevmCancelBtn",
-                                "itemId": "rhevmCancelBtn",
+                                "id": "instanceCancelBtn3",
+                                "itemId": "instanceCancelBtn",
                                 "layout|flex": null,
                                 "margin": "0 0 0 0",
                                 "padding": "2 5 2 5",
                                 "text": "Cancel"
                             },
-                            "designerId": "eba426be-533d-4107-ae50-e5e1b9dd78b3",
+                            "designerId": "469f86fc-786a-483c-8713-0599019fdc61",
                             "cn": [
                                 {
                                     "type": "fixedfunction",
@@ -545,7 +663,7 @@
                                             ""
                                         ]
                                     },
-                                    "designerId": "739a7c91-dc8f-4e35-b354-0adc03c2df6b"
+                                    "designerId": "b46e3ef0-ec02-4e8e-918b-d80ea3dce30b"
                                 }
                             ]
                         }

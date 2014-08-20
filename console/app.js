@@ -37,7 +37,10 @@ Ext.application({
         'TemplateModel',
         'MachineModel',
         'SessionModel',
-        'PackageModel'
+        'PackageModel',
+        'DataCenterModel',
+        'ClusterModel',
+        'AlmUserModel'
     ],
     stores: [
         'MenuTreeStore',
@@ -56,7 +59,11 @@ Ext.application({
         'MachineStore',
         'SessionStore',
         'ComboHypervisorStore',
-        'InstancePackageStore'
+        'InstancePackageStore',
+        'ComboDataCenterStore',
+        'ComboClusterStore',
+        'ComboTemplateStore',
+        'AlmUserStore'
     ],
     views: [
         'peacockViewport',
@@ -69,7 +76,6 @@ Ext.application({
         'manageAccountWindow',
         'regAccountWindow',
         'softwareInstallWindow',
-        'regInstanceWindow',
         'rhevmContainer',
         'RegTemplateWindow',
         'RegRhevmWindow',
@@ -83,7 +89,8 @@ Ext.application({
         'softwareConfigWindow',
         'monitoringChartWindow',
         'UserWindow',
-        'EditInstanceNameWindow'
+        'EditInstanceNameWindow',
+        'RegInstanceWindow'
     ],
     controllers: [
         'LoginController',

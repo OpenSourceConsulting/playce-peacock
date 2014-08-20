@@ -106,8 +106,7 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
-                                            "var regInstanceWindow = Ext.create(\"widget.regInstanceWindow\");",
-                                            "",
+                                            "var regInstanceWindow = Ext.create(\"widget.RegInstanceWindow\");",
                                             "regInstanceWindow.show();"
                                         ]
                                     },
@@ -268,39 +267,19 @@
                                             },
                                             "codeClass": null,
                                             "userConfig": {
+                                                "group": "rhevm",
                                                 "id": "allRhevm",
                                                 "itemId": "allRhevm",
                                                 "text": "All RHEV Manager"
                                             },
-                                            "designerId": "4fc8c24c-377d-4366-b421-436aa96c3f73"
-                                        },
-                                        {
-                                            "type": "Ext.menu.CheckItem",
-                                            "reference": {
-                                                "name": "items",
-                                                "type": "array"
-                                            },
-                                            "codeClass": null,
-                                            "userConfig": {
-                                                "id": "rhevm1",
-                                                "itemId": "rhevm1",
-                                                "text": "RHEV-M1"
-                                            },
-                                            "designerId": "621fc0f8-d6f8-4de4-87ae-ee5e13455419"
-                                        },
-                                        {
-                                            "type": "Ext.menu.CheckItem",
-                                            "reference": {
-                                                "name": "items",
-                                                "type": "array"
-                                            },
-                                            "codeClass": null,
-                                            "userConfig": {
-                                                "id": "rhevm2",
-                                                "itemId": "rhevm2",
-                                                "text": "RHEV-M2"
-                                            },
-                                            "designerId": "941b27ac-e91b-4acc-8647-e7b9f41e1908"
+                                            "designerId": "4fc8c24c-377d-4366-b421-436aa96c3f73",
+                                            "customConfigs": [
+                                                {
+                                                    "group": "(Custom Properties)",
+                                                    "name": "code",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         }
                                     ]
                                 },
@@ -684,7 +663,9 @@
                                             "{",
                                             "    msgTarget: 'side',",
                                             "    margin: '0 10',",
-                                            "    readOnly: true",
+                                            "    readOnly: true,",
+                                            "    labelStyle: 'font-weight: bold;',",
+                                            "    labelSeparator: ' :'",
                                             "}"
                                         ],
                                         "header": false,
@@ -1785,7 +1766,35 @@
                                                 "minWidth": 180,
                                                 "text": "Summary"
                                             },
-                                            "designerId": "c78255a7-b382-41f2-8068-e4605578e7a2"
+                                            "designerId": "c78255a7-b382-41f2-8068-e4605578e7a2",
+                                            "cn": [
+                                                {
+                                                    "type": "fixedfunction",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "designer|params": [
+                                                            "value",
+                                                            "metaData",
+                                                            "record",
+                                                            "rowIndex",
+                                                            "colIndex",
+                                                            "store",
+                                                            "view"
+                                                        ],
+                                                        "fn": "renderer",
+                                                        "implHandler": [
+                                                            "metaData.tdAttr = 'data-qtip=\"' + value + '\"';",
+                                                            "return value;",
+                                                            ""
+                                                        ]
+                                                    },
+                                                    "designerId": "a3aa0628-6350-4e2b-a221-3fc12a4c9614"
+                                                }
+                                            ]
                                         },
                                         {
                                             "type": "Ext.grid.column.Column",
@@ -1799,7 +1808,35 @@
                                                 "minWidth": 200,
                                                 "text": "Description"
                                             },
-                                            "designerId": "a4c1f5e9-6bba-4acc-98d7-39a6600cedc4"
+                                            "designerId": "a4c1f5e9-6bba-4acc-98d7-39a6600cedc4",
+                                            "cn": [
+                                                {
+                                                    "type": "fixedfunction",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "designer|params": [
+                                                            "value",
+                                                            "metaData",
+                                                            "record",
+                                                            "rowIndex",
+                                                            "colIndex",
+                                                            "store",
+                                                            "view"
+                                                        ],
+                                                        "fn": "renderer",
+                                                        "implHandler": [
+                                                            "metaData.tdAttr = 'data-qtip=\"' + value + '\"';",
+                                                            "return value;",
+                                                            ""
+                                                        ]
+                                                    },
+                                                    "designerId": "8ec585ed-39c3-4cd8-bc21-97ddd8262e97"
+                                                }
+                                            ]
                                         }
                                     ]
                                 }

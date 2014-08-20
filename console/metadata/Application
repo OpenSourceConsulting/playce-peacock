@@ -30,7 +30,10 @@
             "TemplateModel",
             "MachineModel",
             "SessionModel",
-            "PackageModel"
+            "PackageModel",
+            "DataCenterModel",
+            "ClusterModel",
+            "AlmUserModel"
         ],
         "name": "MyApp",
         "requires": [
@@ -53,7 +56,11 @@
             "MachineStore",
             "SessionStore",
             "ComboHypervisorStore",
-            "InstancePackageStore"
+            "InstancePackageStore",
+            "ComboDataCenterStore",
+            "ComboClusterStore",
+            "ComboTemplateStore",
+            "AlmUserStore"
         ],
         "views": [
             "peacockViewport",
@@ -66,7 +73,6 @@
             "manageAccountWindow",
             "regAccountWindow",
             "softwareInstallWindow",
-            "regInstanceWindow",
             "rhevmContainer",
             "RegTemplateWindow",
             "RegRhevmWindow",
@@ -80,7 +86,8 @@
             "softwareConfigWindow",
             "monitoringChartWindow",
             "UserWindow",
-            "EditInstanceNameWindow"
+            "EditInstanceNameWindow",
+            "RegInstanceWindow"
         ]
     },
     "designerId": "application"

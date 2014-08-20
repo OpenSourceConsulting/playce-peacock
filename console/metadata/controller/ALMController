@@ -89,6 +89,32 @@
             "userConfig": {
                 "designer|controlQuery": "#almUserGrid",
                 "designer|targetType": "Ext.grid.Panel",
+                "fn": "onAlmUserGridCellClick",
+                "implHandler": [
+                    "//ALM User Grid Item Click",
+                    "",
+                    "if(almConstants.selectRow == null || almConstants.selectRow.get(\"userId\") != record.get(\"userId\")) {",
+                    "",
+                    "    almConstants.selectRow = record;",
+                    "",
+                    "    this.selectAlmUserGrid();",
+                    "}"
+                ],
+                "name": "cellclick",
+                "scope": "me"
+            },
+            "designerId": "ceb02312-8da8-4c3c-a92a-fd3b1ad89e92"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#almUserGrid",
+                "designer|targetType": "Ext.grid.Panel",
                 "fn": "onAlmUserGridBeforeItemContextMenu",
                 "implHandler": [
                     "//ALM User Grid Right Click Menu 호출",
@@ -134,6 +160,66 @@
                 "scope": "me"
             },
             "designerId": "e28a2f99-9c9c-4644-953c-45b89c4348b7"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "init"
+                ],
+                "fn": "searchAlmUser",
+                "implHandler": [
+                    "",
+                    "if(init) {",
+                    "    Ext.getCmp(\"almUserGrid\").reconfigure(Ext.getCmp(\"almUserGrid\").store, Ext.getCmp(\"almUserGrid\").initialConfig.columns);",
+                    "}",
+                    "",
+                    "almConstants.selectRow = null;",
+                    "",
+                    "Ext.getCmp(\"almUserGrid\").getStore().load();",
+                    "",
+                    "var detailPanel = Ext.getCmp(\"almUserDetailPanel\");",
+                    "detailPanel.layout.setActiveItem(0);"
+                ]
+            },
+            "designerId": "cb1355f9-c358-4732-9f1c-3ebf3bd77ad2"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "selectAlmUserGrid",
+                "implHandler": [
+                    "",
+                    "var userDetailPanel = Ext.getCmp(\"almUserDetailPanel\");",
+                    "userDetailPanel.layout.setActiveItem(1);",
+                    "",
+                    "//User Data Loading",
+                    "",
+                    "var userForm = Ext.getCmp(\"almUserForm\");",
+                    "",
+                    "userForm.getForm().reset();",
+                    "",
+                    "userForm.getForm().waitMsgTarget = userForm.getEl();",
+                    "",
+                    "userForm.getForm().load({",
+                    "     url : GLOBAL.urlPrefix + \"alm/usermanagement/get/\" + almConstants.selectRow.get(\"userId\")",
+                    "    ,waitMsg:'Loading...'",
+                    "});",
+                    "",
+                    "Ext.getCmp(\"almUserTitleLabel\").setText(\"<h2>\"+almConstants.selectRow.get(\"displayName\")+\"</h2>\", false);"
+                ]
+            },
+            "designerId": "d00ae31c-473a-4594-856a-8679f6280b12"
         },
         {
             "type": "basicfunction",

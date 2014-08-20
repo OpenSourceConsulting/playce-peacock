@@ -16,6 +16,17 @@
 Ext.define('MyApp.controller.ALMController', {
     extend: 'Ext.app.Controller',
 
+    onAlmUserGridCellClick: function(tableview, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+        //ALM User Grid Item Click
+
+        if(almConstants.selectRow == null || almConstants.selectRow.get("userId") != record.get("userId")) {
+
+            almConstants.selectRow = record;
+
+            this.selectAlmUserGrid();
+        }
+    },
+
     onAlmUserGridBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
         //ALM User Grid Right Click Menu 호출
 
@@ -98,12 +109,48 @@ Ext.define('MyApp.controller.ALMController', {
 
         this.control({
             "#almUserGrid": {
+                cellclick: this.onAlmUserGridCellClick,
                 beforeitemcontextmenu: this.onAlmUserGridBeforeItemContextMenu
             },
             "#almGroupGrid": {
                 beforeitemcontextmenu: this.onAlmGroupGridBeforeItemContextMenu
             }
         });
+    },
+
+    searchAlmUser: function(init) {
+
+        if(init) {
+            Ext.getCmp("almUserGrid").reconfigure(Ext.getCmp("almUserGrid").store, Ext.getCmp("almUserGrid").initialConfig.columns);
+        }
+
+        almConstants.selectRow = null;
+
+        Ext.getCmp("almUserGrid").getStore().load();
+
+        var detailPanel = Ext.getCmp("almUserDetailPanel");
+        detailPanel.layout.setActiveItem(0);
+    },
+
+    selectAlmUserGrid: function() {
+
+        var userDetailPanel = Ext.getCmp("almUserDetailPanel");
+        userDetailPanel.layout.setActiveItem(1);
+
+        //User Data Loading
+
+        var userForm = Ext.getCmp("almUserForm");
+
+        userForm.getForm().reset();
+
+        userForm.getForm().waitMsgTarget = userForm.getEl();
+
+        userForm.getForm().load({
+             url : GLOBAL.urlPrefix + "alm/usermanagement/get/" + almConstants.selectRow.get("userId")
+            ,waitMsg:'Loading...'
+        });
+
+        Ext.getCmp("almUserTitleLabel").setText("<h2>"+almConstants.selectRow.get("displayName")+"</h2>", false);
     },
 
     showAlmUserWindow: function() {

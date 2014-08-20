@@ -174,7 +174,7 @@
                     "    [",
                     "        { text: 'Instance Create',",
                     "         handler: function() {",
-                    "             alert('Instance Create');",
+                    "             rhevm.popCreateInstance();",
                     "         }",
                     "        },",
                     "        { text: 'Remove',",
@@ -875,6 +875,37 @@
                 "scope": "me"
             },
             "designerId": "491793bc-fd41-40ff-9c19-820027bce379"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "popCreateInstance",
+                "implHandler": [
+                    "var regInstanceWindow = Ext.create(\"widget.RegInstanceWindow\");",
+                    "regInstanceWindow.show();",
+                    "",
+                    "var form = Ext.getCmp('instanceForm').getForm();",
+                    "",
+                    "form.findField(\"hypervisorId\").setValue(RHEVMConstants.selectRow.get(\"hypervisorId\"));",
+                    "form.findField(\"displayHypervisor\").setValue(RHEVMConstants.selectRow.get(\"rhevmName\"));",
+                    "form.findField(\"template\").setValue(RHEVMConstants.childActionRow.get(\"templateId\"));",
+                    "form.findField(\"displayTemplate\").setValue(RHEVMConstants.childActionRow.get(\"name\"));",
+                    "form.findField(\"memory\").setValue(RHEVMConstants.childActionRow.get(\"memory\"));",
+                    "form.findField(\"sockets\").setValue(RHEVMConstants.childActionRow.get(\"sockets\"));",
+                    "form.findField(\"cores\").setValue(\"1\");",
+                    "",
+                    "form.findField(\"hypervisorId\").hide();",
+                    "form.findField(\"template\").hide();",
+                    "form.findField(\"displayHypervisor\").show();",
+                    "form.findField(\"displayTemplate\").show();"
+                ]
+            },
+            "designerId": "8a5b8e78-b26b-47d8-9216-f885558e96d9"
         }
     ]
 }

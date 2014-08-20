@@ -218,7 +218,7 @@ Ext.define('MyApp.controller.RHEVMController', {
                     [
                     { text: 'Instance Create',
                         handler: function() {
-                            alert('Instance Create');
+                            rhevm.popCreateInstance();
                         }
                     },
                     { text: 'Remove',
@@ -614,6 +614,26 @@ Ext.define('MyApp.controller.RHEVMController', {
             });
 
         }
+    },
+
+    popCreateInstance: function() {
+        var regInstanceWindow = Ext.create("widget.RegInstanceWindow");
+        regInstanceWindow.show();
+
+        var form = Ext.getCmp('instanceForm').getForm();
+
+        form.findField("hypervisorId").setValue(RHEVMConstants.selectRow.get("hypervisorId"));
+        form.findField("displayHypervisor").setValue(RHEVMConstants.selectRow.get("rhevmName"));
+        form.findField("template").setValue(RHEVMConstants.childActionRow.get("templateId"));
+        form.findField("displayTemplate").setValue(RHEVMConstants.childActionRow.get("name"));
+        form.findField("memory").setValue(RHEVMConstants.childActionRow.get("memory"));
+        form.findField("sockets").setValue(RHEVMConstants.childActionRow.get("sockets"));
+        form.findField("cores").setValue("1");
+
+        form.findField("hypervisorId").hide();
+        form.findField("template").hide();
+        form.findField("displayHypervisor").show();
+        form.findField("displayTemplate").show();
     }
 
 });

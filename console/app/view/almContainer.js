@@ -23,14 +23,16 @@ Ext.define('MyApp.view.almContainer', {
         'Ext.grid.Panel',
         'Ext.grid.View',
         'Ext.toolbar.Toolbar',
-        'Ext.button.Cycle',
-        'Ext.menu.Menu',
-        'Ext.menu.CheckItem',
         'Ext.toolbar.Separator',
         'Ext.form.field.Text',
+        'Ext.grid.RowNumberer',
         'Ext.form.Label',
         'Ext.form.Panel',
         'Ext.form.FieldContainer',
+        'Ext.form.field.Display',
+        'Ext.button.Cycle',
+        'Ext.menu.Menu',
+        'Ext.menu.CheckItem',
         'Ext.grid.column.Number',
         'Ext.grid.column.Date',
         'Ext.grid.column.Boolean',
@@ -75,7 +77,8 @@ Ext.define('MyApp.view.almContainer', {
                                     minHeight: 100,
                                     autoScroll: true,
                                     columnLines: true,
-                                    store: 'tempGridData',
+                                    forceFit: true,
+                                    store: 'AlmUserStore',
                                     dockedItems: [
                                         {
                                             xtype: 'toolbar',
@@ -94,26 +97,6 @@ Ext.define('MyApp.view.almContainer', {
                                                     text: 'Create New User'
                                                 },
                                                 {
-                                                    xtype: 'cycle',
-                                                    id: 'actionCycle1',
-                                                    itemId: 'actionCycle',
-                                                    showText: true,
-                                                    menu: {
-                                                        xtype: 'menu',
-                                                        id: 'actionList1',
-                                                        itemId: 'actionList',
-                                                        width: 120,
-                                                        items: [
-                                                            {
-                                                                xtype: 'menucheckitem',
-                                                                id: 'actions1',
-                                                                itemId: 'actions',
-                                                                text: 'Actions'
-                                                            }
-                                                        ]
-                                                    }
-                                                },
-                                                {
                                                     xtype: 'tbseparator'
                                                 },
                                                 {
@@ -129,9 +112,26 @@ Ext.define('MyApp.view.almContainer', {
                                     ],
                                     columns: [
                                         {
+                                            xtype: 'rownumberer',
+                                            width: 40
+                                        },
+                                        {
                                             xtype: 'gridcolumn',
-                                            dataIndex: 'id',
-                                            text: 'Id'
+                                            minWidth: 100,
+                                            dataIndex: 'userId',
+                                            text: 'UserID'
+                                        },
+                                        {
+                                            xtype: 'gridcolumn',
+                                            minWidth: 150,
+                                            dataIndex: 'displayName',
+                                            text: 'Username'
+                                        },
+                                        {
+                                            xtype: 'gridcolumn',
+                                            minWidth: 300,
+                                            dataIndex: 'emailAddress',
+                                            text: 'Email'
                                         }
                                     ]
                                 },
@@ -143,101 +143,121 @@ Ext.define('MyApp.view.almContainer', {
                                     height: 150,
                                     id: 'almUserDetailPanel',
                                     itemId: 'almUserDetailPanel',
+                                    layout: 'card',
                                     items: [
                                         {
-                                            xtype: 'label',
-                                            html: '<h2>&nbsp;&nbsp;Administrator</h2>',
-                                            margin: '',
-                                            padding: '0 10 0 0',
-                                            text: ''
+                                            xtype: 'panel',
+                                            height: 1000,
+                                            id: 'blankPanel5',
+                                            itemId: 'blankPanel',
+                                            width: 1000
                                         },
                                         {
-                                            xtype: 'form',
-                                            id: 'almUserForm',
-                                            itemId: 'almUserForm',
-                                            padding: '',
-                                            defaults: {
-                                                border: false,
-                                                xtype: 'panel',
-                                                flex: 1,
-                                                layout: 'anchor'
-                                            },
-                                            bodyPadding: 10,
-                                            bodyStyle: 'padding:5px 5px 0',
-                                            header: false,
-                                            fieldDefaults: {
-                                                msgTarget: 'side',
-                                                margin: '0 10',
-                                                readOnly: true
-                                            },
-                                            waitMsgTarget: 'instDescForm',
+                                            xtype: 'panel',
                                             items: [
                                                 {
-                                                    xtype: 'fieldcontainer',
-                                                    height: 34,
-                                                    defaults: {
-                                                        flex: 1
-                                                    },
-                                                    fieldLabel: 'Label',
-                                                    hideLabel: true,
-                                                    layout: {
-                                                        type: 'hbox',
-                                                        align: 'middle'
-                                                    },
-                                                    items: [
-                                                        {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'User ID'
-                                                        },
-                                                        {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'Dept Name'
-                                                        }
-                                                    ]
+                                                    xtype: 'label',
+                                                    html: '<h2></h2>',
+                                                    id: 'almUserTitleLabel',
+                                                    itemId: 'almUserTitleLabel',
+                                                    margin: '',
+                                                    padding: '10 10 10 10',
+                                                    text: ''
                                                 },
                                                 {
-                                                    xtype: 'fieldcontainer',
-                                                    height: 34,
+                                                    xtype: 'form',
+                                                    id: 'almUserForm',
+                                                    itemId: 'almUserForm',
+                                                    padding: '',
                                                     defaults: {
-                                                        flex: 1
+                                                        border: false,
+                                                        xtype: 'panel',
+                                                        flex: 1,
+                                                        layout: 'anchor'
                                                     },
-                                                    fieldLabel: 'Label',
-                                                    hideLabel: true,
-                                                    layout: {
-                                                        type: 'hbox',
-                                                        align: 'middle'
+                                                    bodyPadding: 10,
+                                                    bodyStyle: 'padding:5px 5px 0',
+                                                    header: false,
+                                                    fieldDefaults: {
+                                                        msgTarget: 'side',
+                                                        margin: '0 10',
+                                                        readOnly: true,
+                                                        labelStyle: 'font-weight: bold;',
+                                                        labelSeparator: ' :'
                                                     },
+                                                    waitMsgTarget: 'instDescForm',
                                                     items: [
                                                         {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'User Name'
+                                                            xtype: 'fieldcontainer',
+                                                            height: 34,
+                                                            defaults: {
+                                                                flex: 1
+                                                            },
+                                                            fieldLabel: 'Label',
+                                                            hideLabel: true,
+                                                            layout: {
+                                                                type: 'hbox',
+                                                                align: 'middle'
+                                                            },
+                                                            items: [
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    fieldLabel: 'User ID',
+                                                                    name: 'userId'
+                                                                },
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    fieldLabel: 'Dept Name'
+                                                                }
+                                                            ]
                                                         },
                                                         {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'Email'
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    xtype: 'fieldcontainer',
-                                                    height: 34,
-                                                    defaults: {
-                                                        flex: 1
-                                                    },
-                                                    fieldLabel: 'Label',
-                                                    hideLabel: true,
-                                                    layout: {
-                                                        type: 'hbox',
-                                                        align: 'middle'
-                                                    },
-                                                    items: [
-                                                        {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'Is Active'
+                                                            xtype: 'fieldcontainer',
+                                                            height: 34,
+                                                            defaults: {
+                                                                flex: 1
+                                                            },
+                                                            fieldLabel: 'Label',
+                                                            hideLabel: true,
+                                                            layout: {
+                                                                type: 'hbox',
+                                                                align: 'middle'
+                                                            },
+                                                            items: [
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    fieldLabel: 'User Name',
+                                                                    name: 'displayName'
+                                                                },
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    fieldLabel: 'Email',
+                                                                    name: 'emailAddress'
+                                                                }
+                                                            ]
                                                         },
                                                         {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'Assigned to'
+                                                            xtype: 'fieldcontainer',
+                                                            height: 34,
+                                                            defaults: {
+                                                                flex: 1
+                                                            },
+                                                            fieldLabel: 'Label',
+                                                            hideLabel: true,
+                                                            layout: {
+                                                                type: 'hbox',
+                                                                align: 'middle'
+                                                            },
+                                                            items: [
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    fieldLabel: 'Is Active'
+                                                                },
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    fieldLabel: 'Assigned to'
+                                                                }
+                                                            ]
                                                         }
                                                     ]
                                                 }
@@ -261,7 +281,7 @@ Ext.define('MyApp.view.almContainer', {
                                     minHeight: 100,
                                     autoScroll: true,
                                     columnLines: true,
-                                    store: 'tempGridData',
+                                    store: 'AlmUserStore',
                                     dockedItems: [
                                         {
                                             xtype: 'toolbar',
@@ -316,8 +336,28 @@ Ext.define('MyApp.view.almContainer', {
                                     columns: [
                                         {
                                             xtype: 'gridcolumn',
-                                            dataIndex: 'id',
-                                            text: 'Id'
+                                            dataIndex: 'userId',
+                                            text: 'UserId'
+                                        },
+                                        {
+                                            xtype: 'gridcolumn',
+                                            dataIndex: 'displayName',
+                                            text: 'DisplayName'
+                                        },
+                                        {
+                                            xtype: 'gridcolumn',
+                                            dataIndex: 'emailAddress',
+                                            text: 'EmailAddress'
+                                        },
+                                        {
+                                            xtype: 'gridcolumn',
+                                            dataIndex: 'firstName',
+                                            text: 'FirstName'
+                                        },
+                                        {
+                                            xtype: 'gridcolumn',
+                                            dataIndex: 'lastName',
+                                            text: 'LastName'
                                         }
                                     ]
                                 },

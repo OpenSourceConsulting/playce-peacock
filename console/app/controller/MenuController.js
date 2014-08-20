@@ -34,6 +34,10 @@ Ext.define('MyApp.controller.MenuController', {
 
                 RHEVMConstants.me.searchHypervisor(true);
 
+            } else if(record.get('id') == 'MENU_04') {
+
+                almConstants.me.searchAlmUser(true);
+
             } else if(record.get('id') == 'MENU_05') {
 
                 userConstants.me.searchUser(true);

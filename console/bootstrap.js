@@ -876,6 +876,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.controller.SettingsMenuController": [],
   "MyApp.controller.SoftwareInstallController": [],
   "MyApp.controller.UserController": [],
+  "MyApp.model.AlmUserModel": [],
+  "MyApp.model.ClusterModel": [],
+  "MyApp.model.DataCenterModel": [],
   "MyApp.model.DiskModel": [],
   "MyApp.model.HypervisorModel": [],
   "MyApp.model.MachineModel": [],
@@ -889,7 +892,11 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.model.instanceOsModel": [],
   "MyApp.model.instanceSoftwareModel": [],
   "MyApp.model.monitoringChartModel": [],
+  "MyApp.store.AlmUserStore": [],
+  "MyApp.store.ComboClusterStore": [],
+  "MyApp.store.ComboDataCenterStore": [],
   "MyApp.store.ComboHypervisorStore": [],
+  "MyApp.store.ComboTemplateStore": [],
   "MyApp.store.HypervisorStore": [],
   "MyApp.store.InstancePackageStore": [],
   "MyApp.store.MachineStore": [],
@@ -909,6 +916,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.CLIWindow": [],
   "MyApp.view.EditInstanceNameWindow": [],
   "MyApp.view.Main": [],
+  "MyApp.view.RegInstanceWindow": [],
   "MyApp.view.RegRhevmWindow": [],
   "MyApp.view.RegTemplateWindow": [],
   "MyApp.view.UserWindow": [],
@@ -927,7 +935,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.monitoringChartWindow": [],
   "MyApp.view.peacockViewport": [],
   "MyApp.view.regAccountWindow": [],
-  "MyApp.view.regInstanceWindow": [],
   "MyApp.view.rhevmContainer": [],
   "MyApp.view.softwareConfigWindow": [],
   "MyApp.view.softwareInstallLogWindow": [],
@@ -1951,6 +1958,9 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.controller.SettingsMenuController": [],
   "MyApp.controller.SoftwareInstallController": [],
   "MyApp.controller.UserController": [],
+  "MyApp.model.AlmUserModel": [],
+  "MyApp.model.ClusterModel": [],
+  "MyApp.model.DataCenterModel": [],
   "MyApp.model.DiskModel": [],
   "MyApp.model.HypervisorModel": [],
   "MyApp.model.MachineModel": [],
@@ -1964,7 +1974,11 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.model.instanceOsModel": [],
   "MyApp.model.instanceSoftwareModel": [],
   "MyApp.model.monitoringChartModel": [],
+  "MyApp.store.AlmUserStore": [],
+  "MyApp.store.ComboClusterStore": [],
+  "MyApp.store.ComboDataCenterStore": [],
   "MyApp.store.ComboHypervisorStore": [],
+  "MyApp.store.ComboTemplateStore": [],
   "MyApp.store.HypervisorStore": [],
   "MyApp.store.InstancePackageStore": [],
   "MyApp.store.MachineStore": [],
@@ -1989,6 +2003,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.Main": [
     "widget.app-main"
+  ],
+  "MyApp.view.RegInstanceWindow": [
+    "widget.RegInstanceWindow"
   ],
   "MyApp.view.RegRhevmWindow": [
     "widget.RegRhevmWindow"
@@ -2041,9 +2058,6 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.regAccountWindow": [
     "widget.regAccountWindow"
-  ],
-  "MyApp.view.regInstanceWindow": [
-    "widget.regInstanceWindow"
   ],
   "MyApp.view.rhevmContainer": [
     "widget.rhevmcontainer"

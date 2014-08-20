@@ -83,8 +83,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                 {
                                     xtype: 'button',
                                     handler: function(button, e) {
-                                        var regInstanceWindow = Ext.create("widget.regInstanceWindow");
-
+                                        var regInstanceWindow = Ext.create("widget.RegInstanceWindow");
                                         regInstanceWindow.show();
                                     },
                                     id: 'createInstanceBtn',
@@ -148,19 +147,8 @@ Ext.define('MyApp.view.instancesContainer', {
                                                 xtype: 'menucheckitem',
                                                 id: 'allRhevm',
                                                 itemId: 'allRhevm',
-                                                text: 'All RHEV Manager'
-                                            },
-                                            {
-                                                xtype: 'menucheckitem',
-                                                id: 'rhevm1',
-                                                itemId: 'rhevm1',
-                                                text: 'RHEV-M1'
-                                            },
-                                            {
-                                                xtype: 'menucheckitem',
-                                                id: 'rhevm2',
-                                                itemId: 'rhevm2',
-                                                text: 'RHEV-M2'
+                                                text: 'All RHEV Manager',
+                                                group: 'rhevm'
                                             }
                                         ]
                                     },
@@ -324,7 +312,9 @@ Ext.define('MyApp.view.instancesContainer', {
                                             fieldDefaults: {
                                                 msgTarget: 'side',
                                                 margin: '0 10',
-                                                readOnly: true
+                                                readOnly: true,
+                                                labelStyle: 'font-weight: bold;',
+                                                labelSeparator: ' :'
                                             },
                                             waitMsgTarget: 'instDescForm',
                                             items: [
@@ -754,12 +744,22 @@ Ext.define('MyApp.view.instancesContainer', {
                                                 },
                                                 {
                                                     xtype: 'gridcolumn',
+                                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                                        metaData.tdAttr = 'data-qtip="' + value + '"';
+                                                        return value;
+
+                                                    },
                                                     minWidth: 180,
                                                     dataIndex: 'summary',
                                                     text: 'Summary'
                                                 },
                                                 {
                                                     xtype: 'gridcolumn',
+                                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                                        metaData.tdAttr = 'data-qtip="' + value + '"';
+                                                        return value;
+
+                                                    },
                                                     minWidth: 200,
                                                     dataIndex: 'description',
                                                     text: 'Description'
