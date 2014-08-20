@@ -43,14 +43,18 @@ import com.athena.peacock.controller.web.rhevm.domain.Disk;
 import com.athena.peacock.controller.web.rhevm.domain.Disks;
 import com.athena.peacock.controller.web.rhevm.domain.NIC;
 import com.athena.peacock.controller.web.rhevm.domain.Nics;
+import com.athena.peacock.controller.web.rhevm.dto.ClusterDto;
+import com.athena.peacock.controller.web.rhevm.dto.DataCenterDto;
 import com.athena.peacock.controller.web.rhevm.dto.DiskDto;
 import com.athena.peacock.controller.web.rhevm.dto.NetworkDto;
 import com.athena.peacock.controller.web.rhevm.dto.TemplateDto;
 import com.athena.peacock.controller.web.rhevm.dto.VMDto;
 import com.redhat.rhevm.api.model.Action;
 import com.redhat.rhevm.api.model.Boot;
+import com.redhat.rhevm.api.model.CPU;
 import com.redhat.rhevm.api.model.Cluster;
 import com.redhat.rhevm.api.model.Clusters;
+import com.redhat.rhevm.api.model.CpuTopology;
 import com.redhat.rhevm.api.model.DataCenter;
 import com.redhat.rhevm.api.model.DataCenters;
 import com.redhat.rhevm.api.model.Host;
@@ -158,6 +162,50 @@ public class RHEVMService {
 		vm.setTemplate(template);
 		
 		return createVirtualMachine(hypervisorId, vm);
+	}
+	
+	/**
+	 * VMDto 정보를 활용하여 새로운 가상 머신을 생성한다.
+	 * @param vmName
+	 * @param templateId
+	 * @return
+	 * @throws RestClientException
+	 * @throws Exception
+	 */
+	public VM createVirtualMachine(int hypervisorId, VMDto dto) throws RestClientException, Exception {
+		logger.debug("dto : {}", dto);
+
+		String templateUrl =  RHEVApi.TEMPLATES + "?search=" + dto.getTemplate();
+		Template template = getRHEVMRestTemplate(hypervisorId).submit(templateUrl, HttpMethod.GET, Template.class);
+		template.setName(dto.getName());
+		
+		Cluster cluster = new Cluster();
+		cluster.setName(dto.getCluster());
+		
+		OperatingSystem os = new OperatingSystem();
+		Boot boot = new Boot();
+		boot.setDev(template.getOs().getBoot().get(0).getDev());
+		os.getBoot().add(boot);
+		
+		CpuTopology topology = new CpuTopology();
+		topology.setSockets(dto.getSockets());
+		topology.setCores(1);
+		
+		CPU cpu = new CPU();
+		cpu.setTopology(topology);
+		
+		Long memory = Long.parseLong(dto.getMemory()) * 1024 * 1024;
+
+		VM vm = new VM();
+		vm.setName(dto.getName());
+		vm.setDescription(dto.getDescription());
+		vm.setTemplate(template);
+		vm.setCluster(cluster);
+		vm.setCpu(cpu);
+		vm.setOs(os);
+		vm.setMemory(memory);
+		
+		return getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.VMS, HttpMethod.POST, vm, "vm", VM.class);
 	}
 	
 	/**
@@ -451,30 +499,66 @@ public class RHEVMService {
 
 	/**
 	 * <pre>
-	 * Data Center 목록 조회
+	 * VM 생성 시 사용되는 Data Center 목록 조회
 	 * </pre>
 	 * @param hypervisorId
 	 * @return
 	 * @throws RestClientException
 	 * @throws Exception
 	 */
-	public List<DataCenter> getDataCenter(Integer hypervisorId) throws RestClientException, Exception {
-		DataCenters dataCenters = getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.DATA_CENTERS, HttpMethod.GET, DataCenters.class);
-		return dataCenters.getDataCenters();
+	public List<DataCenterDto> getDataCenter(Integer hypervisorId) throws RestClientException, Exception {
+		List<DataCenterDto> dataCenterDtoList = new ArrayList<DataCenterDto>();
+		DataCenterDto dataCenterDto = null;
+		
+		List<DataCenter> dataCenterList = getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.DATA_CENTERS, HttpMethod.GET, DataCenters.class).getDataCenters();
+		
+		// up 상태인 data center만 추출한다.
+		for (DataCenter dc : dataCenterList) {
+			if (dc.getStatus().getState().toLowerCase().equals("up")) {
+				dataCenterDto = new DataCenterDto();
+				dataCenterDto.setId(dc.getId());
+				dataCenterDto.setName(dc.getName());
+				dataCenterDto.setDescription(dc.getDescription());
+				dataCenterDto.setStatus(dc.getStatus().getState());
+				dataCenterDto.setHypervisorId(hypervisorId);
+				
+				dataCenterDtoList.add(dataCenterDto);
+			}
+		}
+		
+		return dataCenterDtoList;
 	}
 
 	/**
 	 * <pre>
-	 * Host Cluster 목록 조회
+	 * VM 생성 시 사용되는 Host Cluster 목록 조회
 	 * </pre>
 	 * @param hypervisorId
+	 * @param dataCenterId
 	 * @return
 	 * @throws RestClientException
 	 * @throws Exception
 	 */
-	public List<Cluster> getHostCluster(Integer hypervisorId) throws RestClientException, Exception {
-		Clusters clusters = getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.CLUSTERS, HttpMethod.GET, Clusters.class);
-		return clusters.getClusters();
+	public List<ClusterDto> getHostCluster(Integer hypervisorId, String dataCenterId) throws RestClientException, Exception {
+		List<ClusterDto> clusterDtoList = new ArrayList<ClusterDto>();
+		ClusterDto clusterDto = null;
+		
+		List<Cluster> clusterList = getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.CLUSTERS, HttpMethod.GET, Clusters.class).getClusters();
+
+		// 지정된 data center에 속한 cluster만 추출한다.
+		for (Cluster c : clusterList) {
+			if (c.getDataCenter().getId().equals(dataCenterId)) {
+				clusterDto = new ClusterDto();
+				clusterDto.setId(c.getId());
+				clusterDto.setName(c.getName());
+				clusterDto.setDescription(c.getDescription());
+				clusterDto.setHypervisorId(hypervisorId);
+				
+				clusterDtoList.add(clusterDto);
+			}
+		}
+		
+		return clusterDtoList;
 	}
 	
 	/**

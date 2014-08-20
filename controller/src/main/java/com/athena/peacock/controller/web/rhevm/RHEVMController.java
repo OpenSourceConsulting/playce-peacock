@@ -311,11 +311,12 @@ public class RHEVMController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/hostcluster")
-	public @ResponseBody GridJsonResponse getHostCluster(GridJsonResponse jsonRes, Integer hypervisorId) throws Exception {
+	public @ResponseBody GridJsonResponse getHostCluster(GridJsonResponse jsonRes, Integer hypervisorId, String dataCenterId) throws Exception {
 		Assert.notNull(hypervisorId, "hypervisorId must not be null.");
+		Assert.notNull(dataCenterId, "dataCenterId must not be null.");
 		
 		try {
-			jsonRes.setList(rhevmService.getHostCluster(hypervisorId));
+			jsonRes.setList(rhevmService.getHostCluster(hypervisorId, dataCenterId));
 			jsonRes.setMsg("Data Center 목록이 정상적으로 조회되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
@@ -339,10 +340,13 @@ public class RHEVMController {
 	@RequestMapping("/vms/create")
 	public @ResponseBody SimpleJsonResponse createVirtualMachine(SimpleJsonResponse jsonRes, VMDto dto) throws Exception {
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
+		Assert.notNull(dto.getName(), "name must not be null.");
+		Assert.notNull(dto.getCluster(), "cluster must not be null.");
 		Assert.notNull(dto.getTemplate(), "template must not be null.");
+		Assert.isTrue(dto.getSockets() != 0, "sockets must not be 0.");
 		
 		try {
-			jsonRes.setData(rhevmService.createVirtualMachine(dto.getHypervisorId(), dto.getName(), dto.getTemplate()));
+			jsonRes.setData(rhevmService.createVirtualMachine(dto.getHypervisorId(), dto));
 			jsonRes.setMsg("VM 생성이 정상적으로 요청되었습니다. 잠시만 기다려주십시오.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);

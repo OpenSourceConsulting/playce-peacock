@@ -136,7 +136,7 @@
 		 WHERE DELETE_YN = 'N'
 		   AND MACHINE_ID NOT IN (SELECT MACHINE_ID FROM load_balancer_tbl)
 		<if test="machineId != null">AND MACHINE_ID = #{machineId}</if>
-		<if test="hypervisorId != null and hypervisorId != '' ">AND HYPERVISOR_ID = #{hypervisorId}</if>
+		<if test="hypervisorId != null and hypervisorId != ''">AND HYPERVISOR_ID = #{hypervisorId}</if>
 		<if test="displayId != null">AND DISPLAY_ID = #{displayId}</if>
 		<if test="displayName != null">AND DISPLAY_NAME LIKE CONCAT('%', #{displayName}, '%')</if>
 		<if test="cluster != null">AND CLUSTER = #{cluster}</if>
