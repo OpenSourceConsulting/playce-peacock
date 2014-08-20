@@ -73,32 +73,6 @@
 		 WHERE MACHINE_ID = #{machineId}
 	</update>
 	
-	<update id="updateMachine" parameterType="com.athena.peacock.controller.web.machine.MachineDto">
-		UPDATE machine_tbl
-		   SET HYPERVISOR_ID = #{hypervisorId}
-			   , DISPLAY_ID = #{displayId}
-			   , DISPLAY_NAME = #{displayName}
-			   , CLUSTER = #{cluster}
-			   , IS_PRD = #{isPrd}
-			   , MACHINE_MAC_ADDR = #{machineMacAddr}
-		       , IS_VM = #{isVm}
-		       , OS_NAME = #{osName}
-		       , OS_VER = #{osVer}
-		       , OS_ARCH = #{osArch}
-		       , CPU_CLOCK = #{cpuClock}
-		       , CPU_NUM = #{cpuNum}
-			   , MEM_SIZE = #{memSize}
-			   , IP_ADDR = #{ipAddr}
-			   , HOST_NAME = #{hostName}
-			   , SSH_PORT = #{sshPort}
-			   , SSH_USERNAME = #{sshUsername}
-			   , SSH_PASSWORD = #{sshPassword}
-			   , SSH_KEY_FILE = #{sshKeyFile}
-			   , UPD_USER_ID = #{updUserId}
-			   , UPD_DT = NOW()
-		 WHERE MACHINE_ID = #{machineId}
-	</update>
-	
 	<update id="deleteMachine" parameterType="String">
 		UPDATE machine_tbl
 		   SET DELETE_YN = 'Y'
