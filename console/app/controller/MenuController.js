@@ -27,6 +27,7 @@ Ext.define('MyApp.controller.MenuController', {
 
             if(record.get('id') == 'MENU_02') {
 
+                instancesConstants.me.initInstance();
                 instancesConstants.me.searchInstance(true);
 
             } else if(record.get('id') == 'MENU_03') {

@@ -105,7 +105,18 @@ Ext.define('MyApp.controller.InstancesController', {
         // Category Menu Click
         if(Ext.getCmp("searchCategory").getRawValue() != item.getId()) {
 
-            Ext.getCmp("searchCategory").setRawValue(item.getId());
+            if(item.getId() == 'production') {
+                Ext.getCmp("searchCategory").setRawValue("Y");
+
+            } else if(item.getId() == 'development') {
+
+                Ext.getCmp("searchCategory").setRawValue("N");
+
+            } else {
+
+                Ext.getCmp("searchCategory").setRawValue("");
+
+            }
 
             this.searchInstance();
         }
@@ -244,6 +255,100 @@ Ext.define('MyApp.controller.InstancesController', {
                 tabchange: this.onInstanceTabPanelTabChange
             }
         });
+    },
+
+    initInstance: function() {
+        /*
+        var rhevmCycle = Ext.getCmp("rhevmCycle");
+        var menuItems = rhevmCycle.menu.items;
+
+        var menu1 = Ext.create('Ext.menu.Menu');
+        menu1.add(new Ext.menu.CheckItem({
+            text: 'All RHEV Manager'
+        }));
+
+        var menuItem = new Ext.menu.CheckItem({
+            text: 'RHEV-M1'
+        });
+
+        menu1.add(menuItem);
+        rhevmCycle.menu = menu1;
+
+
+
+        for(var idx = menuItems.length; idx > 0; idx--) {
+            menuItems.removeAt(idx);
+
+
+        }
+
+        alert(menuItem);
+        alert(rhevmCycle.menu);
+            rhevmCycle.menu.addItem(menuItem);
+
+        var defaultItem = rhevmCycle.menu.items[0];
+
+        var ryevmItems = new Array();
+        ryevmItems.push(rhevmCycle.menu.items[0]);
+
+        var comboStore = Ext.getStore("ComboHypervisorStore");
+        comboStore.load();
+        alert('a');
+        comboStore.each(function (record, index) {
+           alert('aa');
+            ryevmItems.push({
+                xtype: 'menucheckitem',
+                id: 'rhevmCombo_'+index,
+                itemId: 'rhevmCombo_'+index,
+                code:record.get("hypervisorId"),
+                text: record.get("hypervisorName")
+            });
+            alert('bb');
+        });
+        alert('b');
+        rhevmCycle.menu.items = ryevmItems;
+
+
+        {
+                                            xtype: 'cycle',
+                                            id: 'rhevmCycle',
+                                            itemId: 'rhevmCycle',
+                                            showText: true,
+                                            menu: {
+                                                xtype: 'menu',
+                                                id: 'rhevmList',
+                                                itemId: 'rhevmList',
+                                                items: [
+                                                    {
+                                                        xtype: 'menucheckitem',
+                                                        id: 'allRhevm',
+                                                        itemId: 'allRhevm',
+                                                        text: 'All RHEV Manager'
+                                                    },
+                                                    {
+                                                        xtype: 'menucheckitem',
+                                                        id: 'rhevm1',
+                                                        itemId: 'rhevm1',
+                                                        text: 'RHEV-M1'
+                                                    },
+                                                    {
+                                                        xtype: 'menucheckitem',
+                                                        id: 'rhevm2',
+                                                        itemId: 'rhevm2',
+                                                        text: 'RHEV-M2'
+                                                    }
+                                                ]
+                                            },
+                                            listeners: {
+                                                click: {
+                                                    fn: me.onRhevmCycleClick,
+                                                    scope: me
+                                                }
+                                            }
+                                        }
+        */
+
+
     },
 
     searchInstance: function(init) {

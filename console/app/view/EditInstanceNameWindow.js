@@ -95,7 +95,7 @@ Ext.define('MyApp.view.EditInstanceNameWindow', {
 
                                         instanceForm.getForm().submit({
                                             clientValidation: true,
-                                            url: GLOBAL.urlPrefix + "machine/updateMachine",
+                                            url: GLOBAL.urlPrefix + "machine/updateMachineName",
                                             params: {
                                                 newStatus: 'delivered'
                                             },

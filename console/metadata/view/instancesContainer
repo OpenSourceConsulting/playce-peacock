@@ -512,13 +512,13 @@
                                     "var comboRecord = Ext.getStore(\"ComboHypervisorStore\").findRecord('hypervisorId', value);",
                                     "",
                                     "if(comboRecord != null) {",
-                                    "    ",
+                                    "",
                                     "    return comboRecord.get('rhevmName');",
-                                    "    ",
+                                    "",
                                     "} else {",
-                                    "    ",
+                                    "",
                                     "    return null;",
-                                    "    ",
+                                    "",
                                     "}"
                                 ]
                             },
