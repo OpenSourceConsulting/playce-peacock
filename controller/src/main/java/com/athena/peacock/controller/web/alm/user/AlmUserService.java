@@ -30,14 +30,20 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.athena.peacock.controller.web.alm.user.dto.AlmGroupDto;
+import com.athena.peacock.controller.web.alm.user.dto.AlmUserAddDto;
 import com.athena.peacock.controller.web.alm.user.dto.AlmUserDto;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
+import com.atlassian.crowd.embedded.api.PasswordCredential;
 import com.atlassian.crowd.exception.ApplicationPermissionException;
 import com.atlassian.crowd.exception.InvalidAuthenticationException;
+import com.atlassian.crowd.exception.InvalidCredentialException;
+import com.atlassian.crowd.exception.InvalidUserException;
 import com.atlassian.crowd.exception.OperationFailedException;
 import com.atlassian.crowd.exception.UserNotFoundException;
+import com.atlassian.crowd.integration.rest.entity.PasswordEntity;
+import com.atlassian.crowd.integration.rest.entity.UserEntity;
 import com.atlassian.crowd.integration.rest.service.factory.RestCrowdClientFactory;
 import com.atlassian.crowd.model.group.Group;
 import com.atlassian.crowd.model.user.User;
@@ -166,6 +172,35 @@ public class AlmUserService {
 			response.setSuccess(false);
 			response.setMsg("UserNotFoundException");
 		}
+		return response;
+	}
+
+	public DtoJsonResponse addUser(AlmUserAddDto userData) {
+
+		DtoJsonResponse response = new DtoJsonResponse();
+
+		UserEntity myuser = new UserEntity(userData.getName(), userData.getFirstName(), userData.getLastName(),
+				userData.getDisplayName(), userData.getEmail(), new PasswordEntity(userData.getPassword()),
+				true);
+		try {
+			crowdClient.addUser(myuser, new PasswordCredential(userData.getPassword()));
+		} catch (InvalidUserException e) {
+			response.setSuccess(false);
+			response.setMsg("InvalidUserException");
+		} catch (InvalidCredentialException e) {
+			response.setSuccess(false);
+			response.setMsg("InvalidCredentialException");
+		} catch (OperationFailedException e) {
+			response.setSuccess(false);
+			response.setMsg("OperationFailedException");
+		} catch (InvalidAuthenticationException e) {
+			response.setSuccess(false);
+			response.setMsg("InvalidAuthenticationException");
+		} catch (ApplicationPermissionException e) {
+			response.setSuccess(false);
+			response.setMsg("ApplicationPermissionException");
+		}
+
 		return response;
 	}
 

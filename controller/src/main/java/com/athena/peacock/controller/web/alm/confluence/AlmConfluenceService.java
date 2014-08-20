@@ -27,6 +27,7 @@ package com.athena.peacock.controller.web.alm.confluence;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -34,6 +35,7 @@ import java.util.Vector;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
+import org.apache.xmlrpc.client.XmlRpcClientException;
 import org.springframework.stereotype.Service;
 
 import com.athena.peacock.controller.web.alm.confluence.dto.SpaceSummaryDto;
@@ -77,7 +79,7 @@ public class AlmConfluenceService {
 	public GridJsonResponse getList(ExtjsGridParam gridParam) {
 
 		GridJsonResponse response = new GridJsonResponse();
-		
+
 		try {
 			response.setList(getCrowdSpaceList());
 		} catch (XmlRpcException e) {
@@ -105,7 +107,7 @@ public class AlmConfluenceService {
 			tmp.setType((String) space.get("type"));
 			list.add(tmp);
 		}
-		
+
 		return list;
 	}
 
@@ -120,5 +122,28 @@ public class AlmConfluenceService {
 		return loginToken;
 	}
 
+	public Object getPermissions(String spaceKey) {
+		try {
+
+			Object[] vector = new Object[2];
+			vector[0] = getLoginToken();
+			vector[1] = spaceKey;
+			Object tmp =  rpcClient.execute("confluence2.getSpacePermissionSets", vector);
+			
+			// Add permission
+			Object[] vector2 = new Object[3];
+			vector2[0] = getLoginToken();
+			vector2[1] = "COMMENT";
+			vector2[2] = spaceKey;
+			//Object tmp2 = rpcClient.execute("confluence2.addAnonymousPermissionToSpace", vector2);
+			
+			return tmp;
+
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
+	
 }
 // end of UserService.java

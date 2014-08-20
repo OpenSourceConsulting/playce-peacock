@@ -28,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
@@ -38,11 +39,11 @@ import com.athena.peacock.controller.web.common.model.GridJsonResponse;
  * <pre>
  * 사용자 관리 컨트롤러.
  * </pre>
- * @author Bong-Jin Kwon
+ * @author Jungsu Han
  * @version 1.0
  */
 @Controller
-@RequestMapping("/alm/groupmanagement")
+@RequestMapping("/alm")
 public class AlmGroupController {
 	
 	
@@ -58,12 +59,12 @@ public class AlmGroupController {
 		// TODO Auto-generated constructor stub
 	}
 	
-	@RequestMapping("/list")
+	@RequestMapping(value = "/groupmanagement", method = RequestMethod.GET)
 	public @ResponseBody GridJsonResponse list(ExtjsGridParam gridParam){
 		return service.getList("GROUP", gridParam);
 	}
 	
-	@RequestMapping("/get/{groupname}")
+	@RequestMapping(value = "/groupmanagement/{groupname}", method = RequestMethod.GET)
 	public @ResponseBody DtoJsonResponse getUser(DtoJsonResponse jsonRes, @PathVariable String groupname){
 		return service.getUser(groupname);
 	}

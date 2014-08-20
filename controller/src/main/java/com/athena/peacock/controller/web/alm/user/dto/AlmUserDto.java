@@ -82,6 +82,8 @@ public class AlmUserDto {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	
+	
 
 }
 // end of User.java

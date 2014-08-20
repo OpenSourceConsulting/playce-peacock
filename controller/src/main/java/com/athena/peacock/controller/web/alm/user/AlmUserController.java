@@ -24,12 +24,19 @@
  */
 package com.athena.peacock.controller.web.alm.user;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.athena.peacock.controller.web.alm.user.dto.AlmUserAddDto;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
@@ -42,7 +49,7 @@ import com.athena.peacock.controller.web.common.model.GridJsonResponse;
  * @version 1.0
  */
 @Controller
-@RequestMapping("/alm/usermanagement")
+@RequestMapping("/alm")
 public class AlmUserController {
 	
 	
@@ -58,16 +65,29 @@ public class AlmUserController {
 		// TODO Auto-generated constructor stub
 	}
 	
-	@RequestMapping("/list")
+	@RequestMapping(value = "/usermanagement", method = RequestMethod.GET)
 	public @ResponseBody GridJsonResponse userList(ExtjsGridParam gridParam){
 		return service.getList("USER", gridParam);
 	}
 	
-	@RequestMapping("/get/{username}")
+	@RequestMapping(value = "/usermanagement/{username}", method = RequestMethod.GET)
 	public @ResponseBody DtoJsonResponse getUser(DtoJsonResponse jsonRes, @PathVariable String username){
 		return service.getUser(username);
 	}
 	
+	@RequestMapping(value = "/usermanagement", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody DtoJsonResponse addUser(@Valid @RequestBody  AlmUserAddDto userData, BindingResult result){
+
+		if (result.hasErrors()) {
+			DtoJsonResponse response = new DtoJsonResponse();
+			response.setSuccess(false);
+			response.setMsg("invalid parameter");
+			response.setData(result.getAllErrors());
+			return response;
+		}
+		
+		return service.addUser(userData);
+	}
 
 }
 //end of AlmUserController.java
