@@ -101,7 +101,6 @@ public class MachineController {
 
 	@RequestMapping("/updateMachine")
 	public @ResponseBody DtoJsonResponse updateMachine(DtoJsonResponse jsonRes, MachineDto machine) throws Exception {
-		Assert.notNull(machine.getHypervisorId(), "hypervisorId can not be null.");
 		Assert.notNull(machine.getMachineId(), "machineId can not be null.");
 		Assert.notNull(machine.getDisplayName(), "displayName can not be null.");
 		
