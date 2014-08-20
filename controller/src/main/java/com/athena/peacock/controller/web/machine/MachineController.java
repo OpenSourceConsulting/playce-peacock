@@ -33,7 +33,6 @@ import javax.inject.Named;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,12 +48,9 @@ import com.athena.peacock.common.netty.PeacockDatagram;
 import com.athena.peacock.common.netty.message.AbstractMessage;
 import com.athena.peacock.common.netty.message.ProvisioningCommandMessage;
 import com.athena.peacock.common.netty.message.ProvisioningResponseMessage;
-import com.athena.peacock.controller.common.component.RHEVMRestTemplateManager;
 import com.athena.peacock.controller.netty.PeacockTransmitter;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
-import com.athena.peacock.controller.web.rhevm.RHEVApi;
-import com.redhat.rhevm.api.model.VM;
 
 /**
  * <pre>
@@ -99,27 +95,13 @@ public class MachineController {
 		return jsonRes;
 	}
 
-	@RequestMapping("/updateMachine")
-	public @ResponseBody DtoJsonResponse updateMachine(DtoJsonResponse jsonRes, MachineDto machine) throws Exception {
+	@RequestMapping("/updateMachineName")
+	public @ResponseBody DtoJsonResponse updateMachineName(DtoJsonResponse jsonRes, MachineDto machine) throws Exception {
 		Assert.notNull(machine.getMachineId(), "machineId can not be null.");
 		Assert.notNull(machine.getDisplayName(), "displayName can not be null.");
 		
-		if (machine.getDisplayName().toLowerCase().startsWith("hhilws") && !machine.getDisplayName().toLowerCase().startsWith("hhilwsd")) {
-			machine.setIsPrd("Y");
-		} else {
-			machine.setIsPrd("N");
-		}
-
 		try {
-			MachineDto m = machineService.getMachine(machine.getMachineId());
-			m.setDisplayName(machine.getDisplayName());
-			m.setIsPrd(machine.getIsPrd());
-			machineService.updateMachine(m);
-			
-			VM vm = new VM();
-			vm.setName(m.getDisplayName());
-			vm = RHEVMRestTemplateManager.getRHEVMRestTemplate(m.getHypervisorId()).submit(RHEVApi.VMS + "/" + m.getMachineId(), HttpMethod.PUT, vm, "vm", VM.class);
-			jsonRes.setData(vm);
+			jsonRes.setData(machineService.updateMachineName(machine));
 			jsonRes.setMsg("Instance 이름이 정상적으로 변경되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);

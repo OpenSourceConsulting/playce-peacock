@@ -30,9 +30,15 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestClientException;
+
+import com.athena.peacock.controller.common.component.RHEVMRestTemplateManager;
+import com.athena.peacock.controller.web.rhevm.RHEVApi;
+import com.redhat.rhevm.api.model.VM;
 
 /**
  * <pre>
@@ -89,6 +95,24 @@ public class MachineService {
 
 	public void updateMachine(MachineDto machine) {
 		machineDao.updateMachine(machine);
+	}
+
+	public VM updateMachineName(MachineDto machine) throws RestClientException, Exception {
+		if (machine.getDisplayName().toLowerCase().startsWith("hhilws") && !machine.getDisplayName().toLowerCase().startsWith("hhilwsd")) {
+			machine.setIsPrd("Y");
+		} else {
+			machine.setIsPrd("N");
+		}
+
+		MachineDto m = machineDao.getMachine(machine.getMachineId());
+		m.setDisplayName(machine.getDisplayName());
+		m.setIsPrd(machine.getIsPrd());
+		
+		machineDao.updateMachine(m);
+		
+		VM vm = new VM();
+		vm.setName(m.getDisplayName());
+		return RHEVMRestTemplateManager.getRHEVMRestTemplate(m.getHypervisorId()).submit(RHEVApi.VMS + "/" + m.getMachineId(), HttpMethod.PUT, vm, "vm", VM.class);
 	}
 }
 //end of MachineService.java
