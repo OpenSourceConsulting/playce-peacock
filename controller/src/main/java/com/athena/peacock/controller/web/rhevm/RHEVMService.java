@@ -50,7 +50,9 @@ import com.athena.peacock.controller.web.rhevm.dto.VMDto;
 import com.redhat.rhevm.api.model.Action;
 import com.redhat.rhevm.api.model.Boot;
 import com.redhat.rhevm.api.model.Cluster;
+import com.redhat.rhevm.api.model.Clusters;
 import com.redhat.rhevm.api.model.DataCenter;
+import com.redhat.rhevm.api.model.DataCenters;
 import com.redhat.rhevm.api.model.Host;
 import com.redhat.rhevm.api.model.IP;
 import com.redhat.rhevm.api.model.Network;
@@ -445,6 +447,34 @@ public class RHEVMService {
 		action.setForce(true);
 		action = getRHEVMRestTemplate(hypervisorId).submit(callUrl,  HttpMethod.DELETE, action, "action", Action.class);
 		return action;
+	}
+
+	/**
+	 * <pre>
+	 * Data Center 목록 조회
+	 * </pre>
+	 * @param hypervisorId
+	 * @return
+	 * @throws RestClientException
+	 * @throws Exception
+	 */
+	public List<DataCenter> getDataCenter(Integer hypervisorId) throws RestClientException, Exception {
+		DataCenters dataCenters = getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.DATA_CENTERS, HttpMethod.GET, DataCenters.class);
+		return dataCenters.getDataCenters();
+	}
+
+	/**
+	 * <pre>
+	 * Host Cluster 목록 조회
+	 * </pre>
+	 * @param hypervisorId
+	 * @return
+	 * @throws RestClientException
+	 * @throws Exception
+	 */
+	public List<Cluster> getHostCluster(Integer hypervisorId) throws RestClientException, Exception {
+		Clusters clusters = getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.CLUSTERS, HttpMethod.GET, Clusters.class);
+		return clusters.getClusters();
 	}
 	
 	/**

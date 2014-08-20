@@ -277,6 +277,58 @@ public class RHEVMController {
 	
 	/**
 	 * <pre>
+	 * 지정된 RHEV-M(hypervisorId)에 해당하는 Data Center 목록 조회
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/datacenter")
+	public @ResponseBody GridJsonResponse getDataCenter(GridJsonResponse jsonRes, Integer hypervisorId) throws Exception {
+		Assert.notNull(hypervisorId, "hypervisorId must not be null.");
+		
+		try {
+			jsonRes.setList(rhevmService.getDataCenter(hypervisorId));
+			jsonRes.setMsg("Data Center 목록이 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("Data Center 목록 조회 중 에러가 발생하였습니다.");
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+	
+	/**
+	 * <pre>
+	 * 지정된 RHEV-M(hypervisorId)에 해당하는 Host Cluster 목록 조회
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/hostcluster")
+	public @ResponseBody GridJsonResponse getHostCluster(GridJsonResponse jsonRes, Integer hypervisorId) throws Exception {
+		Assert.notNull(hypervisorId, "hypervisorId must not be null.");
+		
+		try {
+			jsonRes.setList(rhevmService.getHostCluster(hypervisorId));
+			jsonRes.setMsg("Data Center 목록이 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("Data Center 목록 조회 중 에러가 발생하였습니다.");
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+	
+	/**
+	 * <pre>
 	 * RHEV-M의 템플릿을 이용하여 신규 VM을 생성한다.
 	 * </pre>
 	 * @param jsonRes
