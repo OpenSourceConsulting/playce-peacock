@@ -49,8 +49,11 @@ public class MachineService {
 	@Named("machineDao")
 	private MachineDao machineDao;
 
-	public void insertMachine(MachineDto machine) throws Exception {		
-		if (machineDao.getMachine(machine.getMachineId()) != null) {
+	public void insertMachine(MachineDto machine) throws Exception {	
+		MachineDto m = machineDao.getMachine(machine.getMachineId());
+		
+		if (m != null) {
+			machine.setDisplayId(m.getDisplayId());
 			machineDao.updateMachine(machine);
 		} else {
 			String displayId = "i-" + RandomStringUtils.randomAlphanumeric(8).toLowerCase();
@@ -82,6 +85,10 @@ public class MachineService {
 	
 	public void deleteMachine(String machineId) throws Exception {
 		machineDao.deleteMachine(machineId);
+	}
+
+	public void updateMachine(MachineDto machine) {
+		machineDao.updateMachine(machine);
 	}
 }
 //end of MachineService.java

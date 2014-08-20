@@ -72,6 +72,7 @@ import com.athena.peacock.controller.web.monitor.MonFactorDto;
 import com.athena.peacock.controller.web.monitor.MonitorService;
 import com.athena.peacock.controller.web.ospackage.PackageDto;
 import com.athena.peacock.controller.web.ospackage.PackageService;
+import com.redhat.rhevm.api.model.Cluster;
 import com.redhat.rhevm.api.model.IP;
 import com.redhat.rhevm.api.model.VM;
 import com.redhat.rhevm.api.model.VMs;
@@ -168,7 +169,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 						String machineId = infoMsg.getAgentId();
 						Integer hypervisorId = null;
 						String displayName = null;
-						String cluster = null;
+						String clusterName = null;
 						String isPrd = "N";
 						String isVm = "N";
 						boolean isMatch = false;
@@ -193,7 +194,9 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 												machineId = vm.getId();
 												hypervisorId = restTemplate.getHypervisorId();
 												displayName = vm.getName();
-												cluster = vm.getCluster().getName();
+												
+												Cluster cluster = restTemplate.submit(vm.getCluster().getHref(), HttpMethod.GET, Cluster.class);
+												clusterName = cluster.getName();
 												break;
 											}
 										}
@@ -230,7 +233,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 						
 						machine.setMachineMacAddr(infoMsg.getMacAddrMap().get(ipAddr));
 						machine.setIsVm(isVm);
-						machine.setCluster(cluster);
+						machine.setCluster(clusterName);
 						machine.setOsName(infoMsg.getOsName());
 						machine.setOsVer(infoMsg.getOsVersion());
 						machine.setOsArch(infoMsg.getOsArch());
