@@ -18,11 +18,18 @@ Ext.define('MyApp.controller.InstancesController', {
 
     id: 'InstancesController',
 
-    onInstancesGridSelect: function(rowmodel, record, index, eOpts) {
-        /*
+    onInstancesGridSelect: function(tableview, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+
         //Instances Grid Item Click
 
-        instancesConstants.selectRow = record;
+        if(instancesConstants.selectRow == null || instancesConstants.selectRow.get("machineId") != record.get("machineId")) {
+
+            instancesConstants.selectRow = record;
+
+            this.selectInstanceGrid();
+        }
+
+        /*
 
         var detailPanel = Ext.getCmp("instanceDetailPanel");
         detailPanel.layout.setActiveItem(1);
@@ -87,16 +94,11 @@ Ext.define('MyApp.controller.InstancesController', {
         var position = e.getXY();
         e.stopEvent();
 
-        instancesConstants.selectRow = record;
+        instancesConstants.actionRow = record;
 
         instancesConstants.contextMenu.showAt(position);
 
 
-    },
-
-    onInstancesGridAfterRender: function(component, eOpts) {
-        //Instances Grid rendering
-        //this.searchInstance();
     },
 
     onCategoryCycleClick: function(item, e, eOpts) {
@@ -135,6 +137,44 @@ Ext.define('MyApp.controller.InstancesController', {
         }
     },
 
+    onInstanceTabPanelTabChange: function(tabPanel, newCard, oldCard, eOpts) {
+        if(newCard.title == "Description"){
+
+            this.searchInstanceDetail(0);
+
+        } else if(newCard.title == "Software"){
+
+        } else if(newCard.title == "OS Package"){
+
+            Ext.getCmp("searchPackageName").setValue("");
+            Ext.getCmp("instanceOsGrid").reconfigure(Ext.getCmp("instanceOsGrid").store, Ext.getCmp("instanceOsGrid").initialConfig.columns);
+
+            this.searchInstanceDetail(2);
+
+        } else {
+
+        }
+
+        /*
+
+        if(newCard.title == "Description"){
+
+            Ext.getCmp("searchRhevmTemplateName").setValue("");
+            Ext.getCmp("rhevmTemplateGrid").reconfigure(Ext.getCmp("rhevmTemplateGrid").store, Ext.getCmp("rhevmTemplateGrid").initialConfig.columns);
+
+            this.searchRhevmChildGrid("rhevmTemplateGrid");
+
+        } else {
+
+            Ext.getCmp("searchRhevmVMName").setValue("");
+            Ext.getCmp("rhevmVMGrid").reconfigure(Ext.getCmp("rhevmVMGrid").store, Ext.getCmp("rhevmVMGrid").initialConfig.columns);
+
+            this.searchRhevmChildGrid("rhevmVMGrid");
+
+        }
+        */
+    },
+
     init: function(application) {
                 //Instances Menu Config Setting
 
@@ -143,6 +183,11 @@ Ext.define('MyApp.controller.InstancesController', {
                 var instancesGridContextMenu = new Ext.menu.Menu({
                     items:
                     [
+                    { text: 'Edit Instance Name',
+                        handler: function() {
+                            instances.showEditInstanceNameWindow();
+                        }
+                    },
                     { text: 'CLI(Command Line Interface)',
                         handler: function() {
                             instances.showCLIWindow();
@@ -180,9 +225,8 @@ Ext.define('MyApp.controller.InstancesController', {
 
         this.control({
             "#instancesGrid": {
-                select: this.onInstancesGridSelect,
-                beforeitemcontextmenu: this.onInstancesGridBeforeItemContextMenu,
-                afterrender: this.onInstancesGridAfterRender
+                cellclick: this.onInstancesGridSelect,
+                beforeitemcontextmenu: this.onInstancesGridBeforeItemContextMenu
             },
             "#categoryCycle menuitem": {
                 click: this.onCategoryCycleClick
@@ -195,33 +239,124 @@ Ext.define('MyApp.controller.InstancesController', {
             },
             "#searchPackageName": {
                 keydown: this.onSearchPackageNameKeydown
+            },
+            "#instanceTabPanel": {
+                tabchange: this.onInstanceTabPanelTabChange
             }
         });
     },
 
-    searchInstance: function() {
+    searchInstance: function(init) {
+
+        if(init) {
+            Ext.getCmp("searchCategory").setValue("");
+            Ext.getCmp("searchRhevm").setValue("");
+            Ext.getCmp("searchInstanceName").setValue("");
+
+            Ext.getCmp("instancesGrid").reconfigure(Ext.getCmp("instancesGrid").store, Ext.getCmp("instancesGrid").initialConfig.columns);
+        }
+
+        instancesConstants.selectRow = null;
+
         //Instances Grid Data Search
-        Ext.getCmp("instancesGrid").getStore().load({
-            params:{
-                search1 : Ext.getCmp("searchCategory").getRawValue(),
-                search2 : Ext.getCmp("searchRhevm").getRawValue(),
-                search3 : Ext.getCmp("searchInstanceName").getRawValue()
-            }
-        });
+
+        var instanceStore = Ext.getCmp("instancesGrid").getStore();
+
+        instanceStore.getProxy().extraParams = {
+            isPrd : Ext.getCmp("searchCategory").getRawValue(),
+            hypervisorId : Ext.getCmp("searchRhevm").getRawValue(),
+            displayName : Ext.getCmp("searchInstanceName").getRawValue()
+        };
+
+        instanceStore.load();
 
         var detailPanel = Ext.getCmp("instanceDetailPanel");
         detailPanel.layout.setActiveItem(0);
     },
 
+    selectInstanceGrid: function() {
+
+        var detailPanel = Ext.getCmp("instanceDetailPanel");
+        detailPanel.layout.setActiveItem(1);
+
+        Ext.getCmp("instanceTabPanel").setActiveTab(0);
+
+        this.searchInstanceDetail(0);
+    },
+
+    searchInstanceDetail: function(tabIndex) {
+        /*
+        //init clear
+        clearInterval(instancesConstants.chartInterval);
+        Ext.getStore("instanceMonitoringChartStore").removeAll();
+
+        */
+
+        if(tabIndex == 0) {
+
+            //Description Data Loading
+            var descform = Ext.getCmp("instanceDescForm");
+
+            descform.getForm().reset();
+
+            descform.getForm().waitMsgTarget = descform.getEl();
+
+            descform.getForm().load({
+                params : {
+                    machineId : instancesConstants.selectRow.get("machineId")
+                }
+                ,url : GLOBAL.urlPrefix + "machine/getMachine"
+                ,waitMsg:'Loading...'
+            });
+
+
+        } else if(tabIndex == 1) {
+
+            //Software Data Loading
+            var softwareGrid = Ext.getCmp('instanceSoftwareGrid');
+
+            softwareGrid.getStore().load({
+                params:{
+                    instanceID : record.get("instanceID")
+                }
+            });
+
+        } else if(tabIndex == 2) {
+
+            //OS Package Data Loading
+            this.searchInstanceOs();
+
+        } else {
+
+            //Monitoring Data Loading
+
+            instancesConstants.chartInterval = setInterval(function() {
+
+            var chartStore = Ext.getStore("instanceMonitoringChartStore");
+                chartStore.load({
+                    addRecords : true
+                });
+
+                if(chartStore.getCount() > 30) {
+                    chartStore.remove(chartStore.getAt(0));
+                }
+
+            }, 5000);
+        }
+
+
+    },
+
     searchInstanceOs: function() {
         //Instances Os Package Grid Data Search
+        var packageStore = Ext.getCmp('instanceOsGrid').getStore();
 
-        Ext.getCmp('instanceOsGrid').getStore().load({
-            params:{
-                instanceID : instancesConstants.selectRow.get("instanceID"),
-                search : Ext.getCmp("searchPackageName").getRawValue()
-            }
-        });
+        packageStore.getProxy().extraParams = {
+            machineId : instancesConstants.selectRow.get("machineId"),
+            name : Ext.getCmp("searchPackageName").getRawValue()
+        };
+
+        packageStore.load();
 
     },
 
@@ -247,6 +382,17 @@ Ext.define('MyApp.controller.InstancesController', {
         var crontabWindow = Ext.create("widget.crontabWindow");
 
         crontabWindow.show();
+    },
+
+    showEditInstanceNameWindow: function() {
+        var editWindow = Ext.create("widget.EditInstanceNameWindow");
+        editWindow.show();
+
+        var instanceForm = Ext.getCmp("instanceNameForm");
+
+        instanceForm.getForm().findField("machineId").setRawValue(instancesConstants.actionRow.get("machineId"));
+        instanceForm.getForm().findField("displayName").setRawValue(instancesConstants.actionRow.get("displayName"));
+
     }
 
 });

@@ -6,17 +6,17 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userAlias": "RegTemplateWindow",
-        "designer|userClassName": "RegTemplateWindow",
-        "height": 160,
-        "id": "regTemplateWindow",
+        "designer|userAlias": "EditInstanceNameWindow",
+        "designer|userClassName": "EditInstanceNameWindow",
+        "height": 130,
+        "id": "regTemplateWindow1",
         "itemId": "regTemplateWindow",
         "layout": "border",
         "modal": true,
-        "title": "Make Template",
+        "title": "Edit Instance Name",
         "width": 450
     },
-    "designerId": "f11e11b4-4b18-4b00-b5ce-297285f8b065",
+    "designerId": "bbc85331-15ba-4d43-89a5-e65c6a80a9bf",
     "cn": [
         {
             "type": "Ext.panel.Panel",
@@ -29,9 +29,9 @@
                 "header": false,
                 "layout|flex": 1,
                 "layout|region": "center",
-                "title": "regTemplatePanel"
+                "title": "instanceNamePanel"
             },
-            "designerId": "5a95a594-e61f-4a00-a578-9e72b1d73132",
+            "designerId": "8bd3050a-b0e3-4a9d-8827-558ce7e13684",
             "cn": [
                 {
                     "type": "Ext.form.Panel",
@@ -48,11 +48,11 @@
                             "}"
                         ],
                         "height": null,
-                        "id": "templateForm",
-                        "itemId": "templateForm",
+                        "id": "instanceNameForm",
+                        "itemId": "instanceNameForm",
                         "title": null
                     },
-                    "designerId": "6c423cfe-d329-4198-898e-ae5eebc826f9",
+                    "designerId": "e86f694a-6466-428d-8b0c-3fb33aa5aa0e",
                     "cn": [
                         {
                             "type": "Ext.form.field.Text",
@@ -66,10 +66,10 @@
                                 "fieldLabel": "Name",
                                 "labelWidth": 120,
                                 "layout|anchor": "100%",
-                                "name": "name",
+                                "name": "displayName",
                                 "vtype": "template"
                             },
-                            "designerId": "27ed8eb3-3e14-4207-b041-f79e71d94dd0",
+                            "designerId": "52680dcc-4e78-486b-9f3c-84c6eaadec3c",
                             "cn": [
                                 {
                                     "type": "Ext.XTemplate",
@@ -84,26 +84,11 @@
                                             "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
                                         ]
                                     },
-                                    "designerId": "d93b8652-d8e0-40ed-8f5b-000778727eee"
+                                    "designerId": "79c2edf1-662f-4d5d-9e0f-141a88853ef5"
                                 }
                             ]
                         },
                         {
-                            "type": "Ext.form.field.Text",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fieldLabel": "Description",
-                                "labelWidth": 120,
-                                "layout|anchor": "100%",
-                                "name": "description"
-                            },
-                            "designerId": "d235033c-d80f-4902-9755-5dde625a4a2b"
-                        },
-                        {
                             "type": "Ext.form.field.Hidden",
                             "reference": {
                                 "name": "items",
@@ -113,23 +98,9 @@
                             "userConfig": {
                                 "fieldLabel": "Label",
                                 "layout|anchor": "100%",
-                                "name": "hypervisorId"
+                                "name": "machineId"
                             },
-                            "designerId": "1d80d2f6-2ed4-44ab-a705-ad7f143f70dc"
-                        },
-                        {
-                            "type": "Ext.form.field.Hidden",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fieldLabel": "Label",
-                                "layout|anchor": "100%",
-                                "name": "vmId"
-                            },
-                            "designerId": "15424e5e-3301-421f-94e0-28cbbee5be08"
+                            "designerId": "779ec3da-e17d-45d4-80a7-e1e52ac1b673"
                         }
                     ]
                 },
@@ -146,7 +117,7 @@
                         "dock": "bottom",
                         "ui": "footer"
                     },
-                    "designerId": "f2f3d9f8-032c-4f9e-bd50-47b38e028783",
+                    "designerId": "69a50148-3d82-433d-a20a-de40c3e76809",
                     "cn": [
                         {
                             "type": "Ext.button.Button",
@@ -156,14 +127,14 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "id": "makeTemplateBtn",
-                                "itemId": "makeTemplateBtn",
+                                "id": null,
+                                "itemId": null,
                                 "layout|flex": null,
                                 "margin": "0 15 0 0",
                                 "padding": "2 10 2 10",
                                 "text": "OK"
                             },
-                            "designerId": "72cb69ce-9318-416e-921a-70483199a9d0",
+                            "designerId": "d8ec0013-8407-4534-9a3a-54b33ad3ad94",
                             "cn": [
                                 {
                                     "type": "fixedfunction",
@@ -179,11 +150,13 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
-                                            "var templateForm = Ext.getCmp(\"templateForm\");",
+                                            "var instanceForm = Ext.getCmp(\"instanceNameForm\");",
                                             "",
-                                            "templateForm.getForm().submit({",
+                                            "var machineId = instanceForm.getForm().findField(\"machineId\").getValue();",
+                                            "",
+                                            "instanceForm.getForm().submit({",
                                             "    clientValidation: true,",
-                                            "    url: GLOBAL.urlPrefix + \"rhevm/vms/makeTemplate\",",
+                                            "    url: GLOBAL.urlPrefix + \"machine/updateMachine\",",
                                             "    params: {",
                                             "        newStatus: 'delivered'",
                                             "    },",
@@ -191,10 +164,26 @@
                                             "    success: function(form, action) {",
                                             "        Ext.Msg.alert('Success', action.result.msg);",
                                             "",
-                                            "        Ext.getCmp('rhevmVMGrid').getStore().reload();",
+                                            "        Ext.getCmp('instancesGrid').getStore().load({",
+                                            "",
+                                            "            callback:function(records, operation, success){",
+                                            "",
+                                            "                Ext.each(records, function(record) {",
+                                            "",
+                                            "                    if(record.get(\"machineId\") == machineId) {",
+                                            "                        Ext.getCmp('instancesGrid').getSelectionModel().select(record,true,false);",
+                                            "",
+                                            "                        instancesConstants.selectRow = record;",
+                                            "                        instancesConstants.me.selectInstanceGrid();",
+                                            "                    }",
+                                            "                });",
+                                            "            }",
+                                            "",
+                                            "        });",
                                             "        templateForm.up('window').close();",
                                             "    },",
                                             "    failure: function(form, action) {",
+                                            "        ",
                                             "        switch (action.failureType) {",
                                             "            case Ext.form.action.Action.CLIENT_INVALID:",
                                             "            Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');",
@@ -206,10 +195,11 @@
                                             "            Ext.Msg.alert('Failure', action.result.msg);",
                                             "        }",
                                             "    }",
-                                            "});"
+                                            "});",
+                                            ""
                                         ]
                                     },
-                                    "designerId": "9531462e-5924-4aff-acdb-76989ed71ff4"
+                                    "designerId": "fc76c593-ec9a-469e-a364-33b81c0f3b66"
                                 }
                             ]
                         },
@@ -221,14 +211,14 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "id": "templateCancelBtn",
-                                "itemId": "templateCancelBtn",
+                                "id": null,
+                                "itemId": null,
                                 "layout|flex": null,
                                 "margin": "0 0 0 0",
                                 "padding": "2 5 2 5",
                                 "text": "Cancel"
                             },
-                            "designerId": "64c90fea-61d6-4e81-8c16-8d955a9d6269",
+                            "designerId": "6a4b669c-1cf4-484e-9f32-294f0364f897",
                             "cn": [
                                 {
                                     "type": "fixedfunction",
@@ -254,7 +244,7 @@
                                             ""
                                         ]
                                     },
-                                    "designerId": "c84746b7-9e0e-4d66-9736-96251cad7ed0"
+                                    "designerId": "ac5e7476-5109-4b91-9fdc-55c856c8c293"
                                 }
                             ]
                         }

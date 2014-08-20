@@ -32,7 +32,7 @@
                 "layout|flex": 1,
                 "layout|region": "center",
                 "minHeight": 100,
-                "store": "instanceListStore",
+                "store": "MachineStore",
                 "title": null
             },
             "designerId": "c9c95bad-4663-4d3e-94b7-7d825f67037d",
@@ -384,7 +384,7 @@
                     "userConfig": {
                         "displayInfo": true,
                         "dock": "bottom",
-                        "store": "instanceListStore",
+                        "store": "MachineStore",
                         "width": 360
                     },
                     "designerId": "a2e2c242-0573-447b-89b3-17e59b9b1971"
@@ -397,8 +397,10 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "instanceID",
-                        "text": "InstanceID"
+                        "dataIndex": "machineId",
+                        "hidden": true,
+                        "hideable": false,
+                        "text": null
                     },
                     "designerId": "90389196-635f-45a9-b095-17caebce5c65"
                 },
@@ -410,8 +412,23 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "instanceName",
-                        "text": "InstanceName"
+                        "dataIndex": "displayId",
+                        "minWidth": 100,
+                        "text": "Instance ID"
+                    },
+                    "designerId": "c2698940-401b-4d7a-98c0-50864c1f6ec8"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "displayName",
+                        "minWidth": 150,
+                        "text": "Instance Name"
                     },
                     "designerId": "6b7c8442-e03e-4b3e-affa-a376263a4085"
                 },
@@ -423,10 +440,41 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "category",
+                        "dataIndex": "isPrd",
+                        "minWidth": 100,
                         "text": "Category"
                     },
-                    "designerId": "bb76023e-714c-4c51-96c0-239aa2ae86d2"
+                    "designerId": "bb76023e-714c-4c51-96c0-239aa2ae86d2",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "metaData",
+                                    "record",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "store",
+                                    "view"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "if(value == 'Y') {",
+                                    "    return \"Production\";",
+                                    "} else {",
+                                    "    return \"Development\";",
+                                    "}"
+                                ]
+                            },
+                            "designerId": "40a8bde8-bfcf-4bf3-be5d-dc120e474949"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.grid.column.Column",
@@ -436,10 +484,47 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "rhevManager",
-                        "text": "RhevManager"
+                        "dataIndex": "hypervisorId",
+                        "minWidth": 140,
+                        "text": "RHEV Manager"
                     },
-                    "designerId": "ec805e2f-310f-4fff-9ebe-5c438c4e855a"
+                    "designerId": "ec805e2f-310f-4fff-9ebe-5c438c4e855a",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "metaData",
+                                    "record",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "store",
+                                    "view"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "var comboRecord = Ext.getStore(\"ComboHypervisorStore\").findRecord('hypervisorId', value);",
+                                    "",
+                                    "if(comboRecord != null) {",
+                                    "    ",
+                                    "    return comboRecord.get('rhevmName');",
+                                    "    ",
+                                    "} else {",
+                                    "    ",
+                                    "    return null;",
+                                    "    ",
+                                    "}"
+                                ]
+                            },
+                            "designerId": "d6557168-d2a4-4307-8042-bab8fc50e357"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.grid.column.Column",
@@ -450,6 +535,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "cluster",
+                        "minWidth": 100,
                         "text": "Cluster"
                     },
                     "designerId": "0a677d61-76bd-4a50-bdc4-5c040c005042"
@@ -462,7 +548,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "host",
+                        "dataIndex": "hostName",
+                        "minWidth": 160,
                         "text": "Host"
                     },
                     "designerId": "9f4aebef-d1b5-4bff-afb4-e2b9232258a3"
@@ -475,8 +562,9 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "ipAddress",
-                        "text": "IpAddress"
+                        "dataIndex": "ipAddr",
+                        "minWidth": 130,
+                        "text": "IP Address"
                     },
                     "designerId": "1cc78802-2227-45f8-b023-0d76f85e9ad6"
                 },
@@ -488,8 +576,9 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "agentStatus",
-                        "text": "AgentStatus"
+                        "dataIndex": "status",
+                        "minWidth": 100,
+                        "text": "Agent Status"
                     },
                     "designerId": "89f92e8c-7544-4593-b55f-f981ca7e1fb8"
                 }
@@ -631,7 +720,7 @@
                                             "designerId": "9766220b-9224-4b93-9598-a2a969e9df26",
                                             "cn": [
                                                 {
-                                                    "type": "Ext.form.field.Text",
+                                                    "type": "Ext.form.field.Display",
                                                     "reference": {
                                                         "name": "items",
                                                         "type": "array"
@@ -640,12 +729,12 @@
                                                     "userConfig": {
                                                         "fieldLabel": "Instance ID",
                                                         "layout|flex": null,
-                                                        "name": "instanceID"
+                                                        "name": "displayId"
                                                     },
                                                     "designerId": "48d1b528-5229-4616-b0aa-2caceb7ae28a"
                                                 },
                                                 {
-                                                    "type": "Ext.form.field.Text",
+                                                    "type": "Ext.form.field.Display",
                                                     "reference": {
                                                         "name": "items",
                                                         "type": "array"
@@ -654,7 +743,7 @@
                                                     "userConfig": {
                                                         "fieldLabel": "Host",
                                                         "layout|flex": null,
-                                                        "name": "host"
+                                                        "name": "hostName"
                                                     },
                                                     "designerId": "72c668c3-bc10-409a-bb14-1f03db1cf40e"
                                                 }
@@ -683,7 +772,7 @@
                                             "designerId": "1ee297b4-b486-45b8-b73b-2cf56e215f0d",
                                             "cn": [
                                                 {
-                                                    "type": "Ext.form.field.Text",
+                                                    "type": "Ext.form.field.Display",
                                                     "reference": {
                                                         "name": "items",
                                                         "type": "array"
@@ -691,12 +780,13 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "fieldLabel": "OS Name",
-                                                        "layout|flex": null
+                                                        "layout|flex": null,
+                                                        "name": "osName"
                                                     },
                                                     "designerId": "f274b448-9fb2-4fa7-95f4-ec19725d6e55"
                                                 },
                                                 {
-                                                    "type": "Ext.form.field.Text",
+                                                    "type": "Ext.form.field.Display",
                                                     "reference": {
                                                         "name": "items",
                                                         "type": "array"
@@ -704,7 +794,8 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "fieldLabel": "OS Version",
-                                                        "layout|flex": null
+                                                        "layout|flex": null,
+                                                        "name": "osVer"
                                                     },
                                                     "designerId": "38d9ad3a-53d3-4eed-8859-e301e5c67b64"
                                                 }
@@ -733,7 +824,7 @@
                                             "designerId": "79a86365-2648-4d35-9199-036df660230c",
                                             "cn": [
                                                 {
-                                                    "type": "Ext.form.field.Text",
+                                                    "type": "Ext.form.field.Display",
                                                     "reference": {
                                                         "name": "items",
                                                         "type": "array"
@@ -741,7 +832,8 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "fieldLabel": "MAC Address",
-                                                        "layout|flex": null
+                                                        "layout|flex": null,
+                                                        "name": "machineMacAddr"
                                                     },
                                                     "designerId": "442b12ec-266b-43b8-acaf-38999355fe0b"
                                                 },
@@ -755,7 +847,11 @@
                                                     "userConfig": {
                                                         "boxLabel": "VM",
                                                         "fieldLabel": "Is VM",
-                                                        "layout|flex": 1
+                                                        "inputValue": "Y",
+                                                        "layout|flex": 1,
+                                                        "name": "isVm",
+                                                        "uncheckedValue": "N",
+                                                        "value": null
                                                     },
                                                     "designerId": "ba9d332e-4c7b-477c-8384-0cb1ed0f8b42"
                                                 }
@@ -784,7 +880,7 @@
                                             "designerId": "d4d96cff-da55-4235-9145-7b599974efbf",
                                             "cn": [
                                                 {
-                                                    "type": "Ext.form.field.Text",
+                                                    "type": "Ext.form.field.Display",
                                                     "reference": {
                                                         "name": "items",
                                                         "type": "array"
@@ -793,12 +889,12 @@
                                                     "userConfig": {
                                                         "fieldLabel": "IP Address",
                                                         "layout|flex": null,
-                                                        "name": "ipAddress"
+                                                        "name": "ipAddr"
                                                     },
                                                     "designerId": "1099ca36-3e4e-4554-a8d5-4ad233175a8a"
                                                 },
                                                 {
-                                                    "type": "Ext.form.field.Text",
+                                                    "type": "Ext.form.field.Display",
                                                     "reference": {
                                                         "name": "items",
                                                         "type": "array"
@@ -806,7 +902,8 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "fieldLabel": "OS Arch",
-                                                        "layout|flex": null
+                                                        "layout|flex": null,
+                                                        "name": "osArch"
                                                     },
                                                     "designerId": "b6de5d21-2ed2-40fc-9d95-d887f4471411"
                                                 }
@@ -835,7 +932,7 @@
                                             "designerId": "d5c87efd-629d-4e9b-9c1d-cf5ab2e82d77",
                                             "cn": [
                                                 {
-                                                    "type": "Ext.form.field.Text",
+                                                    "type": "Ext.form.field.Display",
                                                     "reference": {
                                                         "name": "items",
                                                         "type": "array"
@@ -843,12 +940,13 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "fieldLabel": "CPU Clock",
-                                                        "layout|flex": null
+                                                        "layout|flex": null,
+                                                        "name": "cpuClock"
                                                     },
                                                     "designerId": "587602f7-d2f2-4c5d-b14f-e59588905046"
                                                 },
                                                 {
-                                                    "type": "Ext.form.field.Text",
+                                                    "type": "Ext.form.field.Display",
                                                     "reference": {
                                                         "name": "items",
                                                         "type": "array"
@@ -856,7 +954,8 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "fieldLabel": "Core",
-                                                        "layout|flex": null
+                                                        "layout|flex": null,
+                                                        "name": "cpuNum"
                                                     },
                                                     "designerId": "aaf96e85-b9ac-4d56-be27-432c25189ebe"
                                                 }
@@ -885,7 +984,7 @@
                                             "designerId": "ead2eda7-7993-4bb0-aaba-6271b5a53506",
                                             "cn": [
                                                 {
-                                                    "type": "Ext.form.field.Text",
+                                                    "type": "Ext.form.field.Display",
                                                     "reference": {
                                                         "name": "items",
                                                         "type": "array"
@@ -893,12 +992,13 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "fieldLabel": "Memory Size",
-                                                        "layout|flex": null
+                                                        "layout|flex": null,
+                                                        "name": "memSize"
                                                     },
                                                     "designerId": "a6666015-1b80-4bd0-becb-a9f16f9c4c81"
                                                 },
                                                 {
-                                                    "type": "Ext.form.field.Text",
+                                                    "type": "Ext.form.field.Display",
                                                     "reference": {
                                                         "name": "items",
                                                         "type": "array"
@@ -906,7 +1006,8 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "fieldLabel": "Create Date",
-                                                        "layout|flex": null
+                                                        "layout|flex": null,
+                                                        "name": "regDt"
                                                     },
                                                     "designerId": "946bfbfe-e8c5-45c1-8d95-03d3c42c6298"
                                                 }
@@ -1465,7 +1566,7 @@
                                         "forceFit": true,
                                         "id": "instanceOsGrid",
                                         "itemId": "instanceOsGrid",
-                                        "store": "instanceOsListStore",
+                                        "store": "InstancePackageStore",
                                         "title": null
                                     },
                                     "designerId": "845f08e4-b11a-4765-85f5-99fc25010294",
@@ -1547,6 +1648,22 @@
                                                         "layout|flex": null
                                                     },
                                                     "designerId": "5474c3a3-c906-40dd-a20b-64589c337e26"
+                                                },
+                                                {
+                                                    "type": "Ext.form.field.Hidden",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fieldLabel": "Label",
+                                                        "id": "searchMarchineId",
+                                                        "itemId": "searchMarchineId",
+                                                        "layout|flex": null,
+                                                        "name": "marchineId"
+                                                    },
+                                                    "designerId": "233f8057-0bcd-4b00-873a-e274eadaa507"
                                                 }
                                             ]
                                         },
@@ -1569,7 +1686,7 @@
                                             "userConfig": {
                                                 "displayInfo": true,
                                                 "dock": "bottom",
-                                                "store": "instanceOsListStore",
+                                                "store": "InstancePackageStore",
                                                 "width": 360
                                             },
                                             "designerId": "87800358-59ef-456a-9ecf-feef1335205f"
@@ -1581,6 +1698,9 @@
                                                 "type": "array"
                                             },
                                             "codeClass": null,
+                                            "userConfig": {
+                                                "width": 40
+                                            },
                                             "designerId": "3dfe26ad-0b0b-45e3-a80b-b3ac3f098d3c"
                                         },
                                         {
@@ -1592,6 +1712,7 @@
                                             "codeClass": null,
                                             "userConfig": {
                                                 "dataIndex": "name",
+                                                "minWidth": 150,
                                                 "text": "Name"
                                             },
                                             "designerId": "b2d0ff18-ee73-416a-89ef-3a5724b8b875"
@@ -1605,6 +1726,7 @@
                                             "codeClass": null,
                                             "userConfig": {
                                                 "dataIndex": "arch",
+                                                "minWidth": 100,
                                                 "text": "Arch"
                                             },
                                             "designerId": "85135350-d588-4753-9884-09adcc8fd7ff"
@@ -1618,6 +1740,7 @@
                                             "codeClass": null,
                                             "userConfig": {
                                                 "dataIndex": "version",
+                                                "minWidth": 80,
                                                 "text": "Version"
                                             },
                                             "designerId": "ccd164ce-f981-4783-b759-352d80c80492"
@@ -1630,7 +1753,8 @@
                                             },
                                             "codeClass": null,
                                             "userConfig": {
-                                                "dataIndex": "release",
+                                                "dataIndex": "releaseInfo",
+                                                "minWidth": 100,
                                                 "text": "Release"
                                             },
                                             "designerId": "55b4c8ec-f4a1-4241-bf88-d6a48fc4b955"
@@ -1644,6 +1768,7 @@
                                             "codeClass": null,
                                             "userConfig": {
                                                 "dataIndex": "size",
+                                                "minWidth": 80,
                                                 "text": "Size"
                                             },
                                             "designerId": "c3a4412f-63e3-4151-be7d-522c6b3de7c4"
@@ -1657,6 +1782,7 @@
                                             "codeClass": null,
                                             "userConfig": {
                                                 "dataIndex": "summary",
+                                                "minWidth": 180,
                                                 "text": "Summary"
                                             },
                                             "designerId": "c78255a7-b382-41f2-8068-e4605578e7a2"
@@ -1670,6 +1796,7 @@
                                             "codeClass": null,
                                             "userConfig": {
                                                 "dataIndex": "description",
+                                                "minWidth": 200,
                                                 "text": "Description"
                                             },
                                             "designerId": "a4c1f5e9-6bba-4acc-98d7-39a6600cedc4"

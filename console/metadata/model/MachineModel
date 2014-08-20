@@ -278,6 +278,19 @@
             },
             "codeClass": null,
             "userConfig": {
+                "name": "status",
+                "type": "string"
+            },
+            "designerId": "3c8ca57e-8121-4ede-b280-d4fde6829cb4"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
                 "name": "regUserId",
                 "type": "int"
             },
@@ -321,6 +334,19 @@
                 "type": "string"
             },
             "designerId": "40a58b47-ea8e-4c9d-8e92-3fd5634c6cdf"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "isPrd",
+                "type": "string"
+            },
+            "designerId": "709e359f-9316-46c1-97e1-0d001784905f"
         }
     ]
 }

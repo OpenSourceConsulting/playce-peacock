@@ -1,0 +1,64 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": false,
+        "designer|userClassName": "InstancePackageStore",
+        "model": "PackageModel",
+        "storeId": "InstancePackageStore"
+    },
+    "designerId": "7354cae2-ee9f-43fc-8daf-9c81dc52718d",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "api": null,
+                "url": "package/list"
+            },
+            "designerId": "4c1564de-b20d-4136-a960-529dafb4b996",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "list"
+                    },
+                    "designerId": "c376fc8e-b563-4ec3-95f2-c87130b5f835"
+                },
+                {
+                    "type": "processcfgfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|params": [
+                            "config"
+                        ],
+                        "fn": "processMyAjaxProxy",
+                        "implHandler": [
+                            "config.actionMethods = {create: \"POST\", read: \"POST\", update: \"POST\", destroy: \"POST\"};",
+                            "",
+                            "return config;"
+                        ]
+                    },
+                    "designerId": "c71ecef3-2f93-44a3-9e52-eb3ac92c9093"
+                }
+            ]
+        }
+    ]
+}

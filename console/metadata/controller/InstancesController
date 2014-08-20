@@ -23,10 +23,17 @@
                 "designer|targetType": "Ext.grid.Panel",
                 "fn": "onInstancesGridSelect",
                 "implHandler": [
-                    "/*",
+                    "",
                     "//Instances Grid Item Click",
                     "",
-                    "instancesConstants.selectRow = record;",
+                    "if(instancesConstants.selectRow == null || instancesConstants.selectRow.get(\"machineId\") != record.get(\"machineId\")) {",
+                    "",
+                    "    instancesConstants.selectRow = record;",
+                    "",
+                    "    this.selectInstanceGrid();",
+                    "}",
+                    "",
+                    "/*",
                     "",
                     "var detailPanel = Ext.getCmp(\"instanceDetailPanel\");",
                     "detailPanel.layout.setActiveItem(1);",
@@ -84,7 +91,7 @@
                     "",
                     "*/"
                 ],
-                "name": "select",
+                "name": "cellclick",
                 "scope": "me"
             },
             "designerId": "7cc8272e-956b-44cd-811f-60f601258eaf"
@@ -106,7 +113,7 @@
                     "var position = e.getXY();",
                     "e.stopEvent();",
                     "",
-                    "instancesConstants.selectRow = record;",
+                    "instancesConstants.actionRow = record;",
                     "",
                     "instancesConstants.contextMenu.showAt(position);",
                     "",
@@ -137,6 +144,11 @@
                     "var instancesGridContextMenu = new Ext.menu.Menu({",
                     "    items:",
                     "    [",
+                    "        { text: 'Edit Instance Name',",
+                    "         handler: function() {",
+                    "             instances.showEditInstanceNameWindow();",
+                    "         }",
+                    "        },",
                     "        { text: 'CLI(Command Line Interface)',",
                     "         handler: function() {",
                     "             instances.showCLIWindow();",
@@ -183,16 +195,33 @@
             },
             "codeClass": null,
             "userConfig": {
+                "designer|params": [
+                    "init"
+                ],
                 "fn": "searchInstance",
                 "implHandler": [
+                    "",
+                    "if(init) {",
+                    "    Ext.getCmp(\"searchCategory\").setValue(\"\");",
+                    "    Ext.getCmp(\"searchRhevm\").setValue(\"\");",
+                    "    Ext.getCmp(\"searchInstanceName\").setValue(\"\");",
+                    "",
+                    "    Ext.getCmp(\"instancesGrid\").reconfigure(Ext.getCmp(\"instancesGrid\").store, Ext.getCmp(\"instancesGrid\").initialConfig.columns);",
+                    "}",
+                    "",
+                    "instancesConstants.selectRow = null;",
+                    "",
                     "//Instances Grid Data Search",
-                    "Ext.getCmp(\"instancesGrid\").getStore().load({",
-                    "    params:{",
-                    "        search1 : Ext.getCmp(\"searchCategory\").getRawValue(),",
-                    "        search2 : Ext.getCmp(\"searchRhevm\").getRawValue(),",
-                    "        search3 : Ext.getCmp(\"searchInstanceName\").getRawValue()",
-                    "    }",
-                    "});",
+                    "",
+                    "var instanceStore = Ext.getCmp(\"instancesGrid\").getStore();",
+                    "",
+                    "instanceStore.getProxy().extraParams = {",
+                    "    isPrd : Ext.getCmp(\"searchCategory\").getRawValue(),",
+                    "    hypervisorId : Ext.getCmp(\"searchRhevm\").getRawValue(),",
+                    "    displayName : Ext.getCmp(\"searchInstanceName\").getRawValue()",
+                    "};",
+                    "",
+                    "instanceStore.load();",
                     "",
                     "var detailPanel = Ext.getCmp(\"instanceDetailPanel\");",
                     "detailPanel.layout.setActiveItem(0);"
@@ -208,16 +237,115 @@
             },
             "codeClass": null,
             "userConfig": {
+                "fn": "selectInstanceGrid",
+                "implHandler": [
+                    "",
+                    "var detailPanel = Ext.getCmp(\"instanceDetailPanel\");",
+                    "detailPanel.layout.setActiveItem(1);",
+                    "",
+                    "Ext.getCmp(\"instanceTabPanel\").setActiveTab(0);",
+                    "",
+                    "this.searchInstanceDetail(0);"
+                ]
+            },
+            "designerId": "0372f274-cbef-437a-a6af-952e7cbe8bd3"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "tabIndex"
+                ],
+                "fn": "searchInstanceDetail",
+                "implHandler": [
+                    "/*",
+                    "//init clear",
+                    "clearInterval(instancesConstants.chartInterval);",
+                    "Ext.getStore(\"instanceMonitoringChartStore\").removeAll();",
+                    "",
+                    "*/",
+                    "",
+                    "if(tabIndex == 0) {",
+                    "",
+                    "    //Description Data Loading",
+                    "    var descform = Ext.getCmp(\"instanceDescForm\");",
+                    "",
+                    "    descform.getForm().reset();",
+                    "",
+                    "    descform.getForm().waitMsgTarget = descform.getEl();",
+                    "",
+                    "    descform.getForm().load({",
+                    "        params : {",
+                    "            machineId : instancesConstants.selectRow.get(\"machineId\")",
+                    "        }",
+                    "        ,url : GLOBAL.urlPrefix + \"machine/getMachine\"",
+                    "        ,waitMsg:'Loading...'",
+                    "    });",
+                    "",
+                    "",
+                    "} else if(tabIndex == 1) {",
+                    "",
+                    "    //Software Data Loading",
+                    "    var softwareGrid = Ext.getCmp('instanceSoftwareGrid');",
+                    "",
+                    "    softwareGrid.getStore().load({",
+                    "        params:{",
+                    "            instanceID : record.get(\"instanceID\")",
+                    "        }",
+                    "    });",
+                    "",
+                    "} else if(tabIndex == 2) {",
+                    "",
+                    "    //OS Package Data Loading",
+                    "    this.searchInstanceOs();",
+                    "",
+                    "} else {",
+                    "",
+                    "    //Monitoring Data Loading",
+                    "",
+                    "    instancesConstants.chartInterval = setInterval(function() {",
+                    "",
+                    "    var chartStore = Ext.getStore(\"instanceMonitoringChartStore\");",
+                    "        chartStore.load({",
+                    "            addRecords : true",
+                    "        });",
+                    "",
+                    "        if(chartStore.getCount() > 30) {",
+                    "            chartStore.remove(chartStore.getAt(0));",
+                    "        }",
+                    "",
+                    "    }, 5000);",
+                    "}",
+                    "",
+                    ""
+                ]
+            },
+            "designerId": "8272ec8b-798d-449e-baa5-0d53e818543e"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
                 "fn": "searchInstanceOs",
                 "implHandler": [
                     "//Instances Os Package Grid Data Search",
+                    "var packageStore = Ext.getCmp('instanceOsGrid').getStore();",
                     "",
-                    "Ext.getCmp('instanceOsGrid').getStore().load({",
-                    "    params:{",
-                    "        instanceID : instancesConstants.selectRow.get(\"instanceID\"),",
-                    "        search : Ext.getCmp(\"searchPackageName\").getRawValue()",
-                    "    }",
-                    "});",
+                    "packageStore.getProxy().extraParams = {",
+                    "    machineId : instancesConstants.selectRow.get(\"machineId\"),",
+                    "    name : Ext.getCmp(\"searchPackageName\").getRawValue()",
+                    "};",
+                    "",
+                    "packageStore.load();",
                     ""
                 ]
             },
@@ -290,26 +418,6 @@
                 ]
             },
             "designerId": "2ccd2a67-191e-4df8-9930-cf9db429afe2"
-        },
-        {
-            "type": "controlleraction",
-            "reference": {
-                "name": "listeners",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "designer|controlQuery": "#instancesGrid",
-                "designer|targetType": "Ext.grid.Panel",
-                "fn": "onInstancesGridAfterRender",
-                "implHandler": [
-                    "//Instances Grid rendering",
-                    "//this.searchInstance();"
-                ],
-                "name": "afterrender",
-                "scope": "me"
-            },
-            "designerId": "a0d86a11-4cd7-4971-867f-f079c3ab55cc"
         },
         {
             "type": "controlleraction",
@@ -406,6 +514,81 @@
                 "scope": "me"
             },
             "designerId": "e1235ba0-220b-4a6b-90f5-111f8f653343"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#instanceTabPanel",
+                "designer|targetType": "Ext.tab.Panel",
+                "fn": "onInstanceTabPanelTabChange",
+                "implHandler": [
+                    "if(newCard.title == \"Description\"){",
+                    "    ",
+                    "    this.searchInstanceDetail(0);",
+                    "    ",
+                    "} else if(newCard.title == \"Software\"){",
+                    "    ",
+                    "} else if(newCard.title == \"OS Package\"){",
+                    "    ",
+                    "    Ext.getCmp(\"searchPackageName\").setValue(\"\");",
+                    "    Ext.getCmp(\"instanceOsGrid\").reconfigure(Ext.getCmp(\"instanceOsGrid\").store, Ext.getCmp(\"instanceOsGrid\").initialConfig.columns);",
+                    "    ",
+                    "    this.searchInstanceDetail(2);",
+                    "    ",
+                    "} else {",
+                    "    ",
+                    "}",
+                    "",
+                    "/*",
+                    "",
+                    "if(newCard.title == \"Description\"){",
+                    "",
+                    "    Ext.getCmp(\"searchRhevmTemplateName\").setValue(\"\");",
+                    "    Ext.getCmp(\"rhevmTemplateGrid\").reconfigure(Ext.getCmp(\"rhevmTemplateGrid\").store, Ext.getCmp(\"rhevmTemplateGrid\").initialConfig.columns);",
+                    "",
+                    "    this.searchRhevmChildGrid(\"rhevmTemplateGrid\");",
+                    "",
+                    "} else {",
+                    "",
+                    "    Ext.getCmp(\"searchRhevmVMName\").setValue(\"\");",
+                    "    Ext.getCmp(\"rhevmVMGrid\").reconfigure(Ext.getCmp(\"rhevmVMGrid\").store, Ext.getCmp(\"rhevmVMGrid\").initialConfig.columns);",
+                    "",
+                    "    this.searchRhevmChildGrid(\"rhevmVMGrid\");",
+                    "",
+                    "}",
+                    "*/"
+                ],
+                "name": "tabchange",
+                "scope": "me"
+            },
+            "designerId": "888cc8ad-8dd2-47e5-85c7-9da718030c7e"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "showEditInstanceNameWindow",
+                "implHandler": [
+                    "var editWindow = Ext.create(\"widget.EditInstanceNameWindow\");",
+                    "editWindow.show();",
+                    "",
+                    "var instanceForm = Ext.getCmp(\"instanceNameForm\");",
+                    "",
+                    "instanceForm.getForm().findField(\"machineId\").setRawValue(instancesConstants.actionRow.get(\"machineId\"));",
+                    "instanceForm.getForm().findField(\"displayName\").setRawValue(instancesConstants.actionRow.get(\"displayName\"));",
+                    ""
+                ]
+            },
+            "designerId": "48f17ebb-eef5-42e4-aa50-c5bad6d1292a"
         }
     ]
 }

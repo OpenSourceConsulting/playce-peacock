@@ -195,7 +195,7 @@ Ext.define('MyApp.view.RegRhevmWindow', {
                                     handler: function(button, e) {
                                         var rhevmForm = Ext.getCmp("rhevmForm");
 
-                                        var action = GLOBAL.urlPrefix + "hypervisor/insertHypervisor";
+                                        var action = GLOBAL.urlPrefix + "machine/insertHypervisor";
                                         var hypervisorId = null;
 
                                         if(rhevmForm.getForm().findField("hypervisorId").getValue() > 0){

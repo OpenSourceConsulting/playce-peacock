@@ -36,7 +36,8 @@ Ext.application({
         'DiskModel',
         'TemplateModel',
         'MachineModel',
-        'SessionModel'
+        'SessionModel',
+        'PackageModel'
     ],
     stores: [
         'MenuTreeStore',
@@ -53,7 +54,9 @@ Ext.application({
         'VMDiskStore',
         'TemplateStore',
         'MachineStore',
-        'SessionStore'
+        'SessionStore',
+        'ComboHypervisorStore',
+        'InstancePackageStore'
     ],
     views: [
         'peacockViewport',
@@ -79,7 +82,8 @@ Ext.application({
         'softwareInstallLogWindow',
         'softwareConfigWindow',
         'monitoringChartWindow',
-        'UserWindow'
+        'UserWindow',
+        'EditInstanceNameWindow'
     ],
     controllers: [
         'LoginController',

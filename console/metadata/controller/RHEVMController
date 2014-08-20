@@ -365,7 +365,7 @@
                     "        ,url : GLOBAL.urlPrefix + \"hypervisor/selectHypervisor\"",
                     "        ,waitMsg:'Loading...'",
                     "        ,success: function(form, action) {",
-                    "            ",
+                    "",
                     "            var password = form.findField('rhevmPassword').getValue();",
                     "",
                     "            form.findField('confirmPasswd').setRawValue(password);",

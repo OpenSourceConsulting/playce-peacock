@@ -29,7 +29,8 @@
             "DiskModel",
             "TemplateModel",
             "MachineModel",
-            "SessionModel"
+            "SessionModel",
+            "PackageModel"
         ],
         "name": "MyApp",
         "requires": [
@@ -50,7 +51,9 @@
             "VMDiskStore",
             "TemplateStore",
             "MachineStore",
-            "SessionStore"
+            "SessionStore",
+            "ComboHypervisorStore",
+            "InstancePackageStore"
         ],
         "views": [
             "peacockViewport",
@@ -76,7 +79,8 @@
             "softwareInstallLogWindow",
             "softwareConfigWindow",
             "monitoringChartWindow",
-            "UserWindow"
+            "UserWindow",
+            "EditInstanceNameWindow"
         ]
     },
     "designerId": "application"

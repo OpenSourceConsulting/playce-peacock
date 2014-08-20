@@ -1,0 +1,65 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": true,
+        "autoSync": true,
+        "designer|userClassName": "ComboHypervisorStore",
+        "model": "HypervisorModel",
+        "storeId": "ComboHypervisorStore"
+    },
+    "designerId": "8b106ef4-15cf-4042-a34a-bc78120ea0c6",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "api": null,
+                "url": "hypervisor/list"
+            },
+            "designerId": "9be7ea8c-d3b3-4761-848a-f2f9c089167f",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "list"
+                    },
+                    "designerId": "4ff64942-750e-4bf8-bf50-59188b1fc7d3"
+                },
+                {
+                    "type": "processcfgfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|params": [
+                            "config"
+                        ],
+                        "fn": "processMyAjaxProxy",
+                        "implHandler": [
+                            "config.actionMethods = {create: \"POST\", read: \"POST\", update: \"POST\", destroy: \"POST\"};",
+                            "",
+                            "return config;"
+                        ]
+                    },
+                    "designerId": "ccbbb00c-7d02-441a-b4f4-fbf9dd55daec"
+                }
+            ]
+        }
+    ]
+}

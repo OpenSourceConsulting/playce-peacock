@@ -880,6 +880,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.model.HypervisorModel": [],
   "MyApp.model.MachineModel": [],
   "MyApp.model.NetworkModel": [],
+  "MyApp.model.PackageModel": [],
   "MyApp.model.SessionModel": [],
   "MyApp.model.TemplateModel": [],
   "MyApp.model.UserModel": [],
@@ -888,7 +889,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.model.instanceOsModel": [],
   "MyApp.model.instanceSoftwareModel": [],
   "MyApp.model.monitoringChartModel": [],
+  "MyApp.store.ComboHypervisorStore": [],
   "MyApp.store.HypervisorStore": [],
+  "MyApp.store.InstancePackageStore": [],
   "MyApp.store.MachineStore": [],
   "MyApp.store.MenuTreeStore": [],
   "MyApp.store.SessionStore": [],
@@ -904,6 +907,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.tempChartData": [],
   "MyApp.store.tempGridData": [],
   "MyApp.view.CLIWindow": [],
+  "MyApp.view.EditInstanceNameWindow": [],
   "MyApp.view.Main": [],
   "MyApp.view.RegRhevmWindow": [],
   "MyApp.view.RegTemplateWindow": [],
@@ -1951,6 +1955,7 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.model.HypervisorModel": [],
   "MyApp.model.MachineModel": [],
   "MyApp.model.NetworkModel": [],
+  "MyApp.model.PackageModel": [],
   "MyApp.model.SessionModel": [],
   "MyApp.model.TemplateModel": [],
   "MyApp.model.UserModel": [],
@@ -1959,7 +1964,9 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.model.instanceOsModel": [],
   "MyApp.model.instanceSoftwareModel": [],
   "MyApp.model.monitoringChartModel": [],
+  "MyApp.store.ComboHypervisorStore": [],
   "MyApp.store.HypervisorStore": [],
+  "MyApp.store.InstancePackageStore": [],
   "MyApp.store.MachineStore": [],
   "MyApp.store.MenuTreeStore": [],
   "MyApp.store.SessionStore": [],
@@ -1976,6 +1983,9 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.store.tempGridData": [],
   "MyApp.view.CLIWindow": [
     "widget.CLIWindow"
+  ],
+  "MyApp.view.EditInstanceNameWindow": [
+    "widget.EditInstanceNameWindow"
   ],
   "MyApp.view.Main": [
     "widget.app-main"

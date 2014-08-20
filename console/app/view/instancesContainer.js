@@ -32,6 +32,7 @@ Ext.define('MyApp.view.instancesContainer', {
         'Ext.tab.Tab',
         'Ext.form.Panel',
         'Ext.form.FieldContainer',
+        'Ext.form.field.Display',
         'Ext.form.field.Checkbox',
         'Ext.grid.RowNumberer',
         'Ext.grid.column.Action',
@@ -64,7 +65,7 @@ Ext.define('MyApp.view.instancesContainer', {
                     autoScroll: true,
                     columnLines: true,
                     forceFit: true,
-                    store: 'instanceListStore',
+                    store: 'MachineStore',
                     dockedItems: [
                         {
                             xtype: 'toolbar',
@@ -197,49 +198,83 @@ Ext.define('MyApp.view.instancesContainer', {
                             dock: 'bottom',
                             width: 360,
                             displayInfo: true,
-                            store: 'instanceListStore'
+                            store: 'MachineStore'
                         }
                     ],
                     columns: [
                         {
                             xtype: 'gridcolumn',
-                            dataIndex: 'instanceID',
-                            text: 'InstanceID'
+                            hidden: true,
+                            dataIndex: 'machineId',
+                            hideable: false
                         },
                         {
                             xtype: 'gridcolumn',
-                            dataIndex: 'instanceName',
-                            text: 'InstanceName'
+                            minWidth: 100,
+                            dataIndex: 'displayId',
+                            text: 'Instance ID'
                         },
                         {
                             xtype: 'gridcolumn',
-                            dataIndex: 'category',
+                            minWidth: 150,
+                            dataIndex: 'displayName',
+                            text: 'Instance Name'
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                if(value == 'Y') {
+                                    return "Production";
+                                } else {
+                                    return "Development";
+                                }
+                            },
+                            minWidth: 100,
+                            dataIndex: 'isPrd',
                             text: 'Category'
                         },
                         {
                             xtype: 'gridcolumn',
-                            dataIndex: 'rhevManager',
-                            text: 'RhevManager'
+                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                var comboRecord = Ext.getStore("ComboHypervisorStore").findRecord('hypervisorId', value);
+
+                                if(comboRecord != null) {
+
+                                    return comboRecord.get('rhevmName');
+
+                                } else {
+
+                                    return null;
+
+                                }
+                            },
+                            minWidth: 140,
+                            dataIndex: 'hypervisorId',
+                            text: 'RHEV Manager'
                         },
                         {
                             xtype: 'gridcolumn',
+                            minWidth: 100,
                             dataIndex: 'cluster',
                             text: 'Cluster'
                         },
                         {
                             xtype: 'gridcolumn',
-                            dataIndex: 'host',
+                            minWidth: 160,
+                            dataIndex: 'hostName',
                             text: 'Host'
                         },
                         {
                             xtype: 'gridcolumn',
-                            dataIndex: 'ipAddress',
-                            text: 'IpAddress'
+                            minWidth: 130,
+                            dataIndex: 'ipAddr',
+                            text: 'IP Address'
                         },
                         {
                             xtype: 'gridcolumn',
-                            dataIndex: 'agentStatus',
-                            text: 'AgentStatus'
+                            minWidth: 100,
+                            dataIndex: 'status',
+                            text: 'Agent Status'
                         }
                     ]
                 },
@@ -307,14 +342,14 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     },
                                                     items: [
                                                         {
-                                                            xtype: 'textfield',
+                                                            xtype: 'displayfield',
                                                             fieldLabel: 'Instance ID',
-                                                            name: 'instanceID'
+                                                            name: 'displayId'
                                                         },
                                                         {
-                                                            xtype: 'textfield',
+                                                            xtype: 'displayfield',
                                                             fieldLabel: 'Host',
-                                                            name: 'host'
+                                                            name: 'hostName'
                                                         }
                                                     ]
                                                 },
@@ -332,12 +367,14 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     },
                                                     items: [
                                                         {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'OS Name'
+                                                            xtype: 'displayfield',
+                                                            fieldLabel: 'OS Name',
+                                                            name: 'osName'
                                                         },
                                                         {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'OS Version'
+                                                            xtype: 'displayfield',
+                                                            fieldLabel: 'OS Version',
+                                                            name: 'osVer'
                                                         }
                                                     ]
                                                 },
@@ -355,14 +392,18 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     },
                                                     items: [
                                                         {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'MAC Address'
+                                                            xtype: 'displayfield',
+                                                            fieldLabel: 'MAC Address',
+                                                            name: 'machineMacAddr'
                                                         },
                                                         {
                                                             xtype: 'checkboxfield',
                                                             flex: 1,
                                                             fieldLabel: 'Is VM',
-                                                            boxLabel: 'VM'
+                                                            name: 'isVm',
+                                                            boxLabel: 'VM',
+                                                            inputValue: 'Y',
+                                                            uncheckedValue: 'N'
                                                         }
                                                     ]
                                                 },
@@ -380,13 +421,14 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     },
                                                     items: [
                                                         {
-                                                            xtype: 'textfield',
+                                                            xtype: 'displayfield',
                                                             fieldLabel: 'IP Address',
-                                                            name: 'ipAddress'
+                                                            name: 'ipAddr'
                                                         },
                                                         {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'OS Arch'
+                                                            xtype: 'displayfield',
+                                                            fieldLabel: 'OS Arch',
+                                                            name: 'osArch'
                                                         }
                                                     ]
                                                 },
@@ -404,12 +446,14 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     },
                                                     items: [
                                                         {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'CPU Clock'
+                                                            xtype: 'displayfield',
+                                                            fieldLabel: 'CPU Clock',
+                                                            name: 'cpuClock'
                                                         },
                                                         {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'Core'
+                                                            xtype: 'displayfield',
+                                                            fieldLabel: 'Core',
+                                                            name: 'cpuNum'
                                                         }
                                                     ]
                                                 },
@@ -427,12 +471,14 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     },
                                                     items: [
                                                         {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'Memory Size'
+                                                            xtype: 'displayfield',
+                                                            fieldLabel: 'Memory Size',
+                                                            name: 'memSize'
                                                         },
                                                         {
-                                                            xtype: 'textfield',
-                                                            fieldLabel: 'Create Date'
+                                                            xtype: 'displayfield',
+                                                            fieldLabel: 'Create Date',
+                                                            name: 'regDt'
                                                         }
                                                     ]
                                                 }
@@ -627,7 +673,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                             autoScroll: true,
                                             columnLines: true,
                                             forceFit: true,
-                                            store: 'instanceOsListStore',
+                                            store: 'InstancePackageStore',
                                             dockedItems: [
                                                 {
                                                     xtype: 'toolbar',
@@ -653,6 +699,13 @@ Ext.define('MyApp.view.instancesContainer', {
                                                             labelWidth: 45,
                                                             emptyText: 'Search Package',
                                                             enableKeyEvents: true
+                                                        },
+                                                        {
+                                                            xtype: 'hiddenfield',
+                                                            id: 'searchMarchineId',
+                                                            itemId: 'searchMarchineId',
+                                                            fieldLabel: 'Label',
+                                                            name: 'marchineId'
                                                         }
                                                     ]
                                                 },
@@ -661,45 +714,53 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     dock: 'bottom',
                                                     width: 360,
                                                     displayInfo: true,
-                                                    store: 'instanceOsListStore'
+                                                    store: 'InstancePackageStore'
                                                 }
                                             ],
                                             columns: [
                                                 {
-                                                    xtype: 'rownumberer'
+                                                    xtype: 'rownumberer',
+                                                    width: 40
                                                 },
                                                 {
                                                     xtype: 'gridcolumn',
+                                                    minWidth: 150,
                                                     dataIndex: 'name',
                                                     text: 'Name'
                                                 },
                                                 {
                                                     xtype: 'gridcolumn',
+                                                    minWidth: 100,
                                                     dataIndex: 'arch',
                                                     text: 'Arch'
                                                 },
                                                 {
                                                     xtype: 'gridcolumn',
+                                                    minWidth: 80,
                                                     dataIndex: 'version',
                                                     text: 'Version'
                                                 },
                                                 {
                                                     xtype: 'gridcolumn',
-                                                    dataIndex: 'release',
+                                                    minWidth: 100,
+                                                    dataIndex: 'releaseInfo',
                                                     text: 'Release'
                                                 },
                                                 {
                                                     xtype: 'gridcolumn',
+                                                    minWidth: 80,
                                                     dataIndex: 'size',
                                                     text: 'Size'
                                                 },
                                                 {
                                                     xtype: 'gridcolumn',
+                                                    minWidth: 180,
                                                     dataIndex: 'summary',
                                                     text: 'Summary'
                                                 },
                                                 {
                                                     xtype: 'gridcolumn',
+                                                    minWidth: 200,
                                                     dataIndex: 'description',
                                                     text: 'Description'
                                                 }
