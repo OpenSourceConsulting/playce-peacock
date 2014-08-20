@@ -43,6 +43,7 @@ import com.athena.peacock.controller.web.hypervisor.HypervisorDto;
 import com.athena.peacock.controller.web.hypervisor.HypervisorService;
 import com.athena.peacock.controller.web.rhevm.RHEVApi;
 import com.athena.peacock.controller.web.rhevm.domain.Nics;
+import com.redhat.rhevm.api.model.Template;
 
 /**
  * <pre>
@@ -137,6 +138,39 @@ public class RHEVMRestTemplateManager implements InitializingBean {
 		//*/
 	    
 		System.out.println(writer.toString());
+		
+		callUrl = RHEVApi.TEMPLATES + "/48eec0f7-9c97-415d-8749-3cda47ead3a1";
+		Template template = rhevTemplate.submit(callUrl, HttpMethod.GET, Template.class);
+		
+		context = JAXBContext.newInstance(Template.class);
+		marshaller = context.createMarshaller();
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+
+		writer = new StringWriter();
+		
+		qName = new QName("com.redhat.rhevm.api.model", "template");
+	    JAXBElement<Template> root2 = new JAXBElement<Template>(qName, Template.class, template);
+		
+	    //*
+	    marshaller.marshal(root2, writer);
+	    /*/
+		marshaller.marshal(nics, writer);
+		//*/
+	    
+		System.out.println(writer.toString());
+		
+
+		// RestTemplate
+        /*
+		callUrl = RHEVApi.VMS + "/ca6c6d92-9eb0-40bf-9dcc-890e6136cc15";
+		
+		Action action = new Action();
+		action.setForce(true);
+		action = rhevTemplate.submit(callUrl, HttpMethod.DELETE, null, null, Action.class);
+		
+		System.out.println(action);
+		//*/
+
 	}
 }
 //end of RHEVRestTemplateManager.java

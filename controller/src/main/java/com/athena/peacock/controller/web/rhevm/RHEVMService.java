@@ -176,12 +176,14 @@ public class RHEVMService {
 	public VM createVirtualMachine(int hypervisorId, VMDto dto) throws RestClientException, Exception {
 		logger.debug("dto : {}", dto);
 
-		String templateUrl =  RHEVApi.TEMPLATES + "?search=" + dto.getTemplate();
+		String templateUrl =  RHEVApi.TEMPLATES + "/" + dto.getTemplate();
 		Template template = getRHEVMRestTemplate(hypervisorId).submit(templateUrl, HttpMethod.GET, Template.class);
-		template.setName(dto.getName());
 		
 		Cluster cluster = new Cluster();
 		cluster.setName(dto.getCluster());
+		
+		Template requestTemplate  = new Template();
+		requestTemplate.setName(template.getName());
 		
 		OperatingSystem os = new OperatingSystem();
 		Boot boot = new Boot();
@@ -196,11 +198,11 @@ public class RHEVMService {
 		cpu.setTopology(topology);
 		
 		Long memory = Long.parseLong(dto.getMemory()) * 1024 * 1024;
-
+		
 		VM vm = new VM();
 		vm.setName(dto.getName());
 		vm.setDescription(dto.getDescription());
-		vm.setTemplate(template);
+		vm.setTemplate(requestTemplate);
 		vm.setCluster(cluster);
 		vm.setCpu(cpu);
 		vm.setOs(os);

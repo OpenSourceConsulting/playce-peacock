@@ -33,6 +33,8 @@ import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.SerializerProvider;
 
+import com.athena.peacock.common.core.util.XMLGregorialCalendarUtil;
+
 /**
  * <pre>
  * DTO Date type 을 json 문자열로 변환시 사용할 포맷 지정.
@@ -46,7 +48,7 @@ public class CustomDateSerializer extends JsonSerializer<Date> {
 	public void serialize(Date value, JsonGenerator gen, SerializerProvider arg2)
 			throws IOException, JsonProcessingException {
 
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss z");
+		SimpleDateFormat formatter = new SimpleDateFormat(XMLGregorialCalendarUtil.DEFAULT_DATE_PATTERN);
 		String formattedDate = formatter.format(value);
 
 		gen.writeString(formattedDate);
