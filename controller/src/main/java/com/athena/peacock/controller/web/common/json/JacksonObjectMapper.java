@@ -29,6 +29,8 @@ import java.text.SimpleDateFormat;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig.Feature;
 
+import com.athena.peacock.common.core.util.XMLGregorialCalendarUtil;
+
 /**
  * <pre>
  * DTO Date type 을 json 문자열로 변환시 사용할 포맷 지정.
@@ -46,7 +48,7 @@ public class JacksonObjectMapper extends ObjectMapper {
 	 */
 	public JacksonObjectMapper() {
 		super.configure(Feature.WRITE_DATES_AS_TIMESTAMPS, false);
-		setDateFormat(new SimpleDateFormat("yyyy.MM.dd HH:mm:ss z"));
+		setDateFormat(new SimpleDateFormat(XMLGregorialCalendarUtil.DEFAULT_DATE_PATTERN));
 	}
 
 }

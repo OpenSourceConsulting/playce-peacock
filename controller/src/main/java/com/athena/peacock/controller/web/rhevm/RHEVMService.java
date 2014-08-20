@@ -37,6 +37,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestClientException;
 
+import com.athena.peacock.common.core.util.XMLGregorialCalendarUtil;
 import com.athena.peacock.controller.common.component.RHEVMRestTemplate;
 import com.athena.peacock.controller.common.component.RHEVMRestTemplateManager;
 import com.athena.peacock.controller.web.rhevm.domain.Disk;
@@ -577,7 +578,7 @@ public class RHEVMService {
 		dto.setOs(template.getOs().getType());
 		
 		dto.setDisplay(template.getDisplay().getType());
-		dto.setCreationTime(template.getCreationTime().toString());
+		dto.setCreationTime(XMLGregorialCalendarUtil.convertXmlGregorianCalendarToFormattedString(template.getCreationTime().toString()));
 		
 		dto.setMemory((template.getMemory()/1024/1024) + "");
 		dto.setSockets(template.getCpu().getTopology().getSockets());
@@ -676,11 +677,13 @@ public class RHEVMService {
 		dto.setPriority(vm.getHighAvailability().getPriority().toString());
 		dto.setDisplay(vm.getDisplay().getType());
 		dto.setStatus(vm.getStatus().getState());
-		dto.setCreationTime(vm.getCreationTime().toString());
+		dto.setCreationTime(XMLGregorialCalendarUtil.convertXmlGregorianCalendarToFormattedString(vm.getCreationTime().toString()));
 		dto.setHaEnabled(Boolean.toString(vm.getHighAvailability().isEnabled()));
 		dto.setHaPriority(vm.getHighAvailability().getPriority());
 		
-		if(vm.getStartTime() != null) dto.setStartTime(vm.getStartTime().toString());
+		if(vm.getStartTime() != null) {
+			dto.setStartTime(XMLGregorialCalendarUtil.convertXmlGregorianCalendarToFormattedString(vm.getStartTime().toString()));
+		}
 		
 		// Optional information
 		try {
