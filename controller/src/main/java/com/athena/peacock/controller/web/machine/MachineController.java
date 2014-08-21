@@ -393,61 +393,6 @@ public class MachineController {
 
 	/**
 	 * <pre>
-	 * Running 중인 Instance에 주어진 계정이 존재하는지 확인한다.
-	 * Return Message가 EXIST면 중복, NON_EXIST이면 비중복
-	 * </pre>
-	 * @param jsonRes
-	 * @param account
-	 * @return
-	 */
-	@RequestMapping("/accountDupCheck")
-	public @ResponseBody DtoJsonResponse accountDupCheck(DtoJsonResponse jsonRes, AccountDto account) {
-		Assert.notNull(account.getMachineId(), "machineId can not be null.");
-		Assert.notNull(account.getAccount(), "account can not be null.");
-		
-		try {
-			ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
-			cmdMsg.setAgentId(account.getMachineId());
-			cmdMsg.setBlocking(true);
-
-			int sequence = 0;
-			Command command = new Command("CHECK_ACCOUNT_DUPLICATION");
-			
-			ShellAction action = new ShellAction(sequence++);
-			
-			action.setCommand("egrep");
-			action.addArguments("\"" + account.getAccount() + "\" /etc/passwd");
-			command.addAction(action);
-			cmdMsg.addCommand(command);
-
-			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
-			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
-			
-			String msg = "NON_EXIST";
-			if (response.getResults().get(0).startsWith(account.getAccount())) {
-				msg = "EXIST";
-			}
-			
-			jsonRes.setData(msg);
-			jsonRes.setMsg("Account 중복 조회가 정상적으로 수행되었습니다.");
-		} catch (Exception e) {
-			String message = "Account 중복 조회 중 에러가 발생하였습니다.";
-			
-			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
-				message += "<br/>Instance와의 연결을 확인하십시오.";
-			}
-			
-			jsonRes.setSuccess(false);
-			jsonRes.setMsg(message);
-			
-			logger.error("Unhandled Expeption has occurred. ", e);
-		}
-		
-		return jsonRes;
-	}
-
-	/**
-	 * <pre>
 	 * Running 중인 Instance에 주어진 계정을 생성한다.
 	 * </pre>
 	 * @param jsonRes
@@ -614,7 +559,7 @@ public class MachineController {
 	 * @return
 	 */
 	@RequestMapping("/editFstab")
-	public @ResponseBody DtoJsonResponse editFstab(DtoJsonResponse jsonRes, String machineId, String contents, String unmounts, Boolean remount) {
+	public @ResponseBody DtoJsonResponse editFstab(DtoJsonResponse jsonRes, String machineId, String contents, String unmounts, boolean remount) {
 		Assert.notNull(machineId, "machineId can not be null.");
 		Assert.notNull(contents, "contents can not be null.");
 		
@@ -624,22 +569,40 @@ public class MachineController {
 			cmdMsg.setBlocking(true);
 
 			int sequence = 0;
-			Command command = new Command("GET_FSTAB");
+			Command command = new Command("EDIT_FSTAB");
 			
-			ShellAction action = new ShellAction(sequence++);
+			FileWriteAction fwAction = new FileWriteAction(sequence++);
+			fwAction.setContents(contents);
+			fwAction.setFileName("/etc/fstab");
+			command.addAction(fwAction);
 			
-			action.setCommand("cat");
-			action.addArguments("/etc/fstab");
-			command.addAction(action);
+			ShellAction shAction = null;
+			if (StringUtils.isNotEmpty(unmounts)) {
+				String[] nodes = unmounts.split(",");
+				for (String node : nodes) {
+					shAction = new ShellAction(sequence++);
+					shAction.setCommand("umount");
+					shAction.addArguments(node);
+					command.addAction(shAction);
+				}
+			}
+			
+			if (remount) {
+				shAction = new ShellAction(sequence++);
+				shAction.setCommand("mount");
+				shAction.addArguments("-a");
+				command.addAction(shAction);
+			}
+			
 			cmdMsg.addCommand(command);
 
 			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
 			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
 			
 			jsonRes.setData(response.getResults());
-			jsonRes.setMsg("/etc/fstab 파일을 정상적으로 조회하였습니다.");
+			jsonRes.setMsg("/etc/fstab 파일이 정상적으로 수정되었습니다.");
 		} catch (Exception e) {
-			String message = "/etc/fstab 파일 조회 중 에러가 발생하였습니다.";
+			String message = "/etc/fstab 파일 수정 중 에러가 발생하였습니다.";
 			
 			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
 				message += "<br/>Instance와의 연결을 확인하십시오.";
