@@ -282,21 +282,36 @@
                                     "designerId": "313396e1-f7da-424e-b19b-6c7cd660cca2",
                                     "cn": [
                                         {
-                                            "type": "Ext.form.Label",
+                                            "type": "Ext.toolbar.Toolbar",
                                             "reference": {
-                                                "name": "items",
+                                                "name": "dockedItems",
                                                 "type": "array"
                                             },
                                             "codeClass": null,
                                             "userConfig": {
-                                                "html": "<h2></h2>",
-                                                "id": "almUserTitleLabel",
-                                                "itemId": "almUserTitleLabel",
-                                                "margin": "",
-                                                "padding": "10 10 10 10",
-                                                "text": ""
+                                                "dock": "top"
                                             },
-                                            "designerId": "45346f57-f92c-49ae-b7e1-9b1bd59023d4"
+                                            "designerId": "95c752c6-7b8c-43d3-a339-33686f53fb3a",
+                                            "cn": [
+                                                {
+                                                    "type": "Ext.form.Label",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "html": "<h2></h2>",
+                                                        "id": "almUserTitleLabel",
+                                                        "itemId": "almUserTitleLabel",
+                                                        "layout|flex": null,
+                                                        "margin": "",
+                                                        "padding": "10 10 10 10",
+                                                        "text": ""
+                                                    },
+                                                    "designerId": "45346f57-f92c-49ae-b7e1-9b1bd59023d4"
+                                                }
+                                            ]
                                         },
                                         {
                                             "type": "Ext.form.Panel",

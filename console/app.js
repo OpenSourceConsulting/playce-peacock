@@ -40,7 +40,9 @@ Ext.application({
         'PackageModel',
         'DataCenterModel',
         'ClusterModel',
-        'AlmUserModel'
+        'AlmUserModel',
+        'AccountModel',
+        'GroupModel'
     ],
     stores: [
         'MenuTreeStore',
@@ -63,7 +65,10 @@ Ext.application({
         'ComboDataCenterStore',
         'ComboClusterStore',
         'ComboTemplateStore',
-        'AlmUserStore'
+        'AlmUserStore',
+        'AccountStore',
+        'ComboGroupStore',
+        'TestStore'
     ],
     views: [
         'peacockViewport',
@@ -73,8 +78,8 @@ Ext.application({
         'CLIWindow',
         'fstabWindow',
         'crontabWindow',
-        'manageAccountWindow',
-        'regAccountWindow',
+        'ManageAccountWindow',
+        'RegAccountWindow',
         'softwareInstallWindow',
         'rhevmContainer',
         'RegTemplateWindow',

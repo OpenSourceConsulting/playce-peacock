@@ -242,7 +242,7 @@
                     "            success: function(response){",
                     "                var msg = Ext.JSON.decode(response.responseText).msg;",
                     "                Ext.MessageBox.alert('알림', msg);",
-                    "                ",
+                    "",
                     "                userConstants.selectRow = null;",
                     "",
                     "                Ext.getCmp(\"userGrid\").getStore().reload();",

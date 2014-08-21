@@ -31,6 +31,7 @@ Ext.define('MyApp.store.VMStore', {
             storeId: 'VMStore',
             proxy: me.processMyAjaxProxy({
                 type: 'ajax',
+                timeout: 180000,
                 url: 'rhevm/vms/list',
                 reader: {
                     type: 'json',

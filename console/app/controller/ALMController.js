@@ -144,9 +144,13 @@ Ext.define('MyApp.controller.ALMController', {
         userForm.getForm().reset();
 
         userForm.getForm().waitMsgTarget = userForm.getEl();
-
+        //alert(almConstants.selectRow.get("username"))
         userForm.getForm().load({
-             url : GLOBAL.urlPrefix + "alm/usermanagement/get/" + almConstants.selectRow.get("userId")
+             /*params : {
+                username : almConstants.selectRow.get("username")
+            }
+            ,*/url : GLOBAL.urlPrefix + "alm/usermanagement/" + almConstants.selectRow.get("userId")
+            ,method : 'GET'
             ,waitMsg:'Loading...'
         });
 

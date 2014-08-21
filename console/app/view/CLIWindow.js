@@ -18,16 +18,21 @@ Ext.define('MyApp.view.CLIWindow', {
     alias: 'widget.CLIWindow',
 
     requires: [
-        'Ext.panel.Panel',
-        'Ext.form.field.TextArea',
+        'Ext.form.Panel',
+        'Ext.form.FieldSet',
+        'Ext.XTemplate',
+        'Ext.form.field.Hidden',
+        'Ext.form.Label',
         'Ext.toolbar.Toolbar',
-        'Ext.button.Button'
+        'Ext.button.Button',
+        'Ext.form.field.TextArea'
     ],
 
-    height: 600,
+    height: 620,
     width: 500,
     layout: 'border',
     title: 'CLI(Command Line Interface)',
+    modal: true,
 
     initComponent: function() {
         var me = this;
@@ -36,39 +41,123 @@ Ext.define('MyApp.view.CLIWindow', {
             items: [
                 {
                     xtype: 'panel',
-                    flex: 1,
-                    region: 'center',
+                    region: 'north',
+                    split: true,
+                    height: 210,
+                    collapsed: false,
+                    collapsible: false,
                     header: false,
                     title: 'commendPanel',
                     items: [
                         {
-                            xtype: 'textareafield',
-                            height: 220,
-                            padding: '10 10 0 10',
-                            width: 464,
-                            fieldLabel: 'Command(s)',
-                            labelAlign: 'top',
-                            name: 'inputCLICommand',
-                            inputId: 'inputCLICommand'
+                            xtype: 'form',
+                            height: 250,
+                            id: 'cliForm',
+                            itemId: 'cliForm',
+                            layout: 'auto',
+                            bodyPadding: 10,
+                            title: '',
+                            fieldDefaults: {
+                                msgTarget: 'side',
+                                labelWidth: 150
+                            },
+                            items: [
+                                {
+                                    xtype: 'fieldset',
+                                    padding: 10,
+                                    title: 'Command',
+                                    items: [
+                                        {
+                                            xtype: 'textfield',
+                                            anchor: '100%',
+                                            fieldLabel: 'Working Directory',
+                                            name: 'workingDir'
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
+                                            fieldLabel: 'Executable Command',
+                                            name: 'command',
+                                            allowBlank: false
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            anchor: '100%',
+                                            fieldLabel: 'Argument(s)',
+                                            name: 'args'
+                                        }
+                                    ]
+                                },
+                                {
+                                    xtype: 'hiddenfield',
+                                    fieldLabel: 'Label',
+                                    name: 'machineId'
+                                },
+                                {
+                                    xtype: 'label',
+                                    padding: '',
+                                    style: 'font-size: 12px;color:red;',
+                                    text: '※ 대화형 애플리케이션과 같이 인터럽트로 종료되는 명령은 지원하지 않습니다.'
+                                }
+                            ]
                         }
                     ],
                     dockedItems: [
                         {
                             xtype: 'toolbar',
                             dock: 'bottom',
-                            padding: '5 5 5 5',
                             ui: 'footer',
                             layout: {
                                 type: 'hbox',
-                                pack: 'end'
+                                pack: 'center'
                             },
                             items: [
                                 {
                                     xtype: 'button',
-                                    id: 'CLIExcuteBtn',
-                                    itemId: 'CLIExcuteBtn',
+                                    handler: function(button, e) {
+                                        Ext.getCmp("cliOutputForm").getForm().findField("inputCLIOutput").setValue("");
+                                    },
                                     margin: '0 15 0 0',
-                                    padding: '2 2 2 2',
+                                    padding: '2 10 2 10',
+                                    text: 'Clear'
+                                },
+                                {
+                                    xtype: 'button',
+                                    handler: function(button, e) {
+                                        var cliForm = Ext.getCmp("cliForm");
+
+                                        cliForm.getForm().submit({
+                                            clientValidation: true,
+                                            url: GLOBAL.urlPrefix + "machine/cli",
+                                            method : "POST",
+                                            params: {
+                                                newStatus: 'delivered'
+                                            },
+                                            waitMsg: 'Processing...',
+                                            success: function(form, action) {
+
+                                                Ext.getCmp("cliOutputForm").getForm().findField("inputCLIOutput").setValue(action.result.data);
+
+                                            },
+                                            failure: function(form, action) {
+                                                switch (action.failureType) {
+                                                    case Ext.form.action.Action.CLIENT_INVALID:
+                                                    Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');
+                                                    break;
+                                                    case Ext.form.action.Action.CONNECT_FAILURE:
+                                                    Ext.Msg.alert('Failure', 'Server communication failed');
+                                                    break;
+                                                    case Ext.form.action.Action.SERVER_INVALID:
+                                                    Ext.Msg.alert('Failure', action.result.msg);
+                                                }
+                                            }
+                                        });
+                                    },
+                                    margin: '0 0 0 0',
+                                    padding: '2 5 2 5',
                                     text: 'Execute'
                                 }
                             ]
@@ -77,23 +166,31 @@ Ext.define('MyApp.view.CLIWindow', {
                 },
                 {
                     xtype: 'panel',
-                    flex: 1,
-                    region: 'south',
+                    region: 'center',
                     split: true,
-                    height: 150,
+                    animCollapse: false,
+                    collapsed: false,
+                    collapsible: false,
                     header: false,
                     title: 'outputPanel',
                     items: [
                         {
-                            xtype: 'textareafield',
-                            height: 250,
-                            padding: '10 10 10 10',
-                            width: 464,
-                            fieldLabel: 'Output',
-                            labelAlign: 'top',
-                            name: 'inputCLIOutput',
-                            inputId: 'inputCLIOutput',
-                            readOnly: true
+                            xtype: 'form',
+                            id: 'cliOutputForm',
+                            itemId: 'cliOutputForm',
+                            items: [
+                                {
+                                    xtype: 'textareafield',
+                                    height: 330,
+                                    padding: '10 10 10 10',
+                                    width: 464,
+                                    fieldLabel: 'Output',
+                                    labelAlign: 'top',
+                                    name: 'inputCLIOutput',
+                                    inputId: 'inputCLIOutput',
+                                    readOnly: true
+                                }
+                            ]
                         }
                     ]
                 }

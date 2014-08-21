@@ -1,0 +1,314 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "ManageAccountWindow",
+        "designer|userClassName": "ManageAccountWindow",
+        "height": 400,
+        "id": "manageAccountWindow",
+        "layout": "border",
+        "modal": true,
+        "title": "Manage Account",
+        "width": 300
+    },
+    "designerId": "19d8b270-246d-44e7-887f-16ad05760382",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "header": false,
+                "layout|flex": 1,
+                "layout|region": "center",
+                "title": "ManageAccount"
+            },
+            "designerId": "088a042f-ee38-4ebd-8607-843e6d9932d7",
+            "cn": [
+                {
+                    "type": "Ext.grid.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "autoScroll": true,
+                        "columnLines": true,
+                        "forceFit": true,
+                        "height": 358,
+                        "id": "instanceAccountGrid",
+                        "itemId": "instanceAccountGrid",
+                        "store": "AccountStore",
+                        "title": null
+                    },
+                    "designerId": "94cacbaf-c604-4254-ab60-2c3ce5717a17",
+                    "cn": [
+                        {
+                            "type": "Ext.grid.column.Column",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dataIndex": "machineId",
+                                "hidden": true,
+                                "hideable": false,
+                                "text": null
+                            },
+                            "designerId": "f5312b02-ab6d-44ce-94c4-ba18f064dbed"
+                        },
+                        {
+                            "type": "Ext.grid.column.Column",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dataIndex": "account",
+                                "minWidth": 150,
+                                "text": "Account ID"
+                            },
+                            "designerId": "37a1d5ac-7c48-4fe2-9541-e031a5d16ea4"
+                        },
+                        {
+                            "type": "Ext.grid.column.Column",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dataIndex": "uid",
+                                "defaultWidth": null,
+                                "minWidth": 60,
+                                "text": "UID"
+                            },
+                            "designerId": "32dcd368-8615-4ead-9d32-98a4288aff1c"
+                        },
+                        {
+                            "type": "Ext.grid.column.Action",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "align": "center",
+                                "defaultWidth": 60,
+                                "maxWidth": 60,
+                                "menuText": "",
+                                "minWidth": 60,
+                                "style": [
+                                    "\"text-align:left;\""
+                                ],
+                                "text": "Delete",
+                                "width": 60
+                            },
+                            "designerId": "ea0e72c4-fa39-4a57-9ac4-66222ec8606e",
+                            "customConfigs": [
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "text",
+                                    "type": "string"
+                                }
+                            ],
+                            "cn": [
+                                {
+                                    "type": "actioncolumnitem",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "icon": "resources/images/icons/delete.png",
+                                        "iconCls": ""
+                                    },
+                                    "designerId": "c059e66c-5cc2-494a-9b87-e63ae6761071",
+                                    "cn": [
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "view",
+                                                    "rowIndex",
+                                                    "colIndex",
+                                                    "item",
+                                                    "e",
+                                                    "record",
+                                                    "row"
+                                                ],
+                                                "fn": "handler",
+                                                "implHandler": [
+                                                    "",
+                                                    "if(record.get(\"uid\") < 500) {",
+                                                    "    Ext.MessageBox.alert('Message', 'UID가 500 미만인 시스템 계정은 삭제할 수 없습니다.');",
+                                                    "    return;",
+                                                    "}",
+                                                    "",
+                                                    "Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){",
+                                                    "",
+                                                    "    if(btn == \"yes\"){",
+                                                    "",
+                                                    "        Ext.Ajax.request({",
+                                                    "            url: GLOBAL.urlPrefix + \"machine/removeAccount\",",
+                                                    "            params : {",
+                                                    "                machineId : instancesConstants.actionRow.get(\"machineId\"),",
+                                                    "                account : record.get(\"account\"),",
+                                                    "                uid : record.get(\"uid\")",
+                                                    "            },",
+                                                    "            disableCaching : true,",
+                                                    "            waitMsg: 'Delete Account...',",
+                                                    "            success: function(response){",
+                                                    "                var msg = Ext.JSON.decode(response.responseText).msg;",
+                                                    "                Ext.MessageBox.alert('알림', msg);",
+                                                    "",
+                                                    "                Ext.getCmp(\"instanceAccountGrid\").getStore().reload();",
+                                                    "",
+                                                    "            }",
+                                                    "        });",
+                                                    "    }",
+                                                    "",
+                                                    "});"
+                                                ]
+                                            },
+                                            "designerId": "1b54d938-a5c5-4371-b450-92cee748b626"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.grid.View",
+                            "reference": {
+                                "name": "viewConfig",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "designerId": "d2a8cd68-5811-4f55-8b15-eb395cd2bc3e"
+                        },
+                        {
+                            "type": "Ext.toolbar.Toolbar",
+                            "reference": {
+                                "name": "dockedItems",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dock": "top"
+                            },
+                            "designerId": "df174ddc-6f24-4901-aa56-2fd25baff1bc",
+                            "cn": [
+                                {
+                                    "type": "Ext.button.Button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "id": "createAccountBtn",
+                                        "itemId": "createAccountBtn",
+                                        "layout|flex": null,
+                                        "margin": "0 15 0 0",
+                                        "padding": "2 7 2 7",
+                                        "text": "Create Account"
+                                    },
+                                    "designerId": "40d7e9fc-21d9-40a2-84c4-283a18884746",
+                                    "cn": [
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "button",
+                                                    "e"
+                                                ],
+                                                "fn": "handler",
+                                                "implHandler": [
+                                                    "var regAccountWindow = Ext.create(\"widget.RegAccountWindow\");",
+                                                    "regAccountWindow.show();",
+                                                    "",
+                                                    "regAccountWindow.down(\"form\").getForm().findField(\"machineId\").setValue(instancesConstants.actionRow.get(\"machineId\"));",
+                                                    "",
+                                                    "var groupStore = Ext.getStore(\"ComboGroupStore\");",
+                                                    "groupStore.getProxy().extraParams = {",
+                                                    "    machineId : instancesConstants.actionRow.get(\"machineId\")",
+                                                    "};"
+                                                ]
+                                            },
+                                            "designerId": "2a343cd4-8f96-4701-bd73-7eb93b12ec86"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Ext.panel.Tool",
+            "reference": {
+                "name": "tools",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "tooltip": "",
+                "tooltipType": null,
+                "type": "refresh"
+            },
+            "designerId": "0c9bec5f-5fbe-4fc1-a7a5-0121773ff50a",
+            "cn": [
+                {
+                    "type": "fixedfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|params": [
+                            "event",
+                            "toolEl",
+                            "owner",
+                            "tool"
+                        ],
+                        "fn": "handler",
+                        "implHandler": [
+                            "var accountStore = Ext.getCmp('instanceAccountGrid').getStore();",
+                            "",
+                            "accountStore.getProxy().extraParams = {",
+                            "    machineId : instancesConstants.actionRow.get(\"machineId\")",
+                            "};",
+                            "",
+                            "accountStore.load();",
+                            ""
+                        ]
+                    },
+                    "designerId": "1760df23-a263-4a9b-8522-33f9ec7f2371"
+                }
+            ]
+        }
+    ]
+}

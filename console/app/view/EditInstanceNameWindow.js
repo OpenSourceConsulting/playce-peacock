@@ -119,7 +119,7 @@ Ext.define('MyApp.view.EditInstanceNameWindow', {
                                                     }
 
                                                 });
-                                                templateForm.up('window').close();
+                                                instanceForm.up('window').close();
                                             },
                                             failure: function(form, action) {
 

@@ -672,7 +672,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                         {
                                                             xtype: 'button',
                                                             handler: function(button, e) {
-                                                                instancesConstants.me.searchInstanceOs();
+                                                                instancesConstants.me.reloadInstanceOs();
                                                             },
                                                             id: 'osReloadBtn',
                                                             itemId: 'osReloadBtn',

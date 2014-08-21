@@ -408,16 +408,61 @@ Ext.define('MyApp.controller.InstancesController', {
 
     },
 
+    reloadInstanceOs: function() {
+        if(instancesConstants.selectRow.get("status") != 'Running') {
+
+            Ext.MessageBox.alert('Message', 'Instance의 Agent가 Running일 경우에만 재수집이 가능합니다.');
+            return;
+
+        }
+
+        Ext.MessageBox.confirm('Confirm', 'OS Package 재수집은 최대 수분의 시간이 소요됩니다.<br/>재수집 하시겠습니까?', function(btn){
+
+            if(btn == "yes"){
+
+                Ext.Ajax.request({
+                    url: GLOBAL.urlPrefix + "package/reload",
+                    params : {
+                        machineId : instancesConstants.selectRow.get("machineId")
+                    },
+                    disableCaching : true,
+                    waitMsg: 'Package Reload...',
+                    timeout: 300000,
+                    success: function(response){
+                        var msg = Ext.JSON.decode(response.responseText).msg;
+                        Ext.MessageBox.alert('알림', msg);
+
+                        Ext.getCmp("instanceOsGrid").getStore().reload();
+
+                    }
+                });
+            }
+
+        });
+
+    },
+
     showCLIWindow: function() {
         var CLIWindow = Ext.create("widget.CLIWindow");
-
         CLIWindow.show();
+
+        Ext.getCmp("cliForm").getForm().findField("machineId").setRawValue(instancesConstants.actionRow.get("machineId"));
+
     },
 
     showManageAccountWindow: function() {
-        var manageAccountWindow = Ext.create("widget.manageAccountWindow");
 
+        var manageAccountWindow = Ext.create("widget.ManageAccountWindow");
         manageAccountWindow.show();
+
+        var accountStore = Ext.getCmp('instanceAccountGrid').getStore();
+
+        accountStore.getProxy().extraParams = {
+            machineId : instancesConstants.actionRow.get("machineId")
+        };
+
+        accountStore.load();
+
     },
 
     showFstabWindow: function() {

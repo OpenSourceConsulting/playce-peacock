@@ -1593,7 +1593,7 @@
                                                                 ],
                                                                 "fn": "handler",
                                                                 "implHandler": [
-                                                                    "instancesConstants.me.searchInstanceOs();"
+                                                                    "instancesConstants.me.reloadInstanceOs();"
                                                                 ]
                                                             },
                                                             "designerId": "3aad37dd-88cd-49c3-96f4-f9240280cf18"

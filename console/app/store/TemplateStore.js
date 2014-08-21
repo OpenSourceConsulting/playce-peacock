@@ -31,6 +31,7 @@ Ext.define('MyApp.store.TemplateStore', {
             storeId: 'TemplateStore',
             proxy: me.processMyAjaxProxy({
                 type: 'ajax',
+                timeout: 180000,
                 url: 'rhevm/templates',
                 reader: {
                     type: 'json',

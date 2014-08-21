@@ -7,11 +7,11 @@
     "codeClass": null,
     "userConfig": {
         "autoLoad": false,
-        "designer|userClassName": "VMStore",
-        "model": "VMModel",
-        "storeId": "VMStore"
+        "designer|userClassName": "AccountStore",
+        "model": "AccountModel",
+        "storeId": "AccountStore"
     },
-    "designerId": "88862731-c19d-490e-8b0a-22dc74fd1fa8",
+    "designerId": "e7ca0b0b-febb-4557-9744-4290515369d8",
     "cn": [
         {
             "type": "Ext.data.proxy.Ajax",
@@ -22,10 +22,9 @@
             "codeClass": null,
             "userConfig": {
                 "api": null,
-                "timeout": 180000,
-                "url": "rhevm/vms/list"
+                "url": "machine/getAccountList"
             },
-            "designerId": "95c50202-781b-48fb-b196-0a8344701599",
+            "designerId": "9d373c3c-d5e4-4d4f-8001-f5e4d3e9f334",
             "cn": [
                 {
                     "type": "Ext.data.reader.Json",
@@ -37,7 +36,7 @@
                     "userConfig": {
                         "root": "list"
                     },
-                    "designerId": "0bdd7e32-9e90-4f4c-8a47-d2d6f6798096"
+                    "designerId": "9cb10a17-902b-4b84-a7ae-cc4ede269e7f"
                 },
                 {
                     "type": "processcfgfunction",
@@ -57,7 +56,7 @@
                             "return config;"
                         ]
                     },
-                    "designerId": "92b0eb12-ed24-4d16-8e8f-2bfb78b36c35"
+                    "designerId": "7488c156-e3c1-4956-a728-6162b2e6b41c"
                 }
             ]
         }

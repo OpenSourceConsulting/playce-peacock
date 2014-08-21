@@ -20,7 +20,7 @@ Ext.define('MyApp.controller.GlobalController', {
         Ext.define('GLOBAL', {
             singleton: true,
             lastSelectedMenuId: null,
-            urlPrefix:""//http://localhost:8080/"
+            urlPrefix:"http://localhost:8080/"
 
         });
 
@@ -29,7 +29,7 @@ Ext.define('MyApp.controller.GlobalController', {
          * Global Ajax Config
          */
 
-        Ext.Ajax.timeout = 20000;// default is 30000.
+        Ext.Ajax.timeout = 60000;// default is 30000.
         Ext.Ajax.on("requestexception", function(conn, response, options, eOpts){
 
             if(response.timedout){

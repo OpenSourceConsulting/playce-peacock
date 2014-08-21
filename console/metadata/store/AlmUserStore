@@ -21,7 +21,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "url": "alm/usermanagement/list"
+                "url": "alm/usermanagement"
             },
             "designerId": "153763ad-1942-4e4a-957b-51bd00013ae5",
             "cn": [
@@ -50,7 +50,7 @@
                         ],
                         "fn": "processMyAjaxProxy",
                         "implHandler": [
-                            "config.actionMethods = {create: \"POST\", read: \"POST\", update: \"POST\", destroy: \"POST\"};",
+                            "config.actionMethods = {create: \"GET\", read: \"GET\", update: \"GET\", destroy: \"GET\"};",
                             "",
                             "return config;"
                         ]

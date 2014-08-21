@@ -154,16 +154,24 @@ Ext.define('MyApp.view.almContainer', {
                                         },
                                         {
                                             xtype: 'panel',
-                                            items: [
+                                            dockedItems: [
                                                 {
-                                                    xtype: 'label',
-                                                    html: '<h2></h2>',
-                                                    id: 'almUserTitleLabel',
-                                                    itemId: 'almUserTitleLabel',
-                                                    margin: '',
-                                                    padding: '10 10 10 10',
-                                                    text: ''
-                                                },
+                                                    xtype: 'toolbar',
+                                                    dock: 'top',
+                                                    items: [
+                                                        {
+                                                            xtype: 'label',
+                                                            html: '<h2></h2>',
+                                                            id: 'almUserTitleLabel',
+                                                            itemId: 'almUserTitleLabel',
+                                                            margin: '',
+                                                            padding: '10 10 10 10',
+                                                            text: ''
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            items: [
                                                 {
                                                     xtype: 'form',
                                                     id: 'almUserForm',

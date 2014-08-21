@@ -33,7 +33,9 @@
             "PackageModel",
             "DataCenterModel",
             "ClusterModel",
-            "AlmUserModel"
+            "AlmUserModel",
+            "AccountModel",
+            "GroupModel"
         ],
         "name": "MyApp",
         "requires": [
@@ -60,7 +62,10 @@
             "ComboDataCenterStore",
             "ComboClusterStore",
             "ComboTemplateStore",
-            "AlmUserStore"
+            "AlmUserStore",
+            "AccountStore",
+            "ComboGroupStore",
+            "TestStore"
         ],
         "views": [
             "peacockViewport",
@@ -70,8 +75,8 @@
             "CLIWindow",
             "fstabWindow",
             "crontabWindow",
-            "manageAccountWindow",
-            "regAccountWindow",
+            "ManageAccountWindow",
+            "RegAccountWindow",
             "softwareInstallWindow",
             "rhevmContainer",
             "RegTemplateWindow",

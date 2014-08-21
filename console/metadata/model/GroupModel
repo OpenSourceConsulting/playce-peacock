@@ -1,0 +1,27 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "GroupModel"
+    },
+    "designerId": "505d2ede-1a0a-4942-8afd-ed15dec3875e",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "group",
+                "type": "string"
+            },
+            "designerId": "0fe32243-d9f2-4d9b-a81d-669492bc9e34"
+        }
+    ]
+}

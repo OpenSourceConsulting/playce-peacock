@@ -7,11 +7,11 @@
     "codeClass": null,
     "userConfig": {
         "autoLoad": false,
-        "designer|userClassName": "VMStore",
-        "model": "VMModel",
-        "storeId": "VMStore"
+        "designer|userClassName": "ComboGroupStore",
+        "model": "GroupModel",
+        "storeId": "ComboGroupStore"
     },
-    "designerId": "88862731-c19d-490e-8b0a-22dc74fd1fa8",
+    "designerId": "e16c3367-7289-498f-91d4-241650711edd",
     "cn": [
         {
             "type": "Ext.data.proxy.Ajax",
@@ -22,10 +22,9 @@
             "codeClass": null,
             "userConfig": {
                 "api": null,
-                "timeout": 180000,
-                "url": "rhevm/vms/list"
+                "url": "machine/getGroupList"
             },
-            "designerId": "95c50202-781b-48fb-b196-0a8344701599",
+            "designerId": "3c6fe4f9-81e5-4b2e-95d5-b19340b2a9e7",
             "cn": [
                 {
                     "type": "Ext.data.reader.Json",
@@ -37,7 +36,7 @@
                     "userConfig": {
                         "root": "list"
                     },
-                    "designerId": "0bdd7e32-9e90-4f4c-8a47-d2d6f6798096"
+                    "designerId": "94651bbd-dfe5-4659-9073-1a7f98545c27"
                 },
                 {
                     "type": "processcfgfunction",
@@ -57,7 +56,7 @@
                             "return config;"
                         ]
                     },
-                    "designerId": "92b0eb12-ed24-4d16-8e8f-2bfb78b36c35"
+                    "designerId": "5b3f292d-485b-429b-9ac1-fa4908470df5"
                 }
             ]
         }
