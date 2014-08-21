@@ -356,8 +356,9 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
      * </pre>
      * @param datagram
      * @return
+     * @throws Exception 
      */
-    public ProvisioningResponseMessage sendMessage(PeacockDatagram<AbstractMessage> datagram) {
+    public ProvisioningResponseMessage sendMessage(PeacockDatagram<AbstractMessage> datagram) throws Exception {
     	Channel channel = ChannelManagement.getChannel(datagram.getMessage().getAgentId());
     	boolean isBlocking = datagram.getMessage().isBlocking();
 
@@ -370,6 +371,8 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 				
 				if (channel != null) {
 					channel.writeAndFlush(datagram);
+				} else {
+					throw new Exception("Channel is null.");
 				}
 			} finally { 
 				CallbackManagement.unlock(); 
@@ -379,6 +382,8 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
     	} else {
 			if (channel != null) {
 				channel.writeAndFlush(datagram);
+			} else {
+				throw new Exception("Channel is null.");
 			}
     		
     		return null;

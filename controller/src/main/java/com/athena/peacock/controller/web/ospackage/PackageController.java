@@ -78,11 +78,21 @@ public class PackageController {
 		msg.setAgentId(ospackage.getMachineId());
 		msg.setBlocking(false);
 		
-		PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(msg);
-		peacockTransmitter.sendMessage(datagram);
-		
-		jsonRes.setSuccess(true);
-		jsonRes.setMsg("패키지 정보 재 수집 요청이 전달되었습니다.");
+		try {
+			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(msg);
+			peacockTransmitter.sendMessage(datagram);
+			
+			jsonRes.setSuccess(true);
+			jsonRes.setMsg("패키지 정보 재 수집 요청이 전달되었습니다.");
+		} catch (Exception e) {
+			String message = "패키지 정보 재 수집 요청 중 에러가 발생하였습니다.";
+			
+			if (e.getMessage().equals("Channel is null.")) {
+				message += "<br/>Instance와의 연결을 확인하십시오.";
+			}
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg(message);
+		}
 		
 		return jsonRes;
 	}
