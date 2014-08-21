@@ -113,6 +113,50 @@ public class MachineController {
 		return jsonRes;
 	}
 
+	@RequestMapping("/cli")
+	public @ResponseBody DtoJsonResponse cli(DtoJsonResponse jsonRes, CLIDto cli) {
+		Assert.notNull(cli.getMachineId(), "machineId can not be null.");
+		Assert.notNull(cli.getCommand(), "command can not be null.");
+		
+		try {
+			ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
+			cmdMsg.setAgentId(cli.getMachineId());
+			cmdMsg.setBlocking(true);
+
+			int sequence = 0;
+			Command command = new Command("CLI");
+			
+			ShellAction action = new ShellAction(sequence++);
+			
+			if (StringUtils.isNotEmpty(cli.getWorkingDir())) {
+				action.setWorkingDiretory(cli.getWorkingDir());
+			}
+			
+			action.setCommand(cli.getCommand());
+
+			if (StringUtils.isNotEmpty(cli.getArgs())) {
+				action.addArguments(cli.getArgs());
+			}
+			
+			command.addAction(action);
+			
+			cmdMsg.addCommand(command);
+
+			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
+			
+			jsonRes.setData(response.getResults());
+			jsonRes.setMsg("Command가 정상적으로 처리되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("Command 실행 중 에러가 발생하였습니다.");
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+
 	/**
 	 * <pre>
 	 * Provisioning Command 실행을 위한 테스트 메소드
