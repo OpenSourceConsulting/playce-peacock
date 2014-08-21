@@ -74,6 +74,15 @@ public class MachineController {
     @Named("peacockTransmitter")
 	private PeacockTransmitter peacockTransmitter;
 
+	/**
+	 * <pre>
+	 * Instance 목록을 조회힌다.
+	 * </pre>
+	 * @param jsonRes
+	 * @param machine
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/list")
 	public @ResponseBody GridJsonResponse list(GridJsonResponse jsonRes, MachineDto machine) throws Exception {
 		jsonRes.setTotal(machineService.getMachineListCnt(machine));
@@ -88,6 +97,15 @@ public class MachineController {
 		return jsonRes;
 	}
 
+	/**
+	 * <pre>
+	 * Instance 상세 정보를 조회한다.
+	 * </pre>
+	 * @param jsonRes
+	 * @param machineId
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/getMachine")
 	public @ResponseBody DtoJsonResponse getMachine(DtoJsonResponse jsonRes, String machineId) throws Exception {
 		jsonRes.setData(machineService.getMachine(machineId));
@@ -95,6 +113,15 @@ public class MachineController {
 		return jsonRes;
 	}
 
+	/**
+	 * <pre>
+	 * Instance의 Display Name을 수정한다.
+	 * </pre>
+	 * @param jsonRes
+	 * @param machine
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/updateMachineName")
 	public @ResponseBody DtoJsonResponse updateMachineName(DtoJsonResponse jsonRes, MachineDto machine) throws Exception {
 		Assert.notNull(machine.getMachineId(), "machineId can not be null.");
@@ -113,6 +140,14 @@ public class MachineController {
 		return jsonRes;
 	}
 
+	/**
+	 * <pre>
+	 * Running 중인 Instance에 대해 CLI 기능을 제공한다.
+	 * </pre>
+	 * @param jsonRes
+	 * @param cli
+	 * @return
+	 */
 	@RequestMapping("/cli")
 	public @ResponseBody DtoJsonResponse cli(DtoJsonResponse jsonRes, CLIDto cli) {
 		Assert.notNull(cli.getMachineId(), "machineId can not be null.");
@@ -148,8 +183,394 @@ public class MachineController {
 			jsonRes.setData(response.getResults());
 			jsonRes.setMsg("Command가 정상적으로 처리되었습니다.");
 		} catch (Exception e) {
+			String message = "Command 실행 중 에러가 발생하였습니다.";
+			
+			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
+				message += "<br/>Instance와의 연결을 확인하십시오.";
+			}
+			
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Command 실행 중 에러가 발생하였습니다.");
+			jsonRes.setMsg(message);
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+
+	/**
+	 * <pre>
+	 * Running 중인 Instance의 그룹 목록을 조회한다.
+	 * </pre>
+	 * @param jsonRes
+	 * @param machineId
+	 * @return
+	 */
+	@RequestMapping("/getGroupList")
+	public @ResponseBody GridJsonResponse getGroupList(GridJsonResponse jsonRes, String machineId) {
+		Assert.notNull(machineId, "machineId can not be null.");
+		
+		try {
+			ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
+			cmdMsg.setAgentId(machineId);
+			cmdMsg.setBlocking(true);
+
+			int sequence = 0;
+			Command command = new Command("GET_GROUP");
+			
+			ShellAction action = new ShellAction(sequence++);
+			
+			action.setCommand("cat");
+			action.addArguments("/etc/group");
+
+			command.addAction(action);
+			
+			cmdMsg.addCommand(command);
+
+			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
+			
+			List<String> groupList = new ArrayList<String>();
+			String[] columns = null;
+			
+			String[] lines = response.getResults().get(0).split(System.getProperty("line.separator"));
+			for (String line : lines) {
+				if (line.startsWith("#")) {
+					continue;
+				}
+				
+				if (line.contains(":")) {
+					columns = line.split(":");
+					groupList.add(columns[0]);
+				}
+			}
+			
+			jsonRes.setTotal(groupList.size());
+			jsonRes.setList(groupList);
+			jsonRes.setMsg("그룹 목록 수집이 정상적으로 처리되었습니다.");
+		} catch (Exception e) {
+			String message = "그룹 목록 수집 중 에러가 발생하였습니다.";
+			
+			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
+				message += "<br/>Instance와의 연결을 확인하십시오.";
+			}
+			
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg(message);
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+
+	/**
+	 * <pre>
+	 * Running 중인 Instance의 계정 목록을 조회한다.
+	 * </pre>
+	 * @param jsonRes
+	 * @param machineId
+	 * @return
+	 */
+	@RequestMapping("/getAccountList")
+	public @ResponseBody GridJsonResponse getAccountList(GridJsonResponse jsonRes, String machineId) {
+		Assert.notNull(machineId, "machineId can not be null.");
+		
+		try {
+			ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
+			cmdMsg.setAgentId(machineId);
+			cmdMsg.setBlocking(true);
+
+			int sequence = 0;
+			Command command = new Command("GET_ACCOUNT");
+			
+			ShellAction action = new ShellAction(sequence++);
+			
+			action.setCommand("cat");
+			action.addArguments("/etc/passwd");
+
+			command.addAction(action);
+			
+			cmdMsg.addCommand(command);
+
+			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
+			
+			List<AccountDto> accountList = new ArrayList<AccountDto>();
+			AccountDto account = null;
+			String[] columns = null;
+			
+			String[] lines = response.getResults().get(0).split(System.getProperty("line.separator"));
+			for (String line : lines) {
+				if (line.startsWith("#")) {
+					continue;
+				}
+				
+				if (line.contains(":")) {
+					columns = line.split(":");
+					
+					account = new AccountDto();
+					account.setMachineId(machineId);
+					account.setAccount(columns[0]);
+					account.setUid(Integer.parseInt(columns[2]));
+					account.setComment(columns[4]);
+					account.setHomeDir(columns[5]);
+					account.setShell(columns[6]);
+					accountList.add(account);
+				}
+			}
+			
+			jsonRes.setTotal(accountList.size());
+			jsonRes.setList(accountList);
+			jsonRes.setMsg("계정 목록 수집이 정상적으로 처리되었습니다.");
+		} catch (Exception e) {
+			String message = "계정 목록 수집 중 에러가 발생하였습니다.";
+			
+			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
+				message += "<br/>Instance와의 연결을 확인하십시오.";
+			}
+			
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg(message);
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+
+	/**
+	 * <pre>
+	 * Running 중인 Instance의 특정 계정을 삭제한다.
+	 * </pre>
+	 * @param jsonRes
+	 * @param account
+	 * @return
+	 */
+	@RequestMapping("/removeAccount")
+	public @ResponseBody DtoJsonResponse removeAccount(DtoJsonResponse jsonRes, AccountDto account) {
+		Assert.notNull(account.getMachineId(), "machineId can not be null.");
+		Assert.notNull(account.getAccount(), "account can not be null.");
+		Assert.isTrue(account.getUid() != null && account.getUid() >= 500, "uid can not be null and greater than 499.");
+		
+		try {
+			ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
+			cmdMsg.setAgentId(account.getMachineId());
+			cmdMsg.setBlocking(true);
+
+			int sequence = 0;
+			Command command = new Command("REMOVE_ACCOUNT");
+			
+			ShellAction action = new ShellAction(sequence++);
+			
+			action.setCommand("userdel");
+			action.addArguments("-rf " + account.getAccount());
+
+			command.addAction(action);
+			
+			cmdMsg.addCommand(command);
+
+			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
+			
+			jsonRes.setData(response.getResults());
+			jsonRes.setMsg("Account가 정상적으로 삭제되었습니다.");
+		} catch (Exception e) {
+			String message = "Account 삭제 중 에러가 발생하였습니다.";
+			
+			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
+				message += "<br/>Instance와의 연결을 확인하십시오.";
+			}
+			
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg(message);
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+
+	/**
+	 * <pre>
+	 * Running 중인 Instance에 주어진 계정이 존재하는지 확인한다.
+	 * Return Message가 EXIST면 중복, NON_EXIST이면 비중복
+	 * </pre>
+	 * @param jsonRes
+	 * @param account
+	 * @return
+	 */
+	@RequestMapping("/accountDupCheck")
+	public @ResponseBody DtoJsonResponse accountDupCheck(DtoJsonResponse jsonRes, AccountDto account) {
+		Assert.notNull(account.getMachineId(), "machineId can not be null.");
+		Assert.notNull(account.getAccount(), "account can not be null.");
+		
+		try {
+			ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
+			cmdMsg.setAgentId(account.getMachineId());
+			cmdMsg.setBlocking(true);
+
+			int sequence = 0;
+			Command command = new Command("CHECK_ACCOUNT_DUPLICATION");
+			
+			ShellAction action = new ShellAction(sequence++);
+			
+			action.setCommand("egrep");
+			action.addArguments("\"" + account.getAccount() + "\" /etc/passwd");
+			command.addAction(action);
+			cmdMsg.addCommand(command);
+
+			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
+			
+			String msg = "NON_EXIST";
+			if (response.getResults().get(0).startsWith(account.getAccount())) {
+				msg = "EXIST";
+			}
+			
+			jsonRes.setData(msg);
+			jsonRes.setMsg("Account 중복 조회가 정상적으로 수행되었습니다.");
+		} catch (Exception e) {
+			String message = "Account 중복 조회 중 에러가 발생하였습니다.";
+			
+			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
+				message += "<br/>Instance와의 연결을 확인하십시오.";
+			}
+			
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg(message);
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+
+	/**
+	 * <pre>
+	 * Running 중인 Instance에 주어진 계정을 생성한다.
+	 * </pre>
+	 * @param jsonRes
+	 * @param account
+	 * @return
+	 */
+	@RequestMapping("/createAccount")
+	public @ResponseBody DtoJsonResponse createAccount(DtoJsonResponse jsonRes, AccountDto account) {
+		Assert.notNull(account.getMachineId(), "machineId can not be null.");
+		Assert.notNull(account.getAccount(), "account can not be null.");
+		Assert.notNull(account.getPasswd(), "passwd can not be null.");
+		
+		try {
+			ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
+			cmdMsg.setAgentId(account.getMachineId());
+			cmdMsg.setBlocking(true);
+
+			int sequence = 0;
+			Command command = new Command("GET_CRTPY_PASSWD");
+			
+			ShellAction action = new ShellAction(sequence++);
+			
+			action.setCommand("perl");
+			action.addArguments("-e 'print crypt(\"" + account.getPasswd() + "\", \"password\")'");
+			command.addAction(action);
+			cmdMsg.addCommand(command);
+
+			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
+			
+			sequence = 0;
+			command = new Command("CREATE_ACCOUNT");
+			
+			action = new ShellAction(sequence++);
+			
+			action.setCommand("useradd");
+			
+			String args = "";
+
+			if (StringUtils.isNotEmpty(account.getPasswd())) {
+				args += "-p " + response.getResults().get(0).replaceAll(System.getProperty("line.separator"), "") + " ";
+			}
+			if (StringUtils.isNotEmpty(account.getComment())) {
+				args += "-c \"" + account.getComment() + "\" ";
+			}
+			if (StringUtils.isNotEmpty(account.getHomeDir())) {
+				args += "-d " + account.getHomeDir() + " ";
+			}
+			if (StringUtils.isNotEmpty(account.getShell())) {
+				args += "-s " + account.getShell() + " ";
+			}
+			if (StringUtils.isNotEmpty(account.getGroup())) {
+				args += "-g " + account.getGroup() + " ";
+			}
+			
+			args += account.getAccount();	
+			
+			action.addArguments(args);
+			command.addAction(action);			
+			cmdMsg.addCommand(command);
+
+			datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+			response = peacockTransmitter.sendMessage(datagram);
+			
+			jsonRes.setData(response.getResults());
+			jsonRes.setMsg("Account가 정상적으로 생성되었습니다.");
+		} catch (Exception e) {
+			String message = "Account 생성 중 에러가 발생하였습니다.";
+			
+			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
+				message += "<br/>Instance와의 연결을 확인하십시오.";
+			}
+			
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg(message);
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+
+	/**
+	 * <pre>
+	 * Running 중인 Instance의 /etc/fstab 정보를 가져온다.
+	 * </pre>
+	 * @param jsonRes
+	 * @param machineId
+	 * @return
+	 */
+	@RequestMapping("/getFstab")
+	public @ResponseBody DtoJsonResponse getFstab(DtoJsonResponse jsonRes, String machineId) {
+		Assert.notNull(machineId, "machineId can not be null.");
+		
+		try {
+			ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
+			cmdMsg.setAgentId(machineId);
+			cmdMsg.setBlocking(true);
+
+			int sequence = 0;
+			Command command = new Command("GET_FSTAB");
+			
+			ShellAction action = new ShellAction(sequence++);
+			
+			action.setCommand("cat");
+			action.addArguments("/etc/fstab");
+			command.addAction(action);
+			cmdMsg.addCommand(command);
+
+			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
+			
+			jsonRes.setData(response.getResults());
+			jsonRes.setMsg("/etc/fstab 파일을 정상적으로 조회하였습니다.");
+		} catch (Exception e) {
+			String message = "/etc/fstab 파일 조회 중 에러가 발생하였습니다.";
+			
+			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
+				message += "<br/>Instance와의 연결을 확인하십시오.";
+			}
+			
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg(message);
 			
 			logger.error("Unhandled Expeption has occurred. ", e);
 		}

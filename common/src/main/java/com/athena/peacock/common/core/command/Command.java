@@ -32,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.athena.peacock.common.core.action.Action;
+import com.athena.peacock.common.core.action.ShellAction;
 import com.athena.peacock.common.netty.message.ProvisioningResponseMessage;
 
 /**
@@ -77,11 +78,18 @@ public class Command implements Serializable {
 	}
 	
     public void execute(ProvisioningResponseMessage response) {
-    	
+    	String result = null;
         for (Action action : actions) {
         	logger.debug("[{}] will be start.", action.getClass().getCanonicalName());
         	
-        	response.addResult(action.perform());
+        	result = action.perform();
+        	
+        	if (action instanceof ShellAction) {
+        		response.addCommand(result.substring(0, result.indexOf("\n")));
+        		response.addResult(result.substring(result.indexOf("\n") + 1));
+        	} else {
+            	response.addResult(result);
+        	}
             
         	logger.debug("[{}] has done.", action.getClass().getCanonicalName());
         }

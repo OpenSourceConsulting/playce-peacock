@@ -28,6 +28,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,6 +53,8 @@ import com.athena.peacock.controller.web.common.model.SimpleJsonResponse;
 @Controller("packageController")
 @RequestMapping("/package")
 public class PackageController {
+
+    protected final Logger logger = LoggerFactory.getLogger(PackageController.class);
 	
 	@Inject
 	@Named("packageService")
@@ -87,11 +91,13 @@ public class PackageController {
 		} catch (Exception e) {
 			String message = "패키지 정보 재 수집 요청 중 에러가 발생하였습니다.";
 			
-			if (e.getMessage().equals("Channel is null.")) {
+			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
 				message += "<br/>Instance와의 연결을 확인하십시오.";
 			}
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg(message);
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;

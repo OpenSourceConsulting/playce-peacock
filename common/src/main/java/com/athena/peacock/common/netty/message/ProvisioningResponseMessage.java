@@ -38,15 +38,25 @@ public class ProvisioningResponseMessage extends AbstractMessage {
 
 	private static final long serialVersionUID = 1L;
 	
+	private List<String> commands;
 	private List<String> results;
 	
 	public ProvisioningResponseMessage() {
 		super(MessageType.RESPONSE);
 	}
 
-	/**
-	 * @return the results
-	 */
+	public List<String> getCommands() {
+		if (commands == null) {
+			commands = new ArrayList<String>();
+		}
+		
+		return commands;
+	}
+
+	public void addCommand(String command) {
+		getCommands().add(command);
+	}
+
 	public List<String> getResults() {
 		if (results == null) {
 			results = new ArrayList<String>();

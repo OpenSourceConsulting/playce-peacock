@@ -1166,9 +1166,15 @@ class InstallThread extends Thread {
 			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
 			
 			StringBuilder sb = new StringBuilder("");
+			List<String> commands = response.getCommands();
 			List<String> results = response.getResults();
-			for (String result : results) {
-				sb.append(result + "\n");
+			
+			for (int i = 0; i < results.size(); i++) {
+				if (commands.get(i) != null) {
+					sb.append("[Command] : " + commands.get(i) + "\n");
+				}
+
+				sb.append(results.get(i) + "\n");
 			}
 			software.setInstallStat("COMPLETED");
 			software.setInstallLog(sb.toString());
@@ -1213,9 +1219,15 @@ class UninstallThread extends Thread {
 			configService.deleteConfig(config);
 			
 			StringBuilder sb = new StringBuilder("");
+			List<String> commands = response.getCommands();
 			List<String> results = response.getResults();
-			for (String result : results) {
-				sb.append(result + "\n");
+			
+			for (int i = 0; i < results.size(); i++) {
+				if (commands.get(i) != null) {
+					sb.append("[Command] : " + commands.get(i) + "\n");
+				}
+
+				sb.append(results.get(i) + "\n");
 			}
 			software.setDeleteYn("Y");
 			software.setInstallStat("DELETED");
