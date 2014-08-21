@@ -28,8 +28,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.attribute.PosixFilePermissions;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,6 +52,7 @@ public class FileWriteAction extends Action {
 	
 	private String contents;
 	private String fileName;
+	private String permission;
 	
 	public FileWriteAction(int sequence) {
 		super(sequence);
@@ -81,6 +86,20 @@ public class FileWriteAction extends Action {
 		this.fileName = fileName;
 	}
 
+	/**
+	 * @return the permission
+	 */
+	public String getPermission() {
+		return permission;
+	}
+
+	/**
+	 * @param permission the permission to set
+	 */
+	public void setPermission(String permission) {
+		this.permission = permission;
+	}
+
 	/* (non-Javadoc)
 	 * @see com.athena.peacock.common.core.action.Action#perform()
 	 */
@@ -105,6 +124,11 @@ public class FileWriteAction extends Action {
 			
 			IOUtils.write(contents, fos, "UTF-8");
 			IOUtils.closeQuietly(fos);
+			
+			if (StringUtils.isNotEmpty(permission)) {
+				Files.setPosixFilePermissions(Paths.get(fileName), PosixFilePermissions.fromString(permission));	
+			}
+			
 			result += " saved.\n";
 		} catch (FileNotFoundException e) {
 			logger.error("FileNotFoundException has occurred. : ", e);

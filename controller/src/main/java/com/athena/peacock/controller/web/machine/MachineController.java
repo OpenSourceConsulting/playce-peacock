@@ -230,7 +230,8 @@ public class MachineController {
 			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
 			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
 			
-			List<String> groupList = new ArrayList<String>();
+			List<GroupDto> groupList = new ArrayList<GroupDto>();
+			GroupDto group = null;
 			String[] columns = null;
 			
 			String[] lines = response.getResults().get(0).split("\n");
@@ -241,7 +242,9 @@ public class MachineController {
 				
 				if (line.contains(":")) {
 					columns = line.split(":");
-					groupList.add(columns[0]);
+					group = new GroupDto();
+					group.setGroup(columns[0]);
+					groupList.add(group);
 				}
 			}
 			
@@ -603,6 +606,108 @@ public class MachineController {
 			jsonRes.setMsg("/etc/fstab 파일이 정상적으로 수정되었습니다.");
 		} catch (Exception e) {
 			String message = "/etc/fstab 파일 수정 중 에러가 발생하였습니다.";
+			
+			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
+				message += "<br/>Instance와의 연결을 확인하십시오.";
+			}
+			
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg(message);
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+
+	/**
+	 * <pre>
+	 * Running 중인 Instance내 지정된 계정에 대한 crontab 정보를 조회한다.
+	 * </pre>
+	 * @param jsonRes
+	 * @param machineId
+	 * @param account 
+	 * @return
+	 */
+	@RequestMapping("/getCrontab")
+	public @ResponseBody DtoJsonResponse getCrontab(DtoJsonResponse jsonRes, String machineId, String account) {
+		Assert.notNull(machineId, "machineId can not be null.");
+		Assert.notNull(account, "account can not be null.");
+		
+		try {
+			ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
+			cmdMsg.setAgentId(machineId);
+			cmdMsg.setBlocking(true);
+
+			int sequence = 0;
+			Command command = new Command("GET_CRONTAB");
+			
+			ShellAction action = new ShellAction(sequence++);
+			
+			action.setCommand("cat");
+			action.addArguments("/var/spool/cron/" + account);
+			command.addAction(action);
+			cmdMsg.addCommand(command);
+
+			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
+			
+			jsonRes.setData(response.getResults());
+			jsonRes.setMsg("crontab 정보를 정상적으로 조회하였습니다.");
+		} catch (Exception e) {
+			String message = "crontab 정보 조회 중 에러가 발생하였습니다.";
+			
+			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
+				message += "<br/>Instance와의 연결을 확인하십시오.";
+			}
+			
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg(message);
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+
+	/**
+	 * <pre>
+	 * Running 중인 Instance내 지정된 계정에 대한 crontab 정보를 저장한다.
+	 * </pre>
+	 * @param jsonRes
+	 * @param machineId
+	 * @param account
+	 * @param contents
+	 * @return
+	 */
+	@RequestMapping("/editCrontab")
+	public @ResponseBody DtoJsonResponse editCrontab(DtoJsonResponse jsonRes, String machineId, String account, String contents) {
+		Assert.notNull(machineId, "machineId can not be null.");
+		Assert.notNull(account, "account can not be null.");
+		Assert.notNull(contents, "contents can not be null.");
+		
+		try {
+			ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
+			cmdMsg.setAgentId(machineId);
+			cmdMsg.setBlocking(true);
+
+			int sequence = 0;
+			Command command = new Command("EDIT_CRONTAB");
+			
+			FileWriteAction fwAction = new FileWriteAction(sequence++);
+			fwAction.setContents(contents);
+			fwAction.setFileName("/var/spool/cron/" + account);
+			fwAction.setPermission("rw-------");
+			command.addAction(fwAction);
+			cmdMsg.addCommand(command);
+
+			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
+			
+			jsonRes.setData(response.getResults());
+			jsonRes.setMsg("crontab 정보가 정상적으로 수정되었습니다.");
+		} catch (Exception e) {
+			String message = "crontab 정보 수정 중 에러가 발생하였습니다.";
 			
 			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
 				message += "<br/>Instance와의 연결을 확인하십시오.";
