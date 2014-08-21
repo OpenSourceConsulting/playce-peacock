@@ -36,6 +36,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -561,7 +562,7 @@ public class MachineController {
 	 * @param remount 저장 후 mount -a 실행 여부
 	 * @return
 	 */
-	@RequestMapping("/editFstab")
+	@RequestMapping(value="/editFstab", method=RequestMethod.POST)
 	public @ResponseBody DtoJsonResponse editFstab(DtoJsonResponse jsonRes, String machineId, String contents, String unmounts, boolean remount) {
 		Assert.notNull(machineId, "machineId can not be null.");
 		Assert.notNull(contents, "contents can not be null.");
@@ -652,7 +653,12 @@ public class MachineController {
 			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
 			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
 			
-			jsonRes.setData(response.getResults());
+			if (response.getResults().get(0).startsWith("cat: /var/spool/cron")) {
+				jsonRes.setData("");
+			} else {
+				jsonRes.setData(response.getResults());
+			}
+			
 			jsonRes.setMsg("crontab 정보를 정상적으로 조회하였습니다.");
 		} catch (Exception e) {
 			String message = "crontab 정보 조회 중 에러가 발생하였습니다.";
@@ -680,7 +686,7 @@ public class MachineController {
 	 * @param contents
 	 * @return
 	 */
-	@RequestMapping("/editCrontab")
+	@RequestMapping(value="/editCrontab", method=RequestMethod.POST)
 	public @ResponseBody DtoJsonResponse editCrontab(DtoJsonResponse jsonRes, String machineId, String account, String contents) {
 		Assert.notNull(machineId, "machineId can not be null.");
 		Assert.notNull(account, "account can not be null.");

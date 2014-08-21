@@ -122,12 +122,12 @@ public class FileWriteAction extends Action {
 			
 			FileOutputStream fos = new FileOutputStream(new File(path, name));
 			
-			IOUtils.write(contents, fos, "UTF-8");
-			IOUtils.closeQuietly(fos);
-			
 			if (StringUtils.isNotEmpty(permission)) {
 				Files.setPosixFilePermissions(Paths.get(fileName), PosixFilePermissions.fromString(permission));	
 			}
+			
+			IOUtils.write(contents, fos, "UTF-8");
+			IOUtils.closeQuietly(fos);
 			
 			result += " saved.\n";
 		} catch (FileNotFoundException e) {
