@@ -466,17 +466,41 @@ public class MachineController {
 			cmdMsg.setBlocking(true);
 
 			int sequence = 0;
-			Command command = new Command("GET_CRTPY_PASSWD");
+			Command command = new Command("CHECK_ACCOUNT_DUPLICATION");
 			
 			ShellAction action = new ShellAction(sequence++);
+			
+			action.setCommand("egrep");
+			action.addArguments("\"" + account.getAccount() + "\" /etc/passwd");
+			command.addAction(action);
+			cmdMsg.addCommand(command);
+
+			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
+			
+			if (response.getResults().get(0).startsWith(account.getAccount())) {
+				jsonRes.setSuccess(false);
+				jsonRes.setMsg("\"" + account.getAccount() + "\" 사용자가 이미 있습니다.");
+				
+				return jsonRes;
+			}
+			
+			cmdMsg = new ProvisioningCommandMessage();
+			cmdMsg.setAgentId(account.getMachineId());
+			cmdMsg.setBlocking(true);
+
+			sequence = 0;
+			command = new Command("GET_CRTPY_PASSWD");
+			
+			action = new ShellAction(sequence++);
 			
 			action.setCommand("perl");
 			action.addArguments("-e 'print crypt(\"" + account.getPasswd() + "\", \"password\")'");
 			command.addAction(action);
 			cmdMsg.addCommand(command);
 
-			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
-			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
+			datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+			response = peacockTransmitter.sendMessage(datagram);
 			
 			sequence = 0;
 			command = new Command("CREATE_ACCOUNT");
@@ -541,6 +565,58 @@ public class MachineController {
 	@RequestMapping("/getFstab")
 	public @ResponseBody DtoJsonResponse getFstab(DtoJsonResponse jsonRes, String machineId) {
 		Assert.notNull(machineId, "machineId can not be null.");
+		
+		try {
+			ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
+			cmdMsg.setAgentId(machineId);
+			cmdMsg.setBlocking(true);
+
+			int sequence = 0;
+			Command command = new Command("GET_FSTAB");
+			
+			ShellAction action = new ShellAction(sequence++);
+			
+			action.setCommand("cat");
+			action.addArguments("/etc/fstab");
+			command.addAction(action);
+			cmdMsg.addCommand(command);
+
+			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
+			
+			jsonRes.setData(response.getResults());
+			jsonRes.setMsg("/etc/fstab 파일을 정상적으로 조회하였습니다.");
+		} catch (Exception e) {
+			String message = "/etc/fstab 파일 조회 중 에러가 발생하였습니다.";
+			
+			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
+				message += "<br/>Instance와의 연결을 확인하십시오.";
+			}
+			
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg(message);
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+
+	/**
+	 * <pre>
+	 * Running 중인 Instance의 /etc/fstab 정보를 수정한다.
+	 * </pre>
+	 * @param jsonRes
+	 * @param machineId
+	 * @param contents /etc/fstab 내용
+	 * @param unmounts 하나 이상의 unmount 대상 노드(',' 구분자 사용)
+	 * @param remount 저장 후 mount -a 실행 여부
+	 * @return
+	 */
+	@RequestMapping("/editFstab")
+	public @ResponseBody DtoJsonResponse editFstab(DtoJsonResponse jsonRes, String machineId, String contents, String unmounts, Boolean remount) {
+		Assert.notNull(machineId, "machineId can not be null.");
+		Assert.notNull(contents, "contents can not be null.");
 		
 		try {
 			ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
