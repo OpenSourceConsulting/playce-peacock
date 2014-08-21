@@ -184,6 +184,7 @@ public class AlmUserService {
 				true);
 		try {
 			crowdClient.addUser(myuser, new PasswordCredential(userData.getPassword()));
+			response.setMsg("사용자 생성 성공");
 		} catch (InvalidUserException e) {
 			response.setSuccess(false);
 			response.setMsg("InvalidUserException");
