@@ -233,7 +233,7 @@ public class MachineController {
 			List<String> groupList = new ArrayList<String>();
 			String[] columns = null;
 			
-			String[] lines = response.getResults().get(0).split(System.getProperty("line.separator"));
+			String[] lines = response.getResults().get(0).split("\n");
 			for (String line : lines) {
 				if (line.startsWith("#")) {
 					continue;
@@ -300,7 +300,7 @@ public class MachineController {
 			AccountDto account = null;
 			String[] columns = null;
 			
-			String[] lines = response.getResults().get(0).split(System.getProperty("line.separator"));
+			String[] lines = response.getResults().get(0).split("\n");
 			for (String line : lines) {
 				if (line.startsWith("#")) {
 					continue;
@@ -512,7 +512,7 @@ public class MachineController {
 			String args = "";
 
 			if (StringUtils.isNotEmpty(account.getPasswd())) {
-				args += "-p " + response.getResults().get(0).replaceAll(System.getProperty("line.separator"), "") + " ";
+				args += "-p " + response.getResults().get(0).replaceAll("\n", "") + " ";
 			}
 			if (StringUtils.isNotEmpty(account.getComment())) {
 				args += "-c \"" + account.getComment() + "\" ";
