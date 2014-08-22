@@ -96,9 +96,25 @@ Ext.define('MyApp.controller.InstancesController', {
 
         instancesConstants.actionRow = record;
 
-        instancesConstants.contextMenu.showAt(position);
+        var menu = instancesConstants.contextMenu;
+        var status = record.get("status");
+        var os = Ext.util.Format.lowercase(record.get("osName"));
 
+        menu.items.each(function( item ) {
 
+            if(os.indexOf('linux') >= 0 && status == 'Running') {
+
+                item.setDisabled(false);
+
+            } else  {
+
+                if(item.text != 'Edit Instance Name')
+                    item.setDisabled(true);
+            }
+
+        });
+
+        menu.showAt(position);
     },
 
     onCategoryCycleClick: function(item, e, eOpts) {

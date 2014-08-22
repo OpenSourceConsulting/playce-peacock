@@ -143,8 +143,8 @@ Ext.define('MyApp.view.almContainer', {
                                     region: 'south',
                                     split: true,
                                     height: 150,
-                                    id: 'almUserDetailPanel1',
-                                    itemId: 'almUserDetailPanel',
+                                    id: 'almProjectDetailPanel',
+                                    itemId: 'almProjectDetailPanel',
                                     layout: 'card',
                                     items: [
                                         {

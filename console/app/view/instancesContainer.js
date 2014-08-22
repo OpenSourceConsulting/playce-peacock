@@ -193,6 +193,12 @@ Ext.define('MyApp.view.instancesContainer', {
                         {
                             xtype: 'gridcolumn',
                             hidden: true,
+                            dataIndex: 'osName',
+                            hideable: false
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            hidden: true,
                             dataIndex: 'machineId',
                             hideable: false
                         },
@@ -314,7 +320,8 @@ Ext.define('MyApp.view.instancesContainer', {
                                                 margin: '0 10',
                                                 readOnly: true,
                                                 labelStyle: 'font-weight: bold;',
-                                                labelSeparator: ' :'
+                                                labelSeparator: ' :',
+                                                labelWidth: 120
                                             },
                                             waitMsgTarget: 'instDescForm',
                                             items: [
@@ -462,7 +469,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     items: [
                                                         {
                                                             xtype: 'displayfield',
-                                                            fieldLabel: 'Memory Size',
+                                                            fieldLabel: 'Memory Size(MB)',
                                                             name: 'memSize'
                                                         },
                                                         {
@@ -685,9 +692,9 @@ Ext.define('MyApp.view.instancesContainer', {
                                                             xtype: 'textfield',
                                                             id: 'searchPackageName',
                                                             itemId: 'searchPackageName',
-                                                            fieldLabel: 'Name',
+                                                            fieldLabel: 'Filter',
                                                             labelWidth: 45,
-                                                            emptyText: 'Search Package',
+                                                            emptyText: 'Search Package Name',
                                                             enableKeyEvents: true
                                                         },
                                                         {

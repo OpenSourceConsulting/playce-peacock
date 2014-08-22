@@ -376,12 +376,27 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "machineId",
+                        "dataIndex": "osName",
                         "hidden": true,
                         "hideable": false,
                         "text": null
                     },
                     "designerId": "90389196-635f-45a9-b095-17caebce5c65"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "machineId",
+                        "hidden": true,
+                        "hideable": false,
+                        "text": null
+                    },
+                    "designerId": "a0aac5b0-7f5d-49e7-8272-8cd505d65b4e"
                 },
                 {
                     "type": "Ext.grid.column.Column",
@@ -665,7 +680,8 @@
                                             "    margin: '0 10',",
                                             "    readOnly: true,",
                                             "    labelStyle: 'font-weight: bold;',",
-                                            "    labelSeparator: ' :'",
+                                            "    labelSeparator: ' :',",
+                                            "    labelWidth : 120",
                                             "}"
                                         ],
                                         "header": false,
@@ -972,7 +988,7 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
-                                                        "fieldLabel": "Memory Size",
+                                                        "fieldLabel": "Memory Size(MB)",
                                                         "layout|flex": null,
                                                         "name": "memSize"
                                                     },
@@ -1620,9 +1636,9 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
-                                                        "emptyText": "Search Package",
+                                                        "emptyText": "Search Package Name",
                                                         "enableKeyEvents": true,
-                                                        "fieldLabel": "Name",
+                                                        "fieldLabel": "Filter",
                                                         "id": "searchPackageName",
                                                         "itemId": "searchPackageName",
                                                         "labelWidth": 45,

@@ -245,8 +245,8 @@
                             "codeClass": null,
                             "userConfig": {
                                 "height": 150,
-                                "id": "almUserDetailPanel1",
-                                "itemId": "almUserDetailPanel",
+                                "id": "almProjectDetailPanel",
+                                "itemId": "almProjectDetailPanel",
                                 "layout": "card",
                                 "layout|flex": 1,
                                 "layout|region": "south",
