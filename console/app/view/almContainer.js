@@ -53,16 +53,230 @@ Ext.define('MyApp.view.almContainer', {
                 {
                     xtype: 'tabpanel',
                     region: 'center',
+                    id: 'almTabPanel',
+                    itemId: 'almTabPanel',
                     padding: '5 0 0 0',
                     style: 'background:#ffffff',
                     bodyPadding: '',
-                    activeTab: 0,
+                    activeTab: 1,
                     plain: true,
                     layout: {
                         type: 'card',
                         deferredRender: false
                     },
                     items: [
+                        {
+                            xtype: 'panel',
+                            layout: 'border',
+                            title: 'Project',
+                            items: [
+                                {
+                                    xtype: 'gridpanel',
+                                    flex: 1,
+                                    region: 'center',
+                                    id: 'almProjectGrid',
+                                    itemId: 'almProjectGrid',
+                                    minHeight: 100,
+                                    autoScroll: true,
+                                    columnLines: true,
+                                    forceFit: true,
+                                    store: 'AlmProjectStore',
+                                    dockedItems: [
+                                        {
+                                            xtype: 'toolbar',
+                                            dock: 'top',
+                                            id: 'instancesToolbar4',
+                                            itemId: 'instancesToolbar',
+                                            width: 150,
+                                            items: [
+                                                {
+                                                    xtype: 'button',
+                                                    handler: function(button, e) {
+                                                        almConstants.me.showAlmUserWindow();
+                                                    },
+                                                    id: 'createUserBtn3',
+                                                    itemId: 'createUserBtn',
+                                                    text: 'Create New Project'
+                                                },
+                                                {
+                                                    xtype: 'tbseparator'
+                                                },
+                                                {
+                                                    xtype: 'textfield',
+                                                    id: 'searchProjectName',
+                                                    itemId: 'searchProjectName',
+                                                    fieldLabel: 'Filtering',
+                                                    labelWidth: 60,
+                                                    emptyText: 'Search Project Name'
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    columns: [
+                                        {
+                                            xtype: 'rownumberer',
+                                            width: 50
+                                        },
+                                        {
+                                            xtype: 'gridcolumn',
+                                            minWidth: 80,
+                                            dataIndex: 'projectId',
+                                            text: 'Project ID'
+                                        },
+                                        {
+                                            xtype: 'gridcolumn',
+                                            minWidth: 150,
+                                            dataIndex: 'projectName',
+                                            text: 'Project Name'
+                                        },
+                                        {
+                                            xtype: 'gridcolumn',
+                                            minWidth: 300,
+                                            dataIndex: 'projectDescription',
+                                            text: 'Description'
+                                        }
+                                    ]
+                                },
+                                {
+                                    xtype: 'panel',
+                                    flex: 1,
+                                    region: 'south',
+                                    split: true,
+                                    height: 150,
+                                    id: 'almUserDetailPanel1',
+                                    itemId: 'almUserDetailPanel',
+                                    layout: 'card',
+                                    items: [
+                                        {
+                                            xtype: 'panel',
+                                            height: 1000,
+                                            id: 'blankPanel6',
+                                            itemId: 'blankPanel',
+                                            width: 1000
+                                        },
+                                        {
+                                            xtype: 'panel',
+                                            dockedItems: [
+                                                {
+                                                    xtype: 'toolbar',
+                                                    dock: 'top',
+                                                    items: [
+                                                        {
+                                                            xtype: 'label',
+                                                            html: '<h2></h2>',
+                                                            id: 'almUserTitleLabel1',
+                                                            itemId: 'almUserTitleLabel',
+                                                            margin: '',
+                                                            padding: '10 10 10 10',
+                                                            text: ''
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            items: [
+                                                {
+                                                    xtype: 'form',
+                                                    id: 'almUserForm1',
+                                                    itemId: 'almUserForm',
+                                                    padding: '',
+                                                    defaults: {
+                                                        border: false,
+                                                        xtype: 'panel',
+                                                        flex: 1,
+                                                        layout: 'anchor'
+                                                    },
+                                                    bodyPadding: 10,
+                                                    bodyStyle: 'padding:5px 5px 0',
+                                                    header: false,
+                                                    fieldDefaults: {
+                                                        msgTarget: 'side',
+                                                        margin: '0 10',
+                                                        readOnly: true,
+                                                        labelStyle: 'font-weight: bold;',
+                                                        labelSeparator: ' :'
+                                                    },
+                                                    waitMsgTarget: 'instDescForm',
+                                                    items: [
+                                                        {
+                                                            xtype: 'fieldcontainer',
+                                                            height: 34,
+                                                            defaults: {
+                                                                flex: 1
+                                                            },
+                                                            fieldLabel: 'Label',
+                                                            hideLabel: true,
+                                                            layout: {
+                                                                type: 'hbox',
+                                                                align: 'middle'
+                                                            },
+                                                            items: [
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    fieldLabel: 'User ID',
+                                                                    name: 'userId'
+                                                                },
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    fieldLabel: 'Dept Name'
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            xtype: 'fieldcontainer',
+                                                            height: 34,
+                                                            defaults: {
+                                                                flex: 1
+                                                            },
+                                                            fieldLabel: 'Label',
+                                                            hideLabel: true,
+                                                            layout: {
+                                                                type: 'hbox',
+                                                                align: 'middle'
+                                                            },
+                                                            items: [
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    fieldLabel: 'User Name',
+                                                                    name: 'displayName'
+                                                                },
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    fieldLabel: 'Email',
+                                                                    name: 'emailAddress'
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            xtype: 'fieldcontainer',
+                                                            height: 34,
+                                                            defaults: {
+                                                                flex: 1
+                                                            },
+                                                            fieldLabel: 'Label',
+                                                            hideLabel: true,
+                                                            layout: {
+                                                                type: 'hbox',
+                                                                align: 'middle'
+                                                            },
+                                                            items: [
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    fieldLabel: 'Is Active'
+                                                                },
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    fieldLabel: 'Assigned to'
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
                         {
                             xtype: 'panel',
                             layout: 'border',
@@ -92,16 +306,14 @@ Ext.define('MyApp.view.almContainer', {
                                                     handler: function(button, e) {
                                                         almConstants.me.showAlmUserWindow();
                                                     },
-                                                    id: 'createUserBtn1',
-                                                    itemId: 'createUserBtn',
-                                                    text: 'Create New User'
+                                                    text: 'Create Project'
                                                 },
                                                 {
                                                     xtype: 'tbseparator'
                                                 },
                                                 {
                                                     xtype: 'textfield',
-                                                    id: 'inputUserName1',
+                                                    id: 'inputUserName3',
                                                     itemId: 'inputUserName',
                                                     fieldLabel: 'Filtering',
                                                     labelWidth: 60,

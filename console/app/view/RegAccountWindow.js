@@ -65,7 +65,14 @@ Ext.define('MyApp.view.RegAccountWindow', {
                                     ],
                                     fieldLabel: 'Account ID',
                                     name: 'account',
-                                    allowBlank: false
+                                    allowBlank: false,
+                                    enableKeyEvents: true,
+                                    listeners: {
+                                        keyup: {
+                                            fn: me.onTextfieldKeyup,
+                                            scope: me
+                                        }
+                                    }
                                 },
                                 {
                                     xtype: 'textfield',
@@ -95,13 +102,15 @@ Ext.define('MyApp.view.RegAccountWindow', {
                                     xtype: 'textfield',
                                     anchor: '100%',
                                     fieldLabel: 'Home Dir',
-                                    name: 'homeDir'
+                                    name: 'homeDir',
+                                    value: '/home/'
                                 },
                                 {
                                     xtype: 'textfield',
                                     anchor: '100%',
                                     fieldLabel: 'Shell',
-                                    name: 'shell'
+                                    name: 'shell',
+                                    value: '/bin/bash'
                                 },
                                 {
                                     xtype: 'checkboxfield',
@@ -219,6 +228,15 @@ Ext.define('MyApp.view.RegAccountWindow', {
         });
 
         me.callParent(arguments);
+    },
+
+    onTextfieldKeyup: function(textfield, e, eOpts) {
+        var form = textfield.up('form').getForm();
+
+        var dirField = form.findField('homeDir');
+        if(dirField.getValue().indexOf('/home/') == 0) {
+            dirField.setValue('/home/' + textfield.getValue());
+        }
     },
 
     onCheckboxfieldChange: function(field, newValue, oldValue, eOpts) {

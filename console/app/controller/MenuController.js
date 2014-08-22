@@ -36,7 +36,7 @@ Ext.define('MyApp.controller.MenuController', {
 
             } else if(record.get('id') == 'MENU_04') {
 
-                almConstants.me.searchAlmUser(true);
+                almConstants.me.searchAlmProject(true);
 
             } else if(record.get('id') == 'MENU_05') {
 

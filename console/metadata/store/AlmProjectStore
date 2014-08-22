@@ -1,0 +1,63 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": false,
+        "designer|userClassName": "AlmProjectStore",
+        "model": "ProjectModel",
+        "storeId": "AlmProjectStore"
+    },
+    "designerId": "4450f6d8-e42f-4bba-9fe3-5efeed7a3075",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "url": "alm/project"
+            },
+            "designerId": "ffc28aad-0fc8-4a36-a16f-1f255381a99d",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "list"
+                    },
+                    "designerId": "24d2679e-fc51-4161-8dcf-3475e61d6c53"
+                },
+                {
+                    "type": "processcfgfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|params": [
+                            "config"
+                        ],
+                        "fn": "processMyAjaxProxy",
+                        "implHandler": [
+                            "config.actionMethods = {create: \"GET\", read: \"GET\", update: \"GET\", destroy: \"GET\"};",
+                            "",
+                            "return config;"
+                        ]
+                    },
+                    "designerId": "41882bda-0d70-4603-ba3b-679c22cad688"
+                }
+            ]
+        }
+    ]
+}

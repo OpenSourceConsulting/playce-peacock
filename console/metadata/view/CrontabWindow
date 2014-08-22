@@ -1,0 +1,270 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "CrontabWindow",
+        "designer|userClassName": "CrontabWindow",
+        "height": 380,
+        "id": "CrontabWindow",
+        "itemId": "CrontabWindow",
+        "layout": "border",
+        "title": "Edit Crontab",
+        "width": 480
+    },
+    "designerId": "607aee03-4f9a-4998-844b-b647741e074b",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "header": false,
+                "layout|flex": 1,
+                "layout|region": "center",
+                "title": "crontabPanel"
+            },
+            "designerId": "dca6c46e-c71c-400d-ac41-0580f2bd8457",
+            "cn": [
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "bodyPadding": 10,
+                        "id": "crontabForm",
+                        "itemId": "crontabForm",
+                        "title": null
+                    },
+                    "designerId": "e17c22d6-2d28-46a3-b126-96d6d240a04d",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.ComboBox",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": null,
+                                "displayField": "account",
+                                "fieldLabel": "Select Account",
+                                "inputId": null,
+                                "name": "account",
+                                "padding": null,
+                                "store": "ComboAccountStore",
+                                "valueField": "account"
+                            },
+                            "designerId": "25200e16-66d8-41db-8863-36fde1dd67dc",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onComboboxChange",
+                                        "implHandler": [
+                                            "var crontabForm = Ext.getCmp(\"crontabForm\");",
+                                            "",
+                                            "crontabForm.getForm().waitMsgTarget = crontabForm.getEl();",
+                                            "",
+                                            "crontabForm.getForm().load({",
+                                            "    params : {",
+                                            "        machineId : instancesConstants.actionRow.get(\"machineId\"),",
+                                            "        account : newValue",
+                                            "    }",
+                                            "    ,url : GLOBAL.urlPrefix + \"machine/getCrontab\"",
+                                            "    ,waitMsg:'Loading...'",
+                                            "    ,success: function(form, action) {",
+                                            "",
+                                            "        form.findField('contents').setValue(action.result.data);",
+                                            "    }",
+                                            "});"
+                                        ],
+                                        "name": "change",
+                                        "scope": "me"
+                                    },
+                                    "designerId": "c73e471d-0eb2-436c-9ced-1d76e7713dd5"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.form.field.TextArea",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "",
+                                "height": 245,
+                                "id": null,
+                                "inputId": null,
+                                "itemId": null,
+                                "labelAlign": "top",
+                                "name": "contents",
+                                "padding": null,
+                                "width": 447
+                            },
+                            "designerId": "96e2f33f-f9c6-4220-bb79-2bca08c4d5b4"
+                        },
+                        {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Label",
+                                "layout|anchor": "100%",
+                                "name": "machineId"
+                            },
+                            "designerId": "0a9d6e7d-a253-4f0d-80d1-a05ee19a6a63"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|pack": "center",
+                        "designer|uiInterfaceName": "footer",
+                        "dock": "bottom",
+                        "ui": "footer"
+                    },
+                    "designerId": "27153624-05b7-4a97-a295-c202ef8b7e58",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "crontabSaveBtn",
+                                "itemId": "crontabSaveBtn",
+                                "layout|flex": null,
+                                "margin": "0 15 0 0",
+                                "padding": "2 7 2 7",
+                                "text": "Save"
+                            },
+                            "designerId": "a00acff6-4032-47b6-bed7-b9e11456df10",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var crontabForm = Ext.getCmp(\"crontabForm\");",
+                                            "",
+                                            "crontabForm.getForm().submit({",
+                                            "    clientValidation: true,",
+                                            "    url: GLOBAL.urlPrefix + \"machine/editCrontab\",",
+                                            "    params: {",
+                                            "        newStatus: 'delivered'",
+                                            "    },",
+                                            "    waitMsg: 'Saving Data...',",
+                                            "    success: function(form, action) {",
+                                            "        Ext.Msg.alert('Success', action.result.msg);",
+                                            "",
+                                            "        crontabForm.up('window').close();",
+                                            "    },",
+                                            "    failure: function(form, action) {",
+                                            "",
+                                            "        switch (action.failureType) {",
+                                            "            case Ext.form.action.Action.CLIENT_INVALID:",
+                                            "            Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');",
+                                            "            break;",
+                                            "            case Ext.form.action.Action.CONNECT_FAILURE:",
+                                            "            Ext.Msg.alert('Failure', 'Server communication failed');",
+                                            "            break;",
+                                            "            case Ext.form.action.Action.SERVER_INVALID:",
+                                            "            Ext.Msg.alert('Failure', action.result.msg);",
+                                            "        }",
+                                            "    }",
+                                            "});",
+                                            ""
+                                        ]
+                                    },
+                                    "designerId": "7877ca56-51ea-4ddb-a373-5ced74ff000a"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "crontabCancelBtn",
+                                "itemId": "crontabCancelBtn",
+                                "layout|flex": null,
+                                "margin": "0 0 0 0",
+                                "padding": "2 5 2 5",
+                                "text": "Cancel"
+                            },
+                            "designerId": "8c069891-f1ae-4953-9a41-d371c21b5928",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "Ext.MessageBox.confirm('Confirm', '작업을 취소하시겠습니까?', function(btn){",
+                                            "",
+                                            "    if(btn == \"yes\"){",
+                                            "        button.up(\"window\").close();",
+                                            "    }",
+                                            "",
+                                            "});",
+                                            ""
+                                        ]
+                                    },
+                                    "designerId": "a85e3bc7-537a-4ad0-bc81-5819337e2ab2"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

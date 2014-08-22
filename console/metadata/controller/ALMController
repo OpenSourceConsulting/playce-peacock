@@ -172,6 +172,36 @@
                 "designer|params": [
                     "init"
                 ],
+                "fn": "searchAlmProject",
+                "implHandler": [
+                    "",
+                    "if(init) {",
+                    "",
+                    "    Ext.getCmp(\"almTabPanel\").setActiveTab(0);",
+                    "    Ext.getCmp(\"almProjectGrid\").reconfigure(Ext.getCmp(\"almProjectGrid\").store, Ext.getCmp(\"almProjectGrid\").initialConfig.columns);",
+                    "}",
+                    "",
+                    "almConstants.selectRow = null;",
+                    "",
+                    "Ext.getCmp(\"almProjectGrid\").getStore().load();",
+                    "",
+                    "var detailPanel = Ext.getCmp(\"almProjectDetailPanel\");",
+                    "detailPanel.layout.setActiveItem(0);"
+                ]
+            },
+            "designerId": "36b632c2-c9e4-42ae-9e1b-214b669be119"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "init"
+                ],
                 "fn": "searchAlmUser",
                 "implHandler": [
                     "",

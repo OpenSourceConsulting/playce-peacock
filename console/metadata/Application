@@ -35,7 +35,8 @@
             "ClusterModel",
             "AlmUserModel",
             "AccountModel",
-            "GroupModel"
+            "GroupModel",
+            "ProjectModel"
         ],
         "name": "MyApp",
         "requires": [
@@ -65,7 +66,9 @@
             "AlmUserStore",
             "AccountStore",
             "ComboGroupStore",
-            "TestStore"
+            "TestStore",
+            "AlmProjectStore",
+            "ComboAccountStore"
         ],
         "views": [
             "peacockViewport",
@@ -73,8 +76,8 @@
             "dashboardPanel",
             "instancesContainer",
             "CLIWindow",
-            "fstabWindow",
-            "crontabWindow",
+            "FstabWindow",
+            "CrontabWindow",
             "ManageAccountWindow",
             "RegAccountWindow",
             "softwareInstallWindow",

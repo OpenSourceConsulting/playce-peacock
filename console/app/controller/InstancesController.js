@@ -466,15 +466,41 @@ Ext.define('MyApp.controller.InstancesController', {
     },
 
     showFstabWindow: function() {
-        var fstabWindow = Ext.create("widget.fstabWindow");
-
+        var fstabWindow = Ext.create("widget.FstabWindow");
         fstabWindow.show();
+
+        var fstabForm = Ext.getCmp("fstabForm");
+
+        fstabForm.getForm().reset();
+
+        fstabForm.getForm().waitMsgTarget = fstabForm.getEl();
+
+        fstabForm.getForm().load({
+            params : {
+                machineId : instancesConstants.actionRow.get("machineId")
+            }
+            ,url : GLOBAL.urlPrefix + "machine/getFstab"
+            ,waitMsg:'Loading...'
+            ,success: function(form, action) {
+
+                form.findField('machineId').setValue(instancesConstants.actionRow.get("machineId"));
+                form.findField('contents').setValue(action.result.data);
+            }
+        });
     },
 
     showCrontabWindow: function() {
-        var crontabWindow = Ext.create("widget.crontabWindow");
+        var crontabWindow = Ext.create("widget.CrontabWindow");
 
         crontabWindow.show();
+
+        Ext.getCmp("crontabForm").getForm().findField('machineId').setValue(instancesConstants.actionRow.get("machineId"));
+
+        var accountStore = Ext.getStore("ComboAccountStore");
+        accountStore.getProxy().extraParams = {
+            machineId : instancesConstants.actionRow.get("machineId")
+        };
+
     },
 
     showEditInstanceNameWindow: function() {

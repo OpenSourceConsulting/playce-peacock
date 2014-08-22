@@ -63,6 +63,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "allowBlank": false,
+                                "enableKeyEvents": true,
                                 "fieldLabel": "Account ID",
                                 "layout|anchor": "100%",
                                 "name": "account"
@@ -83,6 +84,28 @@
                                         ]
                                     },
                                     "designerId": "b87e87d0-ebc0-42c6-b7c0-c90f174cfd4f"
+                                },
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onTextfieldKeyup",
+                                        "implHandler": [
+                                            "var form = textfield.up('form').getForm();",
+                                            "",
+                                            "var dirField = form.findField('homeDir');",
+                                            "if(dirField.getValue().indexOf('/home/') == 0) {",
+                                            "    dirField.setValue('/home/' + textfield.getValue());",
+                                            "}"
+                                        ],
+                                        "name": "keyup",
+                                        "scope": "me"
+                                    },
+                                    "designerId": "37ed85a1-0c0e-405a-ae7a-0abb8e61c180"
                                 }
                             ]
                         },
@@ -165,7 +188,10 @@
                             "userConfig": {
                                 "fieldLabel": "Home Dir",
                                 "layout|anchor": "100%",
-                                "name": "homeDir"
+                                "name": "homeDir",
+                                "value": [
+                                    "'/home/'"
+                                ]
                             },
                             "designerId": "c23f35e9-e675-495d-ac71-876fe340c559"
                         },
@@ -179,7 +205,10 @@
                             "userConfig": {
                                 "fieldLabel": "Shell",
                                 "layout|anchor": "100%",
-                                "name": "shell"
+                                "name": "shell",
+                                "value": [
+                                    "'/bin/bash'"
+                                ]
                             },
                             "designerId": "9b74c6d5-d082-4520-9326-56bd5709e095"
                         },

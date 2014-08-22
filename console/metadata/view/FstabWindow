@@ -1,0 +1,248 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "FstabWindow",
+        "designer|userClassName": "FstabWindow",
+        "height": 400,
+        "id": "fstabWindow",
+        "layout": "border",
+        "title": "Edit Fstab",
+        "width": 500
+    },
+    "designerId": "025a4b85-37e6-49f3-b6b7-032807c32144",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "header": false,
+                "layout|flex": 1,
+                "layout|region": "center",
+                "title": "fstabPanel"
+            },
+            "designerId": "eb79a405-e934-4b87-9f12-0a04b2161080",
+            "cn": [
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "bodyPadding": 10,
+                        "id": "fstabForm",
+                        "itemId": "fstabForm",
+                        "title": null
+                    },
+                    "designerId": "66234945-f777-4514-b7f1-1f7e9d03e18d",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.TextArea",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "",
+                                "height": 240,
+                                "id": null,
+                                "inputId": "inputFstab",
+                                "itemId": null,
+                                "labelAlign": "top",
+                                "name": "contents",
+                                "padding": null,
+                                "width": 470
+                            },
+                            "designerId": "d1a21d3e-38e5-4a94-b790-3d7bc6368ac4"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Unmount node(s)",
+                                "labelWidth": 120,
+                                "layout|anchor": "100%",
+                                "name": "unmounts"
+                            },
+                            "designerId": "4a6c1f0f-dda6-4456-bded-ee8047ba4b5a"
+                        },
+                        {
+                            "type": "Ext.form.field.Checkbox",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "boxLabel": "Execute \"mount -a\" after save",
+                                "checked": true,
+                                "fieldLabel": "Remount",
+                                "labelWidth": 120,
+                                "layout|anchor": "100%",
+                                "name": "remount"
+                            },
+                            "designerId": "bfb61434-95bf-4aee-86c9-94703497cb70"
+                        },
+                        {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Label",
+                                "layout|anchor": "100%",
+                                "name": "machineId"
+                            },
+                            "designerId": "e5829ee0-7805-4121-a17d-e20ae781601c"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|pack": "center",
+                        "designer|uiInterfaceName": "footer",
+                        "dock": "bottom",
+                        "ui": "footer"
+                    },
+                    "designerId": "2f0f0d38-0836-44f5-8304-ef8a5256df00",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "fstabSaveBtn",
+                                "itemId": "fstabSaveBtn",
+                                "layout|flex": null,
+                                "margin": "0 15 0 0",
+                                "padding": "2 7 2 7",
+                                "text": "Save"
+                            },
+                            "designerId": "4b99d19c-178c-4bd4-badd-fa30b22dbe3d",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var fstabForm = Ext.getCmp(\"fstabForm\");",
+                                            "",
+                                            "fstabForm.getForm().submit({",
+                                            "    clientValidation: true,",
+                                            "    url: GLOBAL.urlPrefix + \"machine/editFstab\",",
+                                            "    params: {",
+                                            "        newStatus: 'delivered'",
+                                            "    },",
+                                            "    waitMsg: 'Saving Data...',",
+                                            "    success: function(form, action) {",
+                                            "        Ext.Msg.alert('Success', action.result.msg);",
+                                            "",
+                                            "        fstabForm.up('window').close();",
+                                            "    },",
+                                            "    failure: function(form, action) {",
+                                            "",
+                                            "        switch (action.failureType) {",
+                                            "            case Ext.form.action.Action.CLIENT_INVALID:",
+                                            "            Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');",
+                                            "            break;",
+                                            "            case Ext.form.action.Action.CONNECT_FAILURE:",
+                                            "            Ext.Msg.alert('Failure', 'Server communication failed');",
+                                            "            break;",
+                                            "            case Ext.form.action.Action.SERVER_INVALID:",
+                                            "            Ext.Msg.alert('Failure', action.result.msg);",
+                                            "        }",
+                                            "    }",
+                                            "});",
+                                            ""
+                                        ]
+                                    },
+                                    "designerId": "b86ab022-533e-46ff-9691-7be657a0562d"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "fstabCancelBtn",
+                                "itemId": "fstabCancelBtn",
+                                "layout|flex": null,
+                                "margin": "0 0 0 0",
+                                "padding": "2 5 2 5",
+                                "text": "Cancel"
+                            },
+                            "designerId": "9bd86767-57c9-4ffe-b914-48023e5b7e59",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "Ext.MessageBox.confirm('Confirm', '작업을 취소하시겠습니까?', function(btn){",
+                                            "",
+                                            "    if(btn == \"yes\"){",
+                                            "        button.up(\"window\").close();",
+                                            "    }",
+                                            "",
+                                            "});",
+                                            ""
+                                        ]
+                                    },
+                                    "designerId": "425d49ac-3910-490a-9352-0dee2d13a508"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -42,7 +42,8 @@ Ext.application({
         'ClusterModel',
         'AlmUserModel',
         'AccountModel',
-        'GroupModel'
+        'GroupModel',
+        'ProjectModel'
     ],
     stores: [
         'MenuTreeStore',
@@ -68,7 +69,9 @@ Ext.application({
         'AlmUserStore',
         'AccountStore',
         'ComboGroupStore',
-        'TestStore'
+        'TestStore',
+        'AlmProjectStore',
+        'ComboAccountStore'
     ],
     views: [
         'peacockViewport',
@@ -76,8 +79,8 @@ Ext.application({
         'dashboardPanel',
         'instancesContainer',
         'CLIWindow',
-        'fstabWindow',
-        'crontabWindow',
+        'FstabWindow',
+        'CrontabWindow',
         'ManageAccountWindow',
         'RegAccountWindow',
         'softwareInstallWindow',

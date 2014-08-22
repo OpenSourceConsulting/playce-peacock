@@ -1,0 +1,53 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "ProjectModel"
+    },
+    "designerId": "2ee61383-d6b8-4862-a87c-4b85affd2428",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "projectId",
+                "type": "string"
+            },
+            "designerId": "89ace265-c6c3-4288-b55c-f993410d6fe3"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "projectName",
+                "type": "string"
+            },
+            "designerId": "b1967ebf-b931-4d61-95ab-d5049164e782"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "projectDescription",
+                "type": "string"
+            },
+            "designerId": "a52b1721-d293-4caa-9880-21e069f7b514"
+        }
+    ]
+}

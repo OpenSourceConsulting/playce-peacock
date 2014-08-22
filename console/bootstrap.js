@@ -433,6 +433,7 @@ Ext.ClassManager.addNameAlternateMappings({
   ],
   "Ext.grid.RowEditor": [],
   "Ext.grid.RowEditorButtons": [],
+  "Ext.grid.Scroller": [],
   "Ext.grid.View": [],
   "Ext.grid.ViewDropZone": [],
   "Ext.grid.column.Action": [
@@ -876,14 +877,17 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.controller.SettingsMenuController": [],
   "MyApp.controller.SoftwareInstallController": [],
   "MyApp.controller.UserController": [],
+  "MyApp.model.AccountModel": [],
   "MyApp.model.AlmUserModel": [],
   "MyApp.model.ClusterModel": [],
   "MyApp.model.DataCenterModel": [],
   "MyApp.model.DiskModel": [],
+  "MyApp.model.GroupModel": [],
   "MyApp.model.HypervisorModel": [],
   "MyApp.model.MachineModel": [],
   "MyApp.model.NetworkModel": [],
   "MyApp.model.PackageModel": [],
+  "MyApp.model.ProjectModel": [],
   "MyApp.model.SessionModel": [],
   "MyApp.model.TemplateModel": [],
   "MyApp.model.UserModel": [],
@@ -892,9 +896,13 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.model.instanceOsModel": [],
   "MyApp.model.instanceSoftwareModel": [],
   "MyApp.model.monitoringChartModel": [],
+  "MyApp.store.AccountStore": [],
+  "MyApp.store.AlmProjectStore": [],
   "MyApp.store.AlmUserStore": [],
+  "MyApp.store.ComboAccountStore": [],
   "MyApp.store.ComboClusterStore": [],
   "MyApp.store.ComboDataCenterStore": [],
+  "MyApp.store.ComboGroupStore": [],
   "MyApp.store.ComboHypervisorStore": [],
   "MyApp.store.ComboTemplateStore": [],
   "MyApp.store.HypervisorStore": [],
@@ -903,6 +911,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.MenuTreeStore": [],
   "MyApp.store.SessionStore": [],
   "MyApp.store.TemplateStore": [],
+  "MyApp.store.TestStore": [],
   "MyApp.store.UserStore": [],
   "MyApp.store.VMDiskStore": [],
   "MyApp.store.VMNetworkStore": [],
@@ -914,8 +923,12 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.tempChartData": [],
   "MyApp.store.tempGridData": [],
   "MyApp.view.CLIWindow": [],
+  "MyApp.view.CrontabWindow": [],
   "MyApp.view.EditInstanceNameWindow": [],
+  "MyApp.view.FstabWindow": [],
   "MyApp.view.Main": [],
+  "MyApp.view.ManageAccountWindow": [],
+  "MyApp.view.RegAccountWindow": [],
   "MyApp.view.RegInstanceWindow": [],
   "MyApp.view.RegRhevmWindow": [],
   "MyApp.view.RegTemplateWindow": [],
@@ -926,15 +939,11 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.almGroupWindow": [],
   "MyApp.view.almUserWindow": [],
   "MyApp.view.blankPanel": [],
-  "MyApp.view.crontabWindow": [],
   "MyApp.view.dashboardPanel": [],
-  "MyApp.view.fstabWindow": [],
   "MyApp.view.instancesContainer": [],
   "MyApp.view.loginWindow": [],
-  "MyApp.view.manageAccountWindow": [],
   "MyApp.view.monitoringChartWindow": [],
   "MyApp.view.peacockViewport": [],
-  "MyApp.view.regAccountWindow": [],
   "MyApp.view.rhevmContainer": [],
   "MyApp.view.softwareConfigWindow": [],
   "MyApp.view.softwareInstallLogWindow": [],
@@ -1381,6 +1390,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.grid.RowEditorButtons": [
     "widget.roweditorbuttons"
   ],
+  "Ext.grid.Scroller": [],
   "Ext.grid.View": [
     "widget.gridview"
   ],
@@ -1958,14 +1968,17 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.controller.SettingsMenuController": [],
   "MyApp.controller.SoftwareInstallController": [],
   "MyApp.controller.UserController": [],
+  "MyApp.model.AccountModel": [],
   "MyApp.model.AlmUserModel": [],
   "MyApp.model.ClusterModel": [],
   "MyApp.model.DataCenterModel": [],
   "MyApp.model.DiskModel": [],
+  "MyApp.model.GroupModel": [],
   "MyApp.model.HypervisorModel": [],
   "MyApp.model.MachineModel": [],
   "MyApp.model.NetworkModel": [],
   "MyApp.model.PackageModel": [],
+  "MyApp.model.ProjectModel": [],
   "MyApp.model.SessionModel": [],
   "MyApp.model.TemplateModel": [],
   "MyApp.model.UserModel": [],
@@ -1974,9 +1987,13 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.model.instanceOsModel": [],
   "MyApp.model.instanceSoftwareModel": [],
   "MyApp.model.monitoringChartModel": [],
+  "MyApp.store.AccountStore": [],
+  "MyApp.store.AlmProjectStore": [],
   "MyApp.store.AlmUserStore": [],
+  "MyApp.store.ComboAccountStore": [],
   "MyApp.store.ComboClusterStore": [],
   "MyApp.store.ComboDataCenterStore": [],
+  "MyApp.store.ComboGroupStore": [],
   "MyApp.store.ComboHypervisorStore": [],
   "MyApp.store.ComboTemplateStore": [],
   "MyApp.store.HypervisorStore": [],
@@ -1985,6 +2002,7 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.store.MenuTreeStore": [],
   "MyApp.store.SessionStore": [],
   "MyApp.store.TemplateStore": [],
+  "MyApp.store.TestStore": [],
   "MyApp.store.UserStore": [],
   "MyApp.store.VMDiskStore": [],
   "MyApp.store.VMNetworkStore": [],
@@ -1998,11 +2016,23 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.CLIWindow": [
     "widget.CLIWindow"
   ],
+  "MyApp.view.CrontabWindow": [
+    "widget.CrontabWindow"
+  ],
   "MyApp.view.EditInstanceNameWindow": [
     "widget.EditInstanceNameWindow"
   ],
+  "MyApp.view.FstabWindow": [
+    "widget.FstabWindow"
+  ],
   "MyApp.view.Main": [
     "widget.app-main"
+  ],
+  "MyApp.view.ManageAccountWindow": [
+    "widget.ManageAccountWindow"
+  ],
+  "MyApp.view.RegAccountWindow": [
+    "widget.RegAccountWindow"
   ],
   "MyApp.view.RegInstanceWindow": [
     "widget.RegInstanceWindow"
@@ -2032,14 +2062,8 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.blankPanel": [
     "widget.blankpanel"
   ],
-  "MyApp.view.crontabWindow": [
-    "widget.crontabWindow"
-  ],
   "MyApp.view.dashboardPanel": [
     "widget.dashboardPanel"
-  ],
-  "MyApp.view.fstabWindow": [
-    "widget.fstabWindow"
   ],
   "MyApp.view.instancesContainer": [
     "widget.instancesContainer"
@@ -2047,17 +2071,11 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.loginWindow": [
     "widget.loginWindow"
   ],
-  "MyApp.view.manageAccountWindow": [
-    "widget.manageAccountWindow"
-  ],
   "MyApp.view.monitoringChartWindow": [
     "widget.monitoringChartWindow"
   ],
   "MyApp.view.peacockViewport": [
     "widget.peacockViewport"
-  ],
-  "MyApp.view.regAccountWindow": [
-    "widget.regAccountWindow"
   ],
   "MyApp.view.rhevmContainer": [
     "widget.rhevmcontainer"

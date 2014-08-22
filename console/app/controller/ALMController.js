@@ -118,6 +118,22 @@ Ext.define('MyApp.controller.ALMController', {
         });
     },
 
+    searchAlmProject: function(init) {
+
+        if(init) {
+
+            Ext.getCmp("almTabPanel").setActiveTab(0);
+            Ext.getCmp("almProjectGrid").reconfigure(Ext.getCmp("almProjectGrid").store, Ext.getCmp("almProjectGrid").initialConfig.columns);
+        }
+
+        almConstants.selectRow = null;
+
+        Ext.getCmp("almProjectGrid").getStore().load();
+
+        var detailPanel = Ext.getCmp("almProjectDetailPanel");
+        detailPanel.layout.setActiveItem(0);
+    },
+
     searchAlmUser: function(init) {
 
         if(init) {
