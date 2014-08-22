@@ -30,6 +30,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -59,7 +60,12 @@ public class MachineService {
 		MachineDto m = machineDao.getMachine(machine.getMachineId());
 		
 		if (m != null) {
-			machine.setDisplayId(m.getDisplayId());
+			if (StringUtils.isEmpty(machine.getDisplayId())) {
+				machine.setDisplayId(m.getDisplayId());
+			}
+			if (StringUtils.isEmpty(machine.getDisplayName())) {
+				machine.setDisplayName(m.getDisplayName());
+			}
 			machineDao.updateMachine(machine);
 		} else {
 			String displayId = "i-" + RandomStringUtils.randomAlphanumeric(8).toLowerCase();
@@ -110,9 +116,13 @@ public class MachineService {
 		
 		machineDao.updateMachine(m);
 		
-		VM vm = new VM();
-		vm.setName(m.getDisplayName());
-		return RHEVMRestTemplateManager.getRHEVMRestTemplate(m.getHypervisorId()).submit(RHEVApi.VMS + "/" + m.getMachineId(), HttpMethod.PUT, vm, "vm", VM.class);
+		if (machine.getHypervisorId() != null && machine.getHypervisorId() > 0) {
+			VM vm = new VM();
+			vm.setName(m.getDisplayName());
+			return RHEVMRestTemplateManager.getRHEVMRestTemplate(m.getHypervisorId()).submit(RHEVApi.VMS + "/" + m.getMachineId(), HttpMethod.PUT, vm, "vm", VM.class);
+		} else {
+			return null;
+		}
 	}
 }
 //end of MachineService.java
