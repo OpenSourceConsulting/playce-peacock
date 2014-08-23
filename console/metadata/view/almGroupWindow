@@ -12,6 +12,7 @@
         "id": "almGroupWindow",
         "itemId": "almGroupWindow",
         "layout": "border",
+        "modal": true,
         "title": "Add Group",
         "width": 460
     },

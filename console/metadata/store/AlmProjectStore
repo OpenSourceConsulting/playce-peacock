@@ -11,7 +11,7 @@
         "model": "ProjectModel",
         "storeId": "AlmProjectStore"
     },
-    "designerId": "4450f6d8-e42f-4bba-9fe3-5efeed7a3075",
+    "designerId": "8bed763e-8faa-446c-8184-6271c9833885",
     "cn": [
         {
             "type": "Ext.data.proxy.Ajax",
@@ -23,7 +23,7 @@
             "userConfig": {
                 "url": "alm/project"
             },
-            "designerId": "ffc28aad-0fc8-4a36-a16f-1f255381a99d",
+            "designerId": "9b767259-1567-420b-b0ff-667ecfbab2e9",
             "cn": [
                 {
                     "type": "Ext.data.reader.Json",
@@ -35,7 +35,7 @@
                     "userConfig": {
                         "root": "list"
                     },
-                    "designerId": "24d2679e-fc51-4161-8dcf-3475e61d6c53"
+                    "designerId": "5767bd5d-e45c-444f-993f-5bd8ce84ab4d"
                 },
                 {
                     "type": "processcfgfunction",
@@ -55,7 +55,7 @@
                             "return config;"
                         ]
                     },
-                    "designerId": "41882bda-0d70-4603-ba3b-679c22cad688"
+                    "designerId": "6bd1b661-19c0-4705-9034-3aceff10b741"
                 }
             ]
         }

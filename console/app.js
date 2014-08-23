@@ -43,7 +43,9 @@ Ext.application({
         'AlmUserModel',
         'AccountModel',
         'GroupModel',
-        'ProjectModel'
+        'ProjectModel',
+        'SpaceSummaryModel',
+        'AlmGroupModel'
     ],
     stores: [
         'MenuTreeStore',
@@ -69,9 +71,10 @@ Ext.application({
         'AlmUserStore',
         'AccountStore',
         'ComboGroupStore',
-        'TestStore',
+        'ComboAccountStore',
         'AlmProjectStore',
-        'ComboAccountStore'
+        'AlmSpaceStore',
+        'AlmGroupStore'
     ],
     views: [
         'peacockViewport',
@@ -98,7 +101,8 @@ Ext.application({
         'monitoringChartWindow',
         'UserWindow',
         'EditInstanceNameWindow',
-        'RegInstanceWindow'
+        'RegInstanceWindow',
+        'almProjectSpaceWindow'
     ],
     controllers: [
         'LoginController',

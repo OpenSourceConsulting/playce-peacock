@@ -20,6 +20,7 @@ Ext.define('MyApp.view.almUserWindow', {
     requires: [
         'Ext.form.Panel',
         'Ext.form.field.Text',
+        'Ext.XTemplate',
         'Ext.form.field.Checkbox',
         'Ext.form.CheckboxGroup',
         'Ext.toolbar.Toolbar',
@@ -32,6 +33,7 @@ Ext.define('MyApp.view.almUserWindow', {
     width: 450,
     layout: 'border',
     title: 'Add User',
+    modal: true,
 
     initComponent: function() {
         var me = this;
@@ -50,12 +52,21 @@ Ext.define('MyApp.view.almUserWindow', {
                             id: 'popAlmUserForm',
                             itemId: 'popAlmUserForm',
                             bodyPadding: 15,
+                            fieldDefaults: {
+                                msgTarget: 'side',
+                                labelWidth: 120
+                            },
                             items: [
                                 {
                                     xtype: 'textfield',
                                     anchor: '100%',
-                                    fieldLabel: 'UserID',
-                                    labelWidth: 120
+                                    afterLabelTextTpl: [
+                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                    ],
+                                    fieldLabel: 'User ID',
+                                    labelWidth: 120,
+                                    name: 'name',
+                                    allowBlank: false
                                 },
                                 {
                                     xtype: 'checkboxfield',
@@ -67,26 +78,49 @@ Ext.define('MyApp.view.almUserWindow', {
                                 {
                                     xtype: 'textfield',
                                     anchor: '100%',
+                                    afterLabelTextTpl: [
+                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                    ],
                                     fieldLabel: 'User Name',
-                                    labelWidth: 120
+                                    labelWidth: 120,
+                                    name: 'displayName',
+                                    allowBlank: false
                                 },
                                 {
                                     xtype: 'textfield',
                                     anchor: '100%',
+                                    afterLabelTextTpl: [
+                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                    ],
                                     fieldLabel: 'Password',
-                                    labelWidth: 120
+                                    labelWidth: 120,
+                                    name: 'password',
+                                    inputType: 'password',
+                                    allowBlank: false
                                 },
                                 {
                                     xtype: 'textfield',
                                     anchor: '100%',
+                                    afterLabelTextTpl: [
+                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                    ],
                                     fieldLabel: 'Confirm Password',
-                                    labelWidth: 120
+                                    labelWidth: 120,
+                                    name: 'confirmPassword',
+                                    inputType: 'password',
+                                    allowBlank: false,
+                                    vtype: 'password'
                                 },
                                 {
                                     xtype: 'textfield',
                                     anchor: '100%',
+                                    afterLabelTextTpl: [
+                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                    ],
                                     fieldLabel: 'EMail Address',
-                                    labelWidth: 120
+                                    labelWidth: 120,
+                                    name: 'email',
+                                    allowBlank: false
                                 },
                                 {
                                     xtype: 'textfield',
@@ -133,8 +167,35 @@ Ext.define('MyApp.view.almUserWindow', {
                             items: [
                                 {
                                     xtype: 'button',
-                                    id: 'instanceCreateBtn1',
-                                    itemId: 'instanceCreateBtn',
+                                    handler: function(button, e) {
+
+
+                                        var almUserForm = Ext.getCmp("popAlmUserForm");
+                                        if(almUserForm.isValid()) {
+
+                                            Ext.Ajax.request({
+                                                url: GLOBAL.urlPrefix + "alm/usermanagement",
+                                                method: 'POST',
+                                                headers: { 'Content-Type': 'application/json' },
+                                                type: "json",
+                                                data: almUserForm.getForm().getFieldValues(),
+                                                success: function (response) {
+
+                                                    Ext.Msg.alert('Success', Ext.JSON.decode(response.responseText).msg);
+
+                                                    Ext.getCmp('almUserGrid').getStore().reload();
+                                                    almUserForm.up('window').close();
+                                                },
+                                                failure: function (response) {
+                                                    var msg = Ext.JSON.decode(response.responseText).msg;
+
+                                                    Ext.Msg.alert('Failure', msg);
+                                                }
+                                            });
+
+                                        }
+
+                                    },
                                     margin: '0 15 0 0',
                                     padding: '2 5 2 5',
                                     text: 'Create'
@@ -142,10 +203,15 @@ Ext.define('MyApp.view.almUserWindow', {
                                 {
                                     xtype: 'button',
                                     handler: function(button, e) {
-                                        button.up("window").close();
+                                        Ext.MessageBox.confirm('Confirm', '작업을 취소하시겠습니까?', function(btn){
+
+                                            if(btn == "yes"){
+                                                button.up("window").close();
+                                            }
+
+                                        });
+
                                     },
-                                    id: 'instanceCancelBtn1',
-                                    itemId: 'instanceCancelBtn',
                                     margin: '0 0 0 0',
                                     padding: '2 5 2 5',
                                     text: 'Cancel'

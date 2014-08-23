@@ -1,0 +1,63 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": false,
+        "designer|userClassName": "AlmGroupStore",
+        "model": "AlmGroupModel",
+        "storeId": "AlmGroupStore"
+    },
+    "designerId": "5a0d91ce-1d53-46de-a0b5-43718eb38d35",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "url": "alm/groupmanagement"
+            },
+            "designerId": "35e3b4b4-8605-4cf1-a67b-d9c2efb20252",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "list"
+                    },
+                    "designerId": "acab4eac-386b-423c-ba25-d23dab24da0d"
+                },
+                {
+                    "type": "processcfgfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|params": [
+                            "config"
+                        ],
+                        "fn": "processMyAjaxProxy",
+                        "implHandler": [
+                            "config.actionMethods = {create: \"GET\", read: \"GET\", update: \"GET\", destroy: \"GET\"};",
+                            "",
+                            "return config;"
+                        ]
+                    },
+                    "designerId": "ec894d6c-a9c6-495a-88bf-acb17ceca8cc"
+                }
+            ]
+        }
+    ]
+}

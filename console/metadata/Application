@@ -36,7 +36,9 @@
             "AlmUserModel",
             "AccountModel",
             "GroupModel",
-            "ProjectModel"
+            "ProjectModel",
+            "SpaceSummaryModel",
+            "AlmGroupModel"
         ],
         "name": "MyApp",
         "requires": [
@@ -66,9 +68,10 @@
             "AlmUserStore",
             "AccountStore",
             "ComboGroupStore",
-            "TestStore",
+            "ComboAccountStore",
             "AlmProjectStore",
-            "ComboAccountStore"
+            "AlmSpaceStore",
+            "AlmGroupStore"
         ],
         "views": [
             "peacockViewport",
@@ -95,7 +98,8 @@
             "monitoringChartWindow",
             "UserWindow",
             "EditInstanceNameWindow",
-            "RegInstanceWindow"
+            "RegInstanceWindow",
+            "almProjectSpaceWindow"
         ]
     },
     "designerId": "application"

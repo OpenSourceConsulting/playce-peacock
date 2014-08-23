@@ -31,6 +31,7 @@ Ext.define('MyApp.view.almGroupWindow', {
     width: 460,
     layout: 'border',
     title: 'Add Group',
+    modal: true,
 
     initComponent: function() {
         var me = this;

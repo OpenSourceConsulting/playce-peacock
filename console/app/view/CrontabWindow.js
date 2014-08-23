@@ -32,6 +32,7 @@ Ext.define('MyApp.view.CrontabWindow', {
     width: 480,
     layout: 'border',
     title: 'Edit Crontab',
+    modal: true,
 
     initComponent: function() {
         var me = this;

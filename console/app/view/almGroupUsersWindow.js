@@ -20,7 +20,7 @@ Ext.define('MyApp.view.almGroupUsersWindow', {
     requires: [
         'Ext.grid.Panel',
         'Ext.selection.CheckboxModel',
-        'Ext.grid.column.Boolean',
+        'Ext.grid.column.Column',
         'Ext.grid.View',
         'Ext.toolbar.Toolbar',
         'Ext.button.Button'
@@ -32,6 +32,7 @@ Ext.define('MyApp.view.almGroupUsersWindow', {
     width: 300,
     layout: 'border',
     title: 'Add Users',
+    modal: true,
 
     initComponent: function() {
         var me = this;
@@ -50,22 +51,36 @@ Ext.define('MyApp.view.almGroupUsersWindow', {
                         {
                             xtype: 'gridpanel',
                             height: 358,
+                            id: 'almGroupUsersGrid',
+                            itemId: 'almGroupUsersGrid',
                             autoScroll: true,
                             bodyBorder: false,
                             columnLines: true,
+                            forceFit: true,
                             selModel: Ext.create('Ext.selection.CheckboxModel', {
 
                             }),
                             columns: [
                                 {
                                     xtype: 'gridcolumn',
-                                    dataIndex: 'string',
-                                    text: 'String'
+                                    minWidth: 100,
+                                    dataIndex: 'name',
+                                    text: 'User ID'
                                 },
                                 {
-                                    xtype: 'booleancolumn',
-                                    dataIndex: 'bool',
-                                    text: 'Boolean'
+                                    xtype: 'gridcolumn',
+                                    minWidth: 150,
+                                    dataIndex: 'text',
+                                    text: 'User Name'
+                                }
+                            ],
+                            dockedItems: [
+                                {
+                                    xtype: 'toolbar',
+                                    dock: 'top',
+                                    height: 10,
+                                    minHeight: 10,
+                                    padding: 0
                                 }
                             ]
                         }

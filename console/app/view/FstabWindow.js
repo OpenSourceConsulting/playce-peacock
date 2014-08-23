@@ -31,6 +31,7 @@ Ext.define('MyApp.view.FstabWindow', {
     width: 500,
     layout: 'border',
     title: 'Edit Fstab',
+    modal: true,
 
     initComponent: function() {
         var me = this;

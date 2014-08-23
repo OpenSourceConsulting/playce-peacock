@@ -1,0 +1,63 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": false,
+        "designer|userClassName": "AlmSpaceStore",
+        "model": "SpaceSummaryModel",
+        "storeId": "AlmSpaceStore"
+    },
+    "designerId": "1c1ea3d9-0804-4f4c-902b-39ebcdfa25a1",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "url": "alm/confluence/space"
+            },
+            "designerId": "7f510b44-40e6-4a9d-9996-5d36a162f130",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "list"
+                    },
+                    "designerId": "2b99fbdb-35e2-439f-b8c0-12b860586e3b"
+                },
+                {
+                    "type": "processcfgfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|params": [
+                            "config"
+                        ],
+                        "fn": "processMyAjaxProxy",
+                        "implHandler": [
+                            "config.actionMethods = {create: \"GET\", read: \"GET\", update: \"GET\", destroy: \"GET\"};",
+                            "",
+                            "return config;"
+                        ]
+                    },
+                    "designerId": "0bbb39a9-b493-43b6-88ee-d7229edc2b88"
+                }
+            ]
+        }
+    ]
+}

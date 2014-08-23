@@ -12,6 +12,7 @@
         "id": "almGroupUsersWindow",
         "itemId": "almGroupUsersWindow",
         "layout": "border",
+        "modal": true,
         "title": "Add Users",
         "width": 300
     },
@@ -45,7 +46,10 @@
                         "autoScroll": true,
                         "bodyBorder": false,
                         "columnLines": true,
+                        "forceFit": true,
                         "height": 358,
+                        "id": "almGroupUsersGrid",
+                        "itemId": "almGroupUsersGrid",
                         "title": null
                     },
                     "designerId": "b080beab-f846-4a2a-8826-9c366eda9126",
@@ -67,23 +71,25 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "dataIndex": "string",
-                                "text": "String"
+                                "dataIndex": "name",
+                                "minWidth": 100,
+                                "text": "User ID"
                             },
                             "designerId": "9b4549e4-6369-4e9a-9af1-d7be88d8a060"
                         },
                         {
-                            "type": "Ext.grid.column.Boolean",
+                            "type": "Ext.grid.column.Column",
                             "reference": {
                                 "name": "columns",
                                 "type": "array"
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "dataIndex": "bool",
-                                "text": "Boolean"
+                                "dataIndex": "text",
+                                "minWidth": 150,
+                                "text": "User Name"
                             },
-                            "designerId": "f72eb1f8-0729-4638-a08b-b10ad44fe4ce"
+                            "designerId": "3916b73b-f79f-4298-9b91-ea7e63ace21b"
                         },
                         {
                             "type": "Ext.grid.View",
@@ -93,6 +99,23 @@
                             },
                             "codeClass": null,
                             "designerId": "195475ee-312a-4237-a7e5-3b9e247baa8b"
+                        },
+                        {
+                            "type": "Ext.toolbar.Toolbar",
+                            "reference": {
+                                "name": "dockedItems",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dock": "top",
+                                "height": 10,
+                                "maxWidth": null,
+                                "minHeight": 10,
+                                "padding": 0,
+                                "width": null
+                            },
+                            "designerId": "a262929a-40cb-45a0-b7a7-19a03de9374a"
                         }
                     ]
                 },

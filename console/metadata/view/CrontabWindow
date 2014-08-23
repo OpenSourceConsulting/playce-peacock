@@ -12,6 +12,7 @@
         "id": "CrontabWindow",
         "itemId": "CrontabWindow",
         "layout": "border",
+        "modal": true,
         "title": "Edit Crontab",
         "width": 480
     },

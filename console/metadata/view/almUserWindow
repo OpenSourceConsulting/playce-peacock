@@ -12,6 +12,7 @@
         "id": "almUserWindow",
         "itemId": "almUserWindow",
         "layout": "border",
+        "modal": true,
         "title": "Add User",
         "width": 450
     },
@@ -41,6 +42,12 @@
                     "codeClass": null,
                     "userConfig": {
                         "bodyPadding": 15,
+                        "fieldDefaults": [
+                            "{",
+                            "    msgTarget: 'side',",
+                            "    labelWidth: 120",
+                            "}"
+                        ],
                         "height": null,
                         "id": "popAlmUserForm",
                         "itemId": "popAlmUserForm",
@@ -56,11 +63,30 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "fieldLabel": "UserID",
+                                "allowBlank": false,
+                                "fieldLabel": "User ID",
                                 "labelWidth": 120,
-                                "layout|anchor": "100%"
+                                "layout|anchor": "100%",
+                                "name": "name"
                             },
-                            "designerId": "c22c6513-50d9-478e-9345-1300cbb5b64a"
+                            "designerId": "c22c6513-50d9-478e-9345-1300cbb5b64a",
+                            "cn": [
+                                {
+                                    "type": "Ext.XTemplate",
+                                    "reference": {
+                                        "name": "afterLabelTextTpl",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "afterLabelTextTpl",
+                                        "implHandler": [
+                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                        ]
+                                    },
+                                    "designerId": "57e1fe7e-22e8-404a-87db-3b88c100130c"
+                                }
+                            ]
                         },
                         {
                             "type": "Ext.form.field.Checkbox",
@@ -85,11 +111,30 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "allowBlank": false,
                                 "fieldLabel": "User Name",
                                 "labelWidth": 120,
-                                "layout|anchor": "100%"
+                                "layout|anchor": "100%",
+                                "name": "displayName"
                             },
-                            "designerId": "a16d245d-e5a4-460f-98d8-ebe7c698e505"
+                            "designerId": "a16d245d-e5a4-460f-98d8-ebe7c698e505",
+                            "cn": [
+                                {
+                                    "type": "Ext.XTemplate",
+                                    "reference": {
+                                        "name": "afterLabelTextTpl",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "afterLabelTextTpl",
+                                        "implHandler": [
+                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                        ]
+                                    },
+                                    "designerId": "fcd95ca7-c2ae-4e36-9d83-7c59d104e63e"
+                                }
+                            ]
                         },
                         {
                             "type": "Ext.form.field.Text",
@@ -99,11 +144,31 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "allowBlank": false,
                                 "fieldLabel": "Password",
+                                "inputType": "password",
                                 "labelWidth": 120,
-                                "layout|anchor": "100%"
+                                "layout|anchor": "100%",
+                                "name": "password"
                             },
-                            "designerId": "d6455432-77f4-45f2-8ed9-82f5092b98dd"
+                            "designerId": "d6455432-77f4-45f2-8ed9-82f5092b98dd",
+                            "cn": [
+                                {
+                                    "type": "Ext.XTemplate",
+                                    "reference": {
+                                        "name": "afterLabelTextTpl",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "afterLabelTextTpl",
+                                        "implHandler": [
+                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                        ]
+                                    },
+                                    "designerId": "e411790a-2429-425e-b674-3987e34c8f47"
+                                }
+                            ]
                         },
                         {
                             "type": "Ext.form.field.Text",
@@ -113,11 +178,32 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "allowBlank": false,
                                 "fieldLabel": "Confirm Password",
+                                "inputType": "password",
                                 "labelWidth": 120,
-                                "layout|anchor": "100%"
+                                "layout|anchor": "100%",
+                                "name": "confirmPassword",
+                                "vtype": "password"
                             },
-                            "designerId": "e9efad54-8355-460e-8a81-4bd816bea076"
+                            "designerId": "e9efad54-8355-460e-8a81-4bd816bea076",
+                            "cn": [
+                                {
+                                    "type": "Ext.XTemplate",
+                                    "reference": {
+                                        "name": "afterLabelTextTpl",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "afterLabelTextTpl",
+                                        "implHandler": [
+                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                        ]
+                                    },
+                                    "designerId": "356850d1-c8fb-461a-8051-a05e56c30e96"
+                                }
+                            ]
                         },
                         {
                             "type": "Ext.form.field.Text",
@@ -127,11 +213,30 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "allowBlank": false,
                                 "fieldLabel": "EMail Address",
                                 "labelWidth": 120,
-                                "layout|anchor": "100%"
+                                "layout|anchor": "100%",
+                                "name": "email"
                             },
-                            "designerId": "ca244840-2270-4107-8e58-5395593736ce"
+                            "designerId": "ca244840-2270-4107-8e58-5395593736ce",
+                            "cn": [
+                                {
+                                    "type": "Ext.XTemplate",
+                                    "reference": {
+                                        "name": "afterLabelTextTpl",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "afterLabelTextTpl",
+                                        "implHandler": [
+                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                        ]
+                                    },
+                                    "designerId": "db3dde0a-6832-4114-bdf7-1b28c7394966"
+                                }
+                            ]
                         },
                         {
                             "type": "Ext.form.field.Text",
@@ -229,14 +334,61 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "id": "instanceCreateBtn1",
-                                "itemId": "instanceCreateBtn",
+                                "id": null,
+                                "itemId": null,
                                 "layout|flex": null,
                                 "margin": "0 15 0 0",
                                 "padding": "2 5 2 5",
                                 "text": "Create"
                             },
-                            "designerId": "396abda4-04b2-4da6-a859-ea986350442a"
+                            "designerId": "396abda4-04b2-4da6-a859-ea986350442a",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "",
+                                            "",
+                                            "var almUserForm = Ext.getCmp(\"popAlmUserForm\");",
+                                            "if(almUserForm.isValid()) {",
+                                            "    ",
+                                            "    Ext.Ajax.request({",
+                                            "        url: GLOBAL.urlPrefix + \"alm/usermanagement\",",
+                                            "        method: 'POST',",
+                                            "        headers: { 'Content-Type': 'application/json' },",
+                                            "        type: \"json\",",
+                                            "        data: almUserForm.getForm().getFieldValues(),",
+                                            "        success: function (response) {",
+                                            "            ",
+                                            "            Ext.Msg.alert('Success', Ext.JSON.decode(response.responseText).msg);",
+                                            "",
+                                            "            Ext.getCmp('almUserGrid').getStore().reload();",
+                                            "            almUserForm.up('window').close();",
+                                            "        },",
+                                            "        failure: function (response) {",
+                                            "            var msg = Ext.JSON.decode(response.responseText).msg;",
+                                            "            ",
+                                            "            Ext.Msg.alert('Failure', msg);",
+                                            "        }",
+                                            "    });",
+                                            "    ",
+                                            "}",
+                                            ""
+                                        ]
+                                    },
+                                    "designerId": "d123108a-c43c-43e8-bef0-d6aa94a7d71b"
+                                }
+                            ]
                         },
                         {
                             "type": "Ext.button.Button",
@@ -246,8 +398,8 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "id": "instanceCancelBtn1",
-                                "itemId": "instanceCancelBtn",
+                                "id": null,
+                                "itemId": null,
                                 "layout|flex": null,
                                 "margin": "0 0 0 0",
                                 "padding": "2 5 2 5",
@@ -269,7 +421,14 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
-                                            "button.up(\"window\").close();"
+                                            "Ext.MessageBox.confirm('Confirm', '작업을 취소하시겠습니까?', function(btn){",
+                                            "",
+                                            "    if(btn == \"yes\"){",
+                                            "        button.up(\"window\").close();",
+                                            "    }",
+                                            "",
+                                            "});",
+                                            ""
                                         ]
                                     },
                                     "designerId": "3e8c3542-0910-4167-a2ab-e7e6613baa68"

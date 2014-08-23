@@ -16,6 +16,17 @@
 Ext.define('MyApp.controller.ALMController', {
     extend: 'Ext.app.Controller',
 
+    onAlmProjectGridCellClick: function(tableview, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+        //ALM Project Grid Item Click
+
+        if(almConstants.selectRow == null || almConstants.selectRow.get("projectId") != record.get("projectId")) {
+
+            almConstants.selectRow = record;
+
+            this.selectAlmProjectGrid();
+        }
+    },
+
     onAlmUserGridCellClick: function(tableview, td, cellIndex, record, tr, rowIndex, e, eOpts) {
         //ALM User Grid Item Click
 
@@ -51,6 +62,155 @@ Ext.define('MyApp.controller.ALMController', {
         almConstants.groupContextMenu.showAt(position);
 
 
+    },
+
+    onAlmTabPanelTabChange: function(tabPanel, newCard, oldCard, eOpts) {
+        if(newCard.title == "Project"){
+
+            this.searchAlmProject();
+
+        } else if(newCard.title == "User"){
+
+            this.searchAlmUser();
+
+        } else if(newCard.title == "Group"){
+
+            almConstants.selectRow = null;
+
+            Ext.getCmp("almGroupGrid").getStore().load();
+
+            var detailPanel = Ext.getCmp("almGroupDetailPanel");
+            detailPanel.layout.setActiveItem(0);
+
+        }
+    },
+
+    onProjectTabPanelTabChange: function(tabPanel, newCard, oldCard, eOpts) {
+        if(newCard.title == "Summary"){
+
+            this.selectAlmProjectGrid();
+
+        } else if(newCard.title == "User"){
+
+            var grid = Ext.getCmp("almProjectUserGrid");
+
+            var store = Ext.create('Ext.data.Store', {
+                alias: 'store.ModeStore',
+                autoLoad: false,
+                fields: [{
+                    name: 'name',
+                    type: 'string'
+                }, {
+                    name: 'text',
+                    type: 'string'
+                }],
+                data: [
+              { name : "A468827", text : "Remove User from Project"},
+              { name : "BP08882", text : "Remove User from Project"}
+            ]
+            });
+
+            grid.getView().bindStore(store);
+
+        } else if(newCard.title == "Group"){
+
+            var grid = Ext.getCmp("almProjectGroupGrid");
+
+            var store = Ext.create('Ext.data.Store', {
+                alias: 'store.ModeStore',
+                autoLoad: false,
+                fields: [{
+                    name: 'name',
+                    type: 'string'
+                }, {
+                    name: 'text',
+                    type: 'string'
+                }],
+                data: [
+              { name : "A468827", text : "Remove Group from Project"},
+              { name : "BP08882", text : "Remove Group from Project"}
+            ]
+            });
+
+            grid.getView().bindStore(store);
+
+        } else {
+
+            var grid = Ext.getCmp("almProjectConfluenceGrid");
+
+            var store = Ext.create('Ext.data.Store', {
+                alias: 'store.ModeStore',
+                autoLoad: false,
+                fields: [{
+                    name: 'name',
+                    type: 'string'
+                }, {
+                    name: 'text',
+                    type: 'string'
+                }],
+                data: [
+              { name : "Blank", text : "Remove Space from Project"},
+              { name : "S", text : "Remove Space from Project"}
+            ]
+            });
+
+            grid.getView().bindStore(store);
+
+        }
+    },
+
+    onAlmGroupGridCellClick: function(tableview, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+        //ALM Project Grid Item Click
+
+        if(almConstants.selectRow == null || almConstants.selectRow.get("name") != record.get("name")) {
+
+            almConstants.selectRow = record;
+
+
+            var groupDetailPanel = Ext.getCmp("almGroupDetailPanel");
+            groupDetailPanel.layout.setActiveItem(1);
+
+            //User Data Loading
+
+            var groupForm = Ext.getCmp("almGroupForm");
+
+            groupForm.getForm().reset();
+
+            groupForm.getForm().waitMsgTarget = groupForm.getEl();
+            //alert(almConstants.selectRow.get("username"))
+            groupForm.getForm().load({
+                 /*params : {
+                    username : almConstants.selectRow.get("username")
+                }
+                ,*/url : GLOBAL.urlPrefix + "alm/groupmanagement/" + almConstants.selectRow.get("name")
+                ,method : 'GET'
+                ,waitMsg:'Loading...'
+            });
+
+            Ext.getCmp("almGroupTitleLabel").setText("<h2>"+almConstants.selectRow.get("name")+"</h2>", false);
+
+
+            var grid = Ext.getCmp("almGroupUserGrid");
+
+            var store = Ext.create('Ext.data.Store', {
+                alias: 'store.ModeStore',
+                autoLoad: false,
+                fields: [{
+                    name: 'name',
+                    type: 'string'
+                }, {
+                    name: 'text',
+                    type: 'string'
+                }],
+                data: [
+              { name : "A468827", text : "Remove User from Group"},
+              { name : "BP08882", text : "Remove User from Group"}
+            ]
+            });
+
+            grid.getView().bindStore(store);
+
+        }
     },
 
     init: function(application) {
@@ -108,12 +268,22 @@ Ext.define('MyApp.controller.ALMController', {
 
 
         this.control({
+            "#almProjectGrid": {
+                cellclick: this.onAlmProjectGridCellClick
+            },
             "#almUserGrid": {
                 cellclick: this.onAlmUserGridCellClick,
                 beforeitemcontextmenu: this.onAlmUserGridBeforeItemContextMenu
             },
             "#almGroupGrid": {
-                beforeitemcontextmenu: this.onAlmGroupGridBeforeItemContextMenu
+                beforeitemcontextmenu: this.onAlmGroupGridBeforeItemContextMenu,
+                cellclick: this.onAlmGroupGridCellClick
+            },
+            "#almTabPanel": {
+                tabchange: this.onAlmTabPanelTabChange
+            },
+            "#projectTabPanel": {
+                tabchange: this.onProjectTabPanelTabChange
             }
         });
     },
@@ -146,6 +316,30 @@ Ext.define('MyApp.controller.ALMController', {
 
         var detailPanel = Ext.getCmp("almUserDetailPanel");
         detailPanel.layout.setActiveItem(0);
+    },
+
+    selectAlmProjectGrid: function() {
+
+        var userDetailPanel = Ext.getCmp("almProjectDetailPanel");
+        userDetailPanel.layout.setActiveItem(1);
+
+        Ext.getCmp("projectTabPanel").setActiveTab(0);
+
+        //Project Data Loading
+
+        var projectForm = Ext.getCmp("almProjectForm");
+
+        projectForm.getForm().reset();
+
+        projectForm.getForm().waitMsgTarget = projectForm.getEl();
+
+        projectForm.getForm().load({
+            url : GLOBAL.urlPrefix + "alm/project/" + almConstants.selectRow.get("projectId")
+            ,method : 'GET'
+            ,waitMsg:'Loading...'
+        });
+
+        Ext.getCmp("almProjectTitleLabel").setText("<h2>"+almConstants.selectRow.get("projectName")+"</h2>", false);
     },
 
     selectAlmUserGrid: function() {
