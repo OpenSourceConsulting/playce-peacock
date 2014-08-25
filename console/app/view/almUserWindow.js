@@ -21,13 +21,13 @@ Ext.define('MyApp.view.almUserWindow', {
         'Ext.form.Panel',
         'Ext.form.field.Text',
         'Ext.XTemplate',
-        'Ext.form.field.Checkbox',
-        'Ext.form.CheckboxGroup',
         'Ext.toolbar.Toolbar',
-        'Ext.button.Button'
+        'Ext.button.Button',
+        'Ext.form.field.Checkbox',
+        'Ext.form.CheckboxGroup'
     ],
 
-    height: 390,
+    height: 310,
     id: 'almUserWindow',
     itemId: 'almUserWindow',
     width: 450,
@@ -69,13 +69,6 @@ Ext.define('MyApp.view.almUserWindow', {
                                     allowBlank: false
                                 },
                                 {
-                                    xtype: 'checkboxfield',
-                                    anchor: '100%',
-                                    fieldLabel: 'Is Active',
-                                    labelWidth: 120,
-                                    boxLabel: 'Box Label'
-                                },
-                                {
                                     xtype: 'textfield',
                                     anchor: '100%',
                                     afterLabelTextTpl: [
@@ -84,6 +77,26 @@ Ext.define('MyApp.view.almUserWindow', {
                                     fieldLabel: 'User Name',
                                     labelWidth: 120,
                                     name: 'displayName',
+                                    allowBlank: false
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    anchor: '100%',
+                                    afterLabelTextTpl: [
+                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                    ],
+                                    fieldLabel: 'First Name',
+                                    name: 'firstName',
+                                    allowBlank: false
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    anchor: '100%',
+                                    afterLabelTextTpl: [
+                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                    ],
+                                    fieldLabel: 'Last Name',
+                                    name: 'lastName',
                                     allowBlank: false
                                 },
                                 {
@@ -107,6 +120,7 @@ Ext.define('MyApp.view.almUserWindow', {
                                     fieldLabel: 'Confirm Password',
                                     labelWidth: 120,
                                     name: 'confirmPassword',
+                                    submitValue: false,
                                     inputType: 'password',
                                     allowBlank: false,
                                     vtype: 'password'
@@ -121,36 +135,49 @@ Ext.define('MyApp.view.almUserWindow', {
                                     labelWidth: 120,
                                     name: 'email',
                                     allowBlank: false
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'checkboxfield',
+                            hidden: true,
+                            fieldLabel: 'Is Active',
+                            labelWidth: 120,
+                            submitValue: false,
+                            boxLabel: 'Box Label'
+                        },
+                        {
+                            xtype: 'textfield',
+                            hidden: true,
+                            padding: '',
+                            fieldLabel: 'Dept Name',
+                            labelWidth: 120,
+                            submitValue: false
+                        },
+                        {
+                            xtype: 'checkboxgroup',
+                            hidden: true,
+                            fieldLabel: 'Target',
+                            labelWidth: 120,
+                            layout: {
+                                type: 'vbox',
+                                align: 'stretch'
+                            },
+                            items: [
+                                {
+                                    xtype: 'checkboxfield',
+                                    submitValue: false,
+                                    boxLabel: 'Subvesion'
                                 },
                                 {
-                                    xtype: 'textfield',
-                                    anchor: '100%',
-                                    padding: '',
-                                    fieldLabel: 'Dept Name',
-                                    labelWidth: 120
+                                    xtype: 'checkboxfield',
+                                    submitValue: false,
+                                    boxLabel: 'Crowd'
                                 },
                                 {
-                                    xtype: 'checkboxgroup',
-                                    fieldLabel: 'Target',
-                                    labelWidth: 120,
-                                    layout: {
-                                        type: 'vbox',
-                                        align: 'stretch'
-                                    },
-                                    items: [
-                                        {
-                                            xtype: 'checkboxfield',
-                                            boxLabel: 'Subvesion'
-                                        },
-                                        {
-                                            xtype: 'checkboxfield',
-                                            boxLabel: 'Crowd'
-                                        },
-                                        {
-                                            xtype: 'checkboxfield',
-                                            boxLabel: 'Jenkins'
-                                        }
-                                    ]
+                                    xtype: 'checkboxfield',
+                                    submitValue: false,
+                                    boxLabel: 'Jenkins'
                                 }
                             ]
                         }
@@ -177,8 +204,7 @@ Ext.define('MyApp.view.almUserWindow', {
                                                 url: GLOBAL.urlPrefix + "alm/usermanagement",
                                                 method: 'POST',
                                                 headers: { 'Content-Type': 'application/json' },
-                                                type: "json",
-                                                data: almUserForm.getForm().getFieldValues(),
+                                                jsonData: almUserForm.getForm().getFieldValues(),
                                                 success: function (response) {
 
                                                     Ext.Msg.alert('Success', Ext.JSON.decode(response.responseText).msg);

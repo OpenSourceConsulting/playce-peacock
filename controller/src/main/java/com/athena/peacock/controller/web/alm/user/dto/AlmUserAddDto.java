@@ -46,6 +46,7 @@ public class AlmUserAddDto {
 	@Pattern(regexp="^[_0-9a-zA-Z-]+@[0-9a-zA-Z]+(.[_0-9a-zA-Z-]+)*$")
 	private String email;
 	private String password;
+	private String confirmPassword;
 
 	public String getName() {
 		return name;
@@ -93,6 +94,14 @@ public class AlmUserAddDto {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 
 	public static long getSerialversionuid() {

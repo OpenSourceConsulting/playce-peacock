@@ -8,7 +8,7 @@
     "userConfig": {
         "designer|userAlias": "almUserWindow",
         "designer|userClassName": "almUserWindow",
-        "height": 390,
+        "height": 310,
         "id": "almUserWindow",
         "itemId": "almUserWindow",
         "layout": "border",
@@ -89,21 +89,6 @@
                             ]
                         },
                         {
-                            "type": "Ext.form.field.Checkbox",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "boxLabel": "Box Label",
-                                "fieldLabel": "Is Active",
-                                "labelWidth": 120,
-                                "layout|anchor": "100%"
-                            },
-                            "designerId": "3fe5de62-e2dd-4e05-90f6-779a3b0ac5f7"
-                        },
-                        {
                             "type": "Ext.form.field.Text",
                             "reference": {
                                 "name": "items",
@@ -132,7 +117,71 @@
                                             "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
                                         ]
                                     },
-                                    "designerId": "fcd95ca7-c2ae-4e36-9d83-7c59d104e63e"
+                                    "designerId": "c301472a-7bb0-416c-8b49-8cc0a02342c2"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "fieldLabel": "First Name",
+                                "layout|anchor": "100%",
+                                "name": "firstName"
+                            },
+                            "designerId": "a31d0137-09bc-4144-b732-a7efb319c700",
+                            "cn": [
+                                {
+                                    "type": "Ext.XTemplate",
+                                    "reference": {
+                                        "name": "afterLabelTextTpl",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "afterLabelTextTpl",
+                                        "implHandler": [
+                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                        ]
+                                    },
+                                    "designerId": "92f67dfa-0983-42e3-a9c7-ace64f965200"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "fieldLabel": "Last Name",
+                                "layout|anchor": "100%",
+                                "name": "lastName"
+                            },
+                            "designerId": "da0d5002-8315-47ef-bcda-752b5733957d",
+                            "cn": [
+                                {
+                                    "type": "Ext.XTemplate",
+                                    "reference": {
+                                        "name": "afterLabelTextTpl",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "afterLabelTextTpl",
+                                        "implHandler": [
+                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                        ]
+                                    },
+                                    "designerId": "21454852-66b4-48b2-af30-7aae1652bc6f"
                                 }
                             ]
                         },
@@ -184,6 +233,7 @@
                                 "labelWidth": 120,
                                 "layout|anchor": "100%",
                                 "name": "confirmPassword",
+                                "submitValue": false,
                                 "vtype": "password"
                             },
                             "designerId": "e9efad54-8355-460e-8a81-4bd816bea076",
@@ -235,77 +285,6 @@
                                         ]
                                     },
                                     "designerId": "db3dde0a-6832-4114-bdf7-1b28c7394966"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "Ext.form.field.Text",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fieldLabel": "Dept Name",
-                                "labelWidth": 120,
-                                "layout|anchor": "100%",
-                                "padding": ""
-                            },
-                            "designerId": "919ac50e-1ace-460b-89b1-fe65eb830e68"
-                        },
-                        {
-                            "type": "Ext.form.CheckboxGroup",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "container|align": "stretch",
-                                "fieldLabel": "Target",
-                                "labelWidth": 120,
-                                "layout": "vbox"
-                            },
-                            "designerId": "544b329b-e584-4195-b7bc-ae7598a83d00",
-                            "cn": [
-                                {
-                                    "type": "Ext.form.field.Checkbox",
-                                    "reference": {
-                                        "name": "items",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "boxLabel": "Subvesion",
-                                        "fieldLabel": null
-                                    },
-                                    "designerId": "676ba5d6-7485-4f15-a73b-79834be3e1a4"
-                                },
-                                {
-                                    "type": "Ext.form.field.Checkbox",
-                                    "reference": {
-                                        "name": "items",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "boxLabel": "Crowd",
-                                        "fieldLabel": null
-                                    },
-                                    "designerId": "5f351ebf-7113-49f3-a807-e86873c9f4ac"
-                                },
-                                {
-                                    "type": "Ext.form.field.Checkbox",
-                                    "reference": {
-                                        "name": "items",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "boxLabel": "Jenkins",
-                                        "fieldLabel": null
-                                    },
-                                    "designerId": "db0bac4e-fb2f-43d0-8511-1086f3880a2d"
                                 }
                             ]
                         }
@@ -361,15 +340,14 @@
                                             "",
                                             "var almUserForm = Ext.getCmp(\"popAlmUserForm\");",
                                             "if(almUserForm.isValid()) {",
-                                            "    ",
-                                            "    Ext.Ajax.request({",
-                                            "        url: GLOBAL.urlPrefix + \"alm/usermanagement\",",
-                                            "        method: 'POST',",
-                                            "        headers: { 'Content-Type': 'application/json' },",
-                                            "        type: \"json\",",
-                                            "        data: almUserForm.getForm().getFieldValues(),",
-                                            "        success: function (response) {",
-                                            "            ",
+                                            "",
+                                            "     Ext.Ajax.request({",
+                                            "         url: GLOBAL.urlPrefix + \"alm/usermanagement\",",
+                                            "         method: 'POST',",
+                                            "         headers: { 'Content-Type': 'application/json' },",
+                                            "         jsonData: almUserForm.getForm().getFieldValues(),",
+                                            "         success: function (response) {",
+                                            "",
                                             "            Ext.Msg.alert('Success', Ext.JSON.decode(response.responseText).msg);",
                                             "",
                                             "            Ext.getCmp('almUserGrid').getStore().reload();",
@@ -377,10 +355,10 @@
                                             "        },",
                                             "        failure: function (response) {",
                                             "            var msg = Ext.JSON.decode(response.responseText).msg;",
-                                            "            ",
+                                            "",
                                             "            Ext.Msg.alert('Failure', msg);",
                                             "        }",
-                                            "    });",
+                                            "     });",
                                             "    ",
                                             "}",
                                             ""
@@ -434,6 +412,98 @@
                                     "designerId": "3e8c3542-0910-4167-a2ab-e7e6613baa68"
                                 }
                             ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.form.field.Checkbox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "boxLabel": "Box Label",
+                        "fieldLabel": "Is Active",
+                        "hidden": true,
+                        "labelWidth": 120,
+                        "submitValue": false
+                    },
+                    "designerId": "3fe5de62-e2dd-4e05-90f6-779a3b0ac5f7"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "Dept Name",
+                        "hidden": true,
+                        "labelWidth": 120,
+                        "padding": "",
+                        "submitValue": false
+                    },
+                    "designerId": "919ac50e-1ace-460b-89b1-fe65eb830e68"
+                },
+                {
+                    "type": "Ext.form.CheckboxGroup",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|align": "stretch",
+                        "fieldLabel": "Target",
+                        "hidden": true,
+                        "labelWidth": 120,
+                        "layout": "vbox"
+                    },
+                    "designerId": "544b329b-e584-4195-b7bc-ae7598a83d00",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.Checkbox",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "boxLabel": "Subvesion",
+                                "fieldLabel": null,
+                                "submitValue": false
+                            },
+                            "designerId": "676ba5d6-7485-4f15-a73b-79834be3e1a4"
+                        },
+                        {
+                            "type": "Ext.form.field.Checkbox",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "boxLabel": "Crowd",
+                                "fieldLabel": null,
+                                "submitValue": false
+                            },
+                            "designerId": "5f351ebf-7113-49f3-a807-e86873c9f4ac"
+                        },
+                        {
+                            "type": "Ext.form.field.Checkbox",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "boxLabel": "Jenkins",
+                                "fieldLabel": null,
+                                "submitValue": false
+                            },
+                            "designerId": "db0bac4e-fb2f-43d0-8511-1086f3880a2d"
                         }
                     ]
                 }
