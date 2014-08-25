@@ -30,6 +30,7 @@ Ext.define('MyApp.view.EditInstanceNameWindow', {
     id: 'regTemplateWindow1',
     itemId: 'regTemplateWindow',
     width: 450,
+    resizable: false,
     layout: 'border',
     title: 'Edit Instance Name',
     modal: true,

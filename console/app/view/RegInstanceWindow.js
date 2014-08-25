@@ -30,6 +30,7 @@ Ext.define('MyApp.view.RegInstanceWindow', {
     height: 390,
     id: 'regInstanceWindow1',
     width: 450,
+    resizable: false,
     layout: 'border',
     title: 'Create Instance',
     modal: true,

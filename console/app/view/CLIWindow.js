@@ -30,6 +30,7 @@ Ext.define('MyApp.view.CLIWindow', {
 
     height: 620,
     width: 500,
+    resizable: false,
     layout: 'border',
     title: 'CLI(Command Line Interface)',
     modal: true,
@@ -81,13 +82,27 @@ Ext.define('MyApp.view.CLIWindow', {
                                             ],
                                             fieldLabel: 'Executable Command',
                                             name: 'command',
-                                            allowBlank: false
+                                            allowBlank: false,
+                                            enableKeyEvents: true,
+                                            listeners: {
+                                                keydown: {
+                                                    fn: me.onTextfieldKeydown,
+                                                    scope: me
+                                                }
+                                            }
                                         },
                                         {
                                             xtype: 'textfield',
                                             anchor: '100%',
                                             fieldLabel: 'Argument(s)',
-                                            name: 'args'
+                                            name: 'args',
+                                            enableKeyEvents: true,
+                                            listeners: {
+                                                keydown: {
+                                                    fn: me.onTextfieldKeydown1,
+                                                    scope: me
+                                                }
+                                            }
                                         }
                                     ]
                                 },
@@ -127,34 +142,7 @@ Ext.define('MyApp.view.CLIWindow', {
                                 {
                                     xtype: 'button',
                                     handler: function(button, e) {
-                                        var cliForm = Ext.getCmp("cliForm");
-
-                                        cliForm.getForm().submit({
-                                            clientValidation: true,
-                                            url: GLOBAL.urlPrefix + "machine/cli",
-                                            method : "POST",
-                                            params: {
-                                                newStatus: 'delivered'
-                                            },
-                                            waitMsg: 'Processing...',
-                                            success: function(form, action) {
-
-                                                Ext.getCmp("cliOutputForm").getForm().findField("inputCLIOutput").setValue(action.result.data);
-
-                                            },
-                                            failure: function(form, action) {
-                                                switch (action.failureType) {
-                                                    case Ext.form.action.Action.CLIENT_INVALID:
-                                                    Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');
-                                                    break;
-                                                    case Ext.form.action.Action.CONNECT_FAILURE:
-                                                    Ext.Msg.alert('Failure', 'Server communication failed');
-                                                    break;
-                                                    case Ext.form.action.Action.SERVER_INVALID:
-                                                    Ext.Msg.alert('Failure', action.result.msg);
-                                                }
-                                            }
-                                        });
+                                        instancesConstants.me.executeInstanceCLI();
                                     },
                                     margin: '0 0 0 0',
                                     padding: '2 5 2 5',
@@ -198,6 +186,18 @@ Ext.define('MyApp.view.CLIWindow', {
         });
 
         me.callParent(arguments);
+    },
+
+    onTextfieldKeydown: function(textfield, e, eOpts) {
+        if(e.getKey() == e.ENTER){
+            instancesConstants.me.executeInstanceCLI();
+        }
+    },
+
+    onTextfieldKeydown1: function(textfield, e, eOpts) {
+        if(e.getKey() == e.ENTER){
+            instancesConstants.me.executeInstanceCLI();
+        }
     }
 
 });

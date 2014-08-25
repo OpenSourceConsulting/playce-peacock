@@ -1131,10 +1131,39 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "dataIndex": "cores",
-                                                        "minWidth": 90,
+                                                        "minWidth": 170,
                                                         "text": "CPU Cores"
                                                     },
-                                                    "designerId": "0a50de49-1f01-4d06-b471-b5163b970ec0"
+                                                    "designerId": "0a50de49-1f01-4d06-b471-b5163b970ec0",
+                                                    "cn": [
+                                                        {
+                                                            "type": "fixedfunction",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "designer|params": [
+                                                                    "value",
+                                                                    "metaData",
+                                                                    "record",
+                                                                    "rowIndex",
+                                                                    "colIndex",
+                                                                    "store",
+                                                                    "view"
+                                                                ],
+                                                                "fn": "renderer",
+                                                                "implHandler": [
+                                                                    "var socket = record.get('sockets');",
+                                                                    "",
+                                                                    "return (socket*value) + ' (' + socket + ' Socket(s), ' + value + ' Core(s))';",
+                                                                    ""
+                                                                ]
+                                                            },
+                                                            "designerId": "d099a214-58b3-4b5c-9ae9-7d172d40a6e9"
+                                                        }
+                                                    ]
                                                 },
                                                 {
                                                     "type": "Ext.grid.column.Column",
@@ -1145,7 +1174,7 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "dataIndex": "creationTime",
-                                                        "minWidth": 220,
+                                                        "minWidth": 150,
                                                         "text": "Creation Date"
                                                     },
                                                     "designerId": "a19753f0-0d5b-4758-8095-56327d0de4f3"
@@ -1159,7 +1188,7 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "dataIndex": "description",
-                                                        "minWidth": 150,
+                                                        "minWidth": 250,
                                                         "text": "Description"
                                                     },
                                                     "designerId": "defe5126-5388-41a8-aaca-2aff7e415418"

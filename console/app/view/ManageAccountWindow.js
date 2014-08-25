@@ -29,6 +29,7 @@ Ext.define('MyApp.view.ManageAccountWindow', {
     height: 400,
     id: 'manageAccountWindow',
     width: 300,
+    resizable: false,
     layout: 'border',
     title: 'Manage Account',
     modal: true,

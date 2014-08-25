@@ -12,8 +12,12 @@
         "id": "manageAccountWindow",
         "layout": "border",
         "modal": true,
+        "resizable": false,
         "title": "Manage Account",
         "width": 300
+    },
+    "configAlternates": {
+        "resizable": "boolean"
     },
     "designerId": "19d8b270-246d-44e7-887f-16ad05760382",
     "cn": [

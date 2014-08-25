@@ -13,8 +13,12 @@
         "itemId": "regRhevmWindow",
         "layout": "border",
         "modal": true,
+        "resizable": false,
         "title": "Add RHEVM",
         "width": 380
+    },
+    "configAlternates": {
+        "resizable": "boolean"
     },
     "designerId": "e7675f91-d126-4470-ac73-784eee1a49d5",
     "cn": [
@@ -444,7 +448,7 @@
                                         "implHandler": [
                                             "var rhevmForm = Ext.getCmp(\"rhevmForm\");",
                                             "",
-                                            "var action = GLOBAL.urlPrefix + \"machine/insertHypervisor\";",
+                                            "var action = GLOBAL.urlPrefix + \"hypervisor/insertHypervisor\";",
                                             "var hypervisorId = null;",
                                             "",
                                             "if(rhevmForm.getForm().findField(\"hypervisorId\").getValue() > 0){",

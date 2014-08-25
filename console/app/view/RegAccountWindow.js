@@ -30,6 +30,7 @@ Ext.define('MyApp.view.RegAccountWindow', {
     height: 340,
     id: 'regAccountWindow',
     width: 470,
+    resizable: false,
     layout: 'border',
     title: 'Create Account',
     modal: true,
@@ -67,6 +68,7 @@ Ext.define('MyApp.view.RegAccountWindow', {
                                     name: 'account',
                                     allowBlank: false,
                                     enableKeyEvents: true,
+                                    vtype: 'template',
                                     listeners: {
                                         keyup: {
                                             fn: me.onTextfieldKeyup,

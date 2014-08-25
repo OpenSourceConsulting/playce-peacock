@@ -11,8 +11,12 @@
         "height": 620,
         "layout": "border",
         "modal": true,
+        "resizable": false,
         "title": "CLI(Command Line Interface)",
         "width": 500
+    },
+    "configAlternates": {
+        "resizable": "boolean"
     },
     "designerId": "f252af18-e36c-4a0d-8d96-720e20e95fae",
     "cn": [
@@ -96,6 +100,7 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "allowBlank": false,
+                                        "enableKeyEvents": true,
                                         "fieldLabel": "Executable Command",
                                         "layout|anchor": "100%",
                                         "name": "command"
@@ -116,6 +121,25 @@
                                                 ]
                                             },
                                             "designerId": "1e398933-6ce7-40a1-8b1e-bcc48d0c6d63"
+                                        },
+                                        {
+                                            "type": "basiceventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onTextfieldKeydown",
+                                                "implHandler": [
+                                                    "if(e.getKey() == e.ENTER){",
+                                                    "    instancesConstants.me.executeInstanceCLI();",
+                                                    "}"
+                                                ],
+                                                "name": "keydown",
+                                                "scope": "me"
+                                            },
+                                            "designerId": "8f73464d-1a81-4daf-bd72-cbda7f519537"
                                         }
                                     ]
                                 },
@@ -127,11 +151,33 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
+                                        "enableKeyEvents": true,
                                         "fieldLabel": "Argument(s)",
                                         "layout|anchor": "100%",
                                         "name": "args"
                                     },
-                                    "designerId": "0e4fcc1a-5350-4f27-a650-32eb66d49212"
+                                    "designerId": "0e4fcc1a-5350-4f27-a650-32eb66d49212",
+                                    "cn": [
+                                        {
+                                            "type": "basiceventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onTextfieldKeydown1",
+                                                "implHandler": [
+                                                    "if(e.getKey() == e.ENTER){",
+                                                    "    instancesConstants.me.executeInstanceCLI();",
+                                                    "}"
+                                                ],
+                                                "name": "keydown",
+                                                "scope": "me"
+                                            },
+                                            "designerId": "658c22c1-6440-4c1a-b6d3-5566e455637f"
+                                        }
+                                    ]
                                 }
                             ]
                         },
@@ -250,34 +296,7 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
-                                            "var cliForm = Ext.getCmp(\"cliForm\");",
-                                            "",
-                                            "cliForm.getForm().submit({",
-                                            "    clientValidation: true,",
-                                            "    url: GLOBAL.urlPrefix + \"machine/cli\",",
-                                            "    method : \"POST\",",
-                                            "    params: {",
-                                            "        newStatus: 'delivered'",
-                                            "    },",
-                                            "    waitMsg: 'Processing...',",
-                                            "    success: function(form, action) {",
-                                            "        ",
-                                            "        Ext.getCmp(\"cliOutputForm\").getForm().findField(\"inputCLIOutput\").setValue(action.result.data);",
-                                            "        ",
-                                            "    },",
-                                            "    failure: function(form, action) {",
-                                            "        switch (action.failureType) {",
-                                            "            case Ext.form.action.Action.CLIENT_INVALID:",
-                                            "            Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');",
-                                            "            break;",
-                                            "            case Ext.form.action.Action.CONNECT_FAILURE:",
-                                            "            Ext.Msg.alert('Failure', 'Server communication failed');",
-                                            "            break;",
-                                            "            case Ext.form.action.Action.SERVER_INVALID:",
-                                            "            Ext.Msg.alert('Failure', action.result.msg);",
-                                            "        }",
-                                            "    }",
-                                            "});"
+                                            "instancesConstants.me.executeInstanceCLI();"
                                         ]
                                     },
                                     "designerId": "e5d63bd3-4825-4d41-b6ab-0f963af07930"

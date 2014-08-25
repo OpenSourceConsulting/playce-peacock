@@ -30,6 +30,7 @@ Ext.define('MyApp.view.UserWindow', {
     id: 'UserWindow',
     itemId: 'UserWindow',
     width: 400,
+    resizable: false,
     layout: 'border',
     title: 'Add User',
     modal: true,

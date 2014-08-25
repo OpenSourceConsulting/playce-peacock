@@ -30,6 +30,7 @@ Ext.define('MyApp.view.RegTemplateWindow', {
     id: 'regTemplateWindow',
     itemId: 'regTemplateWindow',
     width: 450,
+    resizable: false,
     layout: 'border',
     title: 'Make Template',
     modal: true,

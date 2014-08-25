@@ -13,8 +13,12 @@
         "itemId": "CrontabWindow",
         "layout": "border",
         "modal": true,
+        "resizable": false,
         "title": "Edit Crontab",
         "width": 480
+    },
+    "configAlternates": {
+        "resizable": "boolean"
     },
     "designerId": "607aee03-4f9a-4998-844b-b647741e074b",
     "cn": [

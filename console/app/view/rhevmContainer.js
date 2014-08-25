@@ -453,19 +453,25 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
-                                                            minWidth: 90,
+                                                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                                                var socket = record.get('sockets');
+
+                                                                return (socket*value) + ' (' + socket + ' Socket(s), ' + value + ' Core(s))';
+
+                                                            },
+                                                            minWidth: 170,
                                                             dataIndex: 'cores',
                                                             text: 'CPU Cores'
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
-                                                            minWidth: 220,
+                                                            minWidth: 150,
                                                             dataIndex: 'creationTime',
                                                             text: 'Creation Date'
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
-                                                            minWidth: 150,
+                                                            minWidth: 250,
                                                             dataIndex: 'description',
                                                             text: 'Description'
                                                         }

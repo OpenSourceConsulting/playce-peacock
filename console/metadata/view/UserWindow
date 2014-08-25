@@ -13,8 +13,12 @@
         "itemId": "UserWindow",
         "layout": "border",
         "modal": true,
+        "resizable": false,
         "title": "Add User",
         "width": 400
+    },
+    "configAlternates": {
+        "resizable": "boolean"
     },
     "designerId": "a6e64140-c5ae-45b9-9a03-ae0760cf1948",
     "cn": [

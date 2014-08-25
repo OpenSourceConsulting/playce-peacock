@@ -613,7 +613,7 @@
                 "fn": "onRhevmCycleClick",
                 "implHandler": [
                     "//RHEVM Menu Click",
-                    "    ",
+                    "",
                     "if(Ext.getCmp(\"searchRhevm\").getRawValue() != item.code) {",
                     "",
                     "    Ext.getCmp(\"searchRhevm\").setRawValue(item.code);",
@@ -746,6 +746,48 @@
                 ]
             },
             "designerId": "48f17ebb-eef5-42e4-aa50-c5bad6d1292a"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "executeInstanceCLI",
+                "implHandler": [
+                    "var cliForm = Ext.getCmp(\"cliForm\");",
+                    "",
+                    "cliForm.getForm().submit({",
+                    "    clientValidation: true,",
+                    "    url: GLOBAL.urlPrefix + \"machine/cli\",",
+                    "    method : \"POST\",",
+                    "    params: {",
+                    "        newStatus: 'delivered'",
+                    "    },",
+                    "    waitMsg: 'Processing...',",
+                    "    success: function(form, action) {",
+                    "        ",
+                    "        Ext.getCmp(\"cliOutputForm\").getForm().findField(\"inputCLIOutput\").setValue(action.result.data);",
+                    "        ",
+                    "    },",
+                    "    failure: function(form, action) {",
+                    "        switch (action.failureType) {",
+                    "            case Ext.form.action.Action.CLIENT_INVALID:",
+                    "                Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');",
+                    "                break;",
+                    "            case Ext.form.action.Action.CONNECT_FAILURE:",
+                    "                Ext.Msg.alert('Failure', 'Server communication failed');",
+                    "                break;",
+                    "            case Ext.form.action.Action.SERVER_INVALID:",
+                    "                Ext.Msg.alert('Failure', action.result.msg);",
+                    "        }",
+                    "    }",
+                    "});"
+                ]
+            },
+            "designerId": "04692bd8-5cbf-43bf-927d-6747b0833a62"
         }
     ]
 }

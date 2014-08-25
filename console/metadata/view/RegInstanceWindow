@@ -12,8 +12,12 @@
         "id": "regInstanceWindow1",
         "layout": "border",
         "modal": true,
+        "resizable": false,
         "title": "Create Instance",
         "width": 450
+    },
+    "configAlternates": {
+        "resizable": "boolean"
     },
     "designerId": "efa116e2-6103-4b77-a962-3dff5587e5c3",
     "cn": [

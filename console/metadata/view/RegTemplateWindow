@@ -13,8 +13,12 @@
         "itemId": "regTemplateWindow",
         "layout": "border",
         "modal": true,
+        "resizable": false,
         "title": "Make Template",
         "width": 450
+    },
+    "configAlternates": {
+        "resizable": "boolean"
     },
     "designerId": "f11e11b4-4b18-4b00-b5ce-297285f8b065",
     "cn": [

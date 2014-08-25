@@ -449,7 +449,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                         },
                                                         {
                                                             xtype: 'displayfield',
-                                                            fieldLabel: 'Core',
+                                                            fieldLabel: 'CPU Cores',
                                                             name: 'cpuNum'
                                                         }
                                                     ]
@@ -469,7 +469,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     items: [
                                                         {
                                                             xtype: 'displayfield',
-                                                            fieldLabel: 'Memory Size(MB)',
+                                                            fieldLabel: 'Memory(MB)',
                                                             name: 'memSize'
                                                         },
                                                         {

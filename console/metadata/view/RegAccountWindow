@@ -12,8 +12,12 @@
         "id": "regAccountWindow",
         "layout": "border",
         "modal": true,
+        "resizable": false,
         "title": "Create Account",
         "width": 470
+    },
+    "configAlternates": {
+        "resizable": "boolean"
     },
     "designerId": "54104038-f1a3-485d-8b65-7ea728404e9a",
     "cn": [
@@ -66,7 +70,8 @@
                                 "enableKeyEvents": true,
                                 "fieldLabel": "Account ID",
                                 "layout|anchor": "100%",
-                                "name": "account"
+                                "name": "account",
+                                "vtype": "template"
                             },
                             "designerId": "1257fb21-43fa-4058-8ff9-7e0c395653c8",
                             "cn": [

@@ -30,6 +30,7 @@ Ext.define('MyApp.view.RegRhevmWindow', {
     id: 'regRhevmWindow',
     itemId: 'regRhevmWindow',
     width: 380,
+    resizable: false,
     layout: 'border',
     title: 'Add RHEVM',
     modal: true,
@@ -195,7 +196,7 @@ Ext.define('MyApp.view.RegRhevmWindow', {
                                     handler: function(button, e) {
                                         var rhevmForm = Ext.getCmp("rhevmForm");
 
-                                        var action = GLOBAL.urlPrefix + "machine/insertHypervisor";
+                                        var action = GLOBAL.urlPrefix + "hypervisor/insertHypervisor";
                                         var hypervisorId = null;
 
                                         if(rhevmForm.getForm().findField("hypervisorId").getValue() > 0){

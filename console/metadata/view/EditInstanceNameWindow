@@ -13,8 +13,12 @@
         "itemId": "regTemplateWindow",
         "layout": "border",
         "modal": true,
+        "resizable": false,
         "title": "Edit Instance Name",
         "width": 450
+    },
+    "configAlternates": {
+        "resizable": "boolean"
     },
     "designerId": "bbc85331-15ba-4d43-89a5-e65c6a80a9bf",
     "cn": [

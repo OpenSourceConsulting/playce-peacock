@@ -950,7 +950,7 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
-                                                        "fieldLabel": "Core",
+                                                        "fieldLabel": "CPU Cores",
                                                         "layout|flex": null,
                                                         "name": "cpuNum"
                                                     },
@@ -988,7 +988,7 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
-                                                        "fieldLabel": "Memory Size(MB)",
+                                                        "fieldLabel": "Memory(MB)",
                                                         "layout|flex": null,
                                                         "name": "memSize"
                                                     },

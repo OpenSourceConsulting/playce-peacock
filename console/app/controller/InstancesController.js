@@ -528,6 +528,37 @@ Ext.define('MyApp.controller.InstancesController', {
         instanceForm.getForm().findField("machineId").setRawValue(instancesConstants.actionRow.get("machineId"));
         instanceForm.getForm().findField("displayName").setRawValue(instancesConstants.actionRow.get("displayName"));
 
+    },
+
+    executeInstanceCLI: function() {
+        var cliForm = Ext.getCmp("cliForm");
+
+        cliForm.getForm().submit({
+            clientValidation: true,
+            url: GLOBAL.urlPrefix + "machine/cli",
+            method : "POST",
+            params: {
+                newStatus: 'delivered'
+            },
+            waitMsg: 'Processing...',
+            success: function(form, action) {
+
+                Ext.getCmp("cliOutputForm").getForm().findField("inputCLIOutput").setValue(action.result.data);
+
+            },
+            failure: function(form, action) {
+                switch (action.failureType) {
+                    case Ext.form.action.Action.CLIENT_INVALID:
+                        Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');
+                        break;
+                    case Ext.form.action.Action.CONNECT_FAILURE:
+                        Ext.Msg.alert('Failure', 'Server communication failed');
+                        break;
+                    case Ext.form.action.Action.SERVER_INVALID:
+                        Ext.Msg.alert('Failure', action.result.msg);
+                }
+            }
+        });
     }
 
 });
