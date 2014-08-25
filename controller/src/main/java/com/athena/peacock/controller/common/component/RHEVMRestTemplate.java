@@ -290,6 +290,10 @@ public class RHEVMRestTemplate {
 		Assert.isTrue(StringUtils.isNotEmpty(api), "api must not be null");
 		Assert.notNull(clazz, "clazz must not be null.");
 		
+		// Multi RHEV Manager 사용 시 호스트가 서로 다를 경우 가장 최근에 등록된 HostnameVerifier만 인식하며,
+		// 이전의 호스트로 호출 시 에러가 발생한다.(java.io.IOException: HTTPS hostname wrong:  should be <{host}>)
+		init();
+		
 		try {
 			RestTemplate rt = new RestTemplate();
 			
