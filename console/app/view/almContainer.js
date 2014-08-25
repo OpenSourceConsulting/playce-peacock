@@ -29,10 +29,7 @@ Ext.define('MyApp.view.almContainer', {
         'Ext.form.Label',
         'Ext.form.Panel',
         'Ext.form.field.Display',
-        'Ext.toolbar.Spacer',
-        'Ext.grid.column.Number',
-        'Ext.grid.column.Date',
-        'Ext.grid.column.Boolean'
+        'Ext.toolbar.Spacer'
     ],
 
     height: 755,
@@ -522,7 +519,7 @@ Ext.define('MyApp.view.almContainer', {
                                                             xtype: 'displayfield',
                                                             padding: 10,
                                                             fieldLabel: 'User ID',
-                                                            name: 'userId'
+                                                            name: 'name'
                                                         },
                                                         {
                                                             xtype: 'displayfield',
@@ -546,7 +543,7 @@ Ext.define('MyApp.view.almContainer', {
                                                             xtype: 'displayfield',
                                                             padding: 10,
                                                             fieldLabel: 'Email',
-                                                            name: 'email'
+                                                            name: 'emailAddress'
                                                         }
                                                     ]
                                                 }
@@ -648,16 +645,24 @@ Ext.define('MyApp.view.almContainer', {
                                         },
                                         {
                                             xtype: 'panel',
-                                            items: [
+                                            dockedItems: [
                                                 {
-                                                    xtype: 'label',
-                                                    html: '<h2></h2>',
-                                                    id: 'almGroupTitleLabel',
-                                                    itemId: 'almGroupTitleLabel',
-                                                    margin: '',
-                                                    padding: '10 10 10 10',
-                                                    text: ''
-                                                },
+                                                    xtype: 'toolbar',
+                                                    dock: 'top',
+                                                    items: [
+                                                        {
+                                                            xtype: 'label',
+                                                            html: '<h2></h2>',
+                                                            id: 'almGroupTitleLabel',
+                                                            itemId: 'almGroupTitleLabel',
+                                                            margin: '',
+                                                            padding: '10 10 0 10',
+                                                            text: ''
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            items: [
                                                 {
                                                     xtype: 'tabpanel',
                                                     margin: '',
@@ -732,26 +737,19 @@ Ext.define('MyApp.view.almContainer', {
                                                                     id: 'almGroupUserGrid',
                                                                     itemId: 'almGroupUserGrid',
                                                                     columnLines: true,
+                                                                    forceFit: true,
                                                                     columns: [
                                                                         {
                                                                             xtype: 'gridcolumn',
-                                                                            dataIndex: 'string',
-                                                                            text: 'String'
+                                                                            minWidth: 100,
+                                                                            dataIndex: 'name',
+                                                                            text: 'User'
                                                                         },
                                                                         {
-                                                                            xtype: 'numbercolumn',
-                                                                            dataIndex: 'number',
-                                                                            text: 'Number'
-                                                                        },
-                                                                        {
-                                                                            xtype: 'datecolumn',
-                                                                            dataIndex: 'date',
-                                                                            text: 'Date'
-                                                                        },
-                                                                        {
-                                                                            xtype: 'booleancolumn',
-                                                                            dataIndex: 'bool',
-                                                                            text: 'Boolean'
+                                                                            xtype: 'gridcolumn',
+                                                                            minWidth: 300,
+                                                                            dataIndex: 'text',
+                                                                            text: 'Actions'
                                                                         }
                                                                     ],
                                                                     dockedItems: [

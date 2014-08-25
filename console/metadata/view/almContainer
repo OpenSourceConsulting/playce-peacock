@@ -1171,7 +1171,7 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "fieldLabel": "User ID",
-                                                        "name": "userId",
+                                                        "name": "name",
                                                         "padding": 10
                                                     },
                                                     "designerId": "d4d93059-004c-46b2-bfbc-4d39327e5027"
@@ -1227,7 +1227,7 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "fieldLabel": "Email",
-                                                        "name": "email",
+                                                        "name": "emailAddress",
                                                         "padding": 10
                                                     },
                                                     "designerId": "cdc072c7-5629-48af-9bdc-74906a566d2f"
@@ -1482,21 +1482,36 @@
                                     "designerId": "4d366156-1497-453a-8a4b-b977af402015",
                                     "cn": [
                                         {
-                                            "type": "Ext.form.Label",
+                                            "type": "Ext.toolbar.Toolbar",
                                             "reference": {
-                                                "name": "items",
+                                                "name": "dockedItems",
                                                 "type": "array"
                                             },
                                             "codeClass": null,
                                             "userConfig": {
-                                                "html": "<h2></h2>",
-                                                "id": "almGroupTitleLabel",
-                                                "itemId": "almGroupTitleLabel",
-                                                "margin": "",
-                                                "padding": "10 10 10 10",
-                                                "text": ""
+                                                "dock": "top"
                                             },
-                                            "designerId": "25b4fae8-f84f-4784-89c7-ae0b8da201c0"
+                                            "designerId": "6cb93782-98d6-458b-97a1-dad4c460a2fe",
+                                            "cn": [
+                                                {
+                                                    "type": "Ext.form.Label",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "html": "<h2></h2>",
+                                                        "id": "almGroupTitleLabel",
+                                                        "itemId": "almGroupTitleLabel",
+                                                        "layout|flex": null,
+                                                        "margin": "",
+                                                        "padding": "10 10 0 10",
+                                                        "text": ""
+                                                    },
+                                                    "designerId": "25b4fae8-f84f-4784-89c7-ae0b8da201c0"
+                                                }
+                                            ]
                                         },
                                         {
                                             "type": "Ext.tab.Panel",
@@ -1662,6 +1677,7 @@
                                                             "codeClass": null,
                                                             "userConfig": {
                                                                 "columnLines": true,
+                                                                "forceFit": true,
                                                                 "id": "almGroupUserGrid",
                                                                 "itemId": "almGroupUserGrid",
                                                                 "title": null
@@ -1676,49 +1692,25 @@
                                                                     },
                                                                     "codeClass": null,
                                                                     "userConfig": {
-                                                                        "dataIndex": "string",
-                                                                        "text": "String"
+                                                                        "dataIndex": "name",
+                                                                        "minWidth": 100,
+                                                                        "text": "User"
                                                                     },
                                                                     "designerId": "8f4ae997-b017-45d0-b68a-d5a797ac6f37"
                                                                 },
                                                                 {
-                                                                    "type": "Ext.grid.column.Number",
+                                                                    "type": "Ext.grid.column.Column",
                                                                     "reference": {
                                                                         "name": "columns",
                                                                         "type": "array"
                                                                     },
                                                                     "codeClass": null,
                                                                     "userConfig": {
-                                                                        "dataIndex": "number",
-                                                                        "text": "Number"
+                                                                        "dataIndex": "text",
+                                                                        "minWidth": 300,
+                                                                        "text": "Actions"
                                                                     },
-                                                                    "designerId": "701fa7b2-1b8c-4216-bffa-a326309e1501"
-                                                                },
-                                                                {
-                                                                    "type": "Ext.grid.column.Date",
-                                                                    "reference": {
-                                                                        "name": "columns",
-                                                                        "type": "array"
-                                                                    },
-                                                                    "codeClass": null,
-                                                                    "userConfig": {
-                                                                        "dataIndex": "date",
-                                                                        "text": "Date"
-                                                                    },
-                                                                    "designerId": "c448ab67-1e88-4cc7-ad08-a2c2b7635b2d"
-                                                                },
-                                                                {
-                                                                    "type": "Ext.grid.column.Boolean",
-                                                                    "reference": {
-                                                                        "name": "columns",
-                                                                        "type": "array"
-                                                                    },
-                                                                    "codeClass": null,
-                                                                    "userConfig": {
-                                                                        "dataIndex": "bool",
-                                                                        "text": "Boolean"
-                                                                    },
-                                                                    "designerId": "94f3c6b0-525f-439f-a7fa-00f91b0fb5d1"
+                                                                    "designerId": "5c54449e-373e-4128-8202-0fba81d04941"
                                                                 },
                                                                 {
                                                                     "type": "Ext.grid.View",

@@ -177,12 +177,8 @@ Ext.define('MyApp.controller.ALMController', {
             groupForm.getForm().reset();
 
             groupForm.getForm().waitMsgTarget = groupForm.getEl();
-            //alert(almConstants.selectRow.get("username"))
             groupForm.getForm().load({
-                 /*params : {
-                    username : almConstants.selectRow.get("username")
-                }
-                ,*/url : GLOBAL.urlPrefix + "alm/groupmanagement/" + almConstants.selectRow.get("name")
+                 url : GLOBAL.urlPrefix + "alm/groupmanagement/" + almConstants.selectRow.get("name")
                 ,method : 'GET'
                 ,waitMsg:'Loading...'
             });
@@ -209,6 +205,7 @@ Ext.define('MyApp.controller.ALMController', {
             });
 
             grid.getView().bindStore(store);
+            grid.getStore().load();
 
         }
     },
