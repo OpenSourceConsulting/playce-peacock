@@ -116,7 +116,7 @@ public class MachineService {
 		
 		machineDao.updateMachine(m);
 		
-		if (machine.getHypervisorId() != null && machine.getHypervisorId() > 0) {
+		if (m.getHypervisorId() != null && m.getHypervisorId() > 0) {
 			VM vm = new VM();
 			vm.setName(m.getDisplayName());
 			return RHEVMRestTemplateManager.getRHEVMRestTemplate(m.getHypervisorId()).submit(RHEVApi.VMS + "/" + m.getMachineId(), HttpMethod.PUT, vm, "vm", VM.class);
