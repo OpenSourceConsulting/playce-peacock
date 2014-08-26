@@ -1,0 +1,528 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "EditInstanceWindow",
+        "designer|userClassName": "EditInstanceWindow",
+        "height": 530,
+        "id": "EditInstanceWindow",
+        "itemId": "EditInstanceWindow",
+        "layout": "border",
+        "modal": true,
+        "resizable": false,
+        "title": "Edit Instance",
+        "width": 450
+    },
+    "configAlternates": {
+        "resizable": "boolean"
+    },
+    "designerId": "bbc85331-15ba-4d43-89a5-e65c6a80a9bf",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "header": false,
+                "layout|flex": 1,
+                "layout|region": "center",
+                "title": "instanceNamePanel"
+            },
+            "designerId": "8bd3050a-b0e3-4a9d-8827-558ce7e13684",
+            "cn": [
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "bodyPadding": 15,
+                        "fieldDefaults": [
+                            "{",
+                            "    msgTarget: 'side',",
+                            "    labelWidth : 120",
+                            "}"
+                        ],
+                        "height": null,
+                        "id": "editInstanceForm",
+                        "itemId": "editInstanceForm",
+                        "title": null
+                    },
+                    "designerId": "e86f694a-6466-428d-8b0c-3fb33aa5aa0e",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "fieldLabel": "Name",
+                                "labelWidth": 120,
+                                "layout|anchor": "100%",
+                                "name": "displayName",
+                                "vtype": "template"
+                            },
+                            "designerId": "52680dcc-4e78-486b-9f3c-84c6eaadec3c",
+                            "cn": [
+                                {
+                                    "type": "Ext.XTemplate",
+                                    "reference": {
+                                        "name": "afterLabelTextTpl",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "afterLabelTextTpl",
+                                        "implHandler": [
+                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                        ]
+                                    },
+                                    "designerId": "79c2edf1-662f-4d5d-9e0f-141a88853ef5"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Label",
+                                "layout|anchor": "100%",
+                                "name": "machineId"
+                            },
+                            "designerId": "779ec3da-e17d-45d4-80a7-e1e52ac1b673"
+                        },
+                        {
+                            "type": "Ext.form.FieldSet",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "margin": "20 0 10 0",
+                                "title": "SSH Settings (Optional)"
+                            },
+                            "designerId": "2cbf654a-e5a4-417f-805f-0acd80eb252b",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "SSH Port",
+                                        "labelWidth": 130,
+                                        "layout|anchor": "100%",
+                                        "name": "sshPort",
+                                        "vtype": "numeric"
+                                    },
+                                    "designerId": "6da86f66-fa17-4f35-8163-faecbe21319b"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Username",
+                                        "labelWidth": 130,
+                                        "layout|anchor": "100%",
+                                        "name": "sshUsername",
+                                        "vtype": "numeric"
+                                    },
+                                    "designerId": "6a8f59db-110e-43be-8405-bc48e13ea488"
+                                },
+                                {
+                                    "type": "Ext.form.RadioGroup",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": null,
+                                        "padding": "0 0 0 135"
+                                    },
+                                    "designerId": "ac367abc-aa3b-4848-b91a-a3e628d866fd",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.form.field.Radio",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "boxLabel": "Use Passowrd",
+                                                "checked": true,
+                                                "fieldLabel": null
+                                            },
+                                            "designerId": "6e421e87-c324-4add-aebe-deb25e8ef3a7",
+                                            "cn": [
+                                                {
+                                                    "type": "basiceventbinding",
+                                                    "reference": {
+                                                        "name": "listeners",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fn": "onRadiofieldChange",
+                                                        "name": "change",
+                                                        "scope": "me"
+                                                    },
+                                                    "designerId": "1450ba4f-3d0b-493d-90c7-ad83fbc9e952"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "Ext.form.field.Radio",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "boxLabel": " Use Key",
+                                                "fieldLabel": null
+                                            },
+                                            "designerId": "2ed09db8-c210-40fd-ba48-c4e4e92b08c8"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Password",
+                                        "labelWidth": 130,
+                                        "layout|anchor": "100%",
+                                        "name": "sshPassword",
+                                        "vtype": "numeric"
+                                    },
+                                    "designerId": "ab1ed2b1-a4c1-42ae-9442-d8fc65f2ec3c"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Password Confirm",
+                                        "labelWidth": 130,
+                                        "layout|anchor": "100%",
+                                        "name": "confirmSshPassword",
+                                        "vtype": "numeric"
+                                    },
+                                    "designerId": "aa8ba4ed-4a23-4ed5-a256-4f5182963efe"
+                                },
+                                {
+                                    "type": "Ext.form.field.File",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Key File",
+                                        "labelWidth": 130,
+                                        "layout|anchor": "100%",
+                                        "value": null
+                                    },
+                                    "designerId": "db58bb25-9ff7-4ad2-bced-9ece6acd89ae"
+                                },
+                                {
+                                    "type": "Ext.form.field.Display",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": null,
+                                        "labelWidth": 130,
+                                        "layout|anchor": "100%",
+                                        "name": "sshKeyFile",
+                                        "padding": "0 0 0 135"
+                                    },
+                                    "designerId": "29238335-3f05-4455-a27d-b1b454ec8f3b"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.form.FieldSet",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "margin": "15 0 0 0",
+                                "title": "Static IP Address Settings (Optional)"
+                            },
+                            "designerId": "8e1450bb-b812-43fd-9cf9-5e3d00870e85",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "IP Address",
+                                        "labelWidth": 130,
+                                        "layout|anchor": "100%",
+                                        "name": "ipAddress",
+                                        "vtype": "numeric"
+                                    },
+                                    "designerId": "bed52e14-286a-4773-b8f6-5e24860be467"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Net Mask",
+                                        "labelWidth": 130,
+                                        "layout|anchor": "100%",
+                                        "name": "netmask",
+                                        "vtype": "numeric"
+                                    },
+                                    "designerId": "98bb7370-c626-4fa3-bce9-8a7f6d0b12a7",
+                                    "cn": [
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "value"
+                                                ],
+                                                "fn": "validator",
+                                                "implHandler": [
+                                                    "return true;"
+                                                ]
+                                            },
+                                            "designerId": "000bd7bc-d0d9-4dc9-bf57-69304859bf9f"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Gateway",
+                                        "labelWidth": 130,
+                                        "layout|anchor": "100%",
+                                        "name": "gateway",
+                                        "vtype": "numeric"
+                                    },
+                                    "designerId": "4f36afff-f642-414d-926d-c90721fc1913"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Name Server",
+                                        "labelWidth": 130,
+                                        "layout|anchor": "100%",
+                                        "name": "nameServer",
+                                        "vtype": "numeric"
+                                    },
+                                    "designerId": "cc156143-8321-4d30-9329-66dc2ae2f2e1"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|pack": "center",
+                        "designer|uiInterfaceName": "footer",
+                        "dock": "bottom",
+                        "ui": "footer"
+                    },
+                    "designerId": "69a50148-3d82-433d-a20a-de40c3e76809",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": null,
+                                "itemId": null,
+                                "layout|flex": null,
+                                "margin": "0 15 0 0",
+                                "padding": "2 10 2 10",
+                                "text": "OK"
+                            },
+                            "designerId": "d8ec0013-8407-4534-9a3a-54b33ad3ad94",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var instanceForm = Ext.getCmp(\"editInstanceForm\");",
+                                            "",
+                                            "var machineId = instanceForm.getForm().findField(\"machineId\").getValue();",
+                                            "",
+                                            "instanceForm.getForm().submit({",
+                                            "    clientValidation: true,",
+                                            "    url: GLOBAL.urlPrefix + \"machine/updateMachine\",",
+                                            "    params: {",
+                                            "        newStatus: 'delivered'",
+                                            "    },",
+                                            "    waitMsg: 'Saving Data...',",
+                                            "    success: function(form, action) {",
+                                            "        Ext.Msg.alert('Success', action.result.msg);",
+                                            "",
+                                            "        Ext.getCmp('instancesGrid').getStore().load({",
+                                            "",
+                                            "            callback:function(records, operation, success){",
+                                            "",
+                                            "                Ext.each(records, function(record) {",
+                                            "",
+                                            "                    if(record.get(\"machineId\") == machineId) {",
+                                            "                        Ext.getCmp('instancesGrid').getSelectionModel().select(record,true,false);",
+                                            "",
+                                            "                        instancesConstants.selectRow = record;",
+                                            "                        instancesConstants.me.selectInstanceGrid();",
+                                            "                    }",
+                                            "                });",
+                                            "            }",
+                                            "",
+                                            "        });",
+                                            "        instanceForm.up('window').close();",
+                                            "    },",
+                                            "    failure: function(form, action) {",
+                                            "",
+                                            "        switch (action.failureType) {",
+                                            "            case Ext.form.action.Action.CLIENT_INVALID:",
+                                            "            Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');",
+                                            "            break;",
+                                            "            case Ext.form.action.Action.CONNECT_FAILURE:",
+                                            "            Ext.Msg.alert('Failure', 'Server communication failed');",
+                                            "            break;",
+                                            "            case Ext.form.action.Action.SERVER_INVALID:",
+                                            "            Ext.Msg.alert('Failure', action.result.msg);",
+                                            "        }",
+                                            "    }",
+                                            "});",
+                                            ""
+                                        ]
+                                    },
+                                    "designerId": "fc76c593-ec9a-469e-a364-33b81c0f3b66"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": null,
+                                "itemId": null,
+                                "layout|flex": null,
+                                "margin": "0 0 0 0",
+                                "padding": "2 5 2 5",
+                                "text": "Cancel"
+                            },
+                            "designerId": "6a4b669c-1cf4-484e-9f32-294f0364f897",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "Ext.MessageBox.confirm('Confirm', '작업을 취소하시겠습니까?', function(btn){",
+                                            "",
+                                            "    if(btn == \"yes\"){",
+                                            "        button.up(\"window\").close();",
+                                            "    }",
+                                            "",
+                                            "});",
+                                            ""
+                                        ]
+                                    },
+                                    "designerId": "ac5e7476-5109-4b91-9fdc-55c856c8c293"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

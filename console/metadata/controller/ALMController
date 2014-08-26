@@ -311,7 +311,7 @@
                     "    ,waitMsg:'Loading...'",
                     "});",
                     "",
-                    "Ext.getCmp(\"almUserTitleLabel\").setText(\"<h2>\"+almConstants.selectRow.get(\"displayName\")+\"</h2>\", false);"
+                    "Ext.getCmp(\"almUserTitleLabel\").setText(\"<h2>&nbsp;&nbsp;&nbsp;\"+almConstants.selectRow.get(\"displayName\")+\"</h2>\", false);"
                 ]
             },
             "designerId": "d00ae31c-473a-4594-856a-8679f6280b12"
@@ -510,7 +510,7 @@
                     "        ,waitMsg:'Loading...'",
                     "    });",
                     "",
-                    "    Ext.getCmp(\"almGroupTitleLabel\").setText(\"<h2>\"+almConstants.selectRow.get(\"name\")+\"</h2>\", false);",
+                    "    Ext.getCmp(\"almGroupTitleLabel\").setText(\"<h2>&nbsp;&nbsp;&nbsp;\"+almConstants.selectRow.get(\"name\")+\"</h2>\", false);",
                     "",
                     "",
                     "    var grid = Ext.getCmp(\"almGroupUserGrid\");",

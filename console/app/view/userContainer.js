@@ -27,8 +27,8 @@ Ext.define('MyApp.view.userContainer', {
         'Ext.grid.column.Number',
         'Ext.grid.column.Date',
         'Ext.grid.column.Action',
-        'Ext.form.Label',
         'Ext.form.Panel',
+        'Ext.form.Label',
         'Ext.form.FieldContainer',
         'Ext.form.field.Display',
         'Ext.toolbar.Spacer'
@@ -228,6 +228,7 @@ Ext.define('MyApp.view.userContainer', {
                     split: true,
                     id: 'userDetailPanel',
                     itemId: 'userDetailPanel',
+                    autoScroll: true,
                     layout: 'card',
                     items: [
                         {
@@ -240,23 +241,7 @@ Ext.define('MyApp.view.userContainer', {
                         {
                             xtype: 'panel',
                             id: 'userDetail',
-                            dockedItems: [
-                                {
-                                    xtype: 'toolbar',
-                                    dock: 'top',
-                                    items: [
-                                        {
-                                            xtype: 'label',
-                                            html: '<h2></h2>',
-                                            id: 'userTitleLabel',
-                                            itemId: 'userTitleLabel',
-                                            margin: '',
-                                            padding: '10 10 10 10',
-                                            text: ''
-                                        }
-                                    ]
-                                }
-                            ],
+                            autoScroll: true,
                             items: [
                                 {
                                     xtype: 'form',
@@ -281,6 +266,15 @@ Ext.define('MyApp.view.userContainer', {
                                     },
                                     waitMsgTarget: 'instDescForm',
                                     items: [
+                                        {
+                                            xtype: 'label',
+                                            html: '',
+                                            id: 'userTitleLabel',
+                                            itemId: 'userTitleLabel',
+                                            margin: '',
+                                            padding: 1,
+                                            text: ''
+                                        },
                                         {
                                             xtype: 'fieldcontainer',
                                             height: 34,

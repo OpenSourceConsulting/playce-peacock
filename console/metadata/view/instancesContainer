@@ -586,6 +586,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "autoScroll": true,
                 "height": null,
                 "id": "instanceDetailPanel",
                 "itemId": "instanceDetailPanel",
@@ -605,6 +606,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "autoScroll": true,
                         "height": 1000,
                         "id": "blankPanel2",
                         "itemId": "blankPanel",
@@ -624,6 +626,7 @@
                         "activeTab": 0,
                         "id": "instanceTabPanel",
                         "itemId": "instanceTabPanel",
+                        "minHeight": null,
                         "padding": "5 0 0 0",
                         "plain": true
                     },
@@ -662,6 +665,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
+                                        "autoScroll": true,
                                         "bodyPadding": 10,
                                         "bodyStyle": [
                                             "'padding:5px 5px 0'"

@@ -279,6 +279,7 @@ Ext.define('MyApp.view.instancesContainer', {
                     split: true,
                     id: 'instanceDetailPanel',
                     itemId: 'instanceDetailPanel',
+                    autoScroll: true,
                     layout: 'card',
                     items: [
                         {
@@ -286,7 +287,8 @@ Ext.define('MyApp.view.instancesContainer', {
                             height: 1000,
                             id: 'blankPanel2',
                             itemId: 'blankPanel',
-                            width: 1000
+                            width: 1000,
+                            autoScroll: true
                         },
                         {
                             xtype: 'tabpanel',
@@ -306,6 +308,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                             xtype: 'form',
                                             id: 'instanceDescForm',
                                             itemId: 'instanceDescForm',
+                                            autoScroll: true,
                                             defaults: {
                                                 border: false,
                                                 xtype: 'panel',

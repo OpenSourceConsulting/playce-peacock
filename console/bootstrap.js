@@ -926,7 +926,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.tempGridData": [],
   "MyApp.view.CLIWindow": [],
   "MyApp.view.CrontabWindow": [],
-  "MyApp.view.EditInstanceNameWindow": [],
+  "MyApp.view.EditInstanceWindow": [],
   "MyApp.view.FstabWindow": [],
   "MyApp.view.Main": [],
   "MyApp.view.ManageAccountWindow": [],
@@ -2024,8 +2024,8 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.CrontabWindow": [
     "widget.CrontabWindow"
   ],
-  "MyApp.view.EditInstanceNameWindow": [
-    "widget.EditInstanceNameWindow"
+  "MyApp.view.EditInstanceWindow": [
+    "widget.EditInstanceWindow"
   ],
   "MyApp.view.FstabWindow": [
     "widget.FstabWindow"

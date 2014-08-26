@@ -108,7 +108,7 @@ Ext.define('MyApp.controller.InstancesController', {
 
             } else  {
 
-                if(item.text != 'Edit Instance Name')
+                if(item.text != 'Edit Instance')
                     item.setDisabled(true);
             }
 
@@ -212,14 +212,25 @@ Ext.define('MyApp.controller.InstancesController', {
                 var instancesGridContextMenu = new Ext.menu.Menu({
                     items:
                     [
-                    { text: 'Edit Instance Name',
-                        handler: function() {
-                            instances.showEditInstanceNameWindow();
-                        }
-                    },
+
                     { text: 'CLI(Command Line Interface)',
                         handler: function() {
                             instances.showCLIWindow();
+                        }
+                    },
+                    { text: 'Edit Instance',
+                        handler: function() {
+                            instances.showEditInstanceWindow();
+                        }
+                    },
+                    { text: 'Agent Start',
+                        handler: function() {
+                            alert('Agent Start');
+                        }
+                    },
+                    { text: 'Agent Stop',
+                        handler: function() {
+                            alert('Agent Stop');
                         }
                     },
                     { text: 'Manage Account',
@@ -519,15 +530,27 @@ Ext.define('MyApp.controller.InstancesController', {
 
     },
 
-    showEditInstanceNameWindow: function() {
-        var editWindow = Ext.create("widget.EditInstanceNameWindow");
+    showEditInstanceWindow: function() {
+        var editWindow = Ext.create("widget.EditInstanceWindow");
         editWindow.show();
 
-        var instanceForm = Ext.getCmp("instanceNameForm");
+        var instanceForm = Ext.getCmp("editInstanceForm");
 
-        instanceForm.getForm().findField("machineId").setRawValue(instancesConstants.actionRow.get("machineId"));
-        instanceForm.getForm().findField("displayName").setRawValue(instancesConstants.actionRow.get("displayName"));
+        instanceForm.getForm().waitMsgTarget = instanceForm.getEl();
 
+        instanceForm.getForm().load({
+            params : {
+                machineId : instancesConstants.actionRow.get("machineId")
+            }
+            ,url : GLOBAL.urlPrefix + "machine/getMachine"
+            ,waitMsg:'Loading...'
+            ,success: function(form, action) {
+
+                var password = form.findField('sshPassword').getValue();
+
+                form.findField('confirmSshPassword').setRawValue(password);
+            }
+        });
     },
 
     executeInstanceCLI: function() {

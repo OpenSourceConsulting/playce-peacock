@@ -183,7 +183,7 @@ Ext.define('MyApp.controller.ALMController', {
                 ,waitMsg:'Loading...'
             });
 
-            Ext.getCmp("almGroupTitleLabel").setText("<h2>"+almConstants.selectRow.get("name")+"</h2>", false);
+            Ext.getCmp("almGroupTitleLabel").setText("<h2>&nbsp;&nbsp;&nbsp;"+almConstants.selectRow.get("name")+"</h2>", false);
 
 
             var grid = Ext.getCmp("almGroupUserGrid");
@@ -361,7 +361,7 @@ Ext.define('MyApp.controller.ALMController', {
             ,waitMsg:'Loading...'
         });
 
-        Ext.getCmp("almUserTitleLabel").setText("<h2>"+almConstants.selectRow.get("displayName")+"</h2>", false);
+        Ext.getCmp("almUserTitleLabel").setText("<h2>&nbsp;&nbsp;&nbsp;"+almConstants.selectRow.get("displayName")+"</h2>", false);
     },
 
     showAlmUserWindow: function() {

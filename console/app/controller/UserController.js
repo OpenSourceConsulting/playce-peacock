@@ -196,7 +196,7 @@ Ext.define('MyApp.controller.UserController', {
             ,waitMsg:'Loading...'
         });
 
-        Ext.getCmp("userTitleLabel").setText("<h2>"+userConstants.selectRow.get("userName")+"</h2>", false);
+        Ext.getCmp("userTitleLabel").setText("<h2>&nbsp;&nbsp;&nbsp;"+userConstants.selectRow.get("userName")+"</h2>", false);
     }
 
 });

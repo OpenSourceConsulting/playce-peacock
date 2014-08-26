@@ -135,6 +135,7 @@ Ext.define('MyApp.view.almContainer', {
                                     height: 150,
                                     id: 'almProjectDetailPanel',
                                     itemId: 'almProjectDetailPanel',
+                                    autoScroll: true,
                                     layout: 'card',
                                     items: [
                                         {
@@ -146,6 +147,7 @@ Ext.define('MyApp.view.almContainer', {
                                         },
                                         {
                                             xtype: 'panel',
+                                            autoScroll: true,
                                             items: [
                                                 {
                                                     xtype: 'tabpanel',
@@ -170,7 +172,7 @@ Ext.define('MyApp.view.almContainer', {
                                                                             id: 'almProjectTitleLabel',
                                                                             itemId: 'almProjectTitleLabel',
                                                                             margin: '',
-                                                                            padding: '10 10 10 10',
+                                                                            padding: '10 10 0 10',
                                                                             text: ''
                                                                         }
                                                                     ]
@@ -463,6 +465,7 @@ Ext.define('MyApp.view.almContainer', {
                                     height: 150,
                                     id: 'almUserDetailPanel',
                                     itemId: 'almUserDetailPanel',
+                                    autoScroll: true,
                                     layout: 'card',
                                     items: [
                                         {
@@ -474,23 +477,7 @@ Ext.define('MyApp.view.almContainer', {
                                         },
                                         {
                                             xtype: 'panel',
-                                            dockedItems: [
-                                                {
-                                                    xtype: 'toolbar',
-                                                    dock: 'top',
-                                                    items: [
-                                                        {
-                                                            xtype: 'label',
-                                                            html: '<h2></h2>',
-                                                            id: 'almUserTitleLabel',
-                                                            itemId: 'almUserTitleLabel',
-                                                            margin: '',
-                                                            padding: '10 10 10 10',
-                                                            text: ''
-                                                        }
-                                                    ]
-                                                }
-                                            ],
+                                            autoScroll: true,
                                             items: [
                                                 {
                                                     xtype: 'form',
@@ -515,6 +502,13 @@ Ext.define('MyApp.view.almContainer', {
                                                     },
                                                     waitMsgTarget: 'instDescForm',
                                                     items: [
+                                                        {
+                                                            xtype: 'label',
+                                                            html: '<h2></h2>',
+                                                            id: 'almUserTitleLabel',
+                                                            itemId: 'almUserTitleLabel',
+                                                            padding: 1
+                                                        },
                                                         {
                                                             xtype: 'displayfield',
                                                             padding: 10,
@@ -634,6 +628,7 @@ Ext.define('MyApp.view.almContainer', {
                                     height: 150,
                                     id: 'almGroupDetailPanel',
                                     itemId: 'almGroupDetailPanel',
+                                    autoScroll: true,
                                     layout: 'card',
                                     items: [
                                         {
@@ -645,21 +640,17 @@ Ext.define('MyApp.view.almContainer', {
                                         },
                                         {
                                             xtype: 'panel',
+                                            autoScroll: true,
                                             dockedItems: [
                                                 {
-                                                    xtype: 'toolbar',
+                                                    xtype: 'label',
                                                     dock: 'top',
-                                                    items: [
-                                                        {
-                                                            xtype: 'label',
-                                                            html: '<h2></h2>',
-                                                            id: 'almGroupTitleLabel',
-                                                            itemId: 'almGroupTitleLabel',
-                                                            margin: '',
-                                                            padding: '10 10 0 10',
-                                                            text: ''
-                                                        }
-                                                    ]
+                                                    html: '<h2></h2>',
+                                                    id: 'almGroupTitleLabel',
+                                                    itemId: 'almGroupTitleLabel',
+                                                    margin: '5 0 0 0',
+                                                    padding: 2,
+                                                    text: ''
                                                 }
                                             ],
                                             items: [

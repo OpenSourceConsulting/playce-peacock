@@ -100,7 +100,7 @@ Ext.application({
         'softwareConfigWindow',
         'monitoringChartWindow',
         'UserWindow',
-        'EditInstanceNameWindow',
+        'EditInstanceWindow',
         'RegInstanceWindow',
         'almProjectSpaceWindow'
     ],

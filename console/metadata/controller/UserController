@@ -287,7 +287,7 @@
                     "    ,waitMsg:'Loading...'",
                     "});",
                     "",
-                    "Ext.getCmp(\"userTitleLabel\").setText(\"<h2>\"+userConstants.selectRow.get(\"userName\")+\"</h2>\", false);"
+                    "Ext.getCmp(\"userTitleLabel\").setText(\"<h2>&nbsp;&nbsp;&nbsp;\"+userConstants.selectRow.get(\"userName\")+\"</h2>\", false);"
                 ]
             },
             "designerId": "56047308-051c-4d87-ab38-6a58f8bb2ead"

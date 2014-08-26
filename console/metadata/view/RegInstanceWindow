@@ -8,13 +8,13 @@
     "userConfig": {
         "designer|userAlias": "RegInstanceWindow",
         "designer|userClassName": "RegInstanceWindow",
-        "height": 390,
+        "height": 590,
         "id": "regInstanceWindow1",
         "layout": "border",
         "modal": true,
         "resizable": false,
         "title": "Create Instance",
-        "width": 450
+        "width": 480
     },
     "configAlternates": {
         "resizable": "boolean"
@@ -29,6 +29,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "autoScroll": true,
                 "header": false,
                 "layout|flex": 1,
                 "layout|region": "center",
@@ -44,6 +45,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "autoScroll": true,
                         "bodyPadding": 15,
                         "fieldDefaults": [
                             "{",
@@ -455,7 +457,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "allowBlank": false,
-                                "fieldLabel": "Memory Size(MB)",
+                                "fieldLabel": "Memory(MB)",
                                 "labelWidth": 130,
                                 "layout|anchor": "100%",
                                 "name": "memory",
@@ -541,6 +543,290 @@
                                 "name": "initTemplate"
                             },
                             "designerId": "6ce33c6f-06da-4742-9e38-ddd8d54d1a95"
+                        },
+                        {
+                            "type": "Ext.form.FieldSet",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "margin": "20 0 10 0",
+                                "title": "SSH Settings (Optional)"
+                            },
+                            "designerId": "55e98728-24ae-435e-b675-f8edc36061de",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "SSH Port",
+                                        "labelWidth": 130,
+                                        "layout|anchor": "100%",
+                                        "name": "sshPort",
+                                        "vtype": "numeric"
+                                    },
+                                    "designerId": "10e69567-20b7-42ff-9be4-1b1aec9eaa12",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.XTemplate",
+                                            "reference": {
+                                                "name": "afterLabelTextTpl",
+                                                "type": "object"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|displayName": "afterLabelTextTpl",
+                                                "implHandler": [
+                                                    "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                                ]
+                                            },
+                                            "designerId": "3d117e78-ec64-425b-bbae-fe114007c93b"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Username",
+                                        "labelWidth": 130,
+                                        "layout|anchor": "100%",
+                                        "name": "sshUsername",
+                                        "vtype": "numeric"
+                                    },
+                                    "designerId": "03f111e0-17f3-4f77-90cd-a5e514c77479",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.XTemplate",
+                                            "reference": {
+                                                "name": "afterLabelTextTpl",
+                                                "type": "object"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|displayName": "afterLabelTextTpl",
+                                                "implHandler": [
+                                                    "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                                ]
+                                            },
+                                            "designerId": "fc0fd137-b69b-4379-a8ca-35045f679429"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.form.RadioGroup",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": null,
+                                        "padding": "0 0 0 135"
+                                    },
+                                    "designerId": "d5401600-e388-476d-894b-f00193c04f1b",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.form.field.Radio",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "boxLabel": "Use Passowrd",
+                                                "checked": true,
+                                                "fieldLabel": null,
+                                                "inputValue": "password",
+                                                "name": "chkUseType"
+                                            },
+                                            "designerId": "ddd55f59-0e43-4a0d-94aa-aca6c22da5b9"
+                                        },
+                                        {
+                                            "type": "Ext.form.field.Radio",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "boxLabel": " Use Key",
+                                                "fieldLabel": null,
+                                                "inputValue": "key",
+                                                "name": "chkUseType"
+                                            },
+                                            "designerId": "f88317b8-0e50-4097-9e4f-816970846fa1"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Password",
+                                        "labelWidth": 130,
+                                        "layout|anchor": "100%",
+                                        "name": "sshPassword",
+                                        "vtype": "numeric"
+                                    },
+                                    "designerId": "bab761d1-60ed-44c6-a25f-d9ad5ac1f22a",
+                                    "cn": [
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "value"
+                                                ],
+                                                "fn": "validator",
+                                                "implHandler": [
+                                                    "var chkValue = Ext.getCmp('instanceForm').getForm().findField('chkUseType').getValue();",
+                                                    "",
+                                                    "if(chkValue == true) {",
+                                                    "    if(value) {",
+                                                    "        return true;",
+                                                    "    } else {",
+                                                    "        return 'error';",
+                                                    "    }",
+                                                    "} else {",
+                                                    "    return true;",
+                                                    "}",
+                                                    ""
+                                                ]
+                                            },
+                                            "designerId": "f41822f9-85c4-4aab-a0ae-67b7e2cefea9"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Password Confirm",
+                                        "labelWidth": 130,
+                                        "layout|anchor": "100%",
+                                        "name": "confirmSshPassword",
+                                        "vtype": "numeric"
+                                    },
+                                    "designerId": "7ab9559c-cad0-42c6-853d-65880da86053"
+                                },
+                                {
+                                    "type": "Ext.form.field.File",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "emptyText": "Select a identity file",
+                                        "fieldLabel": "Key File",
+                                        "layout|anchor": "100%",
+                                        "name": "sshKeyFile"
+                                    },
+                                    "designerId": "f4ab513f-86ed-4a01-8f2c-509af3e48e0e"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.form.FieldSet",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "margin": "20 0 0 0",
+                                "title": "Static IP Address Settings (Optional)"
+                            },
+                            "designerId": "a0882770-7556-41ad-8926-262f15b89be9",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "IP Address",
+                                        "labelWidth": 130,
+                                        "layout|anchor": "100%",
+                                        "name": "ipAddress",
+                                        "vtype": "numeric"
+                                    },
+                                    "designerId": "8cd129f4-6b32-4391-bf70-ed1e8cf9b570"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Net Mask",
+                                        "labelWidth": 130,
+                                        "layout|anchor": "100%",
+                                        "name": "netmask",
+                                        "vtype": "numeric"
+                                    },
+                                    "designerId": "e016765c-1517-4367-9574-e8cc47ebed5e"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Gateway",
+                                        "labelWidth": 130,
+                                        "layout|anchor": "100%",
+                                        "name": "gateway",
+                                        "vtype": "numeric"
+                                    },
+                                    "designerId": "b1755a5a-68ec-4e91-b1c8-0471d4ac6799"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Name Server",
+                                        "labelWidth": 130,
+                                        "layout|anchor": "100%",
+                                        "name": "nameServer",
+                                        "vtype": "numeric"
+                                    },
+                                    "designerId": "e9d08b1b-0c92-4660-9db1-18b5f24ea524"
+                                }
+                            ]
                         }
                     ]
                 },

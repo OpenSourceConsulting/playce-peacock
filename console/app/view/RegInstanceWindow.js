@@ -23,13 +23,17 @@ Ext.define('MyApp.view.RegInstanceWindow', {
         'Ext.XTemplate',
         'Ext.form.field.ComboBox',
         'Ext.form.field.Hidden',
+        'Ext.form.FieldSet',
+        'Ext.form.RadioGroup',
+        'Ext.form.field.Radio',
+        'Ext.form.field.File',
         'Ext.toolbar.Toolbar',
         'Ext.button.Button'
     ],
 
-    height: 390,
+    height: 590,
     id: 'regInstanceWindow1',
-    width: 450,
+    width: 480,
     resizable: false,
     layout: 'border',
     title: 'Create Instance',
@@ -44,6 +48,7 @@ Ext.define('MyApp.view.RegInstanceWindow', {
                     xtype: 'panel',
                     flex: 1,
                     region: 'center',
+                    autoScroll: true,
                     header: false,
                     title: 'regInstancePanel',
                     items: [
@@ -51,6 +56,7 @@ Ext.define('MyApp.view.RegInstanceWindow', {
                             xtype: 'form',
                             id: 'instanceForm',
                             itemId: 'instanceForm',
+                            autoScroll: true,
                             bodyPadding: 15,
                             fieldDefaults: {
                                 msgTarget: 'side',
@@ -186,7 +192,7 @@ Ext.define('MyApp.view.RegInstanceWindow', {
                                     afterLabelTextTpl: [
                                         '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                     ],
-                                    fieldLabel: 'Memory Size(MB)',
+                                    fieldLabel: 'Memory(MB)',
                                     labelWidth: 130,
                                     name: 'memory',
                                     allowBlank: false,
@@ -215,6 +221,130 @@ Ext.define('MyApp.view.RegInstanceWindow', {
                                     anchor: '100%',
                                     fieldLabel: 'Label',
                                     name: 'initTemplate'
+                                },
+                                {
+                                    xtype: 'fieldset',
+                                    margin: '20 0 10 0',
+                                    title: 'SSH Settings (Optional)',
+                                    items: [
+                                        {
+                                            xtype: 'textfield',
+                                            anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
+                                            fieldLabel: 'SSH Port',
+                                            labelWidth: 130,
+                                            name: 'sshPort',
+                                            vtype: 'numeric'
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
+                                            fieldLabel: 'Username',
+                                            labelWidth: 130,
+                                            name: 'sshUsername',
+                                            vtype: 'numeric'
+                                        },
+                                        {
+                                            xtype: 'radiogroup',
+                                            padding: '0 0 0 135',
+                                            items: [
+                                                {
+                                                    xtype: 'radiofield',
+                                                    name: 'chkUseType',
+                                                    boxLabel: 'Use Passowrd',
+                                                    checked: true,
+                                                    inputValue: 'password'
+                                                },
+                                                {
+                                                    xtype: 'radiofield',
+                                                    name: 'chkUseType',
+                                                    boxLabel: ' Use Key',
+                                                    inputValue: 'key'
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('instanceForm').getForm().findField('chkUseType').getValue();
+
+                                                if(chkValue == true) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'error';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
+                                            anchor: '100%',
+                                            fieldLabel: 'Password',
+                                            labelWidth: 130,
+                                            name: 'sshPassword',
+                                            vtype: 'numeric'
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            anchor: '100%',
+                                            fieldLabel: 'Password Confirm',
+                                            labelWidth: 130,
+                                            name: 'confirmSshPassword',
+                                            vtype: 'numeric'
+                                        },
+                                        {
+                                            xtype: 'filefield',
+                                            anchor: '100%',
+                                            fieldLabel: 'Key File',
+                                            name: 'sshKeyFile',
+                                            emptyText: 'Select a identity file'
+                                        }
+                                    ]
+                                },
+                                {
+                                    xtype: 'fieldset',
+                                    margin: '20 0 0 0',
+                                    title: 'Static IP Address Settings (Optional)',
+                                    items: [
+                                        {
+                                            xtype: 'textfield',
+                                            anchor: '100%',
+                                            fieldLabel: 'IP Address',
+                                            labelWidth: 130,
+                                            name: 'ipAddress',
+                                            vtype: 'numeric'
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            anchor: '100%',
+                                            fieldLabel: 'Net Mask',
+                                            labelWidth: 130,
+                                            name: 'netmask',
+                                            vtype: 'numeric'
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            anchor: '100%',
+                                            fieldLabel: 'Gateway',
+                                            labelWidth: 130,
+                                            name: 'gateway',
+                                            vtype: 'numeric'
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            anchor: '100%',
+                                            fieldLabel: 'Name Server',
+                                            labelWidth: 130,
+                                            name: 'nameServer',
+                                            vtype: 'numeric'
+                                        }
+                                    ]
                                 }
                             ]
                         }

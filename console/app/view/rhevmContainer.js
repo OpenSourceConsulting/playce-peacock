@@ -513,6 +513,7 @@ Ext.define('MyApp.view.rhevmContainer', {
                                     id: 'rhevmTabDetailPanel',
                                     itemId: 'rhevmTabDetailPanel',
                                     padding: '5 0 0 0 ',
+                                    autoScroll: true,
                                     layout: 'card',
                                     animCollapse: true,
                                     collapsed: true,
@@ -524,7 +525,8 @@ Ext.define('MyApp.view.rhevmContainer', {
                                             height: 1000,
                                             id: 'blankPanel3',
                                             itemId: 'blankPanel',
-                                            width: 1000
+                                            width: 1000,
+                                            autoScroll: true
                                         },
                                         {
                                             xtype: 'tabpanel',
@@ -545,8 +547,10 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                     items: [
                                                         {
                                                             xtype: 'form',
+                                                            height: 310,
                                                             id: 'rhevmGeneralForm',
                                                             itemId: 'rhevmGeneralForm',
+                                                            autoScroll: true,
                                                             defaults: {
                                                                 border: false,
                                                                 xtype: 'panel',

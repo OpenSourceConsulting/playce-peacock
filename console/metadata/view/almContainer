@@ -223,6 +223,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "autoScroll": true,
                                 "height": 150,
                                 "id": "almProjectDetailPanel",
                                 "itemId": "almProjectDetailPanel",
@@ -258,6 +259,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
+                                        "autoScroll": true,
                                         "designer|displayName": "projectDetail",
                                         "title": null
                                     },
@@ -328,7 +330,7 @@
                                                                         "itemId": "almProjectTitleLabel",
                                                                         "layout|flex": null,
                                                                         "margin": "",
-                                                                        "padding": "10 10 10 10",
+                                                                        "padding": "10 10 0 10",
                                                                         "text": ""
                                                                     },
                                                                     "designerId": "5fa12a9a-7e5e-4a9a-8a57-686135e9995e"
@@ -1050,6 +1052,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "autoScroll": true,
                                 "height": 150,
                                 "id": "almUserDetailPanel",
                                 "itemId": "almUserDetailPanel",
@@ -1085,43 +1088,12 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
+                                        "autoScroll": true,
                                         "designer|displayName": "almDetail",
                                         "title": null
                                     },
                                     "designerId": "313396e1-f7da-424e-b19b-6c7cd660cca2",
                                     "cn": [
-                                        {
-                                            "type": "Ext.toolbar.Toolbar",
-                                            "reference": {
-                                                "name": "dockedItems",
-                                                "type": "array"
-                                            },
-                                            "codeClass": null,
-                                            "userConfig": {
-                                                "dock": "top"
-                                            },
-                                            "designerId": "95c752c6-7b8c-43d3-a339-33686f53fb3a",
-                                            "cn": [
-                                                {
-                                                    "type": "Ext.form.Label",
-                                                    "reference": {
-                                                        "name": "items",
-                                                        "type": "array"
-                                                    },
-                                                    "codeClass": null,
-                                                    "userConfig": {
-                                                        "html": "<h2></h2>",
-                                                        "id": "almUserTitleLabel",
-                                                        "itemId": "almUserTitleLabel",
-                                                        "layout|flex": null,
-                                                        "margin": "",
-                                                        "padding": "10 10 10 10",
-                                                        "text": ""
-                                                    },
-                                                    "designerId": "45346f57-f92c-49ae-b7e1-9b1bd59023d4"
-                                                }
-                                            ]
-                                        },
                                         {
                                             "type": "Ext.form.Panel",
                                             "reference": {
@@ -1162,6 +1134,23 @@
                                             },
                                             "designerId": "84f5edb1-9132-482c-ba9b-ee0ce9b86b9d",
                                             "cn": [
+                                                {
+                                                    "type": "Ext.form.Label",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "html": "<h2></h2>",
+                                                        "id": "almUserTitleLabel",
+                                                        "itemId": "almUserTitleLabel",
+                                                        "margin": null,
+                                                        "padding": 1,
+                                                        "text": null
+                                                    },
+                                                    "designerId": "45346f57-f92c-49ae-b7e1-9b1bd59023d4"
+                                                },
                                                 {
                                                     "type": "Ext.form.field.Display",
                                                     "reference": {
@@ -1442,6 +1431,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "autoScroll": true,
                                 "height": 150,
                                 "id": "almGroupDetailPanel",
                                 "itemId": "almGroupDetailPanel",
@@ -1477,41 +1467,30 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
+                                        "autoScroll": true,
                                         "title": null
                                     },
                                     "designerId": "4d366156-1497-453a-8a4b-b977af402015",
                                     "cn": [
                                         {
-                                            "type": "Ext.toolbar.Toolbar",
+                                            "type": "Ext.form.Label",
                                             "reference": {
                                                 "name": "dockedItems",
                                                 "type": "array"
                                             },
                                             "codeClass": null,
                                             "userConfig": {
-                                                "dock": "top"
+                                                "dock": "top",
+                                                "html": "<h2></h2>",
+                                                "id": "almGroupTitleLabel",
+                                                "itemId": "almGroupTitleLabel",
+                                                "margin": "5 0 0 0",
+                                                "minHeight": null,
+                                                "padding": 2,
+                                                "text": "",
+                                                "width": null
                                             },
-                                            "designerId": "6cb93782-98d6-458b-97a1-dad4c460a2fe",
-                                            "cn": [
-                                                {
-                                                    "type": "Ext.form.Label",
-                                                    "reference": {
-                                                        "name": "items",
-                                                        "type": "array"
-                                                    },
-                                                    "codeClass": null,
-                                                    "userConfig": {
-                                                        "html": "<h2></h2>",
-                                                        "id": "almGroupTitleLabel",
-                                                        "itemId": "almGroupTitleLabel",
-                                                        "layout|flex": null,
-                                                        "margin": "",
-                                                        "padding": "10 10 0 10",
-                                                        "text": ""
-                                                    },
-                                                    "designerId": "25b4fae8-f84f-4784-89c7-ae0b8da201c0"
-                                                }
-                                            ]
+                                            "designerId": "25b4fae8-f84f-4784-89c7-ae0b8da201c0"
                                         },
                                         {
                                             "type": "Ext.tab.Panel",
