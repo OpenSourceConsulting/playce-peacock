@@ -179,7 +179,7 @@ public class MachineService {
 	}
 	
 	private void sendCommand(String machineId, List<String> commandList) throws Exception {
-		MachineDto machine = getAdditionalInfo(machineId);
+		MachineDto machine = getMachine(machineId);
 		
 		TargetHost targetHost = new TargetHost();
 		targetHost.setHost(machine.getIpAddr());
