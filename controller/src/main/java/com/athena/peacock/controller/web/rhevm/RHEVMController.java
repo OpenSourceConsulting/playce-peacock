@@ -35,10 +35,17 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.athena.peacock.common.core.action.ShellAction;
 import com.athena.peacock.common.core.action.support.TargetHost;
+import com.athena.peacock.common.core.command.Command;
 import com.athena.peacock.common.core.util.SshExecUtil;
+import com.athena.peacock.common.netty.PeacockDatagram;
+import com.athena.peacock.common.netty.message.AbstractMessage;
+import com.athena.peacock.common.netty.message.ProvisioningCommandMessage;
+import com.athena.peacock.controller.netty.PeacockTransmitter;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 import com.athena.peacock.controller.web.common.model.SimpleJsonResponse;
+import com.athena.peacock.controller.web.machine.MachineService;
 import com.athena.peacock.controller.web.rhevm.dto.TemplateDto;
 import com.athena.peacock.controller.web.rhevm.dto.VMDto;
 
@@ -60,6 +67,14 @@ public class RHEVMController {
 	@Inject
 	@Named("rhevmService")
 	private RHEVMService rhevmService;
+	
+	@Inject
+	@Named("machineService")
+	private MachineService machineService;
+
+    @Inject
+    @Named("peacockTransmitter")
+	private PeacockTransmitter peacockTransmitter;
 
 	/**
 	 * <pre>
@@ -400,6 +415,31 @@ public class RHEVMController {
 		Assert.notNull(dto.getVmId(), "vmId must not be null.");
 		
 		try {
+			// VM 중지 전 Agent를 중지시킨다.
+			ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
+			cmdMsg.setAgentId(dto.getVmId());
+			cmdMsg.setBlocking(true);
+
+			int sequence = 0;
+			Command command = new Command("STOP_AGENT");
+			
+			ShellAction action = new ShellAction(sequence++);
+			
+			action.setCommand("service");
+			action.addArguments("peacock-agent stop");
+
+			command.addAction(action);
+			
+			cmdMsg.addCommand(command);
+
+			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+			peacockTransmitter.sendMessage(datagram);
+		} catch (Exception e) {
+			// ignore this exception
+			// Agent가 설치되지 않은 VM일 경우 에러가 발생할 수 있고, 이미 Agent가 종료되어 연결된 Channel이 없을 수 있다.
+		}
+		
+		try {
 			jsonRes.setData(rhevmService.stopVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
 			jsonRes.setMsg("VM 중지가 정상적으로 요청되었습니다. 잠시만 기다려주십시오.");
 		} catch (Exception e) {
@@ -425,6 +465,31 @@ public class RHEVMController {
 	public @ResponseBody SimpleJsonResponse shutdownVirtualMachine(SimpleJsonResponse jsonRes, VMDto dto) throws Exception {
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
 		Assert.notNull(dto.getVmId(), "vmId must not be null.");
+		
+		try {
+			// VM 중지 전 Agent를 중지시킨다.
+			ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
+			cmdMsg.setAgentId(dto.getVmId());
+			cmdMsg.setBlocking(true);
+
+			int sequence = 0;
+			Command command = new Command("STOP_AGENT");
+			
+			ShellAction action = new ShellAction(sequence++);
+			
+			action.setCommand("service");
+			action.addArguments("peacock-agent stop");
+
+			command.addAction(action);
+			
+			cmdMsg.addCommand(command);
+
+			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+			peacockTransmitter.sendMessage(datagram);
+		} catch (Exception e) {
+			// ignore this exception
+			// Agent가 설치되지 않은 VM일 경우 에러가 발생할 수 있고, 이미 Agent가 종료되어 연결된 Channel이 없을 수 있다.
+		}
 		
 		try {
 			jsonRes.setData(rhevmService.shutdownVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
@@ -455,6 +520,10 @@ public class RHEVMController {
 		
 		try {
 			jsonRes.setData(rhevmService.removeVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
+			
+			// VM이 정상적으로 삭제된 경우 DB의 machine_tbl에서도 해당 VM을 제거한다.
+			machineService.deleteMachine(dto.getVmId());
+			
 			jsonRes.setMsg("VM 삭제가 정상적으로 요청되었습니다. 잠시만 기다려주십시오.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
