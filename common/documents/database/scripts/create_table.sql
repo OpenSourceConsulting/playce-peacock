@@ -408,6 +408,24 @@ CREATE TABLE IF NOT EXISTS `peacock`.`lb_machine_map_tbl` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `peacock`.`static_ip_info_tbl`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `peacock`.`static_ip_info_tbl` (
+  `MACHINE_ID` VARCHAR(36) NOT NULL,
+  `IP_ADDRESS` VARCHAR(15) NULL,
+  `NETMASK` VARCHAR(15) NULL,
+  `GATEWAY` VARCHAR(15) NULL,
+  `NAME_SERVER` VARCHAR(100) NULL COMMENT '\',\' 구분자로 구분된 네임서버 목록',
+  `APPLY_YN` CHAR(1) NOT NULL DEFAULT 'N',
+  `REG_USER_ID` INT(11) NULL,
+  `REG_DT` DATETIME NULL,
+  `UPD_USER_ID` INT(11) NULL,
+  `UPD_DT` DATETIME NULL,
+  PRIMARY KEY (`MACHINE_ID`))
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

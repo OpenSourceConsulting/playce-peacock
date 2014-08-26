@@ -60,6 +60,13 @@ public class MachineDto extends BaseDto {
 	private String deleteYn;
 	private String status;
 	
+	// static_ip_info_tbl 관련 필드
+	private String ipAddress;
+	private String netmask;
+	private String gateway;
+	private String nameServer;
+	private String applyYn;
+	
 	/**
 	 * @return the machineId
 	 */
@@ -366,6 +373,76 @@ public class MachineDto extends BaseDto {
 	 */
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	/**
+	 * @return the ipAddress
+	 */
+	public String getIpAddress() {
+		return ipAddress;
+	}
+
+	/**
+	 * @param ipAddress the ipAddress to set
+	 */
+	public void setIpAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
+	}
+
+	/**
+	 * @return the netmask
+	 */
+	public String getNetmask() {
+		return netmask;
+	}
+
+	/**
+	 * @param netmask the netmask to set
+	 */
+	public void setNetmask(String netmask) {
+		this.netmask = netmask;
+	}
+
+	/**
+	 * @return the gateway
+	 */
+	public String getGateway() {
+		return gateway;
+	}
+
+	/**
+	 * @param gateway the gateway to set
+	 */
+	public void setGateway(String gateway) {
+		this.gateway = gateway;
+	}
+
+	/**
+	 * @return the nameServer
+	 */
+	public String getNameServer() {
+		return nameServer;
+	}
+
+	/**
+	 * @param nameServer the nameServer to set
+	 */
+	public void setNameServer(String nameServer) {
+		this.nameServer = nameServer;
+	}
+
+	/**
+	 * @return the applyYn
+	 */
+	public String getApplyYn() {
+		return applyYn;
+	}
+
+	/**
+	 * @param applyYn the applyYn to set
+	 */
+	public void setApplyYn(String applyYn) {
+		this.applyYn = applyYn;
 	}
 }
 //end of MachineDto.java
