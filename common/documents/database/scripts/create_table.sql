@@ -47,10 +47,6 @@ CREATE TABLE IF NOT EXISTS `peacock`.`machine_tbl` (
   `MEM_SIZE` VARCHAR(20) NULL,
   `IP_ADDR` VARCHAR(15) NULL,
   `HOST_NAME` VARCHAR(255) NULL,
-  `SSH_PORT` VARCHAR(5) NULL,
-  `SSH_USERNAME` VARCHAR(255) NULL,
-  `SSH_PASSWORD` VARCHAR(255) NULL,
-  `SSH_KEY_FILE` VARCHAR(255) NULL,
   `DELETE_YN` CHAR(1) NOT NULL DEFAULT 'N',
   `REG_USER_ID` INT(11) NULL,
   `REG_DT` DATETIME NULL,
@@ -409,15 +405,19 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `peacock`.`static_ip_info_tbl`
+-- Table `peacock`.`machine_additional_info_tbl`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `peacock`.`static_ip_info_tbl` (
+CREATE TABLE IF NOT EXISTS `peacock`.`machine_additional_info_tbl` (
   `MACHINE_ID` VARCHAR(36) NOT NULL,
   `IP_ADDRESS` VARCHAR(15) NULL,
   `NETMASK` VARCHAR(15) NULL,
   `GATEWAY` VARCHAR(15) NULL,
   `NAME_SERVER` VARCHAR(100) NULL COMMENT '\',\' 구분자로 구분된 네임서버 목록',
   `APPLY_YN` CHAR(1) NOT NULL DEFAULT 'N',
+  `SSH_PORT` VARCHAR(5) NULL COMMENT 'Instance(Machine)의 부가 정보(고정 IP 관련 정보, SSH 관련 접속 정보 등)을 저장하기 위한 테이블로 machine_tbl과 1:1로 매핑된다. machine_tbl은 실제 Agent가 구동 된 이후에 값이 저장되는 테이블로써 초기 사용자에 의해 설정된 값을 사전에 저장하기 위해 별도의 테이블로 구성한다.',
+  `SSH_USERNAME` VARCHAR(255) NULL,
+  `SSH_PASSWORD` VARCHAR(255) NULL,
+  `SSH_KEY_FILE` VARCHAR(255) NULL,
   `REG_USER_ID` INT(11) NULL,
   `REG_DT` DATETIME NULL,
   `UPD_USER_ID` INT(11) NULL,
