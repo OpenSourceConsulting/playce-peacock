@@ -24,8 +24,11 @@
  */
 package com.athena.peacock.controller.web.rhevm;
 
+import java.io.File;
+
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -36,6 +39,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.athena.peacock.common.core.action.ShellAction;
+import com.athena.peacock.common.core.action.support.PropertyUtil;
 import com.athena.peacock.common.core.action.support.TargetHost;
 import com.athena.peacock.common.core.command.Command;
 import com.athena.peacock.common.core.util.SshExecUtil;
@@ -45,9 +49,13 @@ import com.athena.peacock.common.netty.message.ProvisioningCommandMessage;
 import com.athena.peacock.controller.netty.PeacockTransmitter;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 import com.athena.peacock.controller.web.common.model.SimpleJsonResponse;
+import com.athena.peacock.controller.web.machine.MachineDto;
 import com.athena.peacock.controller.web.machine.MachineService;
 import com.athena.peacock.controller.web.rhevm.dto.TemplateDto;
 import com.athena.peacock.controller.web.rhevm.dto.VMDto;
+import com.athena.peacock.controller.web.user.UserController;
+import com.athena.peacock.controller.web.user.UserDto;
+import com.redhat.rhevm.api.model.VM;
 
 
 /**
@@ -353,7 +361,7 @@ public class RHEVMController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/vms/create")
-	public @ResponseBody SimpleJsonResponse createVirtualMachine(SimpleJsonResponse jsonRes, VMDto dto) throws Exception {
+	public @ResponseBody SimpleJsonResponse createVirtualMachine(HttpServletRequest request, SimpleJsonResponse jsonRes, VMDto dto) throws Exception {
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
 		Assert.notNull(dto.getName(), "name must not be null.");
 		Assert.notNull(dto.getCluster(), "cluster must not be null.");
@@ -361,7 +369,54 @@ public class RHEVMController {
 		Assert.isTrue(dto.getSockets() != 0, "sockets must not be 0.");
 		
 		try {
-			jsonRes.setData(rhevmService.createVirtualMachine(dto.getHypervisorId(), dto));
+			// RHEV REST API를 호출하여 VM을 생성하고 결과를 리턴받는다.
+			VM vm = rhevmService.createVirtualMachine(dto.getHypervisorId(), dto);
+			
+			// SSH Key File이 존재할 경우 해당 VM 생성 결과인 vm id로 디렉토리를 생성하고 파일을 저장한다.
+            if (dto.getKeyFile() != null && dto.getKeyFile().getSize() > 0 ) {
+            	String defaultPath = PropertyUtil.getProperty("upload.dir") + File.separator + vm.getId() + File.separator;
+            	File keyFile = new File(defaultPath + dto.getKeyFile().getOriginalFilename());
+                if (!keyFile.exists()) {
+                    if (!keyFile.mkdirs()) {
+                        throw new Exception("Fail to create a directory for attached file [" + keyFile + "]");
+                    }
+                }
+                
+                keyFile.deleteOnExit();
+                dto.getKeyFile().transferTo(keyFile);
+                dto.setSshKeyFile(keyFile.getAbsolutePath());
+            }
+            
+            // machine_additional_info_tbl에 부가 정보를 저장한다.
+            boolean isExist = false;
+            MachineDto machine = new MachineDto();
+
+            machine.setMachineId(vm.getId());
+            if (StringUtils.isNotEmpty(dto.getIpAddress())) {
+                machine.setIpAddress(dto.getIpAddress());
+                machine.setNetmask(dto.getNetmask());
+                machine.setGateway(dto.getGateway());
+                machine.setNameServer(dto.getNameServer());
+            	isExist = true;
+            }
+            if (StringUtils.isNotEmpty(dto.getSshPort())) {
+                machine.setSshPort(dto.getSshPort());
+                machine.setSshUsername(dto.getSshUsername());
+                machine.setSshPassword(dto.getSshPassword());
+                machine.setSshKeyFile(dto.getSshKeyFile());
+            	isExist = true;
+            }
+            
+            if (isExist) {
+    			UserDto userDto = (UserDto)request.getSession().getAttribute(UserController.SESSION_USER_KEY);
+    			if (userDto != null) {
+    				machine.setRegUserId(userDto.getUserId());
+    				machine.setUpdUserId(userDto.getUserId());
+    			}
+    			
+            	machineService.insertAdditionalInfo(machine);
+            }
+            
 			jsonRes.setMsg("VM 생성이 정상적으로 요청되었습니다. 잠시만 기다려주십시오.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
@@ -467,7 +522,7 @@ public class RHEVMController {
 		Assert.notNull(dto.getVmId(), "vmId must not be null.");
 		
 		try {
-			// VM 중지 전 Agent를 중지시킨다.
+			// VM shutdown 전 Agent를 중지시킨다.
 			ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
 			cmdMsg.setAgentId(dto.getVmId());
 			cmdMsg.setBlocking(true);

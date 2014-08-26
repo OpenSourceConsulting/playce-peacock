@@ -24,6 +24,7 @@
  */
 package com.athena.peacock.controller.web.machine;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -37,7 +38,15 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClientException;
 
+import com.athena.peacock.common.core.action.FileWriteAction;
+import com.athena.peacock.common.core.action.support.TargetHost;
+import com.athena.peacock.common.core.command.Command;
+import com.athena.peacock.common.core.util.SshExecUtil;
+import com.athena.peacock.common.netty.PeacockDatagram;
+import com.athena.peacock.common.netty.message.AbstractMessage;
+import com.athena.peacock.common.netty.message.ProvisioningCommandMessage;
 import com.athena.peacock.controller.common.component.RHEVMRestTemplateManager;
+import com.athena.peacock.controller.netty.PeacockTransmitter;
 import com.athena.peacock.controller.web.rhevm.RHEVApi;
 import com.redhat.rhevm.api.model.VM;
 
@@ -55,6 +64,10 @@ public class MachineService {
 	@Inject
 	@Named("machineDao")
 	private MachineDao machineDao;
+
+    @Inject
+    @Named("peacockTransmitter")
+	private PeacockTransmitter peacockTransmitter;
 
 	public void insertMachine(MachineDto machine) throws Exception {	
 		MachineDto m = machineDao.getMachine(machine.getMachineId());
@@ -99,11 +112,7 @@ public class MachineService {
 		machineDao.deleteMachine(machineId);
 	}
 
-	public void updateMachine(MachineDto machine) {
-		machineDao.updateMachine(machine);
-	}
-
-	public VM updateMachineName(MachineDto machine) throws RestClientException, Exception {
+	public void updateMachine(MachineDto machine) throws RestClientException, Exception {
 		if (machine.getDisplayName().toLowerCase().startsWith("hhilws") && !machine.getDisplayName().toLowerCase().startsWith("hhilwsd")) {
 			machine.setIsPrd("Y");
 		} else {
@@ -119,10 +128,120 @@ public class MachineService {
 		if (m.getHypervisorId() != null && m.getHypervisorId() > 0) {
 			VM vm = new VM();
 			vm.setName(m.getDisplayName());
-			return RHEVMRestTemplateManager.getRHEVMRestTemplate(m.getHypervisorId()).submit(RHEVApi.VMS + "/" + m.getMachineId(), HttpMethod.PUT, vm, "vm", VM.class);
-		} else {
-			return null;
+			RHEVMRestTemplateManager.getRHEVMRestTemplate(m.getHypervisorId()).submit(RHEVApi.VMS + "/" + m.getMachineId(), HttpMethod.PUT, vm, "vm", VM.class);
 		}
+		
+		// 세팅하려는 고정 IP 값이 있는지.. 기존 IP와 다른지 검사하여 고정 IP 변경 작업을 수행한다.
+		// TODO IP Address 변경없이 NETMASK, GATEWAY, NAMESERVER가 변경된 경우의 처리는??
+        if (StringUtils.isNotEmpty(machine.getIpAddress()) && !machine.getIpAddress().equals(machine.getIpAddr())) {
+        	applyStaticIp(machine);
+        }
+	}
+	
+	public MachineDto getAdditionalInfo(String machineId) {
+		return machineDao.getAdditionalInfo(machineId);
+	}
+	
+	public void insertAdditionalInfo(MachineDto machine) {
+		machineDao.insertAdditionalInfo(machine);
+	}
+	
+	public void updateAdditionalInfo(MachineDto machine) {
+		machineDao.updateAdditionalInfo(machine);
+	}
+	
+	public void agentStart(String machineId) throws Exception {
+		List<String> commandList = new ArrayList<String>();
+		commandList.add("service peacock-agent start");
+		
+		sendCommand(machineId, commandList);
+	}
+	
+	public void agentStop(String machineId) throws Exception {
+		List<String> commandList = new ArrayList<String>();
+		commandList.add("service peacock-agent stop");
+		
+		sendCommand(machineId, commandList);
+	}
+	
+	public void agentRestart(String machineId) throws Exception {
+		List<String> commandList = new ArrayList<String>();
+		commandList.add("service peacock-agent restart");
+		
+		sendCommand(machineId, commandList);
+	}
+	
+	public void networkRestart(String machineId) throws Exception {
+		List<String> commandList = new ArrayList<String>();
+		commandList.add("service network restart");
+		
+		sendCommand(machineId, commandList);
+	}
+	
+	private void sendCommand(String machineId, List<String> commandList) throws Exception {
+		MachineDto machine = getAdditionalInfo(machineId);
+		
+		TargetHost targetHost = new TargetHost();
+		targetHost.setHost(machine.getIpAddr());
+		targetHost.setPort(Integer.parseInt(machine.getSshPort()));
+		targetHost.setUsername(machine.getSshUsername());
+		targetHost.setPassword(machine.getSshPassword());
+		targetHost.setKeyfile(machine.getSshKeyFile());
+
+		SshExecUtil.executeCommand(targetHost, commandList);
+	}
+	
+	public void applyStaticIp(MachineDto machine) throws Exception {
+		// 1. /etc/sysconfig/network-scripts/ifcfg-eth0 파일에 저장될 내용을 구성한다.
+		StringBuilder ifcfg = new StringBuilder();
+		ifcfg.append("DEVICE=etho0").append("\n")
+			 .append("BOOTPROTO=static").append("\n")
+			 .append("ONBOOT=yes").append("\n")
+			 .append("IPADDR=").append(machine.getIpAddress()).append("\n")
+			 .append("NETMASK=").append(machine.getNetmask()).append("\n")
+			 .append("GATEWAY=").append(machine.getGateway()).append("\n");
+		
+		// 2. /etc/resolv.conf 파일에 저장될 내용을 구성한다.
+		StringBuilder nameserver = new StringBuilder();
+		String[] servers = machine.getNameServer().split(",");
+		for (String server : servers) {
+			nameserver.append("nameserver ").append(server).append("\n");
+		}
+		
+		// 3. ifcnf-eth0, resolv.conf 파일을 저장한다.
+		ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
+		cmdMsg.setAgentId(machine.getMachineId());
+		cmdMsg.setBlocking(true);
+
+		int sequence = 0;
+		Command command = new Command("SET_STATIC_IP");
+		
+		FileWriteAction fwAction = new FileWriteAction(sequence++);
+		fwAction.setContents(ifcfg.toString());
+		fwAction.setFileName("/etc/sysconfig/network-scripts/ifcfg-eth0");
+		command.addAction(fwAction);
+		
+		// nameserver 정보가 존재하지 않을 경우 세팅하지 않는다.
+		if (StringUtils.isNotEmpty(nameserver.toString())) {
+			fwAction = new FileWriteAction(sequence++);
+			fwAction.setContents(nameserver.toString());
+			fwAction.setFileName("/etc/resolv.conf");
+			command.addAction(fwAction);
+		}
+
+		cmdMsg.addCommand(command);
+
+		PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+		peacockTransmitter.sendMessage(datagram);
+		
+		// 4. network 서비스를 재구동한다.
+		networkRestart(machine.getMachineId());
+		
+		// 5. machine_additional_info_tbl의 apply_yn 값을 업데이트 한다. 
+		machineDao.applyStaticIp(machine.getMachineId());
+		
+		// 6. Peacock Agent를 재구동한다.
+		agentRestart(machine.getMachineId());
 	}
 }
 //end of MachineService.java

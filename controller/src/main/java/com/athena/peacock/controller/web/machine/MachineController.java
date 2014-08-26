@@ -24,6 +24,7 @@
  */
 package com.athena.peacock.controller.web.machine;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +45,7 @@ import com.athena.peacock.common.core.action.ConfigAction;
 import com.athena.peacock.common.core.action.FileWriteAction;
 import com.athena.peacock.common.core.action.ShellAction;
 import com.athena.peacock.common.core.action.support.Property;
+import com.athena.peacock.common.core.action.support.PropertyUtil;
 import com.athena.peacock.common.core.command.Command;
 import com.athena.peacock.common.netty.PeacockDatagram;
 import com.athena.peacock.common.netty.message.AbstractMessage;
@@ -116,6 +118,22 @@ public class MachineController {
 
 	/**
 	 * <pre>
+	 * 고정 IP 및 SSH 설정 정보 등 Instance 부가 정보를 조회한다.
+	 * </pre>
+	 * @param jsonRes
+	 * @param machineId
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/getAdditionalInfo")
+	public @ResponseBody DtoJsonResponse getAdditionalInfo(DtoJsonResponse jsonRes, String machineId) throws Exception {
+		jsonRes.setData(machineService.getAdditionalInfo(machineId));
+		
+		return jsonRes;
+	}
+
+	/**
+	 * <pre>
 	 * Instance의 Display Name을 수정한다.
 	 * </pre>
 	 * @param jsonRes
@@ -123,17 +141,82 @@ public class MachineController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/updateMachineName")
-	public @ResponseBody DtoJsonResponse updateMachineName(DtoJsonResponse jsonRes, MachineDto machine) throws Exception {
+	@RequestMapping("/updateMachine")
+	public @ResponseBody DtoJsonResponse updateMachine(DtoJsonResponse jsonRes, MachineDto machine) throws Exception {
 		Assert.notNull(machine.getMachineId(), "machineId can not be null.");
 		Assert.notNull(machine.getDisplayName(), "displayName can not be null.");
 		
 		try {
-			jsonRes.setData(machineService.updateMachineName(machine));
-			jsonRes.setMsg("Instance 이름이 정상적으로 변경되었습니다.");
+            if (machine.getKeyFile() != null && machine.getKeyFile().getSize() > 0 ) {
+            	String defaultPath = PropertyUtil.getProperty("upload.dir") + File.separator + machine.getMachineId() + File.separator;
+            	File keyFile = new File(defaultPath + machine.getKeyFile().getOriginalFilename());
+                if (!keyFile.exists()) {
+                    if (!keyFile.mkdirs()) {
+                        throw new Exception("Fail to create a directory for attached file [" + keyFile + "]");
+                    }
+                }
+                
+                keyFile.deleteOnExit();
+                machine.getKeyFile().transferTo(keyFile);
+                machine.setSshKeyFile(keyFile.getAbsolutePath());
+            }
+			
+			machineService.updateMachine(machine);
+			
+			jsonRes.setMsg("Instance 정보가 정상적으로 변경되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Instance 이름 변경 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("Instance 정보 변경 중 에러가 발생하였습니다.");
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+	
+	/**
+	 * <pre>
+	 * Down 상태의 Agent를 구동시킨다.
+	 * </pre>
+	 * @param jsonRes
+	 * @param machineId
+	 * @return
+	 */
+	@RequestMapping("/agentStart")
+	public @ResponseBody DtoJsonResponse agentStart(DtoJsonResponse jsonRes, String machineId) {
+		Assert.notNull(machineId, "machineId can not be null.");
+		
+		try {
+			machineService.agentStart(machineId);
+			jsonRes.setMsg("Agent가 정상적으로 시작하였습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("Agent 시작 중 에러가 발생하였습니다.");
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+	
+	/**
+	 * <pre>
+	 * Running 상태의 Agent를 중지시킨다.
+	 * </pre>
+	 * @param jsonRes
+	 * @param machineId
+	 * @return
+	 */
+	@RequestMapping("/agentStop")
+	public @ResponseBody DtoJsonResponse agentStop(DtoJsonResponse jsonRes, String machineId) {
+		Assert.notNull(machineId, "machineId can not be null.");
+		
+		try {
+			machineService.agentStop(machineId);
+			jsonRes.setMsg("Agent가 정상적으로 중지하였습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("Agent 중지 중 에러가 발생하였습니다.");
 			
 			logger.error("Unhandled Expeption has occurred. ", e);
 		}

@@ -12,33 +12,39 @@
 	</insert>
 
 	<select id="getMachine" parameterType="String" resultType="com.athena.peacock.controller.web.machine.MachineDto">
-		SELECT MACHINE_ID AS machineId
-			   , HYPERVISOR_ID AS hypervisorId
-			   , DISPLAY_ID AS displayId
-			   , DISPLAY_NAME AS displayName
-			   , CLUSTER AS cluster
-			   , IS_PRD AS isPrd
-		       , MACHINE_MAC_ADDR AS machineMacAddr
-		       , IS_VM AS isVm
-		       , OS_NAME AS osName
-		       , OS_VER AS osVer
-		       , OS_ARCH AS osArch
-		       , CPU_CLOCK AS cpuClock
-		       , CPU_NUM AS cpuNum
-			   , MEM_SIZE AS memSize
-			   , IP_ADDR AS ipAddr
-			   , HOST_NAME AS hostName
-			   , SSH_PORT AS sshPort
-			   , SSH_USERNAME AS sshUsername
-			   , SSH_PASSWORD AS sshPassword
-			   , SSH_KEY_FILE AS sshKeyFile
-			   , DELETE_YN AS deleteYn
-			   , REG_USER_ID AS regUserId
-			   , REG_DT AS regDt
-			   , UPD_USER_ID AS updUserId
-			   , UPD_DT AS updDt
-		  FROM machine_tbl
-		 WHERE MACHINE_ID = #{machineId}
+		SELECT m.MACHINE_ID AS machineId
+			   , m.HYPERVISOR_ID AS hypervisorId
+			   , m.DISPLAY_ID AS displayId
+			   , m.DISPLAY_NAME AS displayName
+			   , m.CLUSTER AS cluster
+			   , m.IS_PRD AS isPrd
+		       , m.MACHINE_MAC_ADDR AS machineMacAddr
+		       , m.IS_VM AS isVm
+		       , m.OS_NAME AS osName
+		       , m.OS_VER AS osVer
+		       , m.OS_ARCH AS osArch
+		       , m.CPU_CLOCK AS cpuClock
+		       , m.CPU_NUM AS cpuNum
+			   , m.MEM_SIZE AS memSize
+			   , m.IP_ADDR AS ipAddr
+			   , m.HOST_NAME AS hostName
+			   , m.DELETE_YN AS deleteYn
+			   , s.IP_ADDRESS AS ipAddress
+			   , s.NETMASK AS netmask
+			   , s.GATEWAY AS gateway
+			   , s.NAME_SERVER AS nameServer
+			   , s.APPLY_YN AS applyYn
+			   , s.SSH_PORT AS sshPort
+			   , s.SSH_USERNAME AS sshUsername
+			   , s.SSH_PASSWORD AS sshPassword
+			   , s.SSH_KEY_FILE AS sshKeyFile
+			   , m.REG_USER_ID AS regUserId
+			   , m.REG_DT AS regDt
+			   , m.UPD_USER_ID AS updUserId
+			   , m.UPD_DT AS updDt
+		  FROM machine_tbl m LEFT OUTER JOIN machine_additional_info_tbl s
+		    ON m.MACHINE_ID = s.MACHINE_ID
+		 WHERE m.MACHINE_ID = #{machineId}
 	</select>
 
 	<select id="checkDuplicateDisplayId" parameterType="String" resultType="int">
@@ -64,10 +70,6 @@
 			   , MEM_SIZE = #{memSize}
 			   , IP_ADDR = #{ipAddr}
 			   , HOST_NAME = #{hostName}
-			   , SSH_PORT = #{sshPort}
-			   , SSH_USERNAME = #{sshUsername}
-			   , SSH_PASSWORD = #{sshPassword}
-			   , SSH_KEY_FILE = #{sshKeyFile}
 			   , UPD_USER_ID = #{updUserId}
 			   , UPD_DT = NOW()
 		 WHERE MACHINE_ID = #{machineId}
@@ -100,10 +102,6 @@
 		<if test="memSize != null">AND MEM_SIZE = #{memSize}</if>
 		<if test="ipAddr != null">AND IP_ADDR = #{ipAddr}</if>
 		<if test="hostName != null">AND HOST_NAME = #{hostName}</if>
-		<if test="sshPort != null">AND SSH_PORT = #{sshPort}</if>
-		<if test="sshUsername != null">AND SSH_USERNAME = #{sshUsername}</if>
-		<if test="sshPassword != null">AND SSH_PASSWORD = #{sshPassword}</if>
-		<if test="sshKeyFile != null">AND SSH_KEY_FILE = #{sshKeyFile}</if>
 	</select>
 	
 	<select id="getMachineList" parameterType="com.athena.peacock.controller.web.machine.MachineDto" resultType="com.athena.peacock.controller.web.machine.MachineDto">
@@ -123,10 +121,6 @@
 			   , MEM_SIZE AS memSize
 			   , IP_ADDR AS ipAddr
 			   , HOST_NAME AS hostName
-			   , SSH_PORT AS sshPort
-			   , SSH_USERNAME AS sshUsername
-			   , SSH_PASSWORD AS sshPassword
-			   , SSH_KEY_FILE AS sshKeyFile
 			   , DELETE_YN AS deleteYn
 			   , REG_USER_ID AS regUserId
 			   , REG_DT AS regDt
@@ -151,12 +145,57 @@
 		<if test="memSize != null">AND MEM_SIZE = #{memSize}</if>
 		<if test="ipAddr != null">AND IP_ADDR = #{ipAddr}</if>
 		<if test="hostName != null">AND HOST_NAME = #{hostName}</if>
-		<if test="sshPort != null">AND SSH_PORT = #{sshPort}</if>
-		<if test="sshUsername != null">AND SSH_USERNAME = #{sshUsername}</if>
-		<if test="sshPassword != null">AND SSH_PASSWORD = #{sshPassword}</if>
-		<if test="sshKeyFile != null">AND SSH_KEY_FILE = #{sshKeyFile}</if>
 		 ORDER BY REG_DT
 		 LIMIT #{start}, #{limit}
 	</select>
+
+	<insert id="insertAdditionalInfo" parameterType="com.athena.peacock.controller.web.machine.MachineDto">
+		INSERT INTO machine_additional_info_tbl 
+			        (MACHINE_ID, IP_ADDRESS, NETMASK, GATEWAY, NAME_SERVER, APPLY_YN, SSH_PORT, SSH_USERNAME
+			        , SSH_PASSWORD, SSH_KEY_FILE, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
+		     VALUES (#{machineId}, #{ipAddress}, #{netmask}, #{gateway}, #{nameServer}, #{applyYn}, #{sshPort}, #{sshUsername}
+		     		 , #{sshPassword}, #{sshKeyFile}, #{regUserId}, NOW(), #{updUserId}, NOW())
+	</insert>
+	
+	<select id="getAdditionalInfo" parameterType="String" resultType="com.athena.peacock.controller.web.machine.MachineDto">
+		SELECT MACHINE_ID AS machineId
+			   , IP_ADDRESS AS ipAddress
+			   , NETMASK AS netmask
+			   , GATEWAY AS gateway
+			   , NAME_SERVER AS nameServer
+			   , APPLY_YN AS applyYn
+			   , SSH_PORT AS sshPort
+			   , SSH_USERNAME AS sshUsername
+			   , SSH_PASSWORD AS sshPassword
+			   , SSH_KEY_FILE AS sshKeyFile
+			   , REG_USER_ID AS regUserId
+			   , REG_DT AS regDt
+			   , UPD_USER_ID AS updUserId
+			   , UPD_DT AS updDt
+		  FROM machine_additional_info_tbl
+		 WHERE MACHINE_ID = #{machineId}
+	</select>
+	
+	<update id="updateAdditionalInfo" parameterType="com.athena.peacock.controller.web.machine.MachineDto">
+		UPDATE machine_additional_info_tbl
+		   SET IP_ADDRESS = #{ipAddress}
+			   , NETMASK = #{netmask}
+			   , GATEWAY = #{gateway}
+			   , NAME_SERVER = #{nameServer}
+			   , APPLY_YN = #{applyYn}
+			   , SSH_PORT = #{sshPort}
+			   , SSH_USERNAME = #{sshUsername}
+			   , SSH_PASSWORD = #{sshPassword}
+			   , SSH_KEY_FILE = #{sshKeyFile}
+			   , UPD_USER_ID = #{updUserId}
+			   , UPD_DT = NOW()
+		 WHERE MACHINE_ID = #{machineId}
+	</update>
+	
+	<update id="applyStaticIp" parameterType="String">
+		UPDATE machine_additional_info_tbl
+		   SET APPLY_YN = 'Y'
+		 WHERE MACHINE_ID = #{machineId}
+	</update>
 
 </mapper>

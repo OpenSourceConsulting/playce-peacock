@@ -67,5 +67,21 @@ public class MachineDao extends AbstractBaseDao {
 	public List<MachineDto> getMachineList(MachineDto machine) {
 		return sqlSession.selectList("MachineMapper.getMachineList", machine);
 	}
+	
+	public MachineDto getAdditionalInfo(String machineId) {
+		return sqlSession.selectOne("MachineMapper.getAdditionalInfo", machineId);
+	}
+	
+	public void insertAdditionalInfo(MachineDto machine) {
+		sqlSession.insert("MachineMapper.insertAdditionalInfo", machine);
+	}
+	
+	public void updateAdditionalInfo(MachineDto machine) {
+		sqlSession.update("MachineMapper.updateAdditionalInfo", machine);
+	}
+	
+	public void applyStaticIp(String machineId) {
+		sqlSession.update("MachineMapper.applyStaticIp", machineId);
+	}
 }
 //end of MachineDao.java

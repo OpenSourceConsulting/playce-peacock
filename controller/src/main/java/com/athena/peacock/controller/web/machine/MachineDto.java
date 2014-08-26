@@ -24,6 +24,8 @@
  */
 package com.athena.peacock.controller.web.machine;
 
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 import com.athena.peacock.controller.web.common.dto.BaseDto;
 
 /**
@@ -53,19 +55,20 @@ public class MachineDto extends BaseDto {
 	private String memSize;
 	private String ipAddr;
 	private String hostName;
-	private String sshPort;
-	private String sshUsername;
-	private String sshPassword;
-	private String sshKeyFile;
 	private String deleteYn;
 	private String status;
 	
-	// static_ip_info_tbl 관련 필드
+	// machine_additional_info_tbl 관련 필드
 	private String ipAddress;
 	private String netmask;
 	private String gateway;
 	private String nameServer;
 	private String applyYn;
+	private String sshPort;
+	private String sshUsername;
+	private String sshPassword;
+	private String sshKeyFile;
+    private CommonsMultipartFile keyFile;
 	
 	/**
 	 * @return the machineId
@@ -292,62 +295,6 @@ public class MachineDto extends BaseDto {
 	}
 
 	/**
-	 * @return the sshPort
-	 */
-	public String getSshPort() {
-		return sshPort;
-	}
-
-	/**
-	 * @param sshPort the sshPort to set
-	 */
-	public void setSshPort(String sshPort) {
-		this.sshPort = sshPort;
-	}
-
-	/**
-	 * @return the sshUsername
-	 */
-	public String getSshUsername() {
-		return sshUsername;
-	}
-
-	/**
-	 * @param sshUsername the sshUsername to set
-	 */
-	public void setSshUsername(String sshUsername) {
-		this.sshUsername = sshUsername;
-	}
-
-	/**
-	 * @return the sshPassword
-	 */
-	public String getSshPassword() {
-		return sshPassword;
-	}
-
-	/**
-	 * @param sshPassword the sshPassword to set
-	 */
-	public void setSshPassword(String sshPassword) {
-		this.sshPassword = sshPassword;
-	}
-
-	/**
-	 * @return the sshKeyFile
-	 */
-	public String getSshKeyFile() {
-		return sshKeyFile;
-	}
-
-	/**
-	 * @param sshKeyFile the sshKeyFile to set
-	 */
-	public void setSshKeyFile(String sshKeyFile) {
-		this.sshKeyFile = sshKeyFile;
-	}
-
-	/**
 	 * @return the deleteYn
 	 */
 	public String getDeleteYn() {
@@ -443,6 +390,76 @@ public class MachineDto extends BaseDto {
 	 */
 	public void setApplyYn(String applyYn) {
 		this.applyYn = applyYn;
+	}
+
+	/**
+	 * @return the sshPort
+	 */
+	public String getSshPort() {
+		return sshPort;
+	}
+
+	/**
+	 * @param sshPort the sshPort to set
+	 */
+	public void setSshPort(String sshPort) {
+		this.sshPort = sshPort;
+	}
+
+	/**
+	 * @return the sshUsername
+	 */
+	public String getSshUsername() {
+		return sshUsername;
+	}
+
+	/**
+	 * @param sshUsername the sshUsername to set
+	 */
+	public void setSshUsername(String sshUsername) {
+		this.sshUsername = sshUsername;
+	}
+
+	/**
+	 * @return the sshPassword
+	 */
+	public String getSshPassword() {
+		return sshPassword;
+	}
+
+	/**
+	 * @param sshPassword the sshPassword to set
+	 */
+	public void setSshPassword(String sshPassword) {
+		this.sshPassword = sshPassword;
+	}
+
+	/**
+	 * @return the sshKeyFile
+	 */
+	public String getSshKeyFile() {
+		return sshKeyFile;
+	}
+
+	/**
+	 * @param sshKeyFile the sshKeyFile to set
+	 */
+	public void setSshKeyFile(String sshKeyFile) {
+		this.sshKeyFile = sshKeyFile;
+	}
+
+	/**
+	 * @return the keyFile
+	 */
+	public CommonsMultipartFile getKeyFile() {
+		return keyFile;
+	}
+
+	/**
+	 * @param keyFile the keyFile to set
+	 */
+	public void setKeyFile(CommonsMultipartFile keyFile) {
+		this.keyFile = keyFile;
 	}
 }
 //end of MachineDto.java

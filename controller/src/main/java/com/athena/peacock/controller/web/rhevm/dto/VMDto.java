@@ -24,6 +24,8 @@
  */
 package com.athena.peacock.controller.web.rhevm.dto;
 
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 
 /**
  * <pre>
@@ -55,6 +57,18 @@ public class VMDto extends RHEVBaseDto {
 	
 	private String startTime;
 	private String creationTime;
+	
+	// machine_additional_info_tbl 관련 필드
+	private String ipAddress;
+	private String netmask;
+	private String gateway;
+	private String nameServer;
+	private String applyYn;
+	private String sshPort;
+	private String sshUsername;
+	private String sshPassword;
+	private String sshKeyFile;
+    private CommonsMultipartFile keyFile;
 	
 	public String getType() {
 		return type;
@@ -111,7 +125,6 @@ public class VMDto extends RHEVBaseDto {
 	public void setMemory(String memory) {
 		this.memory = memory;
 	}
-	
 	public int getSockets() {
 		return sockets;
 	}
@@ -177,5 +190,65 @@ public class VMDto extends RHEVBaseDto {
 	}
 	public void setHaPriority(Integer haPriority) {
 		this.haPriority = haPriority;
+	}
+	public String getIpAddress() {
+		return ipAddress;
+	}
+	public void setIpAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
+	}
+	public String getNetmask() {
+		return netmask;
+	}
+	public void setNetmask(String netmask) {
+		this.netmask = netmask;
+	}
+	public String getGateway() {
+		return gateway;
+	}
+	public void setGateway(String gateway) {
+		this.gateway = gateway;
+	}
+	public String getNameServer() {
+		return nameServer;
+	}
+	public void setNameServer(String nameServer) {
+		this.nameServer = nameServer;
+	}
+	public String getApplyYn() {
+		return applyYn;
+	}
+	public void setApplyYn(String applyYn) {
+		this.applyYn = applyYn;
+	}
+	public String getSshPort() {
+		return sshPort;
+	}
+	public void setSshPort(String sshPort) {
+		this.sshPort = sshPort;
+	}
+	public String getSshUsername() {
+		return sshUsername;
+	}
+	public void setSshUsername(String sshUsername) {
+		this.sshUsername = sshUsername;
+	}
+	public String getSshPassword() {
+		return sshPassword;
+	}
+	public void setSshPassword(String sshPassword) {
+		this.sshPassword = sshPassword;
+	}
+	public String getSshKeyFile() {
+		return sshKeyFile;
+	}
+	public void setSshKeyFile(String sshKeyFile) {
+		this.sshKeyFile = sshKeyFile;
+	}
+	public CommonsMultipartFile getKeyFile() {
+		return keyFile;
+	}
+	public void setKeyFile(CommonsMultipartFile keyFile) {
+		this.keyFile = keyFile;
 	}
 }

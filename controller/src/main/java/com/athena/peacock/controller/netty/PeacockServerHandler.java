@@ -216,45 +216,63 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 							logger.error("Unhandled Exception has occurred.", e);
 						}
 						
-						// register a new channel
-						ChannelManagement.registerChannel(machineId, ctx.channel());
-						
-						MachineDto machine = new MachineDto();
-						machine.setMachineId(machineId);
-						machine.setHypervisorId(hypervisorId);
-						machine.setDisplayName(displayName);
-						
-						if (StringUtils.isNotEmpty(displayName)) {
-							if (displayName.toLowerCase().startsWith("hhilws") && !displayName.toLowerCase().startsWith("hhilwsd")) {
-								isPrd = "Y";
-							}
-						}
-						machine.setIsPrd(isPrd);
-						
-						machine.setMachineMacAddr(infoMsg.getMacAddrMap().get(ipAddr));
-						machine.setIsVm(isVm);
-						machine.setCluster(clusterName);
-						machine.setOsName(infoMsg.getOsName());
-						machine.setOsVer(infoMsg.getOsVersion());
-						machine.setOsArch(infoMsg.getOsArch());
-						machine.setCpuClock(Integer.toString(infoMsg.getCpuClock()));
-						machine.setCpuNum(Integer.toString(infoMsg.getCpuNum()));
-						machine.setMemSize(Long.toString(infoMsg.getMemSize()));
-						machine.setIpAddr(ipAddr);
-						machine.setHostName(infoMsg.getHostName());
-						machine.setRegUserId(1);
-						machine.setUpdUserId(1);
-						
 						if (this.machineService == null) {
 							machineService = AppContext.getBean(MachineService.class);
 						}
 						
-						machineService.insertMachine(machine);
+						// machine_additional_info_tbl에 고정 IP로 변경해야 할 내용이 있는지 조회한다.(현재 연결된 IP와 applyYn 정보를 이용)
+						MachineDto machine = machineService.getAdditionalInfo(machineId);
 						
-						infoMsg = new AgentInitialInfoMessage();
-						infoMsg.setAgentId(machineId);
-						PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(infoMsg);
-						ctx.channel().writeAndFlush(datagram);
+						boolean resetIp = false;
+						if (machine != null && StringUtils.isNotEmpty(machine.getIpAddress())) {
+							if (machine.getApplyYn().equals("N") && !machine.getIpAddress().equals(ipAddr)) {
+								// 고정 IP 세팅이 필요할 경우 Agent가 재구동 되기 때문에 더 이상의 처리를 하지 않는다.
+								machineService.applyStaticIp(machine);
+								resetIp = true;
+							}
+						}
+						
+						if (!resetIp) {
+							// register a new channel
+							ChannelManagement.registerChannel(machineId, ctx.channel());
+							
+							machine = new MachineDto();
+							machine.setMachineId(machineId);
+							machine.setHypervisorId(hypervisorId);
+							machine.setDisplayName(displayName);
+							
+							if (StringUtils.isNotEmpty(displayName)) {
+								if (displayName.toLowerCase().startsWith("hhilws") && !displayName.toLowerCase().startsWith("hhilwsd")) {
+									isPrd = "Y";
+								}
+							}
+							machine.setIsPrd(isPrd);
+							
+							machine.setMachineMacAddr(infoMsg.getMacAddrMap().get(ipAddr));
+							machine.setIsVm(isVm);
+							machine.setCluster(clusterName);
+							machine.setOsName(infoMsg.getOsName());
+							machine.setOsVer(infoMsg.getOsVersion());
+							machine.setOsArch(infoMsg.getOsArch());
+							machine.setCpuClock(Integer.toString(infoMsg.getCpuClock()));
+							machine.setCpuNum(Integer.toString(infoMsg.getCpuNum()));
+							machine.setMemSize(Long.toString(infoMsg.getMemSize()));
+							machine.setIpAddr(ipAddr);
+							machine.setHostName(infoMsg.getHostName());
+							machine.setRegUserId(1);
+							machine.setUpdUserId(1);
+							
+							if (this.machineService == null) {
+								machineService = AppContext.getBean(MachineService.class);
+							}
+							
+							machineService.insertMachine(machine);
+							
+							infoMsg = new AgentInitialInfoMessage();
+							infoMsg.setAgentId(machineId);
+							PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(infoMsg);
+							ctx.channel().writeAndFlush(datagram);
+						}
 						
 						break;
 					case PACKAGE_INFO :
