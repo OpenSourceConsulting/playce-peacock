@@ -113,17 +113,23 @@ public class MachineService {
 	}
 
 	public void updateMachine(MachineDto machine) throws RestClientException, Exception {
-		if (machine.getDisplayName().toLowerCase().startsWith("hhilws") && !machine.getDisplayName().toLowerCase().startsWith("hhilwsd")) {
-			machine.setIsPrd("Y");
-		} else {
-			machine.setIsPrd("N");
-		}
-
 		MachineDto m = machineDao.getMachine(machine.getMachineId());
-		m.setDisplayName(machine.getDisplayName());
-		m.setIsPrd(machine.getIsPrd());
 		
-		machineDao.updateMachine(m);
+		// Instance 이름이 변경되었을 경우 DB 업데이트
+		if (machine.getDisplayName().equals(m.getDisplayName())) {
+			if (machine.getDisplayName().toLowerCase().startsWith("hhilws") && !machine.getDisplayName().toLowerCase().startsWith("hhilwsd")) {
+				m.setIsPrd("Y");
+			} else {
+				m.setIsPrd("N");
+			}
+			
+			m.setDisplayName(machine.getDisplayName());
+			m.setUpdUserId(machine.getUpdUserId());
+			
+			machineDao.updateMachine(m);
+		}
+		
+		machineDao.updateAdditionalInfo(machine);
 		
 		if (m.getHypervisorId() != null && m.getHypervisorId() > 0) {
 			VM vm = new VM();

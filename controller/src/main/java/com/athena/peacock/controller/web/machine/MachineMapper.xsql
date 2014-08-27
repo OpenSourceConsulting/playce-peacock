@@ -151,9 +151,9 @@
 
 	<insert id="insertAdditionalInfo" parameterType="com.athena.peacock.controller.web.machine.MachineDto">
 		INSERT INTO machine_additional_info_tbl 
-			        (MACHINE_ID, IP_ADDRESS, NETMASK, GATEWAY, NAME_SERVER, APPLY_YN, SSH_PORT, SSH_USERNAME
+			        (MACHINE_ID, IP_ADDRESS, NETMASK, GATEWAY, NAME_SERVER, SSH_PORT, SSH_USERNAME
 			        , SSH_PASSWORD, SSH_KEY_FILE, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
-		     VALUES (#{machineId}, #{ipAddress}, #{netmask}, #{gateway}, #{nameServer}, #{applyYn}, #{sshPort}, #{sshUsername}
+		     VALUES (#{machineId}, #{ipAddress}, #{netmask}, #{gateway}, #{nameServer}, #{sshPort}, #{sshUsername}
 		     		 , #{sshPassword}, #{sshKeyFile}, #{regUserId}, NOW(), #{updUserId}, NOW())
 	</insert>
 	
@@ -182,7 +182,6 @@
 			   , NETMASK = #{netmask}
 			   , GATEWAY = #{gateway}
 			   , NAME_SERVER = #{nameServer}
-			   , APPLY_YN = #{applyYn}
 			   , SSH_PORT = #{sshPort}
 			   , SSH_USERNAME = #{sshUsername}
 			   , SSH_PASSWORD = #{sshPassword}
