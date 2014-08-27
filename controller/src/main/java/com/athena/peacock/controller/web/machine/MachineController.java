@@ -30,6 +30,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -54,6 +55,8 @@ import com.athena.peacock.common.netty.message.ProvisioningResponseMessage;
 import com.athena.peacock.controller.netty.PeacockTransmitter;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
+import com.athena.peacock.controller.web.user.UserController;
+import com.athena.peacock.controller.web.user.UserDto;
 
 /**
  * <pre>
@@ -142,7 +145,7 @@ public class MachineController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/updateMachine")
-	public @ResponseBody DtoJsonResponse updateMachine(DtoJsonResponse jsonRes, MachineDto machine) throws Exception {
+	public @ResponseBody DtoJsonResponse updateMachine(HttpServletRequest request, DtoJsonResponse jsonRes, MachineDto machine) throws Exception {
 		Assert.notNull(machine.getMachineId(), "machineId can not be null.");
 		Assert.notNull(machine.getDisplayName(), "displayName can not be null.");
 		
@@ -160,6 +163,16 @@ public class MachineController {
                 machine.getKeyFile().transferTo(keyFile);
                 machine.setSshKeyFile(keyFile.getAbsolutePath());
             }
+
+			UserDto userDto = (UserDto)request.getSession().getAttribute(UserController.SESSION_USER_KEY);
+			if (userDto != null) {
+				machine.setRegUserId(userDto.getUserId());
+				machine.setUpdUserId(userDto.getUserId());
+			}
+			
+			if (machine.getApplyYn() == null) {
+				machine.setApplyYn("N");
+			}
 			
 			machineService.updateMachine(machine);
 			
