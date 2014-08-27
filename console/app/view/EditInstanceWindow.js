@@ -101,6 +101,8 @@ Ext.define('MyApp.view.EditInstanceWindow', {
                                         },
                                         {
                                             xtype: 'radiogroup',
+                                            id: 'chkUseGroup',
+                                            itemId: 'chkUseGroup',
                                             padding: '0 0 0 135',
                                             items: [
                                                 {
@@ -186,6 +188,7 @@ Ext.define('MyApp.view.EditInstanceWindow', {
 
                                             },
                                             anchor: '100%',
+                                            disabled: true,
                                             fieldLabel: 'Key File',
                                             labelWidth: 130,
                                             name: 'keyFile',
@@ -368,10 +371,24 @@ Ext.define('MyApp.view.EditInstanceWindow', {
     onRadiofieldChange1: function(field, newValue, oldValue, eOpts) {
         var form = field.up('form').getForm();
         if(newValue == true) {
+            form.findField('keyFile').setValue('');
             form.findField('keyFile').isValid();
+
+            form.findField('keyFile').setDisabled(true);
+            form.findField('sshKeyFile').setDisabled(true);
+            form.findField('sshPassword').setDisabled(false);
+            form.findField('confirmSshPassword').setDisabled(false);
+
         } else {
+            form.findField('sshPassword').setValue('');
+            form.findField('confirmSshPassword').setValue('');
+
             form.findField('sshPassword').isValid();
             form.findField('confirmSshPassword').isValid();
+
+            form.findField('keyFile').setDisabled(false);
+            form.findField('sshPassword').setDisabled(true);
+            form.findField('confirmSshPassword').setDisabled(true);
         }
     }
 

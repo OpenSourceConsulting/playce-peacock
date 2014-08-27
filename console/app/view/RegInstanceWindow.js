@@ -335,6 +335,7 @@ Ext.define('MyApp.view.RegInstanceWindow', {
 
                                             },
                                             anchor: '100%',
+                                            disabled: true,
                                             fieldLabel: 'Key File',
                                             name: 'keyFile',
                                             emptyText: 'Select a identity file'
@@ -553,10 +554,23 @@ Ext.define('MyApp.view.RegInstanceWindow', {
     onRadiofieldChange: function(field, newValue, oldValue, eOpts) {
         var form = field.up('form').getForm();
         if(newValue == true) {
+            form.findField('keyFile').setValue('');
             form.findField('keyFile').isValid();
+
+            form.findField('keyFile').setDisabled(true);
+            form.findField('sshPassword').setDisabled(false);
+            form.findField('confirmSshPassword').setDisabled(false);
+
         } else {
+            form.findField('sshPassword').setValue('');
+            form.findField('confirmSshPassword').setValue('');
+
             form.findField('sshPassword').isValid();
             form.findField('confirmSshPassword').isValid();
+
+            form.findField('keyFile').setDisabled(false);
+            form.findField('sshPassword').setDisabled(true);
+            form.findField('confirmSshPassword').setDisabled(true);
         }
     }
 

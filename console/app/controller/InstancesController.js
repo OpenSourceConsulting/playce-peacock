@@ -242,12 +242,12 @@ Ext.define('MyApp.controller.InstancesController', {
                     },
                     { text: 'Agent Start',
                         handler: function() {
-                            alert('Agent Start');
+                            instances.controlAgent('Start');
                         }
                     },
                     { text: 'Agent Stop',
                         handler: function() {
-                            alert('Agent Stop');
+                            instances.controlAgent('Stop');
                         }
                     },
                     { text: 'Manage Account',
@@ -566,6 +566,14 @@ Ext.define('MyApp.controller.InstancesController', {
                 var password = form.findField('sshPassword').getValue();
 
                 form.findField('confirmSshPassword').setRawValue(password);
+
+                if(form.findField('sshKeyFile').getValue() != '') {
+                    Ext.getCmp('chkUseGroup').items.items[1].setValue(true);
+                } else {
+                    Ext.getCmp('chkUseGroup').items.items[0].setValue(true);
+                }
+
+
             }
         });
     },
@@ -599,6 +607,58 @@ Ext.define('MyApp.controller.InstancesController', {
                 }
             }
         });
+    },
+
+    controlAgent: function(status) {
+        Ext.Ajax.request({
+            url: GLOBAL.urlPrefix + "machine/getMachine",
+            params : {
+                machineId : instancesConstants.actionRow.get("machineId")
+            },
+            disableCaching : true,
+            waitMsg: status + ' Check Agent Status...',
+            success: function(response){
+
+                var data = Ext.decode(response.responseText).data;
+
+                if(data.sshPort != null && data.sshUsername != null && ( data.sshPassword != null || data.sshKeyFile != null ) ) {
+
+                    var controlUrl = 'machine/agentStart';
+                    if(status == 'Stop') {
+                        controlUrl = 'machine/agentStop';
+                    }
+
+                    Ext.MessageBox.confirm('Confirm', 'Agent를 ' + status + '하시겠습니까?', function(btn){
+
+                        if(btn == "yes"){
+
+                            Ext.Ajax.request({
+                                url: GLOBAL.urlPrefix + controlUrl,
+                                params : {
+                                    machineId : instancesConstants.actionRow.get("machineId")
+                                },
+                                disableCaching : true,
+                                waitMsg: status + ' Agent...',
+                                success: function(response){
+                                    var msg = Ext.JSON.decode(response.responseText).msg;
+                                    Ext.MessageBox.alert('알림', msg);
+
+                                    Ext.getCmp('instancesGrid').getStore().reload();
+                                }
+                            });
+                        }
+
+                    });
+
+                } else {
+
+                    Ext.MessageBox.alert('알림', '설정된 SSH 관련 정보가 없습니다. Edit Instance 메뉴에서 수정하십시오. ');
+                }
+
+            }
+        });
+
+
     }
 
 });
