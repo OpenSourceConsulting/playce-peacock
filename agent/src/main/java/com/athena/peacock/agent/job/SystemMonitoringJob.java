@@ -89,16 +89,20 @@ public class SystemMonitoringJob extends BaseJob {
 			//BigDecimal.valueOf(mem.getUsedPercent()).setScale(1, RoundingMode.HALF_UP).toString();
 
 			// set disk info
+			StringBuilder usage = new StringBuilder();
+			
+			int cnt = 0;
 			long total = 0;
 			long used = 0;
-
-			StringBuilder usage = new StringBuilder();
-			FileSystem fs = null;
-			for (int i = 0; i < fileSystems.length; i++) {
-				fs = fileSystems[i];
+			
+			for (FileSystem fs : fileSystems) {
+				if (fs.getType() == FileSystem.TYPE_NONE) {
+					continue;
+				}
+				
 				fsu = SigarUtil.getFileSystemUsage(fs.getDirName());
 				
-				if (i > 0) {
+				if (cnt++ > 0) {
 					usage.append(",");
 				}
 				usage.append(fs.getDirName()).append(":");
