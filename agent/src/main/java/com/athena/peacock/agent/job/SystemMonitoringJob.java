@@ -25,6 +25,8 @@ import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
 import org.hyperic.sigar.CpuPerc;
+import org.hyperic.sigar.FileSystem;
+import org.hyperic.sigar.FileSystemUsage;
 import org.hyperic.sigar.Mem;
 import org.hyperic.sigar.SigarException;
 
@@ -69,6 +71,8 @@ public class SystemMonitoringJob extends BaseJob {
 		try {
 			CpuPerc cpu = SigarUtil.getCpuPerc();
 			Mem mem = SigarUtil.getMem();
+			FileSystem[] fileSystems = SigarUtil.getFileSystem();
+			FileSystemUsage fsu = null;
 			
 			AgentSystemStatusMessage message = new AgentSystemStatusMessage();
 			message.setAgentId(IOUtils.toString(new File(PropertyUtil.getProperty(PeacockConstant.AGENT_ID_FILE_KEY)).toURI()));
@@ -83,6 +87,30 @@ public class SystemMonitoringJob extends BaseJob {
 			message.setUsedMem(Long.toString(mem.getActualUsed() / 1024L));
 			
 			//BigDecimal.valueOf(mem.getUsedPercent()).setScale(1, RoundingMode.HALF_UP).toString();
+
+			// set disk info
+			long total = 0;
+			long used = 0;
+
+			StringBuilder usage = new StringBuilder();
+			FileSystem fs = null;
+			for (int i = 0; i < fileSystems.length; i++) {
+				fs = fileSystems[i];
+				fsu = SigarUtil.getFileSystemUsage(fs.getDirName());
+				
+				if (i > 0) {
+					usage.append(",");
+				}
+				usage.append(fs.getDirName()).append(":");
+				usage.append(fsu.getUsePercent() * 100);
+
+				total += fsu.getTotal();
+				used += fsu.getUsed();
+			}
+			
+			message.setDiskUsage(usage.toString());
+			message.setTotalDisk(Long.toString(total));
+			message.setUsedDisk(Long.toString(used));
 			
 			peacockTransmitter.sendMessage(new PeacockDatagram<AgentSystemStatusMessage>(message));
 		} catch (SigarException e) {

@@ -46,6 +46,12 @@ public class AgentSystemStatusMessage extends AbstractMessage {
 	private String freeMem;
 	/** Total used system memory */
 	private String usedMem;
+	/** Percentage of Disk utilization per mounted nodes */
+	private String diskUsage;
+	/** Whole disks total size */
+	private String totalDisk;
+	/** whole disks used size */
+	private String usedDisk;
 	
 	public AgentSystemStatusMessage() {
 		super(MessageType.SYSTEM_STATUS);
@@ -119,6 +125,48 @@ public class AgentSystemStatusMessage extends AbstractMessage {
 	 */
 	public void setUsedMem(String usedMem) {
 		this.usedMem = usedMem;
+	}
+
+	/**
+	 * @return the diskUsage
+	 */
+	public String getDiskUsage() {
+		return diskUsage;
+	}
+
+	/**
+	 * @param diskUsage the diskUsage to set
+	 */
+	public void setDiskUsage(String diskUsage) {
+		this.diskUsage = diskUsage;
+	}
+
+	/**
+	 * @return the totalDisk
+	 */
+	public String getTotalDisk() {
+		return totalDisk;
+	}
+
+	/**
+	 * @param totalDisk the totalDisk to set
+	 */
+	public void setTotalDisk(String totalDisk) {
+		this.totalDisk = totalDisk;
+	}
+
+	/**
+	 * @return the usedDisk
+	 */
+	public String getUsedDisk() {
+		return usedDisk;
+	}
+
+	/**
+	 * @param usedDisk the usedDisk to set
+	 */
+	public void setUsedDisk(String usedDisk) {
+		this.usedDisk = usedDisk;
 	}
 	
 }

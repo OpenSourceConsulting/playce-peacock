@@ -21,6 +21,8 @@
 package com.athena.peacock.agent.util;
 
 import org.hyperic.sigar.CpuPerc;
+import org.hyperic.sigar.FileSystem;
+import org.hyperic.sigar.FileSystemUsage;
 import org.hyperic.sigar.Mem;
 import org.hyperic.sigar.NetInfo;
 import org.hyperic.sigar.Sigar;
@@ -172,5 +174,28 @@ public final class SigarUtil {
 	public static NetInfo getNetInfo() throws SigarException {
 		return getInstance().getNetInfo();
 	}//end of getNetInfo()
+	
+	/**
+	 * <pre>
+	 * FileSystem 정보를 조회한다.
+	 * </pre>
+	 * @return
+	 * @throws SigarException
+	 */
+	public static FileSystem[] getFileSystem() throws SigarException {
+		return getInstance().getFileSystemList();
+	}//end of getFileSystem()
+	
+	/**
+	 * <pre>
+	 * 특정 디렉토리의 FileSystem 사용 정보를 조회한다.
+	 * </pre>
+	 * @return
+	 * @throws SigarException
+	 */
+	public static FileSystemUsage getFileSystemUsage(String dirName) throws SigarException {
+		return getInstance().getFileSystemUsage(dirName);
+	}//end of getFileSystemUsage()
+	
 }
 //end of SigarUtil.java
