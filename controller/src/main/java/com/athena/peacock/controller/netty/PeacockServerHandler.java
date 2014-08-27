@@ -363,7 +363,15 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 			} else if (monFactor.getMonFactorName().toLowerCase().indexOf("used") > -1) {
 				value = statusMsg.getUsedMem();
 			}
-		} 
+		} else if (monFactor.getMonFactorName().toLowerCase().indexOf("disk") > -1) {
+			if (monFactor.getMonFactorName().toLowerCase().indexOf("usage") > -1) {
+				value = statusMsg.getDiskUsage();
+			} else if (monFactor.getMonFactorName().toLowerCase().indexOf("total") > -1) {
+				value = statusMsg.getTotalDisk();
+			} else if (monFactor.getMonFactorName().toLowerCase().indexOf("used") > -1) {
+				value = statusMsg.getUsedDisk();
+			}
+		}  
     	
     	return value;
     }
