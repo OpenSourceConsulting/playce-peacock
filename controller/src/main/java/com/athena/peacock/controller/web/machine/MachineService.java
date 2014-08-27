@@ -129,7 +129,11 @@ public class MachineService {
 			machineDao.updateMachine(m);
 		}
 		
-		machineDao.updateAdditionalInfo(machine);
+		if (getAdditionalInfo(machine.getMachineId()) == null) {
+			insertAdditionalInfo(machine);
+		} else {
+			updateAdditionalInfo(machine);
+		}
 		
 		if (m.getHypervisorId() != null && m.getHypervisorId() > 0) {
 			VM vm = new VM();

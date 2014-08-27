@@ -687,7 +687,7 @@ public class RHEVMController {
 			jsonRes.setMsg("템플릿 삭제가 정상적으로 요청되었습니다. 잠시만 기다려주십시오.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("템플릿 삭제 요청 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("템플릿 삭제 요청 중 에러가 발생하였습니다.<br/>템플릿을 참조하는 VM이 있는지 확인하십시오.");
 			
 			logger.error("Unhandled Expeption has occurred. ", e);
 		}
