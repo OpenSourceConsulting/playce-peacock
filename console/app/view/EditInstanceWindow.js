@@ -20,12 +20,12 @@ Ext.define('MyApp.view.EditInstanceWindow', {
     requires: [
         'Ext.form.Panel',
         'Ext.XTemplate',
-        'Ext.form.field.Hidden',
         'Ext.form.FieldSet',
         'Ext.form.RadioGroup',
         'Ext.form.field.Radio',
         'Ext.form.field.File',
         'Ext.form.field.Display',
+        'Ext.form.field.Hidden',
         'Ext.toolbar.Toolbar',
         'Ext.button.Button'
     ],
@@ -74,31 +74,30 @@ Ext.define('MyApp.view.EditInstanceWindow', {
                                     vtype: 'template'
                                 },
                                 {
-                                    xtype: 'hiddenfield',
-                                    anchor: '100%',
-                                    fieldLabel: 'Label',
-                                    name: 'machineId'
-                                },
-                                {
                                     xtype: 'fieldset',
-                                    margin: '20 0 10 0',
-                                    title: 'SSH Settings (Optional)',
+                                    margin: '18 0 0 0',
+                                    collapsible: true,
+                                    title: 'SSH Settings (Required)',
                                     items: [
                                         {
                                             xtype: 'textfield',
                                             anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
                                             fieldLabel: 'SSH Port',
                                             labelWidth: 130,
-                                            name: 'sshPort',
-                                            vtype: 'numeric'
+                                            name: 'sshPort'
                                         },
                                         {
                                             xtype: 'textfield',
                                             anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
                                             fieldLabel: 'Username',
                                             labelWidth: 130,
-                                            name: 'sshUsername',
-                                            vtype: 'numeric'
+                                            name: 'sshUsername'
                                         },
                                         {
                                             xtype: 'radiogroup',
@@ -106,55 +105,106 @@ Ext.define('MyApp.view.EditInstanceWindow', {
                                             items: [
                                                 {
                                                     xtype: 'radiofield',
-                                                    boxLabel: 'Use Passowrd',
+                                                    name: 'chkUseType',
+                                                    boxLabel: 'Use Password',
                                                     checked: true,
+                                                    inputValue: 'password',
                                                     listeners: {
                                                         change: {
-                                                            fn: me.onRadiofieldChange,
+                                                            fn: me.onRadiofieldChange1,
                                                             scope: me
                                                         }
                                                     }
                                                 },
                                                 {
                                                     xtype: 'radiofield',
-                                                    boxLabel: ' Use Key'
+                                                    name: 'chkUseType',
+                                                    boxLabel: ' Use Key',
+                                                    inputValue: 'key'
                                                 }
                                             ]
                                         },
                                         {
                                             xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('editInstanceForm').getForm().findField('chkUseType').getValue();
+
+                                                if(chkValue == true) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
                                             anchor: '100%',
                                             fieldLabel: 'Password',
                                             labelWidth: 130,
                                             name: 'sshPassword',
-                                            vtype: 'numeric'
+                                            inputType: 'password'
                                         },
                                         {
                                             xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('editInstanceForm').getForm().findField('chkUseType').getValue();
+
+                                                if(chkValue == true) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
                                             anchor: '100%',
                                             fieldLabel: 'Password Confirm',
                                             labelWidth: 130,
                                             name: 'confirmSshPassword',
-                                            vtype: 'numeric'
+                                            inputType: 'password',
+                                            vtype: 'password'
                                         },
                                         {
                                             xtype: 'filefield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('editInstanceForm').getForm().findField('chkUseType').getValue();
+
+                                                if(chkValue == false) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
                                             anchor: '100%',
                                             fieldLabel: 'Key File',
-                                            labelWidth: 130
+                                            labelWidth: 130,
+                                            name: 'keyFile',
+                                            emptyText: 'Select a identity file'
                                         },
                                         {
                                             xtype: 'displayfield',
                                             anchor: '100%',
                                             padding: '0 0 0 135',
-                                            labelWidth: 130,
-                                            name: 'sshKeyFile'
+                                            labelWidth: 145,
+                                            name: 'sshKeyFile',
+                                            value: 'Display Field'
                                         }
                                     ]
                                 },
                                 {
                                     xtype: 'fieldset',
-                                    margin: '15 0 0 0',
+                                    margin: '20 0 0 0',
+                                    collapsible: true,
                                     title: 'Static IP Address Settings (Optional)',
                                     items: [
                                         {
@@ -162,37 +212,64 @@ Ext.define('MyApp.view.EditInstanceWindow', {
                                             anchor: '100%',
                                             fieldLabel: 'IP Address',
                                             labelWidth: 130,
-                                            name: 'ipAddress',
-                                            vtype: 'numeric'
+                                            name: 'ipAddress'
                                         },
                                         {
                                             xtype: 'textfield',
                                             validator: function(value) {
-                                                return true;
+                                                var chkValue = Ext.getCmp('editInstanceForm').getForm().findField('ipAddress').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
                                             },
                                             anchor: '100%',
                                             fieldLabel: 'Net Mask',
                                             labelWidth: 130,
-                                            name: 'netmask',
-                                            vtype: 'numeric'
+                                            name: 'netmask'
                                         },
                                         {
                                             xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('editInstanceForm').getForm().findField('ipAddress').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
                                             anchor: '100%',
                                             fieldLabel: 'Gateway',
                                             labelWidth: 130,
-                                            name: 'gateway',
-                                            vtype: 'numeric'
+                                            name: 'gateway'
                                         },
                                         {
                                             xtype: 'textfield',
                                             anchor: '100%',
                                             fieldLabel: 'Name Server',
                                             labelWidth: 130,
-                                            name: 'nameServer',
-                                            vtype: 'numeric'
+                                            name: 'nameServer'
                                         }
                                     ]
+                                },
+                                {
+                                    xtype: 'hiddenfield',
+                                    anchor: '100%',
+                                    fieldLabel: 'Label',
+                                    name: 'machineId'
                                 }
                             ]
                         }
@@ -288,8 +365,14 @@ Ext.define('MyApp.view.EditInstanceWindow', {
         me.callParent(arguments);
     },
 
-    onRadiofieldChange: function(field, newValue, oldValue, eOpts) {
-
+    onRadiofieldChange1: function(field, newValue, oldValue, eOpts) {
+        var form = field.up('form').getForm();
+        if(newValue == true) {
+            form.findField('keyFile').isValid();
+        } else {
+            form.findField('sshPassword').isValid();
+            form.findField('confirmSshPassword').isValid();
+        }
     }
 
 });

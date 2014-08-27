@@ -8,7 +8,7 @@
     "userConfig": {
         "designer|userAlias": "RegInstanceWindow",
         "designer|userClassName": "RegInstanceWindow",
-        "height": 590,
+        "height": 620,
         "id": "regInstanceWindow1",
         "layout": "border",
         "modal": true,
@@ -552,8 +552,9 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "collapsible": true,
                                 "margin": "20 0 10 0",
-                                "title": "SSH Settings (Optional)"
+                                "title": "SSH Settings (Required)"
                             },
                             "designerId": "55e98728-24ae-435e-b675-f8edc36061de",
                             "cn": [
@@ -569,7 +570,7 @@
                                         "labelWidth": 130,
                                         "layout|anchor": "100%",
                                         "name": "sshPort",
-                                        "vtype": "numeric"
+                                        "vtype": null
                                     },
                                     "designerId": "10e69567-20b7-42ff-9be4-1b1aec9eaa12",
                                     "cn": [
@@ -602,7 +603,7 @@
                                         "labelWidth": 130,
                                         "layout|anchor": "100%",
                                         "name": "sshUsername",
-                                        "vtype": "numeric"
+                                        "vtype": null
                                     },
                                     "designerId": "03f111e0-17f3-4f77-90cd-a5e514c77479",
                                     "cn": [
@@ -644,13 +645,38 @@
                                             },
                                             "codeClass": null,
                                             "userConfig": {
-                                                "boxLabel": "Use Passowrd",
+                                                "boxLabel": "Use Password",
                                                 "checked": true,
                                                 "fieldLabel": null,
                                                 "inputValue": "password",
                                                 "name": "chkUseType"
                                             },
-                                            "designerId": "ddd55f59-0e43-4a0d-94aa-aca6c22da5b9"
+                                            "designerId": "ddd55f59-0e43-4a0d-94aa-aca6c22da5b9",
+                                            "cn": [
+                                                {
+                                                    "type": "basiceventbinding",
+                                                    "reference": {
+                                                        "name": "listeners",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fn": "onRadiofieldChange",
+                                                        "implHandler": [
+                                                            "var form = field.up('form').getForm();",
+                                                            "if(newValue == true) {",
+                                                            "    form.findField('keyFile').isValid();",
+                                                            "} else {",
+                                                            "    form.findField('sshPassword').isValid();",
+                                                            "    form.findField('confirmSshPassword').isValid();",
+                                                            "}"
+                                                        ],
+                                                        "name": "change",
+                                                        "scope": "me"
+                                                    },
+                                                    "designerId": "b4b2710d-9107-437c-8544-f7d2316bbdb9"
+                                                }
+                                            ]
                                         },
                                         {
                                             "type": "Ext.form.field.Radio",
@@ -678,10 +704,11 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "fieldLabel": "Password",
+                                        "inputType": "password",
                                         "labelWidth": 130,
                                         "layout|anchor": "100%",
                                         "name": "sshPassword",
-                                        "vtype": "numeric"
+                                        "vtype": null
                                     },
                                     "designerId": "bab761d1-60ed-44c6-a25f-d9ad5ac1f22a",
                                     "cn": [
@@ -704,7 +731,7 @@
                                                     "    if(value) {",
                                                     "        return true;",
                                                     "    } else {",
-                                                    "        return 'error';",
+                                                    "        return 'This field is required';",
                                                     "    }",
                                                     "} else {",
                                                     "    return true;",
@@ -725,12 +752,44 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "fieldLabel": "Password Confirm",
+                                        "inputType": "password",
                                         "labelWidth": 130,
                                         "layout|anchor": "100%",
                                         "name": "confirmSshPassword",
-                                        "vtype": "numeric"
+                                        "vtype": "password"
                                     },
-                                    "designerId": "7ab9559c-cad0-42c6-853d-65880da86053"
+                                    "designerId": "7ab9559c-cad0-42c6-853d-65880da86053",
+                                    "cn": [
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "value"
+                                                ],
+                                                "fn": "validator",
+                                                "implHandler": [
+                                                    "var chkValue = Ext.getCmp('instanceForm').getForm().findField('chkUseType').getValue();",
+                                                    "",
+                                                    "if(chkValue == true) {",
+                                                    "    if(value) {",
+                                                    "        return true;",
+                                                    "    } else {",
+                                                    "        return 'This field is required';",
+                                                    "    }",
+                                                    "} else {",
+                                                    "    return true;",
+                                                    "}",
+                                                    ""
+                                                ]
+                                            },
+                                            "designerId": "b7d9d386-bfe6-4874-9231-056143f077cb"
+                                        }
+                                    ]
                                 },
                                 {
                                     "type": "Ext.form.field.File",
@@ -743,9 +802,40 @@
                                         "emptyText": "Select a identity file",
                                         "fieldLabel": "Key File",
                                         "layout|anchor": "100%",
-                                        "name": "sshKeyFile"
+                                        "name": "keyFile"
                                     },
-                                    "designerId": "f4ab513f-86ed-4a01-8f2c-509af3e48e0e"
+                                    "designerId": "f4ab513f-86ed-4a01-8f2c-509af3e48e0e",
+                                    "cn": [
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "value"
+                                                ],
+                                                "fn": "validator",
+                                                "implHandler": [
+                                                    "var chkValue = Ext.getCmp('instanceForm').getForm().findField('chkUseType').getValue();",
+                                                    "",
+                                                    "if(chkValue == false) {",
+                                                    "    if(value) {",
+                                                    "        return true;",
+                                                    "    } else {",
+                                                    "        return 'This field is required';",
+                                                    "    }",
+                                                    "} else {",
+                                                    "    return true;",
+                                                    "}",
+                                                    ""
+                                                ]
+                                            },
+                                            "designerId": "508480df-3f5e-4f7d-8aad-d94f50ed0f17"
+                                        }
+                                    ]
                                 }
                             ]
                         },
@@ -757,6 +847,8 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "collapsed": true,
+                                "collapsible": true,
                                 "margin": "20 0 0 0",
                                 "title": "Static IP Address Settings (Optional)"
                             },
@@ -774,7 +866,7 @@
                                         "labelWidth": 130,
                                         "layout|anchor": "100%",
                                         "name": "ipAddress",
-                                        "vtype": "numeric"
+                                        "vtype": null
                                     },
                                     "designerId": "8cd129f4-6b32-4391-bf70-ed1e8cf9b570"
                                 },
@@ -790,9 +882,40 @@
                                         "labelWidth": 130,
                                         "layout|anchor": "100%",
                                         "name": "netmask",
-                                        "vtype": "numeric"
+                                        "vtype": null
                                     },
-                                    "designerId": "e016765c-1517-4367-9574-e8cc47ebed5e"
+                                    "designerId": "e016765c-1517-4367-9574-e8cc47ebed5e",
+                                    "cn": [
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "value"
+                                                ],
+                                                "fn": "validator",
+                                                "implHandler": [
+                                                    "var chkValue = Ext.getCmp('instanceForm').getForm().findField('ipAddress').getValue();",
+                                                    "",
+                                                    "if(chkValue) {",
+                                                    "    if(value) {",
+                                                    "        return true;",
+                                                    "    } else {",
+                                                    "        return 'This field is required';",
+                                                    "    }",
+                                                    "} else {",
+                                                    "    return true;",
+                                                    "}",
+                                                    ""
+                                                ]
+                                            },
+                                            "designerId": "9e19467c-bf8d-4b8c-bb69-24d37c1881fa"
+                                        }
+                                    ]
                                 },
                                 {
                                     "type": "Ext.form.field.Text",
@@ -806,9 +929,40 @@
                                         "labelWidth": 130,
                                         "layout|anchor": "100%",
                                         "name": "gateway",
-                                        "vtype": "numeric"
+                                        "vtype": null
                                     },
-                                    "designerId": "b1755a5a-68ec-4e91-b1c8-0471d4ac6799"
+                                    "designerId": "b1755a5a-68ec-4e91-b1c8-0471d4ac6799",
+                                    "cn": [
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "value"
+                                                ],
+                                                "fn": "validator",
+                                                "implHandler": [
+                                                    "var chkValue = Ext.getCmp('instanceForm').getForm().findField('ipAddress').getValue();",
+                                                    "",
+                                                    "if(chkValue) {",
+                                                    "    if(value) {",
+                                                    "        return true;",
+                                                    "    } else {",
+                                                    "        return 'This field is required';",
+                                                    "    }",
+                                                    "} else {",
+                                                    "    return true;",
+                                                    "}",
+                                                    ""
+                                                ]
+                                            },
+                                            "designerId": "848807f2-1d11-480b-b8aa-bb715c2b2cc6"
+                                        }
+                                    ]
                                 },
                                 {
                                     "type": "Ext.form.field.Text",
@@ -822,7 +976,7 @@
                                         "labelWidth": 130,
                                         "layout|anchor": "100%",
                                         "name": "nameServer",
-                                        "vtype": "numeric"
+                                        "vtype": null
                                     },
                                     "designerId": "e9d08b1b-0c92-4660-9db1-18b5f24ea524"
                                 }

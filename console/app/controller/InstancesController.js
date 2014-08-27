@@ -102,14 +102,31 @@ Ext.define('MyApp.controller.InstancesController', {
 
         menu.items.each(function( item ) {
 
-            if(os.indexOf('linux') >= 0 && status == 'Running') {
+            if(item.text != 'Edit Instance') {
 
-                item.setDisabled(false);
+                if(os.indexOf('linux') >= 0) {
 
-            } else  {
+                    if(status == 'Running') {
 
-                if(item.text != 'Edit Instance')
+                        if(item.text == 'Agent Start') {
+                            item.setDisabled(true);
+                        } else {
+                            item.setDisabled(false);
+                        }
+
+                    } else {
+
+                        if(item.text == 'Agent Start') {
+                            item.setDisabled(false);
+                        } else {
+                            item.setDisabled(true);
+                        }
+                    }
+
+                } else {
                     item.setDisabled(true);
+                }
+
             }
 
         });
