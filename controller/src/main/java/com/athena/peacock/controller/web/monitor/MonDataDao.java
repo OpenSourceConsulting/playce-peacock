@@ -25,6 +25,7 @@
 package com.athena.peacock.controller.web.monitor;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -46,6 +47,10 @@ public class MonDataDao extends AbstractBaseDao {
 
 	public List<MonDataDto> getMonDataList(MonDataDto monData) {
 		return sqlSession.selectList("MonDataMapper.getMonDataList", monData);
+	}
+
+	public List<Map<String, String>> getAllMonDataList(MonDataDto monData) {
+		return sqlSession.selectList("MonDataMapper.getAllMonDataList", monData);
 	}
 }
 //end of MonDataDao.java

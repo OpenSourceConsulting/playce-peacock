@@ -3,11 +3,88 @@
 
 <mapper namespace="MonDataMapper">
 
+	<resultMap id="monDataResult" type="map">
+		<result property="FACTOR_001" column="FACTOR_001" />
+		<result property="FACTOR_002" column="FACTOR_002" />
+		<result property="FACTOR_003" column="FACTOR_003" />
+		<result property="FACTOR_004" column="FACTOR_004" />
+		<result property="FACTOR_006" column="FACTOR_006" />
+		<result property="regDt" column="regDt" />
+	</resultMap>
+
 	<insert id="insertMonData" parameterType="com.athena.peacock.controller.web.monitor.MonDataDto">
 		INSERT INTO mon_data_tbl
 					(MACHINE_ID, MON_FACTOR_ID, MON_DATA_VALUE, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT)
 			 VALUES (#{machineId}, #{monFactorId}, #{monDataValue}, #{regUserId}, NOW(), #{updUserId}, NOW())
 	</insert>
+	
+	<select id="getAllMonDataList" parameterType="com.athena.peacock.controller.web.monitor.MonDataDto" resultMap="monDataResult">
+		SELECT GROUP_CONCAT(if(MON_FACTOR_ID = 'FACTOR_001', MON_DATA_VALUE, NULL)) AS 'FACTOR_001',
+			   GROUP_CONCAT(if(MON_FACTOR_ID = 'FACTOR_002', MON_DATA_VALUE, NULL)) AS 'FACTOR_002',
+			   GROUP_CONCAT(if(MON_FACTOR_ID = 'FACTOR_004', MON_DATA_VALUE, NULL)) AS 'FACTOR_004',
+			   GROUP_CONCAT(if(MON_FACTOR_ID = 'FACTOR_005', MON_DATA_VALUE, NULL)) AS 'FACTOR_005',
+			   GROUP_CONCAT(if(MON_FACTOR_ID = 'FACTOR_006', MON_DATA_VALUE, NULL)) AS 'FACTOR_006',
+			   DATE_ADD(REG_DT, INTERVAL 5 second) AS regDt
+		  FROM mon_data_tbl
+		 WHERE 1=1
+		   AND REG_DT &lt;= NOW()
+		<if test="machineId != null">AND MACHINE_ID = #{machineId}</if>
+		<choose>
+			<when test="timeRange == '1h'">
+				AND REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 1 HOUR)
+			</when>
+			<when test="timeRange == '3h'">
+				AND REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 3 HOUR)
+			</when>
+			<when test="timeRange == '6h'">
+				AND REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 6 HOUR)
+			</when>
+			<when test="timeRange == '12h'">
+				AND REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 12 HOUR)
+			</when>
+			<when test="timeRange == '24h'">
+				AND REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 24 HOUR)
+			</when>
+			<when test="timeRange == '3d'">
+				AND REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 3 DAY)
+			</when>
+			<when test="timeRange == '1w'">
+				AND REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 1 WEEK)
+			</when>
+			<when test="timeRange == '2w'">
+				AND REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 2 WEEK)
+			</when>
+			<otherwise>
+				AND REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 30 MINUTE)
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="period == '5m'">
+				AND MOD(MINUTE(REG_DT), 5) = 0
+			</when>
+			<when test="period == '15m'">
+				AND MOD(MINUTE(REG_DT), 15) = 0
+			</when>
+			<when test="period == '30m'">
+				AND MOD(MINUTE(REG_DT), 30) = 0
+			</when>
+			<when test="period == '1h'">
+				AND MOD(MINUTE(REG_DT), 60) = 0
+			</when>
+			<when test="period == '6h'">
+				AND MOD(HOUR(REG_DT), 6) = 0
+				AND MOD(MINUTE(REG_DT), 60) = 0
+			</when>
+			<when test="period == '1d'">
+				AND MOD(HOUR(REG_DT), 24) = 0
+				AND MOD(MINUTE(REG_DT), 60) = 0
+			</when>
+			<otherwise>
+				AND MOD(MINUTE(REG_DT), 1) = 0
+			</otherwise>
+		</choose>
+		 GROUP BY REG_DT
+	</select>
 
 	<select id="getMonDataList" parameterType="com.athena.peacock.controller.web.monitor.MonDataDto" resultType="com.athena.peacock.controller.web.monitor.MonDataDto">
 		SELECT MACHINE_ID AS machineId,

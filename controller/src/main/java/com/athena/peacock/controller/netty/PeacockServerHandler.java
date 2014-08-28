@@ -215,6 +215,15 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 							// ignore
 							logger.error("Unhandled Exception has occurred.", e);
 						}
+
+						// register a new channel
+						ChannelManagement.registerChannel(machineId, ctx.channel());
+						
+						// Agent에 RHEV Manager에 등록된 ID로 세팅되도록 AgentID를 전달
+						infoMsg = new AgentInitialInfoMessage();
+						infoMsg.setAgentId(machineId);
+						PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(infoMsg);
+						ctx.channel().writeAndFlush(datagram);
 						
 						if (this.machineService == null) {
 							machineService = AppContext.getBean(MachineService.class);
@@ -233,9 +242,6 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 						}
 						
 						if (!resetIp) {
-							// register a new channel
-							ChannelManagement.registerChannel(machineId, ctx.channel());
-							
 							machine = new MachineDto();
 							machine.setMachineId(machineId);
 							machine.setHypervisorId(hypervisorId);
@@ -267,11 +273,6 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 							}
 							
 							machineService.insertMachine(machine);
-							
-							infoMsg = new AgentInitialInfoMessage();
-							infoMsg.setAgentId(machineId);
-							PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(infoMsg);
-							ctx.channel().writeAndFlush(datagram);
 						}
 						
 						break;

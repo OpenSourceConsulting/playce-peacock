@@ -25,6 +25,7 @@
 package com.athena.peacock.controller.web.monitor;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -56,6 +57,10 @@ public class MonitorService {
 		for (MonDataDto monData : monDataList) {
 			monDataDao.insertMonData(monData);
 		}
+	}
+	
+	public List<Map<String, String>> getAllMonDataList(MonDataDto monData) throws Exception {
+		return monDataDao.getAllMonDataList(monData);
 	}
 	
 	public List<MonDataDto> getMonDataList(MonDataDto monData) throws Exception {

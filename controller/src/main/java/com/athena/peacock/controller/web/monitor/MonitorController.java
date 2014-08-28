@@ -59,13 +59,14 @@ public class MonitorController {
 	private MonFactorHandler monFactorHandler;
 	
 	@RequestMapping("/list")
-	public @ResponseBody List<MonDataDto> list(MonDataDto monData) throws Exception {
+	public @ResponseBody List<?> list(MonDataDto monData) throws Exception {
 		Assert.notNull(monData.getMachineId(), "machineId can not be null.");
-		Assert.notNull(monData.getMonFactorId(), "monFactorId can not be null.");
 		
-		List<MonDataDto> monDataList = monitorService.getMonDataList(monData);
-		
-		return monDataList;
+		if (StringUtils.isNotEmpty(monData.getMonFactorId())) {
+			return monitorService.getMonDataList(monData);
+		} else {
+			return monitorService.getAllMonDataList(monData);
+		}
 	}
 	
 	@RequestMapping("/factor_list")
