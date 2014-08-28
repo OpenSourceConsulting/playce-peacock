@@ -37,15 +37,21 @@ import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 import com.atlassian.crowd.embedded.api.PasswordCredential;
 import com.atlassian.crowd.exception.ApplicationPermissionException;
+import com.atlassian.crowd.exception.GroupNotFoundException;
 import com.atlassian.crowd.exception.InvalidAuthenticationException;
 import com.atlassian.crowd.exception.InvalidCredentialException;
+import com.atlassian.crowd.exception.InvalidGroupException;
 import com.atlassian.crowd.exception.InvalidUserException;
+import com.atlassian.crowd.exception.MembershipAlreadyExistsException;
+import com.atlassian.crowd.exception.MembershipNotFoundException;
 import com.atlassian.crowd.exception.OperationFailedException;
 import com.atlassian.crowd.exception.UserNotFoundException;
+import com.atlassian.crowd.integration.rest.entity.GroupEntity;
 import com.atlassian.crowd.integration.rest.entity.PasswordEntity;
 import com.atlassian.crowd.integration.rest.entity.UserEntity;
 import com.atlassian.crowd.integration.rest.service.factory.RestCrowdClientFactory;
 import com.atlassian.crowd.model.group.Group;
+import com.atlassian.crowd.model.group.GroupType;
 import com.atlassian.crowd.model.user.User;
 import com.atlassian.crowd.search.builder.Restriction;
 import com.atlassian.crowd.search.query.entity.restriction.PropertyRestriction;
@@ -174,6 +180,31 @@ public class AlmUserService {
 		}
 		return response;
 	}
+	
+	// Group Infomation
+	public DtoJsonResponse getGroup(String groupId) {
+
+		DtoJsonResponse response = new DtoJsonResponse();
+
+		try {
+			Group group = crowdClient.getGroup(groupId);
+			response.setData(group);
+		} catch (OperationFailedException e) {
+			response.setSuccess(false);
+			response.setMsg("OperationFailedException");
+		} catch (ApplicationPermissionException e) {
+			response.setSuccess(false);
+			response.setMsg("ApplicationPermissionException");
+		} catch (InvalidAuthenticationException e) {
+			response.setSuccess(false);
+			response.setMsg("InvalidAuthenticationException");
+		} catch (GroupNotFoundException e) {
+			response.setSuccess(false);
+			response.setMsg("GroupNotFoundException");
+		} 
+		
+		return response;
+	}
 
 	public DtoJsonResponse addUser(AlmUserAddDto userData) {
 
@@ -200,6 +231,92 @@ public class AlmUserService {
 		} catch (ApplicationPermissionException e) {
 			response.setSuccess(false);
 			response.setMsg("ApplicationPermissionException");
+		}
+
+		return response;
+	}
+	
+	public DtoJsonResponse addGroup(AlmUserAddDto userData) {
+
+		DtoJsonResponse response = new DtoJsonResponse();
+
+		GroupEntity mygroup = new GroupEntity("name", "description", GroupType.GROUP, true);
+		
+		try {
+			crowdClient.addGroup(mygroup);
+			response.setMsg("그룹 생성 성공");
+		} catch (OperationFailedException e) {
+			response.setSuccess(false);
+			response.setMsg("OperationFailedException");
+		} catch (InvalidAuthenticationException e) {
+			response.setSuccess(false);
+			response.setMsg("InvalidAuthenticationException");
+		} catch (ApplicationPermissionException e) {
+			response.setSuccess(false);
+			response.setMsg("ApplicationPermissionException");
+		} catch (InvalidGroupException e) {
+			response.setSuccess(false);
+			response.setMsg("InvalidGroupException");
+		}
+
+		return response;
+	}
+	
+	public DtoJsonResponse addUserToGroup(AlmUserAddDto userData) {
+
+		DtoJsonResponse response = new DtoJsonResponse();
+
+		try {
+			crowdClient.addUserToGroup("username", "groupname");
+			response.setMsg("유저 추가 성공");
+		} catch (GroupNotFoundException e) {
+			response.setSuccess(false);
+			response.setMsg("GroupNotFoundException");
+		} catch (UserNotFoundException e) {
+			response.setSuccess(false);
+			response.setMsg("UserNotFoundException");
+		} catch (MembershipAlreadyExistsException e) {
+			response.setSuccess(false);
+			response.setMsg("MembershipAlreadyExistsException");
+		} catch (OperationFailedException e) {
+			response.setSuccess(false);
+			response.setMsg("OperationFailedException");
+		} catch (InvalidAuthenticationException e) {
+			response.setSuccess(false);
+			response.setMsg("InvalidAuthenticationException");
+		} catch (ApplicationPermissionException e) {
+			response.setSuccess(false);
+			response.setMsg("ApplicationPermissionException");
+		}
+
+		return response;
+	}
+	
+	public DtoJsonResponse removeUserFromGroup(AlmUserAddDto userData) {
+
+		DtoJsonResponse response = new DtoJsonResponse();
+
+		try {
+			crowdClient.removeUserFromGroup("username", "groupname");
+			response.setMsg("유저 삭제 성공");
+		} catch (GroupNotFoundException e) {
+			response.setSuccess(false);
+			response.setMsg("GroupNotFoundException");
+		} catch (MembershipNotFoundException e) {
+			response.setSuccess(false);
+			response.setMsg("MembershipNotFoundException");
+		} catch (UserNotFoundException e) {
+			response.setSuccess(false);
+			response.setMsg("UserNotFoundException");
+		} catch (ApplicationPermissionException e) {
+			response.setSuccess(false);
+			response.setMsg("ApplicationPermissionException");
+		} catch (InvalidAuthenticationException e) {
+			response.setSuccess(false);
+			response.setMsg("InvalidAuthenticationException");
+		} catch (OperationFailedException e) {
+			response.setSuccess(false);
+			response.setMsg("OperationFailedException");
 		}
 
 		return response;

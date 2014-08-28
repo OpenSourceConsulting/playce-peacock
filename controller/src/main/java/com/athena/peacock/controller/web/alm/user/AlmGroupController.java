@@ -24,13 +24,19 @@
  */
 package com.athena.peacock.controller.web.alm.user;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.athena.peacock.controller.web.alm.user.dto.AlmUserAddDto;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
@@ -66,7 +72,21 @@ public class AlmGroupController {
 	
 	@RequestMapping(value = "/groupmanagement/{groupname}", method = RequestMethod.GET)
 	public @ResponseBody DtoJsonResponse getUser(DtoJsonResponse jsonRes, @PathVariable String groupname){
-		return service.getUser(groupname);
+		return service.getGroup(groupname);
+	}
+	
+	@RequestMapping(value = "/groupmanagement", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody DtoJsonResponse addUser(@Valid @RequestBody  AlmUserAddDto userData, BindingResult result){
+
+		if (result.hasErrors()) {
+			DtoJsonResponse response = new DtoJsonResponse();
+			response.setSuccess(false);
+			response.setMsg("invalid parameter");
+			response.setData(result.getAllErrors());
+			return response;
+		}
+		
+		return service.addGroup(userData);
 	}
 	
 
