@@ -22,7 +22,7 @@
  * ---------------	----------------	------------
  * Sang-cheon Park	2013. 8. 19.		First Draft.
  */
-package com.athena.peacock.controller.web.alm.user.dto;
+package com.athena.peacock.controller.web.alm.crowd.dto;
 
 /**
  * <pre>

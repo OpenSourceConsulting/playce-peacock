@@ -22,16 +22,16 @@
  * ---------------	----------------	------------
  * Bong-Jin Kwon	2013. 9. 25.		First Draft.
  */
-package com.athena.peacock.controller.web.alm.user;
+package com.athena.peacock.controller.web.alm.crowd;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.athena.peacock.controller.web.alm.user.dto.AlmGroupDto;
-import com.athena.peacock.controller.web.alm.user.dto.AlmUserAddDto;
-import com.athena.peacock.controller.web.alm.user.dto.AlmUserDto;
+import com.athena.peacock.controller.web.alm.crowd.dto.AlmGroupDto;
+import com.athena.peacock.controller.web.alm.crowd.dto.AlmUserAddDto;
+import com.athena.peacock.controller.web.alm.crowd.dto.AlmUserDto;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;

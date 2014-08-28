@@ -39,7 +39,7 @@ import org.apache.xmlrpc.client.XmlRpcClientException;
 import org.springframework.stereotype.Service;
 
 import com.athena.peacock.controller.web.alm.confluence.dto.SpaceSummaryDto;
-import com.athena.peacock.controller.web.alm.user.dto.AlmUserDto;
+import com.athena.peacock.controller.web.alm.crowd.dto.AlmUserDto;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 
