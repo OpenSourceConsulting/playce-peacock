@@ -26,11 +26,14 @@ package com.athena.peacock.controller.web.alm.jenkins;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.athena.peacock.controller.web.alm.jenkins.client.JenkinsClient;
+import com.athena.peacock.controller.web.alm.jenkins.clinet.model.JenkinsResponseDto;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
@@ -42,26 +45,21 @@ import com.athena.peacock.controller.web.common.model.GridJsonResponse;
  * @author Jungsu Han
  * @version 1.0
  */
-@Controller
-@RequestMapping("/alm")
-public class AlmJenkinsController {
+@Service
+public class AlmJenkinsService {
+	
+	@Autowired
+	private JenkinsClient jenkinsClient;
 	
 	
-	@Autowired 
-	private AlmJenkinsService service;
-	/**
-	 * <pre>
-	 * 
-	 * </pre>
-	 */
-	public AlmJenkinsController() {
-		// TODO Auto-generated constructor stub
+	public GridJsonResponse getJobs(){
+		
+		GridJsonResponse response = new GridJsonResponse();
+		JenkinsResponseDto dto = jenkinsClient.getJobs();
+		response.setList(dto.getJobs());
+		return response;
 	}
 	
-	@RequestMapping(value = "/jenkins", method = RequestMethod.GET)
-	public @ResponseBody GridJsonResponse list(ExtjsGridParam gridParam){
-		return service.getJobs();
-	}
 	
 	
 }

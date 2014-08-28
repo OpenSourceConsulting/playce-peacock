@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.athena.peacock.controller.web.alm.crowd.dto.AlmUserAddDto;
+import com.athena.peacock.controller.web.alm.crowd.dto.AlmGroupDto;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
@@ -45,16 +45,16 @@ import com.athena.peacock.controller.web.common.model.GridJsonResponse;
  * <pre>
  * 사용자 관리 컨트롤러.
  * </pre>
+ * 
  * @author Jungsu Han
  * @version 1.0
  */
 @Controller
 @RequestMapping("/alm")
 public class AlmGroupController {
-	
-	
+
 	@Autowired
-	private AlmUserService service;
+	private AlmCrowdService service;
 
 	/**
 	 * <pre>
@@ -64,19 +64,27 @@ public class AlmGroupController {
 	public AlmGroupController() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
+	// 그룹 리스트
 	@RequestMapping(value = "/groupmanagement", method = RequestMethod.GET)
-	public @ResponseBody GridJsonResponse list(ExtjsGridParam gridParam){
+	public @ResponseBody
+	GridJsonResponse getGroupList(ExtjsGridParam gridParam) {
 		return service.getList("GROUP", gridParam);
 	}
-	
+
+	// 그룹 정보
 	@RequestMapping(value = "/groupmanagement/{groupname}", method = RequestMethod.GET)
-	public @ResponseBody DtoJsonResponse getUser(DtoJsonResponse jsonRes, @PathVariable String groupname){
+	public @ResponseBody
+	DtoJsonResponse getGroup(DtoJsonResponse jsonRes,
+			@PathVariable String groupname) {
 		return service.getGroup(groupname);
 	}
-	
+
+	// 그룹 추가
 	@RequestMapping(value = "/groupmanagement", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody DtoJsonResponse addUser(@Valid @RequestBody  AlmUserAddDto userData, BindingResult result){
+	public @ResponseBody
+	DtoJsonResponse addUser(@Valid @RequestBody AlmGroupDto groupData,
+			BindingResult result) {
 
 		if (result.hasErrors()) {
 			DtoJsonResponse response = new DtoJsonResponse();
@@ -85,10 +93,41 @@ public class AlmGroupController {
 			response.setData(result.getAllErrors());
 			return response;
 		}
-		
-		return service.addGroup(userData);
+
+		return service.addGroup(groupData);
 	}
-	
+
+	// 그룹 삭제
+	@RequestMapping(value = "/groupmanagement/{groupname}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody
+	DtoJsonResponse removeGroup(@PathVariable String groupname) {
+
+		return service.removeGroup(groupname);
+	}
+
+	// 그룹 정보
+	@RequestMapping(value = "/groupmanagement/{groupname}/users", method = RequestMethod.GET)
+	public @ResponseBody
+	DtoJsonResponse getGroupUsers(DtoJsonResponse jsonRes,
+			@PathVariable String groupname) {
+		return service.getGroupUser(groupname);
+	}
+
+	// 그룹에 유저 추가
+	@RequestMapping(value = "/groupmanagement/{groupname}/{username}", method = RequestMethod.POST)
+	public @ResponseBody
+	DtoJsonResponse addUserToGroup(@PathVariable String groupname,
+			@PathVariable String username) {
+		return service.addUserToGroup(username, groupname);
+	}
+
+	// 그룹에 유저 삭제
+	@RequestMapping(value = "/groupmanagement/{groupname}/{username}", method = RequestMethod.DELETE)
+	public @ResponseBody
+	DtoJsonResponse removeUserFromGroup(@PathVariable String groupname,
+			@PathVariable String username) {
+		return service.removeUserFromGroup(username, groupname);
+	}
 
 }
-//end of AlmUserController.java
+// end of AlmUserController.java

@@ -68,11 +68,11 @@ import com.atlassian.crowd.service.client.CrowdClient;
  * @version 1.0
  */
 @Service
-public class AlmUserService {
+public class AlmCrowdService {
 
 	private CrowdClient crowdClient;
 
-	public AlmUserService() {
+	public AlmCrowdService() {
 		// TODO Auto-generated constructor stub
 
 		// 추후 변수처리
@@ -180,7 +180,7 @@ public class AlmUserService {
 		}
 		return response;
 	}
-	
+
 	// Group Infomation
 	public DtoJsonResponse getGroup(String groupId) {
 
@@ -201,20 +201,23 @@ public class AlmUserService {
 		} catch (GroupNotFoundException e) {
 			response.setSuccess(false);
 			response.setMsg("GroupNotFoundException");
-		} 
-		
+		}
+
 		return response;
 	}
 
+	// 유저 추가
 	public DtoJsonResponse addUser(AlmUserAddDto userData) {
 
 		DtoJsonResponse response = new DtoJsonResponse();
 
-		UserEntity myuser = new UserEntity(userData.getName(), userData.getFirstName(), userData.getLastName(),
-				userData.getDisplayName(), userData.getEmail(), new PasswordEntity(userData.getPassword()),
-				true);
+		UserEntity myuser = new UserEntity(userData.getName(),
+				userData.getFirstName(), userData.getLastName(),
+				userData.getDisplayName(), userData.getEmail(),
+				new PasswordEntity(userData.getPassword()), true);
 		try {
-			crowdClient.addUser(myuser, new PasswordCredential(userData.getPassword()));
+			crowdClient.addUser(myuser,
+					new PasswordCredential(userData.getPassword()));
 			response.setMsg("사용자 생성 성공");
 		} catch (InvalidUserException e) {
 			response.setSuccess(false);
@@ -235,13 +238,15 @@ public class AlmUserService {
 
 		return response;
 	}
-	
-	public DtoJsonResponse addGroup(AlmUserAddDto userData) {
+
+	public DtoJsonResponse addGroup(AlmGroupDto groupData) {
 
 		DtoJsonResponse response = new DtoJsonResponse();
 
-		GroupEntity mygroup = new GroupEntity("name", "description", GroupType.GROUP, true);
-		
+		GroupEntity mygroup = new GroupEntity(groupData.getName(),
+				groupData.getDescription(), GroupType.GROUP,
+				groupData.isActive());
+
 		try {
 			crowdClient.addGroup(mygroup);
 			response.setMsg("그룹 생성 성공");
@@ -261,13 +266,65 @@ public class AlmUserService {
 
 		return response;
 	}
-	
-	public DtoJsonResponse addUserToGroup(AlmUserAddDto userData) {
+
+	// 그룹삭제
+	public DtoJsonResponse removeGroup(String groupname) {
 
 		DtoJsonResponse response = new DtoJsonResponse();
 
 		try {
-			crowdClient.addUserToGroup("username", "groupname");
+			crowdClient.removeGroup(groupname);
+			response.setMsg("그룹 삭제 성공");
+		} catch (GroupNotFoundException e) {
+			response.setSuccess(false);
+			response.setMsg("GroupNotFoundException");
+		} catch (OperationFailedException e) {
+			response.setSuccess(false);
+			response.setMsg("OperationFailedException");
+		} catch (ApplicationPermissionException e) {
+			response.setSuccess(false);
+			response.setMsg("ApplicationPermissionException");
+		} catch (InvalidAuthenticationException e) {
+			response.setSuccess(false);
+			response.setMsg("InvalidAuthenticationException");
+		}
+
+		return response;
+	}
+
+	// 그룹에 유저정보
+	public DtoJsonResponse getGroupUser(String groupname) {
+
+		DtoJsonResponse response = new DtoJsonResponse();
+
+		try {
+			List<User> users = crowdClient.getUsersOfGroup(groupname, 0, 10000);
+			response.setData(users);
+			response.setMsg("그룹 유저 리스트");
+		} catch (GroupNotFoundException e) {
+			response.setSuccess(false);
+			response.setMsg("GroupNotFoundException");
+		} catch (OperationFailedException e) {
+			response.setSuccess(false);
+			response.setMsg("OperationFailedException");
+		} catch (ApplicationPermissionException e) {
+			response.setSuccess(false);
+			response.setMsg("ApplicationPermissionException");
+		} catch (InvalidAuthenticationException e) {
+			response.setSuccess(false);
+			response.setMsg("InvalidAuthenticationException");
+		}
+
+		return response;
+	}
+
+	// 그룹에 유저 추가
+	public DtoJsonResponse addUserToGroup(String username, String groupname) {
+
+		DtoJsonResponse response = new DtoJsonResponse();
+
+		try {
+			crowdClient.addUserToGroup(username, groupname);
 			response.setMsg("유저 추가 성공");
 		} catch (GroupNotFoundException e) {
 			response.setSuccess(false);
@@ -291,13 +348,14 @@ public class AlmUserService {
 
 		return response;
 	}
-	
-	public DtoJsonResponse removeUserFromGroup(AlmUserAddDto userData) {
+
+	// 그룹에 유저삭제
+	public DtoJsonResponse removeUserFromGroup(String username, String groupname) {
 
 		DtoJsonResponse response = new DtoJsonResponse();
 
 		try {
-			crowdClient.removeUserFromGroup("username", "groupname");
+			crowdClient.removeUserFromGroup(username, groupname);
 			response.setMsg("유저 삭제 성공");
 		} catch (GroupNotFoundException e) {
 			response.setSuccess(false);

@@ -54,7 +54,7 @@ public class AlmUserController {
 	
 	
 	@Autowired
-	private AlmUserService service;
+	private AlmCrowdService service;
 
 	/**
 	 * <pre>
