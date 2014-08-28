@@ -220,9 +220,9 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 						ChannelManagement.registerChannel(machineId, ctx.channel());
 						
 						// Agent에 RHEV Manager에 등록된 ID로 세팅되도록 AgentID를 전달
-						infoMsg = new AgentInitialInfoMessage();
-						infoMsg.setAgentId(machineId);
-						PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(infoMsg);
+						AgentInitialInfoMessage returnMsg = new AgentInitialInfoMessage();
+						returnMsg.setAgentId(machineId);
+						PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(returnMsg);
 						ctx.channel().writeAndFlush(datagram);
 						
 						if (this.machineService == null) {
@@ -236,6 +236,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 						if (machine != null && StringUtils.isNotEmpty(machine.getIpAddress())) {
 							if (machine.getApplyYn().equals("N") && !machine.getIpAddress().equals(ipAddr)) {
 								// 고정 IP 세팅이 필요할 경우 Agent가 재구동 되기 때문에 더 이상의 처리를 하지 않는다.
+								machine.setIpAddr(ipAddr);
 								machineService.applyStaticIp(machine);
 								resetIp = true;
 							}
@@ -426,6 +427,20 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
      */
     public boolean isActive(String agentId) {
     	return ChannelManagement.getChannel(agentId) != null ? true : false;
+    }
+    
+    /**
+     * <pre>
+     * channelMap 내에 agentId에 해당하는 Channel을 close 한다.
+     * </pre>
+     * @param agentId
+     */
+    public void channelClose(String agentId) {
+    	Channel channel = ChannelManagement.getChannel(agentId);
+    	
+    	if (channel != null) {
+    		channel.close();
+    	}
     }
     
     /**

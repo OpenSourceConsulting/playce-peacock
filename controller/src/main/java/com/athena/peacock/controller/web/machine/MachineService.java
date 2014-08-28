@@ -24,7 +24,7 @@
  */
 package com.athena.peacock.controller.web.machine;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -32,6 +32,8 @@ import javax.inject.Named;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -60,6 +62,8 @@ import com.redhat.rhevm.api.model.VM;
 @Service("machineService")
 @Transactional(rollbackFor = {Throwable.class}, propagation = Propagation.REQUIRED)
 public class MachineService {
+
+    protected final Logger logger = LoggerFactory.getLogger(MachineService.class);
     
 	@Inject
 	@Named("machineDao")
@@ -78,6 +82,17 @@ public class MachineService {
 			}
 			if (StringUtils.isEmpty(machine.getDisplayName())) {
 				machine.setDisplayName(m.getDisplayName());
+			}
+			// Edit Instance 메뉴에서 고정 IP를 세팅하면 RHEV Manager가 즉각 반영되지 않아 
+			// hypervisorId 및 cluster를 조회하지 못하는 경우가 있다.
+			// 따라서 기존 값을 그대로 활용한다.
+			if (StringUtils.isEmpty(machine.getCluster())) {
+				machine.setCluster(m.getCluster());
+				machine.setIsVm("Y");
+			}
+			if (machine.getHypervisorId() == null) {
+				machine.setHypervisorId(m.getHypervisorId());
+				machine.setIsVm("Y");
 			}
 			machineDao.updateMachine(machine);
 		} else {
@@ -129,9 +144,20 @@ public class MachineService {
 			machineDao.updateMachine(m);
 		}
 		
-		if (getAdditionalInfo(machine.getMachineId()) == null) {
+		MachineDto add = getAdditionalInfo(machine.getMachineId());
+		if (add == null) {
 			insertAdditionalInfo(machine);
 		} else {
+			machine.setApplyYn(add.getApplyYn());
+			
+			if (StringUtils.isNotEmpty(machine.getIpAddress()) 
+					&& (!machine.getIpAddress().equals(add.getIpAddress())
+							|| !machine.getNetmask().equals(add.getNetmask())
+							|| !machine.getGateway().equals(add.getGateway()) 
+							|| !machine.getNameServer().equals(add.getNameServer()))) {
+				machine.setApplyYn("N");
+			}
+			
 			updateAdditionalInfo(machine);
 		}
 		
@@ -141,9 +167,14 @@ public class MachineService {
 			RHEVMRestTemplateManager.getRHEVMRestTemplate(m.getHypervisorId()).submit(RHEVApi.VMS + "/" + m.getMachineId(), HttpMethod.PUT, vm, "vm", VM.class);
 		}
 		
-		// 세팅하려는 고정 IP 값이 있는지.. 기존 IP와 다른지 검사하여 고정 IP 변경 작업을 수행한다.
-		// TODO IP Address 변경없이 NETMASK, GATEWAY, NAMESERVER가 변경된 경우의 처리는??
-        if (StringUtils.isNotEmpty(machine.getIpAddress()) && !machine.getIpAddress().equals(machine.getIpAddr())) {
+		// 세팅하려는 고정 IP 값이 있는지, Agent가 Running 상태인지, 기존 IP와 다른지 검사하여 고정 IP 변경 작업을 수행한다.
+        if (StringUtils.isNotEmpty(machine.getIpAddress()) 
+        		&& peacockTransmitter.isActive(machine.getMachineId())
+        		&& (!machine.getIpAddress().equals(add.getIpAddress())
+							|| !machine.getNetmask().equals(add.getNetmask())
+							|| !machine.getGateway().equals(add.getGateway()) 
+							|| !machine.getNameServer().equals(add.getNameServer()))) {
+        	machine.setIpAddr(m.getIpAddr());
         	applyStaticIp(machine);
         }
 	}
@@ -161,50 +192,33 @@ public class MachineService {
 	}
 	
 	public void agentStart(String machineId) throws Exception {
-		List<String> commandList = new ArrayList<String>();
-		commandList.add("service peacock-agent start");
-		
-		sendCommand(machineId, commandList);
+		sendCommand(getMachine(machineId), "service peacock-agent start");
 	}
 	
 	public void agentStop(String machineId) throws Exception {
-		List<String> commandList = new ArrayList<String>();
-		commandList.add("service peacock-agent stop");
-		
-		sendCommand(machineId, commandList);
+		sendCommand(getMachine(machineId), "service peacock-agent stop");
 	}
 	
-	public void agentRestart(String machineId) throws Exception {
-		List<String> commandList = new ArrayList<String>();
-		commandList.add("service peacock-agent restart");
-		
-		sendCommand(machineId, commandList);
-	}
-	
-	public void networkRestart(String machineId) throws Exception {
-		List<String> commandList = new ArrayList<String>();
-		commandList.add("service network restart");
-		
-		sendCommand(machineId, commandList);
-	}
-	
-	private void sendCommand(String machineId, List<String> commandList) throws Exception {
-		MachineDto machine = getMachine(machineId);
-		
+	private void sendCommand(MachineDto machine, String command) throws Exception {
 		TargetHost targetHost = new TargetHost();
 		targetHost.setHost(machine.getIpAddr());
 		targetHost.setPort(Integer.parseInt(machine.getSshPort()));
 		targetHost.setUsername(machine.getSshUsername());
 		targetHost.setPassword(machine.getSshPassword());
 		targetHost.setKeyfile(machine.getSshKeyFile());
-
-		SshExecUtil.executeCommand(targetHost, commandList);
+		
+		String result = SshExecUtil.executeCommand(targetHost, command);
+		
+		logger.debug("Command : [{}], Result : [{}]", command, result);
 	}
 	
 	public void applyStaticIp(MachineDto machine) throws Exception {
+		// Static IP 적용 여부
+		boolean result = false;
+		
 		// 1. /etc/sysconfig/network-scripts/ifcfg-eth0 파일에 저장될 내용을 구성한다.
 		StringBuilder ifcfg = new StringBuilder();
-		ifcfg.append("DEVICE=etho0").append("\n")
+		ifcfg.append("DEVICE=eth0").append("\n")
 			 .append("BOOTPROTO=static").append("\n")
 			 .append("ONBOOT=yes").append("\n")
 			 .append("IPADDR=").append(machine.getIpAddress()).append("\n")
@@ -218,40 +232,158 @@ public class MachineService {
 			nameserver.append("nameserver ").append(server).append("\n");
 		}
 		
+		logger.debug("ifcfg-etho : [{}], resolv.conf : [{}]", ifcfg.toString(), nameserver.toString());
+		
 		// 3. ifcnf-eth0, resolv.conf 파일을 저장한다.
 		ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
 		cmdMsg.setAgentId(machine.getMachineId());
-		cmdMsg.setBlocking(true);
+		//cmdMsg.setBlocking(true);
 
 		int sequence = 0;
-		Command command = new Command("SET_STATIC_IP");
+		Command command = new Command("SET_STATIC_IP_ifcfg-eth0");
 		
 		FileWriteAction fwAction = new FileWriteAction(sequence++);
 		fwAction.setContents(ifcfg.toString());
 		fwAction.setFileName("/etc/sysconfig/network-scripts/ifcfg-eth0");
 		command.addAction(fwAction);
+		cmdMsg.addCommand(command);
 		
+		PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+		peacockTransmitter.sendMessage(datagram);
+
 		// nameserver 정보가 존재하지 않을 경우 세팅하지 않는다.
 		if (StringUtils.isNotEmpty(nameserver.toString())) {
+			cmdMsg = new ProvisioningCommandMessage();
+			cmdMsg.setAgentId(machine.getMachineId());
+			//cmdMsg.setBlocking(true);
+			
+			command = new Command("SET_STATIC_IP_resolv.conf");
+			
 			fwAction = new FileWriteAction(sequence++);
 			fwAction.setContents(nameserver.toString());
 			fwAction.setFileName("/etc/resolv.conf");
 			command.addAction(fwAction);
+			cmdMsg.addCommand(command);
+			
+			datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+			peacockTransmitter.sendMessage(datagram);
 		}
+		
+		// PeacockServerHandler의 channelRead0()로부터 호출된 경우 FileWriteAction()을 Blocking 형식으로 실행하면 무한 Block에 빠질 수 있다.
+		// 따라서 Non-Block 형식으로 호출 하고 해당 파일이 변경되었는지 확인한다.
+		TargetHost targetHost = new TargetHost();
+		targetHost.setHost(machine.getIpAddr());
+		targetHost.setPort(Integer.parseInt(machine.getSshPort()));
+		targetHost.setUsername(machine.getSshUsername());
+		targetHost.setPassword(machine.getSshPassword());
+		targetHost.setKeyfile(machine.getSshKeyFile());
+		
+		String output1 = null, output2 = null;
+		int retryCnt1 = 0, retryCnt2 = 0;
+		while (retryCnt1++ < 3) {
+			output1 = SshExecUtil.executeCommand(targetHost, "cat /etc/sysconfig/network-scripts/ifcfg-eth0");
+			
+			if (output1.indexOf("IPADDR=" + machine.getIpAddress()) >= 0) {				
+				// 4. network 서비스를 재구동한다.
+				TargetHost th1 = new TargetHost();
+				th1.setHost(machine.getIpAddr());
+				th1.setPort(Integer.parseInt(machine.getSshPort()));
+				th1.setUsername(machine.getSshUsername());
+				th1.setPassword(machine.getSshPassword());
+				th1.setKeyfile(machine.getSshKeyFile());
+				
+				new NetworkRestarter(th1).start();
+				
+				targetHost.setHost(machine.getIpAddress());
+				while (retryCnt2++ < 30) {
+					try {
+						output2 = SshExecUtil.executeCommand(targetHost, "ifconfig");
 
-		cmdMsg.addCommand(command);
+						if (output2.indexOf(machine.getIpAddress()) >= 0) {
+							TargetHost th2 = new TargetHost();
+							th2.setHost(machine.getIpAddress());
+							th2.setPort(Integer.parseInt(machine.getSshPort()));
+							th2.setUsername(machine.getSshUsername());
+							th2.setPassword(machine.getSshPassword());
+							th2.setKeyfile(machine.getSshKeyFile());
+							
+							// 5. Peacock Agent를 재구동한다.
+							machine.setIpAddr(machine.getIpAddress());
+							
+							new AgentRestarter(th2).start();
 
-		PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
-		peacockTransmitter.sendMessage(datagram);
+							// 6. machine_additional_info_tbl의 apply_yn 값을 업데이트 한다. 
+							machineDao.applyStaticIp(machine.getMachineId());
+							
+							// 7. Agent와 연결된 기존 Channel을 닫는다.
+							peacockTransmitter.channelClose(machine.getMachineId());
+							
+							result = true;
+							break;
+						}
+						
+						Thread.sleep(1000);
+					} catch (Exception e) {
+						// service network restart가 완료되기 전까지 변경된 IP로 ifconfig 명령을 실행할 수 없다.(JSchException)
+						// ignore...
+					}
+				}
+				
+				break;
+			}
+			
+			Thread.sleep(1000);
+		}
 		
-		// 4. network 서비스를 재구동한다.
-		networkRestart(machine.getMachineId());
-		
-		// 5. machine_additional_info_tbl의 apply_yn 값을 업데이트 한다. 
-		machineDao.applyStaticIp(machine.getMachineId());
-		
-		// 6. Peacock Agent를 재구동한다.
-		agentRestart(machine.getMachineId());
+		if (!result) {
+			throw new Exception("static ip set has failed.");
+		}
 	}
 }
 //end of MachineService.java
+
+class NetworkRestarter extends Thread {
+    protected final Logger logger = LoggerFactory.getLogger(NetworkRestarter.class);
+    
+	private TargetHost targetHost;
+	
+	public NetworkRestarter(TargetHost targetHost) {
+		this.targetHost = targetHost;
+	}
+	
+	@Override
+	public void run() {		
+		logger.debug("[targetHost in NetworkRestarter] : [{}]", targetHost.toString());
+		
+		try {
+			String command = "service network restart";
+			String result = SshExecUtil.executeCommand(targetHost, command);
+			logger.debug("Command : [{}], Result : [{}]", command, result);
+		} catch (IOException e) {
+			logger.error("Unhandled exception has occurred.", e);
+		}
+	}
+}
+
+class AgentRestarter extends Thread {
+    protected final Logger logger = LoggerFactory.getLogger(AgentRestarter.class);
+    
+	private TargetHost targetHost;
+	
+	public AgentRestarter(TargetHost targetHost) {
+		this.targetHost = targetHost;
+	}
+	
+	@Override
+	public void run() {
+		logger.debug("[targetHost in AgentRestarter] : [{}]", targetHost.toString());
+		
+		try {
+			String command = "service peacock-agent restart";
+			String result = SshExecUtil.executeCommand(targetHost, command);
+			logger.debug("Command : [{}], Result : [{}]", command, result);
+		} catch (IOException e) {
+			logger.error("Unhandled exception has occurred.", e);
+		}
+	}
+}

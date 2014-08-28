@@ -71,5 +71,15 @@ public class PeacockTransmitter {
     public boolean isActive(String agentId) {
     	return handler.isActive(agentId);
     }//end of isActive()
+    
+    /**
+     * <pre>
+     * 
+     * </pre>
+     * @param agentId
+     */
+    public void channelClose(String agentId) {
+    	handler.channelClose(agentId);
+    }//end of channelClose()
 }
 //end of PeacockTransmitter.java

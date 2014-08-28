@@ -47,7 +47,9 @@ import com.athena.peacock.common.core.action.FileWriteAction;
 import com.athena.peacock.common.core.action.ShellAction;
 import com.athena.peacock.common.core.action.support.Property;
 import com.athena.peacock.common.core.action.support.PropertyUtil;
+import com.athena.peacock.common.core.action.support.TargetHost;
 import com.athena.peacock.common.core.command.Command;
+import com.athena.peacock.common.core.util.SshExecUtil;
 import com.athena.peacock.common.netty.PeacockDatagram;
 import com.athena.peacock.common.netty.message.AbstractMessage;
 import com.athena.peacock.common.netty.message.ProvisioningCommandMessage;
@@ -170,16 +172,101 @@ public class MachineController {
 				machine.setUpdUserId(userDto.getUserId());
 			}
 			
-			if (machine.getApplyYn() == null) {
-				machine.setApplyYn("N");
-			}
-			
 			machineService.updateMachine(machine);
 			
 			jsonRes.setMsg("Instance 정보가 정상적으로 변경되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Instance 정보 변경 중 에러가 발생하였습니다.");
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+	
+	/**
+	 * <pre>
+	 * allRestart
+	 * </pre>
+	 * @param jsonRes
+	 * @param machineId
+	 * @return
+	 */
+	@RequestMapping("/allRestart")
+	public @ResponseBody DtoJsonResponse allRestart(DtoJsonResponse jsonRes, String ip) {
+		try {
+			TargetHost targetHost = new TargetHost();
+			targetHost.setHost(ip);
+			targetHost.setPort(22);
+			targetHost.setUsername("root");
+			targetHost.setPassword("redhat");
+			
+			String data = SshExecUtil.executeCommand(targetHost, "service network restart");
+			data += SshExecUtil.executeCommand(targetHost, "service peacock-agent restart");
+			jsonRes.setData(data);
+			jsonRes.setMsg("network 및 Agent가 정상적으로 재시작하였습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("Agent 시작 중 에러가 발생하였습니다.");
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+	
+	/**
+	 * <pre>
+	 * networkRestart
+	 * </pre>
+	 * @param jsonRes
+	 * @param machineId
+	 * @return
+	 */
+	@RequestMapping("/networkRestart")
+	public @ResponseBody DtoJsonResponse networkRestart(DtoJsonResponse jsonRes, String ip) {
+		try {
+			TargetHost targetHost = new TargetHost();
+			targetHost.setHost(ip);
+			targetHost.setPort(22);
+			targetHost.setUsername("root");
+			targetHost.setPassword("redhat");
+			
+			jsonRes.setData(SshExecUtil.executeCommand(targetHost, "service network restart"));
+			jsonRes.setMsg("network가 정상적으로 재시작하였습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("Agent 시작 중 에러가 발생하였습니다.");
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+	
+	/**
+	 * <pre>
+	 * agentRestart
+	 * </pre>
+	 * @param jsonRes
+	 * @param machineId
+	 * @return
+	 */
+	@RequestMapping("/agentRestart")
+	public @ResponseBody DtoJsonResponse agentRestart(DtoJsonResponse jsonRes, String ip) {
+		try {
+			TargetHost targetHost = new TargetHost();
+			targetHost.setHost(ip);
+			targetHost.setPort(22);
+			targetHost.setUsername("root");
+			targetHost.setPassword("redhat");
+			
+			jsonRes.setData(SshExecUtil.executeCommand(targetHost, "service peacock-agent restart"));
+			jsonRes.setMsg("Agent가 정상적으로 재시작하였습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("Agent 재시작 중 에러가 발생하였습니다.");
 			
 			logger.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -201,6 +288,9 @@ public class MachineController {
 		
 		try {
 			machineService.agentStart(machineId);
+			
+			Thread.sleep(3000);
+			
 			jsonRes.setMsg("Agent가 정상적으로 시작하였습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);

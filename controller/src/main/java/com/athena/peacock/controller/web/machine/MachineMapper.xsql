@@ -182,6 +182,7 @@
 			   , NETMASK = #{netmask}
 			   , GATEWAY = #{gateway}
 			   , NAME_SERVER = #{nameServer}
+			   , APPLY_YN = #{applyYn}
 			   , SSH_PORT = #{sshPort}
 			   , SSH_USERNAME = #{sshUsername}
 			   , SSH_PASSWORD = #{sshPassword}
