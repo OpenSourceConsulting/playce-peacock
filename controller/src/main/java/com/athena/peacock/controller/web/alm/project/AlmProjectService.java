@@ -27,32 +27,13 @@ package com.athena.peacock.controller.web.alm.project;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.athena.peacock.controller.web.alm.crowd.dto.AlmGroupDto;
-import com.athena.peacock.controller.web.alm.crowd.dto.AlmUserAddDto;
-import com.athena.peacock.controller.web.alm.crowd.dto.AlmUserDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
-import com.atlassian.crowd.embedded.api.PasswordCredential;
-import com.atlassian.crowd.exception.ApplicationPermissionException;
-import com.atlassian.crowd.exception.InvalidAuthenticationException;
-import com.atlassian.crowd.exception.InvalidCredentialException;
-import com.atlassian.crowd.exception.InvalidUserException;
-import com.atlassian.crowd.exception.OperationFailedException;
-import com.atlassian.crowd.exception.UserNotFoundException;
-import com.atlassian.crowd.integration.rest.entity.PasswordEntity;
-import com.atlassian.crowd.integration.rest.entity.UserEntity;
-import com.atlassian.crowd.integration.rest.service.factory.RestCrowdClientFactory;
-import com.atlassian.crowd.model.group.Group;
-import com.atlassian.crowd.model.user.User;
-import com.atlassian.crowd.search.builder.Restriction;
-import com.atlassian.crowd.search.query.entity.restriction.PropertyRestriction;
-import com.atlassian.crowd.search.query.entity.restriction.constants.GroupTermKeys;
-import com.atlassian.crowd.search.query.entity.restriction.constants.UserTermKeys;
-import com.atlassian.crowd.service.client.CrowdClient;
 
 /**
  * <pre>
@@ -64,6 +45,9 @@ import com.atlassian.crowd.service.client.CrowdClient;
  */
 @Service
 public class AlmProjectService {
+	
+	@Autowired
+	private AlmProjectDao projectDao;
 
 	public AlmProjectService() {
 		// TODO Auto-generated constructor stub
@@ -72,46 +56,33 @@ public class AlmProjectService {
 
 
 
-	public GridJsonResponse getList(ExtjsGridParam gridParam) {
+	public GridJsonResponse getProjectList(ExtjsGridParam gridParam) {
 
 		GridJsonResponse response = new GridJsonResponse();
 
-		List<ProjectDto> projects = new ArrayList<ProjectDto>();
-
-		ProjectDto dto1 = new ProjectDto();
-		dto1.setProjectId("w001");
-		dto1.setProjectDescription("Project ~");
-		dto1.setProjectName("HHI Project");
-
-		projects.add(dto1);
-
+		List<ProjectDto> projects = projectDao.getProjectList();
 		response.setList(projects);
 
 		return response;
 	}
 	
-	public DtoJsonResponse getProject(String projectId) {
+	public DtoJsonResponse getProject(String projectCode) {
 
 		DtoJsonResponse response = new DtoJsonResponse();
 
-		ProjectDto dto1 = new ProjectDto();
-		dto1.setProjectId("w001");
-		dto1.setProjectDescription("Project ~");
-		dto1.setProjectName("HHI Project");
-		dto1.setProjectDescription("프로젝트 설명");
-		response.setData(dto1);
-		
+		ProjectDto dto = projectDao.getProject(projectCode);
+		response.setData(dto);
 		return response;
 	}
 	
-	public GridJsonResponse getUserList(ExtjsGridParam gridParam) {
+	public GridJsonResponse getUserList(String projectCode) {
 
 		GridJsonResponse response = new GridJsonResponse();
 
 		List<ProjectDto> projects = new ArrayList<ProjectDto>();
 
 		ProjectDto dto1 = new ProjectDto();
-		dto1.setProjectId("w001");
+		//dto1.setProjectId("w001");
 		dto1.setProjectDescription("Project ~");
 		dto1.setProjectName("HHI Project");
 

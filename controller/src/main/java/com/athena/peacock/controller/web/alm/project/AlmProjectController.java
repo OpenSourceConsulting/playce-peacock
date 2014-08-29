@@ -61,12 +61,12 @@ public class AlmProjectController {
 	
 	@RequestMapping(value = "/project", method = RequestMethod.GET)
 	public @ResponseBody GridJsonResponse list(ExtjsGridParam gridParam){
-		return almProjectService.getList(gridParam);
+		return almProjectService.getProjectList(gridParam);
 	}
 	
-	@RequestMapping(value = "/project/{projectId}", method = RequestMethod.GET)
-	public @ResponseBody DtoJsonResponse list(@PathVariable String projectId){
-		return almProjectService.getProject(projectId);
+	@RequestMapping(value = "/project/{projectCode}", method = RequestMethod.GET)
+	public @ResponseBody DtoJsonResponse list(@PathVariable String projectCode){
+		return almProjectService.getProject(projectCode);
 	}
 	
 }

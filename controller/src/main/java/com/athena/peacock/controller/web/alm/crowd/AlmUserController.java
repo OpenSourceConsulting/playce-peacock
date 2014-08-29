@@ -70,11 +70,14 @@ public class AlmUserController {
 		return service.getList("USER", gridParam);
 	}
 	
+	
+	// User 상세 정보
 	@RequestMapping(value = "/usermanagement/{username}", method = RequestMethod.GET)
 	public @ResponseBody DtoJsonResponse getUser(DtoJsonResponse jsonRes, @PathVariable String username){
 		return service.getUser(username);
 	}
 	
+	// User 추가
 	@RequestMapping(value = "/usermanagement", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody DtoJsonResponse addUser(@Valid @RequestBody  AlmUserAddDto userData, BindingResult result){
 

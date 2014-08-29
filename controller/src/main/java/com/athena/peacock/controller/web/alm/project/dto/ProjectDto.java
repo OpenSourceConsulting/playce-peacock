@@ -36,16 +36,16 @@ public class ProjectDto {
 
 	private static final long serialVersionUID = -1083153050593982734L;
 
-	private String projectId;
+	private String projectCode;
 	private String projectName;
 	private String projectDescription;
 
-	public String getProjectId() {
-		return projectId;
+	public String getProjectCode() {
+		return projectCode;
 	}
 
-	public void setProjectId(String projectId) {
-		this.projectId = projectId;
+	public void setProjectCode(String projectCode) {
+		this.projectCode = projectCode;
 	}
 
 	public String getProjectName() {

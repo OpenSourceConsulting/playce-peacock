@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ProjectMapper">
+
+	<select id="getProject" parameterType="String" resultType="com.athena.peacock.controller.web.alm.project.dto.ProjectDto">
+		 SELECT PROJECT_CODE as projectCode, PROJECT_NAME as projectName, PROJECT_DESCRIPTION as projectDescription  from alm_project_tbl
+		 WHERE PROJECT_CODE = #{projectCode}
+	</select>
+	
+	<select id="getProjectList" resultType="com.athena.peacock.controller.web.alm.project.dto.ProjectDto">
+		 SELECT PROJECT_CODE as projectCode, PROJECT_NAME as projectName, PROJECT_DESCRIPTION as projectDescription  from alm_project_tbl
+	</select>
+
+</mapper>
