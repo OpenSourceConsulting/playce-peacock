@@ -58,7 +58,7 @@ public class AlmJenkinsController {
 		// TODO Auto-generated constructor stub
 	}
 	
-	@RequestMapping(value = "/jenkins", method = RequestMethod.GET)
+	@RequestMapping(value = "/jenkins/job", method = RequestMethod.GET)
 	public @ResponseBody GridJsonResponse list(ExtjsGridParam gridParam){
 		return service.getJobs();
 	}
