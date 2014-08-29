@@ -11,5 +11,19 @@
 	<select id="getProjectList" resultType="com.athena.peacock.controller.web.alm.project.dto.ProjectDto">
 		 SELECT PROJECT_CODE as projectCode, PROJECT_NAME as projectName, PROJECT_DESCRIPTION as projectDescription  from alm_project_tbl
 	</select>
-
+	
+	<insert id="insertProject" parameterType="com.athena.peacock.controller.web.alm.project.dto.ProjectDto">
+		INSERT INTO  alm_project_tbl
+		(
+			PROJECT_CODE
+		    ,PROJECT_NAME
+		    ,PROJECT_DESCRIPTION
+		)
+		VALUES (
+			#{projectCode}
+			,#{projectName}
+			,#{projectDescription}
+		)
+	</insert>
+	
 </mapper>

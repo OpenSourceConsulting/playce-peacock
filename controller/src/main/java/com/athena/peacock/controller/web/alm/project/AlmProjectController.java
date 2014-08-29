@@ -31,6 +31,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.athena.peacock.controller.web.alm.confluence.AlmConfluenceService;
+import com.athena.peacock.controller.web.alm.crowd.AlmCrowdService;
+import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
@@ -49,6 +52,9 @@ public class AlmProjectController {
 	
 	@Autowired
 	private AlmProjectService almProjectService;
+	
+	@Autowired
+	private AlmCrowdService almCrowdService;
 
 	/**
 	 * <pre>
@@ -62,6 +68,17 @@ public class AlmProjectController {
 	@RequestMapping(value = "/project", method = RequestMethod.GET)
 	public @ResponseBody GridJsonResponse list(ExtjsGridParam gridParam){
 		return almProjectService.getProjectList(gridParam);
+	}
+	
+	@RequestMapping(value = "/project", method = RequestMethod.POST)
+	public @ResponseBody GridJsonResponse createProject(ProjectDto project){
+		
+		// 
+		almProjectService.createProject(project);
+		
+		//
+		//almCrowdService.addGroup(groupData);
+		return null;
 	}
 	
 	@RequestMapping(value = "/project/{projectCode}", method = RequestMethod.GET)

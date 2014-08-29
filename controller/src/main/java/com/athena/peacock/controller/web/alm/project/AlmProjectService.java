@@ -92,6 +92,15 @@ public class AlmProjectService {
 
 		return response;
 	}
+	
+	public DtoJsonResponse createProject(ProjectDto project){
+		
+		DtoJsonResponse response = new DtoJsonResponse();
+		projectDao.insertProject(project);
+		return response;
+		//
+		
+	}
 
 }
 // end of UserService.java
