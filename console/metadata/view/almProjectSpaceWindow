@@ -85,15 +85,6 @@
                             ]
                         },
                         {
-                            "type": "Ext.selection.CheckboxModel",
-                            "reference": {
-                                "name": "selModel",
-                                "type": "object"
-                            },
-                            "codeClass": "Ext.selection.CheckboxModel",
-                            "designerId": "15272747-799b-4520-b7c1-4db6548522ec"
-                        },
-                        {
                             "type": "Ext.grid.column.Column",
                             "reference": {
                                 "name": "columns",
@@ -136,6 +127,75 @@
                             "designerId": "520c13c8-ecdb-4b41-a471-a748ddb18fc2"
                         },
                         {
+                            "type": "Ext.grid.column.Action",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "align": "center",
+                                "defaultWidth": 60,
+                                "maxWidth": 60,
+                                "menuText": "",
+                                "minWidth": 70,
+                                "style": [
+                                    "\"text-align:left;\""
+                                ],
+                                "text": "Add",
+                                "width": 60
+                            },
+                            "designerId": "06efe0cf-5dde-4fba-81c3-d77fffa575ca",
+                            "customConfigs": [
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "text",
+                                    "type": "string"
+                                }
+                            ],
+                            "cn": [
+                                {
+                                    "type": "actioncolumnitem",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "icon": "resources/images/icons/delete.png",
+                                        "iconCls": ""
+                                    },
+                                    "designerId": "43f79306-8461-4d4e-b47f-914fbc03f0cb",
+                                    "cn": [
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "view",
+                                                    "rowIndex",
+                                                    "colIndex",
+                                                    "item",
+                                                    "e",
+                                                    "record",
+                                                    "row"
+                                                ],
+                                                "fn": "handler",
+                                                "implHandler": [
+                                                    "alert('delete');"
+                                                ]
+                                            },
+                                            "designerId": "f2f0f5ca-b327-4990-b711-c68585a1e874"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
                             "type": "Ext.grid.View",
                             "reference": {
                                 "name": "viewConfig",
@@ -143,40 +203,6 @@
                             },
                             "codeClass": null,
                             "designerId": "11f9cd62-fb36-4b80-84a1-0f89762355ee"
-                        }
-                    ]
-                },
-                {
-                    "type": "Ext.toolbar.Toolbar",
-                    "reference": {
-                        "name": "dockedItems",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "container|pack": "end",
-                        "designer|uiInterfaceName": "footer",
-                        "dock": "bottom",
-                        "ui": "footer"
-                    },
-                    "designerId": "a805e977-5df6-4d24-8b26-871273e13a54",
-                    "cn": [
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "id": "makeTemplateBtn3",
-                                "itemId": "makeTemplateBtn",
-                                "layout|flex": null,
-                                "margin": "0 15 0 0",
-                                "padding": "2 5 2 5",
-                                "text": "add"
-                            },
-                            "designerId": "8eca1f41-cad8-4f1d-9400-0a41d513a2d3"
                         }
                     ]
                 }

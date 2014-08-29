@@ -77,7 +77,8 @@ Ext.application({
         'AlmSpaceStore',
         'AlmGroupStore',
         'InstanceMonitoringStore',
-        'MonitoringPopupStore'
+        'MonitoringPopupStore',
+        'AlmGroupUsersStore'
     ],
     views: [
         'peacockViewport',
@@ -97,7 +98,7 @@ Ext.application({
         'blankPanel',
         'almContainer',
         'almUserWindow',
-        'almGroupWindow',
+        'AlmGroupWindow',
         'almGroupUsersWindow',
         'softwareInstallLogWindow',
         'softwareConfigWindow',
@@ -105,7 +106,9 @@ Ext.application({
         'UserWindow',
         'EditInstanceWindow',
         'RegInstanceWindow',
-        'almProjectSpaceWindow'
+        'almProjectSpaceWindow',
+        'almProjectWindow',
+        'almProjectJobWindow'
     ],
     controllers: [
         'LoginController',

@@ -72,7 +72,8 @@
                     "    me : alm,",
                     "    userContextMenu: almUserGridContextMenu,",
                     "    groupContextMenu: almGroupGridContextMenu,",
-                    "    selectRow : null",
+                    "    selectRow : null,",
+                    "    actionRow : null",
                     "});",
                     ""
                 ]
@@ -343,7 +344,7 @@
             "userConfig": {
                 "fn": "showAlmGroupWindow",
                 "implHandler": [
-                    "var almGroupWindow = Ext.create(\"widget.almGroupWindow\");",
+                    "var almGroupWindow = Ext.create(\"widget.AlmGroupWindow\");",
                     "",
                     "almGroupWindow.show();"
                 ]
@@ -487,17 +488,48 @@
                 "designer|targetType": "Ext.grid.Panel",
                 "fn": "onAlmGroupGridCellClick",
                 "implHandler": [
-                    "//ALM Project Grid Item Click",
+                    "//ALM Group Grid Item Click",
+                    "",
+                    "if(cellIndex > 3) {",
+                    "    //Action Column 예외처리",
+                    "    return;",
+                    "}",
                     "",
                     "if(almConstants.selectRow == null || almConstants.selectRow.get(\"name\") != record.get(\"name\")) {",
                     "",
                     "    almConstants.selectRow = record;",
                     "",
-                    "",
                     "    var groupDetailPanel = Ext.getCmp(\"almGroupDetailPanel\");",
                     "    groupDetailPanel.layout.setActiveItem(1);",
                     "",
-                    "    //User Data Loading",
+                    "    Ext.getCmp(\"almGroupTabPanel\").setActiveTab(0);",
+                    "",
+                    "    this.searchAlmGroupDetail(0);",
+                    "",
+                    "}"
+                ],
+                "name": "cellclick",
+                "scope": "me"
+            },
+            "designerId": "6e9178d8-bb05-42d0-abcc-4e5d8eb512a9"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "tabIdx"
+                ],
+                "fn": "searchAlmGroupDetail",
+                "implHandler": [
+                    "",
+                    "if(tabIdx == 0) {",
+                    "",
+                    "    //Group Summary Data Loading",
                     "",
                     "    var groupForm = Ext.getCmp(\"almGroupForm\");",
                     "",
@@ -510,36 +542,49 @@
                     "        ,waitMsg:'Loading...'",
                     "    });",
                     "",
-                    "    Ext.getCmp(\"almGroupTitleLabel\").setText(\"<h2>&nbsp;&nbsp;&nbsp;\"+almConstants.selectRow.get(\"name\")+\"</h2>\", false);",
+                    "    Ext.getCmp(\"almGroupTitleLabel\").setText(\"<h2>&nbsp;&nbsp;&nbsp;Group : \"+almConstants.selectRow.get(\"name\")+\"</h2>\", false);",
                     "",
+                    "} else {",
                     "",
-                    "    var grid = Ext.getCmp(\"almGroupUserGrid\");",
+                    "    var userStore = Ext.getCmp(\"almGroupUserGrid\").getStore();",
+                    "    userStore.getProxy().url = GLOBAL.urlPrefix + '/alm/groupmanagement/'+almConstants.selectRow.get(\"name\")+'/users';",
                     "",
-                    "    var store = Ext.create('Ext.data.Store', {",
-                    "        alias: 'store.ModeStore',",
-                    "        autoLoad: false,",
-                    "        fields: [{",
-                    "            name: 'name',",
-                    "            type: 'string'",
-                    "        }, {",
-                    "            name: 'text',",
-                    "            type: 'string'",
-                    "        }],",
-                    "        data: [",
-                    "      { name : \"A468827\", text : \"Remove User from Group\"},",
-                    "      { name : \"BP08882\", text : \"Remove User from Group\"}",
-                    "    ]",
-                    "    });",
+                    "    userStore.load();",
                     "",
-                    "    grid.getView().bindStore(store);",
-                    "    grid.getStore().load();",
+                    "}"
+                ]
+            },
+            "designerId": "db53e726-885a-4372-acdb-e7d3f81b417a"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#almGroupTabPanel",
+                "designer|targetType": "Ext.tab.Panel",
+                "fn": "onAlmGroupTabPanelTabChange",
+                "implHandler": [
+                    "",
+                    "if(newCard.title == \"Summary\"){",
+                    "",
+                    "    this.searchAlmGroupDetail(0);",
+                    "",
+                    "} else {",
+                    "",
+                    "    Ext.getCmp(\"almGroupUserGrid\").reconfigure(Ext.getCmp(\"almGroupUserGrid\").store, Ext.getCmp(\"almGroupUserGrid\").initialConfig.columns);",
+                    "",
+                    "    this.searchAlmGroupDetail(1);",
                     "",
                     "}"
                 ],
-                "name": "cellclick",
+                "name": "tabchange",
                 "scope": "me"
             },
-            "designerId": "6e9178d8-bb05-42d0-abcc-4e5d8eb512a9"
+            "designerId": "97aace44-e3f4-4e03-988b-b498ea5ea758"
         }
     ]
 }

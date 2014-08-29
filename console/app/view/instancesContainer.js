@@ -1111,7 +1111,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                     },
                                                                     title: 'DISK_1',
                                                                     xField: 'regDt',
-                                                                    yField: 'DISK_1',
+                                                                    yField: 'DISK_001',
                                                                     markerConfig: {
                                                                         radius: 3,
                                                                         size: 3
@@ -1128,7 +1128,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                     showInLegend: false,
                                                                     title: 'DISK_2',
                                                                     xField: 'regDt',
-                                                                    yField: 'DISK_2'
+                                                                    yField: 'DISK_002'
                                                                 },
                                                                 {
                                                                     type: 'line',
@@ -1141,7 +1141,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                     showInLegend: false,
                                                                     title: 'DISK_3',
                                                                     xField: 'regDt',
-                                                                    yField: 'DISK_3'
+                                                                    yField: 'DISK_003'
                                                                 },
                                                                 {
                                                                     type: 'line',
@@ -1154,7 +1154,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                     showInLegend: false,
                                                                     title: 'DISK_4',
                                                                     xField: 'regDt',
-                                                                    yField: 'DISK_4'
+                                                                    yField: 'DISK_004'
                                                                 },
                                                                 {
                                                                     type: 'line',
@@ -1167,7 +1167,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                     showInLegend: false,
                                                                     title: 'DISK_5',
                                                                     xField: 'regDt',
-                                                                    yField: 'DISK_5'
+                                                                    yField: 'DISK_005'
                                                                 },
                                                                 {
                                                                     type: 'line',
@@ -1180,7 +1180,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                     showInLegend: false,
                                                                     title: 'DISK_6',
                                                                     xField: 'regDt',
-                                                                    yField: 'DISK_6'
+                                                                    yField: 'DISK_006'
                                                                 },
                                                                 {
                                                                     type: 'line',
@@ -1219,7 +1219,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                     showInLegend: false,
                                                                     title: 'DISK_9',
                                                                     xField: 'regDt',
-                                                                    yField: 'DISK_9'
+                                                                    yField: 'DISK_009'
                                                                 },
                                                                 {
                                                                     type: 'line',

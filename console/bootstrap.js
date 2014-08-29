@@ -433,6 +433,7 @@ Ext.ClassManager.addNameAlternateMappings({
   ],
   "Ext.grid.RowEditor": [],
   "Ext.grid.RowEditorButtons": [],
+  "Ext.grid.Scroller": [],
   "Ext.grid.View": [],
   "Ext.grid.ViewDropZone": [],
   "Ext.grid.column.Action": [
@@ -900,6 +901,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.model.monitoringChartModel": [],
   "MyApp.store.AccountStore": [],
   "MyApp.store.AlmGroupStore": [],
+  "MyApp.store.AlmGroupUsersStore": [],
   "MyApp.store.AlmProjectStore": [],
   "MyApp.store.AlmSpaceStore": [],
   "MyApp.store.AlmUserStore": [],
@@ -927,6 +929,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.instanceSoftwareListStore": [],
   "MyApp.store.tempChartData": [],
   "MyApp.store.tempGridData": [],
+  "MyApp.view.AlmGroupWindow": [],
   "MyApp.view.CLIWindow": [],
   "MyApp.view.CrontabWindow": [],
   "MyApp.view.EditInstanceWindow": [],
@@ -942,8 +945,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.Viewport": [],
   "MyApp.view.almContainer": [],
   "MyApp.view.almGroupUsersWindow": [],
-  "MyApp.view.almGroupWindow": [],
+  "MyApp.view.almProjectJobWindow": [],
   "MyApp.view.almProjectSpaceWindow": [],
+  "MyApp.view.almProjectWindow": [],
   "MyApp.view.almUserWindow": [],
   "MyApp.view.blankPanel": [],
   "MyApp.view.dashboardPanel": [],
@@ -1396,6 +1400,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.grid.RowEditorButtons": [
     "widget.roweditorbuttons"
   ],
+  "Ext.grid.Scroller": [],
   "Ext.grid.View": [
     "widget.gridview"
   ],
@@ -1997,6 +2002,7 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.model.monitoringChartModel": [],
   "MyApp.store.AccountStore": [],
   "MyApp.store.AlmGroupStore": [],
+  "MyApp.store.AlmGroupUsersStore": [],
   "MyApp.store.AlmProjectStore": [],
   "MyApp.store.AlmSpaceStore": [],
   "MyApp.store.AlmUserStore": [],
@@ -2024,6 +2030,9 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.store.instanceSoftwareListStore": [],
   "MyApp.store.tempChartData": [],
   "MyApp.store.tempGridData": [],
+  "MyApp.view.AlmGroupWindow": [
+    "widget.AlmGroupWindow"
+  ],
   "MyApp.view.CLIWindow": [
     "widget.CLIWindow"
   ],
@@ -2065,13 +2074,16 @@ Ext.ClassManager.addNameAliasMappings({
     "widget.almcontainer"
   ],
   "MyApp.view.almGroupUsersWindow": [
-    "widget.almGroupUsersWindow"
+    "widget.AlmGroupUsersWindow"
   ],
-  "MyApp.view.almGroupWindow": [
-    "widget.almGroupWindow"
+  "MyApp.view.almProjectJobWindow": [
+    "widget.almProjectJobWindow"
   ],
   "MyApp.view.almProjectSpaceWindow": [
     "widget.almProjectSpaceWindow"
+  ],
+  "MyApp.view.almProjectWindow": [
+    "widget.almProjectWindow"
   ],
   "MyApp.view.almUserWindow": [
     "widget.almUserWindow"

@@ -21,10 +21,8 @@ Ext.define('MyApp.view.almProjectSpaceWindow', {
         'Ext.grid.Panel',
         'Ext.toolbar.Toolbar',
         'Ext.form.field.Text',
-        'Ext.selection.CheckboxModel',
-        'Ext.grid.column.Column',
-        'Ext.grid.View',
-        'Ext.button.Button'
+        'Ext.grid.column.Action',
+        'Ext.grid.View'
     ],
 
     height: 250,
@@ -73,9 +71,6 @@ Ext.define('MyApp.view.almProjectSpaceWindow', {
                                     ]
                                 }
                             ],
-                            selModel: Ext.create('Ext.selection.CheckboxModel', {
-
-                            }),
                             columns: [
                                 {
                                     xtype: 'gridcolumn',
@@ -94,27 +89,26 @@ Ext.define('MyApp.view.almProjectSpaceWindow', {
                                     minWidth: 100,
                                     dataIndex: 'type',
                                     text: 'Type'
-                                }
-                            ]
-                        }
-                    ],
-                    dockedItems: [
-                        {
-                            xtype: 'toolbar',
-                            dock: 'bottom',
-                            ui: 'footer',
-                            layout: {
-                                type: 'hbox',
-                                pack: 'end'
-                            },
-                            items: [
+                                },
                                 {
-                                    xtype: 'button',
-                                    id: 'makeTemplateBtn3',
-                                    itemId: 'makeTemplateBtn',
-                                    margin: '0 15 0 0',
-                                    padding: '2 5 2 5',
-                                    text: 'add'
+                                    xtype: 'actioncolumn',
+                                    text: 'Add',
+                                    maxWidth: 60,
+                                    minWidth: 70,
+                                    style: 'text-align:left;',
+                                    width: 60,
+                                    defaultWidth: 60,
+                                    align: 'center',
+                                    menuText: '',
+                                    items: [
+                                        {
+                                            handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                                alert('delete');
+                                            },
+                                            icon: 'resources/images/icons/delete.png',
+                                            iconCls: ''
+                                        }
+                                    ]
                                 }
                             ]
                         }

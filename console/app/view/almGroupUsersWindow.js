@@ -15,21 +15,21 @@
 
 Ext.define('MyApp.view.almGroupUsersWindow', {
     extend: 'Ext.window.Window',
-    alias: 'widget.almGroupUsersWindow',
+    alias: 'widget.AlmGroupUsersWindow',
 
     requires: [
         'Ext.grid.Panel',
-        'Ext.selection.CheckboxModel',
-        'Ext.grid.column.Column',
+        'Ext.grid.column.Action',
         'Ext.grid.View',
         'Ext.toolbar.Toolbar',
         'Ext.button.Button'
     ],
 
-    height: 250,
-    id: 'almGroupUsersWindow',
-    itemId: 'almGroupUsersWindow',
-    width: 300,
+    height: 300,
+    id: 'AlmGroupUsersWindow',
+    itemId: 'AlmGroupUsersWindow',
+    width: 430,
+    resizable: false,
     layout: 'border',
     title: 'Add Users',
     modal: true,
@@ -50,28 +50,67 @@ Ext.define('MyApp.view.almGroupUsersWindow', {
                     items: [
                         {
                             xtype: 'gridpanel',
-                            height: 358,
-                            id: 'almGroupUsersGrid',
-                            itemId: 'almGroupUsersGrid',
+                            height: 210,
+                            id: 'popAlmUsersGrid',
+                            itemId: 'popAlmUsersGrid',
                             autoScroll: true,
                             bodyBorder: false,
                             columnLines: true,
                             forceFit: true,
-                            selModel: Ext.create('Ext.selection.CheckboxModel', {
-
-                            }),
+                            store: 'AlmUserStore',
                             columns: [
                                 {
                                     xtype: 'gridcolumn',
                                     minWidth: 100,
-                                    dataIndex: 'name',
-                                    text: 'User ID'
+                                    dataIndex: 'userId',
+                                    text: 'Name'
                                 },
                                 {
                                     xtype: 'gridcolumn',
                                     minWidth: 150,
-                                    dataIndex: 'text',
-                                    text: 'User Name'
+                                    dataIndex: 'displayName',
+                                    text: 'Display Name'
+                                },
+                                {
+                                    xtype: 'actioncolumn',
+                                    text: 'Add',
+                                    maxWidth: 60,
+                                    minWidth: 70,
+                                    style: 'text-align:left;',
+                                    width: 60,
+                                    defaultWidth: 60,
+                                    align: 'center',
+                                    menuText: '',
+                                    items: [
+                                        {
+                                            handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                                Ext.MessageBox.confirm('Confirm', 'User를 등록 하시겠습니까?', function(btn){
+
+                                                    if(btn == "yes"){
+
+                                                        Ext.Ajax.request({
+                                                            url : GLOBAL.urlPrefix + "alm/groupmanagement/"
+                                                            + almConstants.selectRow.get("name") + "/" + record.get("userId"),
+                                                            method: 'POST',
+                                                            headers: { 'Content-Type': 'application/json' },
+                                                            disableCaching : true,
+                                                            waitMsg: 'Add ALM User...',
+                                                            success: function(response){
+                                                                var msg = Ext.JSON.decode(response.responseText).msg;
+                                                                Ext.MessageBox.alert('알림', msg);
+
+                                                                Ext.getCmp("almGroupUserGrid").getStore().reload();
+
+                                                            }
+                                                        });
+                                                    }
+
+                                                });
+                                            },
+                                            icon: 'resources/images/icons/cog.png',
+                                            iconCls: ''
+                                        }
+                                    ]
                                 }
                             ],
                             dockedItems: [
@@ -84,37 +123,28 @@ Ext.define('MyApp.view.almGroupUsersWindow', {
                                 }
                             ]
                         }
-                    ],
-                    dockedItems: [
+                    ]
+                }
+            ],
+            dockedItems: [
+                {
+                    xtype: 'toolbar',
+                    dock: 'bottom',
+                    ui: 'footer',
+                    layout: {
+                        type: 'hbox',
+                        pack: 'center'
+                    },
+                    items: [
                         {
-                            xtype: 'toolbar',
-                            dock: 'bottom',
-                            ui: 'footer',
-                            layout: {
-                                type: 'hbox',
-                                pack: 'center'
+                            xtype: 'button',
+                            handler: function(button, e) {
+                                button.up("window").close();
                             },
-                            items: [
-                                {
-                                    xtype: 'button',
-                                    id: 'makeTemplateBtn1',
-                                    itemId: 'makeTemplateBtn',
-                                    margin: '0 15 0 0',
-                                    padding: '2 5 2 5',
-                                    text: 'Create'
-                                },
-                                {
-                                    xtype: 'button',
-                                    handler: function(button, e) {
-                                        button.up("window").close();
-                                    },
-                                    id: 'templateCancelBtn1',
-                                    itemId: 'templateCancelBtn',
-                                    margin: '0 0 0 0',
-                                    padding: '2 5 2 5',
-                                    text: 'Cancel'
-                                }
-                            ]
+                            itemId: '',
+                            margin: '0 0 0 0',
+                            padding: '2 5 2 5',
+                            text: 'Close'
                         }
                     ]
                 }

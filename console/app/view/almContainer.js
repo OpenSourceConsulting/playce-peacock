@@ -26,6 +26,7 @@ Ext.define('MyApp.view.almContainer', {
         'Ext.toolbar.Separator',
         'Ext.form.field.Text',
         'Ext.grid.RowNumberer',
+        'Ext.grid.column.Action',
         'Ext.form.Label',
         'Ext.form.Panel',
         'Ext.form.field.Display',
@@ -84,8 +85,11 @@ Ext.define('MyApp.view.almContainer', {
                                             items: [
                                                 {
                                                     xtype: 'button',
-                                                    id: 'createUserBtn3',
-                                                    itemId: 'createUserBtn',
+                                                    handler: function(button, e) {
+                                                        var almProjectWindow = Ext.create("widget.almProjectWindow");
+
+                                                        almProjectWindow.show();
+                                                    },
                                                     text: 'Create New Project'
                                                 },
                                                 {
@@ -124,6 +128,26 @@ Ext.define('MyApp.view.almContainer', {
                                             minWidth: 300,
                                             dataIndex: 'projectDescription',
                                             text: 'Project Description'
+                                        },
+                                        {
+                                            xtype: 'actioncolumn',
+                                            text: 'Delete',
+                                            maxWidth: 60,
+                                            minWidth: 70,
+                                            style: 'text-align:left;',
+                                            width: 60,
+                                            defaultWidth: 60,
+                                            align: 'center',
+                                            menuText: '',
+                                            items: [
+                                                {
+                                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                                        alert('delete');
+                                                    },
+                                                    icon: 'resources/images/icons/delete.png',
+                                                    iconCls: ''
+                                                }
+                                            ]
                                         }
                                     ]
                                 },
@@ -262,54 +286,24 @@ Ext.define('MyApp.view.almContainer', {
                                                                             text: 'User'
                                                                         },
                                                                         {
-                                                                            xtype: 'gridcolumn',
-                                                                            minWidth: 500,
-                                                                            dataIndex: 'text',
-                                                                            text: 'Actions'
-                                                                        }
-                                                                    ]
-                                                                }
-                                                            ]
-                                                        },
-                                                        {
-                                                            xtype: 'panel',
-                                                            title: 'Group',
-                                                            items: [
-                                                                {
-                                                                    xtype: 'gridpanel',
-                                                                    id: 'almProjectGroupGrid',
-                                                                    itemId: 'almProjectGroupGrid',
-                                                                    autoScroll: true,
-                                                                    columnLines: true,
-                                                                    forceFit: true,
-                                                                    dockedItems: [
-                                                                        {
-                                                                            xtype: 'toolbar',
-                                                                            dock: 'top',
+                                                                            xtype: 'actioncolumn',
+                                                                            text: 'Delete',
+                                                                            maxWidth: 60,
+                                                                            minWidth: 70,
+                                                                            style: 'text-align:left;',
+                                                                            width: 60,
+                                                                            defaultWidth: 60,
+                                                                            align: 'center',
+                                                                            menuText: '',
                                                                             items: [
                                                                                 {
-                                                                                    xtype: 'tbspacer',
-                                                                                    flex: 1
-                                                                                },
-                                                                                {
-                                                                                    xtype: 'button',
-                                                                                    text: 'Add Group to Project'
+                                                                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                                                                        alert('delete');
+                                                                                    },
+                                                                                    icon: 'resources/images/icons/delete.png',
+                                                                                    iconCls: ''
                                                                                 }
                                                                             ]
-                                                                        }
-                                                                    ],
-                                                                    columns: [
-                                                                        {
-                                                                            xtype: 'gridcolumn',
-                                                                            minWidth: 150,
-                                                                            dataIndex: 'name',
-                                                                            text: 'Group'
-                                                                        },
-                                                                        {
-                                                                            xtype: 'gridcolumn',
-                                                                            minWidth: 500,
-                                                                            dataIndex: 'text',
-                                                                            text: 'Actions'
                                                                         }
                                                                     ]
                                                                 }
@@ -358,10 +352,87 @@ Ext.define('MyApp.view.almContainer', {
                                                                             text: 'Space'
                                                                         },
                                                                         {
+                                                                            xtype: 'actioncolumn',
+                                                                            text: 'Delete',
+                                                                            maxWidth: 60,
+                                                                            minWidth: 70,
+                                                                            style: 'text-align:left;',
+                                                                            width: 60,
+                                                                            defaultWidth: 60,
+                                                                            align: 'center',
+                                                                            menuText: '',
+                                                                            items: [
+                                                                                {
+                                                                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                                                                        alert('delete');
+                                                                                    },
+                                                                                    icon: 'resources/images/icons/delete.png',
+                                                                                    iconCls: ''
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            xtype: 'panel',
+                                                            title: 'Jenkins',
+                                                            items: [
+                                                                {
+                                                                    xtype: 'gridpanel',
+                                                                    id: 'almProjectJenkinsGrid',
+                                                                    itemId: 'almProjectJenkinsGrid',
+                                                                    autoScroll: true,
+                                                                    columnLines: true,
+                                                                    forceFit: true,
+                                                                    dockedItems: [
+                                                                        {
+                                                                            xtype: 'toolbar',
+                                                                            dock: 'top',
+                                                                            items: [
+                                                                                {
+                                                                                    xtype: 'tbspacer',
+                                                                                    flex: 1
+                                                                                },
+                                                                                {
+                                                                                    xtype: 'button',
+                                                                                    handler: function(button, e) {
+                                                                                        var almProjectJobWindow = Ext.create("widget.almProjectJobWindow");
+
+                                                                                        almProjectJobWindow.show();
+                                                                                    },
+                                                                                    text: 'Add Job to Project'
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ],
+                                                                    columns: [
+                                                                        {
                                                                             xtype: 'gridcolumn',
-                                                                            minWidth: 500,
-                                                                            dataIndex: 'text',
-                                                                            text: 'Actions'
+                                                                            minWidth: 150,
+                                                                            dataIndex: 'name',
+                                                                            text: 'Job'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'actioncolumn',
+                                                                            text: 'Delete',
+                                                                            maxWidth: 60,
+                                                                            minWidth: 70,
+                                                                            style: 'text-align:left;',
+                                                                            width: 60,
+                                                                            defaultWidth: 60,
+                                                                            align: 'center',
+                                                                            menuText: '',
+                                                                            items: [
+                                                                                {
+                                                                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                                                                        alert('delete');
+                                                                                    },
+                                                                                    icon: 'resources/images/icons/delete.png',
+                                                                                    iconCls: ''
+                                                                                }
+                                                                            ]
                                                                         }
                                                                     ]
                                                                 }
@@ -454,6 +525,26 @@ Ext.define('MyApp.view.almContainer', {
                                             minWidth: 300,
                                             dataIndex: 'emailAddress',
                                             text: 'Email'
+                                        },
+                                        {
+                                            xtype: 'actioncolumn',
+                                            text: 'Delete',
+                                            maxWidth: 60,
+                                            minWidth: 70,
+                                            style: 'text-align:left;',
+                                            width: 60,
+                                            defaultWidth: 60,
+                                            align: 'center',
+                                            menuText: '',
+                                            items: [
+                                                {
+                                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                                        alert('delete');
+                                                    },
+                                                    icon: 'resources/images/icons/delete.png',
+                                                    iconCls: ''
+                                                }
+                                            ]
                                         }
                                     ]
                                 },
@@ -602,9 +693,9 @@ Ext.define('MyApp.view.almContainer', {
                                         },
                                         {
                                             xtype: 'gridcolumn',
-                                            minWidth: 100,
+                                            minWidth: 150,
                                             dataIndex: 'name',
-                                            text: 'Name'
+                                            text: 'Group Name'
                                         },
                                         {
                                             xtype: 'gridcolumn',
@@ -617,6 +708,47 @@ Ext.define('MyApp.view.almContainer', {
                                             minWidth: 400,
                                             dataIndex: 'description',
                                             text: 'Description'
+                                        },
+                                        {
+                                            xtype: 'actioncolumn',
+                                            text: 'Delete',
+                                            maxWidth: 60,
+                                            minWidth: 70,
+                                            style: 'text-align:left;',
+                                            width: 60,
+                                            defaultWidth: 60,
+                                            align: 'center',
+                                            menuText: '',
+                                            items: [
+                                                {
+                                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                                        Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){
+
+                                                            if(btn == "yes"){
+
+                                                                Ext.Ajax.request({
+                                                                    url : GLOBAL.urlPrefix + "alm/groupmanagement/" + record.get("name"),
+                                                                    method: 'DELETE',
+                                                                    headers: { 'Content-Type': 'application/json' },
+                                                                    disableCaching : true,
+                                                                    waitMsg: 'Delete ALM Group...',
+                                                                    success: function(response){
+                                                                        var msg = Ext.JSON.decode(response.responseText).msg;
+                                                                        Ext.MessageBox.alert('알림', msg);
+
+                                                                        Ext.getCmp("almGroupGrid").getStore().reload();
+                                                                        Ext.getCmp("almGroupDetailPanel").layout.setActiveItem(0);
+
+                                                                    }
+                                                                });
+                                                            }
+
+                                                        });
+                                                    },
+                                                    icon: 'resources/images/icons/delete.png',
+                                                    iconCls: ''
+                                                }
+                                            ]
                                         }
                                     ]
                                 },
@@ -656,6 +788,8 @@ Ext.define('MyApp.view.almContainer', {
                                             items: [
                                                 {
                                                     xtype: 'tabpanel',
+                                                    id: 'almGroupTabPanel',
+                                                    itemId: 'almGroupTabPanel',
                                                     margin: '',
                                                     padding: '15 10 10 10',
                                                     style: 'background:#ffffff',
@@ -729,18 +863,67 @@ Ext.define('MyApp.view.almContainer', {
                                                                     itemId: 'almGroupUserGrid',
                                                                     columnLines: true,
                                                                     forceFit: true,
+                                                                    store: 'AlmGroupUsersStore',
                                                                     columns: [
                                                                         {
                                                                             xtype: 'gridcolumn',
                                                                             minWidth: 100,
-                                                                            dataIndex: 'name',
-                                                                            text: 'User'
+                                                                            dataIndex: 'userId',
+                                                                            text: 'Name'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'gridcolumn',
+                                                                            minWidth: 150,
+                                                                            dataIndex: 'displayName',
+                                                                            text: 'Display Name'
                                                                         },
                                                                         {
                                                                             xtype: 'gridcolumn',
                                                                             minWidth: 300,
-                                                                            dataIndex: 'text',
-                                                                            text: 'Actions'
+                                                                            dataIndex: 'emailAddress',
+                                                                            text: 'E-mail'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'actioncolumn',
+                                                                            text: 'Delete',
+                                                                            maxWidth: 60,
+                                                                            minWidth: 70,
+                                                                            style: 'text-align:left;',
+                                                                            width: 60,
+                                                                            defaultWidth: 60,
+                                                                            align: 'center',
+                                                                            menuText: '',
+                                                                            items: [
+                                                                                {
+                                                                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                                                                        Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){
+
+                                                                                            if(btn == "yes"){
+
+                                                                                                Ext.Ajax.request({
+                                                                                                    url : GLOBAL.urlPrefix + "alm/groupmanagement/"
+                                                                                                    + almConstants.selectRow.get("name") + "/" + record.get("userId"),
+                                                                                                    method: 'DELETE',
+                                                                                                    headers: { 'Content-Type': 'application/json' },
+                                                                                                    disableCaching : true,
+                                                                                                    waitMsg: 'Delete ALM Group User...',
+                                                                                                    success: function(response){
+                                                                                                        var msg = Ext.JSON.decode(response.responseText).msg;
+                                                                                                        Ext.MessageBox.alert('알림', msg);
+
+                                                                                                        Ext.getCmp("almGroupUserGrid").getStore().reload();
+
+                                                                                                    }
+                                                                                                });
+                                                                                            }
+
+                                                                                        });
+
+                                                                                    },
+                                                                                    icon: 'resources/images/icons/delete.png',
+                                                                                    iconCls: ''
+                                                                                }
+                                                                            ]
                                                                         }
                                                                     ],
                                                                     dockedItems: [
@@ -755,30 +938,11 @@ Ext.define('MyApp.view.almContainer', {
                                                                                 {
                                                                                     xtype: 'button',
                                                                                     handler: function(button, e) {
-                                                                                        var almGroupUsersWindow = Ext.create("widget.almGroupUsersWindow");
+                                                                                        var almGroupUsersWindow = Ext.create("widget.AlmGroupUsersWindow");
 
                                                                                         almGroupUsersWindow.show();
 
-                                                                                        var grid = Ext.getCmp("almGroupUsersGrid");
-
-                                                                                        var store = Ext.create('Ext.data.Store', {
-                                                                                            alias: 'store.ModeStore',
-                                                                                            autoLoad: false,
-                                                                                            fields: [{
-                                                                                                name: 'name',
-                                                                                                type: 'string'
-                                                                                            }, {
-                                                                                                name: 'text',
-                                                                                                type: 'string'
-                                                                                            }],
-                                                                                            data: [
-                                                                                            { name : "A468827", text : "Kyu-Ho Jung"},
-                                                                                            { name : "BP08882", text : "Ji-Woong Choi"}
-                                                                                            ]
-                                                                                        });
-
-                                                                                        grid.getView().bindStore(store);
-
+                                                                                        var grid = Ext.getCmp("popAlmUsersGrid").getStore().load();
                                                                                     },
                                                                                     width: 150,
                                                                                     text: 'Add Users to Group'

@@ -160,52 +160,38 @@ Ext.define('MyApp.controller.ALMController', {
     },
 
     onAlmGroupGridCellClick: function(tableview, td, cellIndex, record, tr, rowIndex, e, eOpts) {
-        //ALM Project Grid Item Click
+        //ALM Group Grid Item Click
+
+        if(cellIndex > 3) {
+            //Action Column 예외처리
+            return;
+        }
 
         if(almConstants.selectRow == null || almConstants.selectRow.get("name") != record.get("name")) {
 
             almConstants.selectRow = record;
 
-
             var groupDetailPanel = Ext.getCmp("almGroupDetailPanel");
             groupDetailPanel.layout.setActiveItem(1);
 
-            //User Data Loading
+            Ext.getCmp("almGroupTabPanel").setActiveTab(0);
 
-            var groupForm = Ext.getCmp("almGroupForm");
+            this.searchAlmGroupDetail(0);
 
-            groupForm.getForm().reset();
+        }
+    },
 
-            groupForm.getForm().waitMsgTarget = groupForm.getEl();
-            groupForm.getForm().load({
-                 url : GLOBAL.urlPrefix + "alm/groupmanagement/" + almConstants.selectRow.get("name")
-                ,method : 'GET'
-                ,waitMsg:'Loading...'
-            });
+    onAlmGroupTabPanelTabChange: function(tabPanel, newCard, oldCard, eOpts) {
 
-            Ext.getCmp("almGroupTitleLabel").setText("<h2>&nbsp;&nbsp;&nbsp;"+almConstants.selectRow.get("name")+"</h2>", false);
+        if(newCard.title == "Summary"){
 
+            this.searchAlmGroupDetail(0);
 
-            var grid = Ext.getCmp("almGroupUserGrid");
+        } else {
 
-            var store = Ext.create('Ext.data.Store', {
-                alias: 'store.ModeStore',
-                autoLoad: false,
-                fields: [{
-                    name: 'name',
-                    type: 'string'
-                }, {
-                    name: 'text',
-                    type: 'string'
-                }],
-                data: [
-              { name : "A468827", text : "Remove User from Group"},
-              { name : "BP08882", text : "Remove User from Group"}
-            ]
-            });
+            Ext.getCmp("almGroupUserGrid").reconfigure(Ext.getCmp("almGroupUserGrid").store, Ext.getCmp("almGroupUserGrid").initialConfig.columns);
 
-            grid.getView().bindStore(store);
-            grid.getStore().load();
+            this.searchAlmGroupDetail(1);
 
         }
     },
@@ -260,7 +246,8 @@ Ext.define('MyApp.controller.ALMController', {
                     me : alm,
                     userContextMenu: almUserGridContextMenu,
                     groupContextMenu: almGroupGridContextMenu,
-                    selectRow : null
+                    selectRow : null,
+                    actionRow : null
                 });
 
 
@@ -281,6 +268,9 @@ Ext.define('MyApp.controller.ALMController', {
             },
             "#projectTabPanel": {
                 tabchange: this.onProjectTabPanelTabChange
+            },
+            "#almGroupTabPanel": {
+                tabchange: this.onAlmGroupTabPanelTabChange
             }
         });
     },
@@ -371,9 +361,38 @@ Ext.define('MyApp.controller.ALMController', {
     },
 
     showAlmGroupWindow: function() {
-        var almGroupWindow = Ext.create("widget.almGroupWindow");
+        var almGroupWindow = Ext.create("widget.AlmGroupWindow");
 
         almGroupWindow.show();
+    },
+
+    searchAlmGroupDetail: function(tabIdx) {
+
+        if(tabIdx == 0) {
+
+            //Group Summary Data Loading
+
+            var groupForm = Ext.getCmp("almGroupForm");
+
+            groupForm.getForm().reset();
+
+            groupForm.getForm().waitMsgTarget = groupForm.getEl();
+            groupForm.getForm().load({
+                 url : GLOBAL.urlPrefix + "alm/groupmanagement/" + almConstants.selectRow.get("name")
+                ,method : 'GET'
+                ,waitMsg:'Loading...'
+            });
+
+            Ext.getCmp("almGroupTitleLabel").setText("<h2>&nbsp;&nbsp;&nbsp;Group : "+almConstants.selectRow.get("name")+"</h2>", false);
+
+        } else {
+
+            var userStore = Ext.getCmp("almGroupUserGrid").getStore();
+            userStore.getProxy().url = GLOBAL.urlPrefix + '/alm/groupmanagement/'+almConstants.selectRow.get("name")+'/users';
+
+            userStore.load();
+
+        }
     }
 
 });

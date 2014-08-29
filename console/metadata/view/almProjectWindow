@@ -1,0 +1,355 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "almProjectWindow",
+        "designer|userClassName": "almProjectWindow",
+        "height": 230,
+        "id": "almProjectWindow",
+        "itemId": "almProjectWindow",
+        "layout": "border",
+        "modal": true,
+        "resizable": false,
+        "title": "Create Project",
+        "width": 400
+    },
+    "configAlternates": {
+        "resizable": "boolean"
+    },
+    "designerId": "2cdd525c-fad2-4ab6-8e2a-3dca1e08681f",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "header": false,
+                "layout|flex": 1,
+                "layout|region": "center",
+                "title": "projectPanel"
+            },
+            "designerId": "e0dbc598-c652-49cc-bf07-b35909061bf5",
+            "cn": [
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "bodyPadding": 15,
+                        "fieldDefaults": [
+                            "{",
+                            "    msgTarget: 'side',",
+                            "    labelWidth: 120",
+                            "}"
+                        ],
+                        "height": null,
+                        "id": "userForm1",
+                        "itemId": "userForm",
+                        "title": null,
+                        "waitMsgTarget": [
+                            "true"
+                        ]
+                    },
+                    "designerId": "ecad31c9-bbaf-4fdd-b744-0d2856ff32fc",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "fieldLabel": "Project Code",
+                                "layout|anchor": "100%",
+                                "name": "loginId"
+                            },
+                            "designerId": "8a855768-c10a-4b36-8fc9-9cb76d82a3b3",
+                            "cn": [
+                                {
+                                    "type": "Ext.XTemplate",
+                                    "reference": {
+                                        "name": "afterLabelTextTpl",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "afterLabelTextTpl",
+                                        "implHandler": [
+                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                        ]
+                                    },
+                                    "designerId": "9b8bc2c6-ea68-42d5-a20a-0b3a272b1e3e"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "fieldLabel": "Project Name",
+                                "labelWidth": null,
+                                "layout|anchor": "100%",
+                                "name": "userName",
+                                "padding": ""
+                            },
+                            "designerId": "e93b690f-d118-4fe8-b722-e28b4eac83d9",
+                            "cn": [
+                                {
+                                    "type": "Ext.XTemplate",
+                                    "reference": {
+                                        "name": "afterLabelTextTpl",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "afterLabelTextTpl",
+                                        "implHandler": [
+                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                        ]
+                                    },
+                                    "designerId": "848a93bc-8c1f-4783-b03d-1ca7ca90e213"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Project Description",
+                                "labelWidth": null,
+                                "layout|anchor": "100%",
+                                "margin": "0 0 15 0",
+                                "name": "deptName",
+                                "padding": ""
+                            },
+                            "designerId": "59ba8136-b042-432b-bd4f-20b7c7af7027"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Group Description",
+                                "labelWidth": null,
+                                "layout|anchor": "100%",
+                                "name": "email",
+                                "padding": ""
+                            },
+                            "designerId": "ed420667-a15e-481c-8135-dd51d63719e6"
+                        },
+                        {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Label",
+                                "layout|anchor": "100%",
+                                "name": "userId"
+                            },
+                            "designerId": "cf5d3392-6507-481d-b009-d60ab885e0d9"
+                        },
+                        {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Label",
+                                "layout|anchor": "100%",
+                                "name": "editType"
+                            },
+                            "designerId": "dc1e06fd-309f-475f-bf9c-e6cb9c4964ae"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|pack": "center",
+                        "designer|uiInterfaceName": "footer",
+                        "dock": "bottom",
+                        "ui": "footer"
+                    },
+                    "designerId": "e3cabe70-63ab-497f-9531-983c63d065b6",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "userSaveBtn1",
+                                "itemId": "userSaveBtn",
+                                "layout|flex": null,
+                                "margin": "0 15 0 0",
+                                "padding": "2 5 2 5",
+                                "text": "Create"
+                            },
+                            "designerId": "56b43eb5-1576-4ed6-b4eb-f1d54305e458",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var userForm = Ext.getCmp(\"userForm\");",
+                                            "",
+                                            "var action = GLOBAL.urlPrefix + \"user/create\";",
+                                            "var editType = userForm.getForm().findField(\"editType\").getValue();",
+                                            "",
+                                            "var userId = null;",
+                                            "if(userForm.getForm().findField(\"userId\").getValue() > 0){",
+                                            "    action = GLOBAL.urlPrefix + \"user/update\";",
+                                            "    userId = userForm.getForm().findField(\"userId\").getValue();",
+                                            "}",
+                                            "",
+                                            "userForm.getForm().submit({",
+                                            "    clientValidation: true,",
+                                            "    url: action,",
+                                            "    params: {",
+                                            "        newStatus: 'delivered'",
+                                            "    },",
+                                            "    waitMsg: 'Saving Data...',",
+                                            "    success: function(form, action) {",
+                                            "        Ext.Msg.alert('Success', action.result.msg);",
+                                            "",
+                                            "        if(editType != 'myAccount') {",
+                                            "            ",
+                                            "            Ext.getCmp('userGrid').getStore().load({",
+                                            "                ",
+                                            "                callback:function(records, operation, success){",
+                                            "                    ",
+                                            "                    if(userId){",
+                                            "                        ",
+                                            "                        Ext.each(records, function(record) {",
+                                            "                            ",
+                                            "                            if(record.get(\"userId\") == userId) {",
+                                            "                                Ext.getCmp('userGrid').getSelectionModel().select(record,true,false);",
+                                            "                                             ",
+                                            "                                userConstants.selectRow = record;",
+                                            "                                userConstants.me.searchUserDetail();",
+                                            "                            }",
+                                            "",
+                                            "                        });",
+                                            "                    }",
+                                            "                }",
+                                            "            }); ",
+                                            "        }",
+                                            "                ",
+                                            "        userForm.up('window').close();",
+                                            "    },",
+                                            "    failure: function(form, action) {",
+                                            "        switch (action.failureType) {",
+                                            "            case Ext.form.action.Action.CLIENT_INVALID:",
+                                            "            Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');",
+                                            "            break;",
+                                            "            case Ext.form.action.Action.CONNECT_FAILURE:",
+                                            "            Ext.Msg.alert('Failure', 'Server communication failed');",
+                                            "            break;",
+                                            "            case Ext.form.action.Action.SERVER_INVALID:",
+                                            "            Ext.Msg.alert('Failure', action.result.msg);",
+                                            "        }",
+                                            "    }",
+                                            "});"
+                                        ]
+                                    },
+                                    "designerId": "7cdb93fb-fcdf-442c-a4a0-26396784e3b9"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": null,
+                                "itemId": null,
+                                "layout|flex": null,
+                                "margin": "0 0 0 0",
+                                "padding": "2 5 2 5",
+                                "text": "Cancel"
+                            },
+                            "designerId": "8b09a6c6-8b61-45a1-adc8-e83da607e102",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "Ext.MessageBox.confirm('Confirm', '작업을 취소하시겠습니까?', function(btn){",
+                                            "",
+                                            "    if(btn == \"yes\"){",
+                                            "        button.up(\"window\").close();",
+                                            "    }",
+                                            "",
+                                            "});",
+                                            ""
+                                        ]
+                                    },
+                                    "designerId": "eef17298-a68c-403f-8197-8be43f0b52b7"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

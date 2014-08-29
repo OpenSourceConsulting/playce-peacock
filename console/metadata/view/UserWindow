@@ -90,7 +90,7 @@
                                             "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
                                         ]
                                     },
-                                    "designerId": "1113d4e2-65c0-4e1f-9fa6-8bb7c63ffba7"
+                                    "designerId": "528be250-c182-46db-a46e-8da860a0d381"
                                 }
                             ]
                         },
@@ -333,18 +333,18 @@
                                             "        Ext.Msg.alert('Success', action.result.msg);",
                                             "",
                                             "        if(editType != 'myAccount') {",
-                                            "            ",
+                                            "",
                                             "            Ext.getCmp('userGrid').getStore().load({",
-                                            "                ",
+                                            "",
                                             "                callback:function(records, operation, success){",
-                                            "                    ",
+                                            "",
                                             "                    if(userId){",
-                                            "                        ",
+                                            "",
                                             "                        Ext.each(records, function(record) {",
-                                            "                            ",
+                                            "",
                                             "                            if(record.get(\"userId\") == userId) {",
                                             "                                Ext.getCmp('userGrid').getSelectionModel().select(record,true,false);",
-                                            "                                             ",
+                                            "",
                                             "                                userConstants.selectRow = record;",
                                             "                                userConstants.me.searchUserDetail();",
                                             "                            }",
@@ -352,9 +352,9 @@
                                             "                        });",
                                             "                    }",
                                             "                }",
-                                            "            }); ",
+                                            "            });",
                                             "        }",
-                                            "                ",
+                                            "",
                                             "        userForm.up('window').close();",
                                             "    },",
                                             "    failure: function(form, action) {",

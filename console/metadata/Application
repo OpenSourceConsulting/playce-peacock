@@ -74,7 +74,8 @@
             "AlmSpaceStore",
             "AlmGroupStore",
             "InstanceMonitoringStore",
-            "MonitoringPopupStore"
+            "MonitoringPopupStore",
+            "AlmGroupUsersStore"
         ],
         "views": [
             "peacockViewport",
@@ -94,7 +95,7 @@
             "blankPanel",
             "almContainer",
             "almUserWindow",
-            "almGroupWindow",
+            "AlmGroupWindow",
             "almGroupUsersWindow",
             "softwareInstallLogWindow",
             "softwareConfigWindow",
@@ -102,7 +103,9 @@
             "UserWindow",
             "EditInstanceWindow",
             "RegInstanceWindow",
-            "almProjectSpaceWindow"
+            "almProjectSpaceWindow",
+            "almProjectWindow",
+            "almProjectJobWindow"
         ]
     },
     "designerId": "application"

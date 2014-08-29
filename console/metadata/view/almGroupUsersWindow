@@ -6,15 +6,19 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userAlias": "almGroupUsersWindow",
+        "designer|userAlias": "AlmGroupUsersWindow",
         "designer|userClassName": "almGroupUsersWindow",
-        "height": 250,
-        "id": "almGroupUsersWindow",
-        "itemId": "almGroupUsersWindow",
+        "height": 300,
+        "id": "AlmGroupUsersWindow",
+        "itemId": "AlmGroupUsersWindow",
         "layout": "border",
         "modal": true,
+        "resizable": false,
         "title": "Add Users",
-        "width": 300
+        "width": 430
+    },
+    "configAlternates": {
+        "resizable": "boolean"
     },
     "designerId": "098fa0d0-8df6-4303-ae48-9a2740772d0c",
     "cn": [
@@ -31,6 +35,7 @@
                 "header": false,
                 "layout|flex": 1,
                 "layout|region": "center",
+                "maxHeight": null,
                 "title": "almUsersPanel"
             },
             "designerId": "2027c09d-a8d0-40e8-866e-10faf4b4af0a",
@@ -47,22 +52,14 @@
                         "bodyBorder": false,
                         "columnLines": true,
                         "forceFit": true,
-                        "height": 358,
-                        "id": "almGroupUsersGrid",
-                        "itemId": "almGroupUsersGrid",
+                        "height": 210,
+                        "id": "popAlmUsersGrid",
+                        "itemId": "popAlmUsersGrid",
+                        "store": "AlmUserStore",
                         "title": null
                     },
                     "designerId": "b080beab-f846-4a2a-8826-9c366eda9126",
                     "cn": [
-                        {
-                            "type": "Ext.selection.CheckboxModel",
-                            "reference": {
-                                "name": "selModel",
-                                "type": "object"
-                            },
-                            "codeClass": "Ext.selection.CheckboxModel",
-                            "designerId": "e568a3fc-e2eb-47d7-a7f2-23a4c645f01f"
-                        },
                         {
                             "type": "Ext.grid.column.Column",
                             "reference": {
@@ -71,9 +68,9 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "dataIndex": "name",
+                                "dataIndex": "userId",
                                 "minWidth": 100,
-                                "text": "User ID"
+                                "text": "Name"
                             },
                             "designerId": "9b4549e4-6369-4e9a-9af1-d7be88d8a060"
                         },
@@ -85,11 +82,101 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "dataIndex": "text",
+                                "dataIndex": "displayName",
                                 "minWidth": 150,
-                                "text": "User Name"
+                                "text": "Display Name"
                             },
                             "designerId": "3916b73b-f79f-4298-9b91-ea7e63ace21b"
+                        },
+                        {
+                            "type": "Ext.grid.column.Action",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "align": "center",
+                                "defaultWidth": 60,
+                                "maxWidth": 60,
+                                "menuText": "",
+                                "minWidth": 70,
+                                "style": [
+                                    "\"text-align:left;\""
+                                ],
+                                "text": "Add",
+                                "width": 60
+                            },
+                            "designerId": "e74e77b5-c639-46a9-8aa9-394638694490",
+                            "customConfigs": [
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "text",
+                                    "type": "string"
+                                }
+                            ],
+                            "cn": [
+                                {
+                                    "type": "actioncolumnitem",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "icon": "resources/images/icons/cog.png",
+                                        "iconCls": ""
+                                    },
+                                    "designerId": "29ed5f64-910f-46e4-9f95-6a5f226ce008",
+                                    "cn": [
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "view",
+                                                    "rowIndex",
+                                                    "colIndex",
+                                                    "item",
+                                                    "e",
+                                                    "record",
+                                                    "row"
+                                                ],
+                                                "fn": "handler",
+                                                "implHandler": [
+                                                    "Ext.MessageBox.confirm('Confirm', 'User를 등록 하시겠습니까?', function(btn){",
+                                                    "",
+                                                    "    if(btn == \"yes\"){",
+                                                    "",
+                                                    "        Ext.Ajax.request({",
+                                                    "            url : GLOBAL.urlPrefix + \"alm/groupmanagement/\" ",
+                                                    "                    + almConstants.selectRow.get(\"name\") + \"/\" + record.get(\"userId\"),",
+                                                    "            method: 'POST',",
+                                                    "            headers: { 'Content-Type': 'application/json' },",
+                                                    "            disableCaching : true,",
+                                                    "            waitMsg: 'Add ALM User...',",
+                                                    "            success: function(response){",
+                                                    "                var msg = Ext.JSON.decode(response.responseText).msg;",
+                                                    "                Ext.MessageBox.alert('알림', msg);",
+                                                    "",
+                                                    "                Ext.getCmp(\"almGroupUserGrid\").getStore().reload();",
+                                                    "",
+                                                    "            }",
+                                                    "        });",
+                                                    "    }",
+                                                    "",
+                                                    "});"
+                                                ]
+                                            },
+                                            "designerId": "28377e9e-ac9e-4e08-af2e-8c829c59e6a4"
+                                        }
+                                    ]
+                                }
+                            ]
                         },
                         {
                             "type": "Ext.grid.View",
@@ -118,76 +205,59 @@
                             "designerId": "a262929a-40cb-45a0-b7a7-19a03de9374a"
                         }
                     ]
-                },
+                }
+            ]
+        },
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "container|pack": "center",
+                "designer|uiInterfaceName": "footer",
+                "dock": "bottom",
+                "ui": "footer"
+            },
+            "designerId": "81a98b7e-b0a3-4e5b-976a-321c7caa4609",
+            "cn": [
                 {
-                    "type": "Ext.toolbar.Toolbar",
+                    "type": "Ext.button.Button",
                     "reference": {
-                        "name": "dockedItems",
+                        "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "container|pack": "center",
-                        "designer|uiInterfaceName": "footer",
-                        "dock": "bottom",
-                        "ui": "footer"
+                        "id": null,
+                        "itemId": "",
+                        "layout|flex": null,
+                        "margin": "0 0 0 0",
+                        "padding": "2 5 2 5",
+                        "text": "Close"
                     },
-                    "designerId": "81a98b7e-b0a3-4e5b-976a-321c7caa4609",
+                    "designerId": "caac28b0-7c14-46ff-9517-30dd91109543",
                     "cn": [
                         {
-                            "type": "Ext.button.Button",
+                            "type": "fixedfunction",
                             "reference": {
                                 "name": "items",
                                 "type": "array"
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "id": "makeTemplateBtn1",
-                                "itemId": "makeTemplateBtn",
-                                "layout|flex": null,
-                                "margin": "0 15 0 0",
-                                "padding": "2 5 2 5",
-                                "text": "Create"
+                                "designer|params": [
+                                    "button",
+                                    "e"
+                                ],
+                                "fn": "handler",
+                                "implHandler": [
+                                    "button.up(\"window\").close();"
+                                ]
                             },
-                            "designerId": "3648e9de-7cb2-47e6-b28d-a649b2cf9977"
-                        },
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "id": "templateCancelBtn1",
-                                "itemId": "templateCancelBtn",
-                                "layout|flex": null,
-                                "margin": "0 0 0 0",
-                                "padding": "2 5 2 5",
-                                "text": "Cancel"
-                            },
-                            "designerId": "caac28b0-7c14-46ff-9517-30dd91109543",
-                            "cn": [
-                                {
-                                    "type": "fixedfunction",
-                                    "reference": {
-                                        "name": "items",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "designer|params": [
-                                            "button",
-                                            "e"
-                                        ],
-                                        "fn": "handler",
-                                        "implHandler": [
-                                            "button.up(\"window\").close();"
-                                        ]
-                                    },
-                                    "designerId": "36174180-067a-4cf7-a773-7e182eed7829"
-                                }
-                            ]
+                            "designerId": "36174180-067a-4cf7-a773-7e182eed7829"
                         }
                     ]
                 }
