@@ -1,0 +1,1120 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "MonitoringChartWindow",
+        "designer|userClassName": "MonitoringChartWindow",
+        "height": 450,
+        "id": "MonitoringChartWindow",
+        "itemId": "MonitoringChartWindow",
+        "layout": "border",
+        "modal": true,
+        "title": "CPU",
+        "width": 650
+    },
+    "designerId": "f14bc93c-5f90-44b5-996d-49e995d808aa",
+    "cn": [
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "top"
+            },
+            "designerId": "d7281210-3918-4ef9-9566-11dac64afacf",
+            "cn": [
+                {
+                    "type": "Ext.toolbar.Spacer",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": 1
+                    },
+                    "designerId": "26c25e62-c800-4a0d-9efa-74ed1ff14d44"
+                },
+                {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "Time Range",
+                        "id": "comboTimeRange",
+                        "itemId": "comboTimeRange",
+                        "labelWidth": 80,
+                        "layout|flex": null,
+                        "store": [
+                            "[",
+                            "    ['','최근 30분'],",
+                            "    ['1h','최근 1시간'],",
+                            "    ['3h','최근 3시간'],",
+                            "    ['6h','최근 6시간'],",
+                            "    ['12h','최근 12시간'],",
+                            "    ['24h','최근 24시간'],",
+                            "    ['3d','최근 3일'],",
+                            "    ['1w','최근 1일'],",
+                            "    ['2w','최근 2주']",
+                            "]"
+                        ],
+                        "width": 200
+                    },
+                    "configAlternates": {
+                        "store": "array"
+                    },
+                    "designerId": "09ad4680-976c-4911-a2b3-dd6ec5a28f19",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onComboTimeRangeChange",
+                                "implHandler": [
+                                    "if(oldValue != null) {",
+                                    "    instancesConstants.me.viewInstanceMonitoringPopup();",
+                                    "}"
+                                ],
+                                "name": "change",
+                                "scope": "me"
+                            },
+                            "designerId": "21b02acc-8183-498f-848c-aae947c52f1a"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "Period",
+                        "id": "comboTimePeriod",
+                        "itemId": "comboTimePeriod",
+                        "labelWidth": 60,
+                        "layout|flex": null,
+                        "margin": "3 25 3 3",
+                        "padding": "0 0 0 10",
+                        "store": [
+                            "[",
+                            "    ['','1분'],",
+                            "    ['5m','5분'],",
+                            "    ['15m','15분'],",
+                            "    ['30m','30분'],",
+                            "    ['1h','1시간'],",
+                            "    ['6h','6시간'],",
+                            "    ['1d','1일']",
+                            "]"
+                        ],
+                        "width": 150
+                    },
+                    "configAlternates": {
+                        "store": "array"
+                    },
+                    "designerId": "50e2ae5a-9e83-40d6-b868-2823880081d2",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onComboTimePeriodChange",
+                                "implHandler": [
+                                    "if(oldValue != null) {",
+                                    "    instancesConstants.me.viewInstanceMonitoringPopup();",
+                                    "}"
+                                ],
+                                "name": "change",
+                                "scope": "me"
+                            },
+                            "designerId": "a4cf734d-9f61-4bf5-9852-69b7569ea09f"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.form.field.Hidden",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "Label",
+                        "id": "instanceMonitoringType",
+                        "itemId": "instanceMonitoringType",
+                        "layout|flex": null
+                    },
+                    "designerId": "d50831fd-292a-4caf-9f23-4587cbf3d1b8"
+                }
+            ]
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "activeItem": 1,
+                "header": false,
+                "id": "chartPanel",
+                "itemId": "chartPanel",
+                "layout": "card",
+                "layout|flex": null,
+                "layout|region": "center",
+                "style": null,
+                "title": "chartPanel"
+            },
+            "designerId": "d514d2f7-7e79-4fcc-ada5-bb0bf2da0349",
+            "cn": [
+                {
+                    "type": "Ext.panel.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|align": "stretch",
+                        "id": "popCpuPanel",
+                        "layout": "hbox",
+                        "minWidth": null,
+                        "style": null,
+                        "title": null,
+                        "width": null
+                    },
+                    "designerId": "428d3084-ae8c-41d1-be62-f01a2e3840c1",
+                    "cn": [
+                        {
+                            "type": "Ext.chart.Chart",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "animate": [
+                                    "true"
+                                ],
+                                "autoSize": true,
+                                "cls": null,
+                                "designer|displayName": "cpu",
+                                "flex": null,
+                                "height": null,
+                                "id": "popCpuChart",
+                                "insetPadding": 20,
+                                "itemId": "popCpuChart",
+                                "layout|flex": 1,
+                                "layout|margins": null,
+                                "margin": "5 0 0 5",
+                                "minWidth": null,
+                                "padding": null,
+                                "shadow": true,
+                                "store": "MonitoringPopupStore",
+                                "style": null,
+                                "width": null
+                            },
+                            "designerId": "564ae735-43f0-401c-8e43-d902b765d836",
+                            "isBuiltIn": true,
+                            "iconCls": "icon-line-chart",
+                            "autoName": "LineChart",
+                            "customConfigs": [
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "flex",
+                                    "type": "string"
+                                }
+                            ],
+                            "cn": [
+                                {
+                                    "type": "Ext.chart.axis.Category",
+                                    "reference": {
+                                        "name": "axes",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "aggregateOp": null,
+                                        "constrain": [
+                                            "true"
+                                        ],
+                                        "fields": [
+                                            "regDt"
+                                        ],
+                                        "grid": true,
+                                        "label": [
+                                            "{",
+                                            "    rotate: {",
+                                            "        degrees: 315",
+                                            "    }",
+                                            "}"
+                                        ],
+                                        "title": null,
+                                        "type": null
+                                    },
+                                    "configAlternates": {
+                                        "constrain": "object",
+                                        "grid": "boolean"
+                                    },
+                                    "designerId": "7695c0f1-2d89-41ff-812c-0de59b70a11d",
+                                    "customConfigs": [
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "type",
+                                            "type": "string"
+                                        },
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "constrain",
+                                            "type": "string"
+                                        },
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "aggregateOp",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.chart.axis.Numeric",
+                                    "reference": {
+                                        "name": "axes",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fields": [
+                                            "FACTOR_001",
+                                            "FACTOR_002"
+                                        ],
+                                        "grid": [
+                                            "{",
+                                            "    odd: {",
+                                            "        fill: '#dedede',",
+                                            "        stroke: '#ddd',",
+                                            "        'stroke-width': 0.5",
+                                            "    }",
+                                            "}"
+                                        ],
+                                        "maximum": 100,
+                                        "minimum": 0,
+                                        "title": null
+                                    },
+                                    "designerId": "b1391c3b-f032-49b8-8a5d-2f268e661cf5"
+                                },
+                                {
+                                    "type": "Ext.chart.series.Line",
+                                    "reference": {
+                                        "name": "series",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "label": [
+                                            "{",
+                                            "    display: 'none',",
+                                            "    field: 'visits',",
+                                            "    renderer: function(v) { return v >> 0; },",
+                                            "    'text-anchor': 'middle'",
+                                            "}"
+                                        ],
+                                        "markerConfig": [
+                                            "{",
+                                            "    radius: 3,",
+                                            "    size: 3",
+                                            "}"
+                                        ],
+                                        "style": [
+                                            "{",
+                                            "     stroke: '#ff0000',",
+                                            "     fill: '#ff0000'",
+                                            "}"
+                                        ],
+                                        "title": [
+                                            "Used"
+                                        ],
+                                        "xField": "regDt",
+                                        "yField": [
+                                            "FACTOR_002"
+                                        ]
+                                    },
+                                    "configAlternates": {
+                                        "smooth": "boolean"
+                                    },
+                                    "designerId": "332af6fa-0ba5-48d9-b0b6-43a443517c69"
+                                },
+                                {
+                                    "type": "Ext.chart.series.Line",
+                                    "reference": {
+                                        "name": "series",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "label": [
+                                            "{",
+                                            "    display: 'none',",
+                                            "    field: 'visits',",
+                                            "    renderer: function(v) { return v >> 0; },",
+                                            "    'text-anchor': 'middle'",
+                                            "}"
+                                        ],
+                                        "markerConfig": [
+                                            "{",
+                                            "    radius: 3,",
+                                            "    size: 3",
+                                            "}"
+                                        ],
+                                        "style": [
+                                            "{",
+                                            "     stroke: '#0000ff',",
+                                            "     fill: '#0000ff'",
+                                            "}"
+                                        ],
+                                        "title": [
+                                            "Free"
+                                        ],
+                                        "xField": "regDt",
+                                        "yField": [
+                                            "FACTOR_001"
+                                        ]
+                                    },
+                                    "configAlternates": {
+                                        "smooth": "boolean"
+                                    },
+                                    "designerId": "de2934c4-fcba-4d28-b164-9b8c8614db1a"
+                                },
+                                {
+                                    "type": "Ext.chart.Legend",
+                                    "reference": {
+                                        "name": "legend",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": ""
+                                    },
+                                    "designerId": "46dc7572-b2be-481a-9ca3-fb12e2546259"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.panel.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|align": "stretch",
+                        "id": "popMemoryPanel",
+                        "layout": "hbox",
+                        "title": null
+                    },
+                    "designerId": "7e645e7d-3ec7-4018-ac6e-d862f052b499",
+                    "cn": [
+                        {
+                            "type": "Ext.chart.Chart",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "animate": [
+                                    "true"
+                                ],
+                                "autoSize": true,
+                                "designer|displayName": "memory",
+                                "height": null,
+                                "id": "popMemoryChart",
+                                "insetPadding": 20,
+                                "itemId": "popMemoryChart",
+                                "layout|flex": 1,
+                                "layout|margins": null,
+                                "margin": "5 0 0 5",
+                                "minWidth": null,
+                                "padding": null,
+                                "shadow": true,
+                                "store": "MonitoringPopupStore",
+                                "width": null
+                            },
+                            "designerId": "0d4d6a05-6d6a-49a3-a993-61f2c7d0d94d",
+                            "isBuiltIn": true,
+                            "iconCls": "icon-line-chart",
+                            "autoName": "LineChart",
+                            "cn": [
+                                {
+                                    "type": "Ext.chart.axis.Category",
+                                    "reference": {
+                                        "name": "axes",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "aggregateOp": null,
+                                        "constrain": [
+                                            "true"
+                                        ],
+                                        "fields": [
+                                            "regDt"
+                                        ],
+                                        "grid": true,
+                                        "label": [
+                                            "{",
+                                            "    rotate: {",
+                                            "        degrees: 315",
+                                            "    }",
+                                            "}"
+                                        ],
+                                        "title": null,
+                                        "type": null
+                                    },
+                                    "configAlternates": {
+                                        "constrain": "object",
+                                        "grid": "boolean"
+                                    },
+                                    "designerId": "8aa62878-c8b1-49d9-9542-2e0d3b32413b",
+                                    "customConfigs": [
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "type",
+                                            "type": "string"
+                                        },
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "constrain",
+                                            "type": "string"
+                                        },
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "aggregateOp",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.chart.axis.Numeric",
+                                    "reference": {
+                                        "name": "axes",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fields": [
+                                            "FACTOR_004",
+                                            "FACTOR_005"
+                                        ],
+                                        "grid": [
+                                            "{",
+                                            "    odd: {",
+                                            "        fill: '#dedede',",
+                                            "        stroke: '#ddd',",
+                                            "        'stroke-width': 0.5",
+                                            "    }",
+                                            "}"
+                                        ],
+                                        "maximum": null,
+                                        "minimum": 0,
+                                        "title": null
+                                    },
+                                    "designerId": "8a3fa458-aa96-4c96-9055-1402008d42b2"
+                                },
+                                {
+                                    "type": "Ext.chart.series.Line",
+                                    "reference": {
+                                        "name": "series",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "label": [
+                                            "{",
+                                            "    display: 'none',",
+                                            "    field: 'visits',",
+                                            "    renderer: function(v) { return v >> 0; },",
+                                            "    'text-anchor': 'middle'",
+                                            "}"
+                                        ],
+                                        "markerConfig": [
+                                            "{",
+                                            "    radius: 3,",
+                                            "    size: 3",
+                                            "}"
+                                        ],
+                                        "style": [
+                                            "{",
+                                            "     stroke: '#ff0000',",
+                                            "     fill: '#ff0000'",
+                                            "}"
+                                        ],
+                                        "title": [
+                                            "Used"
+                                        ],
+                                        "xField": "regDt",
+                                        "yField": [
+                                            "FACTOR_005"
+                                        ]
+                                    },
+                                    "configAlternates": {
+                                        "smooth": "boolean"
+                                    },
+                                    "designerId": "2407f95c-e6a4-435e-b24f-ea1e3b6d4004"
+                                },
+                                {
+                                    "type": "Ext.chart.series.Line",
+                                    "reference": {
+                                        "name": "series",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "label": [
+                                            "{",
+                                            "    display: 'none',",
+                                            "    field: 'visits',",
+                                            "    renderer: function(v) { return v >> 0; },",
+                                            "    'text-anchor': 'middle'",
+                                            "}"
+                                        ],
+                                        "markerConfig": [
+                                            "{",
+                                            "    radius: 3,",
+                                            "    size: 3",
+                                            "}"
+                                        ],
+                                        "style": [
+                                            "{",
+                                            "     stroke: '#0000ff',",
+                                            "     fill: '#0000ff'",
+                                            "}"
+                                        ],
+                                        "title": [
+                                            "Free"
+                                        ],
+                                        "xField": "regDt",
+                                        "yField": [
+                                            "FACTOR_004"
+                                        ]
+                                    },
+                                    "configAlternates": {
+                                        "smooth": "boolean"
+                                    },
+                                    "designerId": "dd48161a-86b1-469e-964c-7e27b75c1c46"
+                                },
+                                {
+                                    "type": "Ext.chart.Legend",
+                                    "reference": {
+                                        "name": "legend",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": ""
+                                    },
+                                    "designerId": "c9dfd1de-6993-4cf2-a355-a27969dfd559"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.panel.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|align": "stretch",
+                        "id": "popDiskPanel",
+                        "layout": "hbox",
+                        "title": null,
+                        "width": null
+                    },
+                    "designerId": "de0657cc-6304-4406-97b5-4a51546a87b0",
+                    "cn": [
+                        {
+                            "type": "Ext.chart.Chart",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "animate": [
+                                    "true"
+                                ],
+                                "autoSize": true,
+                                "cls": "",
+                                "designer|displayName": "disk",
+                                "height": null,
+                                "id": "popDiskChart",
+                                "insetPadding": 20,
+                                "itemId": "popDiskChart",
+                                "layout|flex": 1,
+                                "layout|margins": null,
+                                "margin": "5 0 0 5",
+                                "minWidth": null,
+                                "padding": null,
+                                "shadow": true,
+                                "store": "MonitoringPopupStore",
+                                "width": null
+                            },
+                            "designerId": "794925d0-46b2-4540-ad08-9982bff68b50",
+                            "isBuiltIn": true,
+                            "iconCls": "icon-line-chart",
+                            "autoName": "LineChart",
+                            "cn": [
+                                {
+                                    "type": "Ext.chart.axis.Category",
+                                    "reference": {
+                                        "name": "axes",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "aggregateOp": null,
+                                        "constrain": [
+                                            "true"
+                                        ],
+                                        "fields": [
+                                            "regDt"
+                                        ],
+                                        "grid": true,
+                                        "label": [
+                                            "{",
+                                            "    rotate: {",
+                                            "        degrees: 315",
+                                            "    }",
+                                            "}"
+                                        ],
+                                        "title": null,
+                                        "type": null
+                                    },
+                                    "configAlternates": {
+                                        "constrain": "object",
+                                        "grid": "boolean"
+                                    },
+                                    "designerId": "344658df-f93a-491d-9c73-fd0e876a5913",
+                                    "customConfigs": [
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "type",
+                                            "type": "string"
+                                        },
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "constrain",
+                                            "type": "string"
+                                        },
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "aggregateOp",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.chart.axis.Numeric",
+                                    "reference": {
+                                        "name": "axes",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fields": [
+                                            "DISK_1",
+                                            "DISK_2",
+                                            "DISK_3",
+                                            "DISK_004",
+                                            "DISK_005",
+                                            "DISK_006",
+                                            "DISK_007",
+                                            "DISK_008",
+                                            "DISK_009",
+                                            "DISK_010"
+                                        ],
+                                        "grid": [
+                                            "{",
+                                            "    odd: {",
+                                            "        fill: '#dedede',",
+                                            "        stroke: '#ddd',",
+                                            "        'stroke-width': 0.5",
+                                            "    }",
+                                            "}"
+                                        ],
+                                        "maximum": 100,
+                                        "minimum": 0,
+                                        "title": null
+                                    },
+                                    "designerId": "aeaeac49-4e9f-4ae0-8462-ab1bcefbda00"
+                                },
+                                {
+                                    "type": "Ext.chart.series.Line",
+                                    "reference": {
+                                        "name": "series",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "label": [
+                                            "{",
+                                            "    display: 'none',",
+                                            "    field: 'visits',",
+                                            "    renderer: function(v) { return v >> 0; },",
+                                            "    'text-anchor': 'middle'",
+                                            "}"
+                                        ],
+                                        "markerConfig": [
+                                            "{",
+                                            "    radius: 3,",
+                                            "    size: 3",
+                                            "}"
+                                        ],
+                                        "title": [
+                                            "DISK_1"
+                                        ],
+                                        "xField": "regDt",
+                                        "yField": [
+                                            "DISK_001"
+                                        ]
+                                    },
+                                    "configAlternates": {
+                                        "smooth": "boolean"
+                                    },
+                                    "designerId": "8a0044e9-b37b-4825-8071-d20df48d6b40"
+                                },
+                                {
+                                    "type": "Ext.chart.series.Line",
+                                    "reference": {
+                                        "name": "series",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "label": [
+                                            "{",
+                                            "    display: 'none',",
+                                            "    field: 'visits',",
+                                            "    renderer: function(v) { return v >> 0; },",
+                                            "    'text-anchor': 'middle'",
+                                            "}"
+                                        ],
+                                        "showInLegend": false,
+                                        "title": [
+                                            "DISK_2"
+                                        ],
+                                        "xField": "regDt",
+                                        "yField": [
+                                            "DISK_002"
+                                        ]
+                                    },
+                                    "configAlternates": {
+                                        "smooth": "boolean"
+                                    },
+                                    "designerId": "a2126150-f604-4b0e-908b-928541c083f3"
+                                },
+                                {
+                                    "type": "Ext.chart.series.Line",
+                                    "reference": {
+                                        "name": "series",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "label": [
+                                            "{",
+                                            "    display: 'none',",
+                                            "    field: 'visits',",
+                                            "    renderer: function(v) { return v >> 0; },",
+                                            "    'text-anchor': 'middle'",
+                                            "}"
+                                        ],
+                                        "showInLegend": false,
+                                        "title": [
+                                            "DISK_3"
+                                        ],
+                                        "xField": "regDt",
+                                        "yField": [
+                                            "DISK_003"
+                                        ]
+                                    },
+                                    "configAlternates": {
+                                        "smooth": "boolean"
+                                    },
+                                    "designerId": "151b92ec-0ea0-49d8-a100-ff2e522801a0"
+                                },
+                                {
+                                    "type": "Ext.chart.series.Line",
+                                    "reference": {
+                                        "name": "series",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "label": [
+                                            "{",
+                                            "    display: 'none',",
+                                            "    field: 'visits',",
+                                            "    renderer: function(v) { return v >> 0; },",
+                                            "    'text-anchor': 'middle'",
+                                            "}"
+                                        ],
+                                        "showInLegend": false,
+                                        "title": [
+                                            "DISK_4"
+                                        ],
+                                        "xField": "regDt",
+                                        "yField": [
+                                            "DISK_004"
+                                        ]
+                                    },
+                                    "configAlternates": {
+                                        "smooth": "boolean"
+                                    },
+                                    "designerId": "fa47ad97-635f-4c0b-8909-1a1e7c7b8137"
+                                },
+                                {
+                                    "type": "Ext.chart.series.Line",
+                                    "reference": {
+                                        "name": "series",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "label": [
+                                            "{",
+                                            "    display: 'none',",
+                                            "    field: 'visits',",
+                                            "    renderer: function(v) { return v >> 0; },",
+                                            "    'text-anchor': 'middle'",
+                                            "}"
+                                        ],
+                                        "showInLegend": false,
+                                        "title": [
+                                            "DISK_5"
+                                        ],
+                                        "xField": "regDt",
+                                        "yField": [
+                                            "DISK_005"
+                                        ]
+                                    },
+                                    "configAlternates": {
+                                        "smooth": "boolean"
+                                    },
+                                    "designerId": "378fd766-6272-4801-ae2f-443c0519a321"
+                                },
+                                {
+                                    "type": "Ext.chart.series.Line",
+                                    "reference": {
+                                        "name": "series",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "label": [
+                                            "{",
+                                            "    display: 'none',",
+                                            "    field: 'visits',",
+                                            "    renderer: function(v) { return v >> 0; },",
+                                            "    'text-anchor': 'middle'",
+                                            "}"
+                                        ],
+                                        "showInLegend": false,
+                                        "title": [
+                                            "DISK_6"
+                                        ],
+                                        "xField": "regDt",
+                                        "yField": [
+                                            "DISK_006"
+                                        ]
+                                    },
+                                    "configAlternates": {
+                                        "smooth": "boolean"
+                                    },
+                                    "designerId": "84cce9f5-2341-4c18-b7bd-bee0286bbb06"
+                                },
+                                {
+                                    "type": "Ext.chart.series.Line",
+                                    "reference": {
+                                        "name": "series",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "label": [
+                                            "{",
+                                            "    display: 'none',",
+                                            "    field: 'visits',",
+                                            "    renderer: function(v) { return v >> 0; },",
+                                            "    'text-anchor': 'middle'",
+                                            "}"
+                                        ],
+                                        "showInLegend": false,
+                                        "title": [
+                                            "DISK_7"
+                                        ],
+                                        "xField": "regDt",
+                                        "yField": [
+                                            "DISK_007"
+                                        ]
+                                    },
+                                    "configAlternates": {
+                                        "smooth": "boolean"
+                                    },
+                                    "designerId": "86eb8c8e-4566-42dd-a139-1d9d812fb755"
+                                },
+                                {
+                                    "type": "Ext.chart.series.Line",
+                                    "reference": {
+                                        "name": "series",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "label": [
+                                            "{",
+                                            "    display: 'none',",
+                                            "    field: 'visits',",
+                                            "    renderer: function(v) { return v >> 0; },",
+                                            "    'text-anchor': 'middle'",
+                                            "}"
+                                        ],
+                                        "showInLegend": false,
+                                        "title": [
+                                            "DISK_8"
+                                        ],
+                                        "xField": "regDt",
+                                        "yField": [
+                                            "DISK_008"
+                                        ]
+                                    },
+                                    "configAlternates": {
+                                        "smooth": "boolean"
+                                    },
+                                    "designerId": "e9ff4155-972d-465b-aee1-aefa1e652181"
+                                },
+                                {
+                                    "type": "Ext.chart.series.Line",
+                                    "reference": {
+                                        "name": "series",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "label": [
+                                            "{",
+                                            "    display: 'none',",
+                                            "    field: 'visits',",
+                                            "    renderer: function(v) { return v >> 0; },",
+                                            "    'text-anchor': 'middle'",
+                                            "}"
+                                        ],
+                                        "showInLegend": false,
+                                        "title": [
+                                            "DISK_9"
+                                        ],
+                                        "xField": "regDt",
+                                        "yField": [
+                                            "DISK_009"
+                                        ]
+                                    },
+                                    "configAlternates": {
+                                        "smooth": "boolean"
+                                    },
+                                    "designerId": "50c7abe8-8ee5-434d-9946-096cb1cdb848"
+                                },
+                                {
+                                    "type": "Ext.chart.series.Line",
+                                    "reference": {
+                                        "name": "series",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "label": [
+                                            "{",
+                                            "    display: 'none',",
+                                            "    field: 'visits',",
+                                            "    renderer: function(v) { return v >> 0; },",
+                                            "    'text-anchor': 'middle'",
+                                            "}"
+                                        ],
+                                        "showInLegend": false,
+                                        "title": [
+                                            "DISK_10"
+                                        ],
+                                        "xField": "regDt",
+                                        "yField": [
+                                            "DISK_010"
+                                        ]
+                                    },
+                                    "configAlternates": {
+                                        "smooth": "boolean"
+                                    },
+                                    "designerId": "8c9a6db4-3f7e-4bfe-b230-ee3972c31510"
+                                },
+                                {
+                                    "type": "Ext.chart.Legend",
+                                    "reference": {
+                                        "name": "legend",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "boxStrokeWidth": null,
+                                        "cls": null,
+                                        "designer|displayName": "",
+                                        "style": null,
+                                        "width": null
+                                    },
+                                    "designerId": "2c229294-324d-4fbf-9988-7b643b6648a0",
+                                    "customConfigs": [
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "width",
+                                            "type": "string"
+                                        },
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "cls",
+                                            "type": "string"
+                                        },
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "style",
+                                            "type": "string"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

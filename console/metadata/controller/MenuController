@@ -30,6 +30,9 @@
                     "    GLOBAL.lastSelectedMenuId = record.get('id');",
                     "    Ext.getCmp('centerContainer').layout.setActiveItem(record.get('activeRow'));",
                     "",
+                    "    //Instance Chart Monitoring Stop",
+                    "    clearInterval(instancesConstants.chartInterval);",
+                    "    ",
                     "    if(record.get('id') == 'MENU_02') {",
                     "",
                     "        instancesConstants.me.initInstance();",
@@ -67,21 +70,7 @@
                 "designer|targetType": "Ext.form.field.ComboBox",
                 "fn": "rhevComboSelect",
                 "implHandler": [
-                    "/**",
-                    " * RHEV-M 목록 선택시 수행되는 function()",
-                    " */",
-                    "var index = 0;",
-                    "",
-                    "if (records) {",
-                    "    index = records[0].index;",
-                    "}",
-                    "",
-                    "console.log(records);",
-                    "",
-                    "var menuTreeStore = Ext.getStore(\"MenuTreeStore\");",
-                    "",
-                    "Ext.getCmp(\"menuTreeView\").selModel.select(0);",
-                    "Ext.getCmp(\"menuTreeView\").fireEvent('cellclick', Ext.getCmp(\"menuTreeView\"), null, null, menuTreeStore.getRootNode().firstChild);"
+                    ""
                 ],
                 "name": "select",
                 "scope": "me"

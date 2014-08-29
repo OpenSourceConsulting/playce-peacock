@@ -17,7 +17,7 @@ Ext.define('MyApp.controller.UserController', {
     extend: 'Ext.app.Controller',
 
     onSearchUserNameKeydown: function(textfield, e, eOpts) {
-        //Instance Name Search
+        //User Name Search
         if(e.getKey() == e.ENTER){
             this.searchUser();
         }
@@ -39,6 +39,8 @@ Ext.define('MyApp.controller.UserController', {
     },
 
     onUserGridBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
+        //User Grid Right Click Menu 호출
+
         var position = e.getXY();
         e.stopEvent();
 
@@ -48,7 +50,8 @@ Ext.define('MyApp.controller.UserController', {
     },
 
     searchUser: function(init) {
-        //Instances Grid Data Search
+        //User Grid Data Search
+
         if(init) {
 
             Ext.getCmp("searchUserName").setValue("");
@@ -112,12 +115,16 @@ Ext.define('MyApp.controller.UserController', {
     },
 
     showUserWindow: function(type, user_id) {
+
+        //User Popup 호출
+
         var userWindow = Ext.create("widget.userWindow");
 
-        userWindow.setTitle("Edit User");
         userWindow.show();
 
         if(type != 'new') {
+
+            userWindow.setTitle("Edit User");
 
             if(user_id == null) {
                 user_id = userConstants.actionRow.get("userId");
@@ -148,6 +155,8 @@ Ext.define('MyApp.controller.UserController', {
 
     deleteUser: function() {
 
+        //User 삭제
+
         Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){
 
             if(btn == "yes"){
@@ -176,6 +185,8 @@ Ext.define('MyApp.controller.UserController', {
     },
 
     searchUserDetail: function() {
+
+        //User 상세 조회
 
         var userDetailPanel = Ext.getCmp("userDetailPanel");
         userDetailPanel.layout.setActiveItem(1);

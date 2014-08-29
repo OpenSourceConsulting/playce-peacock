@@ -149,13 +149,6 @@
                 "designer|targetType": "Ext.form.field.Text",
                 "fn": "detectPasswordSpecialkey",
                 "implHandler": [
-                    "/*",
-                    "component.getEl().on('keypress', function(e) {",
-                    "    if (e.getKey() == e.ENTER) {",
-                    "        Ext.getCmp(\"loginBtn\").fireEvent(\"click\");",
-                    "    }",
-                    "});",
-                    "*/",
                     "",
                     "if (e.getKey() == e.ENTER) {",
                     "    this.doLogin();",
@@ -178,13 +171,6 @@
                 "designer|targetType": "Ext.form.field.Text",
                 "fn": "detectUsernameSpecialkey",
                 "implHandler": [
-                    "/*",
-                    "component.getEl().on('keypress', function(e) {",
-                    "    if (e.getKey() == e.ENTER) {",
-                    "        Ext.getCmp(\"loginBtn\").fireEvent(\"click\");",
-                    "    }",
-                    "});",
-                    "*/",
                     "",
                     "if (e.getKey() == e.ENTER) {",
                     "    this.doLogin();",
@@ -273,6 +259,8 @@
                 "designer|targetType": "Ext.menu.Item",
                 "fn": "doEditProfile",
                 "implHandler": [
+                    "",
+                    "/* Edit My Account */",
                     "var sessionInfo = Ext.getStore('SessionStore');",
                     "",
                     "userConstants.me.showUserWindow('myAccount', sessionInfo.getAt(0).get(\"userId\"));"
@@ -402,6 +390,7 @@
                 "fn": "successfulLogin",
                 "implHandler": [
                     "",
+                    "//Login Session 설정",
                     "this.session = session;",
                     "",
                     "var sessionInfo = Ext.getStore('SessionStore');",
@@ -441,6 +430,7 @@
                     "    Ext.getCmp('loginWindow').destroy();",
                     "}",
                     "",
+                    "//Main Layout 설정",
                     "Ext.getCmp(\"peacockViewport\").layout.setActiveItem(1);",
                     "this.getUserSplitBtn().setText(newRecord.get(\"userName\"));",
                     "Ext.getCmp(\"topLastLogonLabel\").setText(\"(최근 접속시간 : \"+newRecord.get(\"lastLogon\")+\")\");",

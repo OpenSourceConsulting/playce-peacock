@@ -35,3 +35,18 @@ span.x-tree-node-text {
 	text-align: center;
 	font-size: 20px; 
 }
+
+.chart-legend-line .x-legend .x-legend-items {    
+     display:inline-block !important;    
+}
+
+.chart-legend-line .x-legend .x-legend-item {
+     float: left !important;
+     width:205px !important;    
+     overflow: hidden;
+}
+
+.chart-legend-line .x-legend {    
+     height:110px !important;    
+     width:635px !important;    
+}  

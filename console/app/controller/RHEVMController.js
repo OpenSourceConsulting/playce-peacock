@@ -34,6 +34,7 @@ Ext.define('MyApp.controller.RHEVMController', {
 
     onRhevmTabPanelTabChange: function(tabPanel, newCard, oldCard, eOpts) {
 
+        //RHEVM Tab Change
         if(newCard.title == "Templates"){
 
             Ext.getCmp("searchRhevmTemplateName").setValue("");
@@ -53,6 +54,8 @@ Ext.define('MyApp.controller.RHEVMController', {
 
     onRhevmVMGridItemClick: function(dataview, record, item, index, e, eOpts) {
 
+        //RHEVM VM 상세 조회
+
         if(RHEVMConstants.childSelectRow == null || RHEVMConstants.childSelectRow.get("vmId") != record.get("vmId")) {
 
             RHEVMConstants.childSelectRow = record;
@@ -62,6 +65,9 @@ Ext.define('MyApp.controller.RHEVMController', {
     },
 
     onRhevmVMGridBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
+
+        //RHEVM VM Grid Right Click Menu 호출
+
         var position = e.getXY();
         e.stopEvent();
 
@@ -101,6 +107,8 @@ Ext.define('MyApp.controller.RHEVMController', {
 
     onRhevmTemplateGridSelect: function(dataview, record, item, index, e, eOpts) {
 
+        //RHEVM Template 상세 조회
+
         if(RHEVMConstants.childSelectRow == null || RHEVMConstants.childSelectRow.get("templateId") != record.get("templateId")) {
 
             RHEVMConstants.childSelectRow = record;
@@ -111,6 +119,9 @@ Ext.define('MyApp.controller.RHEVMController', {
     },
 
     onHypervisorGridBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
+
+        //RHEVM Right Click Menu 호출
+
         var position = e.getXY();
         e.stopEvent();
 
@@ -120,20 +131,23 @@ Ext.define('MyApp.controller.RHEVMController', {
     },
 
     onSearchRhevmVMNameKeydown: function(textfield, e, eOpts) {
-        //Instance Name Search
+
+        //RHEVM VM Name Search
         if(e.getKey() == e.ENTER){
             this.searchRhevmChildGrid('rhevmVMGrid');
         }
     },
 
     onSearchRhevmTemplateNameKeydown: function(textfield, e, eOpts) {
-        //Instance Name Search
+        //RHEVM Template Name Search
         if(e.getKey() == e.ENTER){
             this.searchRhevmChildGrid('rhevmTemplateGrid');
         }
     },
 
     onRhevmTemplateGridBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
+        //RHEVM Template Right Click Menu 호출
+
         var position = e.getXY();
         e.stopEvent();
 
@@ -143,6 +157,7 @@ Ext.define('MyApp.controller.RHEVMController', {
     },
 
     onRhevmTabDetailTabPanelTabChange: function(tabPanel, newCard, oldCard, eOpts) {
+        //RHEVM Detail Child Tab Change
 
         var type;
 
@@ -273,6 +288,8 @@ Ext.define('MyApp.controller.RHEVMController', {
 
     searchHypervisor: function(init) {
 
+        //RHEVM List 조회
+
         if(init) {
             Ext.getCmp("hypervisorGrid").reconfigure(Ext.getCmp("hypervisorGrid").store, Ext.getCmp("hypervisorGrid").initialConfig.columns);
         }
@@ -287,6 +304,8 @@ Ext.define('MyApp.controller.RHEVMController', {
     },
 
     selectHypervisorGrid: function() {
+
+        //RHEVM Grid Select
         var detailPanel = Ext.getCmp("rhevmDetailPanel");
         detailPanel.layout.setActiveItem(1);
 
@@ -362,6 +381,8 @@ Ext.define('MyApp.controller.RHEVMController', {
 
     searchRhevmChildGrid: function(grid_id) {
 
+        //RHEVM Detail Tab 조회
+
         RHEVMConstants.childSelectRow = null;
 
         var detailDPanel = Ext.getCmp("rhevmTabDetailPanel");
@@ -401,6 +422,9 @@ Ext.define('MyApp.controller.RHEVMController', {
     },
 
     showTemplateWindow: function() {
+
+        //Template 생성 팝업 호출
+
         var templateWindow = Ext.create("widget.RegTemplateWindow");
 
         templateWindow.show();
@@ -411,6 +435,8 @@ Ext.define('MyApp.controller.RHEVMController', {
     },
 
     controlVMStatus: function(status) {
+
+        //VM 제어
 
         var controlUrl = '';
 
@@ -462,6 +488,8 @@ Ext.define('MyApp.controller.RHEVMController', {
 
     deleteTemplate: function() {
 
+        //Template Delete
+
         Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){
 
             if(btn == "yes"){
@@ -490,7 +518,7 @@ Ext.define('MyApp.controller.RHEVMController', {
 
     selectRhevmChildGrid: function(type) {
 
-        //RHEVM VM Grid Item Click
+        //RHEVM VM 상세 조회
         var detailTab = Ext.getCmp("rhevmTabDetailPanel");
         detailTab.expand();
 
@@ -503,6 +531,7 @@ Ext.define('MyApp.controller.RHEVMController', {
 
     searchRhevmChildDetailTab: function(type, tabTitle) {
 
+        //RHEVM VM 상세 정보 조회(Tab 별)
         var searchParam, searchUrl;
 
         if(tabTitle == "General") {
@@ -617,6 +646,9 @@ Ext.define('MyApp.controller.RHEVMController', {
     },
 
     popCreateInstance: function() {
+
+        //Instance 생성 팝업 호출(Template 지정)
+
         var regInstanceWindow = Ext.create("widget.RegInstanceWindow");
         regInstanceWindow.show();
 

@@ -122,13 +122,6 @@ Ext.define('MyApp.controller.LoginController', {
     },
 
     detectPasswordSpecialkey: function(field, e, eOpts) {
-        /*
-        component.getEl().on('keypress', function(e) {
-            if (e.getKey() == e.ENTER) {
-                Ext.getCmp("loginBtn").fireEvent("click");
-            }
-        });
-        */
 
         if (e.getKey() == e.ENTER) {
             this.doLogin();
@@ -136,13 +129,6 @@ Ext.define('MyApp.controller.LoginController', {
     },
 
     detectUsernameSpecialkey: function(field, e, eOpts) {
-        /*
-        component.getEl().on('keypress', function(e) {
-            if (e.getKey() == e.ENTER) {
-                Ext.getCmp("loginBtn").fireEvent("click");
-            }
-        });
-        */
 
         if (e.getKey() == e.ENTER) {
             this.doLogin();
@@ -175,6 +161,8 @@ Ext.define('MyApp.controller.LoginController', {
     },
 
     doEditProfile: function(item, e, eOpts) {
+
+        /* Edit My Account */
         var sessionInfo = Ext.getStore('SessionStore');
 
         userConstants.me.showUserWindow('myAccount', sessionInfo.getAt(0).get("userId"));
@@ -242,6 +230,7 @@ Ext.define('MyApp.controller.LoginController', {
 
     successfulLogin: function(session, ops) {
 
+        //Login Session 설정
         this.session = session;
 
         var sessionInfo = Ext.getStore('SessionStore');
@@ -281,6 +270,7 @@ Ext.define('MyApp.controller.LoginController', {
             Ext.getCmp('loginWindow').destroy();
         }
 
+        //Main Layout 설정
         Ext.getCmp("peacockViewport").layout.setActiveItem(1);
         this.getUserSplitBtn().setText(newRecord.get("userName"));
         Ext.getCmp("topLastLogonLabel").setText("(최근 접속시간 : "+newRecord.get("lastLogon")+")");

@@ -805,41 +805,54 @@ Ext.define('MyApp.view.instancesContainer', {
                                                             xtype: 'label',
                                                             dock: 'top',
                                                             cls: 'chart-title',
+                                                            id: 'chartCpuLabel',
+                                                            itemId: 'chartCpuLabel',
+                                                            margin: '',
                                                             text: 'CPU'
                                                         }
                                                     ],
                                                     items: [
                                                         {
                                                             xtype: 'chart',
-                                                            height: 250,
+                                                            flex: 1,
                                                             id: 'cpuChart',
                                                             itemId: 'cpuChart',
-                                                            minWidth: 320,
+                                                            margin: '5 0 0 5',
                                                             shadow: true,
+                                                            autoSize: true,
                                                             animate: true,
                                                             insetPadding: 20,
-                                                            store: 'instanceMonitoringChartStore',
+                                                            store: 'InstanceMonitoringStore',
                                                             axes: [
                                                                 {
                                                                     type: 'Category',
                                                                     constrain: true,
                                                                     fields: [
-                                                                        'date'
+                                                                        'regDt'
                                                                     ],
                                                                     label: {
                                                                         rotate: {
                                                                             degrees: 315
                                                                         }
                                                                     },
+                                                                    grid: true,
                                                                     position: 'bottom'
                                                                 },
                                                                 {
                                                                     type: 'Numeric',
                                                                     fields: [
-                                                                        'cpu_use',
-                                                                        'cpu_free'
+                                                                        'FACTOR_001',
+                                                                        'FACTOR_002'
                                                                     ],
+                                                                    grid: {
+                                                                        odd: {
+                                                                            fill: '#dedede',
+                                                                            stroke: '#ddd',
+                                                                            'stroke-width': 0.5
+                                                                        }
+                                                                    },
                                                                     maximum: 100,
+                                                                    minimum: 0,
                                                                     position: 'left'
                                                                 }
                                                             ],
@@ -852,14 +865,13 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                         renderer: function(v) { return v >> 0; },
                                                                         'text-anchor': 'middle'
                                                                     },
-                                                                    title: 'Idle CPU',
-                                                                    xField: 'date',
-                                                                    yField: 'cpu_use',
+                                                                    title: 'Used',
+                                                                    xField: 'regDt',
+                                                                    yField: 'FACTOR_002',
                                                                     markerConfig: {
                                                                         radius: 3,
                                                                         size: 3
                                                                     },
-                                                                    showMarkers: false,
                                                                     style: {
                                                                         stroke: '#ff0000',
                                                                         fill: '#ff0000'
@@ -873,14 +885,13 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                         renderer: function(v) { return v >> 0; },
                                                                         'text-anchor': 'middle'
                                                                     },
-                                                                    title: 'Combined CPU',
-                                                                    xField: 'date',
-                                                                    yField: 'cpu_free',
+                                                                    title: 'Free',
+                                                                    xField: 'regDt',
+                                                                    yField: 'FACTOR_001',
                                                                     markerConfig: {
                                                                         radius: 3,
                                                                         size: 3
                                                                     },
-                                                                    showMarkers: false,
                                                                     style: {
                                                                         stroke: '#0000ff',
                                                                         fill: '#0000ff'
@@ -903,7 +914,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     xtype: 'panel',
                                                     flex: 1,
                                                     region: 'center',
-                                                    id: 'cpuPanel1',
+                                                    id: 'memoryPanel',
                                                     layout: {
                                                         type: 'hbox',
                                                         align: 'stretch'
@@ -913,41 +924,52 @@ Ext.define('MyApp.view.instancesContainer', {
                                                             xtype: 'label',
                                                             dock: 'top',
                                                             cls: 'chart-title',
+                                                            id: 'chartMemoryLabel',
+                                                            itemId: 'chartMemoryLabel',
                                                             text: 'Memory'
                                                         }
                                                     ],
                                                     items: [
                                                         {
                                                             xtype: 'chart',
-                                                            height: 250,
-                                                            id: 'cpuChart3',
-                                                            itemId: 'cpuChart1',
-                                                            minWidth: 320,
+                                                            flex: 1,
+                                                            id: 'memoryChart',
+                                                            itemId: 'memoryChart',
+                                                            margin: '5 0 0 5',
                                                             shadow: true,
+                                                            autoSize: true,
                                                             animate: true,
                                                             insetPadding: 20,
-                                                            store: 'instanceMonitoringChartStore',
+                                                            store: 'InstanceMonitoringStore',
                                                             axes: [
                                                                 {
                                                                     type: 'Category',
                                                                     constrain: true,
                                                                     fields: [
-                                                                        'date'
+                                                                        'regDt'
                                                                     ],
                                                                     label: {
                                                                         rotate: {
                                                                             degrees: 315
                                                                         }
                                                                     },
+                                                                    grid: true,
                                                                     position: 'bottom'
                                                                 },
                                                                 {
                                                                     type: 'Numeric',
                                                                     fields: [
-                                                                        'memory_use',
-                                                                        'memory_free'
+                                                                        'FACTOR_004',
+                                                                        'FACTOR_005'
                                                                     ],
-                                                                    maximum: 100,
+                                                                    grid: {
+                                                                        odd: {
+                                                                            fill: '#dedede',
+                                                                            stroke: '#ddd',
+                                                                            'stroke-width': 0.5
+                                                                        }
+                                                                    },
+                                                                    minimum: 0,
                                                                     position: 'left'
                                                                 }
                                                             ],
@@ -960,14 +982,13 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                         renderer: function(v) { return v >> 0; },
                                                                         'text-anchor': 'middle'
                                                                     },
-                                                                    title: 'Free',
-                                                                    xField: 'date',
-                                                                    yField: 'memory_use',
+                                                                    title: 'Used',
+                                                                    xField: 'regDt',
+                                                                    yField: 'FACTOR_005',
                                                                     markerConfig: {
                                                                         radius: 3,
                                                                         size: 3
                                                                     },
-                                                                    showMarkers: false,
                                                                     style: {
                                                                         stroke: '#ff0000',
                                                                         fill: '#ff0000'
@@ -981,14 +1002,13 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                         renderer: function(v) { return v >> 0; },
                                                                         'text-anchor': 'middle'
                                                                     },
-                                                                    title: 'Used',
-                                                                    xField: 'date',
-                                                                    yField: 'memory_free',
+                                                                    title: 'Free',
+                                                                    xField: 'regDt',
+                                                                    yField: 'FACTOR_004',
                                                                     markerConfig: {
                                                                         radius: 3,
                                                                         size: 3
                                                                     },
-                                                                    showMarkers: false,
                                                                     style: {
                                                                         stroke: '#0000ff',
                                                                         fill: '#0000ff'
@@ -1000,7 +1020,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                             },
                                                             listeners: {
                                                                 click: {
-                                                                    fn: me.onCpuChart3Click,
+                                                                    fn: me.onCpuChartClick1,
                                                                     scope: me
                                                                 }
                                                             }
@@ -1011,7 +1031,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     xtype: 'panel',
                                                     flex: 1,
                                                     region: 'east',
-                                                    id: 'cpuPanel2',
+                                                    id: 'diskPanel',
                                                     layout: {
                                                         type: 'hbox',
                                                         align: 'stretch'
@@ -1021,41 +1041,62 @@ Ext.define('MyApp.view.instancesContainer', {
                                                             xtype: 'label',
                                                             dock: 'top',
                                                             cls: 'chart-title',
+                                                            id: 'chartDiskLabel',
+                                                            itemId: 'chartDiskLabel',
                                                             text: 'Disk'
                                                         }
                                                     ],
                                                     items: [
                                                         {
                                                             xtype: 'chart',
-                                                            height: 250,
-                                                            id: 'cpuChart4',
-                                                            itemId: 'cpuChart2',
-                                                            minWidth: 320,
+                                                            flex: 1,
+                                                            cls: '',
+                                                            id: 'diskChart',
+                                                            itemId: 'diskChart',
+                                                            margin: '5 0 0 5',
                                                             shadow: true,
+                                                            autoSize: true,
                                                             animate: true,
                                                             insetPadding: 20,
-                                                            store: 'instanceMonitoringChartStore',
+                                                            store: 'InstanceMonitoringStore',
                                                             axes: [
                                                                 {
                                                                     type: 'Category',
                                                                     constrain: true,
                                                                     fields: [
-                                                                        'date'
+                                                                        'regDt'
                                                                     ],
                                                                     label: {
                                                                         rotate: {
                                                                             degrees: 315
                                                                         }
                                                                     },
+                                                                    grid: true,
                                                                     position: 'bottom'
                                                                 },
                                                                 {
                                                                     type: 'Numeric',
                                                                     fields: [
-                                                                        'disk_use',
-                                                                        'disk_free'
+                                                                        'DISK_001',
+                                                                        'DISK_002',
+                                                                        'DISK_3',
+                                                                        'DISK_4',
+                                                                        'DISK_5',
+                                                                        'DISK_6',
+                                                                        'DISK_7',
+                                                                        'DISK_8',
+                                                                        'DISK_9',
+                                                                        'DISK_10'
                                                                     ],
+                                                                    grid: {
+                                                                        odd: {
+                                                                            fill: '#dedede',
+                                                                            stroke: '#ddd',
+                                                                            'stroke-width': 0.5
+                                                                        }
+                                                                    },
                                                                     maximum: 100,
+                                                                    minimum: 0,
                                                                     position: 'left'
                                                                 }
                                                             ],
@@ -1068,17 +1109,12 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                         renderer: function(v) { return v >> 0; },
                                                                         'text-anchor': 'middle'
                                                                     },
-                                                                    title: 'Free',
-                                                                    xField: 'date',
-                                                                    yField: 'disk_use',
+                                                                    title: 'DISK_1',
+                                                                    xField: 'regDt',
+                                                                    yField: 'DISK_1',
                                                                     markerConfig: {
                                                                         radius: 3,
                                                                         size: 3
-                                                                    },
-                                                                    showMarkers: false,
-                                                                    style: {
-                                                                        stroke: '#ff0000',
-                                                                        fill: '#ff0000'
                                                                     }
                                                                 },
                                                                 {
@@ -1089,18 +1125,114 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                         renderer: function(v) { return v >> 0; },
                                                                         'text-anchor': 'middle'
                                                                     },
-                                                                    title: 'Used',
-                                                                    xField: 'date',
-                                                                    yField: 'disk_free',
-                                                                    markerConfig: {
-                                                                        radius: 3,
-                                                                        size: 3
+                                                                    showInLegend: false,
+                                                                    title: 'DISK_2',
+                                                                    xField: 'regDt',
+                                                                    yField: 'DISK_2'
+                                                                },
+                                                                {
+                                                                    type: 'line',
+                                                                    label: {
+                                                                        display: 'none',
+                                                                        field: 'visits',
+                                                                        renderer: function(v) { return v >> 0; },
+                                                                        'text-anchor': 'middle'
                                                                     },
-                                                                    showMarkers: false,
-                                                                    style: {
-                                                                        stroke: '#0000ff',
-                                                                        fill: '#0000ff'
-                                                                    }
+                                                                    showInLegend: false,
+                                                                    title: 'DISK_3',
+                                                                    xField: 'regDt',
+                                                                    yField: 'DISK_3'
+                                                                },
+                                                                {
+                                                                    type: 'line',
+                                                                    label: {
+                                                                        display: 'none',
+                                                                        field: 'visits',
+                                                                        renderer: function(v) { return v >> 0; },
+                                                                        'text-anchor': 'middle'
+                                                                    },
+                                                                    showInLegend: false,
+                                                                    title: 'DISK_4',
+                                                                    xField: 'regDt',
+                                                                    yField: 'DISK_4'
+                                                                },
+                                                                {
+                                                                    type: 'line',
+                                                                    label: {
+                                                                        display: 'none',
+                                                                        field: 'visits',
+                                                                        renderer: function(v) { return v >> 0; },
+                                                                        'text-anchor': 'middle'
+                                                                    },
+                                                                    showInLegend: false,
+                                                                    title: 'DISK_5',
+                                                                    xField: 'regDt',
+                                                                    yField: 'DISK_5'
+                                                                },
+                                                                {
+                                                                    type: 'line',
+                                                                    label: {
+                                                                        display: 'none',
+                                                                        field: 'visits',
+                                                                        renderer: function(v) { return v >> 0; },
+                                                                        'text-anchor': 'middle'
+                                                                    },
+                                                                    showInLegend: false,
+                                                                    title: 'DISK_6',
+                                                                    xField: 'regDt',
+                                                                    yField: 'DISK_6'
+                                                                },
+                                                                {
+                                                                    type: 'line',
+                                                                    label: {
+                                                                        display: 'none',
+                                                                        field: 'visits',
+                                                                        renderer: function(v) { return v >> 0; },
+                                                                        'text-anchor': 'middle'
+                                                                    },
+                                                                    showInLegend: false,
+                                                                    title: 'DISK_7',
+                                                                    xField: 'regDt',
+                                                                    yField: 'DISK_7'
+                                                                },
+                                                                {
+                                                                    type: 'line',
+                                                                    label: {
+                                                                        display: 'none',
+                                                                        field: 'visits',
+                                                                        renderer: function(v) { return v >> 0; },
+                                                                        'text-anchor': 'middle'
+                                                                    },
+                                                                    showInLegend: false,
+                                                                    title: 'DISK_8',
+                                                                    xField: 'regDt',
+                                                                    yField: 'DISK_8'
+                                                                },
+                                                                {
+                                                                    type: 'line',
+                                                                    label: {
+                                                                        display: 'none',
+                                                                        field: 'visits',
+                                                                        renderer: function(v) { return v >> 0; },
+                                                                        'text-anchor': 'middle'
+                                                                    },
+                                                                    showInLegend: false,
+                                                                    title: 'DISK_9',
+                                                                    xField: 'regDt',
+                                                                    yField: 'DISK_9'
+                                                                },
+                                                                {
+                                                                    type: 'line',
+                                                                    label: {
+                                                                        display: 'none',
+                                                                        field: 'visits',
+                                                                        renderer: function(v) { return v >> 0; },
+                                                                        'text-anchor': 'middle'
+                                                                    },
+                                                                    showInLegend: false,
+                                                                    title: 'DISK_10',
+                                                                    xField: 'regDt',
+                                                                    yField: 'DISK_10'
                                                                 }
                                                             ],
                                                             legend: {
@@ -1108,7 +1240,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                             },
                                                             listeners: {
                                                                 click: {
-                                                                    fn: me.onCpuChart4Click,
+                                                                    fn: me.onCpuChartClick11,
                                                                     scope: me
                                                                 }
                                                             }
@@ -1117,7 +1249,13 @@ Ext.define('MyApp.view.instancesContainer', {
                                                 }
                                             ]
                                         }
-                                    ]
+                                    ],
+                                    listeners: {
+                                        beforedeactivate: {
+                                            fn: me.onPanelBeforeDeactivate,
+                                            scope: me
+                                        }
+                                    }
                                 }
                             ]
                         }
@@ -1138,21 +1276,21 @@ Ext.define('MyApp.view.instancesContainer', {
     },
 
     onCpuChartClick: function(e, eOpts) {
-        var monitoringChartWindow = Ext.create("widget.monitoringChartWindow");
-
-        monitoringChartWindow.show();
+        instancesConstants.me.viewInstanceMonitoringPopup('cpu');
     },
 
-    onCpuChart3Click: function(e, eOpts) {
-        var monitoringChartWindow = Ext.create("widget.monitoringChartWindow");
-
-        monitoringChartWindow.show();
+    onCpuChartClick1: function(e, eOpts) {
+        instancesConstants.me.viewInstanceMonitoringPopup('memory');
     },
 
-    onCpuChart4Click: function(e, eOpts) {
-        var monitoringChartWindow = Ext.create("widget.monitoringChartWindow");
+    onCpuChartClick11: function(e, eOpts) {
+        instancesConstants.me.viewInstanceMonitoringPopup('disk');
 
-        monitoringChartWindow.show();
+    },
+
+    onPanelBeforeDeactivate: function(component, eOpts) {
+        clearInterval(instancesConstants.chartInterval);
+
     }
 
 });

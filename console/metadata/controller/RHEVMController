@@ -54,6 +54,7 @@
                 "fn": "onRhevmTabPanelTabChange",
                 "implHandler": [
                     "",
+                    "//RHEVM Tab Change",
                     "if(newCard.title == \"Templates\"){",
                     "",
                     "    Ext.getCmp(\"searchRhevmTemplateName\").setValue(\"\");",
@@ -87,6 +88,8 @@
                 "designer|targetType": "Ext.grid.Panel",
                 "fn": "onRhevmVMGridItemClick",
                 "implHandler": [
+                    "",
+                    "//RHEVM VM 상세 조회",
                     "",
                     "if(RHEVMConstants.childSelectRow == null || RHEVMConstants.childSelectRow.get(\"vmId\") != record.get(\"vmId\")) {",
                     "",
@@ -214,6 +217,9 @@
                 "designer|targetType": "Ext.grid.Panel",
                 "fn": "onRhevmVMGridBeforeItemContextMenu",
                 "implHandler": [
+                    "",
+                    "//RHEVM VM Grid Right Click Menu 호출",
+                    "",
                     "var position = e.getXY();",
                     "e.stopEvent();",
                     "",
@@ -268,6 +274,8 @@
                 "fn": "onRhevmTemplateGridSelect",
                 "implHandler": [
                     "",
+                    "//RHEVM Template 상세 조회",
+                    "",
                     "if(RHEVMConstants.childSelectRow == null || RHEVMConstants.childSelectRow.get(\"templateId\") != record.get(\"templateId\")) {",
                     "",
                     "    RHEVMConstants.childSelectRow = record;",
@@ -295,6 +303,8 @@
                 "fn": "searchHypervisor",
                 "implHandler": [
                     "",
+                    "//RHEVM List 조회",
+                    "",
                     "if(init) {",
                     "    Ext.getCmp(\"hypervisorGrid\").reconfigure(Ext.getCmp(\"hypervisorGrid\").store, Ext.getCmp(\"hypervisorGrid\").initialConfig.columns);",
                     "}",
@@ -320,6 +330,8 @@
             "userConfig": {
                 "fn": "selectHypervisorGrid",
                 "implHandler": [
+                    "",
+                    "//RHEVM Grid Select",
                     "var detailPanel = Ext.getCmp(\"rhevmDetailPanel\");",
                     "detailPanel.layout.setActiveItem(1);",
                     "",
@@ -434,6 +446,8 @@
                 "fn": "searchRhevmChildGrid",
                 "implHandler": [
                     "",
+                    "//RHEVM Detail Tab 조회",
+                    "",
                     "RHEVMConstants.childSelectRow = null;",
                     "",
                     "var detailDPanel = Ext.getCmp(\"rhevmTabDetailPanel\");",
@@ -484,6 +498,9 @@
             "userConfig": {
                 "fn": "showTemplateWindow",
                 "implHandler": [
+                    "",
+                    "//Template 생성 팝업 호출",
+                    "",
                     "var templateWindow = Ext.create(\"widget.RegTemplateWindow\");",
                     "",
                     "templateWindow.show();",
@@ -507,6 +524,9 @@
                 "designer|targetType": "Ext.grid.Panel",
                 "fn": "onHypervisorGridBeforeItemContextMenu",
                 "implHandler": [
+                    "",
+                    "//RHEVM Right Click Menu 호출",
+                    "",
                     "var position = e.getXY();",
                     "e.stopEvent();",
                     "",
@@ -531,7 +551,8 @@
                 "designer|targetType": "Ext.form.field.Text",
                 "fn": "onSearchRhevmVMNameKeydown",
                 "implHandler": [
-                    "//Instance Name Search",
+                    "",
+                    "//RHEVM VM Name Search",
                     "if(e.getKey() == e.ENTER){",
                     "    this.searchRhevmChildGrid('rhevmVMGrid');",
                     "}"
@@ -553,7 +574,7 @@
                 "designer|targetType": "Ext.form.field.Text",
                 "fn": "onSearchRhevmTemplateNameKeydown",
                 "implHandler": [
-                    "//Instance Name Search",
+                    "//RHEVM Template Name Search",
                     "if(e.getKey() == e.ENTER){",
                     "    this.searchRhevmChildGrid('rhevmTemplateGrid');",
                     "}"
@@ -576,6 +597,8 @@
                 ],
                 "fn": "controlVMStatus",
                 "implHandler": [
+                    "",
+                    "//VM 제어",
                     "",
                     "var controlUrl = '';",
                     "",
@@ -638,6 +661,8 @@
                 "fn": "deleteTemplate",
                 "implHandler": [
                     "",
+                    "//Template Delete",
+                    "",
                     "Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){",
                     "",
                     "    if(btn == \"yes\"){",
@@ -678,6 +703,8 @@
                 "designer|targetType": "Ext.grid.Panel",
                 "fn": "onRhevmTemplateGridBeforeItemContextMenu",
                 "implHandler": [
+                    "//RHEVM Template Right Click Menu 호출",
+                    "",
                     "var position = e.getXY();",
                     "e.stopEvent();",
                     "",
@@ -704,7 +731,7 @@
                 "fn": "selectRhevmChildGrid",
                 "implHandler": [
                     "",
-                    "//RHEVM VM Grid Item Click",
+                    "//RHEVM VM 상세 조회",
                     "var detailTab = Ext.getCmp(\"rhevmTabDetailPanel\");",
                     "detailTab.expand();",
                     "",
@@ -732,6 +759,7 @@
                 "fn": "searchRhevmChildDetailTab",
                 "implHandler": [
                     "",
+                    "//RHEVM VM 상세 정보 조회(Tab 별)",
                     "var searchParam, searchUrl;",
                     "",
                     "if(tabTitle == \"General\") {",
@@ -859,6 +887,7 @@
                 "designer|targetType": "Ext.tab.Panel",
                 "fn": "onRhevmTabDetailTabPanelTabChange",
                 "implHandler": [
+                    "//RHEVM Detail Child Tab Change",
                     "",
                     "var type;",
                     "",
@@ -886,6 +915,9 @@
             "userConfig": {
                 "fn": "popCreateInstance",
                 "implHandler": [
+                    "",
+                    "//Instance 생성 팝업 호출(Template 지정)",
+                    "",
                     "var regInstanceWindow = Ext.create(\"widget.RegInstanceWindow\");",
                     "regInstanceWindow.show();",
                     "",

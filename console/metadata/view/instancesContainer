@@ -1916,6 +1916,7 @@
                                                 "layout": "hbox",
                                                 "layout|flex": 1,
                                                 "layout|region": "west",
+                                                "minWidth": null,
                                                 "title": null,
                                                 "width": null
                                             },
@@ -1932,6 +1933,10 @@
                                                         "cls": "chart-title",
                                                         "dock": "top",
                                                         "html": null,
+                                                        "id": "chartCpuLabel",
+                                                        "itemId": "chartCpuLabel",
+                                                        "margin": "",
+                                                        "padding": null,
                                                         "text": "CPU"
                                                     },
                                                     "designerId": "dd764600-908c-4183-9203-7977b40e6947"
@@ -1947,14 +1952,20 @@
                                                         "animate": [
                                                             "true"
                                                         ],
+                                                        "autoSize": true,
+                                                        "cls": null,
                                                         "designer|displayName": "cpu",
-                                                        "height": 250,
+                                                        "height": null,
                                                         "id": "cpuChart",
                                                         "insetPadding": 20,
                                                         "itemId": "cpuChart",
-                                                        "minWidth": 320,
+                                                        "layout|flex": 1,
+                                                        "layout|margins": null,
+                                                        "margin": "5 0 0 5",
+                                                        "minWidth": null,
+                                                        "padding": null,
                                                         "shadow": true,
-                                                        "store": "instanceMonitoringChartStore",
+                                                        "store": "InstanceMonitoringStore",
                                                         "width": null
                                                     },
                                                     "designerId": "dcb17b3d-f910-4c9a-9ecb-d86cb7ca68e1",
@@ -1975,8 +1986,9 @@
                                                                     "true"
                                                                 ],
                                                                 "fields": [
-                                                                    "date"
+                                                                    "regDt"
                                                                 ],
+                                                                "grid": true,
                                                                 "label": [
                                                                     "{",
                                                                     "    rotate: {",
@@ -1988,7 +2000,8 @@
                                                                 "type": null
                                                             },
                                                             "configAlternates": {
-                                                                "constrain": "object"
+                                                                "constrain": "object",
+                                                                "grid": "boolean"
                                                             },
                                                             "designerId": "0f90e83e-4589-4260-95f4-9cbb936c9369",
                                                             "customConfigs": [
@@ -2018,11 +2031,20 @@
                                                             "codeClass": null,
                                                             "userConfig": {
                                                                 "fields": [
-                                                                    "cpu_use",
-                                                                    "cpu_free"
+                                                                    "FACTOR_001",
+                                                                    "FACTOR_002"
+                                                                ],
+                                                                "grid": [
+                                                                    "{",
+                                                                    "    odd: {",
+                                                                    "        fill: '#dedede',",
+                                                                    "        stroke: '#ddd',",
+                                                                    "        'stroke-width': 0.5",
+                                                                    "    }",
+                                                                    "}"
                                                                 ],
                                                                 "maximum": 100,
-                                                                "minimum": null,
+                                                                "minimum": 0,
                                                                 "title": null
                                                             },
                                                             "designerId": "2cc23346-975e-40e7-97d5-75e287bbbe79"
@@ -2049,7 +2071,6 @@
                                                                     "    size: 3",
                                                                     "}"
                                                                 ],
-                                                                "showMarkers": false,
                                                                 "style": [
                                                                     "{",
                                                                     "     stroke: '#ff0000',",
@@ -2057,11 +2078,11 @@
                                                                     "}"
                                                                 ],
                                                                 "title": [
-                                                                    "Idle CPU"
+                                                                    "Used"
                                                                 ],
-                                                                "xField": "date",
+                                                                "xField": "regDt",
                                                                 "yField": [
-                                                                    "cpu_use"
+                                                                    "FACTOR_002"
                                                                 ]
                                                             },
                                                             "configAlternates": {
@@ -2091,7 +2112,6 @@
                                                                     "    size: 3",
                                                                     "}"
                                                                 ],
-                                                                "showMarkers": false,
                                                                 "style": [
                                                                     "{",
                                                                     "     stroke: '#0000ff',",
@@ -2099,11 +2119,11 @@
                                                                     "}"
                                                                 ],
                                                                 "title": [
-                                                                    "Combined CPU"
+                                                                    "Free"
                                                                 ],
-                                                                "xField": "date",
+                                                                "xField": "regDt",
                                                                 "yField": [
-                                                                    "cpu_free"
+                                                                    "FACTOR_001"
                                                                 ]
                                                             },
                                                             "configAlternates": {
@@ -2133,9 +2153,7 @@
                                                             "userConfig": {
                                                                 "fn": "onCpuChartClick",
                                                                 "implHandler": [
-                                                                    "var monitoringChartWindow = Ext.create(\"widget.monitoringChartWindow\");",
-                                                                    "",
-                                                                    "monitoringChartWindow.show();"
+                                                                    "instancesConstants.me.viewInstanceMonitoringPopup('cpu');"
                                                                 ],
                                                                 "name": "click",
                                                                 "scope": "me"
@@ -2155,7 +2173,7 @@
                                             "codeClass": null,
                                             "userConfig": {
                                                 "container|align": "stretch",
-                                                "id": "cpuPanel1",
+                                                "id": "memoryPanel",
                                                 "layout": "hbox",
                                                 "layout|flex": 1,
                                                 "layout|region": "center",
@@ -2174,6 +2192,8 @@
                                                         "cls": "chart-title",
                                                         "dock": "top",
                                                         "html": null,
+                                                        "id": "chartMemoryLabel",
+                                                        "itemId": "chartMemoryLabel",
                                                         "text": "Memory"
                                                     },
                                                     "designerId": "17f9538e-e4cc-45c7-9477-50689a2d7507"
@@ -2189,17 +2209,22 @@
                                                         "animate": [
                                                             "true"
                                                         ],
+                                                        "autoSize": true,
                                                         "designer|displayName": "memory",
-                                                        "height": 250,
-                                                        "id": "cpuChart3",
+                                                        "height": null,
+                                                        "id": "memoryChart",
                                                         "insetPadding": 20,
-                                                        "itemId": "cpuChart1",
-                                                        "minWidth": 320,
+                                                        "itemId": "memoryChart",
+                                                        "layout|flex": 1,
+                                                        "layout|margins": null,
+                                                        "margin": "5 0 0 5",
+                                                        "minWidth": null,
+                                                        "padding": null,
                                                         "shadow": true,
-                                                        "store": "instanceMonitoringChartStore",
+                                                        "store": "InstanceMonitoringStore",
                                                         "width": null
                                                     },
-                                                    "designerId": "facc1bf8-a505-4ebe-911b-f38e40b8dfa4",
+                                                    "designerId": "d4959b3b-a2a1-42c7-b728-722ebed8d7be",
                                                     "isBuiltIn": true,
                                                     "iconCls": "icon-line-chart",
                                                     "autoName": "LineChart",
@@ -2217,8 +2242,9 @@
                                                                     "true"
                                                                 ],
                                                                 "fields": [
-                                                                    "date"
+                                                                    "regDt"
                                                                 ],
+                                                                "grid": true,
                                                                 "label": [
                                                                     "{",
                                                                     "    rotate: {",
@@ -2230,9 +2256,10 @@
                                                                 "type": null
                                                             },
                                                             "configAlternates": {
-                                                                "constrain": "object"
+                                                                "constrain": "object",
+                                                                "grid": "boolean"
                                                             },
-                                                            "designerId": "fdd5aff2-0b39-433c-8d19-12c9d5919864",
+                                                            "designerId": "6eb0114c-cff2-4c79-a127-a562a6d50400",
                                                             "customConfigs": [
                                                                 {
                                                                     "group": "(Custom Properties)",
@@ -2260,14 +2287,23 @@
                                                             "codeClass": null,
                                                             "userConfig": {
                                                                 "fields": [
-                                                                    "memory_use",
-                                                                    "memory_free"
+                                                                    "FACTOR_004",
+                                                                    "FACTOR_005"
                                                                 ],
-                                                                "maximum": 100,
-                                                                "minimum": null,
+                                                                "grid": [
+                                                                    "{",
+                                                                    "    odd: {",
+                                                                    "        fill: '#dedede',",
+                                                                    "        stroke: '#ddd',",
+                                                                    "        'stroke-width': 0.5",
+                                                                    "    }",
+                                                                    "}"
+                                                                ],
+                                                                "maximum": null,
+                                                                "minimum": 0,
                                                                 "title": null
                                                             },
-                                                            "designerId": "1a87c383-65df-4f9f-9366-72c1c778b257"
+                                                            "designerId": "ca5d86e9-a569-4b44-8f92-a670aa103b85"
                                                         },
                                                         {
                                                             "type": "Ext.chart.series.Line",
@@ -2291,7 +2327,6 @@
                                                                     "    size: 3",
                                                                     "}"
                                                                 ],
-                                                                "showMarkers": false,
                                                                 "style": [
                                                                     "{",
                                                                     "     stroke: '#ff0000',",
@@ -2299,17 +2334,17 @@
                                                                     "}"
                                                                 ],
                                                                 "title": [
-                                                                    "Free"
+                                                                    "Used"
                                                                 ],
-                                                                "xField": "date",
+                                                                "xField": "regDt",
                                                                 "yField": [
-                                                                    "memory_use"
+                                                                    "FACTOR_005"
                                                                 ]
                                                             },
                                                             "configAlternates": {
                                                                 "smooth": "boolean"
                                                             },
-                                                            "designerId": "dc37af21-5284-46e8-b9d6-575938d57aad"
+                                                            "designerId": "d21d32e7-e6a8-4427-99e9-21e7327643c3"
                                                         },
                                                         {
                                                             "type": "Ext.chart.series.Line",
@@ -2333,7 +2368,6 @@
                                                                     "    size: 3",
                                                                     "}"
                                                                 ],
-                                                                "showMarkers": false,
                                                                 "style": [
                                                                     "{",
                                                                     "     stroke: '#0000ff',",
@@ -2341,17 +2375,17 @@
                                                                     "}"
                                                                 ],
                                                                 "title": [
-                                                                    "Used"
+                                                                    "Free"
                                                                 ],
-                                                                "xField": "date",
+                                                                "xField": "regDt",
                                                                 "yField": [
-                                                                    "memory_free"
+                                                                    "FACTOR_004"
                                                                 ]
                                                             },
                                                             "configAlternates": {
                                                                 "smooth": "boolean"
                                                             },
-                                                            "designerId": "eef3b5b2-0c97-4fca-9fec-e2c7f566bcc8"
+                                                            "designerId": "2cc4003e-8bdd-465a-b951-bf63baa0fe5c"
                                                         },
                                                         {
                                                             "type": "Ext.chart.Legend",
@@ -2363,7 +2397,7 @@
                                                             "userConfig": {
                                                                 "designer|displayName": ""
                                                             },
-                                                            "designerId": "c260e6a4-6a14-4698-a5fa-ebb884d5e6e4"
+                                                            "designerId": "f4277212-60f1-4c61-969c-3867635556d6"
                                                         },
                                                         {
                                                             "type": "basiceventbinding",
@@ -2373,16 +2407,14 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
-                                                                "fn": "onCpuChart3Click",
+                                                                "fn": "onCpuChartClick1",
                                                                 "implHandler": [
-                                                                    "var monitoringChartWindow = Ext.create(\"widget.monitoringChartWindow\");",
-                                                                    "",
-                                                                    "monitoringChartWindow.show();"
+                                                                    "instancesConstants.me.viewInstanceMonitoringPopup('memory');"
                                                                 ],
                                                                 "name": "click",
                                                                 "scope": "me"
                                                             },
-                                                            "designerId": "6cee4ad3-c8cf-45a8-8b86-d52c57f58dce"
+                                                            "designerId": "c40f5654-ee2e-4642-8029-7e2c432a7cfb"
                                                         }
                                                     ]
                                                 }
@@ -2397,7 +2429,7 @@
                                             "codeClass": null,
                                             "userConfig": {
                                                 "container|align": "stretch",
-                                                "id": "cpuPanel2",
+                                                "id": "diskPanel",
                                                 "layout": "hbox",
                                                 "layout|flex": 1,
                                                 "layout|region": "east",
@@ -2417,6 +2449,8 @@
                                                         "cls": "chart-title",
                                                         "dock": "top",
                                                         "html": null,
+                                                        "id": "chartDiskLabel",
+                                                        "itemId": "chartDiskLabel",
                                                         "text": "Disk"
                                                     },
                                                     "designerId": "1f0dc478-8474-4480-8dd7-99c2a8410809"
@@ -2432,17 +2466,23 @@
                                                         "animate": [
                                                             "true"
                                                         ],
+                                                        "autoSize": true,
+                                                        "cls": "",
                                                         "designer|displayName": "disk",
-                                                        "height": 250,
-                                                        "id": "cpuChart4",
+                                                        "height": null,
+                                                        "id": "diskChart",
                                                         "insetPadding": 20,
-                                                        "itemId": "cpuChart2",
-                                                        "minWidth": 320,
+                                                        "itemId": "diskChart",
+                                                        "layout|flex": 1,
+                                                        "layout|margins": null,
+                                                        "margin": "5 0 0 5",
+                                                        "minWidth": null,
+                                                        "padding": null,
                                                         "shadow": true,
-                                                        "store": "instanceMonitoringChartStore",
+                                                        "store": "InstanceMonitoringStore",
                                                         "width": null
                                                     },
-                                                    "designerId": "2c5b519c-d046-4e6c-accf-59ebd3bb76bc",
+                                                    "designerId": "d710cdc7-fa2d-4e1c-ad3e-adb741be4353",
                                                     "isBuiltIn": true,
                                                     "iconCls": "icon-line-chart",
                                                     "autoName": "LineChart",
@@ -2460,8 +2500,9 @@
                                                                     "true"
                                                                 ],
                                                                 "fields": [
-                                                                    "date"
+                                                                    "regDt"
                                                                 ],
+                                                                "grid": true,
                                                                 "label": [
                                                                     "{",
                                                                     "    rotate: {",
@@ -2473,9 +2514,10 @@
                                                                 "type": null
                                                             },
                                                             "configAlternates": {
-                                                                "constrain": "object"
+                                                                "constrain": "object",
+                                                                "grid": "boolean"
                                                             },
-                                                            "designerId": "9e92c537-9c1c-4a8f-9b35-bf2493ee5820",
+                                                            "designerId": "de78a34c-0b5e-4c77-a064-fc3fbd534bbe",
                                                             "customConfigs": [
                                                                 {
                                                                     "group": "(Custom Properties)",
@@ -2503,14 +2545,31 @@
                                                             "codeClass": null,
                                                             "userConfig": {
                                                                 "fields": [
-                                                                    "disk_use",
-                                                                    "disk_free"
+                                                                    "DISK_001",
+                                                                    "DISK_002",
+                                                                    "DISK_3",
+                                                                    "DISK_4",
+                                                                    "DISK_5",
+                                                                    "DISK_6",
+                                                                    "DISK_7",
+                                                                    "DISK_8",
+                                                                    "DISK_9",
+                                                                    "DISK_10"
+                                                                ],
+                                                                "grid": [
+                                                                    "{",
+                                                                    "    odd: {",
+                                                                    "        fill: '#dedede',",
+                                                                    "        stroke: '#ddd',",
+                                                                    "        'stroke-width': 0.5",
+                                                                    "    }",
+                                                                    "}"
                                                                 ],
                                                                 "maximum": 100,
-                                                                "minimum": null,
+                                                                "minimum": 0,
                                                                 "title": null
                                                             },
-                                                            "designerId": "525ea277-1552-40b7-aa8b-746ed72f3882"
+                                                            "designerId": "fd36c27a-f5a9-4900-b544-7a336b4b8133"
                                                         },
                                                         {
                                                             "type": "Ext.chart.series.Line",
@@ -2534,25 +2593,18 @@
                                                                     "    size: 3",
                                                                     "}"
                                                                 ],
-                                                                "showMarkers": false,
-                                                                "style": [
-                                                                    "{",
-                                                                    "     stroke: '#ff0000',",
-                                                                    "     fill: '#ff0000'",
-                                                                    "}"
-                                                                ],
                                                                 "title": [
-                                                                    "Free"
+                                                                    "DISK_1"
                                                                 ],
-                                                                "xField": "date",
+                                                                "xField": "regDt",
                                                                 "yField": [
-                                                                    "disk_use"
+                                                                    "DISK_001"
                                                                 ]
                                                             },
                                                             "configAlternates": {
                                                                 "smooth": "boolean"
                                                             },
-                                                            "designerId": "97009a11-3ced-4af0-a626-e1dcc814d483"
+                                                            "designerId": "4d7dc164-766d-4fc9-80d6-d5bab4a68f50"
                                                         },
                                                         {
                                                             "type": "Ext.chart.series.Line",
@@ -2570,31 +2622,259 @@
                                                                     "    'text-anchor': 'middle'",
                                                                     "}"
                                                                 ],
-                                                                "markerConfig": [
-                                                                    "{",
-                                                                    "    radius: 3,",
-                                                                    "    size: 3",
-                                                                    "}"
-                                                                ],
-                                                                "showMarkers": false,
-                                                                "style": [
-                                                                    "{",
-                                                                    "     stroke: '#0000ff',",
-                                                                    "     fill: '#0000ff'",
-                                                                    "}"
-                                                                ],
+                                                                "showInLegend": false,
                                                                 "title": [
-                                                                    "Used"
+                                                                    "DISK_2"
                                                                 ],
-                                                                "xField": "date",
+                                                                "xField": "regDt",
                                                                 "yField": [
-                                                                    "disk_free"
+                                                                    "DISK_002"
                                                                 ]
                                                             },
                                                             "configAlternates": {
                                                                 "smooth": "boolean"
                                                             },
-                                                            "designerId": "09fe8e4e-54c0-4d96-98c4-6e160cd572e6"
+                                                            "designerId": "11c1c659-8b52-4faf-89e1-64562538f676"
+                                                        },
+                                                        {
+                                                            "type": "Ext.chart.series.Line",
+                                                            "reference": {
+                                                                "name": "series",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "label": [
+                                                                    "{",
+                                                                    "    display: 'none',",
+                                                                    "    field: 'visits',",
+                                                                    "    renderer: function(v) { return v >> 0; },",
+                                                                    "    'text-anchor': 'middle'",
+                                                                    "}"
+                                                                ],
+                                                                "showInLegend": false,
+                                                                "title": [
+                                                                    "DISK_3"
+                                                                ],
+                                                                "xField": "regDt",
+                                                                "yField": [
+                                                                    "DISK_003"
+                                                                ]
+                                                            },
+                                                            "configAlternates": {
+                                                                "smooth": "boolean"
+                                                            },
+                                                            "designerId": "55d76970-f8f5-4bcd-ad4e-c8dd8511d12e"
+                                                        },
+                                                        {
+                                                            "type": "Ext.chart.series.Line",
+                                                            "reference": {
+                                                                "name": "series",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "label": [
+                                                                    "{",
+                                                                    "    display: 'none',",
+                                                                    "    field: 'visits',",
+                                                                    "    renderer: function(v) { return v >> 0; },",
+                                                                    "    'text-anchor': 'middle'",
+                                                                    "}"
+                                                                ],
+                                                                "showInLegend": false,
+                                                                "title": [
+                                                                    "DISK_4"
+                                                                ],
+                                                                "xField": "regDt",
+                                                                "yField": [
+                                                                    "DISK_004"
+                                                                ]
+                                                            },
+                                                            "configAlternates": {
+                                                                "smooth": "boolean"
+                                                            },
+                                                            "designerId": "245379f1-3961-4a36-a9c7-195615feaeaf"
+                                                        },
+                                                        {
+                                                            "type": "Ext.chart.series.Line",
+                                                            "reference": {
+                                                                "name": "series",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "label": [
+                                                                    "{",
+                                                                    "    display: 'none',",
+                                                                    "    field: 'visits',",
+                                                                    "    renderer: function(v) { return v >> 0; },",
+                                                                    "    'text-anchor': 'middle'",
+                                                                    "}"
+                                                                ],
+                                                                "showInLegend": false,
+                                                                "title": [
+                                                                    "DISK_5"
+                                                                ],
+                                                                "xField": "regDt",
+                                                                "yField": [
+                                                                    "DISK_005"
+                                                                ]
+                                                            },
+                                                            "configAlternates": {
+                                                                "smooth": "boolean"
+                                                            },
+                                                            "designerId": "6176681b-d925-4e5c-b150-345de1f417e8"
+                                                        },
+                                                        {
+                                                            "type": "Ext.chart.series.Line",
+                                                            "reference": {
+                                                                "name": "series",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "label": [
+                                                                    "{",
+                                                                    "    display: 'none',",
+                                                                    "    field: 'visits',",
+                                                                    "    renderer: function(v) { return v >> 0; },",
+                                                                    "    'text-anchor': 'middle'",
+                                                                    "}"
+                                                                ],
+                                                                "showInLegend": false,
+                                                                "title": [
+                                                                    "DISK_6"
+                                                                ],
+                                                                "xField": "regDt",
+                                                                "yField": [
+                                                                    "DISK_006"
+                                                                ]
+                                                            },
+                                                            "configAlternates": {
+                                                                "smooth": "boolean"
+                                                            },
+                                                            "designerId": "8411c136-8bbc-45cb-bb8d-36fd758777c8"
+                                                        },
+                                                        {
+                                                            "type": "Ext.chart.series.Line",
+                                                            "reference": {
+                                                                "name": "series",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "label": [
+                                                                    "{",
+                                                                    "    display: 'none',",
+                                                                    "    field: 'visits',",
+                                                                    "    renderer: function(v) { return v >> 0; },",
+                                                                    "    'text-anchor': 'middle'",
+                                                                    "}"
+                                                                ],
+                                                                "showInLegend": false,
+                                                                "title": [
+                                                                    "DISK_7"
+                                                                ],
+                                                                "xField": "regDt",
+                                                                "yField": [
+                                                                    "DISK_7"
+                                                                ]
+                                                            },
+                                                            "configAlternates": {
+                                                                "smooth": "boolean"
+                                                            },
+                                                            "designerId": "095f8348-3494-463c-8a4f-1ef02e847734"
+                                                        },
+                                                        {
+                                                            "type": "Ext.chart.series.Line",
+                                                            "reference": {
+                                                                "name": "series",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "label": [
+                                                                    "{",
+                                                                    "    display: 'none',",
+                                                                    "    field: 'visits',",
+                                                                    "    renderer: function(v) { return v >> 0; },",
+                                                                    "    'text-anchor': 'middle'",
+                                                                    "}"
+                                                                ],
+                                                                "showInLegend": false,
+                                                                "title": [
+                                                                    "DISK_8"
+                                                                ],
+                                                                "xField": "regDt",
+                                                                "yField": [
+                                                                    "DISK_8"
+                                                                ]
+                                                            },
+                                                            "configAlternates": {
+                                                                "smooth": "boolean"
+                                                            },
+                                                            "designerId": "fb7ad398-ede5-400a-ba64-59610adb5a06"
+                                                        },
+                                                        {
+                                                            "type": "Ext.chart.series.Line",
+                                                            "reference": {
+                                                                "name": "series",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "label": [
+                                                                    "{",
+                                                                    "    display: 'none',",
+                                                                    "    field: 'visits',",
+                                                                    "    renderer: function(v) { return v >> 0; },",
+                                                                    "    'text-anchor': 'middle'",
+                                                                    "}"
+                                                                ],
+                                                                "showInLegend": false,
+                                                                "title": [
+                                                                    "DISK_9"
+                                                                ],
+                                                                "xField": "regDt",
+                                                                "yField": [
+                                                                    "DISK_009"
+                                                                ]
+                                                            },
+                                                            "configAlternates": {
+                                                                "smooth": "boolean"
+                                                            },
+                                                            "designerId": "1f03d28f-55b4-4784-8ca4-c65bb43156e0"
+                                                        },
+                                                        {
+                                                            "type": "Ext.chart.series.Line",
+                                                            "reference": {
+                                                                "name": "series",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "label": [
+                                                                    "{",
+                                                                    "    display: 'none',",
+                                                                    "    field: 'visits',",
+                                                                    "    renderer: function(v) { return v >> 0; },",
+                                                                    "    'text-anchor': 'middle'",
+                                                                    "}"
+                                                                ],
+                                                                "showInLegend": false,
+                                                                "title": [
+                                                                    "DISK_10"
+                                                                ],
+                                                                "xField": "regDt",
+                                                                "yField": [
+                                                                    "DISK_10"
+                                                                ]
+                                                            },
+                                                            "configAlternates": {
+                                                                "smooth": "boolean"
+                                                            },
+                                                            "designerId": "b14aec8b-3bf2-4abd-8d37-2c29be1b148b"
                                                         },
                                                         {
                                                             "type": "Ext.chart.Legend",
@@ -2604,9 +2884,30 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
-                                                                "designer|displayName": ""
+                                                                "boxStrokeWidth": null,
+                                                                "cls": null,
+                                                                "designer|displayName": "",
+                                                                "style": null,
+                                                                "width": null
                                                             },
-                                                            "designerId": "58a13161-d604-48fb-979d-52bf90838c21"
+                                                            "designerId": "d93fb697-cbc8-4492-b197-fb412f460a4d",
+                                                            "customConfigs": [
+                                                                {
+                                                                    "group": "(Custom Properties)",
+                                                                    "name": "width",
+                                                                    "type": "string"
+                                                                },
+                                                                {
+                                                                    "group": "(Custom Properties)",
+                                                                    "name": "cls",
+                                                                    "type": "string"
+                                                                },
+                                                                {
+                                                                    "group": "(Custom Properties)",
+                                                                    "name": "style",
+                                                                    "type": "string"
+                                                                }
+                                                            ]
                                                         },
                                                         {
                                                             "type": "basiceventbinding",
@@ -2616,22 +2917,39 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
-                                                                "fn": "onCpuChart4Click",
+                                                                "fn": "onCpuChartClick11",
                                                                 "implHandler": [
-                                                                    "var monitoringChartWindow = Ext.create(\"widget.monitoringChartWindow\");",
-                                                                    "",
-                                                                    "monitoringChartWindow.show();"
+                                                                    "instancesConstants.me.viewInstanceMonitoringPopup('disk');",
+                                                                    ""
                                                                 ],
                                                                 "name": "click",
                                                                 "scope": "me"
                                                             },
-                                                            "designerId": "53c0100a-c2da-4660-bd90-0c4cd35e54b4"
+                                                            "designerId": "cde29db7-2175-4461-8c63-a32115fbca2f"
                                                         }
                                                     ]
                                                 }
                                             ]
                                         }
                                     ]
+                                },
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onPanelBeforeDeactivate",
+                                        "implHandler": [
+                                            "clearInterval(instancesConstants.chartInterval);",
+                                            ""
+                                        ],
+                                        "name": "beforedeactivate",
+                                        "scope": "me"
+                                    },
+                                    "designerId": "bd37467d-fb50-4971-adf4-7e7b59b3e2c8"
                                 }
                             ]
                         }

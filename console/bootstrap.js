@@ -884,6 +884,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.model.DiskModel": [],
   "MyApp.model.GroupModel": [],
   "MyApp.model.HypervisorModel": [],
+  "MyApp.model.InstanceMonitoringModel": [],
   "MyApp.model.MachineModel": [],
   "MyApp.model.NetworkModel": [],
   "MyApp.model.PackageModel": [],
@@ -909,9 +910,11 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.ComboHypervisorStore": [],
   "MyApp.store.ComboTemplateStore": [],
   "MyApp.store.HypervisorStore": [],
+  "MyApp.store.InstanceMonitoringStore": [],
   "MyApp.store.InstancePackageStore": [],
   "MyApp.store.MachineStore": [],
   "MyApp.store.MenuTreeStore": [],
+  "MyApp.store.MonitoringPopupStore": [],
   "MyApp.store.SessionStore": [],
   "MyApp.store.TemplateStore": [],
   "MyApp.store.UserStore": [],
@@ -930,6 +933,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.FstabWindow": [],
   "MyApp.view.Main": [],
   "MyApp.view.ManageAccountWindow": [],
+  "MyApp.view.MonitoringChartWindow": [],
   "MyApp.view.RegAccountWindow": [],
   "MyApp.view.RegInstanceWindow": [],
   "MyApp.view.RegRhevmWindow": [],
@@ -945,7 +949,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.dashboardPanel": [],
   "MyApp.view.instancesContainer": [],
   "MyApp.view.loginWindow": [],
-  "MyApp.view.monitoringChartWindow": [],
   "MyApp.view.peacockViewport": [],
   "MyApp.view.rhevmContainer": [],
   "MyApp.view.softwareConfigWindow": [],
@@ -1978,6 +1981,7 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.model.DiskModel": [],
   "MyApp.model.GroupModel": [],
   "MyApp.model.HypervisorModel": [],
+  "MyApp.model.InstanceMonitoringModel": [],
   "MyApp.model.MachineModel": [],
   "MyApp.model.NetworkModel": [],
   "MyApp.model.PackageModel": [],
@@ -2003,9 +2007,11 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.store.ComboHypervisorStore": [],
   "MyApp.store.ComboTemplateStore": [],
   "MyApp.store.HypervisorStore": [],
+  "MyApp.store.InstanceMonitoringStore": [],
   "MyApp.store.InstancePackageStore": [],
   "MyApp.store.MachineStore": [],
   "MyApp.store.MenuTreeStore": [],
+  "MyApp.store.MonitoringPopupStore": [],
   "MyApp.store.SessionStore": [],
   "MyApp.store.TemplateStore": [],
   "MyApp.store.UserStore": [],
@@ -2035,6 +2041,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.ManageAccountWindow": [
     "widget.ManageAccountWindow"
+  ],
+  "MyApp.view.MonitoringChartWindow": [
+    "widget.MonitoringChartWindow"
   ],
   "MyApp.view.RegAccountWindow": [
     "widget.RegAccountWindow"
@@ -2078,9 +2087,6 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.loginWindow": [
     "widget.loginWindow"
-  ],
-  "MyApp.view.monitoringChartWindow": [
-    "widget.monitoringChartWindow"
   ],
   "MyApp.view.peacockViewport": [
     "widget.peacockViewport"

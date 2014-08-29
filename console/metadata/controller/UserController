@@ -22,7 +22,7 @@
                 "designer|targetType": "Ext.form.field.Text",
                 "fn": "onSearchUserNameKeydown",
                 "implHandler": [
-                    "//Instance Name Search",
+                    "//User Name Search",
                     "if(e.getKey() == e.ENTER){",
                     "    this.searchUser();",
                     "}"
@@ -45,7 +45,8 @@
                 ],
                 "fn": "searchUser",
                 "implHandler": [
-                    "//Instances Grid Data Search",
+                    "//User Grid Data Search",
+                    "",
                     "if(init) {",
                     "",
                     "    Ext.getCmp(\"searchUserName\").setValue(\"\");",
@@ -156,6 +157,8 @@
                 "designer|targetType": "Ext.grid.Panel",
                 "fn": "onUserGridBeforeItemContextMenu",
                 "implHandler": [
+                    "//User Grid Right Click Menu 호출",
+                    "",
                     "var position = e.getXY();",
                     "e.stopEvent();",
                     "",
@@ -181,13 +184,17 @@
                 ],
                 "fn": "showUserWindow",
                 "implHandler": [
+                    "",
+                    "//User Popup 호출",
+                    "",
                     "var userWindow = Ext.create(\"widget.userWindow\");",
                     "",
-                    "userWindow.setTitle(\"Edit User\");",
                     "userWindow.show();",
                     "",
                     "if(type != 'new') {",
                     "",
+                    "    userWindow.setTitle(\"Edit User\");",
+                    "    ",
                     "    if(user_id == null) {",
                     "        user_id = userConstants.actionRow.get(\"userId\");",
                     "    }",
@@ -228,6 +235,8 @@
                 "fn": "deleteUser",
                 "implHandler": [
                     "",
+                    "//User 삭제",
+                    "",
                     "Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){",
                     "",
                     "    if(btn == \"yes\"){",
@@ -267,6 +276,8 @@
             "userConfig": {
                 "fn": "searchUserDetail",
                 "implHandler": [
+                    "",
+                    "//User 상세 조회",
                     "",
                     "var userDetailPanel = Ext.getCmp(\"userDetailPanel\");",
                     "userDetailPanel.layout.setActiveItem(1);",

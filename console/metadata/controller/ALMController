@@ -262,7 +262,7 @@
                     "Ext.getCmp(\"projectTabPanel\").setActiveTab(0);",
                     "",
                     "//Project Data Loading",
-                    " ",
+                    "",
                     "var projectForm = Ext.getCmp(\"almProjectForm\");",
                     "",
                     "projectForm.getForm().reset();",

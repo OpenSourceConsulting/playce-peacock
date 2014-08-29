@@ -25,6 +25,9 @@ Ext.define('MyApp.controller.MenuController', {
             GLOBAL.lastSelectedMenuId = record.get('id');
             Ext.getCmp('centerContainer').layout.setActiveItem(record.get('activeRow'));
 
+            //Instance Chart Monitoring Stop
+            clearInterval(instancesConstants.chartInterval);
+
             if(record.get('id') == 'MENU_02') {
 
                 instancesConstants.me.initInstance();
@@ -47,21 +50,7 @@ Ext.define('MyApp.controller.MenuController', {
     },
 
     rhevComboSelect: function(combo, records, eOpts) {
-        /**
-         * RHEV-M 목록 선택시 수행되는 function()
-         */
-        var index = 0;
 
-        if (records) {
-            index = records[0].index;
-        }
-
-        console.log(records);
-
-        var menuTreeStore = Ext.getStore("MenuTreeStore");
-
-        Ext.getCmp("menuTreeView").selModel.select(0);
-        Ext.getCmp("menuTreeView").fireEvent('cellclick', Ext.getCmp("menuTreeView"), null, null, menuTreeStore.getRootNode().firstChild);
     },
 
     init: function(application) {

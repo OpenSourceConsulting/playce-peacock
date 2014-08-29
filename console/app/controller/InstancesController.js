@@ -29,63 +29,6 @@ Ext.define('MyApp.controller.InstancesController', {
             this.selectInstanceGrid();
         }
 
-        /*
-
-        var detailPanel = Ext.getCmp("instanceDetailPanel");
-        detailPanel.layout.setActiveItem(1);
-
-        Ext.getCmp("instanceTabPanel").setActiveTab(0);
-
-        //init clear
-        clearInterval(instancesConstants.chartInterval);
-        Ext.getStore("instanceMonitoringChartStore").removeAll();
-
-        //Description Data Loading
-        var descform = Ext.getCmp("instanceDescForm");
-
-        descform.getForm().reset();
-
-        descform.getForm().waitMsgTarget = descform.getEl();
-
-        descform.getForm().load({
-            params : {
-                instanceID : record.get("instanceID")
-            }
-            ,url : GLOBAL.urlPrefix + "/instance/getInstanceDescription"
-            ,waitMsg:'Loading...'
-        });
-
-
-        //Software Data Loading
-        var softwareGrid = Ext.getCmp('instanceSoftwareGrid');
-
-        softwareGrid.getStore().load({
-            params:{
-                instanceID : record.get("instanceID")
-            }
-        });
-
-
-        //OS Package Data Loading
-        this.searchInstanceOs();
-
-
-        //Monitoring Data Loading
-
-        instancesConstants.chartInterval = setInterval(function() {
-
-            var chartStore = Ext.getStore("instanceMonitoringChartStore");
-            chartStore.load({
-                addRecords : true
-            });
-
-            if(chartStore.getCount() > 30) {
-                chartStore.remove(chartStore.getAt(0));
-            }
-
-        }, 5000);
-
-        */
     },
 
     onInstancesGridBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
@@ -184,6 +127,7 @@ Ext.define('MyApp.controller.InstancesController', {
     },
 
     onInstanceTabPanelTabChange: function(tabPanel, newCard, oldCard, eOpts) {
+
         if(newCard.title == "Description"){
 
             this.searchInstanceDetail(0);
@@ -199,26 +143,13 @@ Ext.define('MyApp.controller.InstancesController', {
 
         } else {
 
-        }
+            this.viewInstanceMonitoring();
 
-        /*
-
-        if(newCard.title == "Description"){
-
-            Ext.getCmp("searchRhevmTemplateName").setValue("");
-            Ext.getCmp("rhevmTemplateGrid").reconfigure(Ext.getCmp("rhevmTemplateGrid").store, Ext.getCmp("rhevmTemplateGrid").initialConfig.columns);
-
-            this.searchRhevmChildGrid("rhevmTemplateGrid");
-
-        } else {
-
-            Ext.getCmp("searchRhevmVMName").setValue("");
-            Ext.getCmp("rhevmVMGrid").reconfigure(Ext.getCmp("rhevmVMGrid").store, Ext.getCmp("rhevmVMGrid").initialConfig.columns);
-
-            this.searchRhevmChildGrid("rhevmVMGrid");
+            instancesConstants.chartInterval = setInterval(function() {
+                instancesConstants.me.viewInstanceMonitoring();
+            }, 60000);
 
         }
-        */
     },
 
     init: function(application) {
@@ -304,6 +235,7 @@ Ext.define('MyApp.controller.InstancesController', {
     },
 
     initInstance: function() {
+        //RHEVM Combo Menu setting
 
         var rhevmCycle = Ext.getCmp("rhevmCycle").menu;
         var menuItems = rhevmCycle.items;
@@ -340,6 +272,8 @@ Ext.define('MyApp.controller.InstancesController', {
 
     searchInstance: function(init) {
 
+        //Instances Grid Data Search
+
         if(init) {
             Ext.getCmp("searchCategory").setValue("");
             Ext.getCmp("searchRhevm").setValue("");
@@ -348,9 +282,9 @@ Ext.define('MyApp.controller.InstancesController', {
             Ext.getCmp("instancesGrid").reconfigure(Ext.getCmp("instancesGrid").store, Ext.getCmp("instancesGrid").initialConfig.columns);
         }
 
-        instancesConstants.selectRow = null;
+        clearInterval(instancesConstants.chartInterval);
 
-        //Instances Grid Data Search
+        instancesConstants.selectRow = null;
 
         var instanceStore = Ext.getCmp("instancesGrid").getStore();
 
@@ -367,6 +301,7 @@ Ext.define('MyApp.controller.InstancesController', {
     },
 
     selectInstanceGrid: function() {
+        //Instance Detail 조회
 
         var detailPanel = Ext.getCmp("instanceDetailPanel");
         detailPanel.layout.setActiveItem(1);
@@ -377,6 +312,9 @@ Ext.define('MyApp.controller.InstancesController', {
     },
 
     searchInstanceDetail: function(tabIndex) {
+
+        //Instance Detail 조회(Tab 별)
+
         /*
         //init clear
         clearInterval(instancesConstants.chartInterval);
@@ -441,6 +379,7 @@ Ext.define('MyApp.controller.InstancesController', {
 
     searchInstanceOs: function() {
         //Instances Os Package Grid Data Search
+
         var packageStore = Ext.getCmp('instanceOsGrid').getStore();
 
         packageStore.getProxy().extraParams = {
@@ -453,6 +392,8 @@ Ext.define('MyApp.controller.InstancesController', {
     },
 
     reloadInstanceOs: function() {
+        //Instance Os Reload
+
         if(instancesConstants.selectRow.get("status") != 'Running') {
 
             Ext.MessageBox.alert('Message', 'Instance의 Agent가 Running일 경우에만 재수집이 가능합니다.');
@@ -487,6 +428,8 @@ Ext.define('MyApp.controller.InstancesController', {
     },
 
     showCLIWindow: function() {
+        //CLI Popup 호출
+
         var CLIWindow = Ext.create("widget.CLIWindow");
         CLIWindow.show();
 
@@ -495,6 +438,7 @@ Ext.define('MyApp.controller.InstancesController', {
     },
 
     showManageAccountWindow: function() {
+        //Manage Account Popup 호출
 
         var manageAccountWindow = Ext.create("widget.ManageAccountWindow");
         manageAccountWindow.show();
@@ -510,6 +454,8 @@ Ext.define('MyApp.controller.InstancesController', {
     },
 
     showFstabWindow: function() {
+        //Fstab Popup 호출
+
         var fstabWindow = Ext.create("widget.FstabWindow");
         fstabWindow.show();
 
@@ -534,6 +480,8 @@ Ext.define('MyApp.controller.InstancesController', {
     },
 
     showCrontabWindow: function() {
+        //Crontab Popup 호출
+
         var crontabWindow = Ext.create("widget.CrontabWindow");
 
         crontabWindow.show();
@@ -548,6 +496,8 @@ Ext.define('MyApp.controller.InstancesController', {
     },
 
     showEditInstanceWindow: function() {
+        //Instance Edit Popup 호출
+
         var editWindow = Ext.create("widget.EditInstanceWindow");
         editWindow.show();
 
@@ -579,6 +529,8 @@ Ext.define('MyApp.controller.InstancesController', {
     },
 
     executeInstanceCLI: function() {
+        //CLI Comment Execute
+
         var cliForm = Ext.getCmp("cliForm");
 
         cliForm.getForm().submit({
@@ -610,6 +562,8 @@ Ext.define('MyApp.controller.InstancesController', {
     },
 
     controlAgent: function(status) {
+        //Agent Status Controll
+
         Ext.Ajax.request({
             url: GLOBAL.urlPrefix + "machine/getMachine",
             params : {
@@ -658,6 +612,208 @@ Ext.define('MyApp.controller.InstancesController', {
             }
         });
 
+
+    },
+
+    viewInstanceMonitoring: function() {
+
+        //Instance Chart View
+
+        Ext.Ajax.request({
+            url: GLOBAL.urlPrefix + "monitor/factor_list",
+            params : {
+                includeAll : "Y"
+            },
+            disableCaching : true,
+            waitMsg: status + ' Check Agent Status...',
+            success: function(response){
+
+                columnData = Ext.decode(response.responseText).list;
+                Ext.each(columnData, function(data, idx) {
+                    if(data.monFactorId == "FACTOR_001") {
+                        Ext.getCmp("chartCpuLabel").setText("CPU ("+ data.monFactorUnit +")");
+                    }
+                    if(data.monFactorId == "FACTOR_004") {
+                        Ext.getCmp("chartMemoryLabel").setText("Memory ("+ data.monFactorUnit +")");
+                    }
+                    if(data.monFactorId == "FACTOR_006") {
+                        Ext.getCmp("chartDiskLabel").setText("Disk ("+ data.monFactorUnit +")");
+                    }
+
+                });
+
+
+                var chartStore = Ext.getStore("InstanceMonitoringStore");
+                chartStore.getProxy().extraParams = {
+                    machineId : instancesConstants.selectRow.get("machineId")
+                };
+
+
+                var diskColumns = [];
+
+                chartStore.load({
+                    callback : function(records, options, success) {
+
+                        Ext.each(records, function(record, index) {
+
+                            var diskCol = record.get("FACTOR_006").split(",");
+
+                            Ext.each(diskCol, function (col) {
+
+                                var diskData = col.split(":");
+                                var flag = true;
+                                Ext.each(diskColumns, function(disk, diskIdx) {
+
+                                   if(disk == diskData[0])  {
+
+                                       record.set("DISK_"+(diskIdx+1), diskData[1]);
+
+                                       flag = false;
+                                       return false;
+
+                                   }
+
+                                });
+
+                                if(flag) {
+                                    diskColumns.push(diskData[0]);
+
+                                    record.set("DISK_"+(diskColumns.length), diskData[1]);
+                                }
+                                test = diskData[1];
+                            });
+
+                        });
+
+                        var chartSeries = Ext.getCmp('diskChart').series;
+
+                        for(var i=0;i<10;i++) {
+
+                            if(i < diskColumns.length) {
+                                chartSeries.getAt(i).showAll();
+                                chartSeries.getAt(i).showInLegend = true;
+                                chartSeries.getAt(i).showMarkers = true;
+
+                                chartSeries.getAt(i).setTitle(diskColumns[i]);
+
+                            } else {
+                                chartSeries.getAt(i).hideAll();
+                                chartSeries.getAt(i).showInLegend = false;
+                                chartSeries.getAt(i).showMarkers = false;
+                            }
+                        }
+
+                    }
+                });
+
+            }
+        });
+        var monitoringChartWindow = Ext.create("widget.monitoringChartWindow");
+
+        monitoringChartWindow.show();
+    },
+
+    viewInstanceMonitoringPopup: function(type) {
+
+        //Instance Chart Popup
+
+        if(type) {
+
+            var monitoringChartWindow = Ext.create("widget.MonitoringChartWindow");
+
+            monitoringChartWindow.show();
+
+            if(type == 'cpu') {
+
+                Ext.getCmp("chartPanel").layout.setActiveItem(0);
+                monitoringChartWindow.setTitle("CPU");
+
+            } else if(type == 'memory') {
+
+                Ext.getCmp("chartPanel").layout.setActiveItem(1);
+                monitoringChartWindow.setTitle("Memory");
+
+            } else if(type == 'disk') {
+
+                Ext.getCmp("chartPanel").layout.setActiveItem(2);
+                monitoringChartWindow.setTitle("Disk");
+            }
+
+            Ext.getCmp("comboTimeRange").setValue("");
+            Ext.getCmp("comboTimePeriod").setValue("");
+            Ext.getCmp("instanceMonitoringType").setValue(type);
+
+        } else {
+            type = Ext.getCmp("instanceMonitoringType").getValue();
+        }
+
+        var chartStore = Ext.getStore("MonitoringPopupStore");
+
+        chartStore.getProxy().extraParams = {
+            machineId : instancesConstants.selectRow.get("machineId"),
+            timeRange : Ext.getCmp("comboTimeRange").getValue(),
+            period    : Ext.getCmp("comboTimePeriod").getValue()
+        };
+
+
+        var diskColumns = [];
+
+        chartStore.load({
+            callback : function(records, options, success) {
+
+                if(type == 'disk') {
+                    Ext.each(records, function(record, index) {
+
+                        var diskCol = record.get("FACTOR_006").split(",");
+
+                        Ext.each(diskCol, function (col) {
+
+                            var diskData = col.split(":");
+                            var flag = true;
+                            Ext.each(diskColumns, function(disk, diskIdx) {
+
+                                if(disk == diskData[0])  {
+
+                                    record.set("DISK_"+(diskIdx+1), diskData[1]);
+
+                                    flag = false;
+                                    return false;
+
+                                }
+
+                            });
+
+                            if(flag) {
+                                diskColumns.push(diskData[0]);
+
+                                record.set("DISK_"+(diskColumns.length), diskData[1]);
+                            }
+                            test = diskData[1];
+                        });
+
+                    });
+
+                    var chartSeries = Ext.getCmp('popDiskChart').series;
+
+                    for(var i=0;i<10;i++) {
+
+                        if(i < diskColumns.length) {
+                            chartSeries.getAt(i).showAll();
+                            chartSeries.getAt(i).showInLegend = true;
+                            chartSeries.getAt(i).showMarkers = true;
+
+                            chartSeries.getAt(i).setTitle(diskColumns[i]);
+
+                        } else {
+                            chartSeries.getAt(i).hideAll();
+                            chartSeries.getAt(i).showInLegend = false;
+                            chartSeries.getAt(i).showMarkers = false;
+                        }
+                    }
+
+                }
+            }
+        });
 
     }
 
