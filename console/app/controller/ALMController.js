@@ -19,7 +19,7 @@ Ext.define('MyApp.controller.ALMController', {
     onAlmProjectGridCellClick: function(tableview, td, cellIndex, record, tr, rowIndex, e, eOpts) {
         //ALM Project Grid Item Click
 
-        if(almConstants.selectRow == null || almConstants.selectRow.get("projectId") != record.get("projectId")) {
+        if(almConstants.selectRow == null || almConstants.selectRow.get("projectCode") != record.get("projectCode")) {
 
             almConstants.selectRow = record;
 
@@ -321,7 +321,7 @@ Ext.define('MyApp.controller.ALMController', {
         projectForm.getForm().waitMsgTarget = projectForm.getEl();
 
         projectForm.getForm().load({
-            url : GLOBAL.urlPrefix + "alm/project/" + almConstants.selectRow.get("projectId")
+            url : GLOBAL.urlPrefix + "alm/project/" + almConstants.selectRow.get("projectCode")
             ,method : 'GET'
             ,waitMsg:'Loading...'
         });
@@ -388,7 +388,7 @@ Ext.define('MyApp.controller.ALMController', {
         } else {
 
             var userStore = Ext.getCmp("almGroupUserGrid").getStore();
-            userStore.getProxy().url = GLOBAL.urlPrefix + '/alm/groupmanagement/'+almConstants.selectRow.get("name")+'/users';
+            userStore.getProxy().url = GLOBAL.urlPrefix + 'alm/groupmanagement/'+almConstants.selectRow.get("name")+'/users';
 
             userStore.load();
 

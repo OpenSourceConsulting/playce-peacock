@@ -108,7 +108,7 @@ public class AlmGroupController {
 	// 그룹 정보
 	@RequestMapping(value = "/groupmanagement/{groupname}/users", method = RequestMethod.GET)
 	public @ResponseBody
-	DtoJsonResponse getGroupUsers(DtoJsonResponse jsonRes,
+	GridJsonResponse getGroupUsers(DtoJsonResponse jsonRes,
 			@PathVariable String groupname) {
 		return service.getGroupUser(groupname);
 	}

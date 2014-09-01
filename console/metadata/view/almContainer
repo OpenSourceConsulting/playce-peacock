@@ -139,7 +139,7 @@
                                                         ],
                                                         "fn": "handler",
                                                         "implHandler": [
-                                                            "var almProjectWindow = Ext.create(\"widget.almProjectWindow\");",
+                                                            "var almProjectWindow = Ext.create(\"widget.AlmProjectWindow\");",
                                                             "",
                                                             "almProjectWindow.show();"
                                                         ]
@@ -202,7 +202,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "dataIndex": "projectId",
+                                        "dataIndex": "projectCode",
                                         "minWidth": 80,
                                         "text": "Project ID"
                                     },
@@ -479,7 +479,7 @@
                                                                     "userConfig": {
                                                                         "fieldLabel": "Project ID",
                                                                         "labelWidth": 140,
-                                                                        "name": "projectId",
+                                                                        "name": "projectCode",
                                                                         "padding": 10
                                                                     },
                                                                     "designerId": "84ee7339-29fd-48ee-87ba-433a30eb90ee"
@@ -2113,7 +2113,7 @@
                                                                     },
                                                                     "codeClass": null,
                                                                     "userConfig": {
-                                                                        "dataIndex": "userId",
+                                                                        "dataIndex": "name",
                                                                         "minWidth": 100,
                                                                         "text": "Name"
                                                                     },
@@ -2210,10 +2210,10 @@
                                                                                             "Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){",
                                                                                             "",
                                                                                             "    if(btn == \"yes\"){",
-                                                                                            "",
+                                                                                            "        ",
                                                                                             "        Ext.Ajax.request({",
-                                                                                            "            url : GLOBAL.urlPrefix + \"alm/groupmanagement/\" ",
-                                                                                            "                    + almConstants.selectRow.get(\"name\") + \"/\" + record.get(\"userId\"),",
+                                                                                            "            url : GLOBAL.urlPrefix + \"alm/groupmanagement/\"",
+                                                                                            "                    + almConstants.selectRow.get(\"name\") + \"/\" + record.get(\"name\"),",
                                                                                             "            method: 'DELETE',",
                                                                                             "            headers: { 'Content-Type': 'application/json' },",
                                                                                             "            disableCaching : true,",

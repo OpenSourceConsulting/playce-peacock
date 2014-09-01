@@ -18,7 +18,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "projectId",
+                "name": "projectCode",
                 "type": "string"
             },
             "designerId": "89ace265-c6c3-4288-b55c-f993410d6fe3"

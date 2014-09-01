@@ -24,14 +24,18 @@
  */
 package com.athena.peacock.controller.web.alm.project;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.athena.peacock.controller.web.alm.confluence.AlmConfluenceService;
 import com.athena.peacock.controller.web.alm.crowd.AlmCrowdService;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
@@ -70,15 +74,20 @@ public class AlmProjectController {
 		return almProjectService.getProjectList(gridParam);
 	}
 	
-	@RequestMapping(value = "/project", method = RequestMethod.POST)
-	public @ResponseBody GridJsonResponse createProject(ProjectDto project){
+	@RequestMapping(value = "/project", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody DtoJsonResponse createProject(@Valid @RequestBody ProjectDto project, BindingResult result){
 		
-		// 
-		almProjectService.createProject(project);
-		
-		//
 		//almCrowdService.addGroup(groupData);
-		return null;
+
+		if (result.hasErrors()) {
+			DtoJsonResponse response = new DtoJsonResponse();
+			response.setSuccess(false);
+			response.setMsg("invalid parameter");
+			response.setData(result.getAllErrors());
+			return response;
+		}
+		
+		return almProjectService.createProject(project);
 	}
 	
 	@RequestMapping(value = "/project/{projectCode}", method = RequestMethod.GET)

@@ -293,13 +293,13 @@ public class AlmCrowdService {
 	}
 
 	// 그룹에 유저정보
-	public DtoJsonResponse getGroupUser(String groupname) {
+	public GridJsonResponse getGroupUser(String groupname) {
 
-		DtoJsonResponse response = new DtoJsonResponse();
+		GridJsonResponse response = new GridJsonResponse();
 
 		try {
 			List<User> users = crowdClient.getUsersOfGroup(groupname, 0, 10000);
-			response.setData(users);
+			response.setList(users);
 			response.setMsg("그룹 유저 리스트");
 		} catch (GroupNotFoundException e) {
 			response.setSuccess(false);
