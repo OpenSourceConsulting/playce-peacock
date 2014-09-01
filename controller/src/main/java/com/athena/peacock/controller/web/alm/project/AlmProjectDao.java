@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
+import com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto;
 import com.athena.peacock.controller.web.common.dao.AbstractBaseDao;
 
 @Repository("almProjectDao")
@@ -20,5 +21,9 @@ public class AlmProjectDao extends AbstractBaseDao {
 	
 	public void insertProject(ProjectDto project){
 		sqlSession.insert("ProjectMapper.insertProject", project);
+	}
+	
+	public void insertProjectMapping(ProjectMappingDto mappingDto){
+		sqlSession.insert("ProjectMapper.insertProjectMapping",mappingDto);
 	}
 }

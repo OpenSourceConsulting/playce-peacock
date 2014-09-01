@@ -24,8 +24,6 @@
  */
 package com.athena.peacock.controller.web.alm.project.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 /**
  * <pre>
  * 
@@ -34,15 +32,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * @author Bong-Jin Kwon
  * @version 1.0
  */
-@JsonIgnoreProperties(ignoreUnknown=true)
-public class ProjectDto {
+public class ProjectMappingDto {
 
 	private static final long serialVersionUID = -1083153050593982734L;
 
 	private String projectCode;
-	private String projectName;
-	private String projectDescription;
-	private String groupDescription;
+	private int mappingType;
+	private String mappingCode;
 
 	public String getProjectCode() {
 		return projectCode;
@@ -52,28 +48,20 @@ public class ProjectDto {
 		this.projectCode = projectCode;
 	}
 
-	public String getProjectName() {
-		return projectName;
+	public int getMappingType() {
+		return mappingType;
 	}
 
-	public void setProjectName(String projectName) {
-		this.projectName = projectName;
+	public void setMappingType(int mappingType) {
+		this.mappingType = mappingType;
 	}
 
-	public String getProjectDescription() {
-		return projectDescription;
+	public String getMappingCode() {
+		return mappingCode;
 	}
 
-	public void setProjectDescription(String projectDescription) {
-		this.projectDescription = projectDescription;
-	}
-
-	public String getGroupDescription() {
-		return groupDescription;
-	}
-
-	public void setGroupDescription(String groupDescription) {
-		this.groupDescription = groupDescription;
+	public void setMappingCode(String mappingCode) {
+		this.mappingCode = mappingCode;
 	}
 
 }

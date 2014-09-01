@@ -26,4 +26,23 @@
 		)
 	</insert>
 	
+	<select id="getProjectMapping" parameterType="String" resultType="com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto">
+		 SELECT PROJECT_CODE as projectCode, MAPPING_TYPE as mappingType, MAPPING_CODE as mappingCode  from alm_project_mapping_tbl
+		 WHERE PROJECT_CODE = #{projectCode} and MAPPING_TYPE = #{mappingType}
+	</select>
+	
+	<insert id="insertProjectMapping" parameterType="com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto">
+		INSERT INTO  alm_project_mapping_tbl
+		(
+			PROJECT_CODE
+		    ,MAPPING_TYPE
+		    ,MAPPING_CODE
+		)
+		VALUES (
+			#{projectCode}
+			,#{mappingType}
+			,#{mappingCode}
+		)
+	</insert>
+	
 </mapper>
