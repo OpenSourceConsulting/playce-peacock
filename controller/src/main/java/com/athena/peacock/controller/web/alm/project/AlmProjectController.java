@@ -90,5 +90,21 @@ public class AlmProjectController {
 	public @ResponseBody DtoJsonResponse getJenkinsJobs(@PathVariable String projectCode){
 		return almProjectService.getProject(projectCode);
 	}
+	
+	@RequestMapping(value = "/project/{projectCode}/{mappingType}/{mappingCode}", method = RequestMethod.POST)
+	public @ResponseBody
+	DtoJsonResponse createProjectMapping(@PathVariable String projectCode,
+			@PathVariable String mappingType, @PathVariable String mappingCode) {
+		return almProjectService.createProjectMapping(projectCode, mappingType,
+				mappingCode);
+	}
+
+	@RequestMapping(value = "/project/{projectCode}/{mappingType}", method = RequestMethod.GET)
+	public @ResponseBody
+	DtoJsonResponse getProjectMapping(@PathVariable String projectCode,
+			@PathVariable String mappingType, @PathVariable String mappingCode) {
+		return almProjectService.createProjectMapping(projectCode, mappingType,
+				mappingCode);
+	}
 }
 //end of AlmUserController.java
