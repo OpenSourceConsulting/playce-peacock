@@ -97,6 +97,8 @@ public class AlmProjectService {
 
 		DtoJsonResponse response = new DtoJsonResponse();
 		projectDao.insertProject(project);
+		
+		response.setMsg("프로젝트 생성 성공");
 		return response;
 		//
 

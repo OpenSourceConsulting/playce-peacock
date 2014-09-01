@@ -89,7 +89,7 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                 ],
                                 [
                                     '1w',
-                                    '최근 1일'
+                                    '최근 1주'
                                 ],
                                 [
                                     '2w',
@@ -409,13 +409,13 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                                 'DISK_1',
                                                 'DISK_2',
                                                 'DISK_3',
-                                                'DISK_4',
-                                                'DISK_5',
-                                                'DISK_6',
-                                                'DISK_7',
-                                                'DISK_8',
-                                                'DISK_9',
-                                                'DISK_10'
+                                                'DISK_004',
+                                                'DISK_005',
+                                                'DISK_006',
+                                                'DISK_007',
+                                                'DISK_008',
+                                                'DISK_009',
+                                                'DISK_010'
                                             ],
                                             grid: {
                                                 odd: {
@@ -440,7 +440,7 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                             },
                                             title: 'DISK_1',
                                             xField: 'regDt',
-                                            yField: 'DISK_1',
+                                            yField: 'DISK_001',
                                             markerConfig: {
                                                 radius: 3,
                                                 size: 3
@@ -457,7 +457,7 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                             showInLegend: false,
                                             title: 'DISK_2',
                                             xField: 'regDt',
-                                            yField: 'DISK_2'
+                                            yField: 'DISK_002'
                                         },
                                         {
                                             type: 'line',
@@ -470,7 +470,7 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                             showInLegend: false,
                                             title: 'DISK_3',
                                             xField: 'regDt',
-                                            yField: 'DISK_3'
+                                            yField: 'DISK_003'
                                         },
                                         {
                                             type: 'line',
@@ -483,7 +483,7 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                             showInLegend: false,
                                             title: 'DISK_4',
                                             xField: 'regDt',
-                                            yField: 'DISK_4'
+                                            yField: 'DISK_004'
                                         },
                                         {
                                             type: 'line',
@@ -496,7 +496,7 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                             showInLegend: false,
                                             title: 'DISK_5',
                                             xField: 'regDt',
-                                            yField: 'DISK_5'
+                                            yField: 'DISK_005'
                                         },
                                         {
                                             type: 'line',
@@ -509,7 +509,7 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                             showInLegend: false,
                                             title: 'DISK_6',
                                             xField: 'regDt',
-                                            yField: 'DISK_6'
+                                            yField: 'DISK_006'
                                         },
                                         {
                                             type: 'line',
@@ -522,7 +522,7 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                             showInLegend: false,
                                             title: 'DISK_7',
                                             xField: 'regDt',
-                                            yField: 'DISK_7'
+                                            yField: 'DISK_007'
                                         },
                                         {
                                             type: 'line',
@@ -535,7 +535,7 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                             showInLegend: false,
                                             title: 'DISK_8',
                                             xField: 'regDt',
-                                            yField: 'DISK_8'
+                                            yField: 'DISK_008'
                                         },
                                         {
                                             type: 'line',
@@ -548,7 +548,7 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                             showInLegend: false,
                                             title: 'DISK_9',
                                             xField: 'regDt',
-                                            yField: 'DISK_9'
+                                            yField: 'DISK_009'
                                         },
                                         {
                                             type: 'line',
@@ -561,7 +561,7 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                             showInLegend: false,
                                             title: 'DISK_10',
                                             xField: 'regDt',
-                                            yField: 'DISK_10'
+                                            yField: 'DISK_010'
                                         }
                                     ],
                                     legend: {

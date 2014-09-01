@@ -47,3 +47,17 @@ VALUES (9,4,NULL,'${INSTALL_LOCATION}/bin/','env.sh','javaHome,serverName,catali
 
 INSERT INTO users_tbl (USER_ID, LOGIN_ID, PASSWD, HASHED_PASSWD, USER_NAME, DEPT_NAME, EMAIL, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
 VALUES ('1', 'admin', 'admin', password('admin'), 'Administrator', '개발팀', 'admin@osci.kr', 1, NOW(), 1, NOW());
+
+set global event_scheduler = 'ON';
+
+CREATE EVENT `add_time_table` 
+	ON SCHEDULE EVERY 1 MINUTE STARTS NOW() 
+	DO INSERT INTO time_tbl (REG_DT) VALUES (NOW());
+
+CREATE EVENT `remove_old_monitoring_data` 
+	ON SCHEDULE EVERY 1 DAY STARTS NOW() 
+	DO DELETE FROM mon_data_tbl WHERE REG_DT <= DATE_SUB(REG_DT, INTERVAL 30 DAY);
+
+CREATE EVENT `remove_old_time_data` 
+	ON SCHEDULE EVERY 1 DAY STARTS NOW() 
+	DO DELETE FROM time_tbl WHERE REG_DT <= DATE_SUB(REG_DT, INTERVAL 30 DAY);

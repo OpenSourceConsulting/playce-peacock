@@ -34,7 +34,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.athena.peacock.controller.web.alm.confluence.AlmConfluenceService;
 import com.athena.peacock.controller.web.alm.crowd.AlmCrowdService;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
-import com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
@@ -43,17 +42,17 @@ import com.athena.peacock.controller.web.common.model.GridJsonResponse;
  * <pre>
  * 사용자 관리 컨트롤러.
  * </pre>
- * 
  * @author Jungsu Han
  * @version 1.0
  */
 @Controller
 @RequestMapping("/alm")
 public class AlmProjectController {
-
+	
+	
 	@Autowired
 	private AlmProjectService almProjectService;
-
+	
 	@Autowired
 	private AlmCrowdService almCrowdService;
 
@@ -65,45 +64,31 @@ public class AlmProjectController {
 	public AlmProjectController() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	@RequestMapping(value = "/project", method = RequestMethod.GET)
-	public @ResponseBody
-	GridJsonResponse list(ExtjsGridParam gridParam) {
+	public @ResponseBody GridJsonResponse list(ExtjsGridParam gridParam){
 		return almProjectService.getProjectList(gridParam);
 	}
-
+	
 	@RequestMapping(value = "/project", method = RequestMethod.POST)
-	public @ResponseBody
-	GridJsonResponse createProject(ProjectDto project) {
-
-		//
+	public @ResponseBody GridJsonResponse createProject(ProjectDto project){
+		
+		// 
 		almProjectService.createProject(project);
-
+		
 		//
-		// almCrowdService.addGroup(groupData);
+		//almCrowdService.addGroup(groupData);
 		return null;
 	}
-
+	
 	@RequestMapping(value = "/project/{projectCode}", method = RequestMethod.GET)
-	public @ResponseBody
-	DtoJsonResponse list(@PathVariable String projectCode) {
+	public @ResponseBody DtoJsonResponse list(@PathVariable String projectCode){
 		return almProjectService.getProject(projectCode);
 	}
-
-	@RequestMapping(value = "/project/{projectCode}/{mappingType}/{mappingCode}", method = RequestMethod.POST)
-	public @ResponseBody
-	DtoJsonResponse createProjectMapping(@PathVariable String projectCode,
-			@PathVariable String mappingType, @PathVariable String mappingCode) {
-		return almProjectService.createProjectMapping(projectCode, mappingType,
-				mappingCode);
-	}
 	
-	@RequestMapping(value = "/project/{projectCode}/{mappingType}", method = RequestMethod.GET)
-	public @ResponseBody
-	DtoJsonResponse getProjectMapping(@PathVariable String projectCode,
-			@PathVariable String mappingType, @PathVariable String mappingCode) {
-		return almProjectService.createProjectMapping(projectCode, mappingType,
-				mappingCode);
+	@RequestMapping(value = "/project/{projectCode}/jenkins", method = RequestMethod.POST)
+	public @ResponseBody DtoJsonResponse getJenkinsJobs(@PathVariable String projectCode){
+		return almProjectService.getProject(projectCode);
 	}
 }
-// end of AlmUserController.java
+//end of AlmUserController.java

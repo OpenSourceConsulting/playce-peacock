@@ -96,7 +96,7 @@
             "almContainer",
             "almUserWindow",
             "AlmGroupWindow",
-            "almGroupUsersWindow",
+            "AlmGroupUsersWindow",
             "softwareInstallLogWindow",
             "softwareConfigWindow",
             "MonitoringChartWindow",
@@ -104,7 +104,7 @@
             "EditInstanceWindow",
             "RegInstanceWindow",
             "almProjectSpaceWindow",
-            "almProjectWindow",
+            "AlmProjectWindow",
             "almProjectJobWindow"
         ]
     },

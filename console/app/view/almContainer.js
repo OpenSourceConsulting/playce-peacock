@@ -86,7 +86,7 @@ Ext.define('MyApp.view.almContainer', {
                                                 {
                                                     xtype: 'button',
                                                     handler: function(button, e) {
-                                                        var almProjectWindow = Ext.create("widget.almProjectWindow");
+                                                        var almProjectWindow = Ext.create("widget.AlmProjectWindow");
 
                                                         almProjectWindow.show();
                                                     },
@@ -114,7 +114,7 @@ Ext.define('MyApp.view.almContainer', {
                                         {
                                             xtype: 'gridcolumn',
                                             minWidth: 80,
-                                            dataIndex: 'projectId',
+                                            dataIndex: 'projectCode',
                                             text: 'Project ID'
                                         },
                                         {
@@ -231,7 +231,7 @@ Ext.define('MyApp.view.almContainer', {
                                                                             padding: 10,
                                                                             fieldLabel: 'Project ID',
                                                                             labelWidth: 140,
-                                                                            name: 'projectId'
+                                                                            name: 'projectCode'
                                                                         },
                                                                         {
                                                                             xtype: 'displayfield',
@@ -868,7 +868,7 @@ Ext.define('MyApp.view.almContainer', {
                                                                         {
                                                                             xtype: 'gridcolumn',
                                                                             minWidth: 100,
-                                                                            dataIndex: 'userId',
+                                                                            dataIndex: 'name',
                                                                             text: 'Name'
                                                                         },
                                                                         {
@@ -902,7 +902,7 @@ Ext.define('MyApp.view.almContainer', {
 
                                                                                                 Ext.Ajax.request({
                                                                                                     url : GLOBAL.urlPrefix + "alm/groupmanagement/"
-                                                                                                    + almConstants.selectRow.get("name") + "/" + record.get("userId"),
+                                                                                                    + almConstants.selectRow.get("name") + "/" + record.get("name"),
                                                                                                     method: 'DELETE',
                                                                                                     headers: { 'Content-Type': 'application/json' },
                                                                                                     disableCaching : true,

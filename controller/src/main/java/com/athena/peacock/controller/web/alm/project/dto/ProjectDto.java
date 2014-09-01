@@ -39,6 +39,7 @@ public class ProjectDto {
 	private String projectCode;
 	private String projectName;
 	private String projectDescription;
+	private String groupDescription;
 
 	public String getProjectCode() {
 		return projectCode;
@@ -62,6 +63,14 @@ public class ProjectDto {
 
 	public void setProjectDescription(String projectDescription) {
 		this.projectDescription = projectDescription;
+	}
+
+	public String getGroupDescription() {
+		return groupDescription;
+	}
+
+	public void setGroupDescription(String groupDescription) {
+		this.groupDescription = groupDescription;
 	}
 
 }

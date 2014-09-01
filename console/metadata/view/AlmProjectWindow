@@ -6,11 +6,11 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userAlias": "almProjectWindow",
-        "designer|userClassName": "almProjectWindow",
+        "designer|userAlias": "AlmProjectWindow",
+        "designer|userClassName": "AlmProjectWindow",
         "height": 230,
-        "id": "almProjectWindow",
-        "itemId": "almProjectWindow",
+        "id": "AlmProjectWindow",
+        "itemId": "AlmProjectWindow",
         "layout": "border",
         "modal": true,
         "resizable": false,
@@ -53,8 +53,8 @@
                             "}"
                         ],
                         "height": null,
-                        "id": "userForm1",
-                        "itemId": "userForm",
+                        "id": "addProjectForm",
+                        "itemId": "addProjectForm",
                         "title": null,
                         "waitMsgTarget": [
                             "true"
@@ -73,7 +73,7 @@
                                 "allowBlank": false,
                                 "fieldLabel": "Project Code",
                                 "layout|anchor": "100%",
-                                "name": "loginId"
+                                "name": "projectCode"
                             },
                             "designerId": "8a855768-c10a-4b36-8fc9-9cb76d82a3b3",
                             "cn": [
@@ -106,7 +106,7 @@
                                 "fieldLabel": "Project Name",
                                 "labelWidth": null,
                                 "layout|anchor": "100%",
-                                "name": "userName",
+                                "name": "projectName",
                                 "padding": ""
                             },
                             "designerId": "e93b690f-d118-4fe8-b722-e28b4eac83d9",
@@ -140,7 +140,7 @@
                                 "labelWidth": null,
                                 "layout|anchor": "100%",
                                 "margin": "0 0 15 0",
-                                "name": "deptName",
+                                "name": "projectDescription",
                                 "padding": ""
                             },
                             "designerId": "59ba8136-b042-432b-bd4f-20b7c7af7027"
@@ -156,38 +156,10 @@
                                 "fieldLabel": "Group Description",
                                 "labelWidth": null,
                                 "layout|anchor": "100%",
-                                "name": "email",
+                                "name": "groupDescription",
                                 "padding": ""
                             },
                             "designerId": "ed420667-a15e-481c-8135-dd51d63719e6"
-                        },
-                        {
-                            "type": "Ext.form.field.Hidden",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fieldLabel": "Label",
-                                "layout|anchor": "100%",
-                                "name": "userId"
-                            },
-                            "designerId": "cf5d3392-6507-481d-b009-d60ab885e0d9"
-                        },
-                        {
-                            "type": "Ext.form.field.Hidden",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fieldLabel": "Label",
-                                "layout|anchor": "100%",
-                                "name": "editType"
-                            },
-                            "designerId": "dc1e06fd-309f-475f-bf9c-e6cb9c4964ae"
                         }
                     ]
                 },
@@ -214,8 +186,8 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "id": "userSaveBtn1",
-                                "itemId": "userSaveBtn",
+                                "id": null,
+                                "itemId": null,
                                 "layout|flex": null,
                                 "margin": "0 15 0 0",
                                 "padding": "2 5 2 5",
@@ -237,65 +209,31 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
-                                            "var userForm = Ext.getCmp(\"userForm\");",
+                                            "var projectForm = Ext.getCmp(\"addProjectForm\");",
                                             "",
-                                            "var action = GLOBAL.urlPrefix + \"user/create\";",
-                                            "var editType = userForm.getForm().findField(\"editType\").getValue();",
+                                            "if(projectForm.isValid()) {",
                                             "",
-                                            "var userId = null;",
-                                            "if(userForm.getForm().findField(\"userId\").getValue() > 0){",
-                                            "    action = GLOBAL.urlPrefix + \"user/update\";",
-                                            "    userId = userForm.getForm().findField(\"userId\").getValue();",
+                                            "     Ext.Ajax.request({",
+                                            "         url: GLOBAL.urlPrefix + \"alm/project\",",
+                                            "         method: 'POST',",
+                                            "         headers: { 'Content-Type': 'application/json' },",
+                                            "         jsonData: projectForm.getForm().getFieldValues(),",
+                                            "         success: function (response) {",
+                                            "",
+                                            "            Ext.Msg.alert('Success', Ext.JSON.decode(response.responseText).msg);",
+                                            "",
+                                            "            Ext.getCmp('almProjectGrid').getStore().reload();",
+                                            "            projectForm.up('window').close();",
+                                            "        },",
+                                            "        failure: function (response) {",
+                                            "            var msg = Ext.JSON.decode(response.responseText).msg;",
+                                            "",
+                                            "            Ext.Msg.alert('Failure', msg);",
+                                            "        }",
+                                            "     });",
+                                            "",
                                             "}",
-                                            "",
-                                            "userForm.getForm().submit({",
-                                            "    clientValidation: true,",
-                                            "    url: action,",
-                                            "    params: {",
-                                            "        newStatus: 'delivered'",
-                                            "    },",
-                                            "    waitMsg: 'Saving Data...',",
-                                            "    success: function(form, action) {",
-                                            "        Ext.Msg.alert('Success', action.result.msg);",
-                                            "",
-                                            "        if(editType != 'myAccount') {",
-                                            "            ",
-                                            "            Ext.getCmp('userGrid').getStore().load({",
-                                            "                ",
-                                            "                callback:function(records, operation, success){",
-                                            "                    ",
-                                            "                    if(userId){",
-                                            "                        ",
-                                            "                        Ext.each(records, function(record) {",
-                                            "                            ",
-                                            "                            if(record.get(\"userId\") == userId) {",
-                                            "                                Ext.getCmp('userGrid').getSelectionModel().select(record,true,false);",
-                                            "                                             ",
-                                            "                                userConstants.selectRow = record;",
-                                            "                                userConstants.me.searchUserDetail();",
-                                            "                            }",
-                                            "",
-                                            "                        });",
-                                            "                    }",
-                                            "                }",
-                                            "            }); ",
-                                            "        }",
-                                            "                ",
-                                            "        userForm.up('window').close();",
-                                            "    },",
-                                            "    failure: function(form, action) {",
-                                            "        switch (action.failureType) {",
-                                            "            case Ext.form.action.Action.CLIENT_INVALID:",
-                                            "            Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');",
-                                            "            break;",
-                                            "            case Ext.form.action.Action.CONNECT_FAILURE:",
-                                            "            Ext.Msg.alert('Failure', 'Server communication failed');",
-                                            "            break;",
-                                            "            case Ext.form.action.Action.SERVER_INVALID:",
-                                            "            Ext.Msg.alert('Failure', action.result.msg);",
-                                            "        }",
-                                            "    }",
-                                            "});"
+                                            ""
                                         ]
                                     },
                                     "designerId": "7cdb93fb-fcdf-442c-a4a0-26396784e3b9"

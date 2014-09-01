@@ -99,7 +99,7 @@ Ext.application({
         'almContainer',
         'almUserWindow',
         'AlmGroupWindow',
-        'almGroupUsersWindow',
+        'AlmGroupUsersWindow',
         'softwareInstallLogWindow',
         'softwareConfigWindow',
         'MonitoringChartWindow',
@@ -107,7 +107,7 @@ Ext.application({
         'EditInstanceWindow',
         'RegInstanceWindow',
         'almProjectSpaceWindow',
-        'almProjectWindow',
+        'AlmProjectWindow',
         'almProjectJobWindow'
     ],
     controllers: [

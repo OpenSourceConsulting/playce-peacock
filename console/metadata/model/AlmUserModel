@@ -74,6 +74,19 @@
                 "type": "string"
             },
             "designerId": "fdf5c1d3-8403-4f3a-a198-52f711f9d58f"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "name",
+                "type": "string"
+            },
+            "designerId": "cc8963e0-fe60-4048-adb2-12cedf7720a9"
         }
     ]
 }

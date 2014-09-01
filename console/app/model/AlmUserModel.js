@@ -40,6 +40,10 @@ Ext.define('MyApp.model.AlmUserModel', {
         {
             name: 'lastName',
             type: 'string'
+        },
+        {
+            name: 'name',
+            type: 'string'
         }
     ]
 });

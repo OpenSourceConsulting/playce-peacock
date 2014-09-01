@@ -7,7 +7,7 @@
     "codeClass": null,
     "userConfig": {
         "designer|userAlias": "AlmGroupUsersWindow",
-        "designer|userClassName": "almGroupUsersWindow",
+        "designer|userClassName": "AlmGroupUsersWindow",
         "height": 300,
         "id": "AlmGroupUsersWindow",
         "itemId": "AlmGroupUsersWindow",
@@ -124,7 +124,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "icon": "resources/images/icons/cog.png",
+                                        "icon": "resources/images/icons/add.png",
                                         "iconCls": ""
                                     },
                                     "designerId": "29ed5f64-910f-46e4-9f95-6a5f226ce008",
@@ -153,7 +153,7 @@
                                                     "    if(btn == \"yes\"){",
                                                     "",
                                                     "        Ext.Ajax.request({",
-                                                    "            url : GLOBAL.urlPrefix + \"alm/groupmanagement/\" ",
+                                                    "            url : GLOBAL.urlPrefix + \"alm/groupmanagement/\"",
                                                     "                    + almConstants.selectRow.get(\"name\") + \"/\" + record.get(\"userId\"),",
                                                     "            method: 'POST',",
                                                     "            headers: { 'Content-Type': 'application/json' },",

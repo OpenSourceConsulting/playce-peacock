@@ -22,7 +22,7 @@ Ext.define('MyApp.model.ProjectModel', {
 
     fields: [
         {
-            name: 'projectId',
+            name: 'projectCode',
             type: 'string'
         },
         {
