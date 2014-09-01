@@ -29,8 +29,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
+import com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
@@ -45,7 +47,7 @@ import com.athena.peacock.controller.web.common.model.GridJsonResponse;
  */
 @Service
 public class AlmProjectService {
-	
+
 	@Autowired
 	private AlmProjectDao projectDao;
 
@@ -53,8 +55,6 @@ public class AlmProjectService {
 		// TODO Auto-generated constructor stub
 
 	}
-
-
 
 	public GridJsonResponse getProjectList(ExtjsGridParam gridParam) {
 
@@ -65,7 +65,7 @@ public class AlmProjectService {
 
 		return response;
 	}
-	
+
 	public DtoJsonResponse getProject(String projectCode) {
 
 		DtoJsonResponse response = new DtoJsonResponse();
@@ -74,7 +74,7 @@ public class AlmProjectService {
 		response.setData(dto);
 		return response;
 	}
-	
+
 	public GridJsonResponse getUserList(String projectCode) {
 
 		GridJsonResponse response = new GridJsonResponse();
@@ -82,7 +82,7 @@ public class AlmProjectService {
 		List<ProjectDto> projects = new ArrayList<ProjectDto>();
 
 		ProjectDto dto1 = new ProjectDto();
-		//dto1.setProjectId("w001");
+		// dto1.setProjectId("w001");
 		dto1.setProjectDescription("Project ~");
 		dto1.setProjectName("HHI Project");
 
@@ -92,15 +92,49 @@ public class AlmProjectService {
 
 		return response;
 	}
-	
-	public DtoJsonResponse createProject(ProjectDto project){
-		
+
+	public DtoJsonResponse createProject(ProjectDto project) {
+
 		DtoJsonResponse response = new DtoJsonResponse();
 		projectDao.insertProject(project);
 		return response;
 		//
-		
+
 	}
 
+	public DtoJsonResponse getJenkinsJob(String projectcode) {
+
+		DtoJsonResponse response = new DtoJsonResponse();
+		// projectDao.insertProject(projectcode);
+		return response;
+		//
+
+	}
+
+	public DtoJsonResponse createProjectMapping(String projectCode,
+			String mappingtype, String mappingCode) {
+
+		DtoJsonResponse response = new DtoJsonResponse();
+
+
+		ProjectMappingDto mappingDto = new ProjectMappingDto();
+		mappingDto.setProjectCode(projectCode);
+		mappingDto.setMappingCode(mappingCode);
+
+		if (mappingtype.equals("jenkins")) {
+			mappingDto.setMappingType(30);
+		} else if (mappingtype.equals("svn")) {
+			mappingDto.setMappingType(30);
+		} else if (mappingtype.equals("confluence")) {
+			mappingDto.setMappingType(30);
+		}else{
+			response.setSuccess(false);
+			response.setMsg("mapping code가 정확하지 않습니다");
+			return response;
+		}
+
+		projectDao.insertProjectMapping(mappingDto);
+		return response;
+	}
 }
 // end of UserService.java

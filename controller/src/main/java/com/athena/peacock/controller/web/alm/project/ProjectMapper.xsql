@@ -26,4 +26,18 @@
 		)
 	</insert>
 	
+	<insert id="insertProjectMapping" parameterType="com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto">
+		INSERT INTO  alm_project_mapping_tbl
+		(
+			PROJECT_CODE
+		    ,MAPPING_TYPE
+		    ,MAPPING_CODE
+		)
+		VALUES (
+			#{projectCode}
+			,#{mappingType}
+			,#{mappingCode}
+		)
+	</insert>
+	
 </mapper>
