@@ -24,6 +24,8 @@
  */
 package com.athena.peacock.controller.web.alm.project.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * <pre>
  * 
@@ -32,6 +34,7 @@ package com.athena.peacock.controller.web.alm.project.dto;
  * @author Bong-Jin Kwon
  * @version 1.0
  */
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class ProjectDto {
 
 	private static final long serialVersionUID = -1083153050593982734L;
