@@ -6,11 +6,11 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userAlias": "AlmGroupUsersWindow",
-        "designer|userClassName": "AlmGroupUsersWindow",
+        "designer|userAlias": "AlmUsersWindow",
+        "designer|userClassName": "AlmUsersWindow",
         "height": 300,
-        "id": "AlmGroupUsersWindow",
-        "itemId": "AlmGroupUsersWindow",
+        "id": "AlmUsersWindow",
+        "itemId": "AlmUsersWindow",
         "layout": "border",
         "modal": true,
         "resizable": false,
@@ -148,25 +148,30 @@
                                                 ],
                                                 "fn": "handler",
                                                 "implHandler": [
+                                                    "",
                                                     "Ext.MessageBox.confirm('Confirm', 'User를 등록 하시겠습니까?', function(btn){",
                                                     "",
                                                     "    if(btn == \"yes\"){",
+                                                    "        ",
+                                                    "        var type = Ext.getCmp(\"addAlmUserType\").getValue();",
                                                     "",
-                                                    "        Ext.Ajax.request({",
-                                                    "            url : GLOBAL.urlPrefix + \"alm/groupmanagement/\"",
-                                                    "                    + almConstants.selectRow.get(\"name\") + \"/\" + record.get(\"userId\"),",
-                                                    "            method: 'POST',",
-                                                    "            headers: { 'Content-Type': 'application/json' },",
-                                                    "            disableCaching : true,",
-                                                    "            waitMsg: 'Add ALM User...',",
-                                                    "            success: function(response){",
-                                                    "                var msg = Ext.JSON.decode(response.responseText).msg;",
-                                                    "                Ext.MessageBox.alert('알림', msg);",
-                                                    "",
-                                                    "                Ext.getCmp(\"almGroupUserGrid\").getStore().reload();",
-                                                    "",
-                                                    "            }",
-                                                    "        });",
+                                                    "        if(type == \"group\") {",
+                                                    "            Ext.Ajax.request({",
+                                                    "                url : GLOBAL.urlPrefix + \"alm/groupmanagement/\"",
+                                                    "                        + almConstants.selectRow.get(\"name\") + \"/\" + record.get(\"userId\"),",
+                                                    "                method: 'POST',",
+                                                    "                headers: { 'Content-Type': 'application/json' },",
+                                                    "                disableCaching : true,",
+                                                    "                waitMsg: 'Add ALM User...',",
+                                                    "                success: function(response){",
+                                                    "                    var msg = Ext.JSON.decode(response.responseText).msg;",
+                                                    "                    Ext.MessageBox.alert('알림', msg);",
+                                                    "    ",
+                                                    "                    Ext.getCmp(\"almGroupUserGrid\").getStore().reload();",
+                                                    "    ",
+                                                    "                }",
+                                                    "            });",
+                                                    "        }",
                                                     "    }",
                                                     "",
                                                     "});"
@@ -205,6 +210,21 @@
                             "designerId": "a262929a-40cb-45a0-b7a7-19a03de9374a"
                         }
                     ]
+                },
+                {
+                    "type": "Ext.form.field.Hidden",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "Label",
+                        "id": "addAlmUserType",
+                        "itemId": "addAlmUserType",
+                        "width": 150
+                    },
+                    "designerId": "b742f223-3509-4c5a-8a89-6a5f7a4114e9"
                 }
             ]
         },

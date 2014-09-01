@@ -39,7 +39,8 @@
             "ProjectModel",
             "SpaceSummaryModel",
             "AlmGroupModel",
-            "InstanceMonitoringModel"
+            "InstanceMonitoringModel",
+            "AlmJobModel"
         ],
         "name": "MyApp",
         "requires": [
@@ -75,7 +76,8 @@
             "AlmGroupStore",
             "InstanceMonitoringStore",
             "MonitoringPopupStore",
-            "AlmGroupUsersStore"
+            "AlmGroupUsersStore",
+            "AlmJobStore"
         ],
         "views": [
             "peacockViewport",
@@ -96,7 +98,7 @@
             "almContainer",
             "almUserWindow",
             "AlmGroupWindow",
-            "AlmGroupUsersWindow",
+            "AlmUsersWindow",
             "softwareInstallLogWindow",
             "softwareConfigWindow",
             "MonitoringChartWindow",

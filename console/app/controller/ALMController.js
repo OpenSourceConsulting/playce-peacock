@@ -112,7 +112,7 @@ Ext.define('MyApp.controller.ALMController', {
 
             grid.getView().bindStore(store);
 
-        } else if(newCard.title == "Group"){
+        } else if(newCard.title == "Confluence"){
 
             var grid = Ext.getCmp("almProjectGroupGrid");
 
@@ -136,25 +136,7 @@ Ext.define('MyApp.controller.ALMController', {
 
         } else {
 
-            var grid = Ext.getCmp("almProjectConfluenceGrid");
-
-            var store = Ext.create('Ext.data.Store', {
-                alias: 'store.ModeStore',
-                autoLoad: false,
-                fields: [{
-                    name: 'name',
-                    type: 'string'
-                }, {
-                    name: 'text',
-                    type: 'string'
-                }],
-                data: [
-              { name : "Blank", text : "Remove Space from Project"},
-              { name : "S", text : "Remove Space from Project"}
-            ]
-            });
-
-            grid.getView().bindStore(store);
+            var grid = Ext.getCmp("almProjectJenkinsGrid").getStore().load();
 
         }
     },

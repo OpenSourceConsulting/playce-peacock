@@ -46,7 +46,8 @@ Ext.application({
         'ProjectModel',
         'SpaceSummaryModel',
         'AlmGroupModel',
-        'InstanceMonitoringModel'
+        'InstanceMonitoringModel',
+        'AlmJobModel'
     ],
     stores: [
         'MenuTreeStore',
@@ -78,7 +79,8 @@ Ext.application({
         'AlmGroupStore',
         'InstanceMonitoringStore',
         'MonitoringPopupStore',
-        'AlmGroupUsersStore'
+        'AlmGroupUsersStore',
+        'AlmJobStore'
     ],
     views: [
         'peacockViewport',
@@ -99,7 +101,7 @@ Ext.application({
         'almContainer',
         'almUserWindow',
         'AlmGroupWindow',
-        'AlmGroupUsersWindow',
+        'AlmUsersWindow',
         'softwareInstallLogWindow',
         'softwareConfigWindow',
         'MonitoringChartWindow',

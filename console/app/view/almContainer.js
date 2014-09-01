@@ -273,6 +273,13 @@ Ext.define('MyApp.view.almContainer', {
                                                                                 },
                                                                                 {
                                                                                     xtype: 'button',
+                                                                                    handler: function(button, e) {
+                                                                                        var almGroupUsersWindow = Ext.create("widget.AlmUsersWindow");
+
+                                                                                        almGroupUsersWindow.show();
+
+                                                                                        var grid = Ext.getCmp("popAlmUsersGrid").getStore().load();
+                                                                                    },
                                                                                     text: 'Add Users to Project'
                                                                                 }
                                                                             ]
@@ -386,6 +393,7 @@ Ext.define('MyApp.view.almContainer', {
                                                                     autoScroll: true,
                                                                     columnLines: true,
                                                                     forceFit: true,
+                                                                    store: 'AlmJobStore',
                                                                     dockedItems: [
                                                                         {
                                                                             xtype: 'toolbar',
@@ -401,6 +409,9 @@ Ext.define('MyApp.view.almContainer', {
                                                                                         var almProjectJobWindow = Ext.create("widget.almProjectJobWindow");
 
                                                                                         almProjectJobWindow.show();
+
+                                                                                        Ext.getCmp("almJobGrid").getStore().load();
+
                                                                                     },
                                                                                     text: 'Add Job to Project'
                                                                                 }
@@ -938,11 +949,13 @@ Ext.define('MyApp.view.almContainer', {
                                                                                 {
                                                                                     xtype: 'button',
                                                                                     handler: function(button, e) {
-                                                                                        var almGroupUsersWindow = Ext.create("widget.AlmGroupUsersWindow");
+                                                                                        var almGroupUsersWindow = Ext.create("widget.AlmUsersWindow");
 
                                                                                         almGroupUsersWindow.show();
 
-                                                                                        var grid = Ext.getCmp("popAlmUsersGrid").getStore().load();
+                                                                                        Ext.getCmp("popAlmUsersGrid").getStore().load();
+                                                                                        Ext.getCmp("addAlmUserType").setValue("group");
+
                                                                                     },
                                                                                     width: 150,
                                                                                     text: 'Add Users to Group'

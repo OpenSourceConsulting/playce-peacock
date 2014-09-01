@@ -878,6 +878,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.controller.UserController": [],
   "MyApp.model.AccountModel": [],
   "MyApp.model.AlmGroupModel": [],
+  "MyApp.model.AlmJobModel": [],
   "MyApp.model.AlmUserModel": [],
   "MyApp.model.ClusterModel": [],
   "MyApp.model.DataCenterModel": [],
@@ -901,6 +902,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.AccountStore": [],
   "MyApp.store.AlmGroupStore": [],
   "MyApp.store.AlmGroupUsersStore": [],
+  "MyApp.store.AlmJobStore": [],
   "MyApp.store.AlmProjectStore": [],
   "MyApp.store.AlmSpaceStore": [],
   "MyApp.store.AlmUserStore": [],
@@ -928,9 +930,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.instanceSoftwareListStore": [],
   "MyApp.store.tempChartData": [],
   "MyApp.store.tempGridData": [],
-  "MyApp.view.AlmGroupUsersWindow": [],
   "MyApp.view.AlmGroupWindow": [],
   "MyApp.view.AlmProjectWindow": [],
+  "MyApp.view.AlmUsersWindow": [],
   "MyApp.view.CLIWindow": [],
   "MyApp.view.CrontabWindow": [],
   "MyApp.view.EditInstanceWindow": [],
@@ -1978,6 +1980,7 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.controller.UserController": [],
   "MyApp.model.AccountModel": [],
   "MyApp.model.AlmGroupModel": [],
+  "MyApp.model.AlmJobModel": [],
   "MyApp.model.AlmUserModel": [],
   "MyApp.model.ClusterModel": [],
   "MyApp.model.DataCenterModel": [],
@@ -2001,6 +2004,7 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.store.AccountStore": [],
   "MyApp.store.AlmGroupStore": [],
   "MyApp.store.AlmGroupUsersStore": [],
+  "MyApp.store.AlmJobStore": [],
   "MyApp.store.AlmProjectStore": [],
   "MyApp.store.AlmSpaceStore": [],
   "MyApp.store.AlmUserStore": [],
@@ -2028,14 +2032,14 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.store.instanceSoftwareListStore": [],
   "MyApp.store.tempChartData": [],
   "MyApp.store.tempGridData": [],
-  "MyApp.view.AlmGroupUsersWindow": [
-    "widget.AlmGroupUsersWindow"
-  ],
   "MyApp.view.AlmGroupWindow": [
     "widget.AlmGroupWindow"
   ],
   "MyApp.view.AlmProjectWindow": [
     "widget.AlmProjectWindow"
+  ],
+  "MyApp.view.AlmUsersWindow": [
+    "widget.AlmUsersWindow"
   ],
   "MyApp.view.CLIWindow": [
     "widget.CLIWindow"

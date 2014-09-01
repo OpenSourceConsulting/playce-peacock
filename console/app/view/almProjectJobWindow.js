@@ -25,10 +25,11 @@ Ext.define('MyApp.view.almProjectJobWindow', {
         'Ext.grid.View'
     ],
 
-    height: 250,
+    height: 300,
     id: 'almProjectJobWindow',
     itemId: 'almProjectJobWindow',
-    width: 550,
+    width: 380,
+    resizable: false,
     layout: 'border',
     title: 'Add Job',
     modal: true,
@@ -49,14 +50,14 @@ Ext.define('MyApp.view.almProjectJobWindow', {
                     items: [
                         {
                             xtype: 'gridpanel',
-                            height: 358,
+                            height: 240,
                             id: 'almJobGrid',
                             itemId: 'almJobGrid',
                             autoScroll: true,
                             bodyBorder: false,
                             columnLines: true,
                             forceFit: true,
-                            store: 'AlmSpaceStore',
+                            store: 'AlmJobStore',
                             dockedItems: [
                                 {
                                     xtype: 'toolbar',
@@ -91,9 +92,9 @@ Ext.define('MyApp.view.almProjectJobWindow', {
                                     items: [
                                         {
                                             handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                                alert('delete');
+                                                alert('add');
                                             },
-                                            icon: 'resources/images/icons/delete.png',
+                                            icon: 'resources/images/icons/add.png',
                                             iconCls: ''
                                         }
                                     ]

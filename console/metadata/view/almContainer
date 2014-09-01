@@ -594,7 +594,32 @@
                                                                                 "layout|flex": null,
                                                                                 "text": "Add Users to Project"
                                                                             },
-                                                                            "designerId": "792e0349-3a54-4cac-8f3b-83deda036b96"
+                                                                            "designerId": "792e0349-3a54-4cac-8f3b-83deda036b96",
+                                                                            "cn": [
+                                                                                {
+                                                                                    "type": "fixedfunction",
+                                                                                    "reference": {
+                                                                                        "name": "items",
+                                                                                        "type": "array"
+                                                                                    },
+                                                                                    "codeClass": null,
+                                                                                    "userConfig": {
+                                                                                        "designer|params": [
+                                                                                            "button",
+                                                                                            "e"
+                                                                                        ],
+                                                                                        "fn": "handler",
+                                                                                        "implHandler": [
+                                                                                            "var almGroupUsersWindow = Ext.create(\"widget.AlmUsersWindow\");",
+                                                                                            "",
+                                                                                            "almGroupUsersWindow.show();",
+                                                                                            "",
+                                                                                            "var grid = Ext.getCmp(\"popAlmUsersGrid\").getStore().load();"
+                                                                                        ]
+                                                                                    },
+                                                                                    "designerId": "69e76283-1e18-47e2-b8c4-6f70d74ebe14"
+                                                                                }
+                                                                            ]
                                                                         }
                                                                     ]
                                                                 },
@@ -930,7 +955,7 @@
                                                                 "forceFit": true,
                                                                 "id": "almProjectJenkinsGrid",
                                                                 "itemId": "almProjectJenkinsGrid",
-                                                                "store": null,
+                                                                "store": "AlmJobStore",
                                                                 "title": null
                                                             },
                                                             "designerId": "8776d4be-2045-43a1-9df6-e3210f90e9ca",
@@ -990,7 +1015,10 @@
                                                                                         "implHandler": [
                                                                                             "var almProjectJobWindow = Ext.create(\"widget.almProjectJobWindow\");",
                                                                                             "",
-                                                                                            "almProjectJobWindow.show();"
+                                                                                            "almProjectJobWindow.show();",
+                                                                                            "",
+                                                                                            "Ext.getCmp(\"almJobGrid\").getStore().load();",
+                                                                                            ""
                                                                                         ]
                                                                                     },
                                                                                     "designerId": "8984ff5f-7860-41f4-8329-8ab07248e1f3"
@@ -2301,11 +2329,13 @@
                                                                                         ],
                                                                                         "fn": "handler",
                                                                                         "implHandler": [
-                                                                                            "var almGroupUsersWindow = Ext.create(\"widget.AlmGroupUsersWindow\");",
+                                                                                            "var almGroupUsersWindow = Ext.create(\"widget.AlmUsersWindow\");",
                                                                                             "",
                                                                                             "almGroupUsersWindow.show();",
                                                                                             "",
-                                                                                            "var grid = Ext.getCmp(\"popAlmUsersGrid\").getStore().load();"
+                                                                                            "Ext.getCmp(\"popAlmUsersGrid\").getStore().load();",
+                                                                                            "Ext.getCmp(\"addAlmUserType\").setValue(\"group\");",
+                                                                                            ""
                                                                                         ]
                                                                                     },
                                                                                     "designerId": "54b041f2-c801-490c-b5d9-c7f4e632ef55"

@@ -8,13 +8,17 @@
     "userConfig": {
         "designer|userAlias": "almProjectJobWindow",
         "designer|userClassName": "almProjectJobWindow",
-        "height": 250,
+        "height": 300,
         "id": "almProjectJobWindow",
         "itemId": "almProjectJobWindow",
         "layout": "border",
         "modal": true,
+        "resizable": false,
         "title": "Add Job",
-        "width": 550
+        "width": 380
+    },
+    "configAlternates": {
+        "resizable": "boolean"
     },
     "designerId": "d8e29b55-2774-4a59-b5ed-83b6fe54b606",
     "cn": [
@@ -47,10 +51,10 @@
                         "bodyBorder": false,
                         "columnLines": true,
                         "forceFit": true,
-                        "height": 358,
+                        "height": 240,
                         "id": "almJobGrid",
                         "itemId": "almJobGrid",
-                        "store": "AlmSpaceStore",
+                        "store": "AlmJobStore",
                         "title": null
                     },
                     "designerId": "2f4f6ca9-0acb-4b94-8361-6ec13d60edcc",
@@ -134,7 +138,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "icon": "resources/images/icons/delete.png",
+                                        "icon": "resources/images/icons/add.png",
                                         "iconCls": ""
                                     },
                                     "designerId": "83e605e3-299b-408c-83e9-3efe25f090d8",
@@ -158,7 +162,7 @@
                                                 ],
                                                 "fn": "handler",
                                                 "implHandler": [
-                                                    "alert('delete');"
+                                                    "alert('add');"
                                                 ]
                                             },
                                             "designerId": "459ff18b-8eeb-4251-9edb-ad514ac001b6"

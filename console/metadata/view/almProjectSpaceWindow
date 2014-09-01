@@ -8,13 +8,17 @@
     "userConfig": {
         "designer|userAlias": "almProjectSpaceWindow",
         "designer|userClassName": "almProjectSpaceWindow",
-        "height": 250,
+        "height": 300,
         "id": "almProjectSpaceWindow",
         "itemId": "almProjectSpaceWindow",
         "layout": "border",
         "modal": true,
+        "resizable": false,
         "title": "Add Space",
         "width": 550
+    },
+    "configAlternates": {
+        "resizable": "boolean"
     },
     "designerId": "75dc64ae-25ef-43f8-925f-8371b076930b",
     "cn": [
@@ -47,7 +51,7 @@
                         "bodyBorder": false,
                         "columnLines": true,
                         "forceFit": true,
-                        "height": 358,
+                        "height": 240,
                         "id": "almSpaceGrid",
                         "itemId": "almSpaceGrid",
                         "store": "AlmSpaceStore",
@@ -162,7 +166,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "icon": "resources/images/icons/delete.png",
+                                        "icon": "resources/images/icons/add.png",
                                         "iconCls": ""
                                     },
                                     "designerId": "43f79306-8461-4d4e-b47f-914fbc03f0cb",

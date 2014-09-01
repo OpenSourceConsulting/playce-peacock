@@ -25,10 +25,11 @@ Ext.define('MyApp.view.almProjectSpaceWindow', {
         'Ext.grid.View'
     ],
 
-    height: 250,
+    height: 300,
     id: 'almProjectSpaceWindow',
     itemId: 'almProjectSpaceWindow',
     width: 550,
+    resizable: false,
     layout: 'border',
     title: 'Add Space',
     modal: true,
@@ -49,7 +50,7 @@ Ext.define('MyApp.view.almProjectSpaceWindow', {
                     items: [
                         {
                             xtype: 'gridpanel',
-                            height: 358,
+                            height: 240,
                             id: 'almSpaceGrid',
                             itemId: 'almSpaceGrid',
                             autoScroll: true,
@@ -105,7 +106,7 @@ Ext.define('MyApp.view.almProjectSpaceWindow', {
                                             handler: function(view, rowIndex, colIndex, item, e, record, row) {
                                                 alert('delete');
                                             },
-                                            icon: 'resources/images/icons/delete.png',
+                                            icon: 'resources/images/icons/add.png',
                                             iconCls: ''
                                         }
                                     ]

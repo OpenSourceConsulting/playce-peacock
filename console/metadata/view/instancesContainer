@@ -2545,8 +2545,8 @@
                                                             "codeClass": null,
                                                             "userConfig": {
                                                                 "fields": [
-                                                                    "DISK_001",
-                                                                    "DISK_002",
+                                                                    "DISK_1",
+                                                                    "DISK_2",
                                                                     "DISK_3",
                                                                     "DISK_4",
                                                                     "DISK_5",
@@ -2598,7 +2598,7 @@
                                                                 ],
                                                                 "xField": "regDt",
                                                                 "yField": [
-                                                                    "DISK_001"
+                                                                    "DISK_1"
                                                                 ]
                                                             },
                                                             "configAlternates": {
@@ -2628,7 +2628,7 @@
                                                                 ],
                                                                 "xField": "regDt",
                                                                 "yField": [
-                                                                    "DISK_002"
+                                                                    "DISK_2"
                                                                 ]
                                                             },
                                                             "configAlternates": {
@@ -2658,7 +2658,7 @@
                                                                 ],
                                                                 "xField": "regDt",
                                                                 "yField": [
-                                                                    "DISK_003"
+                                                                    "DISK_3"
                                                                 ]
                                                             },
                                                             "configAlternates": {
@@ -2688,7 +2688,7 @@
                                                                 ],
                                                                 "xField": "regDt",
                                                                 "yField": [
-                                                                    "DISK_004"
+                                                                    "DISK_4"
                                                                 ]
                                                             },
                                                             "configAlternates": {
@@ -2718,7 +2718,7 @@
                                                                 ],
                                                                 "xField": "regDt",
                                                                 "yField": [
-                                                                    "DISK_005"
+                                                                    "DISK_5"
                                                                 ]
                                                             },
                                                             "configAlternates": {
@@ -2748,7 +2748,7 @@
                                                                 ],
                                                                 "xField": "regDt",
                                                                 "yField": [
-                                                                    "DISK_006"
+                                                                    "DISK_6"
                                                                 ]
                                                             },
                                                             "configAlternates": {
@@ -2838,7 +2838,7 @@
                                                                 ],
                                                                 "xField": "regDt",
                                                                 "yField": [
-                                                                    "DISK_009"
+                                                                    "DISK_9"
                                                                 ]
                                                             },
                                                             "configAlternates": {
