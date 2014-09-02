@@ -23,12 +23,11 @@ package com.athena.peacock.agent.netty;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-
-import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -73,9 +72,23 @@ public class PeacockClient {
 	private PeacockClientHandler handler;
     
     private final int frequency = 5000;
-    private final int maxretries = 5;
-    private final AtomicInteger count = new AtomicInteger();
+    //private final int maxretries = 5;
+    //private final java.util.concurrent.atomic.AtomicInteger count = new java.util.concurrent.atomic.AtomicInteger();
     
+	public Bootstrap createBootstrap(Bootstrap bootstrap, EventLoopGroup group) {
+		if (bootstrap != null) {
+			bootstrap.group(group);
+			bootstrap.channel(NioSocketChannel.class);
+			bootstrap.option(ChannelOption.SO_KEEPALIVE, true);
+			bootstrap.handler(new LoggingHandler(LogLevel.WARN));
+	        bootstrap.handler(initializer);
+			bootstrap.remoteAddress(host, port);
+			bootstrap.connect().addListener(new PeacockClientListener(this));
+		}
+		
+		return bootstrap;
+	}
+
     /**
      * <pre>
      * Bean 생성 시 수행되는 메소드로 Server와의 연결을 수립한다.
@@ -83,10 +96,21 @@ public class PeacockClient {
      * @throws Exception
      */
     @PostConstruct
+	public void run() {
+		createBootstrap(new Bootstrap(), group);
+	}
+    
+    /**
+     * <pre>
+     * Bean 생성 시 수행되는 메소드로 Server와의 연결을 수립한다.
+     * </pre>
+     * @throws Exception
+     */
+    //@PostConstruct
 	public void start() throws Exception {
     	final Bootstrap b = new Bootstrap()
     							.group(group)
-						        .channel(NioSocketChannel.class)
+						        .channel(NioSocketChannel.class)  
 						        .handler(new LoggingHandler(LogLevel.WARN))
 						        .handler(initializer);
         
@@ -99,7 +123,19 @@ public class PeacockClient {
 			public void operationComplete(ChannelFuture future) throws Exception {
 				if (future.isSuccess()) {
                     future.sync();
-				} else {
+				} else {				       
+                    logger.debug("Attempt to reconnect within {} seconds.", frequency / 1000);
+                    
+					try {
+                        Thread.sleep(frequency);
+                    } catch (InterruptedException e) {
+                    	// nothing to do.
+                        logger.error(e.getMessage());
+                    }   
+                    
+                    b.connect(host, port).addListener(this);       
+                    
+                    /*
 					if (count.incrementAndGet() <= maxretries) {
                         logger.debug("Attempt to reconnect within {} seconds.", frequency / 1000);
                         
@@ -113,8 +149,9 @@ public class PeacockClient {
                         b.connect(host, port).addListener(this);       
 					} else {
 						// Stop the agent daemon if the connection attempt has failed.
-						System.exit(-1);
+						//System.exit(-1);
 					}
+					*/
 				}
 			}
         });

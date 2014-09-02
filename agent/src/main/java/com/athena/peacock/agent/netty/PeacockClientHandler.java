@@ -20,9 +20,11 @@
  */
 package com.athena.peacock.agent.netty;
 
+import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.EventLoop;
 import io.netty.channel.SimpleChannelInboundHandler;
 
 import java.io.File;
@@ -34,6 +36,7 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -77,6 +80,8 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 
     private boolean connected = false;
     private Channel channel;
+    
+    private PeacockClient client = null;
     
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
@@ -211,12 +216,26 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 		logger.debug("channelInactive() has invoked.");
 
 		// Stop the agent daemon if the connection has lost.
-		System.exit(-1);
+		//System.exit(-1);
 		
-		/*
-    	connected = false;
-    	channel = null;
-    	*/
+		connected = false;
+		channel = null;
+		
+		// 서버와의 연결이 종료되면 5초 단위로 재접속을 수행한다.
+		if (client == null) {
+			client = AppContext.getBean(PeacockClient.class);
+		}
+		
+		final EventLoop eventLoop = ctx.channel().eventLoop();
+		eventLoop.schedule(new Runnable() {
+			@Override
+			public void run() {
+                logger.debug("Attempt to reconnect within 5 seconds.");
+				client.createBootstrap(new Bootstrap(), eventLoop);
+			}
+		}, 5L, TimeUnit.SECONDS);
+		
+		super.channelInactive(ctx);  
     }
     
     /**
