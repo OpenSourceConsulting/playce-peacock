@@ -431,6 +431,7 @@ public class MachineController {
 					columns = line.split(":");
 					group = new GroupDto();
 					group.setGroup(columns[0]);
+					group.setGid(Integer.parseInt(columns[2]));
 					groupList.add(group);
 				}
 			}
@@ -531,6 +532,58 @@ public class MachineController {
 
 	/**
 	 * <pre>
+	 * Running 중인 Instance의 특정 그룹을 삭제한다.
+	 * </pre>
+	 * @param jsonRes
+	 * @param account
+	 * @return
+	 */
+	@RequestMapping("/removeGroup")
+	public @ResponseBody DtoJsonResponse removeGroup(DtoJsonResponse jsonRes, GroupDto group) {
+		Assert.notNull(group.getMachineId(), "machineId can not be null.");
+		Assert.notNull(group.getGroup(), "group can not be null.");
+		Assert.isTrue(group.getGid() != null && group.getGid() >= 500, "gid can not be null and greater than 499.");
+		
+		try {
+			ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
+			cmdMsg.setAgentId(group.getMachineId());
+			cmdMsg.setBlocking(true);
+
+			int sequence = 0;
+			Command command = new Command("REMOVE_GROUP");
+			
+			ShellAction action = new ShellAction(sequence++);
+			
+			action.setCommand("groupdel");
+			action.addArguments(group.getGroup());
+
+			command.addAction(action);
+			
+			cmdMsg.addCommand(command);
+
+			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
+			
+			jsonRes.setData(response.getResults());
+			jsonRes.setMsg("Group이 정상적으로 삭제되었습니다.");
+		} catch (Exception e) {
+			String message = "Group 삭제 중 에러가 발생하였습니다.";
+			
+			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
+				message += "<br/>Instance와의 연결을 확인하십시오.";
+			}
+			
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg(message);
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+
+	/**
+	 * <pre>
 	 * Running 중인 Instance의 특정 계정을 삭제한다.
 	 * </pre>
 	 * @param jsonRes
@@ -567,6 +620,92 @@ public class MachineController {
 			jsonRes.setMsg("Account가 정상적으로 삭제되었습니다.");
 		} catch (Exception e) {
 			String message = "Account 삭제 중 에러가 발생하였습니다.";
+			
+			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
+				message += "<br/>Instance와의 연결을 확인하십시오.";
+			}
+			
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg(message);
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+
+	/**
+	 * <pre>
+	 * Running 중인 Instance에 주어진 그룹을 생성한다.
+	 * </pre>
+	 * @param jsonRes
+	 * @param account
+	 * @return
+	 */
+	@RequestMapping("/createGroup")
+	public @ResponseBody DtoJsonResponse createGroup(DtoJsonResponse jsonRes, GroupDto group) {
+		Assert.notNull(group.getMachineId(), "machineId can not be null.");
+		Assert.notNull(group.getGroup(), "group can not be null.");
+		
+		try {
+			ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
+			cmdMsg.setAgentId(group.getMachineId());
+			cmdMsg.setBlocking(true);
+
+			int sequence = 0;
+			Command command = new Command("CHECK_GROUP_DUPLICATION");
+			
+			ShellAction action = new ShellAction(sequence++);
+			
+			action.setCommand("egrep");
+			action.addArguments("\"" + group.getGroup() + "\" /etc/group");
+			command.addAction(action);
+			cmdMsg.addCommand(command);
+
+			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
+			
+			String[] lines = response.getResults().get(0).split("\n");
+			
+			for (String line : lines) {
+				if (line.contains(":") && line.split(":")[0].equals(group.getGroup())) {
+					jsonRes.setSuccess(false);
+					jsonRes.setMsg("\"" + group.getGroup() + "\" 그룹이 이미 있습니다.");
+					
+					return jsonRes;
+				}
+			}
+			
+			cmdMsg = new ProvisioningCommandMessage();
+			cmdMsg.setAgentId(group.getMachineId());
+			cmdMsg.setBlocking(true);
+			
+			sequence = 0;
+			command = new Command("CREATE_GROUP");
+			
+			action = new ShellAction(sequence++);
+			
+			action.setCommand("groupadd");
+			
+			String args = "";
+
+			if (group.getGid() != null && group.getGid() > 0) {
+				args += "-g " + group.getGid() + " ";
+			}
+			
+			args += group.getGroup();	
+			
+			action.addArguments(args);
+			command.addAction(action);			
+			cmdMsg.addCommand(command);
+
+			datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+			response = peacockTransmitter.sendMessage(datagram);
+			
+			jsonRes.setData(response.getResults());
+			jsonRes.setMsg("Group이 정상적으로 생성되었습니다.");
+		} catch (Exception e) {
+			String message = "Group 생성 중 에러가 발생하였습니다.";
 			
 			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
 				message += "<br/>Instance와의 연결을 확인하십시오.";

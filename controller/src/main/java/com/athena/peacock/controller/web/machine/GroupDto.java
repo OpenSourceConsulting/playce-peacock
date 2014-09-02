@@ -34,8 +34,24 @@ import java.io.Serializable;
 public class GroupDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
+	private String machineId;
 	private String group;
+	private Integer gid;
+
+	/**
+	 * @return the machineId
+	 */
+	public String getMachineId() {
+		return machineId;
+	}
+
+	/**
+	 * @param machineId the machineId to set
+	 */
+	public void setMachineId(String machineId) {
+		this.machineId = machineId;
+	}
 
 	/**
 	 * @return the group
@@ -49,6 +65,20 @@ public class GroupDto implements Serializable {
 	 */
 	public void setGroup(String group) {
 		this.group = group;
+	}
+
+	/**
+	 * @return the gid
+	 */
+	public Integer getGid() {
+		return gid;
+	}
+
+	/**
+	 * @param gid the gid to set
+	 */
+	public void setGid(Integer gid) {
+		this.gid = gid;
 	}
 }
 //end of GroupDto.java
