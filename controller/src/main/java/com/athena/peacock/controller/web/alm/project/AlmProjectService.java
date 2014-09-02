@@ -29,7 +29,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto;

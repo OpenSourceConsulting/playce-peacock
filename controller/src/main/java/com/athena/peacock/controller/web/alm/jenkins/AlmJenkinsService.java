@@ -25,17 +25,10 @@
 package com.athena.peacock.controller.web.alm.jenkins;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.athena.peacock.controller.web.alm.jenkins.client.JenkinsClient;
 import com.athena.peacock.controller.web.alm.jenkins.clinet.model.JenkinsResponseDto;
-import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
-import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 
 /**
