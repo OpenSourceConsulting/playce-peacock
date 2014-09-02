@@ -2,13 +2,13 @@ package com.athena.peacock.controller.web.alm.project.dto;
 
 import java.util.List;
 
+import com.athena.peacock.controller.web.alm.crowd.dto.AlmUserDto;
 import com.athena.peacock.controller.web.alm.repository.dto.RepositoryDto;
-import com.atlassian.crowd.model.user.User;
 
 public class ProjectWizardDto {
 
 	private ProjectDto project;
-	private List<User> users;
+	private List<AlmUserDto> users;
 	private List<ProjectMappingDto> jenkins;
 	private List<ProjectMappingDto> confluence;
 	private RepositoryDto repository;
@@ -21,11 +21,11 @@ public class ProjectWizardDto {
 		this.project = project;
 	}
 
-	public List<User> getUsers() {
+	public List<AlmUserDto> getUsers() {
 		return users;
 	}
 
-	public void setUsers(List<User> users) {
+	public void setUsers(List<AlmUserDto> users) {
 		this.users = users;
 	}
 

@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.athena.peacock.controller.web.alm.crowd.AlmCrowdService;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
+import com.athena.peacock.controller.web.alm.project.dto.ProjectWizardDto;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
@@ -104,6 +105,12 @@ public class AlmProjectController {
 			@PathVariable String mappingType, @PathVariable String mappingCode) {
 		return almProjectService.createProjectMapping(projectCode, mappingType,
 				mappingCode);
+	}
+	
+	@RequestMapping(value = "/project/test", method = RequestMethod.GET)
+	public @ResponseBody
+	ProjectWizardDto getProjectMappingTest() {
+		return almProjectService.getWizard();
 	}
 }
 //end of AlmUserController.java
