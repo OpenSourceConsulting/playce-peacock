@@ -677,32 +677,43 @@ Ext.define('MyApp.controller.InstancesController', {
 
                         Ext.each(records, function(record, index) {
 
-                            var diskCol = record.get("FACTOR_006").split(",");
+                            if(record.get("FACTOR_006")) {
 
-                            Ext.each(diskCol, function (col) {
+                                var diskCol = record.get("FACTOR_006").split(",");
 
-                                var diskData = col.split(":");
-                                var flag = true;
+                                Ext.each(diskCol, function (col) {
+
+                                    var diskData = col.split(":");
+                                    var flag = true;
+                                    Ext.each(diskColumns, function(disk, diskIdx) {
+
+                                       if(disk == diskData[0])  {
+
+                                           record.set("DISK_"+(diskIdx+1), diskData[1]);
+
+                                           flag = false;
+                                           return false;
+
+                                       }
+
+                                    });
+
+                                    if(flag) {
+                                        diskColumns.push(diskData[0]);
+
+                                        record.set("DISK_"+(diskColumns.length), diskData[1]);
+                                    }
+                                });
+
+                            } else {
+
                                 Ext.each(diskColumns, function(disk, diskIdx) {
 
-                                   if(disk == diskData[0])  {
-
-                                       record.set("DISK_"+(diskIdx+1), diskData[1]);
-
-                                       flag = false;
-                                       return false;
-
-                                   }
+                                    record.set("DISK_"+(diskIdx+1), "");
 
                                 });
 
-                                if(flag) {
-                                    diskColumns.push(diskData[0]);
-
-                                    record.set("DISK_"+(diskColumns.length), diskData[1]);
-                                }
-                                test = diskData[1];
-                            });
+                            }
 
                         });
 
@@ -783,35 +794,46 @@ Ext.define('MyApp.controller.InstancesController', {
             callback : function(records, options, success) {
 
                 if(type == 'disk') {
+
                     Ext.each(records, function(record, index) {
 
-                        var diskCol = record.get("FACTOR_006").split(",");
+                        if(record.get("FACTOR_006")) {
 
-                        Ext.each(diskCol, function (col) {
+                            var diskCol = record.get("FACTOR_006").split(",");
 
-                            var diskData = col.split(":");
-                            var flag = true;
+                            Ext.each(diskCol, function (col) {
+
+                                var diskData = col.split(":");
+                                var flag = true;
+                                Ext.each(diskColumns, function(disk, diskIdx) {
+
+                                    if(disk == diskData[0])  {
+
+                                        record.set("DISK_"+(diskIdx+1), diskData[1]);
+
+                                        flag = false;
+                                        return false;
+
+                                    }
+
+                                });
+
+                                if(flag) {
+                                    diskColumns.push(diskData[0]);
+
+                                    record.set("DISK_"+(diskColumns.length), diskData[1]);
+                                }
+                            });
+
+                        } else {
+
                             Ext.each(diskColumns, function(disk, diskIdx) {
 
-                                if(disk == diskData[0])  {
-
-                                    record.set("DISK_"+(diskIdx+1), diskData[1]);
-
-                                    flag = false;
-                                    return false;
-
-                                }
+                                record.set("DISK_"+(diskIdx+1), "");
 
                             });
 
-                            if(flag) {
-                                diskColumns.push(diskData[0]);
-
-                                record.set("DISK_"+(diskColumns.length), diskData[1]);
-                            }
-                            test = diskData[1];
-                        });
-
+                        }
                     });
 
                     var chartSeries = Ext.getCmp('popDiskChart').series;
