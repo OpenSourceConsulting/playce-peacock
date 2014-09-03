@@ -72,14 +72,10 @@ public class AlmProjectController {
 	}
 	
 	@RequestMapping(value = "/project", method = RequestMethod.POST)
-	public @ResponseBody GridJsonResponse createProject(@RequestBody ProjectDto project){
-		
-		// 
-		almProjectService.createProject(project);
-		
+	public @ResponseBody DtoJsonResponse createProject(@RequestBody ProjectDto project){
 		//
 		//almCrowdService.addGroup(groupData);
-		return null;
+		return almProjectService.createProject(project);
 	}
 	
 	@RequestMapping(value = "/project/{projectCode}", method = RequestMethod.GET)
