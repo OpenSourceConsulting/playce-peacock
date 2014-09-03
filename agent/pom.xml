@@ -69,6 +69,9 @@
                         <phase>install</phase>
                         <configuration>
                             <descriptor>/src/main/assembly/src.xml</descriptor>
+                            <archiverConfig>
+	                    		<defaultDirectoryMode>0755</defaultDirectoryMode>
+                            </archiverConfig>
                         </configuration>
                         <goals>
                             <goal>assembly</goal>
