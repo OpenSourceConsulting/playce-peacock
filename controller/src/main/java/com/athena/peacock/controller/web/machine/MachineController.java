@@ -668,11 +668,20 @@ public class MachineController {
 			String[] lines = response.getResults().get(0).split("\n");
 			
 			for (String line : lines) {
-				if (line.contains(":") && line.split(":")[0].equals(group.getGroup())) {
-					jsonRes.setSuccess(false);
-					jsonRes.setMsg("\"" + group.getGroup() + "\" 그룹이 이미 있습니다.");
+				if (line.contains(":")) {
+					if (line.split(":")[0].equals(group.getGroup())) {
+						jsonRes.setSuccess(false);
+						jsonRes.setMsg("\"" + group.getGroup() + "\" 그룹이 이미 있습니다.");
+						
+						return jsonRes;
+					}
 					
-					return jsonRes;
+					if (line.split(":")[2].equals(Integer.toString(group.getGid()))) {
+						jsonRes.setSuccess(false);
+						jsonRes.setMsg("\"" + group.getGid() + "\" GID가 이미 있습니다.");
+						
+						return jsonRes;
+					}
 				}
 			}
 			
