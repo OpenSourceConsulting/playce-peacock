@@ -24,6 +24,8 @@
  */
 package com.athena.peacock.controller.web.alm.crowd.dto;
 
+import java.io.Serializable;
+
 /**
  * <pre>
  * 
@@ -32,9 +34,9 @@ package com.athena.peacock.controller.web.alm.crowd.dto;
  * @author Bong-Jin Kwon
  * @version 1.0
  */
-public class AlmGroupDto {
+public class AlmGroupDto implements Serializable {
 
-	private static final long serialVersionUID = -1083153050593982734L;
+	private static final long serialVersionUID = -1L;
 
 	private String name;
 	private boolean active;

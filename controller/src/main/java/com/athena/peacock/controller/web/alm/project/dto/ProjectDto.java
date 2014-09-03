@@ -43,6 +43,8 @@ public class ProjectDto {
 	private String projectName;
 	private String projectDescription;
 	private String groupDescription;
+	
+	private String repository;
 
 	public String getProjectCode() {
 		return projectCode;
@@ -76,5 +78,14 @@ public class ProjectDto {
 		this.groupDescription = groupDescription;
 	}
 
+	public String getRepository() {
+		return repository;
+	}
+
+	public void setRepository(String repository) {
+		this.repository = repository;
+	}
+
+	
 }
 // end of User.java
