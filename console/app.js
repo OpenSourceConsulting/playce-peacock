@@ -47,7 +47,8 @@ Ext.application({
         'SpaceSummaryModel',
         'AlmGroupModel',
         'InstanceMonitoringModel',
-        'AlmJobModel'
+        'AlmJobModel',
+        'AlmRepositoryModel'
     ],
     stores: [
         'MenuTreeStore',
@@ -80,7 +81,11 @@ Ext.application({
         'InstanceMonitoringStore',
         'MonitoringPopupStore',
         'AlmGroupUsersStore',
-        'AlmJobStore'
+        'AlmJobStore',
+        'AlmProjectUsersStore',
+        'AlmRepositoryStore',
+        'ComboAlmRepositoryStore',
+        'InstanceGroupStore'
     ],
     views: [
         'peacockViewport',
@@ -110,7 +115,9 @@ Ext.application({
         'RegInstanceWindow',
         'almProjectSpaceWindow',
         'AlmProjectWindow',
-        'almProjectJobWindow'
+        'almProjectJobWindow',
+        'ManageGroupWindow',
+        'RegInstanceGroupWindow'
     ],
     controllers: [
         'LoginController',

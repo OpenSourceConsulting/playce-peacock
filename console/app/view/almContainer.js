@@ -262,6 +262,7 @@ Ext.define('MyApp.view.almContainer', {
                                                                     autoScroll: true,
                                                                     columnLines: true,
                                                                     forceFit: true,
+                                                                    store: 'AlmProjectUsersStore',
                                                                     dockedItems: [
                                                                         {
                                                                             xtype: 'toolbar',
@@ -288,9 +289,21 @@ Ext.define('MyApp.view.almContainer', {
                                                                     columns: [
                                                                         {
                                                                             xtype: 'gridcolumn',
-                                                                            minWidth: 150,
+                                                                            minWidth: 100,
                                                                             dataIndex: 'name',
-                                                                            text: 'User'
+                                                                            text: 'Name'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'gridcolumn',
+                                                                            minWidth: 150,
+                                                                            dataIndex: 'displayName',
+                                                                            text: 'Display Name'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'gridcolumn',
+                                                                            minWidth: 300,
+                                                                            dataIndex: 'emailAddress',
+                                                                            text: 'E-mail'
                                                                         },
                                                                         {
                                                                             xtype: 'actioncolumn',
@@ -965,6 +978,215 @@ Ext.define('MyApp.view.almContainer', {
                                                                     ]
                                                                 }
                                                             ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'panel',
+                            layout: 'border',
+                            title: 'Repository',
+                            items: [
+                                {
+                                    xtype: 'gridpanel',
+                                    flex: 1,
+                                    region: 'center',
+                                    id: 'almRepositoryGrid',
+                                    itemId: 'almRepositoryGrid',
+                                    minHeight: 100,
+                                    autoScroll: true,
+                                    columnLines: true,
+                                    forceFit: true,
+                                    store: 'AlmRepositoryStore',
+                                    dockedItems: [
+                                        {
+                                            xtype: 'toolbar',
+                                            dock: 'top',
+                                            width: 150,
+                                            items: [
+                                                {
+                                                    xtype: 'button',
+                                                    handler: function(button, e) {
+                                                        almConstants.me.showAlmGroupWindow();
+                                                    },
+                                                    text: 'Add Repository'
+                                                },
+                                                {
+                                                    xtype: 'tbseparator'
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    columns: [
+                                        {
+                                            xtype: 'gridcolumn',
+                                            minWidth: 150,
+                                            dataIndex: 'repositoryCode',
+                                            text: 'Name'
+                                        },
+                                        {
+                                            xtype: 'gridcolumn',
+                                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                                if(value == '10') {
+                                                    return 'svn';
+                                                } else if(value == '20') {
+                                                    return 'git';
+                                                } else {
+                                                    return value;
+                                                }
+                                            },
+                                            minWidth: 60,
+                                            dataIndex: 'repositoryType',
+                                            text: 'Type'
+                                        },
+                                        {
+                                            xtype: 'gridcolumn',
+                                            minWidth: 250,
+                                            dataIndex: 'repositoryDescription',
+                                            text: 'Description'
+                                        },
+                                        {
+                                            xtype: 'gridcolumn',
+                                            minWidth: 250,
+                                            dataIndex: 'repositoryUrl',
+                                            text: 'Url'
+                                        },
+                                        {
+                                            xtype: 'actioncolumn',
+                                            text: 'Delete',
+                                            maxWidth: 60,
+                                            minWidth: 70,
+                                            style: 'text-align:left;',
+                                            width: 60,
+                                            defaultWidth: 60,
+                                            align: 'center',
+                                            menuText: '',
+                                            items: [
+                                                {
+                                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                                        alert('delete');
+                                                        /*
+                                                        Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){
+
+                                                        if(btn == "yes"){
+
+                                                        Ext.Ajax.request({
+                                                        url : GLOBAL.urlPrefix + "alm/groupmanagement/" + record.get("name"),
+                                                        method: 'DELETE',
+                                                        headers: { 'Content-Type': 'application/json' },
+                                                        disableCaching : true,
+                                                        waitMsg: 'Delete ALM Group...',
+                                                        success: function(response){
+                                                        var msg = Ext.JSON.decode(response.responseText).msg;
+                                                        Ext.MessageBox.alert('알림', msg);
+
+                                                        Ext.getCmp("almGroupGrid").getStore().reload();
+                                                        Ext.getCmp("almGroupDetailPanel").layout.setActiveItem(0);
+
+                                                        }
+                                                        });
+                                                        }
+
+                                                        });
+                                                        */
+                                                    },
+                                                    icon: 'resources/images/icons/delete.png',
+                                                    iconCls: ''
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    xtype: 'panel',
+                                    flex: 1,
+                                    region: 'south',
+                                    split: true,
+                                    height: 150,
+                                    id: 'almRepositoryDetailPanel',
+                                    itemId: 'almRepositoryDetailPanel',
+                                    autoScroll: true,
+                                    layout: 'card',
+                                    items: [
+                                        {
+                                            xtype: 'panel',
+                                            height: 1000,
+                                            id: 'blankPanel8',
+                                            itemId: 'blankPanel1',
+                                            width: 1000
+                                        },
+                                        {
+                                            xtype: 'panel',
+                                            autoScroll: true,
+                                            items: [
+                                                {
+                                                    xtype: 'form',
+                                                    id: 'almRepositoryForm',
+                                                    itemId: 'almRepositoryForm',
+                                                    padding: '',
+                                                    defaults: {
+                                                        border: false,
+                                                        xtype: 'panel',
+                                                        flex: 1,
+                                                        layout: 'anchor'
+                                                    },
+                                                    bodyPadding: 10,
+                                                    bodyStyle: 'padding:5px 5px 0',
+                                                    header: false,
+                                                    fieldDefaults: {
+                                                        msgTarget: 'side',
+                                                        margin: '0 10',
+                                                        readOnly: true,
+                                                        labelStyle: 'font-weight: bold;',
+                                                        labelSeparator: ' :',
+                                                        labelWidth: 160
+                                                    },
+                                                    waitMsgTarget: 'instDescForm',
+                                                    items: [
+                                                        {
+                                                            xtype: 'label',
+                                                            html: '<h2></h2>',
+                                                            id: 'almRepositoryTitleLabel',
+                                                            itemId: 'almRepositoryTitleLabel',
+                                                            padding: 1
+                                                        },
+                                                        {
+                                                            xtype: 'displayfield',
+                                                            padding: 10,
+                                                            fieldLabel: 'Repository Name',
+                                                            name: 'repositoryCode'
+                                                        },
+                                                        {
+                                                            xtype: 'displayfield',
+                                                            renderer: function(value, displayField) {
+                                                                if(value == '10') {
+                                                                    return 'svn';
+                                                                } else if(value == '20') {
+                                                                    return 'git';
+                                                                } else {
+                                                                    return value;
+                                                                }
+                                                            },
+                                                            padding: 10,
+                                                            fieldLabel: 'Reposiroty Type',
+                                                            name: 'repositoryType'
+                                                        },
+                                                        {
+                                                            xtype: 'displayfield',
+                                                            padding: 10,
+                                                            fieldLabel: 'Repository Description',
+                                                            name: 'repositoryDescription'
+                                                        },
+                                                        {
+                                                            xtype: 'displayfield',
+                                                            padding: 10,
+                                                            fieldLabel: 'Repository URL',
+                                                            name: 'repositoryUrl'
                                                         }
                                                     ]
                                                 }

@@ -19,13 +19,13 @@ Ext.define('MyApp.view.AlmProjectWindow', {
 
     requires: [
         'Ext.form.Panel',
-        'Ext.form.field.Text',
         'Ext.XTemplate',
+        'Ext.form.field.ComboBox',
         'Ext.toolbar.Toolbar',
         'Ext.button.Button'
     ],
 
-    height: 230,
+    height: 270,
     id: 'AlmProjectWindow',
     itemId: 'AlmProjectWindow',
     width: 400,
@@ -89,9 +89,25 @@ Ext.define('MyApp.view.AlmProjectWindow', {
                                 {
                                     xtype: 'textfield',
                                     anchor: '100%',
+                                    margin: '0 0 15 0',
                                     padding: '',
                                     fieldLabel: 'Group Description',
                                     name: 'groupDescription'
+                                },
+                                {
+                                    xtype: 'combobox',
+                                    anchor: '100%',
+                                    margin: '0 0 15 0',
+                                    padding: '',
+                                    afterLabelTextTpl: [
+                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                    ],
+                                    fieldLabel: 'Select Repository',
+                                    name: 'groupDescription',
+                                    allowBlank: false,
+                                    displayField: 'repositoryCode',
+                                    store: 'ComboAlmRepositoryStore',
+                                    valueField: 'repositoryCode'
                                 }
                             ]
                         }

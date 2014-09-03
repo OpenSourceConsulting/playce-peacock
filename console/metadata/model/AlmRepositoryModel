@@ -6,9 +6,9 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userClassName": "GroupModel"
+        "designer|userClassName": "AlmRepositoryModel"
     },
-    "designerId": "505d2ede-1a0a-4942-8afd-ed15dec3875e",
+    "designerId": "58384635-1b6c-44cf-a85c-191f997159dc",
     "cn": [
         {
             "type": "Ext.data.Field",
@@ -18,10 +18,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "group",
+                "name": "repositoryCode",
                 "type": "string"
             },
-            "designerId": "0fe32243-d9f2-4d9b-a81d-669492bc9e34"
+            "designerId": "464ae787-35b0-45fd-b010-e03d91d12b33"
         },
         {
             "type": "Ext.data.Field",
@@ -31,10 +31,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "gid",
-                "type": "int"
+                "name": "repositoryType",
+                "type": "string"
             },
-            "designerId": "a383a388-5da8-43e5-8990-ffbe8993192f"
+            "designerId": "8b27b2bf-26e1-4ee8-b74f-feb23800e8f5"
         },
         {
             "type": "Ext.data.Field",
@@ -44,10 +44,23 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "machineId",
+                "name": "repositoryDescription",
                 "type": "string"
             },
-            "designerId": "3d6f776b-88bc-44f2-9fe9-e5bfd0a1363f"
+            "designerId": "47391480-be79-4470-9188-1a6ee55f2e9a"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "repositoryUrl",
+                "type": "string"
+            },
+            "designerId": "c44c1a6b-156a-4b9d-8bb0-5c734fa555f7"
         }
     ]
 }

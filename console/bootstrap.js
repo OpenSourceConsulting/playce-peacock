@@ -879,6 +879,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.model.AccountModel": [],
   "MyApp.model.AlmGroupModel": [],
   "MyApp.model.AlmJobModel": [],
+  "MyApp.model.AlmRepositoryModel": [],
   "MyApp.model.AlmUserModel": [],
   "MyApp.model.ClusterModel": [],
   "MyApp.model.DataCenterModel": [],
@@ -904,15 +905,19 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.AlmGroupUsersStore": [],
   "MyApp.store.AlmJobStore": [],
   "MyApp.store.AlmProjectStore": [],
+  "MyApp.store.AlmProjectUsersStore": [],
+  "MyApp.store.AlmRepositoryStore": [],
   "MyApp.store.AlmSpaceStore": [],
   "MyApp.store.AlmUserStore": [],
   "MyApp.store.ComboAccountStore": [],
+  "MyApp.store.ComboAlmRepositoryStore": [],
   "MyApp.store.ComboClusterStore": [],
   "MyApp.store.ComboDataCenterStore": [],
   "MyApp.store.ComboGroupStore": [],
   "MyApp.store.ComboHypervisorStore": [],
   "MyApp.store.ComboTemplateStore": [],
   "MyApp.store.HypervisorStore": [],
+  "MyApp.store.InstanceGroupStore": [],
   "MyApp.store.InstanceMonitoringStore": [],
   "MyApp.store.InstancePackageStore": [],
   "MyApp.store.MachineStore": [],
@@ -939,8 +944,10 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.FstabWindow": [],
   "MyApp.view.Main": [],
   "MyApp.view.ManageAccountWindow": [],
+  "MyApp.view.ManageGroupWindow": [],
   "MyApp.view.MonitoringChartWindow": [],
   "MyApp.view.RegAccountWindow": [],
+  "MyApp.view.RegInstanceGroupWindow": [],
   "MyApp.view.RegInstanceWindow": [],
   "MyApp.view.RegRhevmWindow": [],
   "MyApp.view.RegTemplateWindow": [],
@@ -1981,6 +1988,7 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.model.AccountModel": [],
   "MyApp.model.AlmGroupModel": [],
   "MyApp.model.AlmJobModel": [],
+  "MyApp.model.AlmRepositoryModel": [],
   "MyApp.model.AlmUserModel": [],
   "MyApp.model.ClusterModel": [],
   "MyApp.model.DataCenterModel": [],
@@ -2006,15 +2014,19 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.store.AlmGroupUsersStore": [],
   "MyApp.store.AlmJobStore": [],
   "MyApp.store.AlmProjectStore": [],
+  "MyApp.store.AlmProjectUsersStore": [],
+  "MyApp.store.AlmRepositoryStore": [],
   "MyApp.store.AlmSpaceStore": [],
   "MyApp.store.AlmUserStore": [],
   "MyApp.store.ComboAccountStore": [],
+  "MyApp.store.ComboAlmRepositoryStore": [],
   "MyApp.store.ComboClusterStore": [],
   "MyApp.store.ComboDataCenterStore": [],
   "MyApp.store.ComboGroupStore": [],
   "MyApp.store.ComboHypervisorStore": [],
   "MyApp.store.ComboTemplateStore": [],
   "MyApp.store.HypervisorStore": [],
+  "MyApp.store.InstanceGroupStore": [],
   "MyApp.store.InstanceMonitoringStore": [],
   "MyApp.store.InstancePackageStore": [],
   "MyApp.store.MachineStore": [],
@@ -2059,11 +2071,17 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.ManageAccountWindow": [
     "widget.ManageAccountWindow"
   ],
+  "MyApp.view.ManageGroupWindow": [
+    "widget.ManageGroupWindow"
+  ],
   "MyApp.view.MonitoringChartWindow": [
     "widget.MonitoringChartWindow"
   ],
   "MyApp.view.RegAccountWindow": [
     "widget.RegAccountWindow"
+  ],
+  "MyApp.view.RegInstanceGroupWindow": [
+    "widget.RegInstanceGroupWindow"
   ],
   "MyApp.view.RegInstanceWindow": [
     "widget.RegInstanceWindow"

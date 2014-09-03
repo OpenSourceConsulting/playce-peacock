@@ -141,6 +141,11 @@
                     "             instances.controlAgent('Stop');",
                     "         }",
                     "        },",
+                    "        { text: 'Manage Group',",
+                    "         handler: function() {",
+                    "             instances.showManageGroupWindow();",
+                    "         }",
+                    "        },",
                     "        { text: 'Manage Account',",
                     "         handler: function() {",
                     "             instances.showManageAccountWindow();",
@@ -486,6 +491,33 @@
                 ]
             },
             "designerId": "daee12f1-ab4e-404a-ad90-f7c93442ca26"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "showManageGroupWindow",
+                "implHandler": [
+                    "//Manage Group Popup 호출",
+                    "",
+                    "var manageGroupWindow = Ext.create(\"widget.ManageGroupWindow\");",
+                    "manageGroupWindow.show();",
+                    "",
+                    "var groupStore = Ext.getCmp('instanceGroupGrid').getStore();",
+                    "",
+                    "groupStore.getProxy().extraParams = {",
+                    "    machineId : instancesConstants.actionRow.get(\"machineId\")",
+                    "};",
+                    "",
+                    "groupStore.load();",
+                    ""
+                ]
+            },
+            "designerId": "4f682021-2456-4019-a927-ffcb33b0ad74"
         },
         {
             "type": "basicfunction",

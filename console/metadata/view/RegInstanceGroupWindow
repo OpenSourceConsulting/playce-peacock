@@ -6,21 +6,21 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userAlias": "AlmProjectWindow",
-        "designer|userClassName": "AlmProjectWindow",
-        "height": 270,
-        "id": "AlmProjectWindow",
-        "itemId": "AlmProjectWindow",
+        "designer|userAlias": "RegInstanceGroupWindow",
+        "designer|userClassName": "RegInstanceGroupWindow",
+        "height": 160,
+        "id": "RegInstanceGroupWindow",
+        "itemId": "RegInstanceGroupWindow",
         "layout": "border",
         "modal": true,
         "resizable": false,
-        "title": "Create Project",
-        "width": 400
+        "title": "Create Group",
+        "width": 470
     },
     "configAlternates": {
         "resizable": "boolean"
     },
-    "designerId": "2cdd525c-fad2-4ab6-8e2a-3dca1e08681f",
+    "designerId": "6be15910-711d-42b5-88d1-44a82533e93a",
     "cn": [
         {
             "type": "Ext.panel.Panel",
@@ -33,9 +33,9 @@
                 "header": false,
                 "layout|flex": 1,
                 "layout|region": "center",
-                "title": "projectPanel"
+                "title": "groupPanel"
             },
-            "designerId": "e0dbc598-c652-49cc-bf07-b35909061bf5",
+            "designerId": "453cecd2-c93a-4ca9-b1bb-672631e781a4",
             "cn": [
                 {
                     "type": "Ext.form.Panel",
@@ -52,15 +52,12 @@
                             "    labelWidth: 120",
                             "}"
                         ],
-                        "height": null,
-                        "id": "addProjectForm",
-                        "itemId": "addProjectForm",
-                        "title": null,
-                        "waitMsgTarget": [
-                            "true"
-                        ]
+                        "height": 242,
+                        "id": "instanceGroupForm",
+                        "itemId": "instanceGroupForm",
+                        "title": null
                     },
-                    "designerId": "ecad31c9-bbaf-4fdd-b744-0d2856ff32fc",
+                    "designerId": "f4c84989-a349-4625-b9d4-280ce15b76d7",
                     "cn": [
                         {
                             "type": "Ext.form.field.Text",
@@ -71,11 +68,13 @@
                             "codeClass": null,
                             "userConfig": {
                                 "allowBlank": false,
-                                "fieldLabel": "Project Code",
+                                "enableKeyEvents": true,
+                                "fieldLabel": "Group Name",
                                 "layout|anchor": "100%",
-                                "name": "projectCode"
+                                "name": "group",
+                                "vtype": "template"
                             },
-                            "designerId": "8a855768-c10a-4b36-8fc9-9cb76d82a3b3",
+                            "designerId": "49d6131e-3849-408f-bd0f-d105c3015282",
                             "cn": [
                                 {
                                     "type": "Ext.XTemplate",
@@ -90,7 +89,7 @@
                                             "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
                                         ]
                                     },
-                                    "designerId": "9b8bc2c6-ea68-42d5-a20a-0b3a272b1e3e"
+                                    "designerId": "a180386c-f510-4408-9ecc-ce4ee30f6d9b"
                                 }
                             ]
                         },
@@ -102,103 +101,27 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "allowBlank": false,
-                                "fieldLabel": "Project Name",
-                                "labelWidth": null,
+                                "fieldLabel": "GID",
                                 "layout|anchor": "100%",
-                                "name": "projectName",
-                                "padding": ""
+                                "name": "gid",
+                                "value": null,
+                                "vtype": "numeric"
                             },
-                            "designerId": "e93b690f-d118-4fe8-b722-e28b4eac83d9",
-                            "cn": [
-                                {
-                                    "type": "Ext.XTemplate",
-                                    "reference": {
-                                        "name": "afterLabelTextTpl",
-                                        "type": "object"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "designer|displayName": "afterLabelTextTpl",
-                                        "implHandler": [
-                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
-                                        ]
-                                    },
-                                    "designerId": "848a93bc-8c1f-4783-b03d-1ca7ca90e213"
-                                }
-                            ]
+                            "designerId": "d6e12ce4-28eb-4077-801c-449f50079c00"
                         },
                         {
-                            "type": "Ext.form.field.Text",
+                            "type": "Ext.form.field.Hidden",
                             "reference": {
                                 "name": "items",
                                 "type": "array"
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "fieldLabel": "Project Description",
-                                "labelWidth": null,
+                                "fieldLabel": "Label",
                                 "layout|anchor": "100%",
-                                "margin": "0 0 15 0",
-                                "name": "projectDescription",
-                                "padding": ""
+                                "name": "machineId"
                             },
-                            "designerId": "59ba8136-b042-432b-bd4f-20b7c7af7027"
-                        },
-                        {
-                            "type": "Ext.form.field.Text",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fieldLabel": "Group Description",
-                                "labelWidth": null,
-                                "layout|anchor": "100%",
-                                "margin": "0 0 15 0",
-                                "name": "groupDescription",
-                                "padding": ""
-                            },
-                            "designerId": "ed420667-a15e-481c-8135-dd51d63719e6"
-                        },
-                        {
-                            "type": "Ext.form.field.ComboBox",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "allowBlank": false,
-                                "displayField": "repositoryCode",
-                                "fieldLabel": "Select Repository",
-                                "labelWidth": null,
-                                "layout|anchor": "100%",
-                                "margin": "0 0 15 0",
-                                "name": "groupDescription",
-                                "padding": "",
-                                "store": "ComboAlmRepositoryStore",
-                                "valueField": "repositoryCode"
-                            },
-                            "designerId": "6c4ad4f2-bef3-4295-8c23-b4e8b5abfda8",
-                            "cn": [
-                                {
-                                    "type": "Ext.XTemplate",
-                                    "reference": {
-                                        "name": "afterLabelTextTpl",
-                                        "type": "object"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "designer|displayName": "afterLabelTextTpl",
-                                        "implHandler": [
-                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
-                                        ]
-                                    },
-                                    "designerId": "8d9aa535-0070-4425-9c3d-f14cc88f7155"
-                                }
-                            ]
+                            "designerId": "49b1c946-3e12-4cc3-84cc-afc23d751387"
                         }
                     ]
                 },
@@ -215,7 +138,7 @@
                         "dock": "bottom",
                         "ui": "footer"
                     },
-                    "designerId": "e3cabe70-63ab-497f-9531-983c63d065b6",
+                    "designerId": "4cd71f92-a98e-4682-a245-69ed960dce93",
                     "cn": [
                         {
                             "type": "Ext.button.Button",
@@ -226,13 +149,13 @@
                             "codeClass": null,
                             "userConfig": {
                                 "id": null,
-                                "itemId": null,
+                                "itemId": "",
                                 "layout|flex": null,
                                 "margin": "0 15 0 0",
                                 "padding": "2 5 2 5",
                                 "text": "Create"
                             },
-                            "designerId": "56b43eb5-1576-4ed6-b4eb-f1d54305e458",
+                            "designerId": "c2378787-b771-4758-9d3e-aaf8fff520fd",
                             "cn": [
                                 {
                                     "type": "fixedfunction",
@@ -248,34 +171,39 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
-                                            "var projectForm = Ext.getCmp(\"addProjectForm\");",
+                                            "var groupForm = Ext.getCmp(\"instanceGroupForm\");",
                                             "",
-                                            "if(projectForm.isValid()) {",
+                                            "groupForm.getForm().submit({",
+                                            "    clientValidation: true,",
+                                            "    url: GLOBAL.urlPrefix + \"machine/createGroup\",",
+                                            "    method : \"POST\",",
+                                            "    params: {",
+                                            "        newStatus: 'delivered'",
+                                            "    },",
+                                            "    waitMsg: 'Saving Data...',",
+                                            "    success: function(form, action) {",
+                                            "        Ext.Msg.alert('Success', action.result.msg);",
                                             "",
-                                            "     Ext.Ajax.request({",
-                                            "         url: GLOBAL.urlPrefix + \"alm/project\",",
-                                            "         method: 'POST',",
-                                            "         headers: { 'Content-Type': 'application/json' },",
-                                            "         jsonData: projectForm.getForm().getFieldValues(),",
-                                            "         success: function (response) {",
+                                            "        Ext.getCmp('instanceGroupGrid').getStore().load();",
                                             "",
-                                            "            Ext.Msg.alert('Success', Ext.JSON.decode(response.responseText).msg);",
-                                            "",
-                                            "            Ext.getCmp('almProjectGrid').getStore().reload();",
-                                            "            projectForm.up('window').close();",
-                                            "        },",
-                                            "        failure: function (response) {",
-                                            "            var msg = Ext.JSON.decode(response.responseText).msg;",
-                                            "",
-                                            "            Ext.Msg.alert('Failure', msg);",
+                                            "        groupForm.up('window').close();",
+                                            "    },",
+                                            "    failure: function(form, action) {",
+                                            "        switch (action.failureType) {",
+                                            "            case Ext.form.action.Action.CLIENT_INVALID:",
+                                            "            Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');",
+                                            "            break;",
+                                            "            case Ext.form.action.Action.CONNECT_FAILURE:",
+                                            "            Ext.Msg.alert('Failure', 'Server communication failed');",
+                                            "            break;",
+                                            "            case Ext.form.action.Action.SERVER_INVALID:",
+                                            "            Ext.Msg.alert('Failure', action.result.msg);",
                                             "        }",
-                                            "     });",
-                                            "",
-                                            "}",
-                                            ""
+                                            "    }",
+                                            "});"
                                         ]
                                     },
-                                    "designerId": "7cdb93fb-fcdf-442c-a4a0-26396784e3b9"
+                                    "designerId": "839d681b-c8ed-4d02-8623-106c7c135c5b"
                                 }
                             ]
                         },
@@ -294,7 +222,7 @@
                                 "padding": "2 5 2 5",
                                 "text": "Cancel"
                             },
-                            "designerId": "8b09a6c6-8b61-45a1-adc8-e83da607e102",
+                            "designerId": "2078e5f2-d756-4a79-acea-eda78f5c22bf",
                             "cn": [
                                 {
                                     "type": "fixedfunction",
@@ -320,7 +248,7 @@
                                             ""
                                         ]
                                     },
-                                    "designerId": "eef17298-a68c-403f-8197-8be43f0b52b7"
+                                    "designerId": "c500edaa-eab0-49a2-b841-c321df8613be"
                                 }
                             ]
                         }

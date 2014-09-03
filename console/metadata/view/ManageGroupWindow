@@ -1,0 +1,315 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "ManageGroupWindow",
+        "designer|userClassName": "ManageGroupWindow",
+        "height": 400,
+        "id": "ManageGroupWindow",
+        "itemId": "ManageGroupWindow",
+        "layout": "border",
+        "modal": true,
+        "resizable": false,
+        "title": "Manage Group",
+        "width": 300
+    },
+    "configAlternates": {
+        "resizable": "boolean"
+    },
+    "designerId": "4caf3eaf-9220-4a7e-bd7f-1e2fa9534a1e",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "header": false,
+                "layout|flex": 1,
+                "layout|region": "center",
+                "title": "ManageGroup"
+            },
+            "designerId": "2535a7f0-94ff-4d6d-9b2b-8c061b3cabf2",
+            "cn": [
+                {
+                    "type": "Ext.grid.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "autoScroll": true,
+                        "columnLines": true,
+                        "forceFit": true,
+                        "height": 358,
+                        "id": "instanceGroupGrid",
+                        "itemId": "instanceGroupGrid",
+                        "store": "InstanceGroupStore",
+                        "title": null
+                    },
+                    "designerId": "85b96deb-ee4b-4457-899a-b74d1952510d",
+                    "cn": [
+                        {
+                            "type": "Ext.grid.column.Column",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dataIndex": "machineId",
+                                "hidden": true,
+                                "hideable": false,
+                                "text": null
+                            },
+                            "designerId": "2519eba6-e23f-462b-ada9-c83fa49ce8af"
+                        },
+                        {
+                            "type": "Ext.grid.column.Column",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dataIndex": "group",
+                                "minWidth": 150,
+                                "text": "Group"
+                            },
+                            "designerId": "77c33d41-ad77-467f-9fd7-1904530c8af0"
+                        },
+                        {
+                            "type": "Ext.grid.column.Column",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dataIndex": "gid",
+                                "defaultWidth": null,
+                                "minWidth": 60,
+                                "text": "GID"
+                            },
+                            "designerId": "ce930625-a2cd-4c87-865f-2c44d73a8bfa"
+                        },
+                        {
+                            "type": "Ext.grid.column.Action",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "align": "center",
+                                "defaultWidth": 60,
+                                "maxWidth": 60,
+                                "menuText": "",
+                                "minWidth": 60,
+                                "style": [
+                                    "\"text-align:left;\""
+                                ],
+                                "text": "Delete",
+                                "width": 60
+                            },
+                            "designerId": "28eaa575-e900-4e3b-9619-10b8a3ee789e",
+                            "customConfigs": [
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "text",
+                                    "type": "string"
+                                }
+                            ],
+                            "cn": [
+                                {
+                                    "type": "actioncolumnitem",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "icon": "resources/images/icons/delete.png",
+                                        "iconCls": ""
+                                    },
+                                    "designerId": "b69993d3-da5d-41f0-8f8c-482c3e9c1a5c",
+                                    "cn": [
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "view",
+                                                    "rowIndex",
+                                                    "colIndex",
+                                                    "item",
+                                                    "e",
+                                                    "record",
+                                                    "row"
+                                                ],
+                                                "fn": "handler",
+                                                "implHandler": [
+                                                    "",
+                                                    "if(record.get(\"gid\") < 500) {",
+                                                    "    Ext.MessageBox.alert('Message', 'GID가 500 미만인 시스템 그룹은 삭제할 수 없습니다.');",
+                                                    "    return;",
+                                                    "}",
+                                                    "",
+                                                    "Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){",
+                                                    "",
+                                                    "    if(btn == \"yes\"){",
+                                                    "",
+                                                    "        Ext.Ajax.request({",
+                                                    "            url: GLOBAL.urlPrefix + \"machine/removeGroup\",",
+                                                    "            params : {",
+                                                    "                machineId : instancesConstants.actionRow.get(\"machineId\"),",
+                                                    "                group : record.get(\"group\"),",
+                                                    "                gid : record.get(\"gid\")",
+                                                    "            },",
+                                                    "            disableCaching : true,",
+                                                    "            waitMsg: 'Delete Group...',",
+                                                    "            success: function(response){",
+                                                    "                var msg = Ext.JSON.decode(response.responseText).msg;",
+                                                    "                Ext.MessageBox.alert('알림', msg);",
+                                                    "",
+                                                    "                Ext.getCmp(\"instanceGroupGrid\").getStore().reload();",
+                                                    "",
+                                                    "            }",
+                                                    "        });",
+                                                    "    }",
+                                                    "",
+                                                    "});"
+                                                ]
+                                            },
+                                            "designerId": "498e1ae2-fdd3-4be5-a58e-67bb487686c6"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.grid.View",
+                            "reference": {
+                                "name": "viewConfig",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "designerId": "0996bb5c-94cb-4a77-b5d6-08d85ecf06f2"
+                        },
+                        {
+                            "type": "Ext.toolbar.Toolbar",
+                            "reference": {
+                                "name": "dockedItems",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dock": "top"
+                            },
+                            "designerId": "58e87703-7317-441d-86a6-ced45f5679cb",
+                            "cn": [
+                                {
+                                    "type": "Ext.button.Button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "id": null,
+                                        "itemId": null,
+                                        "layout|flex": null,
+                                        "margin": "0 15 0 0",
+                                        "padding": "2 7 2 7",
+                                        "text": "Create Group"
+                                    },
+                                    "designerId": "127c05b5-f9ff-4405-b56d-fd368358026b",
+                                    "cn": [
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "button",
+                                                    "e"
+                                                ],
+                                                "fn": "handler",
+                                                "implHandler": [
+                                                    "var regGroupWindow = Ext.create(\"widget.RegInstanceGroupWindow\");",
+                                                    "regGroupWindow.show();",
+                                                    "",
+                                                    "regGroupWindow.down(\"form\").getForm().findField(\"machineId\").setValue(instancesConstants.actionRow.get(\"machineId\"));",
+                                                    ""
+                                                ]
+                                            },
+                                            "designerId": "2bcf406b-d96e-4f15-a40b-c04cb56589bf"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Ext.panel.Tool",
+            "reference": {
+                "name": "tools",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "tooltip": "",
+                "tooltipType": null,
+                "type": "refresh"
+            },
+            "designerId": "ac56bdfc-5114-47a5-82c0-85a092893589",
+            "cn": [
+                {
+                    "type": "fixedfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|params": [
+                            "event",
+                            "toolEl",
+                            "owner",
+                            "tool"
+                        ],
+                        "fn": "handler",
+                        "implHandler": [
+                            "var groupStore = Ext.getCmp('instanceGroupGrid').getStore();",
+                            "",
+                            "groupStore.getProxy().extraParams = {",
+                            "    machineId : instancesConstants.actionRow.get(\"machineId\")",
+                            "};",
+                            "",
+                            "groupStore.load();",
+                            ""
+                        ]
+                    },
+                    "designerId": "3061e4c9-f037-4940-a898-2d7a3601dae9"
+                }
+            ]
+        }
+    ]
+}

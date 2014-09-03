@@ -16,6 +16,37 @@
 Ext.define('MyApp.controller.ALMController', {
     extend: 'Ext.app.Controller',
 
+    onAlmRepositoryGridCellClick: function(tableview, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+        //ALM Group Grid Item Click
+
+        if(cellIndex > 3) {
+            //Action Column 예외처리
+            return;
+        }
+
+        if(almConstants.selectRow == null || almConstants.selectRow.get("repositoryCode") != record.get("repositoryCode")) {
+
+            almConstants.selectRow = record;
+
+            var detailPanel = Ext.getCmp("almRepositoryDetailPanel");
+            detailPanel.layout.setActiveItem(1);
+
+            var repositoryForm = Ext.getCmp("almRepositoryForm");
+
+            repositoryForm.getForm().reset();
+
+            repositoryForm.getForm().waitMsgTarget = repositoryForm.getEl();
+
+            repositoryForm.getForm().load({
+                 url : GLOBAL.urlPrefix + "alm/repository/" + almConstants.selectRow.get("repositoryCode")
+                ,method : 'GET'
+                ,waitMsg:'Loading...'
+            });
+
+            Ext.getCmp("almRepositoryTitleLabel").setText("<h2>&nbsp;&nbsp;&nbsp;"+almConstants.selectRow.get("repositoryCode")+"</h2>", false);
+        }
+    },
+
     onAlmProjectGridCellClick: function(tableview, td, cellIndex, record, tr, rowIndex, e, eOpts) {
         //ALM Project Grid Item Click
 
@@ -82,6 +113,15 @@ Ext.define('MyApp.controller.ALMController', {
             var detailPanel = Ext.getCmp("almGroupDetailPanel");
             detailPanel.layout.setActiveItem(0);
 
+        } else if(newCard.title == "Repository"){
+
+            almConstants.selectRow = null;
+
+            Ext.getCmp("almRepositoryGrid").getStore().load();
+
+            var detailPanel = Ext.getCmp("almRepositoryDetailPanel");
+            detailPanel.layout.setActiveItem(0);
+
         }
     },
 
@@ -92,25 +132,11 @@ Ext.define('MyApp.controller.ALMController', {
 
         } else if(newCard.title == "User"){
 
-            var grid = Ext.getCmp("almProjectUserGrid");
+            var userStore = Ext.getCmp("almProjectUserGrid").getStore();
+            userStore.getProxy().url = GLOBAL.urlPrefix + 'alm/groupmanagement/'+almConstants.selectRow.get("projectCode")+'/users';
 
-            var store = Ext.create('Ext.data.Store', {
-                alias: 'store.ModeStore',
-                autoLoad: false,
-                fields: [{
-                    name: 'name',
-                    type: 'string'
-                }, {
-                    name: 'text',
-                    type: 'string'
-                }],
-                data: [
-              { name : "A468827", text : "Remove User from Project"},
-              { name : "BP08882", text : "Remove User from Project"}
-            ]
-            });
+            userStore.load();
 
-            grid.getView().bindStore(store);
 
         } else if(newCard.title == "Confluence"){
 
@@ -234,6 +260,9 @@ Ext.define('MyApp.controller.ALMController', {
 
 
         this.control({
+            "#almRepositoryGrid": {
+                cellclick: this.onAlmRepositoryGridCellClick
+            },
             "#almProjectGrid": {
                 cellclick: this.onAlmProjectGridCellClick
             },

@@ -181,6 +181,11 @@ Ext.define('MyApp.controller.InstancesController', {
                             instances.controlAgent('Stop');
                         }
                     },
+                    { text: 'Manage Group',
+                        handler: function() {
+                            instances.showManageGroupWindow();
+                        }
+                    },
                     { text: 'Manage Account',
                         handler: function() {
                             instances.showManageAccountWindow();
@@ -450,6 +455,22 @@ Ext.define('MyApp.controller.InstancesController', {
         };
 
         accountStore.load();
+
+    },
+
+    showManageGroupWindow: function() {
+        //Manage Group Popup 호출
+
+        var manageGroupWindow = Ext.create("widget.ManageGroupWindow");
+        manageGroupWindow.show();
+
+        var groupStore = Ext.getCmp('instanceGroupGrid').getStore();
+
+        groupStore.getProxy().extraParams = {
+            machineId : instancesConstants.actionRow.get("machineId")
+        };
+
+        groupStore.load();
 
     },
 
