@@ -657,8 +657,8 @@ public class MachineController {
 			
 			ShellAction action = new ShellAction(sequence++);
 			
-			action.setCommand("egrep");
-			action.addArguments("\"" + group.getGroup() + "\" /etc/group");
+			action.setCommand("cat");
+			action.addArguments("/etc/group");
 			command.addAction(action);
 			cmdMsg.addCommand(command);
 
