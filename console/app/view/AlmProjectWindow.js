@@ -18,9 +18,8 @@ Ext.define('MyApp.view.AlmProjectWindow', {
     alias: 'widget.AlmProjectWindow',
 
     requires: [
+        'MyApp.view.MyForm33',
         'Ext.form.Panel',
-        'Ext.XTemplate',
-        'Ext.form.field.ComboBox',
         'Ext.toolbar.Toolbar',
         'Ext.button.Button'
     ],
@@ -47,69 +46,7 @@ Ext.define('MyApp.view.AlmProjectWindow', {
                     title: 'projectPanel',
                     items: [
                         {
-                            xtype: 'form',
-                            id: 'addProjectForm',
-                            itemId: 'addProjectForm',
-                            bodyPadding: 15,
-                            fieldDefaults: {
-                                msgTarget: 'side',
-                                labelWidth: 120
-                            },
-                            waitMsgTarget: true,
-                            items: [
-                                {
-                                    xtype: 'textfield',
-                                    anchor: '100%',
-                                    afterLabelTextTpl: [
-                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-                                    ],
-                                    fieldLabel: 'Project Code',
-                                    name: 'projectCode',
-                                    allowBlank: false
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    anchor: '100%',
-                                    padding: '',
-                                    afterLabelTextTpl: [
-                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-                                    ],
-                                    fieldLabel: 'Project Name',
-                                    name: 'projectName',
-                                    allowBlank: false
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    anchor: '100%',
-                                    margin: '0 0 15 0',
-                                    padding: '',
-                                    fieldLabel: 'Project Description',
-                                    name: 'projectDescription'
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    anchor: '100%',
-                                    margin: '0 0 15 0',
-                                    padding: '',
-                                    fieldLabel: 'Group Description',
-                                    name: 'groupDescription'
-                                },
-                                {
-                                    xtype: 'combobox',
-                                    anchor: '100%',
-                                    margin: '0 0 15 0',
-                                    padding: '',
-                                    afterLabelTextTpl: [
-                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-                                    ],
-                                    fieldLabel: 'Select Repository',
-                                    name: 'repository',
-                                    allowBlank: false,
-                                    displayField: 'repositoryCode',
-                                    store: 'ComboAlmRepositoryStore',
-                                    valueField: 'repositoryCode'
-                                }
-                            ]
+                            xtype: 'myform33'
                         }
                     ],
                     dockedItems: [

@@ -86,6 +86,19 @@ Ext.define('MyApp.view.almContainer', {
                                                 {
                                                     xtype: 'button',
                                                     handler: function(button, e) {
+                                                        var wizardWindow = Ext.create("widget.AlmWizardWindow");
+                                                        wizardWindow.show();
+
+                                                        almConstants.me.goAlmWizardPanel(0);
+
+                                                        Ext.getCmp('wizardAddSpaceGrid').getStore().load();
+                                                        Ext.getCmp('wizardAddUserGrid').getStore().load();
+                                                    },
+                                                    text: 'Project Wizard'
+                                                },
+                                                {
+                                                    xtype: 'button',
+                                                    handler: function(button, e) {
                                                         var almProjectWindow = Ext.create("widget.AlmProjectWindow");
 
                                                         almProjectWindow.show();

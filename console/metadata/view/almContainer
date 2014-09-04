@@ -121,9 +121,51 @@
                                                 "id": null,
                                                 "itemId": null,
                                                 "layout|flex": null,
-                                                "text": "Create New Project"
+                                                "text": "Project Wizard"
                                             },
                                             "designerId": "b7ee6101-841f-480e-88dd-4b0b14234e26",
+                                            "cn": [
+                                                {
+                                                    "type": "fixedfunction",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "designer|params": [
+                                                            "button",
+                                                            "e"
+                                                        ],
+                                                        "fn": "handler",
+                                                        "implHandler": [
+                                                            "var wizardWindow = Ext.create(\"widget.AlmWizardWindow\");",
+                                                            "wizardWindow.show();",
+                                                            "",
+                                                            "almConstants.me.goAlmWizardPanel(0);",
+                                                            "",
+                                                            "Ext.getCmp('wizardAddSpaceGrid').getStore().load();",
+                                                            "Ext.getCmp('wizardAddUserGrid').getStore().load();"
+                                                        ]
+                                                    },
+                                                    "designerId": "6d229661-77a2-4e27-9dd6-26f696012274"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "Ext.button.Button",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "id": null,
+                                                "itemId": null,
+                                                "layout|flex": null,
+                                                "text": "Create New Project"
+                                            },
+                                            "designerId": "6f0846bd-37c4-480c-ae31-41007c92a202",
                                             "cn": [
                                                 {
                                                     "type": "fixedfunction",
@@ -144,7 +186,7 @@
                                                             "almProjectWindow.show();"
                                                         ]
                                                     },
-                                                    "designerId": "6d229661-77a2-4e27-9dd6-26f696012274"
+                                                    "designerId": "106cf5f6-50b5-4172-9a7e-62f60dd0b515"
                                                 }
                                             ]
                                         },

@@ -49,4 +49,16 @@ span.x-tree-node-text {
 .chart-legend-line .x-legend {    
      height:110px !important;    
      width:635px !important;    
+     background-image: none;
 }  
+
+.wizard-label {
+	border-color:silver !important;
+	border-bottom-width: 2px !important;
+	border-bottom-style: solid;
+	cursor: pointer;
+}
+.wizard-label-on {
+	border-color:#add2ed !important;
+	font-weight: bold;
+}

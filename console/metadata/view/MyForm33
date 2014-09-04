@@ -1,0 +1,167 @@
+{
+    "type": "Ext.form.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "bodyPadding": 15,
+        "designer|userAlias": "myform33",
+        "designer|userClassName": "MyForm33",
+        "fieldDefaults": [
+            "{",
+            "    msgTarget: 'side',",
+            "    labelWidth: 120",
+            "}"
+        ],
+        "height": null,
+        "id": "addProjectForm",
+        "itemId": "addProjectForm1",
+        "title": null,
+        "waitMsgTarget": [
+            "true"
+        ]
+    },
+    "designerId": "5cb7ae82-c1fe-4450-a2c5-6352d3ba220d",
+    "cn": [
+        {
+            "type": "Ext.form.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "allowBlank": false,
+                "fieldLabel": "Project Code",
+                "layout|anchor": "100%",
+                "name": "projectCode"
+            },
+            "designerId": "8a855768-c10a-4b36-8fc9-9cb76d82a3b3",
+            "cn": [
+                {
+                    "type": "Ext.XTemplate",
+                    "reference": {
+                        "name": "afterLabelTextTpl",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|displayName": "afterLabelTextTpl",
+                        "implHandler": [
+                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                        ]
+                    },
+                    "designerId": "9b8bc2c6-ea68-42d5-a20a-0b3a272b1e3e"
+                }
+            ]
+        },
+        {
+            "type": "Ext.form.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "allowBlank": false,
+                "fieldLabel": "Project Name",
+                "labelWidth": null,
+                "layout|anchor": "100%",
+                "name": "projectName",
+                "padding": ""
+            },
+            "designerId": "e93b690f-d118-4fe8-b722-e28b4eac83d9",
+            "cn": [
+                {
+                    "type": "Ext.XTemplate",
+                    "reference": {
+                        "name": "afterLabelTextTpl",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|displayName": "afterLabelTextTpl",
+                        "implHandler": [
+                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                        ]
+                    },
+                    "designerId": "848a93bc-8c1f-4783-b03d-1ca7ca90e213"
+                }
+            ]
+        },
+        {
+            "type": "Ext.form.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "Project Description",
+                "labelWidth": null,
+                "layout|anchor": "100%",
+                "margin": "0 0 15 0",
+                "name": "projectDescription",
+                "padding": ""
+            },
+            "designerId": "59ba8136-b042-432b-bd4f-20b7c7af7027"
+        },
+        {
+            "type": "Ext.form.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "Group Description",
+                "labelWidth": null,
+                "layout|anchor": "100%",
+                "margin": "0 0 15 0",
+                "name": "groupDescription",
+                "padding": ""
+            },
+            "designerId": "ed420667-a15e-481c-8135-dd51d63719e6"
+        },
+        {
+            "type": "Ext.form.field.ComboBox",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "allowBlank": false,
+                "displayField": "repositoryCode",
+                "fieldLabel": "Select Repository",
+                "labelWidth": null,
+                "layout|anchor": "100%",
+                "margin": "0 0 15 0",
+                "name": "repository",
+                "padding": "",
+                "store": "ComboAlmRepositoryStore",
+                "valueField": "repositoryCode"
+            },
+            "designerId": "6c4ad4f2-bef3-4295-8c23-b4e8b5abfda8",
+            "cn": [
+                {
+                    "type": "Ext.XTemplate",
+                    "reference": {
+                        "name": "afterLabelTextTpl",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|displayName": "afterLabelTextTpl",
+                        "implHandler": [
+                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                        ]
+                    },
+                    "designerId": "8d9aa535-0070-4425-9c3d-f14cc88f7155"
+                }
+            ]
+        }
+    ]
+}

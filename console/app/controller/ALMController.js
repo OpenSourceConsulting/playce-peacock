@@ -404,6 +404,21 @@ Ext.define('MyApp.controller.ALMController', {
             userStore.load();
 
         }
+    },
+
+    goAlmWizardPanel: function(cardNum) {
+        var cardPanel = Ext.getCmp("almWizardCardPanel");
+        cardPanel.layout.setActiveItem(cardNum);
+
+        for(var i=0;i<4;i++) {
+
+            if(i == cardNum) {
+                Ext.getCmp("almWizardStepLabel"+i).addCls("wizard-label-on");
+            } else {
+                Ext.getCmp("almWizardStepLabel"+i).removeCls("wizard-label-on");
+            }
+
+        }
     }
 
 });

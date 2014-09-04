@@ -35,172 +35,17 @@
                 "layout|region": "center",
                 "title": "projectPanel"
             },
-            "designerId": "e0dbc598-c652-49cc-bf07-b35909061bf5",
+            "designerId": "f1c3713a-12ee-4461-8d36-f489c5296d92",
             "cn": [
                 {
-                    "type": "Ext.form.Panel",
+                    "type": "linkedinstance",
                     "reference": {
                         "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
-                    "userConfig": {
-                        "bodyPadding": 15,
-                        "fieldDefaults": [
-                            "{",
-                            "    msgTarget: 'side',",
-                            "    labelWidth: 120",
-                            "}"
-                        ],
-                        "height": null,
-                        "id": "addProjectForm",
-                        "itemId": "addProjectForm",
-                        "title": null,
-                        "waitMsgTarget": [
-                            "true"
-                        ]
-                    },
-                    "designerId": "ecad31c9-bbaf-4fdd-b744-0d2856ff32fc",
-                    "cn": [
-                        {
-                            "type": "Ext.form.field.Text",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "allowBlank": false,
-                                "fieldLabel": "Project Code",
-                                "layout|anchor": "100%",
-                                "name": "projectCode"
-                            },
-                            "designerId": "8a855768-c10a-4b36-8fc9-9cb76d82a3b3",
-                            "cn": [
-                                {
-                                    "type": "Ext.XTemplate",
-                                    "reference": {
-                                        "name": "afterLabelTextTpl",
-                                        "type": "object"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "designer|displayName": "afterLabelTextTpl",
-                                        "implHandler": [
-                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
-                                        ]
-                                    },
-                                    "designerId": "9b8bc2c6-ea68-42d5-a20a-0b3a272b1e3e"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "Ext.form.field.Text",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "allowBlank": false,
-                                "fieldLabel": "Project Name",
-                                "labelWidth": null,
-                                "layout|anchor": "100%",
-                                "name": "projectName",
-                                "padding": ""
-                            },
-                            "designerId": "e93b690f-d118-4fe8-b722-e28b4eac83d9",
-                            "cn": [
-                                {
-                                    "type": "Ext.XTemplate",
-                                    "reference": {
-                                        "name": "afterLabelTextTpl",
-                                        "type": "object"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "designer|displayName": "afterLabelTextTpl",
-                                        "implHandler": [
-                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
-                                        ]
-                                    },
-                                    "designerId": "848a93bc-8c1f-4783-b03d-1ca7ca90e213"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "Ext.form.field.Text",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fieldLabel": "Project Description",
-                                "labelWidth": null,
-                                "layout|anchor": "100%",
-                                "margin": "0 0 15 0",
-                                "name": "projectDescription",
-                                "padding": ""
-                            },
-                            "designerId": "59ba8136-b042-432b-bd4f-20b7c7af7027"
-                        },
-                        {
-                            "type": "Ext.form.field.Text",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fieldLabel": "Group Description",
-                                "labelWidth": null,
-                                "layout|anchor": "100%",
-                                "margin": "0 0 15 0",
-                                "name": "groupDescription",
-                                "padding": ""
-                            },
-                            "designerId": "ed420667-a15e-481c-8135-dd51d63719e6"
-                        },
-                        {
-                            "type": "Ext.form.field.ComboBox",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "allowBlank": false,
-                                "displayField": "repositoryCode",
-                                "fieldLabel": "Select Repository",
-                                "labelWidth": null,
-                                "layout|anchor": "100%",
-                                "margin": "0 0 15 0",
-                                "name": "repository",
-                                "padding": "",
-                                "store": "ComboAlmRepositoryStore",
-                                "valueField": "repositoryCode"
-                            },
-                            "designerId": "6c4ad4f2-bef3-4295-8c23-b4e8b5abfda8",
-                            "cn": [
-                                {
-                                    "type": "Ext.XTemplate",
-                                    "reference": {
-                                        "name": "afterLabelTextTpl",
-                                        "type": "object"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "designer|displayName": "afterLabelTextTpl",
-                                        "implHandler": [
-                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
-                                        ]
-                                    },
-                                    "designerId": "8d9aa535-0070-4425-9c3d-f14cc88f7155"
-                                }
-                            ]
-                        }
-                    ]
+                    "designerId": "542e799b-8ce1-49ec-8094-e8cb6beea45b",
+                    "masterInstanceId": "5cb7ae82-c1fe-4450-a2c5-6352d3ba220d"
                 },
                 {
                     "type": "Ext.toolbar.Toolbar",
@@ -215,7 +60,7 @@
                         "dock": "bottom",
                         "ui": "footer"
                     },
-                    "designerId": "e3cabe70-63ab-497f-9531-983c63d065b6",
+                    "designerId": "0cb78fc1-5611-4e7b-96d6-83a490a09307",
                     "cn": [
                         {
                             "type": "Ext.button.Button",
@@ -232,7 +77,7 @@
                                 "padding": "2 5 2 5",
                                 "text": "Create"
                             },
-                            "designerId": "56b43eb5-1576-4ed6-b4eb-f1d54305e458",
+                            "designerId": "bd32f31e-93c9-445f-a2c4-87adf0fc1f1e",
                             "cn": [
                                 {
                                     "type": "fixedfunction",
@@ -275,7 +120,7 @@
                                             ""
                                         ]
                                     },
-                                    "designerId": "7cdb93fb-fcdf-442c-a4a0-26396784e3b9"
+                                    "designerId": "34627537-5281-4c69-8963-0336caddab2a"
                                 }
                             ]
                         },
@@ -294,7 +139,7 @@
                                 "padding": "2 5 2 5",
                                 "text": "Cancel"
                             },
-                            "designerId": "8b09a6c6-8b61-45a1-adc8-e83da607e102",
+                            "designerId": "217de97a-6970-4321-8499-2cd3dba95d2f",
                             "cn": [
                                 {
                                     "type": "fixedfunction",
@@ -320,7 +165,7 @@
                                             ""
                                         ]
                                     },
-                                    "designerId": "eef17298-a68c-403f-8197-8be43f0b52b7"
+                                    "designerId": "edfd1a4d-36df-4a37-8395-cf7fc369bd3e"
                                 }
                             ]
                         }

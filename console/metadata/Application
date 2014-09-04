@@ -114,7 +114,9 @@
             "AlmProjectWindow",
             "almProjectJobWindow",
             "ManageGroupWindow",
-            "RegInstanceGroupWindow"
+            "RegInstanceGroupWindow",
+            "MyForm33",
+            "AlmWizardWindow"
         ]
     },
     "designerId": "application"

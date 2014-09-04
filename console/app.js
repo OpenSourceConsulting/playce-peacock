@@ -117,7 +117,9 @@ Ext.application({
         'AlmProjectWindow',
         'almProjectJobWindow',
         'ManageGroupWindow',
-        'RegInstanceGroupWindow'
+        'RegInstanceGroupWindow',
+        'MyForm33',
+        'AlmWizardWindow'
     ],
     controllers: [
         'LoginController',

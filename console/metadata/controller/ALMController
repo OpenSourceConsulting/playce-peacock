@@ -608,6 +608,35 @@
                 "scope": "me"
             },
             "designerId": "97aace44-e3f4-4e03-988b-b498ea5ea758"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "cardNum"
+                ],
+                "fn": "goAlmWizardPanel",
+                "implHandler": [
+                    "var cardPanel = Ext.getCmp(\"almWizardCardPanel\");",
+                    "cardPanel.layout.setActiveItem(cardNum);",
+                    "",
+                    "for(var i=0;i<4;i++) {",
+                    "    ",
+                    "    if(i == cardNum) {",
+                    "        Ext.getCmp(\"almWizardStepLabel\"+i).addCls(\"wizard-label-on\");",
+                    "    } else {",
+                    "        Ext.getCmp(\"almWizardStepLabel\"+i).removeCls(\"wizard-label-on\");",
+                    "    }",
+                    "    ",
+                    "}"
+                ]
+            },
+            "designerId": "e76c4fe4-a53d-413a-a1f4-b2113d936fa2"
         }
     ]
 }

@@ -938,6 +938,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.AlmGroupWindow": [],
   "MyApp.view.AlmProjectWindow": [],
   "MyApp.view.AlmUsersWindow": [],
+  "MyApp.view.AlmWizardWindow": [],
   "MyApp.view.CLIWindow": [],
   "MyApp.view.CrontabWindow": [],
   "MyApp.view.EditInstanceWindow": [],
@@ -946,6 +947,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.ManageAccountWindow": [],
   "MyApp.view.ManageGroupWindow": [],
   "MyApp.view.MonitoringChartWindow": [],
+  "MyApp.view.MyForm33": [],
   "MyApp.view.RegAccountWindow": [],
   "MyApp.view.RegInstanceGroupWindow": [],
   "MyApp.view.RegInstanceWindow": [],
@@ -2053,6 +2055,9 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.AlmUsersWindow": [
     "widget.AlmUsersWindow"
   ],
+  "MyApp.view.AlmWizardWindow": [
+    "widget.AlmWizardWindow"
+  ],
   "MyApp.view.CLIWindow": [
     "widget.CLIWindow"
   ],
@@ -2076,6 +2081,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.MonitoringChartWindow": [
     "widget.MonitoringChartWindow"
+  ],
+  "MyApp.view.MyForm33": [
+    "widget.myform33"
   ],
   "MyApp.view.RegAccountWindow": [
     "widget.RegAccountWindow"

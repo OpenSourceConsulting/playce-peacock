@@ -183,7 +183,7 @@
                                     "         headers: { 'Content-Type': 'application/json' },",
                                     "         jsonData: groupForm.getForm().getFieldValues(),",
                                     "         success: function (response) {",
-                                    "",
+                                    "            ",
                                     "            Ext.Msg.alert('Success', Ext.JSON.decode(response.responseText).msg);",
                                     "",
                                     "            Ext.getCmp('almGroupGrid').getStore().reload();",
