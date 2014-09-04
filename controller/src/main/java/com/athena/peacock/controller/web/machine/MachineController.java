@@ -676,7 +676,7 @@ public class MachineController {
 						return jsonRes;
 					}
 					
-					if (line.split(":")[2].equals(Integer.toString(group.getGid()))) {
+					if (group.getGid() != null && line.split(":")[2].equals(Integer.toString(group.getGid()))) {
 						jsonRes.setSuccess(false);
 						jsonRes.setMsg("\"" + group.getGid() + "\" GID가 이미 있습니다.");
 						
@@ -698,7 +698,7 @@ public class MachineController {
 			
 			String args = "";
 
-			if (group.getGid() != null && group.getGid() > 0) {
+			if (group.getGid() != null && group.getGid() >= 0) {
 				args += "-g " + group.getGid() + " ";
 			}
 			
@@ -753,19 +753,32 @@ public class MachineController {
 			
 			ShellAction action = new ShellAction(sequence++);
 			
-			action.setCommand("egrep");
-			action.addArguments("\"" + account.getAccount() + "\" /etc/passwd");
+			action.setCommand("cat");
+			action.addArguments("/etc/passwd");
 			command.addAction(action);
 			cmdMsg.addCommand(command);
 
 			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
 			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
 			
-			if (response.getResults().get(0).startsWith(account.getAccount())) {
-				jsonRes.setSuccess(false);
-				jsonRes.setMsg("\"" + account.getAccount() + "\" 사용자가 이미 있습니다.");
-				
-				return jsonRes;
+			String[] lines = response.getResults().get(0).split("\n");
+			
+			for (String line : lines) {
+				if (line.contains(":")) {
+					if (line.split(":")[0].equals(account.getAccount())) {
+						jsonRes.setSuccess(false);
+						jsonRes.setMsg("\"" + account.getAccount() + "\" 사용자가 이미 있습니다.");
+						
+						return jsonRes;
+					}
+					
+					if (account.getUid() != null && line.split(":")[2].equals(Integer.toString(account.getUid()))) {
+						jsonRes.setSuccess(false);
+						jsonRes.setMsg("\"" + account.getUid() + "\" UID가 이미 있습니다.");
+						
+						return jsonRes;
+					}
+				}
 			}
 			
 			cmdMsg = new ProvisioningCommandMessage();
@@ -808,6 +821,9 @@ public class MachineController {
 			}
 			if (StringUtils.isNotEmpty(account.getGroup())) {
 				args += "-g " + account.getGroup() + " ";
+			}
+			if (account.getUid() != null && account.getUid() >= 0) {
+				args += "-u " + account.getUid() + " ";
 			}
 			
 			args += account.getAccount();	

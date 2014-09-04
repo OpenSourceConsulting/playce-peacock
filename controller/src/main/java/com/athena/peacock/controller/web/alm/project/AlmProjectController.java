@@ -109,5 +109,11 @@ public class AlmProjectController {
 	ProjectWizardDto getProjectMappingTest() {
 		return almProjectService.getWizard();
 	}
+	
+	@RequestMapping(value = "/project/wizard", method = RequestMethod.POST)
+	public @ResponseBody DtoJsonResponse createProjectWizard(@RequestBody ProjectWizardDto project){
+		
+		return almProjectService.createProjectWizrd(project);
+	}
 }
 //end of AlmUserController.java

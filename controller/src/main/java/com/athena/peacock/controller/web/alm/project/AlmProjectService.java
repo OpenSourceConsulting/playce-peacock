@@ -105,6 +105,15 @@ public class AlmProjectService {
 		//
 
 	}
+	
+	
+	public DtoJsonResponse createProjectWizrd(ProjectWizardDto project) {
+
+		DtoJsonResponse response = new DtoJsonResponse();		
+		response.setMsg("프로젝트 Wizard 생성 요청 되었습니다.");
+		return response;
+
+	}
 
 	public DtoJsonResponse getJenkinsJob(String projectcode) {
 
