@@ -238,7 +238,7 @@ public class AlmCrowdService {
 
 		return response;
 	}
-	
+
 	// 유저 삭제
 	public DtoJsonResponse removeUser(String username) {
 
@@ -261,6 +261,18 @@ public class AlmCrowdService {
 			response.setMsg("ApplicationPermissionException");
 		}
 
+		return response;
+	}
+
+	// 유저 삭제
+	public DtoJsonResponse changePasswordUser(String username) {
+
+		DtoJsonResponse response = new DtoJsonResponse();
+
+		//try {
+			//crowdClient.removeUser(username);
+			response.setMsg("유저  삭제 성공");
+		//}
 		return response;
 	}
 

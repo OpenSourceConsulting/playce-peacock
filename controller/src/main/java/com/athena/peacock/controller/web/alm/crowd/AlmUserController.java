@@ -99,9 +99,15 @@ public class AlmUserController {
 	// User 삭제
 	@RequestMapping(value = "/usermanagement/{username}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody
-	DtoJsonResponse removeGroup(@PathVariable String groupname) {
+	DtoJsonResponse removeUser(@PathVariable String username) {
+		return service.removeUser(username);
+	}
 
-		return service.removeGroup(groupname);
+	// User 패스워드 변경
+	@RequestMapping(value = "/usermanagement/{username}/password", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody
+	DtoJsonResponse passwodReset(@PathVariable String username) {
+		return service.changePasswordUser(username);
 	}
 
 }
