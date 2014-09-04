@@ -103,7 +103,7 @@ Ext.define('MyApp.view.AlmProjectWindow', {
                                         '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                     ],
                                     fieldLabel: 'Select Repository',
-                                    name: 'groupDescription',
+                                    name: 'repository',
                                     allowBlank: false,
                                     displayField: 'repositoryCode',
                                     store: 'ComboAlmRepositoryStore',
