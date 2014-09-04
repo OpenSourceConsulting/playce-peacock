@@ -238,6 +238,31 @@ public class AlmCrowdService {
 
 		return response;
 	}
+	
+	// 유저 삭제
+	public DtoJsonResponse removeUser(String username) {
+
+		DtoJsonResponse response = new DtoJsonResponse();
+
+		try {
+			crowdClient.removeUser(username);
+			response.setMsg("유저  삭제 성공");
+		} catch (InvalidAuthenticationException e) {
+			response.setSuccess(false);
+			response.setMsg("InvalidAuthenticationException");
+		} catch (UserNotFoundException e) {
+			response.setSuccess(false);
+			response.setMsg("UserNotFoundException");
+		} catch (OperationFailedException e) {
+			response.setSuccess(false);
+			response.setMsg("OperationFailedException");
+		} catch (ApplicationPermissionException e) {
+			response.setSuccess(false);
+			response.setMsg("ApplicationPermissionException");
+		}
+
+		return response;
+	}
 
 	public DtoJsonResponse addGroup(AlmGroupDto groupData) {
 

@@ -45,14 +45,14 @@ import com.athena.peacock.controller.web.common.model.GridJsonResponse;
  * <pre>
  * 사용자 관리 컨트롤러.
  * </pre>
+ * 
  * @author Bong-Jin Kwon
  * @version 1.0
  */
 @Controller
 @RequestMapping("/alm")
 public class AlmUserController {
-	
-	
+
 	@Autowired
 	private AlmCrowdService service;
 
@@ -64,22 +64,26 @@ public class AlmUserController {
 	public AlmUserController() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@RequestMapping(value = "/usermanagement", method = RequestMethod.GET)
-	public @ResponseBody GridJsonResponse userList(ExtjsGridParam gridParam){
+	public @ResponseBody
+	GridJsonResponse userList(ExtjsGridParam gridParam) {
 		return service.getList("USER", gridParam);
 	}
-	
-	
+
 	// User 상세 정보
 	@RequestMapping(value = "/usermanagement/{username}", method = RequestMethod.GET)
-	public @ResponseBody DtoJsonResponse getUser(DtoJsonResponse jsonRes, @PathVariable String username){
+	public @ResponseBody
+	DtoJsonResponse getUser(DtoJsonResponse jsonRes,
+			@PathVariable String username) {
 		return service.getUser(username);
 	}
-	
+
 	// User 추가
 	@RequestMapping(value = "/usermanagement", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody DtoJsonResponse addUser(@Valid @RequestBody  AlmUserAddDto userData, BindingResult result){
+	public @ResponseBody
+	DtoJsonResponse addUser(@Valid @RequestBody AlmUserAddDto userData,
+			BindingResult result) {
 
 		if (result.hasErrors()) {
 			DtoJsonResponse response = new DtoJsonResponse();
@@ -88,9 +92,17 @@ public class AlmUserController {
 			response.setData(result.getAllErrors());
 			return response;
 		}
-		
+
 		return service.addUser(userData);
 	}
 
+	// User 삭제
+	@RequestMapping(value = "/usermanagement/{username}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody
+	DtoJsonResponse removeGroup(@PathVariable String groupname) {
+
+		return service.removeGroup(groupname);
+	}
+
 }
-//end of AlmUserController.java
+// end of AlmUserController.java
