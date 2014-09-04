@@ -176,7 +176,7 @@
                                 "labelWidth": null,
                                 "layout|anchor": "100%",
                                 "margin": "0 0 15 0",
-                                "name": "groupDescription",
+                                "name": "repository",
                                 "padding": "",
                                 "store": "ComboAlmRepositoryStore",
                                 "valueField": "repositoryCode"
