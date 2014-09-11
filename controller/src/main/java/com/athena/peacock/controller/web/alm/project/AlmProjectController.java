@@ -113,6 +113,8 @@ public class AlmProjectController {
 	@RequestMapping(value = "/project/wizard", method = RequestMethod.POST)
 	public @ResponseBody DtoJsonResponse createProjectWizard(@RequestBody ProjectWizardDto project){
 		
+		System.out.println("*******************");
+		System.out.println(project.getProject());
 		return almProjectService.createProjectWizrd(project);
 	}
 }
