@@ -484,13 +484,14 @@ ENGINE = InnoDB;
 -- Table `peacock`.`menu_tbl`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `peacock`.`menu_tbl` (
-  `MENU_CD` VARCHAR(10) NOT NULL,
+  `MENU_ID` INT NOT NULL,
   `MENU_NM` VARCHAR(100) NOT NULL,
+  `THREAD` VARCHAR(10) NOT NULL,
   `REG_USER_ID` INT(11) NULL,
   `REG_DT` DATETIME NULL,
   `UPD_USER_ID` INT(11) NULL,
   `UPD_DT` DATETIME NULL,
-  PRIMARY KEY (`MENU_CD`))
+  PRIMARY KEY (`MENU_ID`))
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
@@ -498,22 +499,22 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `peacock`.`permission_menu_map_tbl` (
   `PERM_ID` INT NOT NULL,
-  `MENU_CD` VARCHAR(10) NOT NULL,
+  `MENU_ID` INT NOT NULL,
   `READ_YN` CHAR(1) NOT NULL DEFAULT 'N',
   `WRITE_YN` CHAR(1) NOT NULL DEFAULT 'N',
   `REG_USER_ID` INT(11) NULL,
   `REG_DT` DATETIME NULL,
   `UPD_USER_ID` INT(11) NULL,
   `UPD_DT` DATETIME NULL,
-  PRIMARY KEY (`PERM_ID`, `MENU_CD`),
+  PRIMARY KEY (`PERM_ID`, `MENU_ID`),
   CONSTRAINT `fk_permission_menu_map_tbl_permission_tbl1`
     FOREIGN KEY (`PERM_ID`)
     REFERENCES `peacock`.`permission_tbl` (`PERM_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_permission_menu_map_tbl_menu_tbl1`
-    FOREIGN KEY (`MENU_CD`)
-    REFERENCES `peacock`.`menu_tbl` (`MENU_CD`)
+    FOREIGN KEY (`MENU_ID`)
+    REFERENCES `peacock`.`menu_tbl` (`MENU_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
