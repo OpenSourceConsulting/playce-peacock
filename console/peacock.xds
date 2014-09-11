@@ -64,9 +64,9 @@
             "d8e29b55-2774-4a59-b5ed-83b6fe54b606",
             "a6e64140-c5ae-45b9-9a03-ae0760cf1948",
             "2cdd525c-fad2-4ab6-8e2a-3dca1e08681f",
+            "85a2a559-1d26-4143-bb8d-4df625eef285",
             "e7b23fbb-645f-4ed9-9597-a17739e34568",
-            "5cb7ae82-c1fe-4450-a2c5-6352d3ba220d",
-            "85a2a559-1d26-4143-bb8d-4df625eef285"
+            "5cb7ae82-c1fe-4450-a2c5-6352d3ba220d"
         ],
         "store": [
             "354fc48e-c461-40e5-bd2d-7f38ae2f81e5",
@@ -103,7 +103,9 @@
             "1c1ea3d9-0804-4f4c-902b-39ebcdfa25a1",
             "5a0d91ce-1d53-46de-a0b5-43718eb38d35",
             "3d5bdd93-27b8-4b46-a5b0-a03bee559463",
-            "dd79401e-7a5e-44b7-8d67-7f4ee03d79cc"
+            "dd79401e-7a5e-44b7-8d67-7f4ee03d79cc",
+            "5b292c8e-e8ed-4895-83a7-8dc335c6fcba",
+            "022670ea-9307-4ef6-ab8e-34bc3a139b42"
         ],
         "controller": [
             "58836076-b762-47f5-a367-008beaa4c967",

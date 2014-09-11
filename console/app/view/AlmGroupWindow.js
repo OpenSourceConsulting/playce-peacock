@@ -109,13 +109,25 @@ Ext.define('MyApp.view.AlmGroupWindow', {
                                         url: GLOBAL.urlPrefix + "alm/groupmanagement",
                                         method: 'POST',
                                         headers: { 'Content-Type': 'application/json' },
+                                        waitMsg: 'Saving Data...',
                                         jsonData: groupForm.getForm().getFieldValues(),
                                         success: function (response) {
 
-                                            Ext.Msg.alert('Success', Ext.JSON.decode(response.responseText).msg);
+                                            var responseData = Ext.JSON.decode(response.responseText);
 
-                                            Ext.getCmp('almGroupGrid').getStore().reload();
-                                            groupForm.up('window').close();
+                                            if(responseData.success) {
+
+                                                Ext.Msg.alert('Success', responseData.msg);
+
+                                                Ext.getCmp('almGroupGrid').getStore().reload();
+                                                groupForm.up('window').close();
+
+                                            } else {
+
+                                                Ext.Msg.alert('Failure', responseData.msg);
+
+                                            }
+
                                         },
                                         failure: function (response) {
                                             var msg = Ext.JSON.decode(response.responseText).msg;

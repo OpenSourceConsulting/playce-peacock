@@ -52,18 +52,6 @@ span.x-tree-node-text {
      background-image: none;
 }  
 
-.pop-wizard .x-tab-bar {
-	background-color: #ffffff;
-	background-image: none;
-}
-/*
-.pop-wizard > .x-panel-body > .x-tabpanel-child > .x-panel-body{
-	border-color:#add2ed !important;
-	border-width:10px !important;
-	font-weight: bold;
-	color: gray;
-}
-*/
 .wizard-label {
 	border-color:silver !important;
 	border-bottom-width: 2px !important;

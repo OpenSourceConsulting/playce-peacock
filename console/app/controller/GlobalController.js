@@ -52,6 +52,16 @@ Ext.define('MyApp.controller.GlobalController', {
             }
         });
 
+        Ext.Ajax.on('beforerequest', function (conn, opts) {
+            if(opts.waitMsg) {
+                Ext.getBody().mask(opts.waitMsg, 'loading');
+            }
+        }, Ext.getBody());
+
+        Ext.Ajax.on('requestcomplete', Ext.getBody().unmask, Ext.getBody());
+
+        Ext.Ajax.on('requestexception', Ext.getBody().unmask, Ext.getBody());
+
 
         /*
          * Global Validation(VTypes) Config

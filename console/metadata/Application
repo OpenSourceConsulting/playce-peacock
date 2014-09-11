@@ -82,7 +82,9 @@
             "AlmProjectUsersStore",
             "AlmRepositoryStore",
             "ComboAlmRepositoryStore",
-            "InstanceGroupStore"
+            "InstanceGroupStore",
+            "tempSpaceStore",
+            "tempUserStore"
         ],
         "views": [
             "peacockViewport",
@@ -101,7 +103,7 @@
             "userContainer",
             "blankPanel",
             "almContainer",
-            "almUserWindow",
+            "AlmUserWindow",
             "AlmGroupWindow",
             "AlmUsersWindow",
             "softwareInstallLogWindow",

@@ -42,6 +42,7 @@ public class AlmUserDto {
 	private String emailAddress;
 	private String firstName;
 	private String lastName;
+	private String name;
 
 	public String getUserId() {
 		return userId;
@@ -81,6 +82,14 @@ public class AlmUserDto {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	
