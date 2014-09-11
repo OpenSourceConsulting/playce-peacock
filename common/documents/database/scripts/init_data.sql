@@ -48,6 +48,25 @@ VALUES (9,4,NULL,'${INSTALL_LOCATION}/bin/','env.sh','javaHome,serverName,catali
 INSERT INTO users_tbl (USER_ID, LOGIN_ID, PASSWD, HASHED_PASSWD, USER_NAME, DEPT_NAME, EMAIL, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
 VALUES ('1', 'admin', 'admin', password('admin'), 'Administrator', '개발팀', 'admin@osci.kr', 1, NOW(), 1, NOW());
 
+
+INSERT INTO menu_tbl VALUES (1,'Instances','B1', 1, NOW(), 1, NOW());
+INSERT INTO menu_tbl VALUES (2,'RHEV Management','B2', 1, NOW(), 1, NOW());
+INSERT INTO menu_tbl VALUES (3,'ALM Management','B3', 1, NOW(), 1, NOW());
+INSERT INTO menu_tbl VALUES (4,'Project','B301', 1, NOW(), 1, NOW());
+INSERT INTO menu_tbl VALUES (5,'User','B302', 1, NOW(), 1, NOW());
+INSERT INTO menu_tbl VALUES (6,'Group','B303', 1, NOW(), 1, NOW());
+INSERT INTO menu_tbl VALUES (7,'Repository','B304', 1, NOW(), 1, NOW());
+INSERT INTO menu_tbl VALUES (8,'Administration','B4', 1, NOW(), 1, NOW());
+INSERT INTO menu_tbl VALUES (9,'User','B401', 1, NOW(), 1, NOW());
+INSERT INTO menu_tbl VALUES (10,'User Permission','B402', 1, NOW(), 1, NOW());
+
+
+INSERT INTO permission_tbl VALUES (1, 'admin', 1, NOW(), 1, NOW());
+INSERT INTO permission_tbl VALUES (2, 'guest', 1, NOW(), 1, NOW());
+INSERT INTO permission_tbl VALUES (3, 'osc_persons', 1, NOW(), 1, NOW());
+
+
+
 set global event_scheduler = 'ON';
 
 CREATE EVENT `add_time_table` 
