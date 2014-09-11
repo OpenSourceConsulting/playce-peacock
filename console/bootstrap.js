@@ -935,8 +935,11 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.instanceSoftwareListStore": [],
   "MyApp.store.tempChartData": [],
   "MyApp.store.tempGridData": [],
+  "MyApp.store.tempSpaceStore": [],
+  "MyApp.store.tempUserStore": [],
   "MyApp.view.AlmGroupWindow": [],
   "MyApp.view.AlmProjectWindow": [],
+  "MyApp.view.AlmUserWindow": [],
   "MyApp.view.AlmUsersWindow": [],
   "MyApp.view.AlmWizardWindow": [],
   "MyApp.view.CLIWindow": [],
@@ -958,7 +961,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.almContainer": [],
   "MyApp.view.almProjectJobWindow": [],
   "MyApp.view.almProjectSpaceWindow": [],
-  "MyApp.view.almUserWindow": [],
   "MyApp.view.blankPanel": [],
   "MyApp.view.dashboardPanel": [],
   "MyApp.view.instancesContainer": [],
@@ -2046,11 +2048,16 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.store.instanceSoftwareListStore": [],
   "MyApp.store.tempChartData": [],
   "MyApp.store.tempGridData": [],
+  "MyApp.store.tempSpaceStore": [],
+  "MyApp.store.tempUserStore": [],
   "MyApp.view.AlmGroupWindow": [
     "widget.AlmGroupWindow"
   ],
   "MyApp.view.AlmProjectWindow": [
     "widget.AlmProjectWindow"
+  ],
+  "MyApp.view.AlmUserWindow": [
+    "widget.AlmUserWindow"
   ],
   "MyApp.view.AlmUsersWindow": [
     "widget.AlmUsersWindow"
@@ -2112,9 +2119,6 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.almProjectSpaceWindow": [
     "widget.almProjectSpaceWindow"
-  ],
-  "MyApp.view.almUserWindow": [
-    "widget.almUserWindow"
   ],
   "MyApp.view.blankPanel": [
     "widget.blankpanel"

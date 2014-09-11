@@ -145,7 +145,10 @@
                                                             "almConstants.me.goAlmWizardPanel(0);",
                                                             "",
                                                             "Ext.getCmp('wizardAddSpaceGrid').getStore().load();",
-                                                            "Ext.getCmp('wizardAddUserGrid').getStore().load();"
+                                                            "Ext.getCmp('wizardAddUserGrid').getStore().load();",
+                                                            "Ext.getCmp(\"wizardSelectSpaceGrid\").getStore().removeAll();",
+                                                            "Ext.getCmp(\"wizardSelectUserGrid\").getStore().removeAll();",
+                                                            ""
                                                         ]
                                                     },
                                                     "designerId": "6d229661-77a2-4e27-9dd6-26f696012274"
@@ -682,7 +685,7 @@
                                                                     },
                                                                     "codeClass": null,
                                                                     "userConfig": {
-                                                                        "dataIndex": "name",
+                                                                        "dataIndex": "userId",
                                                                         "minWidth": 100,
                                                                         "text": "Name"
                                                                     },
@@ -2308,10 +2311,10 @@
                                                                                             "Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){",
                                                                                             "",
                                                                                             "    if(btn == \"yes\"){",
-                                                                                            "        ",
+                                                                                            "",
                                                                                             "        Ext.Ajax.request({",
                                                                                             "            url : GLOBAL.urlPrefix + \"alm/groupmanagement/\"",
-                                                                                            "                    + almConstants.selectRow.get(\"name\") + \"/\" + record.get(\"name\"),",
+                                                                                            "                    + almConstants.selectRow.get(\"name\") + \"/\" + record.get(\"userId\"),",
                                                                                             "            method: 'DELETE',",
                                                                                             "            headers: { 'Content-Type': 'application/json' },",
                                                                                             "            disableCaching : true,",

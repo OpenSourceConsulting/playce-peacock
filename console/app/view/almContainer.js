@@ -93,6 +93,9 @@ Ext.define('MyApp.view.almContainer', {
 
                                                         Ext.getCmp('wizardAddSpaceGrid').getStore().load();
                                                         Ext.getCmp('wizardAddUserGrid').getStore().load();
+                                                        Ext.getCmp("wizardSelectSpaceGrid").getStore().removeAll();
+                                                        Ext.getCmp("wizardSelectUserGrid").getStore().removeAll();
+
                                                     },
                                                     text: 'Project Wizard'
                                                 },
@@ -303,7 +306,7 @@ Ext.define('MyApp.view.almContainer', {
                                                                         {
                                                                             xtype: 'gridcolumn',
                                                                             minWidth: 100,
-                                                                            dataIndex: 'name',
+                                                                            dataIndex: 'userId',
                                                                             text: 'Name'
                                                                         },
                                                                         {
@@ -939,7 +942,7 @@ Ext.define('MyApp.view.almContainer', {
 
                                                                                                 Ext.Ajax.request({
                                                                                                     url : GLOBAL.urlPrefix + "alm/groupmanagement/"
-                                                                                                    + almConstants.selectRow.get("name") + "/" + record.get("name"),
+                                                                                                    + almConstants.selectRow.get("name") + "/" + record.get("userId"),
                                                                                                     method: 'DELETE',
                                                                                                     headers: { 'Content-Type': 'application/json' },
                                                                                                     disableCaching : true,

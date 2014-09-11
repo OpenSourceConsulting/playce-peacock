@@ -150,6 +150,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                         },
                                         {
                                             xtype: 'myform33',
+                                            itemId: 'addProjectForm',
                                             margin: '50 50 20 20',
                                             fieldDefaults: {
                                                 msgTarget: 'side',
@@ -274,7 +275,13 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                             items: [
                                                                 {
                                                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                                                        alert('delete');
+                                                                        var spaceStore = Ext.getCmp("wizardSelectSpaceGrid").getStore();
+                                                                        if(spaceStore.find('key', record.get('key')) > -1) {
+                                                                            return;
+                                                                        }
+
+                                                                        spaceStore.insert(spaceStore.getCount(), view.getStore().getAt(rowIndex));
+
                                                                     },
                                                                     icon: 'resources/images/icons/add.png',
                                                                     iconCls: ''
@@ -303,6 +310,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                     title: 'My Grid Panel',
                                                     columnLines: true,
                                                     forceFit: true,
+                                                    store: 'tempSpaceStore',
                                                     dockedItems: [
                                                         {
                                                             xtype: 'toolbar',
@@ -349,7 +357,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                             items: [
                                                                 {
                                                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                                                        alert('delete');
+                                                                        view.getStore().removeAt(rowIndex);
                                                                     },
                                                                     icon: 'resources/images/icons/delete.png',
                                                                     iconCls: ''
@@ -477,7 +485,13 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                             items: [
                                                                 {
                                                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                                                        alert('delete');
+                                                                        var userStore = Ext.getCmp("wizardSelectUserGrid").getStore();
+                                                                        if(userStore.find('userId', record.get('userId')) > -1) {
+                                                                            return;
+                                                                        }
+
+                                                                        userStore.insert(userStore.getCount(), view.getStore().getAt(rowIndex));
+
                                                                     },
                                                                     icon: 'resources/images/icons/add.png',
                                                                     iconCls: ''
@@ -506,6 +520,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                     title: '',
                                                     columnLines: true,
                                                     forceFit: true,
+                                                    store: 'tempUserStore',
                                                     dockedItems: [
                                                         {
                                                             xtype: 'toolbar',
@@ -521,10 +536,6 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                         }
                                                     ],
                                                     columns: [
-                                                        {
-                                                            xtype: 'rownumberer',
-                                                            width: 35
-                                                        },
                                                         {
                                                             xtype: 'gridcolumn',
                                                             minWidth: 100,
@@ -556,7 +567,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                             items: [
                                                                 {
                                                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                                                        alert('delete');
+                                                                        view.getStore().removeAt(rowIndex);
                                                                     },
                                                                     icon: 'resources/images/icons/delete.png',
                                                                     iconCls: ''
@@ -642,6 +653,67 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                 {
                                                     xtype: 'button',
                                                     handler: function(button, e) {
+                                                        var projectForm = Ext.getCmp("addProjectForm");
+
+                                                        if(projectForm.isValid()) {
+
+                                                            var wizardData = {};
+
+                                                            var spaceStore = Ext.getCmp("wizardSelectSpaceGrid").getStore();
+                                                            var userStore = Ext.getCmp("wizardSelectUserGrid").getStore();
+
+                                                            wizardData.project = projectForm.getForm().getFieldValues();
+
+                                                            if(spaceStore.getCount() > 0 ) {
+
+                                                                var spaceItems = [];
+                                                                Ext.each(Ext.pluck(spaceStore.data.items, 'data'), function(item) {
+                                                                    var spaceItem = {};
+                                                                    spaceItem.mappingCode = item.key;
+                                                                    spaceItem.mappingType = "10";
+
+                                                                    spaceItems.push(spaceItem);
+                                                                });
+
+                                                                wizardData.confluence = spaceItems;
+                                                            }
+
+                                                            if(userStore.getCount() > 0 ) {
+                                                                wizardData.users = Ext.pluck(userStore.data.items, 'data');
+                                                            }
+
+                                                            Ext.Ajax.request({
+                                                                url: GLOBAL.urlPrefix + "alm/project/wizard",
+                                                                method: 'POST',
+                                                                headers: { 'Content-Type': 'application/json' },
+                                                                waitMsg: 'Create Project...',
+                                                                jsonData: wizardData,
+                                                                success: function (response) {
+
+                                                                    var responseData = Ext.JSON.decode(response.responseText);
+
+                                                                    if(responseData.success) {
+
+                                                                        Ext.Msg.alert('Success', responseData.msg);
+
+                                                                        Ext.getCmp('almProjectGrid').getStore().reload();
+                                                                        projectForm.up('window').close();
+
+                                                                    } else {
+
+                                                                        Ext.Msg.alert('Failure', responseData.msg);
+
+                                                                    }
+
+                                                                },
+                                                                failure: function (response) {
+                                                                    var msg = Ext.JSON.decode(response.responseText).msg;
+
+                                                                    Ext.Msg.alert('Failure', msg);
+                                                                }
+                                                            });
+
+                                                        }
 
                                                     },
                                                     margin: '0 15 0 0',

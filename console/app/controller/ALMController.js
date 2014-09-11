@@ -366,7 +366,7 @@ Ext.define('MyApp.controller.ALMController', {
     },
 
     showAlmUserWindow: function() {
-        var almUserWindow = Ext.create("widget.almUserWindow");
+        var almUserWindow = Ext.create("widget.AlmUserWindow");
 
         almUserWindow.show();
     },
@@ -408,6 +408,19 @@ Ext.define('MyApp.controller.ALMController', {
 
     goAlmWizardPanel: function(cardNum) {
         var cardPanel = Ext.getCmp("almWizardCardPanel");
+
+        if(cardNum != 0) {
+            var activeItem = cardPanel.getLayout().activeItem;
+            var activeIndex = cardPanel.items.indexOf(activeItem);
+
+            if(activeIndex == 0) {
+                var form = Ext.getCmp("addProjectForm").getForm();
+                if(!form.isValid()) {
+                    return;
+                }
+            }
+        }
+
         cardPanel.layout.setActiveItem(cardNum);
 
         for(var i=0;i<4;i++) {

@@ -37,9 +37,9 @@
                     "    detailPanel.layout.setActiveItem(1);",
                     "",
                     "    var repositoryForm = Ext.getCmp(\"almRepositoryForm\");",
-                    "    ",
+                    "",
                     "    repositoryForm.getForm().reset();",
-                    "    ",
+                    "",
                     "    repositoryForm.getForm().waitMsgTarget = repositoryForm.getEl();",
                     "",
                     "    repositoryForm.getForm().load({",
@@ -47,7 +47,7 @@
                     "        ,method : 'GET'",
                     "        ,waitMsg:'Loading...'",
                     "    });",
-                    "    ",
+                    "",
                     "    Ext.getCmp(\"almRepositoryTitleLabel\").setText(\"<h2>&nbsp;&nbsp;&nbsp;\"+almConstants.selectRow.get(\"repositoryCode\")+\"</h2>\", false);",
                     "}"
                 ],
@@ -373,7 +373,7 @@
             "userConfig": {
                 "fn": "showAlmUserWindow",
                 "implHandler": [
-                    "var almUserWindow = Ext.create(\"widget.almUserWindow\");",
+                    "var almUserWindow = Ext.create(\"widget.AlmUserWindow\");",
                     "",
                     "almUserWindow.show();"
                 ]
@@ -623,16 +623,29 @@
                 "fn": "goAlmWizardPanel",
                 "implHandler": [
                     "var cardPanel = Ext.getCmp(\"almWizardCardPanel\");",
+                    "",
+                    "if(cardNum != 0) {",
+                    "    var activeItem = cardPanel.getLayout().activeItem;",
+                    "    var activeIndex = cardPanel.items.indexOf(activeItem);",
+                    "",
+                    "    if(activeIndex == 0) {",
+                    "        var form = Ext.getCmp(\"addProjectForm\").getForm();",
+                    "        if(!form.isValid()) {",
+                    "            return;",
+                    "        }",
+                    "    }",
+                    "}",
+                    "",
                     "cardPanel.layout.setActiveItem(cardNum);",
                     "",
                     "for(var i=0;i<4;i++) {",
-                    "    ",
+                    "",
                     "    if(i == cardNum) {",
                     "        Ext.getCmp(\"almWizardStepLabel\"+i).addCls(\"wizard-label-on\");",
                     "    } else {",
                     "        Ext.getCmp(\"almWizardStepLabel\"+i).removeCls(\"wizard-label-on\");",
                     "    }",
-                    "    ",
+                    "",
                     "}"
                 ]
             },

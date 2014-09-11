@@ -305,6 +305,7 @@
                                             "    margin : '0 0 15 0'",
                                             "}"
                                         ],
+                                        "itemId": "addProjectForm",
                                         "margin": "50 50 20 20"
                                     },
                                     "designerId": "d120860c-36d0-4238-a835-995844bb2cfa",
@@ -551,7 +552,7 @@
                                                         "minWidth": 100,
                                                         "text": "Space"
                                                     },
-                                                    "designerId": "c59eab30-0ad0-49b4-b24c-efef7c61bb3a"
+                                                    "designerId": "4ed0c605-cfce-46b6-8662-3db1f02531e3"
                                                 },
                                                 {
                                                     "type": "Ext.grid.column.Column",
@@ -641,7 +642,13 @@
                                                                         ],
                                                                         "fn": "handler",
                                                                         "implHandler": [
-                                                                            "alert('delete');"
+                                                                            "var spaceStore = Ext.getCmp(\"wizardSelectSpaceGrid\").getStore();",
+                                                                            "if(spaceStore.find('key', record.get('key')) > -1) {",
+                                                                            "    return;",
+                                                                            "}",
+                                                                            "",
+                                                                            "spaceStore.insert(spaceStore.getCount(), view.getStore().getAt(rowIndex));",
+                                                                            ""
                                                                         ]
                                                                     },
                                                                     "designerId": "454fbe2b-b455-494d-b781-311e71071695"
@@ -696,6 +703,7 @@
                                                 "height": 180,
                                                 "id": "wizardSelectSpaceGrid",
                                                 "itemId": "wizardSelectSpaceGrid",
+                                                "store": "tempSpaceStore",
                                                 "style": null,
                                                 "title": "My Grid Panel"
                                             },
@@ -844,7 +852,7 @@
                                                                         ],
                                                                         "fn": "handler",
                                                                         "implHandler": [
-                                                                            "alert('delete');"
+                                                                            "view.getStore().removeAt(rowIndex);"
                                                                         ]
                                                                     },
                                                                     "designerId": "23247ab1-20d3-4a3a-a057-d3107e37ff90"
@@ -1201,7 +1209,13 @@
                                                                         ],
                                                                         "fn": "handler",
                                                                         "implHandler": [
-                                                                            "alert('delete');"
+                                                                            "var userStore = Ext.getCmp(\"wizardSelectUserGrid\").getStore();",
+                                                                            "if(userStore.find('userId', record.get('userId')) > -1) {",
+                                                                            "    return;",
+                                                                            "}",
+                                                                            "",
+                                                                            "userStore.insert(userStore.getCount(), view.getStore().getAt(rowIndex));",
+                                                                            ""
                                                                         ]
                                                                     },
                                                                     "designerId": "44933a8f-d0f4-401b-a187-bf0257c12191"
@@ -1251,7 +1265,7 @@
                                                 "id": "wizardSelectUserGrid",
                                                 "itemId": "wizardSelectUserGrid",
                                                 "margin": null,
-                                                "store": null,
+                                                "store": "tempUserStore",
                                                 "title": ""
                                             },
                                             "designerId": "84f19540-5f83-4e49-a6b5-e8270d39f907",
@@ -1299,18 +1313,6 @@
                                                         "border": null
                                                     },
                                                     "designerId": "ee070f37-ebfc-4bc5-93ff-e28176b67e42"
-                                                },
-                                                {
-                                                    "type": "Ext.grid.RowNumberer",
-                                                    "reference": {
-                                                        "name": "columns",
-                                                        "type": "array"
-                                                    },
-                                                    "codeClass": null,
-                                                    "userConfig": {
-                                                        "width": 35
-                                                    },
-                                                    "designerId": "b569e740-b4fd-41c1-8435-9152271f6dcb"
                                                 },
                                                 {
                                                     "type": "Ext.grid.column.Column",
@@ -1414,7 +1416,7 @@
                                                                         ],
                                                                         "fn": "handler",
                                                                         "implHandler": [
-                                                                            "alert('delete');"
+                                                                            "view.getStore().removeAt(rowIndex);"
                                                                         ]
                                                                     },
                                                                     "designerId": "41db9238-2208-48a7-95d8-0b5aacc5ce7d"
@@ -1645,6 +1647,67 @@
                                                         ],
                                                         "fn": "handler",
                                                         "implHandler": [
+                                                            "var projectForm = Ext.getCmp(\"addProjectForm\");",
+                                                            "",
+                                                            "if(projectForm.isValid()) {",
+                                                            "    ",
+                                                            "    var wizardData = {};",
+                                                            "    ",
+                                                            "    var spaceStore = Ext.getCmp(\"wizardSelectSpaceGrid\").getStore();",
+                                                            "    var userStore = Ext.getCmp(\"wizardSelectUserGrid\").getStore();",
+                                                            "    ",
+                                                            "    wizardData.project = projectForm.getForm().getFieldValues();",
+                                                            "    ",
+                                                            "    if(spaceStore.getCount() > 0 ) {",
+                                                            "        ",
+                                                            "        var spaceItems = [];",
+                                                            "        Ext.each(Ext.pluck(spaceStore.data.items, 'data'), function(item) {",
+                                                            "            var spaceItem = {};",
+                                                            "            spaceItem.mappingCode = item.key;",
+                                                            "            spaceItem.mappingType = \"10\";",
+                                                            "            ",
+                                                            "            spaceItems.push(spaceItem);",
+                                                            "        });",
+                                                            "        ",
+                                                            "        wizardData.confluence = spaceItems;",
+                                                            "    } ",
+                                                            "    ",
+                                                            "    if(userStore.getCount() > 0 ) {",
+                                                            "        wizardData.users = Ext.pluck(userStore.data.items, 'data');",
+                                                            "    }",
+                                                            "    ",
+                                                            "    Ext.Ajax.request({",
+                                                            "        url: GLOBAL.urlPrefix + \"alm/project/wizard\",",
+                                                            "        method: 'POST',",
+                                                            "        headers: { 'Content-Type': 'application/json' },",
+                                                            "        waitMsg: 'Create Project...',",
+                                                            "        jsonData: wizardData,",
+                                                            "        success: function (response) {",
+                                                            "            ",
+                                                            "            var responseData = Ext.JSON.decode(response.responseText);",
+                                                            "            ",
+                                                            "            if(responseData.success) {",
+                                                            "                ",
+                                                            "                Ext.Msg.alert('Success', responseData.msg);",
+                                                            "                ",
+                                                            "                Ext.getCmp('almProjectGrid').getStore().reload();",
+                                                            "                projectForm.up('window').close();",
+                                                            "                ",
+                                                            "            } else {",
+                                                            "                ",
+                                                            "                Ext.Msg.alert('Failure', responseData.msg);",
+                                                            "                ",
+                                                            "            }",
+                                                            "            ",
+                                                            "        },",
+                                                            "        failure: function (response) {",
+                                                            "            var msg = Ext.JSON.decode(response.responseText).msg;",
+                                                            "            ",
+                                                            "            Ext.Msg.alert('Failure', msg);",
+                                                            "        }",
+                                                            "    });",
+                                                            "",
+                                                            "}",
                                                             ""
                                                         ]
                                                     },

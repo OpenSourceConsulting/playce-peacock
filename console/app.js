@@ -85,7 +85,9 @@ Ext.application({
         'AlmProjectUsersStore',
         'AlmRepositoryStore',
         'ComboAlmRepositoryStore',
-        'InstanceGroupStore'
+        'InstanceGroupStore',
+        'tempSpaceStore',
+        'tempUserStore'
     ],
     views: [
         'peacockViewport',
@@ -104,7 +106,7 @@ Ext.application({
         'userContainer',
         'blankPanel',
         'almContainer',
-        'almUserWindow',
+        'AlmUserWindow',
         'AlmGroupWindow',
         'AlmUsersWindow',
         'softwareInstallLogWindow',
