@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Permission">
+
+	<resultMap id="PermissionMap" type="com.athena.peacock.controller.web.permission.PermissionDto">
+		<!-- <id property="id" column="user_id" /> -->
+		<result property="permId" column="PERM_ID"/>
+		<result property="permNm" column="PERM_NM"/>
+		<result property="regUserId" column="REG_USER_ID"/>
+		<result property="regDt" column="REG_DT"/>
+		<result property="updUserId" column="UPD_USER_ID"/>
+		<result property="updDt" column="UPD_DT"/>
+	</resultMap>
+	
+	<sql id="getPermissionListBase" >
+        SELECT
+        	PERM_ID
+        	,PERM_NM
+        	,REG_USER_ID
+        	,REG_DT
+        	,UPD_USER_ID
+        	,UPD_DT
+        FROM
+        	permission_tbl
+        <where>
+			<if test="search != null">
+			PERM_NM LIKE concat('%',#{search},'%')
+			</if>
+		</where>
+		LIMIT #{start}, #{limit}
+    </sql>
+    
+    <select id="getPermissionList" parameterType="ExtjsGridParam" resultMap="PermissionMap">
+        <include refid="getPermissionListBase"/>
+    </select>
+    
+    <select id="getPermissionListTotalCount" parameterType="ExtjsGridParam" resultType="int">
+		SELECT COUNT(*)
+		FROM (
+			<include refid="getPermissionListBase"/>
+		) AS T
+	</select>
+	
+	<select id="selectPermission" parameterType="com.athena.peacock.controller.web.permission.PermissionDto" resultMap="PermissionMap">
+        SELECT
+        	PERM_ID
+        	,PERM_NM
+        	,REG_USER_ID
+        	,REG_DT
+        	,UPD_USER_ID
+        	,UPD_DT
+        FROM
+        	permission_tbl
+        WHERE
+        	PERM_ID = #{permId}
+    </select>
+    
+    <insert id="insertPermission" parameterType="com.athena.peacock.controller.web.permission.PermissionDto" >
+        INSERT INTO permission_tbl
+        (
+        	PERM_ID
+        	,PERM_NM
+        	,REG_USER_ID
+        	,REG_DT
+        	,UPD_USER_ID
+        	,UPD_DT
+        ) VALUES (
+        	#{permId}
+        	,#{permNm}
+        	,#{regUserId}
+        	,#{regDt}
+        	,#{updUserId}
+        	,#{updDt}
+        )
+    </insert>
+    <update id="updatePermission" parameterType="com.athena.peacock.controller.web.permission.PermissionDto" >
+        UPDATE permission_tbl
+        SET
+        	PERM_ID = #{permId}
+        	,PERM_NM = #{permNm}
+        	,REG_USER_ID = #{regUserId}
+        	,REG_DT = #{regDt}
+        	,UPD_USER_ID = #{updUserId}
+        	,UPD_DT = #{updDt}
+        WHERE
+        	PERM_ID = #{permId}
+    </update>
+	<delete id="deletePermission" parameterType="com.athena.peacock.controller.web.permission.PermissionDto" >
+        DELETE FROM permission_tbl
+        WHERE
+        	PERM_ID = #{permId}
+    </delete>
+</mapper>
