@@ -345,7 +345,7 @@ CREATE TABLE IF NOT EXISTS `peacock`.`config_repo_tbl` (
   `SOFTWARE_ID` INT NOT NULL,
   `CONFIG_FILE_SOURCE_LOCATION` VARCHAR(200) NULL COMMENT 'Software 설치 시 Agent로 복사 될' /* comment truncated */ /*초기 설정 파일의 위치로
 복사 대상 설정파일이 아닌 경우 null이 될 수 있다.*/,
-  `CONFIG_FILE_TARGET_LOCATION` VARCHAR(200) NULL COMMENT 'Software가 설치된 Agent의 �' /* comment truncated */ /*�일시스템 상의 경로
+  `CONFIG_FILE_TARGET_LOCATION` VARCHAR(200) NULL COMMENT 'Software가 설치된 Agent의 �' /* comment truncated */ /*�일시스템 상의 경로
 (eg.)
 Apache :  ${INSTALL_LOCATION}/conf ,
                 ${INSTALL_LOCATION}/conf/extra
@@ -427,7 +427,7 @@ CREATE TABLE IF NOT EXISTS `peacock`.`machine_additional_info_tbl` (
   `GATEWAY` VARCHAR(15) NULL,
   `NAME_SERVER` VARCHAR(100) NULL COMMENT '\',\' 구분자로 구분된 네임서버 목록',
   `APPLY_YN` CHAR(1) NOT NULL DEFAULT 'N',
-  `SSH_PORT` VARCHAR(5) NULL COMMENT 'Instance(Machine)의 부가 정보(고정 IP 관련 정보, SSH 관련 접속 정보 등)을 저장하기 위한 테이블로 machine_tbl�' /* comment truncated */ /*� 1:1로 매핑된다. machine_tbl은 실제 Agent가 구동 된 이후에 값이 저장되는 테이블로써 초기 사용자에 의해 설정된 값을 사전에 저장하기 위해 별도의 테이블로 구성한다.*/,
+  `SSH_PORT` VARCHAR(5) NULL COMMENT 'Instance(Machine)의 부가 정보(고정 IP 관련 정보, SSH 관련 접속 정보 등)을 저장하기 위한 테이블로 machine_tbl�' /* comment truncated */ /*� 1:1로 매핑된다. machine_tbl은 실제 Agent가 구동 된 이후에 값이 저장되는 테이블로써 초기 사용자에 의해 설정된 값을 사전에 저장하기 위해 별도의 테이블로 구성한다.*/,
   `SSH_USERNAME` VARCHAR(255) NULL,
   `SSH_PASSWORD` VARCHAR(255) NULL,
   `SSH_KEY_FILE` VARCHAR(255) NULL,
@@ -462,6 +462,82 @@ CREATE TABLE IF NOT EXISTS `peacock`.`alm_project_mapping_tbl` (
   CONSTRAINT `fk_table1_alm_project_tbl1`
     FOREIGN KEY (`PROJECT_CODE`)
     REFERENCES `peacock`.`alm_project_tbl` (`PROJECT_CODE`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `peacock`.`permission_tbl`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `peacock`.`permission_tbl` (
+  `PERM_ID` INT NOT NULL,
+  `PERM_NM` VARCHAR(100) NOT NULL,
+  `REG_USER_ID` INT(11) NULL,
+  `REG_DT` DATETIME NULL,
+  `UPD_USER_ID` INT(11) NULL,
+  `UPD_DT` DATETIME NULL,
+  PRIMARY KEY (`PERM_ID`))
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `peacock`.`menu_tbl`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `peacock`.`menu_tbl` (
+  `MENU_ID` INT NOT NULL,
+  `MENU_NM` VARCHAR(100) NOT NULL,
+  `THREAD` VARCHAR(10) NOT NULL,
+  `REG_USER_ID` INT(11) NULL,
+  `REG_DT` DATETIME NULL,
+  `UPD_USER_ID` INT(11) NULL,
+  `UPD_DT` DATETIME NULL,
+  PRIMARY KEY (`MENU_ID`))
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `peacock`.`permission_menu_map_tbl`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `peacock`.`permission_menu_map_tbl` (
+  `PERM_ID` INT NOT NULL,
+  `MENU_ID` INT NOT NULL,
+  `READ_YN` CHAR(1) NOT NULL DEFAULT 'N',
+  `WRITE_YN` CHAR(1) NOT NULL DEFAULT 'N',
+  `REG_USER_ID` INT(11) NULL,
+  `REG_DT` DATETIME NULL,
+  `UPD_USER_ID` INT(11) NULL,
+  `UPD_DT` DATETIME NULL,
+  PRIMARY KEY (`PERM_ID`, `MENU_ID`),
+  CONSTRAINT `fk_permission_menu_map_tbl_permission_tbl1`
+    FOREIGN KEY (`PERM_ID`)
+    REFERENCES `peacock`.`permission_tbl` (`PERM_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_permission_menu_map_tbl_menu_tbl1`
+    FOREIGN KEY (`MENU_ID`)
+    REFERENCES `peacock`.`menu_tbl` (`MENU_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `peacock`.`permission_user_map_tbl`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `peacock`.`permission_user_map_tbl` (
+  `PERM_ID` INT NOT NULL,
+  `USER_ID` INT NOT NULL,
+  `REG_USER_ID` INT(11) NULL,
+  `REG_DT` DATETIME NULL,
+  `UPD_USER_ID` INT(11) NULL,
+  `UPD_DT` DATETIME NULL,
+  PRIMARY KEY (`PERM_ID`, `USER_ID`),
+  CONSTRAINT `fk_permission_user_map_tbl_permission_tbl1`
+    FOREIGN KEY (`PERM_ID`)
+    REFERENCES `peacock`.`permission_tbl` (`PERM_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_permission_user_map_tbl_users_tbl1`
+    FOREIGN KEY (`USER_ID`)
+    REFERENCES `peacock`.`users_tbl` (`USER_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
