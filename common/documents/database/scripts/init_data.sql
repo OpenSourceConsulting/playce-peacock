@@ -18,36 +18,54 @@ INSERT INTO peacock.mon_factor_tbl(MON_FACTOR_ID,MON_FACTOR_NAME,MON_FACTOR_UNIT
 VALUES ('FACTOR_008','DISK_USED','KB','Whole Disk Used Size',null,null,1,NOW(),1,NOW());
 
 INSERT INTO peacock.software_repo_tbl (SOFTWARE_ID,SOFTWARE_NAME,SOFTWARE_VERSION,SOFTWARE_VENDOR,FILE_LOCATION,FILE_NAME,DESCRIPTION,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
-VALUES (1,'Apache','2.2.25','Apache Software Foundation','/repo/apache/2.2.25/','httpd-2.2.25.tar.gz','Apache HTTP Daemon',1,NOW(),1,NOW());
+VALUES (1,'JBoss EWS(HTTPD)','2.2.22','Red Hat,Inc.','/repo/httpd/2.2.22/','jboss-ews-httpd-2.0.1.zip,jboss-ews-httpd-template.zip','HTTP Daemon',1,NOW(),1,NOW());
 INSERT INTO peacock.software_repo_tbl (SOFTWARE_ID,SOFTWARE_NAME,SOFTWARE_VERSION,SOFTWARE_VENDOR,FILE_LOCATION,FILE_NAME,DESCRIPTION,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
-VALUES (2,'MySQL','5.5.34','Oracle Corporation','/repo/mysql/5.5.34/','MySQL-server.rpm,MySQL-client.rpm','MySQL 5.5.34',1,NOW(),1,NOW());
+VALUES (2,'JBoss EWS(HTTPD)','2.2.26','Red Hat,Inc.','/repo/httpd/2.2.26/','jboss-ews-httpd-2.1.0.zip,jboss-ews-httpd-template.zip','HTTP Daemon',1,NOW(),1,NOW());
 INSERT INTO peacock.software_repo_tbl (SOFTWARE_ID,SOFTWARE_NAME,SOFTWARE_VERSION,SOFTWARE_VENDOR,FILE_LOCATION,FILE_NAME,DESCRIPTION,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
-VALUES (3,'JBoss','5.2.0','Red Hat,Inc.','/repo/jboss/','jboss-eap-5.2.0.zip,jboss-cluster-template-5.2.0.zip','JBoss EAP 5.2.0',1,NOW(),1,NOW());
+VALUES (3,'JBoss EWS(Tomcat)','6.0.41','Red Hat,Inc.','/repo/tomcat/','jboss-ews-as-2.1.0.zip,jboss-ews-as-template.zip','Apache Tomcat 6.0.41',1,NOW(),1,NOW());
 INSERT INTO peacock.software_repo_tbl (SOFTWARE_ID,SOFTWARE_NAME,SOFTWARE_VERSION,SOFTWARE_VENDOR,FILE_LOCATION,FILE_NAME,DESCRIPTION,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
-VALUES (4,'Tomcat','6.0.37','Apache Software Foundation','/repo/tomcat/','apache-tomcat-6.0.37.zip,tomcat-template-6.0.37.zip','Apache Tomcat 6.0.37',1,NOW(),1,NOW());
+VALUES (4,'JBoss EWS(Tomcat)','7.0.54','Red Hat,Inc.','/repo/tomcat/','jboss-ews-as-2.1.0.zip,jboss-ews-as-template.zip','Apache Tomcat 7.0.54',1,NOW(),1,NOW());
+INSERT INTO peacock.software_repo_tbl (SOFTWARE_ID,SOFTWARE_NAME,SOFTWARE_VERSION,SOFTWARE_VENDOR,FILE_LOCATION,FILE_NAME,DESCRIPTION,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
+VALUES (5,'JBoss EAP','5.1.2','Red Hat,Inc.','/repo/jboss/5.1.2/','jboss-eap-5.1.2.zip,jboss-eap-template.zip','JBoss EAP 5.1.2',1,NOW(),1,NOW());
+INSERT INTO peacock.software_repo_tbl (SOFTWARE_ID,SOFTWARE_NAME,SOFTWARE_VERSION,SOFTWARE_VENDOR,FILE_LOCATION,FILE_NAME,DESCRIPTION,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
+VALUES (6,'JBoss EAP','5.2.0','Red Hat,Inc.','/repo/jboss/5.2.0/','jboss-eap-5.2.0.zip,jboss-eap-template.zip','JBoss EAP 5.2.0',1,NOW(),1,NOW());
+INSERT INTO peacock.software_repo_tbl (SOFTWARE_ID,SOFTWARE_NAME,SOFTWARE_VERSION,SOFTWARE_VENDOR,FILE_LOCATION,FILE_NAME,DESCRIPTION,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
+VALUES (7,'MySQL','5.5.34','Oracle Corporation','/repo/mysql/5.5.34/','MySQL-server.rpm,MySQL-client.rpm','MySQL 5.5.34',1,NOW(),1,NOW());
 
 INSERT INTO peacock.config_repo_tbl (CONFIG_FILE_ID,SOFTWARE_ID,CONFIG_FILE_SOURCE_LOCATION,CONFIG_FILE_TARGET_LOCATION,CONFIG_FILE_NAME,PROPERTIES,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
-VALUES (1,1,'/repo/apache/2.2.25/conf/','${INSTALL_LOCATION}/conf/','httpd.conf','ServerRoot,Port,ServerName',1,NOW(),1,NOW());
+VALUES (1,1,'/repo/httpd/conf/','${INSTALL_LOCATION}/conf/','httpd.conf',NULL,1,NOW(),1,NOW());
 INSERT INTO peacock.config_repo_tbl (CONFIG_FILE_ID,SOFTWARE_ID,CONFIG_FILE_SOURCE_LOCATION,CONFIG_FILE_TARGET_LOCATION,CONFIG_FILE_NAME,PROPERTIES,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
-VALUES (2,1,'/repo/apache/2.2.25/conf/','${INSTALL_LOCATION}/conf/extra/','httpd-mpm.conf',NULL,1,NOW(),1,NOW());
+VALUES (2,1,'/repo/httpd/conf/extra/','${INSTALL_LOCATION}/conf/extra/','httpd-info.conf',NULL,1,NOW(),1,NOW());
 INSERT INTO peacock.config_repo_tbl (CONFIG_FILE_ID,SOFTWARE_ID,CONFIG_FILE_SOURCE_LOCATION,CONFIG_FILE_TARGET_LOCATION,CONFIG_FILE_NAME,PROPERTIES,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
-VALUES (3,1,'/repo/apache/2.2.25/conf/','${INSTALL_LOCATION}/conf/','mod-jk.conf',NULL,1,NOW(),1,NOW());
+VALUES (3,1,'/repo/httpd/conf/extra/','${INSTALL_LOCATION}/conf/extra/','httpd-ssl.conf',NULL,1,NOW(),1,NOW());
 INSERT INTO peacock.config_repo_tbl (CONFIG_FILE_ID,SOFTWARE_ID,CONFIG_FILE_SOURCE_LOCATION,CONFIG_FILE_TARGET_LOCATION,CONFIG_FILE_NAME,PROPERTIES,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
-VALUES (4,1,'/repo/apache/2.2.25/conf/','${INSTALL_LOCATION}/conf/','uriworkermap.properties',NULL,1,NOW(),1,NOW());
+VALUES (4,1,'/repo/httpd/conf/extra/','${INSTALL_LOCATION}/conf/extra/','uriworkermap.properties',NULL,1,NOW(),1,NOW());
 INSERT INTO peacock.config_repo_tbl (CONFIG_FILE_ID,SOFTWARE_ID,CONFIG_FILE_SOURCE_LOCATION,CONFIG_FILE_TARGET_LOCATION,CONFIG_FILE_NAME,PROPERTIES,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
-VALUES (5,1,'/repo/apache/2.2.25/conf/','${INSTALL_LOCATION}/conf/','workers.properties',NULL,1,NOW(),1,NOW());
+VALUES (5,1,'/repo/httpd/conf/extra/','${INSTALL_LOCATION}/conf/extra/','workers.properties',NULL,1,NOW(),1,NOW());
 INSERT INTO peacock.config_repo_tbl (CONFIG_FILE_ID,SOFTWARE_ID,CONFIG_FILE_SOURCE_LOCATION,CONFIG_FILE_TARGET_LOCATION,CONFIG_FILE_NAME,PROPERTIES,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
-VALUES (6,2,'/repo/mysql/5.5.34/','/etc/','my.cnf','mysql.datadir,mysql.port',1,NOW(),1,NOW());
+VALUES (6,2,'/repo/httpd/conf/','${INSTALL_LOCATION}/conf/','httpd.conf',NULL,1,NOW(),1,NOW());
 INSERT INTO peacock.config_repo_tbl (CONFIG_FILE_ID,SOFTWARE_ID,CONFIG_FILE_SOURCE_LOCATION,CONFIG_FILE_TARGET_LOCATION,CONFIG_FILE_NAME,PROPERTIES,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
-VALUES (7,3,'/repo/jboss/datasource/','${INSTALL_LOCATION}/','${db_type}-ds.xml','databaseType,jndiName,connectionUrl,userName,password,minPoolSize,maxPoolSize',1,NOW(),1,NOW());
+VALUES (7,2,'/repo/httpd/conf/extra/','${INSTALL_LOCATION}/conf/extra/','httpd-info.conf',NULL,1,NOW(),1,NOW());
 INSERT INTO peacock.config_repo_tbl (CONFIG_FILE_ID,SOFTWARE_ID,CONFIG_FILE_SOURCE_LOCATION,CONFIG_FILE_TARGET_LOCATION,CONFIG_FILE_NAME,PROPERTIES,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
-VALUES (8,3,NULL,'${INSTALL_LOCATION}/bin/','env.sh','jbossHome,serverHome,serverName,partitionName,bindAddress,bindPort',1,NOW(),1,NOW());
+VALUES (8,2,'/repo/httpd/conf/extra/','${INSTALL_LOCATION}/conf/extra/','httpd-ssl.conf',NULL,1,NOW(),1,NOW());
 INSERT INTO peacock.config_repo_tbl (CONFIG_FILE_ID,SOFTWARE_ID,CONFIG_FILE_SOURCE_LOCATION,CONFIG_FILE_TARGET_LOCATION,CONFIG_FILE_NAME,PROPERTIES,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
-VALUES (9,4,NULL,'${INSTALL_LOCATION}/bin/','env.sh','javaHome,serverName,catalinaHome,catalinaBase,portOffset,compUser',1,NOW(),1,NOW());
+VALUES (9,2,'/repo/httpd/conf/extra/','${INSTALL_LOCATION}/conf/extra/','uriworkermap.properties',NULL,1,NOW(),1,NOW());
+INSERT INTO peacock.config_repo_tbl (CONFIG_FILE_ID,SOFTWARE_ID,CONFIG_FILE_SOURCE_LOCATION,CONFIG_FILE_TARGET_LOCATION,CONFIG_FILE_NAME,PROPERTIES,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
+VALUES (10,2,'/repo/httpd/conf/extra/','${INSTALL_LOCATION}/conf/extra/','workers.properties',NULL,1,NOW(),1,NOW());
+
+INSERT INTO peacock.config_repo_tbl (CONFIG_FILE_ID,SOFTWARE_ID,CONFIG_FILE_SOURCE_LOCATION,CONFIG_FILE_TARGET_LOCATION,CONFIG_FILE_NAME,PROPERTIES,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
+VALUES (11,3,'/repo/jboss/datasource/','${INSTALL_LOCATION}/','${db_type}-ds.xml','databaseType,jndiName,connectionUrl,userName,password,minPoolSize,maxPoolSize',1,NOW(),1,NOW());
+INSERT INTO peacock.config_repo_tbl (CONFIG_FILE_ID,SOFTWARE_ID,CONFIG_FILE_SOURCE_LOCATION,CONFIG_FILE_TARGET_LOCATION,CONFIG_FILE_NAME,PROPERTIES,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
+VALUES (12,3,NULL,'${INSTALL_LOCATION}/bin/','env.sh','jbossHome,serverHome,serverName,partitionName,bindAddress,bindPort',1,NOW(),1,NOW());
+
+INSERT INTO peacock.config_repo_tbl (CONFIG_FILE_ID,SOFTWARE_ID,CONFIG_FILE_SOURCE_LOCATION,CONFIG_FILE_TARGET_LOCATION,CONFIG_FILE_NAME,PROPERTIES,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
+VALUES (13,4,NULL,'${INSTALL_LOCATION}/bin/','env.sh','javaHome,serverName,catalinaHome,catalinaBase,portOffset,compUser',1,NOW(),1,NOW());
+
+INSERT INTO peacock.config_repo_tbl (CONFIG_FILE_ID,SOFTWARE_ID,CONFIG_FILE_SOURCE_LOCATION,CONFIG_FILE_TARGET_LOCATION,CONFIG_FILE_NAME,PROPERTIES,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
+VALUES (16,7,'/repo/mysql/5.5.34/','/etc/','my.cnf','mysql.datadir,mysql.port',1,NOW(),1,NOW());
 
 INSERT INTO users_tbl (USER_ID, LOGIN_ID, PASSWD, HASHED_PASSWD, USER_NAME, DEPT_NAME, EMAIL, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
 VALUES ('1', 'admin', 'admin', password('admin'), 'Administrator', '개발팀', 'admin@osci.kr', 1, NOW(), 1, NOW());
-
 
 INSERT INTO menu_tbl VALUES (1,'Instances','B1', 1, NOW(), 1, NOW());
 INSERT INTO menu_tbl VALUES (2,'RHEV Management','B2', 1, NOW(), 1, NOW());
@@ -60,12 +78,9 @@ INSERT INTO menu_tbl VALUES (8,'Administration','B4', 1, NOW(), 1, NOW());
 INSERT INTO menu_tbl VALUES (9,'User','B401', 1, NOW(), 1, NOW());
 INSERT INTO menu_tbl VALUES (10,'User Permission','B402', 1, NOW(), 1, NOW());
 
-
 INSERT INTO permission_tbl VALUES (1, 'admin', 1, NOW(), 1, NOW());
 INSERT INTO permission_tbl VALUES (2, 'guest', 1, NOW(), 1, NOW());
 INSERT INTO permission_tbl VALUES (3, 'osc_persons', 1, NOW(), 1, NOW());
-
-
 
 set global event_scheduler = 'ON';
 
