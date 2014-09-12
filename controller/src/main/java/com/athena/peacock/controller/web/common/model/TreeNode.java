@@ -20,78 +20,56 @@
  * Revision History
  * Author			Date				Description
  * ---------------	----------------	------------
- * Bong-Jin Kwon	2013. 9. 25.		First Draft.
+ * Bong-Jin Kwon	2014. 9. 12.		First Draft.
  */
 package com.athena.peacock.controller.web.common.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 /**
- * <pre>
- *  Extjs GridPanel 의 request parameter Model
- *   - Extjs GridPanel 목록 조회 처리 Controller 에서 사용함. 
- * </pre>
  * @author Bong-Jin Kwon
- * @version 1.0
+ *
  */
-public class ExtjsGridParam {
-	
-	private int page;
-	private int start;
-	private int limit;
-	private String search;//검색어
-	private Map<String, Object> exParams = new HashMap<String, Object>();
+public class TreeNode extends HashMap<String, Object> {
+
+	private static final String KEY_CHILDREN = "children";
+	/**
+	 * 
+	 */
+	public TreeNode() {
+		put(KEY_CHILDREN, new ArrayList<TreeNode>());
+	}
 
 	/**
-	 * <pre>
-	 * 
-	 * </pre>
+	 * @param initialCapacity
 	 */
-	public ExtjsGridParam() {
-		// TODO Auto-generated constructor stub
+	public TreeNode(int initialCapacity) {
+		super(initialCapacity);
+		put(KEY_CHILDREN, new ArrayList<TreeNode>());
 	}
 
-	public int getPage() {
-		return page;
+	/**
+	 * @param m
+	 */
+	public TreeNode(TreeNode m) {
+		super(m);
 	}
 
-	public void setPage(int page) {
-		this.page = page;
-	}
-
-	public int getStart() {
-		return start;
-	}
-
-	public void setStart(int start) {
-		this.start = start;
-	}
-
-	public int getLimit() {
-		return limit;
-	}
-
-	public void setLimit(int limit) {
-		this.limit = limit;
-	}
-
-	public String getSearch() {
-		return search;
-	}
-
-	public void setSearch(String search) {
-		this.search = search;
+	/**
+	 * @param initialCapacity
+	 * @param loadFactor
+	 */
+	public TreeNode(int initialCapacity, float loadFactor) {
+		super(initialCapacity, loadFactor);
+		put(KEY_CHILDREN, new ArrayList<TreeNode>());
 	}
 	
-	public void addExParam(String key, Object val){
-		this.exParams.put(key, val);
+	public void addChild(TreeNode node){
+		List<TreeNode> children = (List<TreeNode>)get(KEY_CHILDREN);
+		
+		children.add(node);
 	}
-
-	public Map<String, Object> getExParams() {
-		return exParams;
-	}
-	
 
 }
-//end of ExtjsGridParam.java

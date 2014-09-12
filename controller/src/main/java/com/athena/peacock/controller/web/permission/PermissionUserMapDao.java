@@ -30,53 +30,48 @@ import org.springframework.stereotype.Repository;
 
 import com.athena.peacock.controller.web.common.dao.AbstractBaseDao;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
-import com.athena.peacock.controller.web.menu.MenuDto;
+import com.athena.peacock.controller.web.user.UserDto;
 
 /**
- * PermissionDao
+ * PermissionUserMapDao
  *
  * @author Bong-Jin Kwon
  * @version 1.0
  */
 @Repository
-public class PermissionDao extends AbstractBaseDao {
+public class PermissionUserMapDao extends AbstractBaseDao {
 
 	/**
-	 * PermissionDao
+	 * PermissionUserMapDao
 	 *
 	 * @param
 	 * @exception
 	 */
-	public PermissionDao() {
+	public PermissionUserMapDao() {
 	}
 
-	public List<PermissionDto> getPermissionList(ExtjsGridParam gridParam){
-		return sqlSession.selectList("Permission.getPermissionList", gridParam);
+	public List<UserDto> getPermissionUserMapList(ExtjsGridParam gridParam){
+		return sqlSession.selectList("PermissionUserMap.getPermissionUserMapList", gridParam);
 	}
 	
-	public int getPermissionListTotalCount(ExtjsGridParam gridParam){
+	public int getPermissionUserMapListTotalCount(ExtjsGridParam gridParam){
 		
-		return sqlSession.selectOne("Permission.getPermissionListTotalCount", gridParam);
+		return sqlSession.selectOne("PermissionUserMap.getPermissionUserMapListTotalCount", gridParam);
 	}
 	
-	public List<MenuDto> getPermissionMenuList(int permId){
-		
-		return sqlSession.selectList("Permission.getPermissionMenuList", permId);
+	public PermissionUserMapDto getPermissionUserMap(PermissionUserMapDto param){
+		return sqlSession.selectOne("PermissionUserMap.getPermissionUserMap", param);
 	}
 	
-	public PermissionDto getPermission(PermissionDto param){
-		return sqlSession.selectOne("Permission.getPermission", param);
+	public void insertPermissionUserMap(PermissionUserMapDto param){
+		sqlSession.insert("PermissionUserMap.insertPermissionUserMap", param);
 	}
 	
-	public void insertPermission(PermissionDto param){
-		sqlSession.insert("Permission.insertPermission", param);
+	public void updatePermissionUserMap(PermissionUserMapDto param){
+		sqlSession.update("PermissionUserMap.updatePermissionUserMap", param);
 	}
 	
-	public void updatePermission(PermissionDto param){
-		sqlSession.update("Permission.updatePermission", param);
-	}
-	
-	public void deletePermission(PermissionDto param){
-		sqlSession.delete("Permission.deletePermission", param);
+	public void deletePermissionUserMap(PermissionUserMapDto param){
+		sqlSession.delete("PermissionUserMap.deletePermissionUserMap", param);
 	}
 }

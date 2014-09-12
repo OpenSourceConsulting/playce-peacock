@@ -22,61 +22,61 @@
  * ---------------	----------------	------------
  * Bong-Ji Kwon 			            First Draft.
  */
-package com.athena.peacock.controller.web.permission;
+package com.athena.peacock.controller.web.menu;
 
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.athena.peacock.controller.web.common.dao.AbstractBaseDao;
-import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.menu.MenuDto;
 
+import com.athena.peacock.controller.web.common.dao.AbstractBaseDao;
+import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
+
 /**
- * PermissionDao
+ * MenuDao
  *
  * @author Bong-Jin Kwon
  * @version 1.0
  */
 @Repository
-public class PermissionDao extends AbstractBaseDao {
+public class MenuDao extends AbstractBaseDao {
 
 	/**
-	 * PermissionDao
+	 * MenuDao
 	 *
 	 * @param
 	 * @exception
 	 */
-	public PermissionDao() {
+	public MenuDao() {
+	}
+	
+	public List<MenuDto> getAllMenuTree(){
+		return sqlSession.selectList("Menu.getAllMenuTree");
 	}
 
-	public List<PermissionDto> getPermissionList(ExtjsGridParam gridParam){
-		return sqlSession.selectList("Permission.getPermissionList", gridParam);
+	public List<MenuDto> getMenuList(ExtjsGridParam gridParam){
+		return sqlSession.selectList("Menu.getMenuList", gridParam);
 	}
 	
-	public int getPermissionListTotalCount(ExtjsGridParam gridParam){
+	public int getMenuListTotalCount(ExtjsGridParam gridParam){
 		
-		return sqlSession.selectOne("Permission.getPermissionListTotalCount", gridParam);
+		return sqlSession.selectOne("Menu.getMenuListTotalCount", gridParam);
 	}
 	
-	public List<MenuDto> getPermissionMenuList(int permId){
-		
-		return sqlSession.selectList("Permission.getPermissionMenuList", permId);
+	public MenuDto getMenu(MenuDto param){
+		return sqlSession.selectOne("Menu.getMenu", param);
 	}
 	
-	public PermissionDto getPermission(PermissionDto param){
-		return sqlSession.selectOne("Permission.getPermission", param);
+	public void insertMenu(MenuDto param){
+		sqlSession.insert("Menu.insertMenu", param);
 	}
 	
-	public void insertPermission(PermissionDto param){
-		sqlSession.insert("Permission.insertPermission", param);
+	public void updateMenu(MenuDto param){
+		sqlSession.update("Menu.updateMenu", param);
 	}
 	
-	public void updatePermission(PermissionDto param){
-		sqlSession.update("Permission.updatePermission", param);
-	}
-	
-	public void deletePermission(PermissionDto param){
-		sqlSession.delete("Permission.deletePermission", param);
+	public void deleteMenu(MenuDto param){
+		sqlSession.delete("Menu.deleteMenu", param);
 	}
 }

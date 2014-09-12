@@ -20,78 +20,50 @@
  * Revision History
  * Author			Date				Description
  * ---------------	----------------	------------
- * Bong-Jin Kwon	2013. 9. 25.		First Draft.
+ * Bong-Jin Kwon	2014. 9. 12.		First Draft.
  */
 package com.athena.peacock.controller.web.common.model;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 /**
- * <pre>
- *  Extjs GridPanel 의 request parameter Model
- *   - Extjs GridPanel 목록 조회 처리 Controller 에서 사용함. 
- * </pre>
  * @author Bong-Jin Kwon
- * @version 1.0
+ *
  */
-public class ExtjsGridParam {
-	
-	private int page;
-	private int start;
-	private int limit;
-	private String search;//검색어
-	private Map<String, Object> exParams = new HashMap<String, Object>();
+public class TreeJsonResponse {
 
-	/**
-	 * <pre>
-	 * 
-	 * </pre>
-	 */
-	public ExtjsGridParam() {
+	private String text = "."; // maybe root
+	private List<TreeNode> children;
+	
+	
+	public TreeJsonResponse() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getPage() {
-		return page;
+
+	public String getText() {
+		return text;
 	}
 
-	public void setPage(int page) {
-		this.page = page;
+
+	public void setText(String text) {
+		this.text = text;
 	}
 
-	public int getStart() {
-		return start;
+
+	public List<TreeNode> getChildren() {
+		return children;
 	}
 
-	public void setStart(int start) {
-		this.start = start;
-	}
 
-	public int getLimit() {
-		return limit;
-	}
-
-	public void setLimit(int limit) {
-		this.limit = limit;
-	}
-
-	public String getSearch() {
-		return search;
-	}
-
-	public void setSearch(String search) {
-		this.search = search;
+	public void setChildren(List<TreeNode> children) {
+		this.children = children;
 	}
 	
-	public void addExParam(String key, Object val){
-		this.exParams.put(key, val);
+	public void addChild(TreeNode child){
+		this.children.add(child);
 	}
-
-	public Map<String, Object> getExParams() {
-		return exParams;
-	}
+	
 	
 
 }
-//end of ExtjsGridParam.java

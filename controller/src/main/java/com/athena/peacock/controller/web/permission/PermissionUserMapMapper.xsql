@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PermissionUserMap">
+
+	<resultMap id="PermissionUserMapMap" type="com.athena.peacock.controller.web.permission.PermissionUserMapDto">
+		<!-- <id property="id" column="user_id" /> -->
+		<result property="permId" column="PERM_ID"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="regUserId" column="REG_USER_ID"/>
+		<result property="regDt" column="REG_DT"/>
+		<result property="updUserId" column="UPD_USER_ID"/>
+		<result property="updDt" column="UPD_DT"/>
+	</resultMap>
+	
+	<resultMap id="PermissionUserMap" type="com.athena.peacock.controller.web.user.UserDto">
+		<!-- <id property="id" column="user_id" /> -->
+		<result property="userId" column="USER_ID"/>
+		<result property="loginId" column="LOGIN_ID"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="deptName" column="DEPT_NAME"/>
+	</resultMap>
+	
+	<sql id="getPermissionUserMapListBase" >
+        SELECT
+			b.USER_ID
+			,b.LOGIN_ID
+			,b.USER_NAME
+			,b.DEPT_NAME
+		FROM
+			permission_user_map_tbl a
+			, users_tbl b
+		WHERE
+			a.PERM_ID = 1
+			AND a.USER_ID = b.USER_ID
+			<if test="search != null">
+			AND b.USER_NAME LIKE concat('%',#{search},'%')
+			</if>
+		LIMIT #{start}, #{limit}
+    </sql>
+    
+    <select id="getPermissionUserMapList" parameterType="ExtjsGridParam" resultMap="PermissionUserMap">
+        <include refid="getPermissionUserMapListBase"/>
+    </select>
+    
+    <select id="getPermissionUserMapListTotalCount" parameterType="ExtjsGridParam" resultType="int">
+		SELECT COUNT(*)
+		FROM (
+			<include refid="getPermissionUserMapListBase"/>
+		) AS T
+	</select>
+	
+	<select id="getPermissionUserMap" parameterType="com.athena.peacock.controller.web.permission.PermissionUserMapDto" resultMap="PermissionUserMapMap">
+        SELECT
+        	PERM_ID
+        	,USER_ID
+        	,REG_USER_ID
+        	,REG_DT
+        	,UPD_USER_ID
+        	,UPD_DT
+        FROM
+        	permission_user_map_tbl
+        WHERE
+        	PERM_ID = #{permId}
+        	AND USER_ID = #{userId}
+    </select>
+    
+    <insert id="insertPermissionUserMap" parameterType="com.athena.peacock.controller.web.permission.PermissionUserMapDto" >
+        INSERT INTO permission_user_map_tbl
+        (
+        	PERM_ID
+        	,USER_ID
+        	,REG_USER_ID
+        	,REG_DT
+        	,UPD_USER_ID
+        	,UPD_DT
+        ) VALUES (
+        	#{permId}
+        	,#{userId}
+        	,#{regUserId}
+        	,#{regDt}
+        	,#{updUserId}
+        	,#{updDt}
+        )
+    </insert>
+    <update id="updatePermissionUserMap" parameterType="com.athena.peacock.controller.web.permission.PermissionUserMapDto" >
+        UPDATE permission_user_map_tbl
+        SET
+        	PERM_ID = #{permId}
+        	,USER_ID = #{userId}
+        	,REG_USER_ID = #{regUserId}
+        	,REG_DT = #{regDt}
+        	,UPD_USER_ID = #{updUserId}
+        	,UPD_DT = #{updDt}
+        WHERE
+        	PERM_ID = #{permId}
+        	AND USER_ID = #{userId}
+    </update>
+	<delete id="deletePermissionUserMap" parameterType="com.athena.peacock.controller.web.permission.PermissionUserMapDto" >
+        DELETE FROM permission_user_map_tbl
+        WHERE
+        	PERM_ID = #{permId}
+        	AND USER_ID = #{userId}
+    </delete>
+</mapper>

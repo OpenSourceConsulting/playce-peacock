@@ -7,25 +7,37 @@
 		<!-- <id property="id" column="user_id" /> -->
 		<result property="permId" column="PERM_ID"/>
 		<result property="permNm" column="PERM_NM"/>
+		<result property="users" column="users"/>
 		<result property="regUserId" column="REG_USER_ID"/>
 		<result property="regDt" column="REG_DT"/>
 		<result property="updUserId" column="UPD_USER_ID"/>
 		<result property="updDt" column="UPD_DT"/>
 	</resultMap>
 	
+	<resultMap id="MenuMap" type="com.athena.peacock.controller.web.menu.MenuDto">
+		<!-- <id property="id" column="user_id" /> -->
+		<result property="menuId" column="MENU_ID"/>
+		<result property="menuNm" column="MENU_NM"/>
+		<result property="thread" column="THREAD"/>
+		<result property="readYn" column="READ_YN"/>
+		<result property="writeYn" column="WRITE_YN"/>
+		<result property="regDt" column="REG_DT"/>
+	</resultMap>
+	
 	<sql id="getPermissionListBase" >
         SELECT
-        	PERM_ID
-        	,PERM_NM
-        	,REG_USER_ID
-        	,REG_DT
-        	,UPD_USER_ID
-        	,UPD_DT
+        	a.PERM_ID
+        	,a.PERM_NM
+        	,a.REG_USER_ID
+        	,a.REG_DT
+        	,a.UPD_USER_ID
+        	,a.UPD_DT
+        	,(SELECT COUNT(*) FROM permission_user_map_tbl b WHERE b.PERM_ID = a.PERM_ID) AS users
         FROM
-        	permission_tbl
+        	permission_tbl a
         <where>
 			<if test="search != null">
-			PERM_NM LIKE concat('%',#{search},'%')
+			a.PERM_NM LIKE concat('%',#{search},'%')
 			</if>
 		</where>
 		LIMIT #{start}, #{limit}
@@ -42,7 +54,24 @@
 		) AS T
 	</select>
 	
-	<select id="selectPermission" parameterType="com.athena.peacock.controller.web.permission.PermissionDto" resultMap="PermissionMap">
+	<select id="getPermissionMenuList" parameterType="int" resultMap="MenuMap">
+		SELECT
+			a.MENU_ID
+			,a.MENU_NM
+			,a.THREAD
+			,ifnull(b.READ_YN, 0) AS READ_YN
+			,ifnull(b.WRITE_YN, 0) AS WRITE_YN
+			,b.REG_DT
+		FROM
+			menu_tbl a
+		LEFT OUTER JOIN permission_menu_map_tbl b
+			ON b.PERM_ID = #{permId}
+			AND a.MENU_ID = b.MENU_ID
+		ORDER BY
+			a.THREAD
+	</select>
+	
+	<select id="getPermission" parameterType="com.athena.peacock.controller.web.permission.PermissionDto" resultMap="PermissionMap">
         SELECT
         	PERM_ID
         	,PERM_NM
@@ -63,15 +92,11 @@
         	,PERM_NM
         	,REG_USER_ID
         	,REG_DT
-        	,UPD_USER_ID
-        	,UPD_DT
         ) VALUES (
         	#{permId}
         	,#{permNm}
         	,#{regUserId}
-        	,#{regDt}
-        	,#{updUserId}
-        	,#{updDt}
+        	,NOW()
         )
     </insert>
     <update id="updatePermission" parameterType="com.athena.peacock.controller.web.permission.PermissionDto" >
@@ -79,10 +104,8 @@
         SET
         	PERM_ID = #{permId}
         	,PERM_NM = #{permNm}
-        	,REG_USER_ID = #{regUserId}
-        	,REG_DT = #{regDt}
         	,UPD_USER_ID = #{updUserId}
-        	,UPD_DT = #{updDt}
+        	,UPD_DT = NOW()
         WHERE
         	PERM_ID = #{permId}
     </update>

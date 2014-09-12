@@ -22,19 +22,13 @@
  * ---------------	----------------	------------
  * Bong-Jin Kwon	            		First Draft.
  */
-package com.athena.peacock.controller.web.permission;
+package com.athena.peacock.controller.web.menu;
 
-import org.junit.runners.Parameterized.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
-import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
-import com.athena.peacock.controller.web.common.model.GridJsonResponse;
-import com.athena.peacock.controller.web.common.model.SimpleJsonResponse;
 import com.athena.peacock.controller.web.common.model.TreeJsonResponse;
 
 /**
@@ -45,61 +39,49 @@ import com.athena.peacock.controller.web.common.model.TreeJsonResponse;
  * @version 1.0
  */
 @Controller
-@RequestMapping("/permission")
-public class PermissionController {
+@RequestMapping("/menu")
+public class MenuController {
 	
 	@Autowired
-	private PermissionService service;
-	
-	@Autowired
-	private PermissionUserMapService userMapService;
+	private MenuService service;
 
 	/**
 	 * <pre>
 	 * 
 	 * </pre>
 	 */
-	public PermissionController() {
+	public MenuController() {
 		// TODO Auto-generated constructor stub
 	}
 	
+	@RequestMapping("/alltree")
+	public @ResponseBody TreeJsonResponse allTree(){
+	
+		TreeJsonResponse jsonRes = new TreeJsonResponse();
+		jsonRes.setChildren(service.getAllMenuTree());
+		
+		return jsonRes;
+	}
+	
+	/*
+	 * 아래소스는 자동 생성한 CRUD 소스
+	 * 
 	@RequestMapping("/list")
 	public @ResponseBody GridJsonResponse list(ExtjsGridParam gridParam){
 	
 		GridJsonResponse jsonRes = new GridJsonResponse();
-		jsonRes.setTotal(service.getPermissionListTotalCount(gridParam));
-		jsonRes.setList(service.getPermissionList(gridParam));
-		
-		return jsonRes;
-	}
-	
-	@RequestMapping("/menutree")
-	public @ResponseBody TreeJsonResponse menuTree(@RequestParam(value="permId") int permId){
-	
-		TreeJsonResponse jsonRes = new TreeJsonResponse();
-		jsonRes.setChildren(service.getPermissionMenuList(permId));
-		
-		return jsonRes;
-	}
-	
-	@RequestMapping("/userlist")
-	public @ResponseBody GridJsonResponse userList(ExtjsGridParam gridParam, @RequestParam(value="permId") int permId){
-	
-		gridParam.addExParam("permId", permId);
-		
-		GridJsonResponse jsonRes = new GridJsonResponse();
-		jsonRes.setTotal(userMapService.getPermissionUserMapListTotalCount(gridParam));
-		jsonRes.setList(userMapService.getPermissionUserMapList(gridParam));
+		jsonRes.setTotal(service.getMenuListTotalCount(gridParam));
+		jsonRes.setList(service.getMenuList(gridParam));
 		
 		return jsonRes;
 	}
 	
 	@RequestMapping("/create")
-	public @ResponseBody SimpleJsonResponse create(PermissionDto param){
+	public @ResponseBody SimpleJsonResponse create(MenuDto param){
 		
 		SimpleJsonResponse jsonRes = new SimpleJsonResponse();
 		try{
-			service.insertPermission(param);
+			service.insertMenu(param);
 			jsonRes.setMsg("사용자가 정상적으로 생성되었습니다.");
 			
 		}catch(Exception e){
@@ -115,11 +97,11 @@ public class PermissionController {
 	}
 	
 	@RequestMapping("/update")
-	public @ResponseBody SimpleJsonResponse update(PermissionDto param){
+	public @ResponseBody SimpleJsonResponse update(MenuDto param){
 		
 		SimpleJsonResponse jsonRes = new SimpleJsonResponse();
 		try{
-			service.updatePermission(param);
+			service.updateMenu(param);
 			jsonRes.setMsg("사용자 정보가 정상적으로 수정되었습니다.");
 			
 		}catch(Exception e){
@@ -135,11 +117,11 @@ public class PermissionController {
 	}
 	
 	@RequestMapping("/delete")
-	public @ResponseBody SimpleJsonResponse delete(PermissionDto param){
+	public @ResponseBody SimpleJsonResponse delete(MenuDto param){
 		
 		SimpleJsonResponse jsonRes = new SimpleJsonResponse();
 		try{
-			service.deletePermission(param);
+			service.deleteMenu(param);
 			jsonRes.setMsg("사용자 정보가 정상적으로 삭제되었습니다.");
 			
 		}catch(Exception e){
@@ -153,15 +135,15 @@ public class PermissionController {
 		return jsonRes;
 	}
 	
-	@RequestMapping("/getPermission")
-	public @ResponseBody DtoJsonResponse getPermission(PermissionDto param){
+	@RequestMapping("/getMenu")
+	public @ResponseBody DtoJsonResponse getMenu(MenuDto param){
 	
 		DtoJsonResponse jsonRes = new DtoJsonResponse();
 		
-		jsonRes.setData(service.getPermission(param));
+		jsonRes.setData(service.getMenu(param));
 		
 		return jsonRes;
 	}
-
+*/
 }
-//end of PermissionController.java
+//end of MenuController.java

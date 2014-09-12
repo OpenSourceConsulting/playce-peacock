@@ -20,78 +20,88 @@
  * Revision History
  * Author			Date				Description
  * ---------------	----------------	------------
- * Bong-Jin Kwon	2013. 9. 25.		First Draft.
+ * Bong-Jin Kwon	2014. 9. 12.		First Draft.
  */
-package com.athena.peacock.controller.web.common.model;
+package com.athena.peacock.controller.web.menu;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.athena.peacock.controller.web.common.dto.BaseDto;
 
 /**
- * <pre>
- *  Extjs GridPanel 의 request parameter Model
- *   - Extjs GridPanel 목록 조회 처리 Controller 에서 사용함. 
- * </pre>
  * @author Bong-Jin Kwon
- * @version 1.0
+ *
  */
-public class ExtjsGridParam {
+public class MenuDto extends BaseDto {
+
+	private int menuId;
+	private String menuNm;
+	private String thread;
 	
-	private int page;
-	private int start;
-	private int limit;
-	private String search;//검색어
-	private Map<String, Object> exParams = new HashMap<String, Object>();
+	private int readYn;
+	private int writeYn;
 
 	/**
-	 * <pre>
 	 * 
-	 * </pre>
 	 */
-	public ExtjsGridParam() {
+	public MenuDto() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getPage() {
-		return page;
+	public int getReadYn() {
+		return readYn;
 	}
 
-	public void setPage(int page) {
-		this.page = page;
+	public void setReadYn(int readYn) {
+		this.readYn = readYn;
 	}
 
-	public int getStart() {
-		return start;
+	public int getWriteYn() {
+		return writeYn;
 	}
 
-	public void setStart(int start) {
-		this.start = start;
+	public void setWriteYn(int writeYn) {
+		this.writeYn = writeYn;
 	}
 
-	public int getLimit() {
-		return limit;
+	/**
+	 * @return the menuId
+	 */
+	public int getMenuId() {
+		return menuId;
 	}
 
-	public void setLimit(int limit) {
-		this.limit = limit;
+	/**
+	 * @param menuId the menuId to set
+	 */
+	public void setMenuId(int menuId) {
+		this.menuId = menuId;
 	}
 
-	public String getSearch() {
-		return search;
+	/**
+	 * @return the menuNm
+	 */
+	public String getMenuNm() {
+		return menuNm;
 	}
 
-	public void setSearch(String search) {
-		this.search = search;
-	}
-	
-	public void addExParam(String key, Object val){
-		this.exParams.put(key, val);
+	/**
+	 * @param menuNm the menuNm to set
+	 */
+	public void setMenuNm(String menuNm) {
+		this.menuNm = menuNm;
 	}
 
-	public Map<String, Object> getExParams() {
-		return exParams;
+	/**
+	 * @return the thread
+	 */
+	public String getThread() {
+		return thread;
 	}
-	
+
+	/**
+	 * @param thread the thread to set
+	 */
+	public void setThread(String thread) {
+		this.thread = thread;
+	}
 
 }
-//end of ExtjsGridParam.java

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Menu">
+
+	<resultMap id="MenuMap" type="com.athena.peacock.controller.web.menu.MenuDto">
+		<!-- <id property="id" column="user_id" /> -->
+		<result property="menuId" column="MENU_ID"/>
+		<result property="menuNm" column="MENU_NM"/>
+		<result property="thread" column="THREAD"/>
+	</resultMap>
+	
+	<sql id="getMenuListBase" >
+        SELECT
+        	MENU_ID
+        	,MENU_NM
+        	,THREAD
+        FROM
+        	menu_tbl
+        <where>
+			<if test="search != null">
+			user_name LIKE concat('%',#{search},'%')
+			</if>
+		</where>
+		LIMIT #{start}, #{limit}
+    </sql>
+    
+    <select id="getMenuList" parameterType="ExtjsGridParam" resultMap="MenuMap">
+        <include refid="getMenuListBase"/>
+    </select>
+    
+    <select id="getMenuListTotalCount" parameterType="ExtjsGridParam" resultType="int">
+		SELECT COUNT(*)
+		FROM (
+			<include refid="getMenuListBase"/>
+		) AS T
+	</select>
+	
+	<select id="getAllMenuTree" resultMap="MenuMap">
+		SELECT * FROM menu_tbl ORDER BY THREAD
+	</select>
+	
+	<select id="getMenu" parameterType="com.athena.peacock.controller.web.menu.MenuDto" resultMap="MenuMap">
+        SELECT
+        	MENU_ID
+        	,MENU_NM
+        	,THREAD
+        FROM
+        	menu_tbl
+        WHERE
+        	MENU_ID = #{menuId}
+    </select>
+    
+    <insert id="insertMenu" parameterType="com.athena.peacock.controller.web.menu.MenuDto" >
+        INSERT INTO menu_tbl
+        (
+        	MENU_ID
+        	,MENU_NM
+        	,THREAD
+        ) VALUES (
+        	#{menuId}
+        	,#{menuNm}
+        	,#{thread}
+        )
+    </insert>
+    <update id="updateMenu" parameterType="com.athena.peacock.controller.web.menu.MenuDto" >
+        UPDATE menu_tbl
+        SET
+        	MENU_ID = #{menuId}
+        	,MENU_NM = #{menuNm}
+        	,THREAD = #{thread}
+        WHERE
+        	MENU_ID = #{menuId}
+    </update>
+	<delete id="deleteMenu" parameterType="com.athena.peacock.controller.web.menu.MenuDto" >
+        DELETE FROM menu_tbl
+        WHERE
+        	MENU_ID = #{menuId}
+    </delete>
+</mapper>

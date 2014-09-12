@@ -30,9 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
-import com.athena.peacock.controller.web.common.model.TreeNode;
-import com.athena.peacock.controller.web.menu.MenuDto;
-import com.athena.peacock.controller.web.menu.MenuService;
+import com.athena.peacock.controller.web.user.UserDto;
 
 /**
  * <pre>
@@ -42,46 +40,39 @@ import com.athena.peacock.controller.web.menu.MenuService;
  * @version 1.0
  */
 @Service
-public class PermissionService {
+public class PermissionUserMapService {
 
 	@Autowired
-	private PermissionDao dao;
+	private PermissionUserMapDao dao;
 	
-	public PermissionService() {
+	public PermissionUserMapService() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void insertPermission(PermissionDto user){
-		dao.insertPermission(user);
+	public void insertPermissionUserMap(PermissionUserMapDto user){
+		dao.insertPermissionUserMap(user);
 	}
 	
-	public List<PermissionDto> getPermissionList(ExtjsGridParam gridParam){
-		return dao.getPermissionList(gridParam);
+	public List<UserDto> getPermissionUserMapList(ExtjsGridParam gridParam){
+		return dao.getPermissionUserMapList(gridParam);
 	}
 	
-	public int getPermissionListTotalCount(ExtjsGridParam gridParam){
+	public int getPermissionUserMapListTotalCount(ExtjsGridParam gridParam){
 		
-		return dao.getPermissionListTotalCount(gridParam);
+		return dao.getPermissionUserMapListTotalCount(gridParam);
 	}
 	
-	public List<TreeNode> getPermissionMenuList(int permId){
-		
-		List<MenuDto> dbList = dao.getPermissionMenuList(permId);
-		
-		return MenuService.convertTreeData(dbList);
+	public PermissionUserMapDto getPermissionUserMap(PermissionUserMapDto param){
+		return dao.getPermissionUserMap(param);
 	}
 	
-	public PermissionDto getPermission(PermissionDto param){
-		return dao.getPermission(param);
+	public void updatePermissionUserMap(PermissionUserMapDto param){
+		dao.updatePermissionUserMap(param);
 	}
 	
-	public void updatePermission(PermissionDto param){
-		dao.updatePermission(param);
-	}
-	
-	public void deletePermission(PermissionDto param){
-		dao.deletePermission(param);
+	public void deletePermissionUserMap(PermissionUserMapDto param){
+		dao.deletePermissionUserMap(param);
 	}
 
 }
-//end of PermissionService.java
+//end of PermissionUserMapService.java
