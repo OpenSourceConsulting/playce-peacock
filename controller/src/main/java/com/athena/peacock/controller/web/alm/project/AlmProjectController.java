@@ -41,19 +41,19 @@ import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 
 /**
  * <pre>
- * 사용자 관리 컨트롤러.
+ * 프로젝트 관련 컨트롤러.
  * </pre>
+ * 
  * @author Jungsu Han
  * @version 1.0
  */
 @Controller
 @RequestMapping("/alm")
 public class AlmProjectController {
-	
-	
+
 	@Autowired
 	private AlmProjectService almProjectService;
-	
+
 	@Autowired
 	private AlmCrowdService almCrowdService;
 
@@ -65,29 +65,75 @@ public class AlmProjectController {
 	public AlmProjectController() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
+	/**
+	 * <pre>
+	 * Project 리스트
+	 * </pre>
+	 * @param gridParam
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/project", method = RequestMethod.GET)
-	public @ResponseBody GridJsonResponse list(ExtjsGridParam gridParam){
+	public @ResponseBody
+	GridJsonResponse list(ExtjsGridParam gridParam) {
 		return almProjectService.getProjectList(gridParam);
 	}
-	
+
+	/**
+	 * <pre>
+	 * Project 등록
+	 * </pre>
+	 * @param project
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/project", method = RequestMethod.POST)
-	public @ResponseBody DtoJsonResponse createProject(@RequestBody ProjectDto project){
+	public @ResponseBody
+	DtoJsonResponse createProject(@RequestBody ProjectDto project) {
 		//
-		//almCrowdService.addGroup(groupData);
+		// almCrowdService.addGroup(groupData);
 		return almProjectService.createProject(project);
 	}
-	
+
+	/**
+	 * <pre>
+	 * Project 상세 정보
+	 * </pre>
+	 * @param projectCode
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/project/{projectCode}", method = RequestMethod.GET)
-	public @ResponseBody DtoJsonResponse list(@PathVariable String projectCode){
+	public @ResponseBody
+	DtoJsonResponse list(@PathVariable String projectCode) {
 		return almProjectService.getProject(projectCode);
 	}
-	
+
+	/**
+	 * <pre>
+	 * Jenkins 목록 조회
+	 * </pre>
+	 * @param projectCode
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/project/{projectCode}/jenkins", method = RequestMethod.POST)
-	public @ResponseBody DtoJsonResponse getJenkinsJobs(@PathVariable String projectCode){
+	public @ResponseBody
+	DtoJsonResponse getJenkinsJobs(@PathVariable String projectCode) {
 		return almProjectService.getProject(projectCode);
 	}
-	
+
+	/**
+	 * <pre>
+	 * 프로젝트 에 Job, Confluence 추가
+	 * </pre>
+	 * @param projectCode
+	 * @param mappingType
+	 * @param mappingCode
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/project/{projectCode}/{mappingType}/{mappingCode}", method = RequestMethod.POST)
 	public @ResponseBody
 	DtoJsonResponse createProjectMapping(@PathVariable String projectCode,
@@ -96,6 +142,16 @@ public class AlmProjectController {
 				mappingCode);
 	}
 
+	/**
+	 * <pre>
+	 * 프로젝트 할당된 Job, Confluence 목록 조회
+	 * </pre>
+	 * @param projectCode
+	 * @param mappingType
+	 * @param mappingCode
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/project/{projectCode}/{mappingType}", method = RequestMethod.GET)
 	public @ResponseBody
 	DtoJsonResponse getProjectMapping(@PathVariable String projectCode,
@@ -103,27 +159,44 @@ public class AlmProjectController {
 		return almProjectService.createProjectMapping(projectCode, mappingType,
 				mappingCode);
 	}
-	
+
 	@RequestMapping(value = "/project/test", method = RequestMethod.GET)
 	public @ResponseBody
 	ProjectWizardDto getProjectMappingTest() {
 		return almProjectService.getWizard();
 	}
-	
+
+	/**
+	 * <pre>
+	 * 프로젝트 Wizard 실행
+	 * </pre>
+	 * @param project
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/project/wizard", method = RequestMethod.POST)
-	public @ResponseBody DtoJsonResponse createProjectWizard(@RequestBody ProjectWizardDto project){
-		
-		System.out.println("*******************");
-		System.out.println(project.getProject());
+	public @ResponseBody
+	DtoJsonResponse createProjectWizard(@RequestBody ProjectWizardDto project) {
 		return almProjectService.createProjectWizrd(project);
 	}
-	
+
+	/**
+	 * <pre>
+	 * 프로젝트 code 중복 여부 체크
+	 * </pre>
+	 * 
+	 * @param projectCode
+	 * @return
+	 * @throws Exception
+	 */
+
 	@RequestMapping(value = "/project/wizard/{projectCode}", method = RequestMethod.GET)
-	public @ResponseBody DtoJsonResponse checkProjectCode(@PathVariable String projectCode){
-		
+	public @ResponseBody
+	DtoJsonResponse checkProjectCode(@PathVariable String projectCode) {
+
 		return almProjectService.checkProjectCode(projectCode);
-		
-		//return almProjectService.createProjectWizrd();
+
+		// return almProjectService.createProjectWizrd();
 	}
 }
-//end of AlmUserController.java
+// end of AlmUserController.java
