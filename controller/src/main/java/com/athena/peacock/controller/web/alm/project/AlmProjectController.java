@@ -38,6 +38,7 @@ import com.athena.peacock.controller.web.alm.project.dto.ProjectWizardDto;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
+import com.google.gson.Gson;
 
 /**
  * <pre>
@@ -177,6 +178,8 @@ public class AlmProjectController {
 	@RequestMapping(value = "/project/wizard", method = RequestMethod.POST)
 	public @ResponseBody
 	DtoJsonResponse createProjectWizard(@RequestBody ProjectWizardDto project) {
+		Gson gson = new Gson();
+		System.out.println(gson.toJson(project));
 		return almProjectService.createProjectWizrd(project);
 	}
 
