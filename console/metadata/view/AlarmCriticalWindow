@@ -1,0 +1,122 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "AlarmCriticalWindow",
+        "designer|userClassName": "AlarmCriticalWindow",
+        "height": 480,
+        "id": "",
+        "itemId": null,
+        "modal": true,
+        "resizable": false,
+        "title": "Critical Alarm Status",
+        "width": 420
+    },
+    "configAlternates": {
+        "resizable": "boolean"
+    },
+    "designerId": "0ac2471a-fd15-4ef7-b538-07d2c76e6e57",
+    "cn": [
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "columnLines": true,
+                "forceFit": true,
+                "header": false,
+                "id": "alarmCriticalGrid",
+                "itemId": "alarmCriticalGrid",
+                "title": "My Grid Panel"
+            },
+            "designerId": "f7d8235c-403c-445d-8445-9078e1c65ea1",
+            "cn": [
+                {
+                    "type": "Ext.grid.RowNumberer",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "minWidth": 40,
+                        "width": 40
+                    },
+                    "designerId": "fce14cc8-d9c9-42cb-b38f-d144c795176b"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "field1",
+                        "minWidth": 150,
+                        "text": "Instance Name"
+                    },
+                    "designerId": "a091c3f1-1d26-49a4-b27c-47e81b64d7cd"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "field2",
+                        "minWidth": 60,
+                        "text": "CPU"
+                    },
+                    "designerId": "9c7c214b-0785-4c31-aa81-06e421ab093b"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "field3",
+                        "minWidth": 60,
+                        "text": "Memory"
+                    },
+                    "designerId": "84d1139a-f158-492d-b276-0bae85a7902c"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "field4",
+                        "minWidth": 60,
+                        "text": "Disk"
+                    },
+                    "designerId": "32399df1-e203-4510-b00f-ebd735470ec3"
+                },
+                {
+                    "type": "Ext.grid.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "designerId": "ad2b6d1f-856a-4a8f-b8dd-de71ed814bed"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,1032 @@
+{
+    "type": "Ext.container.Container",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoScroll": true,
+        "container|align": "stretch",
+        "designer|userAlias": "dashboardcontainer",
+        "designer|userClassName": "dashboardContainer",
+        "height": 755,
+        "id": "dashboardContainer",
+        "itemId": "dashboardContainer",
+        "layout": "vbox",
+        "style": "background-color:#ffffff;",
+        "width": 1000
+    },
+    "configAlternates": {
+        "style": "string"
+    },
+    "designerId": "bac9d1ae-f851-4c6a-97bf-2e21ae9fef17",
+    "cn": [
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "columnLines": true,
+                "forceFit": true,
+                "frame": true,
+                "id": "serverSummaryGrid",
+                "itemId": "serverSummaryGrid",
+                "layout|flex": 1,
+                "margin": "10 10 5 10",
+                "maxHeight": null,
+                "minHeight": 150,
+                "title": "Server Summary"
+            },
+            "designerId": "9e1b0fe7-d63c-4131-8d82-06946eb0e00a",
+            "cn": [
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "field1",
+                        "minWidth": 150,
+                        "text": "RHEV Manager"
+                    },
+                    "designerId": "86f4a31e-3c34-4698-b1f4-96da2d551355"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "field2",
+                        "minHeight": null,
+                        "minWidth": 70,
+                        "style": null,
+                        "text": "VMs (up)"
+                    },
+                    "configAlternates": {
+                        "style": "string"
+                    },
+                    "designerId": "ddb93c73-b19c-45ea-8116-bb6697dd133c",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "metaData",
+                                    "record",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "store",
+                                    "view"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "metaData.tdAttr = 'style=\"cursor: pointer;\"';",
+                                    "return value;"
+                                ]
+                            },
+                            "designerId": "09d26258-c100-49b1-8a44-68b50ded1932"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "field3",
+                        "minWidth": 70,
+                        "text": "Templates"
+                    },
+                    "designerId": "6b576ebd-6371-4ab5-a0ab-48063d59e2f0",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "metaData",
+                                    "record",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "store",
+                                    "view"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "metaData.tdAttr = 'style=\"cursor: pointer;\"';",
+                                    "return value;"
+                                ]
+                            },
+                            "designerId": "5d4d0dbe-d1de-4b7b-92a9-b399c213a0ba"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "field4",
+                        "minWidth": 100,
+                        "text": "Agent (Running)"
+                    },
+                    "designerId": "5c1db55b-76a1-4f27-951a-52451257d303",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "metaData",
+                                    "record",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "store",
+                                    "view"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "metaData.tdAttr = 'style=\"cursor: pointer;\"';",
+                                    "return value;"
+                                ]
+                            },
+                            "designerId": "6ac360f9-f33f-4e34-b375-8ee524980129"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "field5",
+                        "minWidth": 180,
+                        "text": "Critical (CPU / Memory / Disk)"
+                    },
+                    "designerId": "677d5fe6-4a75-4ee8-ae2a-ea95bd183633",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "metaData",
+                                    "record",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "store",
+                                    "view"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "metaData.tdAttr = 'style=\"cursor: pointer;\"';",
+                                    "return value;"
+                                ]
+                            },
+                            "designerId": "2c053da8-b1be-4267-bd3c-a32c08892ec0"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "field6",
+                        "minWidth": 180,
+                        "text": "Warning (CPU / Memory / Disk)"
+                    },
+                    "designerId": "ef1f2961-1585-48ba-b026-d2dba00f9bb1",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "metaData",
+                                    "record",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "store",
+                                    "view"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "metaData.tdAttr = 'style=\"cursor: pointer;\"';",
+                                    "return value;"
+                                ]
+                            },
+                            "designerId": "3ed116c7-523c-4a2a-b206-874a762e304d"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "designerId": "1fb4acd6-d018-4c63-83ae-577471a2e076"
+                },
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onServerSummaryGridCellClick",
+                        "implHandler": [
+                            "var window;",
+                            "var store;",
+                            "if(cellIndex == 1) {",
+                            "    ",
+                            "    window = Ext.create(\"widget.VmSummaryWindow\");",
+                            "    window.show();",
+                            "    ",
+                            "        ",
+                            "    store = Ext.create('Ext.data.Store', {",
+                            "        alias: 'store.ModeStore0',",
+                            "        autoLoad: false,",
+                            "        fields: [{",
+                            "            name: 'field1',",
+                            "            type: 'string'",
+                            "        }, {",
+                            "            name: 'field2',",
+                            "            type: 'string'",
+                            "        }, {",
+                            "            name: 'field3',",
+                            "            type: 'string'",
+                            "        }],",
+                            "        data: [",
+                            "            { field1 : \"Peacock Svr-1\", field2 : \"192.168.0.2\", field3 : \"Up\"},",
+                            "            { field1 : \"Peacock Svr-2\", field2 : \"192.168.0.3\", field3 : \"Up\"},",
+                            "            { field1 : \"Peacock Svr-3\", field2 : \"192.168.0.4\", field3 : \"Down\"},",
+                            "            { field1 : \"Peacock Svr-4\", field2 : \"192.168.0.5\", field3 : \"Down\"},",
+                            "            { field1 : \"Peacock Svr-5\", field2 : \"192.168.0.6\", field3 : \"Up\"}",
+                            "        ]",
+                            "    });",
+                            "    ",
+                            "    Ext.getCmp(\"vmSummaryGrid\").getView().bindStore(store);",
+                            "    ",
+                            "",
+                            "} else if(cellIndex == 2) {",
+                            "    ",
+                            "    window = Ext.create(\"widget.TemplateSummaryWindow\");",
+                            "    window.show();",
+                            "    ",
+                            "        ",
+                            "    store = Ext.create('Ext.data.Store', {",
+                            "        alias: 'store.ModeStore0',",
+                            "        autoLoad: false,",
+                            "        fields: [{",
+                            "            name: 'field1',",
+                            "            type: 'string'",
+                            "        }, {",
+                            "            name: 'field2',",
+                            "            type: 'string'",
+                            "        }, {",
+                            "            name: 'field3',",
+                            "            type: 'string'",
+                            "        }],",
+                            "        data: [",
+                            "            { field1 : \"Peacock Template-1 \", field2 : \"\"},",
+                            "            { field1 : \"Peacock Template-2 \", field2 : \"\"},",
+                            "            { field1 : \"Peacock Template-3 \", field2 : \"\"},",
+                            "            { field1 : \"Peacock Template-4 \", field2 : \"\"},",
+                            "            { field1 : \"Peacock Template-5 \", field2 : \"\"}",
+                            "        ]",
+                            "    });",
+                            "    ",
+                            "    Ext.getCmp(\"templateSummaryGrid\").getView().bindStore(store);",
+                            "    ",
+                            "",
+                            "} else if(cellIndex == 3) {",
+                            "    ",
+                            "    window = Ext.create(\"widget.AgentSummaryWindow\");",
+                            "    window.show();",
+                            "    ",
+                            "    store = Ext.create('Ext.data.Store', {",
+                            "        alias: 'store.ModeStore0',",
+                            "        autoLoad: false,",
+                            "        fields: [{",
+                            "            name: 'field1',",
+                            "            type: 'string'",
+                            "        }, {",
+                            "            name: 'field2',",
+                            "            type: 'string'",
+                            "        }, {",
+                            "            name: 'field3',",
+                            "            type: 'string'",
+                            "        }],",
+                            "        data: [",
+                            "            { field1 : \"Peacock Svr-1\", field2 : \"192.168.0.2\", field3 : \"Running\"},",
+                            "            { field1 : \"Peacock Svr-2\", field2 : \"192.168.0.3\", field3 : \"Running\"},",
+                            "            { field1 : \"Peacock Svr-3\", field2 : \"192.168.0.4\", field3 : \"Down\"},",
+                            "            { field1 : \"Peacock Svr-4\", field2 : \"192.168.0.5\", field3 : \"Down\"},",
+                            "            { field1 : \"Peacock Svr-5\", field2 : \"192.168.0.6\", field3 : \"Running\"}",
+                            "        ]",
+                            "    });",
+                            "    ",
+                            "    Ext.getCmp(\"agentSummaryGrid\").getView().bindStore(store);",
+                            "    ",
+                            "} else if(cellIndex == 4) {",
+                            "    ",
+                            "    window = Ext.create(\"widget.AlarmCriticalWindow\");",
+                            "    window.show();",
+                            "    ",
+                            "    store = Ext.create('Ext.data.Store', {",
+                            "        alias: 'store.ModeStore0',",
+                            "        autoLoad: false,",
+                            "        fields: [{",
+                            "            name: 'field1',",
+                            "            type: 'string'",
+                            "        }, {",
+                            "            name: 'field2',",
+                            "            type: 'string'",
+                            "        }, {",
+                            "            name: 'field3',",
+                            "            type: 'string'",
+                            "        }, {",
+                            "            name: 'field4',",
+                            "            type: 'string'",
+                            "        }],",
+                            "        data: [",
+                            "            { field1 : \"Peacock Svr-1\", field2 : \"O\", field3 : \"\", field4 : \"\"},",
+                            "            { field1 : \"Peacock Svr-2\", field2 : \"\", field3 : \"O\", field4 : \"\"}",
+                            "        ]",
+                            "    });",
+                            "    ",
+                            "    Ext.getCmp(\"alarmCriticalGrid\").getView().bindStore(store);",
+                            "    ",
+                            "} else if(cellIndex == 5) {",
+                            "    ",
+                            "    window = Ext.create(\"widget.AlarmWarningWindow\");",
+                            "    window.show();",
+                            "    ",
+                            "    store = Ext.create('Ext.data.Store', {",
+                            "        alias: 'store.ModeStore0',",
+                            "        autoLoad: false,",
+                            "        fields: [{",
+                            "            name: 'field1',",
+                            "            type: 'string'",
+                            "        }, {",
+                            "            name: 'field2',",
+                            "            type: 'string'",
+                            "        }, {",
+                            "            name: 'field3',",
+                            "            type: 'string'",
+                            "        },  {",
+                            "            name: 'field4',",
+                            "            type: 'string'",
+                            "        }],",
+                            "        data: [",
+                            "            { field1 : \"Peacock Svr-3\", field2 : \"\", field3 : \"O\", field4 : \"\"},",
+                            "            { field1 : \"Peacock Svr-4\", field2 : \"\", field3 : \"\", field4 : \"O\"},",
+                            "            { field1 : \"Peacock Svr-5\", field2 : \"\", field3 : \"O\", field4 : \"\"}",
+                            "        ]",
+                            "    });",
+                            "    ",
+                            "    Ext.getCmp(\"alarmWarningGrid\").getView().bindStore(store);",
+                            "    ",
+                            "}"
+                        ],
+                        "name": "cellclick",
+                        "scope": "me"
+                    },
+                    "designerId": "301dc3a7-3fc6-47cd-bf1a-9afe28f842f3"
+                }
+            ]
+        },
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyStyle": null,
+                "columnLines": true,
+                "forceFit": true,
+                "frame": true,
+                "height": null,
+                "id": "projectSummaryGrid",
+                "itemId": "projectSummaryGrid",
+                "layout|flex": null,
+                "margin": "5 10 5 10",
+                "maxHeight": 100,
+                "minHeight": null,
+                "minWidth": null,
+                "style": null,
+                "title": "Project Summary"
+            },
+            "configAlternates": {
+                "style": "string",
+                "bodyStyle": "string"
+            },
+            "designerId": "60614a2c-daa9-48f1-bae5-f48c4d22d29a",
+            "cn": [
+                {
+                    "type": "Ext.grid.column.Number",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "field1",
+                        "format": "0,000",
+                        "minWidth": 100,
+                        "text": "Project Summary"
+                    },
+                    "designerId": "cadf49cb-52b2-4ab8-823d-5a88b998a225"
+                },
+                {
+                    "type": "Ext.grid.column.Number",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "field2",
+                        "format": "0,000",
+                        "minWidth": 100,
+                        "text": "SVN Repository"
+                    },
+                    "designerId": "85c70384-a47b-4f6c-8805-ce73b505825e"
+                },
+                {
+                    "type": "Ext.grid.column.Number",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "field3",
+                        "format": "0,000",
+                        "minWidth": 100,
+                        "text": "Jenkins Job",
+                        "width": null
+                    },
+                    "designerId": "256ccf36-9d6e-4ce8-a9f0-41673f084463"
+                },
+                {
+                    "type": "Ext.grid.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "autoScroll": false,
+                        "height": null,
+                        "maxHeight": null,
+                        "minHeight": null,
+                        "style": null
+                    },
+                    "configAlternates": {
+                        "style": "string"
+                    },
+                    "designerId": "089a78dc-571b-40ae-815b-5772c97b5d14"
+                }
+            ]
+        },
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "columnLines": true,
+                "forceFit": true,
+                "frame": true,
+                "height": null,
+                "id": "swSummaryGrid",
+                "itemId": "swSummaryGrid",
+                "layout|flex": null,
+                "margin": "5 10 5 10",
+                "maxHeight": 100,
+                "minHeight": null,
+                "title": "S/W Summary"
+            },
+            "designerId": "15786892-1135-4027-bafd-53f1ce485994",
+            "cn": [
+                {
+                    "type": "Ext.grid.column.Number",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "field1",
+                        "format": "0,000",
+                        "minWidth": 100,
+                        "text": "Apache"
+                    },
+                    "designerId": "e644ca7a-f90a-4632-90e7-ecbb9012b42a"
+                },
+                {
+                    "type": "Ext.grid.column.Number",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "field2",
+                        "format": "0,000",
+                        "minWidth": 100,
+                        "text": "Tomcat"
+                    },
+                    "designerId": "b90ff512-05fe-4316-9ddc-1fd493a2c00d"
+                },
+                {
+                    "type": "Ext.grid.column.Number",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "field3",
+                        "format": "0,000",
+                        "minWidth": 100,
+                        "text": "EWS"
+                    },
+                    "designerId": "8980f337-4140-497e-b760-13217a3129b4"
+                },
+                {
+                    "type": "Ext.grid.column.Number",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "field4",
+                        "format": "0,000",
+                        "minWidth": 100,
+                        "text": "EAP"
+                    },
+                    "designerId": "0fb1193c-955d-429c-87f8-bf8ee2f9c5ab"
+                },
+                {
+                    "type": "Ext.grid.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "autoScroll": false,
+                        "margin": null
+                    },
+                    "designerId": "a467bc19-86fc-4669-8198-ab64efe02c46"
+                }
+            ]
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "container|align": "stretch",
+                "frame": true,
+                "header": false,
+                "layout": "vbox",
+                "layout|flex": 2,
+                "margin": "5 10 10 10",
+                "minHeight": 300,
+                "padding": 10,
+                "title": "My Panel"
+            },
+            "designerId": "3693e907-7299-432a-ad12-c34189fc3dc2",
+            "cn": [
+                {
+                    "type": "Ext.panel.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|align": "stretch",
+                        "header": false,
+                        "layout": "hbox",
+                        "layout|flex": 1,
+                        "title": "My Panel"
+                    },
+                    "designerId": "0135eba6-91fe-483a-8856-02fc6ec9d3e5",
+                    "cn": [
+                        {
+                            "type": "Ext.chart.Chart",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "animate": [
+                                    "true"
+                                ],
+                                "border": null,
+                                "dock": null,
+                                "height": 250,
+                                "html": "Top 5 Servers by % CPU Used",
+                                "insetPadding": 20,
+                                "layout|flex": 1,
+                                "margin": "10 0 10 0",
+                                "minWidth": 300,
+                                "padding": "",
+                                "shadow": false,
+                                "store": "tempChartData",
+                                "style": "font-size: 14px;font-weight: bold;text-align: center;",
+                                "width": 356
+                            },
+                            "configAlternates": {
+                                "html": "string",
+                                "style": "string"
+                            },
+                            "designerId": "c122311f-36fb-4944-b94d-db96315b9429",
+                            "isBuiltIn": true,
+                            "iconCls": "icon-bar-chart",
+                            "autoName": "BarChart",
+                            "cn": [
+                                {
+                                    "type": "Ext.chart.axis.Category",
+                                    "reference": {
+                                        "name": "axes",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fields": [
+                                            "cate"
+                                        ],
+                                        "label": [
+                                            "{",
+                                            "    renderer: function(v) {",
+                                            "        if(v.length > 10) {",
+                                            "            return v.substring(0, 10) + \"..\";",
+                                            "        } else {",
+                                            "            return v;",
+                                            "        }",
+                                            "    }",
+                                            "}",
+                                            ""
+                                        ],
+                                        "position": "left",
+                                        "title": null
+                                    },
+                                    "designerId": "e4140725-83c4-4507-831f-1346e8dc6f09"
+                                },
+                                {
+                                    "type": "Ext.chart.axis.Numeric",
+                                    "reference": {
+                                        "name": "axes",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fields": [
+                                            "cpu1",
+                                            "cpu2"
+                                        ],
+                                        "maximum": 100,
+                                        "minimum": 0,
+                                        "position": "bottom",
+                                        "title": null
+                                    },
+                                    "designerId": "406ce3dd-bcce-479b-82e5-dbe5ce492233"
+                                },
+                                {
+                                    "type": "Ext.chart.series.Bar",
+                                    "reference": {
+                                        "name": "series",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "axis": [
+                                            "bottom"
+                                        ],
+                                        "label": null,
+                                        "stacked": true,
+                                        "title": [
+                                            "Used CPU",
+                                            "Free CPU"
+                                        ],
+                                        "xField": "cate",
+                                        "yField": [
+                                            "cpu1",
+                                            "cpu2"
+                                        ]
+                                    },
+                                    "designerId": "6863cb77-c1df-4a97-b216-7c1e2bc236d0"
+                                },
+                                {
+                                    "type": "Ext.chart.Legend",
+                                    "reference": {
+                                        "name": "legend",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "designerId": "9b11d284-9f74-4fa0-8458-15859ab29a4f"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.chart.Chart",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "border": null,
+                                "dock": null,
+                                "height": 250,
+                                "html": "Top 5 Servers by % Memory Used",
+                                "insetPadding": 20,
+                                "layout|flex": 1,
+                                "margin": "10 0 10 0",
+                                "minWidth": 300,
+                                "padding": "",
+                                "shadow": false,
+                                "store": "tempChartData",
+                                "style": "font-size: 14px;font-weight: bold;text-align: center;",
+                                "width": 356
+                            },
+                            "configAlternates": {
+                                "html": "string",
+                                "style": "string"
+                            },
+                            "designerId": "4e56aa63-41f4-4778-b3d7-dfa57db5d1b4",
+                            "isBuiltIn": true,
+                            "iconCls": "icon-bar-chart",
+                            "autoName": "BarChart",
+                            "cn": [
+                                {
+                                    "type": "Ext.chart.axis.Category",
+                                    "reference": {
+                                        "name": "axes",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fields": [
+                                            "cate"
+                                        ],
+                                        "label": [
+                                            "{",
+                                            "    renderer: function(v) {",
+                                            "        if(v.length > 10) {",
+                                            "            return v.substring(0, 10) + \"..\";",
+                                            "        } else {",
+                                            "            return v;",
+                                            "        }",
+                                            "    }",
+                                            "}",
+                                            ""
+                                        ],
+                                        "position": "left",
+                                        "title": null
+                                    },
+                                    "designerId": "8345e2c1-de71-4a42-9dca-1bfb966553c3"
+                                },
+                                {
+                                    "type": "Ext.chart.axis.Numeric",
+                                    "reference": {
+                                        "name": "axes",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fields": [
+                                            "memory1",
+                                            "memory2"
+                                        ],
+                                        "maximum": 100,
+                                        "minimum": 0,
+                                        "position": "bottom",
+                                        "title": null
+                                    },
+                                    "designerId": "1a35cf92-1782-4890-908f-511378039253"
+                                },
+                                {
+                                    "type": "Ext.chart.series.Bar",
+                                    "reference": {
+                                        "name": "series",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "axis": [
+                                            "bottom"
+                                        ],
+                                        "label": null,
+                                        "stacked": true,
+                                        "title": [
+                                            "Used Memory",
+                                            "Free Memory"
+                                        ],
+                                        "xField": "cate",
+                                        "yField": [
+                                            "memory1",
+                                            "memory2"
+                                        ]
+                                    },
+                                    "designerId": "37748436-0f77-46d9-a232-9e0f9da98a52"
+                                },
+                                {
+                                    "type": "Ext.chart.Legend",
+                                    "reference": {
+                                        "name": "legend",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "designerId": "c1766fc7-8ec1-41a7-aeea-48aa3d55e314"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.chart.Chart",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "animate": [
+                                    "true"
+                                ],
+                                "border": null,
+                                "dock": null,
+                                "height": 250,
+                                "html": "Top 5 Servers by % Storage Used",
+                                "insetPadding": 20,
+                                "layout|flex": 1,
+                                "margin": "10 0 10 0",
+                                "minWidth": 300,
+                                "padding": "",
+                                "shadow": false,
+                                "store": "tempChartData",
+                                "style": "font-size: 14px;font-weight: bold;text-align: center;",
+                                "width": 356
+                            },
+                            "configAlternates": {
+                                "html": "string",
+                                "style": "string"
+                            },
+                            "designerId": "63a67862-85aa-4d37-b0ec-53771055c033",
+                            "isBuiltIn": true,
+                            "iconCls": "icon-bar-chart",
+                            "autoName": "BarChart",
+                            "cn": [
+                                {
+                                    "type": "Ext.chart.axis.Category",
+                                    "reference": {
+                                        "name": "axes",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fields": [
+                                            "cate"
+                                        ],
+                                        "label": [
+                                            "{",
+                                            "    renderer: function(v) {",
+                                            "        if(v.length > 10) {",
+                                            "            return v.substring(0, 10) + \"..\";",
+                                            "        } else {",
+                                            "            return v;",
+                                            "        }",
+                                            "    }",
+                                            "}",
+                                            ""
+                                        ],
+                                        "position": "left",
+                                        "title": null
+                                    },
+                                    "designerId": "923c3dd3-83bb-4b79-865c-9830a840cfaf"
+                                },
+                                {
+                                    "type": "Ext.chart.axis.Numeric",
+                                    "reference": {
+                                        "name": "axes",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fields": [
+                                            "storage1",
+                                            "storage2"
+                                        ],
+                                        "maximum": 100,
+                                        "minimum": 0,
+                                        "position": "bottom",
+                                        "title": null
+                                    },
+                                    "designerId": "87f967be-dace-4299-941d-0700e82d428d"
+                                },
+                                {
+                                    "type": "Ext.chart.series.Bar",
+                                    "reference": {
+                                        "name": "series",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "axis": [
+                                            "bottom"
+                                        ],
+                                        "label": null,
+                                        "stacked": true,
+                                        "title": [
+                                            "Used Storage",
+                                            "Free Storage"
+                                        ],
+                                        "xField": "cate",
+                                        "yField": [
+                                            "storage1",
+                                            "storage2"
+                                        ]
+                                    },
+                                    "designerId": "222d2286-4ee2-4992-bb89-799baaa91930"
+                                },
+                                {
+                                    "type": "Ext.chart.Legend",
+                                    "reference": {
+                                        "name": "legend",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "designerId": "8581db16-5e6a-48f8-9005-398ff045eba5"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

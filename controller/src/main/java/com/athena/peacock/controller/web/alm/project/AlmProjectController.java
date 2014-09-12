@@ -117,5 +117,13 @@ public class AlmProjectController {
 		System.out.println(project.getProject());
 		return almProjectService.createProjectWizrd(project);
 	}
+	
+	@RequestMapping(value = "/project/wizard/{projectCode}", method = RequestMethod.GET)
+	public @ResponseBody DtoJsonResponse checkProjectCode(@PathVariable String projectCode){
+		
+		return almProjectService.checkProjectCode(projectCode);
+		
+		//return almProjectService.createProjectWizrd();
+	}
 }
 //end of AlmUserController.java

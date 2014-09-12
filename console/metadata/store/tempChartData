@@ -6,6 +6,50 @@
     },
     "codeClass": null,
     "userConfig": {
+        "data": [
+            "[",
+            "    { cate : \"tmp62\",",
+            "     cpu1 : \"10\",",
+            "     cpu2 : \"15\",",
+            "     memory1 : \"20\",",
+            "     memory2 : \"15\",",
+            "     storage1 : \"40\",",
+            "     storage2 : \"20\"",
+            "    },",
+            "    { cate : \"ibmitmfv\",",
+            "     cpu1 : \"25\",",
+            "     cpu2 : \"10\",",
+            "     memory1 : \"7\",",
+            "     memory2 : \"30\",",
+            "     storage1 : \"20\",",
+            "     storage2 : \"10\"",
+            "    },",
+            "    { cate : \"tmp64vm14\",",
+            "     cpu1 : \"28\",",
+            "     cpu2 : \"60\",",
+            "     memory1 : \"20\",",
+            "     memory2 : \"17\",",
+            "     storage1 : \"30\",",
+            "     storage2 : \"10\"",
+            "    },",
+            "    { cate : \"ibmitavx\",",
+            "     cpu1 : \"30\",",
+            "     cpu2 : \"45\",",
+            "     memory1 : \"20\",",
+            "     memory2 : \"35\",",
+            "     storage1 : \"20\",",
+            "     storage2 : \"30\"",
+            "    },",
+            "    { cate : \"tmp64vm1\",",
+            "     cpu1 : \"5\",",
+            "     cpu2 : \"25\",",
+            "     memory1 : \"30\",",
+            "     memory2 : \"5\",",
+            "     storage1 : \"20\",",
+            "     storage2 : \"10\"",
+            "    }",
+            "]"
+        ],
         "designer|userClassName": "tempChartData",
         "storeId": "tempChartData"
     },
@@ -19,7 +63,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "date"
+                "name": "cate"
             },
             "designerId": "48e19210-851c-4ca2-ad7e-e4691659d062"
         },
@@ -31,7 +75,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "cpu"
+                "name": "cpu1"
             },
             "designerId": "70785fb1-0940-4e5d-9e5b-797edb83953f"
         },
@@ -43,7 +87,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "memory"
+                "name": "cpu2"
             },
             "designerId": "7288c3f9-92b5-4148-b3f8-18f25ee95b69"
         },
@@ -55,7 +99,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "disk"
+                "name": "memory1"
             },
             "designerId": "a08755e6-53ae-4940-bf71-fea86b98bbf5"
         },
@@ -67,7 +111,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "cur_in"
+                "name": "memory2"
             },
             "designerId": "4a4d4c9a-41a9-4406-8781-72654b105ab6"
         },
@@ -79,9 +123,21 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "cur_out"
+                "name": "storage1"
             },
             "designerId": "0b832965-16f3-4fac-8afe-7926b8ffc924"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "storage2"
+            },
+            "designerId": "dbe4cde4-0413-40d9-86a9-1a24a5ba32cb"
         }
     ]
 }

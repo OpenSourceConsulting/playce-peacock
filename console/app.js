@@ -92,7 +92,6 @@ Ext.application({
     views: [
         'peacockViewport',
         'loginWindow',
-        'dashboardPanel',
         'instancesContainer',
         'CLIWindow',
         'FstabWindow',
@@ -121,7 +120,13 @@ Ext.application({
         'ManageGroupWindow',
         'RegInstanceGroupWindow',
         'MyForm33',
-        'AlmWizardWindow'
+        'AlmWizardWindow',
+        'dashboardContainer',
+        'VmSummaryWindow',
+        'TemplateSummaryWindow',
+        'AgentSummaryWindow',
+        'AlarmCriticalWindow',
+        'AlarmWarningWindow'
     ],
     controllers: [
         'LoginController',
@@ -132,7 +137,8 @@ Ext.application({
         'SoftwareInstallController',
         'RHEVMController',
         'ALMController',
-        'UserController'
+        'UserController',
+        'DashBoardController'
     ],
     name: 'MyApp',
 

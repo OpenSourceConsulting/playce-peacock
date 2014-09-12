@@ -25,24 +25,74 @@ Ext.define('MyApp.store.tempChartData', {
         cfg = cfg || {};
         me.callParent([Ext.apply({
             storeId: 'tempChartData',
+            data: [
+                {
+                    cate: 'tmp62',
+                    cpu1: '10',
+                    cpu2: '15',
+                    memory1: '20',
+                    memory2: '15',
+                    storage1: '40',
+                    storage2: '20'
+                },
+                {
+                    cate: 'ibmitmfv',
+                    cpu1: '25',
+                    cpu2: '10',
+                    memory1: '7',
+                    memory2: '30',
+                    storage1: '20',
+                    storage2: '10'
+                },
+                {
+                    cate: 'tmp64vm14',
+                    cpu1: '28',
+                    cpu2: '60',
+                    memory1: '20',
+                    memory2: '17',
+                    storage1: '30',
+                    storage2: '10'
+                },
+                {
+                    cate: 'ibmitavx',
+                    cpu1: '30',
+                    cpu2: '45',
+                    memory1: '20',
+                    memory2: '35',
+                    storage1: '20',
+                    storage2: '30'
+                },
+                {
+                    cate: 'tmp64vm1',
+                    cpu1: '5',
+                    cpu2: '25',
+                    memory1: '30',
+                    memory2: '5',
+                    storage1: '20',
+                    storage2: '10'
+                }
+            ],
             fields: [
                 {
-                    name: 'date'
+                    name: 'cate'
                 },
                 {
-                    name: 'cpu'
+                    name: 'cpu1'
                 },
                 {
-                    name: 'memory'
+                    name: 'cpu2'
                 },
                 {
-                    name: 'disk'
+                    name: 'memory1'
                 },
                 {
-                    name: 'cur_in'
+                    name: 'memory2'
                 },
                 {
-                    name: 'cur_out'
+                    name: 'storage1'
+                },
+                {
+                    name: 'storage2'
                 }
             ]
         }, cfg)]);
