@@ -66,6 +66,8 @@ VALUES (16,7,'/repo/mysql/5.5.34/','/etc/','my.cnf','mysql.datadir,mysql.port',1
 
 INSERT INTO users_tbl (USER_ID, LOGIN_ID, PASSWD, HASHED_PASSWD, USER_NAME, DEPT_NAME, EMAIL, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
 VALUES ('1', 'admin', 'admin', password('admin'), 'Administrator', '개발팀', 'admin@osci.kr', 1, NOW(), 1, NOW());
+INSERT INTO users_tbl (USER_ID, LOGIN_ID, PASSWD, HASHED_PASSWD, USER_NAME, DEPT_NAME, EMAIL, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
+VALUES ('2', 'admin2', 'admin2', password('admin2'), 'Administrator2', '개발팀2', 'admin2@osci.kr', 1, NOW(), 1, NOW());
 
 INSERT INTO menu_tbl VALUES (1,'Instances','B1', 1, NOW(), 1, NOW());
 INSERT INTO menu_tbl VALUES (2,'RHEV Management','B2', 1, NOW(), 1, NOW());
@@ -81,6 +83,22 @@ INSERT INTO menu_tbl VALUES (10,'User Permission','B402', 1, NOW(), 1, NOW());
 INSERT INTO permission_tbl VALUES (1, 'admin', 1, NOW(), 1, NOW());
 INSERT INTO permission_tbl VALUES (2, 'guest', 1, NOW(), 1, NOW());
 INSERT INTO permission_tbl VALUES (3, 'osc_persons', 1, NOW(), 1, NOW());
+
+
+INSERT INTO permission_menu_map_tbl VALUES(1, 1, 1, 1, 1, NOW(), 1, NOW());
+INSERT INTO permission_menu_map_tbl VALUES(1, 2, 1, 1, 1, NOW(), 1, NOW());
+INSERT INTO permission_menu_map_tbl VALUES(1, 3, 1, 1, 1, NOW(), 1, NOW());
+INSERT INTO permission_menu_map_tbl VALUES(1, 4, 1, 1, 1, NOW(), 1, NOW());
+INSERT INTO permission_menu_map_tbl VALUES(1, 5, 0, 0, 1, NOW(), 1, NOW());
+INSERT INTO permission_menu_map_tbl VALUES(1, 6, 0, 0, 1, NOW(), 1, NOW());
+INSERT INTO permission_menu_map_tbl VALUES(1, 7, 1, 1, 1, NOW(), 1, NOW());
+INSERT INTO permission_menu_map_tbl VALUES(1, 8, 1, 1, 1, NOW(), 1, NOW());
+INSERT INTO permission_menu_map_tbl VALUES(1, 9, 1, 0, 1, NOW(), 1, NOW());
+INSERT INTO permission_menu_map_tbl VALUES(1, 10, 1, 1, 1, NOW(), 1, NOW());
+
+INSERT INTO permission_user_map_tbl VALUES(1, 1, 1, NOW(), 1, NOW());
+INSERT INTO permission_user_map_tbl VALUES(1, 2, 1, NOW(), 1, NOW());
+
 
 set global event_scheduler = 'ON';
 
