@@ -1,4 +1,4 @@
-package com.athena.peacock.controller.common.exception;
+package com.athena.peacock.controller.web.common.exception;
 
 import javax.servlet.http.HttpServletRequest;
 
