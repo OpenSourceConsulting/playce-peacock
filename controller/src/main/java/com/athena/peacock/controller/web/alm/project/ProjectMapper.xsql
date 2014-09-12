@@ -12,6 +12,11 @@
 		 SELECT PROJECT_CODE as projectCode, PROJECT_NAME as projectName, PROJECT_DESCRIPTION as projectDescription  from alm_project_tbl
 	</select>
 	
+	
+	<select id="getProjectExist" resultType="int">
+		 SELECT count(*) from alm_project_tbl where PROJECT_CODE = #{projectCode}
+	</select>
+	
 	<insert id="insertProject" parameterType="com.athena.peacock.controller.web.alm.project.dto.ProjectDto">
 		INSERT INTO  alm_project_tbl
 		(
