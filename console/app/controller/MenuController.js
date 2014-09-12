@@ -28,7 +28,11 @@ Ext.define('MyApp.controller.MenuController', {
             //Instance Chart Monitoring Stop
             clearInterval(instancesConstants.chartInterval);
 
-            if(record.get('id') == 'MENU_02') {
+            if(record.get('id') == 'MENU_01') {
+
+                dashboardConstants.me.showDashBoard();
+
+            } else if(record.get('id') == 'MENU_02') {
 
                 instancesConstants.me.initInstance();
                 instancesConstants.me.searchInstance(true);

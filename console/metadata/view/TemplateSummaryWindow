@@ -1,0 +1,92 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "TemplateSummaryWindow",
+        "designer|userClassName": "TemplateSummaryWindow",
+        "height": 480,
+        "modal": true,
+        "resizable": false,
+        "title": "Template List",
+        "width": 400
+    },
+    "configAlternates": {
+        "resizable": "boolean"
+    },
+    "designerId": "6c445d6e-dd80-429c-bffc-abb85061a0d0",
+    "cn": [
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "columnLines": true,
+                "forceFit": true,
+                "header": false,
+                "id": "templateSummaryGrid",
+                "itemId": "templateSummaryGrid",
+                "title": "My Grid Panel"
+            },
+            "designerId": "5e235e59-9eba-41b1-8242-d30ef7f5ea12",
+            "cn": [
+                {
+                    "type": "Ext.grid.RowNumberer",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "minWidth": 40,
+                        "width": 40
+                    },
+                    "designerId": "a33cfb74-8d99-408b-8c21-45ba9b13af76"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "field1",
+                        "minWidth": 150,
+                        "text": "Template Name"
+                    },
+                    "designerId": "748c39c6-055d-4a23-aaf9-7f90a13e16d3"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "field2",
+                        "minWidth": 100,
+                        "text": "Description"
+                    },
+                    "designerId": "0d4e5dd0-99d3-43f7-81e5-2d16b5ab3020"
+                },
+                {
+                    "type": "Ext.grid.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "designerId": "1661433c-501f-429e-9d11-8bab6a8c29d6"
+                }
+            ]
+        }
+    ]
+}

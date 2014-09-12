@@ -28,6 +28,7 @@ Ext.Loader.addClassPathMappings({
   "MyApp": "../../app",
   "RHEVMConstants": "../../app/controller/RHEVMController.js",
   "almConstants": "../../app/controller/ALMController.js",
+  "dashboardConstants": "../../app/controller/DashBoardController.js",
   "instancesConstants": "../../app/controller/InstancesController.js",
   "userConstants": "../../app/controller/UserController.js"
 });
@@ -867,6 +868,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "GLOBAL": [],
   "MyApp.Application": [],
   "MyApp.controller.ALMController": [],
+  "MyApp.controller.DashBoardController": [],
   "MyApp.controller.GlobalController": [],
   "MyApp.controller.InstancesController": [],
   "MyApp.controller.LoginController": [],
@@ -937,6 +939,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.tempGridData": [],
   "MyApp.store.tempSpaceStore": [],
   "MyApp.store.tempUserStore": [],
+  "MyApp.view.AgentSummaryWindow": [],
+  "MyApp.view.AlarmCriticalWindow": [],
+  "MyApp.view.AlarmWarningWindow": [],
   "MyApp.view.AlmGroupWindow": [],
   "MyApp.view.AlmProjectWindow": [],
   "MyApp.view.AlmUserWindow": [],
@@ -956,13 +961,15 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.RegInstanceWindow": [],
   "MyApp.view.RegRhevmWindow": [],
   "MyApp.view.RegTemplateWindow": [],
+  "MyApp.view.TemplateSummaryWindow": [],
   "MyApp.view.UserWindow": [],
   "MyApp.view.Viewport": [],
+  "MyApp.view.VmSummaryWindow": [],
   "MyApp.view.almContainer": [],
   "MyApp.view.almProjectJobWindow": [],
   "MyApp.view.almProjectSpaceWindow": [],
   "MyApp.view.blankPanel": [],
-  "MyApp.view.dashboardPanel": [],
+  "MyApp.view.dashboardContainer": [],
   "MyApp.view.instancesContainer": [],
   "MyApp.view.loginWindow": [],
   "MyApp.view.peacockViewport": [],
@@ -973,6 +980,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.userContainer": [],
   "RHEVMConstants": [],
   "almConstants": [],
+  "dashboardConstants": [],
   "instancesConstants": [],
   "userConstants": []
 });
@@ -1980,6 +1988,7 @@ Ext.ClassManager.addNameAliasMappings({
   "GLOBAL": [],
   "MyApp.Application": [],
   "MyApp.controller.ALMController": [],
+  "MyApp.controller.DashBoardController": [],
   "MyApp.controller.GlobalController": [],
   "MyApp.controller.InstancesController": [],
   "MyApp.controller.LoginController": [],
@@ -2050,6 +2059,15 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.store.tempGridData": [],
   "MyApp.store.tempSpaceStore": [],
   "MyApp.store.tempUserStore": [],
+  "MyApp.view.AgentSummaryWindow": [
+    "widget.AgentSummaryWindow"
+  ],
+  "MyApp.view.AlarmCriticalWindow": [
+    "widget.AlarmCriticalWindow"
+  ],
+  "MyApp.view.AlarmWarningWindow": [
+    "widget.AlarmWarningWindow"
+  ],
   "MyApp.view.AlmGroupWindow": [
     "widget.AlmGroupWindow"
   ],
@@ -2107,10 +2125,16 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.RegTemplateWindow": [
     "widget.RegTemplateWindow"
   ],
+  "MyApp.view.TemplateSummaryWindow": [
+    "widget.TemplateSummaryWindow"
+  ],
   "MyApp.view.UserWindow": [
     "widget.userWindow"
   ],
   "MyApp.view.Viewport": [],
+  "MyApp.view.VmSummaryWindow": [
+    "widget.VmSummaryWindow"
+  ],
   "MyApp.view.almContainer": [
     "widget.almcontainer"
   ],
@@ -2123,8 +2147,8 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.blankPanel": [
     "widget.blankpanel"
   ],
-  "MyApp.view.dashboardPanel": [
-    "widget.dashboardPanel"
+  "MyApp.view.dashboardContainer": [
+    "widget.dashboardcontainer"
   ],
   "MyApp.view.instancesContainer": [
     "widget.instancesContainer"
@@ -2152,6 +2176,7 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "RHEVMConstants": [],
   "almConstants": [],
+  "dashboardConstants": [],
   "instancesConstants": [],
   "userConstants": []
 });

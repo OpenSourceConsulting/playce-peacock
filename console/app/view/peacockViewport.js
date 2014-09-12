@@ -18,7 +18,7 @@ Ext.define('MyApp.view.peacockViewport', {
     alias: 'widget.peacockViewport',
 
     requires: [
-        'MyApp.view.dashboardPanel',
+        'MyApp.view.dashboardContainer',
         'MyApp.view.instancesContainer',
         'MyApp.view.rhevmContainer',
         'MyApp.view.almContainer',
@@ -173,12 +173,13 @@ Ext.define('MyApp.view.peacockViewport', {
                         {
                             xtype: 'container',
                             region: 'center',
+                            activeItem: 1,
                             id: 'centerContainer',
                             itemId: 'centerContainer',
                             layout: 'card',
                             items: [
                                 {
-                                    xtype: 'dashboardPanel'
+                                    xtype: 'dashboardcontainer'
                                 },
                                 {
                                     xtype: 'instancesContainer'

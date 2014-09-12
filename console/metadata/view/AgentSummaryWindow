@@ -1,0 +1,108 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "AgentSummaryWindow",
+        "designer|userClassName": "AgentSummaryWindow",
+        "height": 480,
+        "id": "",
+        "itemId": null,
+        "modal": true,
+        "resizable": false,
+        "title": "Agent List",
+        "width": 400
+    },
+    "configAlternates": {
+        "resizable": "boolean"
+    },
+    "designerId": "9bcb6703-eba1-479d-9cc6-28879b3f8ff8",
+    "cn": [
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "columnLines": true,
+                "forceFit": true,
+                "header": false,
+                "id": "agentSummaryGrid",
+                "itemId": "agentSummaryGrid",
+                "title": "My Grid Panel"
+            },
+            "designerId": "7a643e4d-44c5-4b44-9311-0869d2aa6c92",
+            "cn": [
+                {
+                    "type": "Ext.grid.RowNumberer",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "minWidth": 40,
+                        "width": 40
+                    },
+                    "designerId": "d7991d87-d6df-4f10-93ea-10a1fb564cf0"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "field1",
+                        "minWidth": 150,
+                        "text": "Instance Name"
+                    },
+                    "designerId": "5459620f-16b9-4d10-a077-31201cb84234"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "field2",
+                        "minWidth": 120,
+                        "text": "IP Address"
+                    },
+                    "designerId": "da4d8459-33b8-4fc7-9fd6-a3086f759492"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "field3",
+                        "minWidth": 60,
+                        "text": "Status"
+                    },
+                    "designerId": "dd463629-bc14-49ef-95c7-e86388abfba5"
+                },
+                {
+                    "type": "Ext.grid.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "designerId": "e204bcbe-1627-407f-8fbc-13a4edff1652"
+                }
+            ]
+        }
+    ]
+}

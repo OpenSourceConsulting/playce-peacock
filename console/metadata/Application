@@ -15,7 +15,8 @@
             "SoftwareInstallController",
             "RHEVMController",
             "ALMController",
-            "UserController"
+            "UserController",
+            "DashBoardController"
         ],
         "models": [
             "instanceModel",
@@ -89,7 +90,6 @@
         "views": [
             "peacockViewport",
             "loginWindow",
-            "dashboardPanel",
             "instancesContainer",
             "CLIWindow",
             "FstabWindow",
@@ -118,7 +118,13 @@
             "ManageGroupWindow",
             "RegInstanceGroupWindow",
             "MyForm33",
-            "AlmWizardWindow"
+            "AlmWizardWindow",
+            "dashboardContainer",
+            "VmSummaryWindow",
+            "TemplateSummaryWindow",
+            "AgentSummaryWindow",
+            "AlarmCriticalWindow",
+            "AlarmWarningWindow"
         ]
     },
     "designerId": "application"

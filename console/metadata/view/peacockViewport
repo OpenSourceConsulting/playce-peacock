@@ -309,6 +309,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "activeItem": 1,
                         "id": "centerContainer",
                         "itemId": "centerContainer",
                         "layout": "card",
@@ -323,8 +324,8 @@
                                 "type": "array"
                             },
                             "codeClass": null,
-                            "designerId": "e2f43b21-f12b-4c7a-ad43-715b9b879eb7",
-                            "masterInstanceId": "9dde4dd3-0f27-451a-a7b6-c51c0ba51b5c"
+                            "designerId": "02b2e8a7-9798-4f28-9bc3-78aab38d79a2",
+                            "masterInstanceId": "bac9d1ae-f851-4c6a-97bf-2e21ae9fef17"
                         },
                         {
                             "type": "linkedinstance",
