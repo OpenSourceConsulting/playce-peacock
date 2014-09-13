@@ -20,7 +20,7 @@
  * Revision History
  * Author			Date				Description
  * ---------------	----------------	------------
- * Bong-Jin Kwon	2014. 9. 11.		First Draft.
+ * Bong-Jin Kwon	2014. 9. 12.		First Draft.
  */
 package com.athena.peacock.controller.web.permission;
 
@@ -30,18 +30,18 @@ import com.athena.peacock.controller.web.common.dto.BaseDto;
  * @author Bong-Jin Kwon
  *
  */
-public class PermissionDto extends BaseDto {
+public class PermissionMenuMapDto extends BaseDto {
 
-	private static final long serialVersionUID = 7242080619020077737L;
-	
 	private int permId;
-	private String permNm;
-	private int users;
-	
+	private int menuId;
+	private int readYn;
+	private int writeYn;
+
+
 	/**
 	 * 
 	 */
-	public PermissionDto() {
+	public PermissionMenuMapDto() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -60,25 +60,45 @@ public class PermissionDto extends BaseDto {
 	}
 
 	/**
-	 * @return the permNm
+	 * @return the menuId
 	 */
-	public String getPermNm() {
-		return permNm;
+	public int getMenuId() {
+		return menuId;
 	}
 
 	/**
-	 * @param permNm the permNm to set
+	 * @param menuId the menuId to set
 	 */
-	public void setPermNm(String permNm) {
-		this.permNm = permNm;
+	public void setMenuId(int menuId) {
+		this.menuId = menuId;
 	}
 
-	public int getUsers() {
-		return users;
+	/**
+	 * @return the readYn
+	 */
+	public int getReadYn() {
+		return readYn;
 	}
 
-	public void setUsers(int users) {
-		this.users = users;
+	/**
+	 * @param readYn the readYn to set
+	 */
+	public void setReadYn(int readYn) {
+		this.readYn = readYn;
+	}
+
+	/**
+	 * @return the writeYn
+	 */
+	public int getWriteYn() {
+		return writeYn;
+	}
+
+	/**
+	 * @param writeYn the writeYn to set
+	 */
+	public void setWriteYn(int writeYn) {
+		this.writeYn = writeYn;
 	}
 
 }

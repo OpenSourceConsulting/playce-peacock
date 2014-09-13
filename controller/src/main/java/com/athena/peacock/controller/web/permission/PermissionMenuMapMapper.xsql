@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PermissionMenuMap">
+
+	<resultMap id="PermissionMenuMapMap" type="com.athena.peacock.controller.web.permission.PermissionMenuMapDto">
+		<!-- <id property="id" column="user_id" /> -->
+		<result property="permId" column="PERM_ID"/>
+		<result property="menuId" column="MENU_ID"/>
+		<result property="readYn" column="READ_YN"/>
+		<result property="writeYn" column="WRITE_YN"/>
+		<result property="regUserId" column="REG_USER_ID"/>
+		<result property="regDt" column="REG_DT"/>
+		<result property="updUserId" column="UPD_USER_ID"/>
+		<result property="updDt" column="UPD_DT"/>
+	</resultMap>
+	
+	<sql id="getPermissionMenuMapListBase" >
+        SELECT
+        	PERM_ID
+        	,MENU_ID
+        	,READ_YN
+        	,WRITE_YN
+        	,REG_USER_ID
+        	,REG_DT
+        	,UPD_USER_ID
+        	,UPD_DT
+        FROM
+        	permission_menu_map_tbl
+        <where>
+			<if test="search != null">
+			user_name LIKE concat('%',#{search},'%')
+			</if>
+		</where>
+		LIMIT #{start}, #{limit}
+    </sql>
+    
+    <select id="getPermissionMenuMapList" parameterType="ExtjsGridParam" resultMap="PermissionMenuMapMap">
+        <include refid="getPermissionMenuMapListBase"/>
+    </select>
+    
+    <select id="getPermissionMenuMapListTotalCount" parameterType="ExtjsGridParam" resultType="int">
+		SELECT COUNT(*)
+		FROM (
+			<include refid="getPermissionMenuMapListBase"/>
+		) AS T
+	</select>
+	
+	<select id="getPermissionMenuMap" parameterType="com.athena.peacock.controller.web.permission.PermissionMenuMapDto" resultMap="PermissionMenuMapMap">
+        SELECT
+        	PERM_ID
+        	,MENU_ID
+        	,READ_YN
+        	,WRITE_YN
+        	,REG_USER_ID
+        	,REG_DT
+        	,UPD_USER_ID
+        	,UPD_DT
+        FROM
+        	permission_menu_map_tbl
+        WHERE
+        	MENU_ID = #{menuId}
+        	AND PERM_ID = #{permId}
+    </select>
+    
+    <insert id="insertPermissionMenuMap" parameterType="com.athena.peacock.controller.web.permission.PermissionMenuMapDto" >
+        INSERT INTO permission_menu_map_tbl
+        (
+        	PERM_ID
+        	,MENU_ID
+        	,READ_YN
+        	,WRITE_YN
+        	,REG_USER_ID
+        	,REG_DT
+        ) VALUES (
+        	#{permId}
+        	,#{menuId}
+        	,#{readYn}
+        	,#{writeYn}
+        	,#{regUserId}
+        	,NOW()
+        )
+    </insert>
+    <update id="updatePermissionMenuMap" parameterType="com.athena.peacock.controller.web.permission.PermissionMenuMapDto" >
+        UPDATE permission_menu_map_tbl
+        SET
+        	PERM_ID = #{permId}
+        	,MENU_ID = #{menuId}
+        	,READ_YN = #{readYn}
+        	,WRITE_YN = #{writeYn}
+        	,REG_USER_ID = #{regUserId}
+        	,REG_DT = #{regDt}
+        	,UPD_USER_ID = #{updUserId}
+        	,UPD_DT = #{updDt}
+        WHERE
+        	MENU_ID = #{menuId}
+        	AND PERM_ID = #{permId}
+    </update>
+    
+    <!-- permId 모두 삭제함 -->
+	<delete id="deletePermissionMenuMap" parameterType="com.athena.peacock.controller.web.permission.PermissionMenuMapDto" >
+        DELETE FROM permission_menu_map_tbl
+        WHERE
+        	PERM_ID = #{permId}
+    </delete>
+</mapper>

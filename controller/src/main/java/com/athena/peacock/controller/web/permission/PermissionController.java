@@ -24,18 +24,21 @@
  */
 package com.athena.peacock.controller.web.permission;
 
-import org.junit.runners.Parameterized.Parameter;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.athena.peacock.controller.web.common.json.JSONUtil;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 import com.athena.peacock.controller.web.common.model.SimpleJsonResponse;
 import com.athena.peacock.controller.web.common.model.TreeJsonResponse;
+import com.athena.peacock.controller.web.menu.MenuDto;
 
 /**
  * <pre>
@@ -95,20 +98,15 @@ public class PermissionController {
 	}
 	
 	@RequestMapping("/create")
-	public @ResponseBody SimpleJsonResponse create(PermissionDto param){
+	public @ResponseBody SimpleJsonResponse create(PermissionDto param, @RequestParam(value="permMenus") String json){
 		
 		SimpleJsonResponse jsonRes = new SimpleJsonResponse();
-		try{
-			service.insertPermission(param);
-			jsonRes.setMsg("사용자가 정상적으로 생성되었습니다.");
-			
-		}catch(Exception e){
-			
-			jsonRes.setSuccess(false);
-			jsonRes.setMsg("사용자 생성 중 에러가 발생하였습니다.");
-			
-			e.printStackTrace();
-		}
+		
+		List<PermissionMenuMapDto> menus = JSONUtil.jsonToList(json, PermissionMenuMapDto.class);
+		
+		service.createPermission(param, menus);
+				
+		jsonRes.setMsg("Permission이 정상적으로 생성되었습니다.");
 		
 		
 		return jsonRes;
@@ -118,17 +116,9 @@ public class PermissionController {
 	public @ResponseBody SimpleJsonResponse update(PermissionDto param){
 		
 		SimpleJsonResponse jsonRes = new SimpleJsonResponse();
-		try{
-			service.updatePermission(param);
-			jsonRes.setMsg("사용자 정보가 정상적으로 수정되었습니다.");
-			
-		}catch(Exception e){
-			
-			jsonRes.setSuccess(false);
-			jsonRes.setMsg("사용자 정보 수정 중 에러가 발생하였습니다.");
-			
-			e.printStackTrace();
-		}
+		service.updatePermission(param);
+		
+		jsonRes.setMsg("Permission이 정상적으로 수정되었습니다.");
 		
 		
 		return jsonRes;
@@ -138,17 +128,8 @@ public class PermissionController {
 	public @ResponseBody SimpleJsonResponse delete(PermissionDto param){
 		
 		SimpleJsonResponse jsonRes = new SimpleJsonResponse();
-		try{
-			service.deletePermission(param);
-			jsonRes.setMsg("사용자 정보가 정상적으로 삭제되었습니다.");
-			
-		}catch(Exception e){
-			
-			jsonRes.setSuccess(false);
-			jsonRes.setMsg("사용자 정보 삭제 중 에러가 발생하였습니다.");
-			
-			e.printStackTrace();
-		}
+		service.deletePermission(param);
+		jsonRes.setMsg("Permission이 정상적으로 삭제되었습니다.");
 		
 		return jsonRes;
 	}

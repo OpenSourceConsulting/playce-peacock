@@ -47,12 +47,27 @@ public class PermissionService {
 	@Autowired
 	private PermissionDao dao;
 	
+	@Autowired
+	private PermissionMenuMapDao menuMapDao;
+	
 	public PermissionService() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void insertPermission(PermissionDto user){
-		dao.insertPermission(user);
+	public void insertPermission(PermissionDto dto){
+		dao.insertPermission(dto);
+	}
+	
+	public void createPermission(PermissionDto dto, List<PermissionMenuMapDto> menus){
+		insertPermission(dto);
+		
+		for (PermissionMenuMapDto permissionMenuMapDto : menus) {
+			
+			permissionMenuMapDto.setPermId(dto.getPermId());
+			
+			menuMapDao.insertPermissionMenuMap(permissionMenuMapDto);
+		}
+		
 	}
 	
 	public List<PermissionDto> getPermissionList(ExtjsGridParam gridParam){
@@ -79,7 +94,20 @@ public class PermissionService {
 		dao.updatePermission(param);
 	}
 	
+	/**
+	 * <pre>
+	 * permission_menu_map_tbl & permission_tbl 데이타만 삭제
+	 * permission_user_map_tbl 에 data 가 없어야 함.
+	 * </pre>
+	 * @param param
+	 */
 	public void deletePermission(PermissionDto param){
+		
+		PermissionMenuMapDto menuMapDto = new PermissionMenuMapDto();
+		menuMapDto.setPermId(param.getPermId());
+		
+		menuMapDao.deletePermissionMenuMap(menuMapDto);
+		
 		dao.deletePermission(param);
 	}
 

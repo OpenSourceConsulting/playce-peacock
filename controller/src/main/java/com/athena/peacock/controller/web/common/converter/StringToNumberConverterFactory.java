@@ -52,7 +52,7 @@ public class StringToNumberConverterFactory implements ConverterFactory<String, 
 		return new StringToNumber<T>(targetType);
 	}
 	
-	private static final class StringToNumber<T extends Number> implements Converter<String, T> {
+	private final class StringToNumber<T extends Number> implements Converter<String, T> {
 
 		private final Class<T> targetType;
 

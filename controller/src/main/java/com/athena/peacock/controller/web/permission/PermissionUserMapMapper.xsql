@@ -31,7 +31,7 @@
 			permission_user_map_tbl a
 			, users_tbl b
 		WHERE
-			a.PERM_ID = 1
+			a.PERM_ID = #{exParams.permId}
 			AND a.USER_ID = b.USER_ID
 			<if test="search != null">
 			AND b.USER_NAME LIKE concat('%',#{search},'%')
