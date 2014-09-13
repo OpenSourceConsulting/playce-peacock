@@ -1,0 +1,218 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "PermissionUserWindow",
+        "designer|userClassName": "PermissionUserWindow",
+        "height": 320,
+        "modal": true,
+        "resizable": false,
+        "title": "Add Permission User",
+        "width": 580
+    },
+    "configAlternates": {
+        "resizable": "boolean"
+    },
+    "designerId": "913da75e-73b5-46bc-b5cd-13c3985e2db3",
+    "cn": [
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "columnLines": true,
+                "forceFit": true,
+                "header": false,
+                "height": 275,
+                "title": "My Grid Panel"
+            },
+            "designerId": "395f04f1-87ec-42db-826f-07a20fe54236",
+            "cn": [
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "string",
+                        "minWidth": 60,
+                        "text": "ID"
+                    },
+                    "designerId": "eed7f196-e66a-4599-bf2c-5aadba510dbc"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "number",
+                        "minWidth": 120,
+                        "text": "Login ID"
+                    },
+                    "designerId": "f22adf7f-b9f1-40f4-b021-1cdaa8bef194"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "date",
+                        "minWidth": 150,
+                        "text": "User Name"
+                    },
+                    "designerId": "5d9f6287-cfa8-48af-b4c9-55252e9c5be4"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "bool",
+                        "minWidth": 150,
+                        "text": "Dep Name"
+                    },
+                    "designerId": "30bcb250-e561-42b7-bcc4-21b3cc9f5f49"
+                },
+                {
+                    "type": "Ext.grid.column.Action",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "align": "center",
+                        "defaultWidth": 60,
+                        "maxWidth": 60,
+                        "menuText": "",
+                        "minWidth": 70,
+                        "style": [
+                            "\"text-align:left;\""
+                        ],
+                        "text": "Add",
+                        "width": 60
+                    },
+                    "designerId": "e6768de0-dac5-42de-bea5-de0d476e1d9f",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "text",
+                            "type": "string"
+                        }
+                    ],
+                    "cn": [
+                        {
+                            "type": "actioncolumnitem",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "icon": "resources/images/icons/add.png",
+                                "iconCls": ""
+                            },
+                            "designerId": "dc625912-bff1-4d67-83ad-3317e1dded8d",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "alert('add');"
+                                        ]
+                                    },
+                                    "designerId": "1e47e2ed-fe1b-47c6-9f5c-840ed06673f7"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "designerId": "b164a61b-ef16-416d-82ab-8846b12c045d"
+                },
+                {
+                    "type": "Ext.toolbar.Paging",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "displayInfo": true,
+                        "dock": "bottom",
+                        "width": 360
+                    },
+                    "designerId": "acf9753c-a403-44d2-80fc-5264bc77fd7c"
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dock": "top"
+                    },
+                    "designerId": "861e5f5c-805e-4098-a662-0675a59c17e0",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "emptyText": "Search User Name",
+                                "fieldLabel": "Filtering",
+                                "labelWidth": 60,
+                                "layout|flex": null
+                            },
+                            "designerId": "03d29d5d-14f4-45fa-9ab8-40ea4d1955d3"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

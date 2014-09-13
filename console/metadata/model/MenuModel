@@ -1,0 +1,79 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "MenuModel"
+    },
+    "designerId": "3cf0cd4b-8054-496b-a28a-c2feea6fa3ec",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "menuId",
+                "type": "string"
+            },
+            "designerId": "d0701ed9-493f-4100-b114-9f7b2eeeccb2"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "menuNm",
+                "type": "string"
+            },
+            "designerId": "65509eed-0330-41c0-a30a-e28873564ee1"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "thread",
+                "type": "string"
+            },
+            "designerId": "b872c682-25a9-45d2-be6a-c21483cdb1b4"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "readYn",
+                "type": "int"
+            },
+            "designerId": "14cd1d3b-5875-4d7d-8d80-3a52f49bc7b2"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "writeYn",
+                "type": "int"
+            },
+            "designerId": "e90ea63c-1a18-475a-bf83-a57e7d14d4c7"
+        }
+    ]
+}

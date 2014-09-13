@@ -1,0 +1,1736 @@
+{
+    "type": "Ext.container.Container",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "adminContainer",
+        "designer|userClassName": "adminContainer",
+        "height": 755,
+        "id": "userContainer",
+        "itemId": "userContainer",
+        "layout": "border",
+        "width": 1000
+    },
+    "designerId": "952b63b1-9df8-432e-baa0-1645c77bd5e3",
+    "cn": [
+        {
+            "type": "Ext.tab.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "activeTab": 0,
+                "container|deferredRender": false,
+                "id": "adminTabPanel",
+                "itemId": "adminTabPanel",
+                "layout|region": "center",
+                "padding": "5 0 0 0",
+                "plain": true,
+                "style": "background:#ffffff"
+            },
+            "configAlternates": {
+                "style": "string"
+            },
+            "designerId": "93f0be11-b3b6-491c-8859-db3742dd081a",
+            "cn": [
+                {
+                    "type": "Ext.panel.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout": "border",
+                        "title": "User"
+                    },
+                    "designerId": "ab874274-8736-4724-9692-afb33b258afe",
+                    "cn": [
+                        {
+                            "type": "Ext.tab.Tab",
+                            "reference": {
+                                "name": "tabConfig",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "designerId": "026c96cf-1177-41d2-b208-a451b7e93ece"
+                        },
+                        {
+                            "type": "Ext.grid.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "autoScroll": true,
+                                "columnLines": true,
+                                "forceFit": true,
+                                "id": "userGrid",
+                                "itemId": "userGrid",
+                                "layout|flex": 1,
+                                "layout|region": "center",
+                                "minHeight": 100,
+                                "store": "UserStore",
+                                "title": null
+                            },
+                            "designerId": "24d95029-d1a8-4c71-8e76-7dcc9a8fb654",
+                            "cn": [
+                                {
+                                    "type": "Ext.grid.View",
+                                    "reference": {
+                                        "name": "viewConfig",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "designerId": "434e842a-83f1-4e45-af8d-f7a559de8d89"
+                                },
+                                {
+                                    "type": "Ext.toolbar.Toolbar",
+                                    "reference": {
+                                        "name": "dockedItems",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "cls": null,
+                                        "dock": "top",
+                                        "id": "instancesToolbar1",
+                                        "itemId": "instancesToolbar",
+                                        "width": 150
+                                    },
+                                    "designerId": "8d45d658-9b3f-431d-ab6e-34f2755ae369",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.button.Button",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "id": "createUserBtn",
+                                                "itemId": "createUserBtn",
+                                                "layout|flex": null,
+                                                "text": "Create New User"
+                                            },
+                                            "designerId": "c1f1d016-a74c-477a-9ffa-6ee64bb088ac",
+                                            "cn": [
+                                                {
+                                                    "type": "fixedfunction",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "designer|params": [
+                                                            "button",
+                                                            "e"
+                                                        ],
+                                                        "fn": "handler",
+                                                        "implHandler": [
+                                                            "userConstants.me.showUserWindow('new');"
+                                                        ]
+                                                    },
+                                                    "designerId": "36304546-24da-48f0-90f0-cb65a347190b"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "Ext.toolbar.Separator",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "layout|flex": null
+                                            },
+                                            "designerId": "2a097a81-856b-4ec9-9d42-2c005742c3c2"
+                                        },
+                                        {
+                                            "type": "Ext.form.field.Text",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "cls": null,
+                                                "emptyText": "Search User Name",
+                                                "enableKeyEvents": true,
+                                                "fieldLabel": "Filtering",
+                                                "fieldStyle": null,
+                                                "id": "searchUserName",
+                                                "itemId": "searchUserName",
+                                                "labelWidth": 60,
+                                                "layout|flex": null,
+                                                "name": "searchUserName"
+                                            },
+                                            "designerId": "e9fa7111-aa37-4e99-bed4-42bed4578c75"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.toolbar.Paging",
+                                    "reference": {
+                                        "name": "dockedItems",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "displayInfo": true,
+                                        "dock": "bottom",
+                                        "store": "UserStore",
+                                        "width": 360
+                                    },
+                                    "designerId": "325a914c-445a-426b-a0a0-204aaa512705"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "userId",
+                                        "format": "0000",
+                                        "maxWidth": 100,
+                                        "minWidth": 60,
+                                        "text": "ID"
+                                    },
+                                    "designerId": "c3021e3e-4c93-4591-958e-2ebbe40b8a80"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "loginId",
+                                        "defaultWidth": 150,
+                                        "minWidth": 100,
+                                        "text": "Login ID"
+                                    },
+                                    "designerId": "b343c638-7100-430b-84e8-51c1571cda32"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "userName",
+                                        "defaultWidth": 150,
+                                        "minWidth": 100,
+                                        "text": "User Name"
+                                    },
+                                    "designerId": "a7f8b707-7cc1-4a66-986b-9c5bfd3759d1"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "deptName",
+                                        "defaultWidth": 150,
+                                        "minWidth": 100,
+                                        "text": "Dept Name"
+                                    },
+                                    "designerId": "f0745e7c-080f-4d4d-9c08-395e71e6678c"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "passwd",
+                                        "defaultWidth": 150,
+                                        "hidden": true,
+                                        "hideable": false,
+                                        "text": "Password"
+                                    },
+                                    "designerId": "866e5d0a-95f9-49e4-a57f-342cff92ae8d"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "email",
+                                        "defaultWidth": 200,
+                                        "minWidth": 150,
+                                        "text": "Email"
+                                    },
+                                    "designerId": "65082660-6359-4018-8026-5328d7940f7c"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Date",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "lastLogon",
+                                        "hidden": true,
+                                        "hideable": false,
+                                        "text": "Last_logon"
+                                    },
+                                    "designerId": "9d18b3a7-d48a-4d17-b638-12afad2edfbd"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "regUserId",
+                                        "hidden": true,
+                                        "hideable": false,
+                                        "text": "RegUserId"
+                                    },
+                                    "designerId": "0002d7a6-08e2-4907-8d95-46c59ce61816"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "regDt",
+                                        "defaultWidth": 200,
+                                        "minWidth": 220,
+                                        "text": "Create Date"
+                                    },
+                                    "configAlternates": {
+                                        "renderer": "object"
+                                    },
+                                    "designerId": "924ba09a-e162-42e2-89fb-3a830d2e91a8",
+                                    "customConfigs": [
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "rende",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "updUserId",
+                                        "hidden": true,
+                                        "hideable": false,
+                                        "text": "UpdUserId"
+                                    },
+                                    "designerId": "587677a5-66f5-484d-95c0-8c286a668b23"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Date",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "updDt",
+                                        "hidden": true,
+                                        "hideable": false,
+                                        "text": "UpdDt"
+                                    },
+                                    "designerId": "f1a2ba3a-0cef-4f9d-8e57-43273314540b"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Action",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "align": "center",
+                                        "maxWidth": 65,
+                                        "menuText": "",
+                                        "minWidth": 65,
+                                        "style": [
+                                            "\"text-align:left;\""
+                                        ],
+                                        "text": "Edit",
+                                        "width": 65
+                                    },
+                                    "designerId": "8cd2fabb-beb1-4378-80e1-924a36739aed",
+                                    "customConfigs": [
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "text",
+                                            "type": "string"
+                                        }
+                                    ],
+                                    "cn": [
+                                        {
+                                            "type": "actioncolumnitem",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "icon": "resources/images/icons/cog.png",
+                                                "iconCls": ""
+                                            },
+                                            "designerId": "1b504af8-6edf-4c49-bca1-71f31af48c60",
+                                            "cn": [
+                                                {
+                                                    "type": "fixedfunction",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "designer|params": [
+                                                            "view",
+                                                            "rowIndex",
+                                                            "colIndex",
+                                                            "item",
+                                                            "e",
+                                                            "record",
+                                                            "row"
+                                                        ],
+                                                        "fn": "handler",
+                                                        "implHandler": [
+                                                            "userConstants.actionRow = record;",
+                                                            "userConstants.me.showUserWindow('edit');"
+                                                        ]
+                                                    },
+                                                    "designerId": "722f995c-d5af-4fc9-8d6a-54d15b653911"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.grid.column.Action",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "align": "center",
+                                        "defaultWidth": 60,
+                                        "maxWidth": 60,
+                                        "menuText": "",
+                                        "minWidth": 70,
+                                        "style": [
+                                            "\"text-align:left;\""
+                                        ],
+                                        "text": "Delete",
+                                        "width": 60
+                                    },
+                                    "designerId": "327a46c2-aea0-43b2-92a0-7e1bcf0486f6",
+                                    "customConfigs": [
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "text",
+                                            "type": "string"
+                                        }
+                                    ],
+                                    "cn": [
+                                        {
+                                            "type": "actioncolumnitem",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "icon": "resources/images/icons/delete.png",
+                                                "iconCls": ""
+                                            },
+                                            "designerId": "5338c9cf-189e-4f63-8417-b0c39303cb4f",
+                                            "cn": [
+                                                {
+                                                    "type": "fixedfunction",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "designer|params": [
+                                                            "view",
+                                                            "rowIndex",
+                                                            "colIndex",
+                                                            "item",
+                                                            "e",
+                                                            "record",
+                                                            "row"
+                                                        ],
+                                                        "fn": "handler",
+                                                        "implHandler": [
+                                                            "userConstants.actionRow = record;",
+                                                            "",
+                                                            "userConstants.me.deleteUser();",
+                                                            ""
+                                                        ]
+                                                    },
+                                                    "designerId": "9972c396-cd85-4f66-b4ce-a228f7f316a9"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.panel.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "autoScroll": true,
+                                "height": 150,
+                                "id": "userDetailPanel",
+                                "itemId": "userDetailPanel",
+                                "layout": "card",
+                                "layout|flex": 1,
+                                "layout|region": "south",
+                                "layout|split": true,
+                                "title": null
+                            },
+                            "designerId": "d39625e6-f035-4f95-9d1d-ad1ee9abb87e",
+                            "cn": [
+                                {
+                                    "type": "Ext.panel.Panel",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "height": 1000,
+                                        "id": "blankPanel4",
+                                        "itemId": "blankPanel",
+                                        "title": null,
+                                        "width": 1000
+                                    },
+                                    "designerId": "c2e3a1c6-d654-429b-bfdb-8d06c5778084"
+                                },
+                                {
+                                    "type": "Ext.panel.Panel",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "autoScroll": true,
+                                        "id": "userDetail",
+                                        "title": null,
+                                        "width": null
+                                    },
+                                    "designerId": "a1e7308e-985b-447f-8e99-42ccf4f8c966",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.form.Panel",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "bodyPadding": 10,
+                                                "bodyStyle": [
+                                                    "'padding:5px 5px 0'"
+                                                ],
+                                                "defaults": [
+                                                    "{",
+                                                    "    border: false,",
+                                                    "    xtype: 'panel',",
+                                                    "    flex: 1,",
+                                                    "    layout: 'anchor'",
+                                                    "}"
+                                                ],
+                                                "fieldDefaults": [
+                                                    "{",
+                                                    "    msgTarget: 'side',",
+                                                    "    margin: '0 10',",
+                                                    "    readOnly: true,",
+                                                    "    labelStyle: 'font-weight: bold;',",
+                                                    "    labelSeparator: ' :'",
+                                                    "",
+                                                    "}"
+                                                ],
+                                                "header": false,
+                                                "id": "getUserForm",
+                                                "itemId": "getUserForm",
+                                                "padding": "",
+                                                "title": null,
+                                                "waitMsgTarget": [
+                                                    "'instDescForm'"
+                                                ]
+                                            },
+                                            "designerId": "94f0ccce-dfe4-4cf2-9cdb-c9d7d8a2a157",
+                                            "cn": [
+                                                {
+                                                    "type": "Ext.form.Label",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "html": "",
+                                                        "id": "userTitleLabel",
+                                                        "itemId": "userTitleLabel",
+                                                        "margin": "",
+                                                        "padding": 1,
+                                                        "text": ""
+                                                    },
+                                                    "designerId": "da0be02c-66b3-44d5-aee6-de9c296e47b1"
+                                                },
+                                                {
+                                                    "type": "Ext.form.FieldContainer",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "container|align": "middle",
+                                                        "defaults": [
+                                                            "{",
+                                                            "    flex: 1",
+                                                            "}"
+                                                        ],
+                                                        "fieldLabel": "Label",
+                                                        "height": 34,
+                                                        "hideLabel": true,
+                                                        "layout": "hbox",
+                                                        "width": null
+                                                    },
+                                                    "designerId": "ac9e8c6c-6ca2-4c8d-b353-9e1dee1080de",
+                                                    "cn": [
+                                                        {
+                                                            "type": "Ext.form.field.Display",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "fieldLabel": "User ID",
+                                                                "labelSeparator": " :",
+                                                                "labelStyle": "font-weight: bold;",
+                                                                "layout|flex": null,
+                                                                "name": "userId"
+                                                            },
+                                                            "designerId": "186ff2ec-ed40-4408-870a-46005ed9e976"
+                                                        },
+                                                        {
+                                                            "type": "Ext.form.field.Display",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "fieldLabel": "User Name",
+                                                                "layout|flex": null,
+                                                                "name": "userName"
+                                                            },
+                                                            "designerId": "59600b38-169f-425e-bbef-f539b7f0ebe3"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "Ext.form.FieldContainer",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "container|align": "middle",
+                                                        "defaults": [
+                                                            "{",
+                                                            "    flex: 1",
+                                                            "}"
+                                                        ],
+                                                        "fieldLabel": "Label",
+                                                        "height": 34,
+                                                        "hideLabel": true,
+                                                        "layout": "hbox",
+                                                        "width": null
+                                                    },
+                                                    "designerId": "1884e781-64a2-4915-9b20-b25c7851b665",
+                                                    "cn": [
+                                                        {
+                                                            "type": "Ext.form.field.Display",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "fieldLabel": "Login ID",
+                                                                "layout|flex": null,
+                                                                "name": "loginId"
+                                                            },
+                                                            "designerId": "f5951b7b-0212-4f61-94fc-ad385d168dc3"
+                                                        },
+                                                        {
+                                                            "type": "Ext.form.field.Display",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "fieldLabel": "Password",
+                                                                "layout|flex": null,
+                                                                "name": "passwd"
+                                                            },
+                                                            "designerId": "1baa280d-e8fe-4229-b34a-5d3e1897bf7a"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "Ext.form.FieldContainer",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "container|align": "middle",
+                                                        "defaults": [
+                                                            "{",
+                                                            "    flex: 1",
+                                                            "}"
+                                                        ],
+                                                        "fieldLabel": "Label",
+                                                        "height": 34,
+                                                        "hideLabel": true,
+                                                        "layout": "hbox",
+                                                        "width": null
+                                                    },
+                                                    "designerId": "3e079193-8ea4-48c5-9579-1f1b1d79743b",
+                                                    "cn": [
+                                                        {
+                                                            "type": "Ext.form.field.Display",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "fieldLabel": "Dept Name",
+                                                                "layout|flex": null,
+                                                                "name": "deptName"
+                                                            },
+                                                            "designerId": "11420751-54a4-4869-87ba-15a1f57ad28e"
+                                                        },
+                                                        {
+                                                            "type": "Ext.form.field.Display",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "fieldLabel": "Email",
+                                                                "layout|flex": null,
+                                                                "name": "email"
+                                                            },
+                                                            "designerId": "f2b15f11-f330-4f69-8b6d-3b4b2beb38e2"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "Ext.form.FieldContainer",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "container|align": "middle",
+                                                        "defaults": [
+                                                            "{",
+                                                            "    flex: 1",
+                                                            "}"
+                                                        ],
+                                                        "fieldLabel": "Label",
+                                                        "height": 34,
+                                                        "hideLabel": true,
+                                                        "layout": "hbox",
+                                                        "width": null
+                                                    },
+                                                    "designerId": "bf91ee08-0925-4178-8439-65498c6ffd54",
+                                                    "cn": [
+                                                        {
+                                                            "type": "Ext.form.field.Display",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "fieldLabel": "Last Logon",
+                                                                "layout|flex": null,
+                                                                "layout|margins": "0 20 0 0",
+                                                                "name": "lastLogon",
+                                                                "padding": ""
+                                                            },
+                                                            "designerId": "6f4f6eb1-89a9-48f0-9b2f-51553bfb20f3"
+                                                        },
+                                                        {
+                                                            "type": "Ext.toolbar.Spacer",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "layout|flex": 1
+                                                            },
+                                                            "designerId": "e3991585-5d4b-4c6e-96fe-18d53e048aa3"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.panel.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout": "border",
+                        "title": "User Permission"
+                    },
+                    "designerId": "fe7ba7ea-f29a-492d-9de8-be67455518a9",
+                    "cn": [
+                        {
+                            "type": "Ext.tab.Tab",
+                            "reference": {
+                                "name": "tabConfig",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "designerId": "8cc8f1c3-db60-421b-8582-d7c2c903c7a8"
+                        },
+                        {
+                            "type": "Ext.grid.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "autoScroll": true,
+                                "columnLines": true,
+                                "forceFit": true,
+                                "id": "userPermissionGrid",
+                                "itemId": "userPermissionGrid",
+                                "layout|flex": 2,
+                                "layout|region": "center",
+                                "minHeight": 100,
+                                "store": "PermissionStore",
+                                "title": null
+                            },
+                            "designerId": "efb10a8f-6a42-4175-ad30-cea507b3039a",
+                            "cn": [
+                                {
+                                    "type": "Ext.toolbar.Toolbar",
+                                    "reference": {
+                                        "name": "dockedItems",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "cls": null,
+                                        "dock": "top",
+                                        "id": null,
+                                        "itemId": null,
+                                        "width": 150
+                                    },
+                                    "designerId": "acf7b2af-5bfd-4ba0-9853-04f56b6eb6d8",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.button.Button",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "id": null,
+                                                "itemId": null,
+                                                "layout|flex": null,
+                                                "text": "Create New Permission"
+                                            },
+                                            "designerId": "d3122044-b3de-4241-8501-f7ac0dedc98c",
+                                            "cn": [
+                                                {
+                                                    "type": "fixedfunction",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "designer|params": [
+                                                            "button",
+                                                            "e"
+                                                        ],
+                                                        "fn": "handler",
+                                                        "implHandler": [
+                                                            "",
+                                                            "var userWindow = Ext.create(\"widget.NewPermissionWindow\");",
+                                                            "",
+                                                            "userWindow.show();",
+                                                            ""
+                                                        ]
+                                                    },
+                                                    "designerId": "d3925133-b14c-426b-ba87-9c8c858c4d7d"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "Ext.toolbar.Separator",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "layout|flex": null
+                                            },
+                                            "designerId": "30f8851b-aec8-4545-ac63-6fcd4fe867c2"
+                                        },
+                                        {
+                                            "type": "Ext.form.field.Text",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "cls": null,
+                                                "emptyText": "Search User Name",
+                                                "enableKeyEvents": true,
+                                                "fieldLabel": "Filtering",
+                                                "fieldStyle": null,
+                                                "id": "searchUserPermissionName",
+                                                "itemId": "searchUserPermissionName",
+                                                "labelWidth": 60,
+                                                "layout|flex": null,
+                                                "name": "searchUserName"
+                                            },
+                                            "designerId": "fd4534c6-9f15-4336-87e2-7114683df9d1"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.grid.View",
+                                    "reference": {
+                                        "name": "viewConfig",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "designerId": "5b911418-6d4d-4034-8802-12d8d1dcfd62"
+                                },
+                                {
+                                    "type": "Ext.toolbar.Paging",
+                                    "reference": {
+                                        "name": "dockedItems",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "displayInfo": true,
+                                        "dock": "bottom",
+                                        "store": "UserStore",
+                                        "width": 360
+                                    },
+                                    "designerId": "d9e9308d-2d51-4a49-aa56-0b586da09a30"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "permId",
+                                        "format": "0000",
+                                        "maxWidth": 100,
+                                        "minWidth": 60,
+                                        "text": "ID"
+                                    },
+                                    "designerId": "2e82378c-35e1-48d5-92b6-28c4f0d6bc45"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "permNm",
+                                        "defaultWidth": 150,
+                                        "minWidth": 150,
+                                        "text": "Permission Name"
+                                    },
+                                    "designerId": "83583a73-1ed1-4c22-9cc8-fd54e2deefe0"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "users",
+                                        "defaultWidth": null,
+                                        "minWidth": 80,
+                                        "text": "Users"
+                                    },
+                                    "designerId": "e857e021-1618-425a-9f0f-2c2721679df2"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "regDt",
+                                        "defaultWidth": 200,
+                                        "minWidth": 220,
+                                        "text": "Create Date"
+                                    },
+                                    "configAlternates": {
+                                        "renderer": "object"
+                                    },
+                                    "designerId": "d3e42f1e-e584-4c14-8cc4-c9d608647894",
+                                    "customConfigs": [
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "rende",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.grid.column.Action",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "align": "center",
+                                        "maxWidth": 65,
+                                        "menuText": "",
+                                        "minWidth": 65,
+                                        "style": [
+                                            "\"text-align:left;\""
+                                        ],
+                                        "text": "Edit",
+                                        "width": 65
+                                    },
+                                    "designerId": "a519882d-1174-4cbf-98dc-cc641068ea68",
+                                    "customConfigs": [
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "text",
+                                            "type": "string"
+                                        }
+                                    ],
+                                    "cn": [
+                                        {
+                                            "type": "actioncolumnitem",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "icon": "resources/images/icons/cog.png",
+                                                "iconCls": ""
+                                            },
+                                            "designerId": "1758cd4a-9f5c-4984-8093-d3e0f8a323ae",
+                                            "cn": [
+                                                {
+                                                    "type": "fixedfunction",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "designer|params": [
+                                                            "view",
+                                                            "rowIndex",
+                                                            "colIndex",
+                                                            "item",
+                                                            "e",
+                                                            "record",
+                                                            "row"
+                                                        ],
+                                                        "fn": "handler",
+                                                        "implHandler": [
+                                                            "",
+                                                            "var userWindow = Ext.create(\"widget.EditPermissionWindow\");",
+                                                            "",
+                                                            "userWindow.show();",
+                                                            ""
+                                                        ]
+                                                    },
+                                                    "designerId": "aca36b1a-1ea3-4b97-940e-a48a3da9a2ac"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.grid.column.Action",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "align": "center",
+                                        "defaultWidth": 60,
+                                        "maxWidth": 60,
+                                        "menuText": "",
+                                        "minWidth": 70,
+                                        "style": [
+                                            "\"text-align:left;\""
+                                        ],
+                                        "text": "Delete",
+                                        "width": 60
+                                    },
+                                    "designerId": "633abe34-8fce-438e-a2ba-e5dcc0b20bcb",
+                                    "customConfigs": [
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "text",
+                                            "type": "string"
+                                        }
+                                    ],
+                                    "cn": [
+                                        {
+                                            "type": "actioncolumnitem",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "icon": "resources/images/icons/delete.png",
+                                                "iconCls": ""
+                                            },
+                                            "designerId": "971a7675-0df5-419d-9867-dc32a8393c26",
+                                            "cn": [
+                                                {
+                                                    "type": "fixedfunction",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "designer|params": [
+                                                            "view",
+                                                            "rowIndex",
+                                                            "colIndex",
+                                                            "item",
+                                                            "e",
+                                                            "record",
+                                                            "row"
+                                                        ],
+                                                        "fn": "handler",
+                                                        "implHandler": [
+                                                            "userConstants.actionRow = record;",
+                                                            "",
+                                                            "userConstants.me.deleteUser();",
+                                                            ""
+                                                        ]
+                                                    },
+                                                    "designerId": "4522d817-317c-45be-ad08-c58d9a6fc929"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.panel.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "autoScroll": true,
+                                "height": 150,
+                                "id": "userPermissionDetailPanel",
+                                "itemId": "userPermissionDetailPanel",
+                                "layout": "card",
+                                "layout|flex": 3,
+                                "layout|region": "south",
+                                "layout|split": true,
+                                "title": null
+                            },
+                            "designerId": "a6f9b56a-0205-470f-91e4-5261b6c85c3d",
+                            "cn": [
+                                {
+                                    "type": "Ext.panel.Panel",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "height": 1000,
+                                        "id": "blankPanel9",
+                                        "itemId": "blankPanel",
+                                        "title": null,
+                                        "width": 1000
+                                    },
+                                    "designerId": "ab217211-f81a-4e38-9beb-572e2fd8ecf0"
+                                },
+                                {
+                                    "type": "Ext.panel.Panel",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "autoScroll": true,
+                                        "id": null,
+                                        "title": null,
+                                        "width": null
+                                    },
+                                    "designerId": "7b4764bd-4f48-4104-8309-39040b86e152",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.form.Label",
+                                            "reference": {
+                                                "name": "dockedItems",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "dock": "top",
+                                                "html": "<h2></h2>",
+                                                "id": "almGroupTitleLabel1",
+                                                "itemId": "almGroupTitleLabel1",
+                                                "margin": "5 0 0 0",
+                                                "minHeight": null,
+                                                "padding": 2,
+                                                "text": "",
+                                                "width": null
+                                            },
+                                            "designerId": "70814acb-099d-4d83-becb-055e7ea77865"
+                                        },
+                                        {
+                                            "type": "Ext.tab.Panel",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "activeTab": 0,
+                                                "dock": null,
+                                                "height": 393,
+                                                "padding": "15 10 10 10",
+                                                "plain": true,
+                                                "style": "background:#ffffff;"
+                                            },
+                                            "configAlternates": {
+                                                "style": "string"
+                                            },
+                                            "designerId": "bb4e1658-d9d2-4beb-9a60-0ae264de70a4",
+                                            "cn": [
+                                                {
+                                                    "type": "Ext.panel.Panel",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "height": 300,
+                                                        "title": "Detail"
+                                                    },
+                                                    "designerId": "6eb64683-9efc-4ad4-ac1d-fc9ddffa9b6a",
+                                                    "cn": [
+                                                        {
+                                                            "type": "Ext.tab.Tab",
+                                                            "reference": {
+                                                                "name": "tabConfig",
+                                                                "type": "object"
+                                                            },
+                                                            "codeClass": null,
+                                                            "designerId": "7105b6fe-a5dd-4f8a-a4ec-dea18a9ce803"
+                                                        },
+                                                        {
+                                                            "type": "Ext.tree.Panel",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "autoScroll": true,
+                                                                "columnLines": true,
+                                                                "forceFit": false,
+                                                                "header": false,
+                                                                "height": 320,
+                                                                "iconCls": null,
+                                                                "id": "permissionMenuTreeGrid",
+                                                                "itemId": "permissionMenuTreeGrid",
+                                                                "minHeight": 250,
+                                                                "rowLines": true,
+                                                                "store": "permissionMenuTreeStore",
+                                                                "title": "My Tree Grid Panel"
+                                                            },
+                                                            "designerId": "89b16bdf-fbdc-4f01-b69e-504656d06e1d",
+                                                            "isBuiltIn": true,
+                                                            "iconCls": "icon-treegridpanel",
+                                                            "autoName": "TreeGrid",
+                                                            "cn": [
+                                                                {
+                                                                    "type": "Ext.tree.View",
+                                                                    "reference": {
+                                                                        "name": "viewConfig",
+                                                                        "type": "object"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "designerId": "6cdd2156-cd1d-44b5-8003-787e34c998bf"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.tree.Column",
+                                                                    "reference": {
+                                                                        "name": "columns",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "dataIndex": "menuNm",
+                                                                        "flex": 1,
+                                                                        "groupable": false,
+                                                                        "minWidth": 300,
+                                                                        "text": "Menu"
+                                                                    },
+                                                                    "designerId": "19867c33-4a06-45cd-be52-7bd85b4db531"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.grid.column.CheckColumn",
+                                                                    "reference": {
+                                                                        "name": "columns",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "dataIndex": "readYn",
+                                                                        "minWidth": 100,
+                                                                        "text": "Read"
+                                                                    },
+                                                                    "designerId": "9fe411ce-73ed-475c-8a4c-103b1bec1084"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.grid.column.CheckColumn",
+                                                                    "reference": {
+                                                                        "name": "columns",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "dataIndex": "writeYn",
+                                                                        "minWidth": 100,
+                                                                        "text": "Write"
+                                                                    },
+                                                                    "designerId": "3f68786a-59cc-4050-ae8e-197f5bae4c9d"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.toolbar.Toolbar",
+                                                                    "reference": {
+                                                                        "name": "dockedItems",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "dock": "top"
+                                                                    },
+                                                                    "designerId": "32c8ccbc-616d-4c22-8910-e7969ba67baf",
+                                                                    "cn": [
+                                                                        {
+                                                                            "type": "Ext.toolbar.Spacer",
+                                                                            "reference": {
+                                                                                "name": "items",
+                                                                                "type": "array"
+                                                                            },
+                                                                            "codeClass": null,
+                                                                            "userConfig": {
+                                                                                "layout|flex": 1
+                                                                            },
+                                                                            "designerId": "c19f0c1d-37ac-4358-afa8-a9bc7f650b2d"
+                                                                        },
+                                                                        {
+                                                                            "type": "Ext.button.Button",
+                                                                            "reference": {
+                                                                                "name": "items",
+                                                                                "type": "array"
+                                                                            },
+                                                                            "codeClass": null,
+                                                                            "userConfig": {
+                                                                                "layout|flex": null,
+                                                                                "padding": "3 10 3 10",
+                                                                                "text": "Save"
+                                                                            },
+                                                                            "designerId": "0af1abb5-b7bf-488b-8296-43e191434cdc"
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "Ext.panel.Panel",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "title": "Users"
+                                                    },
+                                                    "designerId": "1959dca5-36d9-4220-98ec-23f7474ef57f",
+                                                    "cn": [
+                                                        {
+                                                            "type": "Ext.tab.Tab",
+                                                            "reference": {
+                                                                "name": "tabConfig",
+                                                                "type": "object"
+                                                            },
+                                                            "codeClass": null,
+                                                            "designerId": "822aa86f-75b8-441c-aeee-0f69b69e4b7f"
+                                                        },
+                                                        {
+                                                            "type": "Ext.grid.Panel",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "autoScroll": true,
+                                                                "columnLines": true,
+                                                                "forceFit": true,
+                                                                "header": false,
+                                                                "height": 320,
+                                                                "title": "My Grid Panel"
+                                                            },
+                                                            "designerId": "be3035d3-1181-4854-a347-0546538d78cd",
+                                                            "cn": [
+                                                                {
+                                                                    "type": "Ext.grid.column.Column",
+                                                                    "reference": {
+                                                                        "name": "columns",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "dataIndex": "string",
+                                                                        "minWidth": 60,
+                                                                        "text": "ID"
+                                                                    },
+                                                                    "designerId": "1c7dca88-7867-4e39-9039-22e78371b7e9"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.grid.column.Column",
+                                                                    "reference": {
+                                                                        "name": "columns",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "dataIndex": "number",
+                                                                        "minWidth": 100,
+                                                                        "text": "Login ID"
+                                                                    },
+                                                                    "designerId": "02b2dfd2-d650-4595-a817-7674526aff27"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.grid.column.Column",
+                                                                    "reference": {
+                                                                        "name": "columns",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "dataIndex": "date",
+                                                                        "minWidth": 150,
+                                                                        "text": "User Name"
+                                                                    },
+                                                                    "designerId": "446a8e18-abec-4439-8750-fb8cb4f387a2"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.grid.column.Column",
+                                                                    "reference": {
+                                                                        "name": "columns",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "dataIndex": "bool",
+                                                                        "minWidth": 120,
+                                                                        "text": "Dep Name"
+                                                                    },
+                                                                    "designerId": "16cdef40-1734-4312-8130-8ea1abc8787d"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.grid.column.Action",
+                                                                    "reference": {
+                                                                        "name": "columns",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "align": "center",
+                                                                        "defaultWidth": 60,
+                                                                        "maxWidth": 60,
+                                                                        "menuText": "",
+                                                                        "minWidth": 70,
+                                                                        "style": [
+                                                                            "\"text-align:left;\""
+                                                                        ],
+                                                                        "text": "Delete",
+                                                                        "width": 60
+                                                                    },
+                                                                    "designerId": "dae620d7-f3ec-4dcd-8133-4c19cf858455",
+                                                                    "customConfigs": [
+                                                                        {
+                                                                            "group": "(Custom Properties)",
+                                                                            "name": "text",
+                                                                            "type": "string"
+                                                                        }
+                                                                    ],
+                                                                    "cn": [
+                                                                        {
+                                                                            "type": "actioncolumnitem",
+                                                                            "reference": {
+                                                                                "name": "items",
+                                                                                "type": "array"
+                                                                            },
+                                                                            "codeClass": null,
+                                                                            "userConfig": {
+                                                                                "icon": "resources/images/icons/delete.png",
+                                                                                "iconCls": ""
+                                                                            },
+                                                                            "designerId": "0afa20d6-623f-42fd-a6c9-99ef914f2575",
+                                                                            "cn": [
+                                                                                {
+                                                                                    "type": "fixedfunction",
+                                                                                    "reference": {
+                                                                                        "name": "items",
+                                                                                        "type": "array"
+                                                                                    },
+                                                                                    "codeClass": null,
+                                                                                    "userConfig": {
+                                                                                        "designer|params": [
+                                                                                            "view",
+                                                                                            "rowIndex",
+                                                                                            "colIndex",
+                                                                                            "item",
+                                                                                            "e",
+                                                                                            "record",
+                                                                                            "row"
+                                                                                        ],
+                                                                                        "fn": "handler",
+                                                                                        "implHandler": [
+                                                                                            "userConstants.actionRow = record;",
+                                                                                            "",
+                                                                                            "userConstants.me.deleteUser();",
+                                                                                            ""
+                                                                                        ]
+                                                                                    },
+                                                                                    "designerId": "39c6ea04-a493-4647-a048-c96110a88e39"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "Ext.grid.View",
+                                                                    "reference": {
+                                                                        "name": "viewConfig",
+                                                                        "type": "object"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "designerId": "d85078b1-975d-43f3-b94a-1b2a65f80185"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.toolbar.Toolbar",
+                                                                    "reference": {
+                                                                        "name": "dockedItems",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "dock": "top"
+                                                                    },
+                                                                    "designerId": "0a98167d-e455-4bd1-a2fa-983e37f2ade2",
+                                                                    "cn": [
+                                                                        {
+                                                                            "type": "Ext.button.Button",
+                                                                            "reference": {
+                                                                                "name": "items",
+                                                                                "type": "array"
+                                                                            },
+                                                                            "codeClass": null,
+                                                                            "userConfig": {
+                                                                                "layout|flex": null,
+                                                                                "padding": null,
+                                                                                "text": "Add User"
+                                                                            },
+                                                                            "designerId": "40101a1d-859f-4823-ace7-0580f0e34ddb",
+                                                                            "cn": [
+                                                                                {
+                                                                                    "type": "fixedfunction",
+                                                                                    "reference": {
+                                                                                        "name": "items",
+                                                                                        "type": "array"
+                                                                                    },
+                                                                                    "codeClass": null,
+                                                                                    "userConfig": {
+                                                                                        "designer|params": [
+                                                                                            "button",
+                                                                                            "e"
+                                                                                        ],
+                                                                                        "fn": "handler",
+                                                                                        "implHandler": [
+                                                                                            "",
+                                                                                            "var userWindow = Ext.create(\"widget.PermissionUserWindow\");",
+                                                                                            "",
+                                                                                            "userWindow.show();",
+                                                                                            ""
+                                                                                        ]
+                                                                                    },
+                                                                                    "designerId": "2473f671-ce85-4c10-83bc-da5517f1cdd4"
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "type": "Ext.toolbar.Separator",
+                                                                            "reference": {
+                                                                                "name": "items",
+                                                                                "type": "array"
+                                                                            },
+                                                                            "codeClass": null,
+                                                                            "userConfig": {
+                                                                                "layout|flex": null
+                                                                            },
+                                                                            "designerId": "82b8beea-481e-4248-bbe3-7f7b55d92133"
+                                                                        },
+                                                                        {
+                                                                            "type": "Ext.form.field.Text",
+                                                                            "reference": {
+                                                                                "name": "items",
+                                                                                "type": "array"
+                                                                            },
+                                                                            "codeClass": null,
+                                                                            "userConfig": {
+                                                                                "fieldLabel": "Filtering",
+                                                                                "labelWidth": 60,
+                                                                                "layout|flex": null
+                                                                            },
+                                                                            "designerId": "3c90d0cc-07bb-4deb-8887-909d41465f8b"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "Ext.toolbar.Paging",
+                                                                    "reference": {
+                                                                        "name": "dockedItems",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "displayInfo": true,
+                                                                        "dock": "bottom",
+                                                                        "width": 360
+                                                                    },
+                                                                    "designerId": "37f3360d-79a4-4775-8134-c591c870a45b"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

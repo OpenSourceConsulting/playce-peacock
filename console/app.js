@@ -48,7 +48,9 @@ Ext.application({
         'AlmGroupModel',
         'InstanceMonitoringModel',
         'AlmJobModel',
-        'AlmRepositoryModel'
+        'AlmRepositoryModel',
+        'PermissionModel',
+        'MenuModel'
     ],
     stores: [
         'MenuTreeStore',
@@ -87,7 +89,9 @@ Ext.application({
         'ComboAlmRepositoryStore',
         'InstanceGroupStore',
         'tempSpaceStore',
-        'tempUserStore'
+        'tempUserStore',
+        'PermissionStore',
+        'permissionMenuTreeStore'
     ],
     views: [
         'peacockViewport',
@@ -102,7 +106,7 @@ Ext.application({
         'rhevmContainer',
         'RegTemplateWindow',
         'RegRhevmWindow',
-        'userContainer',
+        'adminContainer',
         'blankPanel',
         'almContainer',
         'AlmUserWindow',
@@ -126,7 +130,10 @@ Ext.application({
         'TemplateSummaryWindow',
         'AgentSummaryWindow',
         'AlarmCriticalWindow',
-        'AlarmWarningWindow'
+        'AlarmWarningWindow',
+        'NewPermissionWindow',
+        'EditPermissionWindow',
+        'PermissionUserWindow'
     ],
     controllers: [
         'LoginController',
@@ -137,7 +144,7 @@ Ext.application({
         'SoftwareInstallController',
         'RHEVMController',
         'ALMController',
-        'UserController',
+        'AdminController',
         'DashBoardController'
     ],
     name: 'MyApp',

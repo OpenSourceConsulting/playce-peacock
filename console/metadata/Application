@@ -15,7 +15,7 @@
             "SoftwareInstallController",
             "RHEVMController",
             "ALMController",
-            "UserController",
+            "AdminController",
             "DashBoardController"
         ],
         "models": [
@@ -42,7 +42,9 @@
             "AlmGroupModel",
             "InstanceMonitoringModel",
             "AlmJobModel",
-            "AlmRepositoryModel"
+            "AlmRepositoryModel",
+            "PermissionModel",
+            "MenuModel"
         ],
         "name": "MyApp",
         "requires": [
@@ -85,7 +87,9 @@
             "ComboAlmRepositoryStore",
             "InstanceGroupStore",
             "tempSpaceStore",
-            "tempUserStore"
+            "tempUserStore",
+            "PermissionStore",
+            "permissionMenuTreeStore"
         ],
         "views": [
             "peacockViewport",
@@ -100,7 +104,7 @@
             "rhevmContainer",
             "RegTemplateWindow",
             "RegRhevmWindow",
-            "userContainer",
+            "adminContainer",
             "blankPanel",
             "almContainer",
             "AlmUserWindow",
@@ -124,7 +128,10 @@
             "TemplateSummaryWindow",
             "AgentSummaryWindow",
             "AlarmCriticalWindow",
-            "AlarmWarningWindow"
+            "AlarmWarningWindow",
+            "NewPermissionWindow",
+            "EditPermissionWindow",
+            "PermissionUserWindow"
         ]
     },
     "designerId": "application"

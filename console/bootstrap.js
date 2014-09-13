@@ -30,7 +30,7 @@ Ext.Loader.addClassPathMappings({
   "almConstants": "app/controller/ALMController.js",
   "dashboardConstants": "app/controller/DashBoardController.js",
   "instancesConstants": "app/controller/InstancesController.js",
-  "userConstants": "app/controller/UserController.js"
+  "userConstants": "app/controller/AdminController.js"
 });
 Ext.ClassManager.addNameAlternateMappings({
   "Ext.AbstractComponent": [],
@@ -868,6 +868,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "GLOBAL": [],
   "MyApp.Application": [],
   "MyApp.controller.ALMController": [],
+  "MyApp.controller.AdminController": [],
   "MyApp.controller.DashBoardController": [],
   "MyApp.controller.GlobalController": [],
   "MyApp.controller.InstancesController": [],
@@ -877,7 +878,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.controller.RHEVMController": [],
   "MyApp.controller.SettingsMenuController": [],
   "MyApp.controller.SoftwareInstallController": [],
-  "MyApp.controller.UserController": [],
   "MyApp.model.AccountModel": [],
   "MyApp.model.AlmGroupModel": [],
   "MyApp.model.AlmJobModel": [],
@@ -890,8 +890,10 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.model.HypervisorModel": [],
   "MyApp.model.InstanceMonitoringModel": [],
   "MyApp.model.MachineModel": [],
+  "MyApp.model.MenuModel": [],
   "MyApp.model.NetworkModel": [],
   "MyApp.model.PackageModel": [],
+  "MyApp.model.PermissionModel": [],
   "MyApp.model.ProjectModel": [],
   "MyApp.model.SessionModel": [],
   "MyApp.model.SpaceSummaryModel": [],
@@ -925,6 +927,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.MachineStore": [],
   "MyApp.store.MenuTreeStore": [],
   "MyApp.store.MonitoringPopupStore": [],
+  "MyApp.store.PermissionStore": [],
   "MyApp.store.SessionStore": [],
   "MyApp.store.TemplateStore": [],
   "MyApp.store.UserStore": [],
@@ -935,6 +938,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.instanceMonitoringChartStore": [],
   "MyApp.store.instanceOsListStore": [],
   "MyApp.store.instanceSoftwareListStore": [],
+  "MyApp.store.permissionMenuTreeStore": [],
   "MyApp.store.tempChartData": [],
   "MyApp.store.tempGridData": [],
   "MyApp.store.tempSpaceStore": [],
@@ -950,12 +954,15 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.CLIWindow": [],
   "MyApp.view.CrontabWindow": [],
   "MyApp.view.EditInstanceWindow": [],
+  "MyApp.view.EditPermissionWindow": [],
   "MyApp.view.FstabWindow": [],
   "MyApp.view.Main": [],
   "MyApp.view.ManageAccountWindow": [],
   "MyApp.view.ManageGroupWindow": [],
   "MyApp.view.MonitoringChartWindow": [],
   "MyApp.view.MyForm33": [],
+  "MyApp.view.NewPermissionWindow": [],
+  "MyApp.view.PermissionUserWindow": [],
   "MyApp.view.RegAccountWindow": [],
   "MyApp.view.RegInstanceGroupWindow": [],
   "MyApp.view.RegInstanceWindow": [],
@@ -965,6 +972,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.UserWindow": [],
   "MyApp.view.Viewport": [],
   "MyApp.view.VmSummaryWindow": [],
+  "MyApp.view.adminContainer": [],
   "MyApp.view.almContainer": [],
   "MyApp.view.almProjectJobWindow": [],
   "MyApp.view.almProjectSpaceWindow": [],
@@ -977,7 +985,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.softwareConfigWindow": [],
   "MyApp.view.softwareInstallLogWindow": [],
   "MyApp.view.softwareInstallWindow": [],
-  "MyApp.view.userContainer": [],
   "RHEVMConstants": [],
   "almConstants": [],
   "dashboardConstants": [],
@@ -1988,6 +1995,7 @@ Ext.ClassManager.addNameAliasMappings({
   "GLOBAL": [],
   "MyApp.Application": [],
   "MyApp.controller.ALMController": [],
+  "MyApp.controller.AdminController": [],
   "MyApp.controller.DashBoardController": [],
   "MyApp.controller.GlobalController": [],
   "MyApp.controller.InstancesController": [],
@@ -1997,7 +2005,6 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.controller.RHEVMController": [],
   "MyApp.controller.SettingsMenuController": [],
   "MyApp.controller.SoftwareInstallController": [],
-  "MyApp.controller.UserController": [],
   "MyApp.model.AccountModel": [],
   "MyApp.model.AlmGroupModel": [],
   "MyApp.model.AlmJobModel": [],
@@ -2010,8 +2017,10 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.model.HypervisorModel": [],
   "MyApp.model.InstanceMonitoringModel": [],
   "MyApp.model.MachineModel": [],
+  "MyApp.model.MenuModel": [],
   "MyApp.model.NetworkModel": [],
   "MyApp.model.PackageModel": [],
+  "MyApp.model.PermissionModel": [],
   "MyApp.model.ProjectModel": [],
   "MyApp.model.SessionModel": [],
   "MyApp.model.SpaceSummaryModel": [],
@@ -2045,6 +2054,7 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.store.MachineStore": [],
   "MyApp.store.MenuTreeStore": [],
   "MyApp.store.MonitoringPopupStore": [],
+  "MyApp.store.PermissionStore": [],
   "MyApp.store.SessionStore": [],
   "MyApp.store.TemplateStore": [],
   "MyApp.store.UserStore": [],
@@ -2055,6 +2065,7 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.store.instanceMonitoringChartStore": [],
   "MyApp.store.instanceOsListStore": [],
   "MyApp.store.instanceSoftwareListStore": [],
+  "MyApp.store.permissionMenuTreeStore": [],
   "MyApp.store.tempChartData": [],
   "MyApp.store.tempGridData": [],
   "MyApp.store.tempSpaceStore": [],
@@ -2092,6 +2103,9 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.EditInstanceWindow": [
     "widget.EditInstanceWindow"
   ],
+  "MyApp.view.EditPermissionWindow": [
+    "widget.EditPermissionWindow"
+  ],
   "MyApp.view.FstabWindow": [
     "widget.FstabWindow"
   ],
@@ -2109,6 +2123,12 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.MyForm33": [
     "widget.myform33"
+  ],
+  "MyApp.view.NewPermissionWindow": [
+    "widget.NewPermissionWindow"
+  ],
+  "MyApp.view.PermissionUserWindow": [
+    "widget.PermissionUserWindow"
   ],
   "MyApp.view.RegAccountWindow": [
     "widget.RegAccountWindow"
@@ -2134,6 +2154,9 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.Viewport": [],
   "MyApp.view.VmSummaryWindow": [
     "widget.VmSummaryWindow"
+  ],
+  "MyApp.view.adminContainer": [
+    "widget.adminContainer"
   ],
   "MyApp.view.almContainer": [
     "widget.almcontainer"
@@ -2170,9 +2193,6 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.softwareInstallWindow": [
     "widget.softwareInstallWindow"
-  ],
-  "MyApp.view.userContainer": [
-    "widget.usercontainer"
   ],
   "RHEVMConstants": [],
   "almConstants": [],

@@ -1,0 +1,105 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "PermissionModel"
+    },
+    "designerId": "744406ce-526a-478d-960d-1144e07b8e50",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "permId",
+                "type": "string"
+            },
+            "designerId": "62c7b696-dee1-4f24-861f-e54d5552dd72"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "permNm",
+                "type": "string"
+            },
+            "designerId": "2611a61f-a32e-41d2-a5e0-ff17567db958"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "users",
+                "type": "int"
+            },
+            "designerId": "7465557a-11cf-4e97-a384-5b900c537841"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "regUserId",
+                "type": "int"
+            },
+            "designerId": "2324437a-bf09-421e-b1bd-366d28697435"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "regDt",
+                "type": "string"
+            },
+            "designerId": "3b41cdba-8c9b-4a13-9a09-e4a34f81232a"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "updUserId",
+                "type": "string"
+            },
+            "designerId": "20798962-4617-47fd-b904-121bb9dfd603"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "updDt",
+                "type": "string"
+            },
+            "designerId": "97d0f022-5482-4a68-a4be-9d921c0906c8"
+        }
+    ]
+}

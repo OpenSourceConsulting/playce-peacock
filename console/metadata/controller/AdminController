@@ -6,7 +6,7 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userClassName": "UserController"
+        "designer|userClassName": "AdminController"
     },
     "designerId": "95851f8a-909a-42c8-9fab-b107e59de51f",
     "cn": [
@@ -67,6 +67,42 @@
                 ]
             },
             "designerId": "2f70fe96-8006-453d-b9d5-917fcd72cf10"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "init"
+                ],
+                "fn": "searchUserPermission",
+                "implHandler": [
+                    "//User Grid Data Search",
+                    "",
+                    "if(init) {",
+                    "",
+                    "    Ext.getCmp(\"searchUserPermissionName\").setValue(\"\");",
+                    "    Ext.getCmp(\"userPermissionGrid\").reconfigure(Ext.getCmp(\"userPermissionGrid\").store, Ext.getCmp(\"userPermissionGrid\").initialConfig.columns);",
+                    "",
+                    "}",
+                    "",
+                    "userConstants.selectRow = null;",
+                    "",
+                    "Ext.getCmp(\"userPermissionGrid\").getStore().load({",
+                    "    params:{",
+                    "        search : Ext.getCmp(\"searchUserPermissionName\").getRawValue()",
+                    "    }",
+                    "});",
+                    "",
+                    "var detailPanel = Ext.getCmp(\"userPermissionDetailPanel\");",
+                    "detailPanel.layout.setActiveItem(0);"
+                ]
+            },
+            "designerId": "da970b98-d323-43f7-80b5-89a6fd34c30f"
         },
         {
             "type": "controlleraction",
@@ -194,7 +230,7 @@
                     "if(type != 'new') {",
                     "",
                     "    userWindow.setTitle(\"Edit User\");",
-                    "    ",
+                    "",
                     "    if(user_id == null) {",
                     "        user_id = userConstants.actionRow.get(\"userId\");",
                     "    }",
@@ -302,6 +338,73 @@
                 ]
             },
             "designerId": "56047308-051c-4d87-ab38-6a58f8bb2ead"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#adminTabPanel",
+                "designer|targetType": "Ext.tab.Panel",
+                "fn": "onAdminTabPanelTabChange",
+                "implHandler": [
+                    "if(newCard.title == \"User\"){",
+                    "",
+                    "    this.searchUser(true);",
+                    "",
+                    "} else {",
+                    "",
+                    "    this.searchUserPermission(true);",
+                    "",
+                    "}"
+                ],
+                "name": "tabchange",
+                "scope": "me"
+            },
+            "designerId": "daaf2361-e54b-4d2a-b379-c6086ca2a4ff"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#userPermissionGrid",
+                "designer|targetType": "Ext.grid.Panel",
+                "fn": "onUserPermissionGridCellClick",
+                "implHandler": [
+                    "//User Grid Item Click",
+                    "if(cellIndex > 3) {",
+                    "    //Action Column 예외처리",
+                    "    return;",
+                    "}",
+                    "",
+                    "if(userConstants.selectRow == null || userConstants.selectRow.get(\"permId\") != record.get(\"permId\")) {",
+                    "",
+                    "    //User 상세 조회",
+                    "    ",
+                    "    var detailPanel = Ext.getCmp(\"userPermissionDetailPanel\");",
+                    "    detailPanel.layout.setActiveItem(1);",
+                    "    ",
+                    "    //User Data Loading",
+                    "        ",
+                    "    Ext.getCmp(\"permissionMenuTreeGrid\").getStore().load({",
+                    "        params:{",
+                    "            permId : record.get(\"permId\")",
+                    "        }",
+                    "    });",
+                    "",
+                    "}"
+                ],
+                "name": "cellclick",
+                "scope": "me"
+            },
+            "designerId": "c79c7448-c55c-4a4e-904e-36b962224096"
         }
     ]
 }

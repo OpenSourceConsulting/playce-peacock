@@ -22,7 +22,7 @@ Ext.define('MyApp.view.peacockViewport', {
         'MyApp.view.instancesContainer',
         'MyApp.view.rhevmContainer',
         'MyApp.view.almContainer',
-        'MyApp.view.userContainer',
+        'MyApp.view.adminContainer',
         'Ext.Img',
         'Ext.toolbar.Spacer',
         'Ext.toolbar.Toolbar',
@@ -191,7 +191,7 @@ Ext.define('MyApp.view.peacockViewport', {
                                     xtype: 'almcontainer'
                                 },
                                 {
-                                    xtype: 'usercontainer'
+                                    xtype: 'adminContainer'
                                 }
                             ]
                         }

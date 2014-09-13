@@ -1,0 +1,191 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "EditPermissionWindow",
+        "designer|userClassName": "EditPermissionWindow",
+        "height": 135,
+        "modal": true,
+        "resizable": false,
+        "title": "Edit Permission",
+        "width": 466
+    },
+    "configAlternates": {
+        "resizable": "boolean"
+    },
+    "designerId": "c4ef609f-98a6-4eed-8be8-6ff5b583ba15",
+    "cn": [
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyPadding": 10,
+                "header": false,
+                "padding": 10,
+                "title": "My Form"
+            },
+            "designerId": "eb2422fc-b0c5-48b3-8090-b0d7ac837c12",
+            "cn": [
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "Permission Name",
+                        "labelWidth": 120,
+                        "layout|anchor": "100%",
+                        "margin": "0 0 10 0"
+                    },
+                    "designerId": "ec642eed-e49e-4489-9ba8-9880077dcfb8"
+                }
+            ]
+        },
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "container|pack": "center",
+                "designer|uiInterfaceName": "footer",
+                "dock": "bottom",
+                "ui": "footer"
+            },
+            "designerId": "152351fb-833b-42ce-be8f-661630a5c9ca",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": null,
+                        "itemId": null,
+                        "layout|flex": null,
+                        "margin": "0 15 0 0",
+                        "padding": "2 5 2 5",
+                        "text": "Save"
+                    },
+                    "designerId": "08bd1800-c38c-4bf8-8abb-e4adf452ccbf",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "button",
+                                    "e"
+                                ],
+                                "fn": "handler",
+                                "implHandler": [
+                                    "var projectForm = Ext.getCmp(\"addProjectForm\");",
+                                    "",
+                                    "if(projectForm.isValid()) {",
+                                    "",
+                                    "     Ext.Ajax.request({",
+                                    "         url: GLOBAL.urlPrefix + \"alm/project\",",
+                                    "         method: 'POST',",
+                                    "         headers: { 'Content-Type': 'application/json' },",
+                                    "         waitMsg: 'Saving Data...',",
+                                    "         jsonData: projectForm.getForm().getFieldValues(),",
+                                    "         success: function (response) {",
+                                    "             ",
+                                    "            var responseData = Ext.JSON.decode(response.responseText);",
+                                    "            ",
+                                    "             if(responseData.success) {",
+                                    "                 ",
+                                    "                Ext.Msg.alert('Success', responseData.msg);",
+                                    "    ",
+                                    "                Ext.getCmp('almProjectGrid').getStore().reload();",
+                                    "                projectForm.up('window').close();",
+                                    "                 ",
+                                    "             } else {",
+                                    "                 ",
+                                    "                Ext.Msg.alert('Failure', responseData.msg);",
+                                    "                 ",
+                                    "             }",
+                                    "            ",
+                                    "        },",
+                                    "        failure: function (response) {",
+                                    "            var msg = Ext.JSON.decode(response.responseText).msg;",
+                                    "",
+                                    "            Ext.Msg.alert('Failure', msg);",
+                                    "        }",
+                                    "     });",
+                                    "",
+                                    "}",
+                                    ""
+                                ]
+                            },
+                            "designerId": "2653ec92-d3d6-4ae5-8d2b-ffe1ad41fcc5"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": null,
+                        "itemId": null,
+                        "layout|flex": null,
+                        "margin": "0 0 0 0",
+                        "padding": "2 5 2 5",
+                        "text": "Cancel"
+                    },
+                    "designerId": "6babb7b9-4c5c-48a5-8993-8d1ef0751f51",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "button",
+                                    "e"
+                                ],
+                                "fn": "handler",
+                                "implHandler": [
+                                    "Ext.MessageBox.confirm('Confirm', '작업을 취소하시겠습니까?', function(btn){",
+                                    "",
+                                    "    if(btn == \"yes\"){",
+                                    "        button.up(\"window\").close();",
+                                    "    }",
+                                    "",
+                                    "});",
+                                    ""
+                                ]
+                            },
+                            "designerId": "06097d5c-8d66-4f17-b036-1a59145685d3"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -62,7 +62,7 @@ Ext.define('MyApp.store.MenuTreeStore', {
                         activeRow: 3
                     },
                     {
-                        text: '<b>User Management</b>',
+                        text: '<b>Administration</b>',
                         id: 'MENU_05',
                         leaf: true,
                         iconCls: 'no-icon',
