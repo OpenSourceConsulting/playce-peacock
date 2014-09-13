@@ -124,12 +124,47 @@ public class PermissionController {
 		return jsonRes;
 	}
 	
+	@RequestMapping("/updatemenus")
+	public @ResponseBody SimpleJsonResponse updateMenus(PermissionMenuMapDto param, @RequestParam(value="permMenus") String json){
+		
+		SimpleJsonResponse jsonRes = new SimpleJsonResponse();
+		
+		List<PermissionMenuMapDto> menus = JSONUtil.jsonToList(json, PermissionMenuMapDto.class);
+		
+		service.updateMenus(param, menus);
+				
+		jsonRes.setMsg("Permission Detail이 정상적으로 수정되었습니다.");
+		
+		
+		return jsonRes;
+	}
+	
 	@RequestMapping("/delete")
 	public @ResponseBody SimpleJsonResponse delete(PermissionDto param){
 		
 		SimpleJsonResponse jsonRes = new SimpleJsonResponse();
 		service.deletePermission(param);
 		jsonRes.setMsg("Permission이 정상적으로 삭제되었습니다.");
+		
+		return jsonRes;
+	}
+	
+	@RequestMapping("/insertuser")
+	public @ResponseBody SimpleJsonResponse insertUser(PermissionUserMapDto param){
+		
+		SimpleJsonResponse jsonRes = new SimpleJsonResponse();
+		service.insertPermissionUser(param);
+		jsonRes.setMsg("User가 정상적으로 등록(권한 부여)되었습니다.");
+		
+		return jsonRes;
+	}
+	
+	@RequestMapping("/deleteuser")
+	public @ResponseBody SimpleJsonResponse deleteUser(PermissionUserMapDto param){
+		
+		SimpleJsonResponse jsonRes = new SimpleJsonResponse();
+		service.deletePermissionUser(param);
+		jsonRes.setMsg("User가 정상적으로 삭제(권한 해제)되었습니다.");
 		
 		return jsonRes;
 	}

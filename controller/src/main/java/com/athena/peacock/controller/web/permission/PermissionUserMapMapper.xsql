@@ -72,15 +72,11 @@
         	,USER_ID
         	,REG_USER_ID
         	,REG_DT
-        	,UPD_USER_ID
-        	,UPD_DT
         ) VALUES (
         	#{permId}
         	,#{userId}
         	,#{regUserId}
-        	,#{regDt}
-        	,#{updUserId}
-        	,#{updDt}
+        	,NOW()
         )
     </insert>
     <update id="updatePermissionUserMap" parameterType="com.athena.peacock.controller.web.permission.PermissionUserMapDto" >

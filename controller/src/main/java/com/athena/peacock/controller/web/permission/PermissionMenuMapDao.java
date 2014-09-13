@@ -71,7 +71,10 @@ public class PermissionMenuMapDao extends AbstractBaseDao {
 	public void updatePermissionMenuMap(PermissionMenuMapDto param){
 		sqlSession.update("PermissionMenuMap.updatePermissionMenuMap", param);
 	}
-	
+	/**
+	 * permId 모두 삭제함
+	 * @param param
+	 */
 	public void deletePermissionMenuMap(PermissionMenuMapDto param){
 		sqlSession.delete("PermissionMenuMap.deletePermissionMenuMap", param);
 	}

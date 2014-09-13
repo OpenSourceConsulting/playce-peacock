@@ -50,6 +50,9 @@ public class PermissionService {
 	@Autowired
 	private PermissionMenuMapDao menuMapDao;
 	
+	@Autowired
+	private PermissionUserMapDao userMapDao;
+	
 	public PermissionService() {
 		// TODO Auto-generated constructor stub
 	}
@@ -60,6 +63,19 @@ public class PermissionService {
 	
 	public void createPermission(PermissionDto dto, List<PermissionMenuMapDto> menus){
 		insertPermission(dto);
+		
+		for (PermissionMenuMapDto permissionMenuMapDto : menus) {
+			
+			permissionMenuMapDto.setPermId(dto.getPermId());
+			
+			menuMapDao.insertPermissionMenuMap(permissionMenuMapDto);
+		}
+		
+	}
+	
+	public void updateMenus(PermissionMenuMapDto dto, List<PermissionMenuMapDto> menus){
+		
+		menuMapDao.deletePermissionMenuMap(dto);//permId 모두 삭제함
 		
 		for (PermissionMenuMapDto permissionMenuMapDto : menus) {
 			
@@ -109,6 +125,14 @@ public class PermissionService {
 		menuMapDao.deletePermissionMenuMap(menuMapDto);
 		
 		dao.deletePermission(param);
+	}
+	
+	public void insertPermissionUser(PermissionUserMapDto param){
+		userMapDao.insertPermissionUserMap(param);
+	}
+	
+	public void deletePermissionUser(PermissionUserMapDto param){
+		userMapDao.deletePermissionUserMap(param);
 	}
 
 }
