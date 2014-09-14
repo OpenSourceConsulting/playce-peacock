@@ -5,10 +5,10 @@
 
 	<insert id="insertSoftware" parameterType="com.athena.peacock.controller.web.software.SoftwareDto">
 		INSERT INTO software_tbl 
-			        (MACHINE_ID, SOFTWARE_ID, INSTALL_LOCATION, INSTALL_STAT, INSTALL_LOG, DESCRIPTION
-			        , DELETE_YN, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
-		     VALUES (#{machineId}, #{softwareId}, #{installLocation}, #{installStat}, #{installLog}, #{description}
-		     		, #{deleteYn}, #{regUserId}, NOW(), #{updUserId}, NOW())
+			        (MACHINE_ID, SOFTWARE_ID, INSTALL_LOCATION, INSTALL_STAT, INSTALL_LOG, SERVICE_STOP_CMD, SERVICE_START_CMD
+			        , DESCRIPTION, DELETE_YN, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
+		     VALUES (#{machineId}, #{softwareId}, #{installLocation}, #{installStat}, #{installLog}, #{serviceStopCmd}, #{serviceStartCmd}
+		     		, #{description}, #{deleteYn}, #{regUserId}, NOW(), #{updUserId}, NOW())
 	</insert>
 
 	<select id="getSoftware" parameterType="com.athena.peacock.controller.web.software.SoftwareDto" resultType="com.athena.peacock.controller.web.software.SoftwareDto">
@@ -17,6 +17,8 @@
 		       , INSTALL_LOCATION AS installLocation
 		       , INSTALL_STAT AS installStat
 		       , INSTALL_LOG AS installLog
+		       , SERVICE_STOP_CMD AS serviceStopCmd
+		       , SERVICE_START_CMD AS serviceStartCmd
 		       , DESCRIPTION AS description
 		       , DELETE_YN AS deleteYn
 			   , REG_USER_ID AS regUserId
@@ -33,6 +35,8 @@
 		   SET INSTALL_LOCATION = #{installLocation}
 		   	   , INSTALL_STAT = #{installStat}
 		       , INSTALL_LOG = #{installLog}
+		       , SERVICE_STOP_CMD = #{serviceStopCmd}
+		       , SERVICE_START_CMD = #{serviceStartCmd}
 		       , DESCRIPTION = #{description}
 		       , DELETE_YN = #{deleteYn}
 			   , UPD_USER_ID = #{updUserId}
@@ -66,7 +70,9 @@
 		SELECT MACHINE_ID AS machineId
 		       , SOFTWARE_ID AS softwareId
 		       , INSTALL_LOCATION AS installLocation
-		       , INSTALL_STAT = #{installStat}
+		       , INSTALL_STAT AS installStat
+		       , SERVICE_STOP_CMD AS serviceStopCmd
+		       , SERVICE_START_CMD AS serviceStartCmd
 		       , DESCRIPTION AS description
 		       , DELETE_YN AS deleteYn
 			   , REG_USER_ID AS regUserId
@@ -88,8 +94,7 @@
 		SELECT COUNT(*)
 		  FROM software_repo_tbl A JOIN software_tbl B
 			ON A.SOFTWARE_ID = B.SOFTWARE_ID
-		 WHERE B.DELETE_YN = 'N'
- 		   AND B.MACHINE_ID = #{machineId}
+		 WHERE B.MACHINE_ID = #{machineId}
 	</select>
 	
 	<select id="getSoftwareInstallList" parameterType="com.athena.peacock.controller.web.machine.MachineDto" resultType="com.athena.peacock.controller.web.software.SoftwareDto">
@@ -108,14 +113,15 @@
 					WHEN 'INST_ERROR' THEN '설치 에러'
 					WHEN 'UNINST_ERROR' THEN '삭제 에러'
 				 END AS installStat
+		       , B.SERVICE_STOP_CMD AS serviceStopCmd
+		       , B.SERVICE_START_CMD AS serviceStartCmd
 			   , B.REG_USER_ID AS regUserId
 			   , B.REG_DT AS regDt
 			   , B.UPD_USER_ID AS updUserId
 			   , B.UPD_DT AS updDt
 		  FROM software_repo_tbl A JOIN software_tbl B
 			ON A.SOFTWARE_ID = B.SOFTWARE_ID
-		 WHERE B.DELETE_YN = 'N'
- 		   AND B.MACHINE_ID = #{machineId}
+		 WHERE B.MACHINE_ID = #{machineId}
 		 LIMIT #{start}, #{limit}
 	</select>
 	
@@ -135,14 +141,15 @@
 					WHEN 'INST_ERROR' THEN '설치 에러'
 					WHEN 'UNINST_ERROR' THEN '삭제 에러'
 				 END AS installStat
+		       , B.SERVICE_STOP_CMD AS serviceStopCmd
+		       , B.SERVICE_START_CMD AS serviceStartCmd
 			   , B.REG_USER_ID AS regUserId
 			   , B.REG_DT AS regDt
 			   , B.UPD_USER_ID AS updUserId
 			   , B.UPD_DT AS updDt
 		  FROM software_repo_tbl A JOIN software_tbl B
 			ON A.SOFTWARE_ID = B.SOFTWARE_ID
-		 WHERE B.DELETE_YN = 'N'
- 		   AND B.MACHINE_ID = #{machineId}
+		 WHERE B.MACHINE_ID = #{machineId}
 	</select>
 
 </mapper>

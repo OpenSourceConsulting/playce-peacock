@@ -47,6 +47,18 @@ public class ConfigService {
 	@Inject
 	@Named("configDao")
 	private ConfigDao configDao;
+
+	public List<String> getConfigFileNames(ConfigDto config) {
+		return configDao.getConfigFileNames(config);
+	}
+
+	public List<ConfigDto> getConfigFileVersions(ConfigDto config) {
+		return configDao.getConfigFileVersions(config);
+	}
+	
+	public ConfigDto getConfig(ConfigDto config) throws Exception {
+		return configDao.getConfig(config);
+	}
 	
 	public void insertConfigList(List<ConfigDto> configList) throws Exception {
 		for (ConfigDto config : configList) {
@@ -59,19 +71,12 @@ public class ConfigService {
 	}
 	
 	public void updateConfig(ConfigDto config) throws Exception {
-		
-		// Agent의 물리 파일 변경 (FileWriteAction 이용)
-		
 		configDao.deleteConfig(config);
 		configDao.insertConfig(config);
 	}
 	
 	public void deleteConfig(ConfigDto config) throws Exception {
 		configDao.deleteConfig(config);
-	}
-	
-	public ConfigDto getConfig(ConfigDto config) throws Exception {
-		return configDao.getConfig(config);
 	}
 
 	public int getConfigListCnt(ConfigDto config) throws Exception {

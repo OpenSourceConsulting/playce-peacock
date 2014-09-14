@@ -42,6 +42,8 @@ public class SoftwareDto extends BaseDto {
 	private String installLocation;
 	private String installStat;
 	private String installLog;
+	private String serviceStopCmd;
+	private String serviceStartCmd;
 	private String description;
 	private String deleteYn;
 
@@ -122,6 +124,34 @@ public class SoftwareDto extends BaseDto {
 		this.installLog = installLog;
 	}
 	
+	/**
+	 * @return the serviceStopCmd
+	 */
+	public String getServiceStopCmd() {
+		return serviceStopCmd;
+	}
+
+	/**
+	 * @param serviceStopCmd the serviceStopCmd to set
+	 */
+	public void setServiceStopCmd(String serviceStopCmd) {
+		this.serviceStopCmd = serviceStopCmd;
+	}
+
+	/**
+	 * @return the serviceStartCmd
+	 */
+	public String getServiceStartCmd() {
+		return serviceStartCmd;
+	}
+
+	/**
+	 * @param serviceStartCmd the serviceStartCmd to set
+	 */
+	public void setServiceStartCmd(String serviceStartCmd) {
+		this.serviceStartCmd = serviceStartCmd;
+	}
+
 	/**
 	 * @return the description
 	 */

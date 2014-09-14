@@ -480,6 +480,8 @@ public class ProvisioningHandler {
 		software.setMachineId(provisioningDetail.getMachineId());
 		software.setInstallLocation(apacheHome + "," + serverHome + "/bin," + serverHome + "/conf," + serverHome + "/log," + serverHome + "/run," + serverHome + "/www");
 		software.setInstallStat("INSTALLING");
+		software.setServiceStopCmd("WORKING_DIR:,CMD:service,ARGS:" + user + "_httpd stop");
+		software.setServiceStartCmd("WORKING_DIR:,CMD:service,ARGS:" + user + "_httpd start");
 		software.setDescription("Apache Provisioning");
 		software.setDeleteYn("N");
 		software.setRegUserId(provisioningDetail.getUserId());
@@ -913,6 +915,8 @@ public class ProvisioningHandler {
 		software.setMachineId(provisioningDetail.getMachineId());
 		software.setInstallLocation(serverHome + "/apps," + serverHome + "/bin," + serverHome + "/Servers," + serverHome + "/svrlogs," + serverHome + "/wily," + serverHome + "/jboss-ews-2.1,");
 		software.setInstallStat("INSTALLING");
+		software.setServiceStopCmd("WORKING_DIR:,CMD:service,ARGS:jbossews stop");
+		software.setServiceStartCmd("WORKING_DIR:,CMD:service,ARGS:jbossews start");
 		software.setDescription("Tomcat Provisioning");
 		software.setDeleteYn("N");
 		software.setRegUserId(provisioningDetail.getUserId());
@@ -1351,6 +1355,8 @@ public class ProvisioningHandler {
 		software.setMachineId(provisioningDetail.getMachineId());
 		software.setInstallLocation(jbossHome + "," + serverBase + ", " + serverHome + "/apps," + serverHome + "/svrlogs," + serverHome + "/wily");
 		software.setInstallStat("INSTALLING");
+		software.setServiceStopCmd("WORKING_DIR:" + serverBase + "/" + serverName + ",CMD:kill.sh,ARGS:");
+		software.setServiceStartCmd("WORKING_DIR:" + serverBase + "/" + serverName + ",CMD:startNode.sh,ARGS:notail");
 		software.setDescription("JBoss Provisioning");
 		software.setDeleteYn("N");
 		software.setRegUserId(provisioningDetail.getUserId());

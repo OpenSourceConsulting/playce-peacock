@@ -3,6 +3,23 @@
 
 <mapper namespace="ConfigMapper">
 
+	<select id="getConfigFileNames" parameterType="com.athena.peacock.controller.web.config.ConfigDto" resultType="String">
+		SELECT DISTINCT(CONFIG_FILE_NAME)
+		  FROM config_tbl
+		 WHERE MACHINE_ID = #{machineId}
+		   AND SOFTWARE_ID = #{softwareId}
+	</select>
+	
+	<select id="getConfigFileVersions" parameterType="com.athena.peacock.controller.web.config.ConfigDto" resultType="com.athena.peacock.controller.web.config.ConfigDto">
+		SELECT CONFIG_FILE_ID AS configFileId
+			   , REG_DT AS regDt
+		  FROM config_tbl
+		 WHERE MACHINE_ID = #{machineId}
+		   AND SOFTWARE_ID = #{softwareId}
+		   AND CONFIG_FILE_NAME = #{configFileName}
+		 ORDER BY CONFIG_FILE_ID DESC
+	</select>
+	
 	<insert id="insertConfig" parameterType="com.athena.peacock.controller.web.config.ConfigDto">
 		<selectKey keyProperty="configFileId" resultType="int" order="BEFORE" statementType="PREPARED">
 			SELECT IFNULL(MAX(CONFIG_FILE_ID), 0) + 1

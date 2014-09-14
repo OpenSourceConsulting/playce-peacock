@@ -44,6 +44,7 @@ public class ConfigDto extends BaseDto {
 	private String configFileName;
 	private String configFileContents;
 	private String deleteYn;
+	private String autoRestart = "Y";
 
 	/**
 	 * @return the machineId
@@ -141,6 +142,20 @@ public class ConfigDto extends BaseDto {
 	 */
 	public void setDeleteYn(String deleteYn) {
 		this.deleteYn = deleteYn;
+	}
+
+	/**
+	 * @return the autoRestart
+	 */
+	public String getAutoRestart() {
+		return autoRestart;
+	}
+
+	/**
+	 * @param autoRestart the autoRestart to set
+	 */
+	public void setAutoRestart(String autoRestart) {
+		this.autoRestart = autoRestart;
 	}
 }
 //end of ConfigDto.java

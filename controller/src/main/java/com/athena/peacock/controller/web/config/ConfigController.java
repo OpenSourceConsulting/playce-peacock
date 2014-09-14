@@ -24,6 +24,8 @@
  */
 package com.athena.peacock.controller.web.config;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -34,9 +36,19 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.athena.peacock.common.core.action.FileWriteAction;
+import com.athena.peacock.common.core.action.ShellAction;
+import com.athena.peacock.common.core.command.Command;
+import com.athena.peacock.common.netty.PeacockDatagram;
+import com.athena.peacock.common.netty.message.AbstractMessage;
+import com.athena.peacock.common.netty.message.ProvisioningCommandMessage;
+import com.athena.peacock.common.netty.message.ProvisioningResponseMessage;
+import com.athena.peacock.controller.netty.PeacockTransmitter;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 import com.athena.peacock.controller.web.common.model.SimpleJsonResponse;
+import com.athena.peacock.controller.web.software.SoftwareDto;
+import com.athena.peacock.controller.web.software.SoftwareService;
 
 /**
  * <pre>
@@ -59,39 +71,118 @@ public class ConfigController {
 	@Named("configRepoService")
 	private ConfigRepoService configRepoService;
 	
-	@RequestMapping("/list")
-	public @ResponseBody GridJsonResponse list(GridJsonResponse jsonRes, ConfigDto config) throws Exception {
+	@Inject
+	@Named("softwareService")
+	private SoftwareService softwareService;
+
+    @Inject
+    @Named("peacockTransmitter")
+	private PeacockTransmitter peacockTransmitter;
+
+	/**
+	 * <pre>
+	 * 선택된 소프트웨어의 config 파일 목록을 조회한다.
+	 * </pre>
+	 * @param config
+	 * @return
+	 */
+	@RequestMapping("/getConfigFileNames")
+	public @ResponseBody List<String> getConfigFileNames(ConfigDto config) {
 		Assert.notNull(config.getMachineId(), "machineId can not be null.");
 		Assert.notNull(config.getSoftwareId(), "softwareId can not be null.");
 		
-		jsonRes.setTotal(configService.getConfigListCnt(config));
-		jsonRes.setList(configService.getConfigList(config));
+		return configService.getConfigFileNames(config);
+	}
+	
+	/**
+	 * <pre>
+	 * 선택된 config 파일에 대한 버전 목록을 조회한다.
+	 * config_tbl의 CONFIG_FILE_CONTENTS 컬럼 타입이 TEXT로 전체 목록 조회 시 성능이 저하될 수 있으므로
+	 * CONFIG_FILE_ID와 REG_DT만 조회한다.
+	 * </pre>
+	 * @param config
+	 * @return
+	 * @throws Exception 
+	 */
+	@RequestMapping("/getConfigFileVersions")
+	public @ResponseBody GridJsonResponse getConfigFileVersions(GridJsonResponse jsonRes, ConfigDto config) throws Exception {
+		Assert.notNull(config.getMachineId(), "machineId can not be null.");
+		Assert.notNull(config.getSoftwareId(), "softwareId can not be null.");
+		Assert.notNull(config.getConfigFileName(), "configFileName can not be null.");
+
+		List<ConfigDto> configList = configService.getConfigFileVersions(config);
+		
+		jsonRes.setTotal(configList.size());
+		jsonRes.setList(configList);
 		
 		return jsonRes;
 	}
 	
-	@RequestMapping("/repo_list")
-	public @ResponseBody GridJsonResponse repoList(GridJsonResponse jsonRes, ConfigRepoDto configRepo) throws Exception {
-		Assert.notNull(configRepo.getSoftwareId(), "softwareId can not be null.");
-		
-		jsonRes.setTotal(configRepoService.getConfigRepoListCnt(configRepo));
-		jsonRes.setList(configRepoService.getConfigRepoList(configRepo));
-		
-		return jsonRes;
-	}
-	
-	@RequestMapping("/update")
-	public @ResponseBody SimpleJsonResponse update(SimpleJsonResponse jsonRes, ConfigDto config) {
+	/**
+	 * <pre>
+	 * 선택된 config 파일의 특정 버전에 대한 상세 내용을 조회한다.
+	 * </pre>
+	 * @param jsonRes
+	 * @param config
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/getConfigDetail")
+	public @ResponseBody DtoJsonResponse getConfig(DtoJsonResponse jsonRes, ConfigDto config) throws Exception {
 		Assert.notNull(config.getMachineId(), "machineId can not be null.");
 		Assert.notNull(config.getSoftwareId(), "softwareId can not be null.");
 		Assert.notNull(config.getConfigFileId(), "configFileId can not be null.");
 		
+		jsonRes.setData(configService.getConfig(config));
+		
+		return jsonRes;
+	}
+
+	/**
+	 * <pre>
+	 * 선택된 config 파일에 대해 시스템에 설정되어 있는 내용을 조회한다.
+	 * </pre>
+	 * @param jsonRes
+	 * @param config
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/getSystemConfig")
+	public @ResponseBody DtoJsonResponse getSystemConfig(DtoJsonResponse jsonRes, ConfigDto config) throws Exception {
+		Assert.notNull(config.getMachineId(), "machineId can not be null.");
+		Assert.notNull(config.getConfigFileLocation(), "configFileLocation can not be null.");
+		Assert.notNull(config.getConfigFileName(), "configFileName can not be null.");
+		
 		try {
-			configService.updateConfig(config);
-			jsonRes.setMsg("Update success.");
+			ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
+			cmdMsg.setAgentId(config.getMachineId());
+			cmdMsg.setBlocking(true);
+
+			Command command = new Command("Get Config File Contents");
+			int sequence = 0;
+			
+			ShellAction action = new ShellAction(sequence++);
+			
+			action.setCommand("cat");
+			action.addArguments(config.getConfigFileLocation() + "/" + config.getConfigFileName());
+
+			command.addAction(action);
+			
+			cmdMsg.addCommand(command);
+
+			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
+			
+			jsonRes.setData(response.getResults().get(0));
 		} catch (Exception e) {
+			String message = config.getConfigFileName() + " 조회 중 에러가 발생하였습니다.";
+			
+			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
+				message += "<br/>Instance와의 연결을 확인하십시오.";
+			}
+			
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Update fail.");
+			jsonRes.setMsg(message);
 			
 			logger.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -99,13 +190,123 @@ public class ConfigController {
 		return jsonRes;
 	}
 	
-	@RequestMapping("/getConfig")
-	public @ResponseBody DtoJsonResponse getConfig(DtoJsonResponse jsonRes, ConfigDto config) throws Exception {
+	@RequestMapping("/updateConfig")
+	public @ResponseBody SimpleJsonResponse updateConfig(SimpleJsonResponse jsonRes, ConfigDto config) {
 		Assert.notNull(config.getMachineId(), "machineId can not be null.");
 		Assert.notNull(config.getSoftwareId(), "softwareId can not be null.");
 		Assert.notNull(config.getConfigFileId(), "configFileId can not be null.");
 		
-		jsonRes.setData(configService.getConfig(config));
+		try {
+			ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
+			cmdMsg.setAgentId(config.getMachineId());
+			cmdMsg.setBlocking(true);
+
+			Command command = new Command("Save Config File Contents");
+			int sequence = 0;
+			
+			FileWriteAction action = new FileWriteAction(sequence++);
+			action.setFileName(config.getConfigFileLocation() + "/" + config.getConfigFileName());
+			action.setContents(config.getConfigFileContents());
+			
+			command.addAction(action);
+			
+			cmdMsg.addCommand(command);
+
+			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+			peacockTransmitter.sendMessage(datagram);
+
+			if (config.getAutoRestart().toUpperCase().equals("Y")) {
+				// softwareId에 해당하는 software 정보를 조회한다.
+				SoftwareDto software = new SoftwareDto();
+				software.setMachineId(config.getMachineId());
+				software.setSoftwareId(config.getSoftwareId());
+				software = softwareService.getSoftware(software);
+				
+				String stopCmd = software.getServiceStopCmd();
+				String startCmd = software.getServiceStartCmd();
+				
+				String workingDir = null;
+				String cmd = null;
+				String args = null;
+				
+				command = new Command("Restart Service");
+				sequence = 0;
+				ShellAction s_action = null;
+
+				/**
+				 * Stop Service
+				 */
+				if (stopCmd.split(",")[0].split(":").length == 2) {
+					workingDir = stopCmd.split(",")[0].split(":")[1];
+				}
+				if (stopCmd.split(",")[1].split(":").length == 2) {
+					cmd = stopCmd.split(",")[1].split(":")[1];
+				}
+				if (stopCmd.split(",")[2].split(":").length == 2) {
+					args = stopCmd.split(",")[2].split(":")[1];
+				}
+
+				s_action = new ShellAction(sequence++);
+				if (workingDir != null) {
+					s_action.setWorkingDiretory("");
+				}
+				s_action.setCommand(cmd);
+				if (args != null) {
+					s_action.addArguments(args);
+				}
+				command.addAction(s_action);
+
+				/**
+				 *  Start Service
+				 */
+				if (startCmd.split(",")[0].split(":").length == 2) {
+					workingDir = startCmd.split(",")[0].split(":")[1];
+				}
+				if (startCmd.split(",")[1].split(":").length == 2) {
+					cmd = startCmd.split(",")[1].split(":")[1];
+				}
+				if (startCmd.split(",")[2].split(":").length == 2) {
+					args = startCmd.split(",")[2].split(":")[1];
+				}
+
+				s_action = new ShellAction(sequence++);
+				if (workingDir != null) {
+					s_action.setWorkingDiretory("");
+				}
+				s_action.setCommand(cmd);
+				if (args != null) {
+					s_action.addArguments(args);
+				}
+				command.addAction(s_action);
+				
+				cmdMsg.addCommand(command);
+
+				datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+				peacockTransmitter.sendMessage(datagram);
+			}
+		} catch (Exception e) {
+			String message = config.getConfigFileName() + " 저장 중 에러가 발생하였습니다.";
+			
+			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
+				message += "<br/>Instance와의 연결을 확인하십시오.";
+			}
+			
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg(message);
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+			
+			return jsonRes;
+		}
+
+		try {
+			configService.updateConfig(config);
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("DB 저장 중 에러가 발생하였습니다.");
+			
+			logger.error("Unhandled Expeption has occurred. ", e);
+		}
 		
 		return jsonRes;
 	}

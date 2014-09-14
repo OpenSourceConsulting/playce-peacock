@@ -84,7 +84,7 @@
 	<select id="getSoftwareNames" resultType="String">
 		SELECT DISTINCT(SOFTWARE_NAME) 
 		  FROM software_repo_tbl
-		 ORDER BY SOFTWARE_NAME
+		 ORDER BY SOFTWARE_ID
 	</select>
 	
 	<select id="getSoftwareVersions" parameterType="String" resultType="com.athena.peacock.controller.web.software.SoftwareRepoDto">

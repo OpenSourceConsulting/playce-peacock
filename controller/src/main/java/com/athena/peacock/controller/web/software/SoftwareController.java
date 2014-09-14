@@ -119,6 +119,7 @@ public class SoftwareController {
 	 */
 	@RequestMapping("/getVersions")
 	public @ResponseBody GridJsonResponse getVersions(GridJsonResponse jsonRes, String softwareName) throws Exception {
+		Assert.isTrue(!StringUtils.isEmpty(softwareName), "softwareName must not be null.");
 		
 		List<SoftwareRepoDto> softwareRepoList = softwareRepoService.getSoftwareVersions(softwareName);
 		
