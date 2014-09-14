@@ -41,42 +41,73 @@ public class ProvisioningDetail implements Serializable {
 	private String urlPrefix;
 
 	/** Apache, Tomcat, JBoss, MySQL 공통 Variables */
+	private String machineId;
 	private Integer softwareId;
 	private String softwareName;
+	private String user;
 	private String version;
-	private String machineId;
+	private String javaHome;
+	private String serverHome;
 	private String serverName;
-	private String port;
-	private String password;
+	private String encoding;
+	private String heapSize;
+	private String permgenSize;
+	private String bindAddress;
+	private String hostName;
+	private String databaseType1;
+	private String databaseType2;
+	private String jndiName1;
+	private String jndiName2;
+	private String connectionUrl1;
+	private String connectionUrl2;
+	private String userName1;
+	private String userName2;
+	private String password1;
+	private String password2;
 	private String autoStart = "Y";
 	
-	/** Apache Variables */
-	private String targetDir;
-	private String serverRoot;
-	private String serverDomain;
+	private String fileLocation;
+	private String fileName;
+	
+	/** HTTPD Variables */
+	private String group;
+	private String apacheHome;
+	private String httpPort;
+	private String httpsPort;
+	private String uriworkermap;
+	private String workers;
 	
 	/** Tomcat Variables */
-	private String javaHome;
 	private String catalinaHome;
 	private String catalinaBase;
 	private String portOffset;
-	private String compUser;
+	private String httpEnable = "Y";
+	private String highAvailability = "Y";
+	private String otherBindAddress;
+	private String localIPAddress;
+	private String maxIdle1;
+	private String maxIdle2;
+	private String maxActive1;
+	private String maxActive2;
 	
 	/** JBoss Variables */
 	private String jbossHome;
-	private String serverHome;
-	private String partitionName;
-	private String bindAddress;
+	private String baseTemplate;
+	private String serverBase;
+	private String domainIp;
 	private String bindPort;
-	private String databaseType;
-	private String jndiName;
-	private String connectionUrl;
-	private String userName;
-	private String minPoolSize;
-	private String maxPoolSize;
+	private String udpGroupAddr;
+	private String multicastPort;
+	private String serverPeerID;
+	private String jvmRoute;
+	private String minPoolSize1;
+	private String minPoolSize2;
+	private String maxPoolSize1;
+	private String maxPoolSize2;
 	
 	/** MySQL Variables */
 	private String dataDir;
+	private String port;
 	
 	private Integer userId;
 
@@ -92,6 +123,20 @@ public class ProvisioningDetail implements Serializable {
 	 */
 	public void setUrlPrefix(String urlPrefix) {
 		this.urlPrefix = urlPrefix;
+	}
+
+	/**
+	 * @return the machineId
+	 */
+	public String getMachineId() {
+		return machineId;
+	}
+
+	/**
+	 * @param machineId the machineId to set
+	 */
+	public void setMachineId(String machineId) {
+		this.machineId = machineId;
 	}
 
 	/**
@@ -123,6 +168,20 @@ public class ProvisioningDetail implements Serializable {
 	}
 
 	/**
+	 * @return the user
+	 */
+	public String getUser() {
+		return user;
+	}
+
+	/**
+	 * @param user the user to set
+	 */
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	/**
 	 * @return the version
 	 */
 	public String getVersion() {
@@ -137,17 +196,31 @@ public class ProvisioningDetail implements Serializable {
 	}
 
 	/**
-	 * @return the machineId
+	 * @return the javaHome
 	 */
-	public String getMachineId() {
-		return machineId;
+	public String getJavaHome() {
+		return javaHome;
 	}
 
 	/**
-	 * @param machineId the machineId to set
+	 * @param javaHome the javaHome to set
 	 */
-	public void setMachineId(String machineId) {
-		this.machineId = machineId;
+	public void setJavaHome(String javaHome) {
+		this.javaHome = javaHome;
+	}
+
+	/**
+	 * @return the serverHome
+	 */
+	public String getServerHome() {
+		return serverHome;
+	}
+
+	/**
+	 * @param serverHome the serverHome to set
+	 */
+	public void setServerHome(String serverHome) {
+		this.serverHome = serverHome;
 	}
 
 	/**
@@ -165,31 +238,213 @@ public class ProvisioningDetail implements Serializable {
 	}
 
 	/**
-	 * @return the port
+	 * @return the encoding
 	 */
-	public String getPort() {
-		return port;
+	public String getEncoding() {
+		return encoding;
 	}
 
 	/**
-	 * @param port the port to set
+	 * @param encoding the encoding to set
 	 */
-	public void setPort(String port) {
-		this.port = port;
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
 	}
 
 	/**
-	 * @return the password
+	 * @return the heapSize
 	 */
-	public String getPassword() {
-		return password;
+	public String getHeapSize() {
+		return heapSize;
 	}
 
 	/**
-	 * @param password the password to set
+	 * @param heapSize the heapSize to set
 	 */
-	public void setPassword(String password) {
-		this.password = password;
+	public void setHeapSize(String heapSize) {
+		this.heapSize = heapSize;
+	}
+
+	/**
+	 * @return the permgenSize
+	 */
+	public String getPermgenSize() {
+		return permgenSize;
+	}
+
+	/**
+	 * @param permgenSize the permgenSize to set
+	 */
+	public void setPermgenSize(String permgenSize) {
+		this.permgenSize = permgenSize;
+	}
+
+	/**
+	 * @return the bindAddress
+	 */
+	public String getBindAddress() {
+		return bindAddress;
+	}
+
+	/**
+	 * @param bindAddress the bindAddress to set
+	 */
+	public void setBindAddress(String bindAddress) {
+		this.bindAddress = bindAddress;
+	}
+
+	/**
+	 * @return the hostName
+	 */
+	public String getHostName() {
+		return hostName;
+	}
+
+	/**
+	 * @param hostName the hostName to set
+	 */
+	public void setHostName(String hostName) {
+		this.hostName = hostName;
+	}
+
+	/**
+	 * @return the databaseType1
+	 */
+	public String getDatabaseType1() {
+		return databaseType1;
+	}
+
+	/**
+	 * @param databaseType1 the databaseType1 to set
+	 */
+	public void setDatabaseType1(String databaseType1) {
+		this.databaseType1 = databaseType1;
+	}
+
+	/**
+	 * @return the databaseType2
+	 */
+	public String getDatabaseType2() {
+		return databaseType2;
+	}
+
+	/**
+	 * @param databaseType2 the databaseType2 to set
+	 */
+	public void setDatabaseType2(String databaseType2) {
+		this.databaseType2 = databaseType2;
+	}
+
+	/**
+	 * @return the jndiName1
+	 */
+	public String getJndiName1() {
+		return jndiName1;
+	}
+
+	/**
+	 * @param jndiName1 the jndiName1 to set
+	 */
+	public void setJndiName1(String jndiName1) {
+		this.jndiName1 = jndiName1;
+	}
+
+	/**
+	 * @return the jndiName2
+	 */
+	public String getJndiName2() {
+		return jndiName2;
+	}
+
+	/**
+	 * @param jndiName2 the jndiName2 to set
+	 */
+	public void setJndiName2(String jndiName2) {
+		this.jndiName2 = jndiName2;
+	}
+
+	/**
+	 * @return the connectionUrl1
+	 */
+	public String getConnectionUrl1() {
+		return connectionUrl1;
+	}
+
+	/**
+	 * @param connectionUrl1 the connectionUrl1 to set
+	 */
+	public void setConnectionUrl1(String connectionUrl1) {
+		this.connectionUrl1 = connectionUrl1;
+	}
+
+	/**
+	 * @return the connectionUrl2
+	 */
+	public String getConnectionUrl2() {
+		return connectionUrl2;
+	}
+
+	/**
+	 * @param connectionUrl2 the connectionUrl2 to set
+	 */
+	public void setConnectionUrl2(String connectionUrl2) {
+		this.connectionUrl2 = connectionUrl2;
+	}
+
+	/**
+	 * @return the userName1
+	 */
+	public String getUserName1() {
+		return userName1;
+	}
+
+	/**
+	 * @param userName1 the userName1 to set
+	 */
+	public void setUserName1(String userName1) {
+		this.userName1 = userName1;
+	}
+
+	/**
+	 * @return the userName2
+	 */
+	public String getUserName2() {
+		return userName2;
+	}
+
+	/**
+	 * @param userName2 the userName2 to set
+	 */
+	public void setUserName2(String userName2) {
+		this.userName2 = userName2;
+	}
+
+	/**
+	 * @return the password1
+	 */
+	public String getPassword1() {
+		return password1;
+	}
+
+	/**
+	 * @param password1 the password1 to set
+	 */
+	public void setPassword1(String password1) {
+		this.password1 = password1;
+	}
+
+	/**
+	 * @return the password2
+	 */
+	public String getPassword2() {
+		return password2;
+	}
+
+	/**
+	 * @param password2 the password2 to set
+	 */
+	public void setPassword2(String password2) {
+		this.password2 = password2;
 	}
 
 	/**
@@ -207,59 +462,115 @@ public class ProvisioningDetail implements Serializable {
 	}
 
 	/**
-	 * @return the targetDir
+	 * @return the fileLocation
 	 */
-	public String getTargetDir() {
-		return targetDir;
+	public String getFileLocation() {
+		return fileLocation;
 	}
 
 	/**
-	 * @param targetDir the targetDir to set
+	 * @param fileLocation the fileLocation to set
 	 */
-	public void setTargetDir(String targetDir) {
-		this.targetDir = targetDir;
+	public void setFileLocation(String fileLocation) {
+		this.fileLocation = fileLocation;
 	}
 
 	/**
-	 * @return the serverRoot
+	 * @return the fileName
 	 */
-	public String getServerRoot() {
-		return serverRoot;
+	public String getFileName() {
+		return fileName;
 	}
 
 	/**
-	 * @param serverRoot the serverRoot to set
+	 * @param fileName the fileName to set
 	 */
-	public void setServerRoot(String serverRoot) {
-		this.serverRoot = serverRoot;
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 	/**
-	 * @return the serverDomain
+	 * @return the group
 	 */
-	public String getServerDomain() {
-		return serverDomain;
+	public String getGroup() {
+		return group;
 	}
 
 	/**
-	 * @param serverDomain the serverDomain to set
+	 * @param group the group to set
 	 */
-	public void setServerDomain(String serverDomain) {
-		this.serverDomain = serverDomain;
+	public void setGroup(String group) {
+		this.group = group;
 	}
 
 	/**
-	 * @return the javaHome
+	 * @return the apacheHome
 	 */
-	public String getJavaHome() {
-		return javaHome;
+	public String getApacheHome() {
+		return apacheHome;
 	}
 
 	/**
-	 * @param javaHome the javaHome to set
+	 * @param apacheHome the apacheHome to set
 	 */
-	public void setJavaHome(String javaHome) {
-		this.javaHome = javaHome;
+	public void setApacheHome(String apacheHome) {
+		this.apacheHome = apacheHome;
+	}
+
+	/**
+	 * @return the httpPort
+	 */
+	public String getHttpPort() {
+		return httpPort;
+	}
+
+	/**
+	 * @param httpPort the httpPort to set
+	 */
+	public void setHttpPort(String httpPort) {
+		this.httpPort = httpPort;
+	}
+
+	/**
+	 * @return the httpsPort
+	 */
+	public String getHttpsPort() {
+		return httpsPort;
+	}
+
+	/**
+	 * @param httpsPort the httpsPort to set
+	 */
+	public void setHttpsPort(String httpsPort) {
+		this.httpsPort = httpsPort;
+	}
+
+	/**
+	 * @return the uriworkermap
+	 */
+	public String getUriworkermap() {
+		return uriworkermap;
+	}
+
+	/**
+	 * @param uriworkermap the uriworkermap to set
+	 */
+	public void setUriworkermap(String uriworkermap) {
+		this.uriworkermap = uriworkermap;
+	}
+
+	/**
+	 * @return the workers
+	 */
+	public String getWorkers() {
+		return workers;
+	}
+
+	/**
+	 * @param workers the workers to set
+	 */
+	public void setWorkers(String workers) {
+		this.workers = workers;
 	}
 
 	/**
@@ -305,17 +616,115 @@ public class ProvisioningDetail implements Serializable {
 	}
 
 	/**
-	 * @return the compUser
+	 * @return the httpEnable
 	 */
-	public String getCompUser() {
-		return compUser;
+	public String getHttpEnable() {
+		return httpEnable;
 	}
 
 	/**
-	 * @param compUser the compUser to set
+	 * @param httpEnable the httpEnable to set
 	 */
-	public void setCompUser(String compUser) {
-		this.compUser = compUser;
+	public void setHttpEnable(String httpEnable) {
+		this.httpEnable = httpEnable;
+	}
+
+	/**
+	 * @return the highAvailability
+	 */
+	public String getHighAvailability() {
+		return highAvailability;
+	}
+
+	/**
+	 * @param highAvailability the highAvailability to set
+	 */
+	public void setHighAvailability(String highAvailability) {
+		this.highAvailability = highAvailability;
+	}
+
+	/**
+	 * @return the otherBindAddress
+	 */
+	public String getOtherBindAddress() {
+		return otherBindAddress;
+	}
+
+	/**
+	 * @param otherBindAddress the otherBindAddress to set
+	 */
+	public void setOtherBindAddress(String otherBindAddress) {
+		this.otherBindAddress = otherBindAddress;
+	}
+
+	/**
+	 * @return the localIPAddress
+	 */
+	public String getLocalIPAddress() {
+		return localIPAddress;
+	}
+
+	/**
+	 * @param localIPAddress the localIPAddress to set
+	 */
+	public void setLocalIPAddress(String localIPAddress) {
+		this.localIPAddress = localIPAddress;
+	}
+
+	/**
+	 * @return the maxIdle1
+	 */
+	public String getMaxIdle1() {
+		return maxIdle1;
+	}
+
+	/**
+	 * @param maxIdle1 the maxIdle1 to set
+	 */
+	public void setMaxIdle1(String maxIdle1) {
+		this.maxIdle1 = maxIdle1;
+	}
+
+	/**
+	 * @return the maxIdle2
+	 */
+	public String getMaxIdle2() {
+		return maxIdle2;
+	}
+
+	/**
+	 * @param maxIdle2 the maxIdle2 to set
+	 */
+	public void setMaxIdle2(String maxIdle2) {
+		this.maxIdle2 = maxIdle2;
+	}
+
+	/**
+	 * @return the maxActive1
+	 */
+	public String getMaxActive1() {
+		return maxActive1;
+	}
+
+	/**
+	 * @param maxActive1 the maxActive1 to set
+	 */
+	public void setMaxActive1(String maxActive1) {
+		this.maxActive1 = maxActive1;
+	}
+
+	/**
+	 * @return the maxActive2
+	 */
+	public String getMaxActive2() {
+		return maxActive2;
+	}
+
+	/**
+	 * @param maxActive2 the maxActive2 to set
+	 */
+	public void setMaxActive2(String maxActive2) {
+		this.maxActive2 = maxActive2;
 	}
 
 	/**
@@ -333,45 +742,45 @@ public class ProvisioningDetail implements Serializable {
 	}
 
 	/**
-	 * @return the serverHome
+	 * @return the baseTemplate
 	 */
-	public String getServerHome() {
-		return serverHome;
+	public String getBaseTemplate() {
+		return baseTemplate;
 	}
 
 	/**
-	 * @param serverHome the serverHome to set
+	 * @param baseTemplate the baseTemplate to set
 	 */
-	public void setServerHome(String serverHome) {
-		this.serverHome = serverHome;
+	public void setBaseTemplate(String baseTemplate) {
+		this.baseTemplate = baseTemplate;
 	}
 
 	/**
-	 * @return the partitionName
+	 * @return the serverBase
 	 */
-	public String getPartitionName() {
-		return partitionName;
+	public String getServerBase() {
+		return serverBase;
 	}
 
 	/**
-	 * @param partitionName the partitionName to set
+	 * @param serverBase the serverBase to set
 	 */
-	public void setPartitionName(String partitionName) {
-		this.partitionName = partitionName;
+	public void setServerBase(String serverBase) {
+		this.serverBase = serverBase;
 	}
 
 	/**
-	 * @return the bindAddress
+	 * @return the domainIp
 	 */
-	public String getBindAddress() {
-		return bindAddress;
+	public String getDomainIp() {
+		return domainIp;
 	}
 
 	/**
-	 * @param bindAddress the bindAddress to set
+	 * @param domainIp the domainIp to set
 	 */
-	public void setBindAddress(String bindAddress) {
-		this.bindAddress = bindAddress;
+	public void setDomainIp(String domainIp) {
+		this.domainIp = domainIp;
 	}
 
 	/**
@@ -389,87 +798,115 @@ public class ProvisioningDetail implements Serializable {
 	}
 
 	/**
-	 * @return the databaseType
+	 * @return the udpGroupAddr
 	 */
-	public String getDatabaseType() {
-		return databaseType;
+	public String getUdpGroupAddr() {
+		return udpGroupAddr;
 	}
 
 	/**
-	 * @param databaseType the databaseType to set
+	 * @param udpGroupAddr the udpGroupAddr to set
 	 */
-	public void setDatabaseType(String databaseType) {
-		this.databaseType = databaseType;
+	public void setUdpGroupAddr(String udpGroupAddr) {
+		this.udpGroupAddr = udpGroupAddr;
 	}
 
 	/**
-	 * @return the jndiName
+	 * @return the multicastPort
 	 */
-	public String getJndiName() {
-		return jndiName;
+	public String getMulticastPort() {
+		return multicastPort;
 	}
 
 	/**
-	 * @param jndiName the jndiName to set
+	 * @param multicastPort the multicastPort to set
 	 */
-	public void setJndiName(String jndiName) {
-		this.jndiName = jndiName;
+	public void setMulticastPort(String multicastPort) {
+		this.multicastPort = multicastPort;
 	}
 
 	/**
-	 * @return the connectionUrl
+	 * @return the serverPeerID
 	 */
-	public String getConnectionUrl() {
-		return connectionUrl;
+	public String getServerPeerID() {
+		return serverPeerID;
 	}
 
 	/**
-	 * @param connectionUrl the connectionUrl to set
+	 * @param serverPeerID the serverPeerID to set
 	 */
-	public void setConnectionUrl(String connectionUrl) {
-		this.connectionUrl = connectionUrl;
+	public void setServerPeerID(String serverPeerID) {
+		this.serverPeerID = serverPeerID;
 	}
 
 	/**
-	 * @return the userName
+	 * @return the jvmRoute
 	 */
-	public String getUserName() {
-		return userName;
+	public String getJvmRoute() {
+		return jvmRoute;
 	}
 
 	/**
-	 * @param userName the userName to set
+	 * @param jvmRoute the jvmRoute to set
 	 */
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setJvmRoute(String jvmRoute) {
+		this.jvmRoute = jvmRoute;
 	}
 
 	/**
-	 * @return the minPoolSize
+	 * @return the minPoolSize1
 	 */
-	public String getMinPoolSize() {
-		return minPoolSize;
+	public String getMinPoolSize1() {
+		return minPoolSize1;
 	}
 
 	/**
-	 * @param minPoolSize the minPoolSize to set
+	 * @param minPoolSize1 the minPoolSize1 to set
 	 */
-	public void setMinPoolSize(String minPoolSize) {
-		this.minPoolSize = minPoolSize;
+	public void setMinPoolSize1(String minPoolSize1) {
+		this.minPoolSize1 = minPoolSize1;
 	}
 
 	/**
-	 * @return the maxPoolSize
+	 * @return the minPoolSize2
 	 */
-	public String getMaxPoolSize() {
-		return maxPoolSize;
+	public String getMinPoolSize2() {
+		return minPoolSize2;
 	}
 
 	/**
-	 * @param maxPoolSize the maxPoolSize to set
+	 * @param minPoolSize2 the minPoolSize2 to set
 	 */
-	public void setMaxPoolSize(String maxPoolSize) {
-		this.maxPoolSize = maxPoolSize;
+	public void setMinPoolSize2(String minPoolSize2) {
+		this.minPoolSize2 = minPoolSize2;
+	}
+
+	/**
+	 * @return the maxPoolSize1
+	 */
+	public String getMaxPoolSize1() {
+		return maxPoolSize1;
+	}
+
+	/**
+	 * @param maxPoolSize1 the maxPoolSize1 to set
+	 */
+	public void setMaxPoolSize1(String maxPoolSize1) {
+		this.maxPoolSize1 = maxPoolSize1;
+	}
+
+	/**
+	 * @return the maxPoolSize2
+	 */
+	public String getMaxPoolSize2() {
+		return maxPoolSize2;
+	}
+
+	/**
+	 * @param maxPoolSize2 the maxPoolSize2 to set
+	 */
+	public void setMaxPoolSize2(String maxPoolSize2) {
+		this.maxPoolSize2 = maxPoolSize2;
 	}
 
 	/**
@@ -484,6 +921,20 @@ public class ProvisioningDetail implements Serializable {
 	 */
 	public void setDataDir(String dataDir) {
 		this.dataDir = dataDir;
+	}
+
+	/**
+	 * @return the port
+	 */
+	public String getPort() {
+		return port;
+	}
+
+	/**
+	 * @param port the port to set
+	 */
+	public void setPort(String port) {
+		this.port = port;
 	}
 
 	/**

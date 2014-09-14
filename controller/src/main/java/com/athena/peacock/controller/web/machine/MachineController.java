@@ -26,7 +26,9 @@ package com.athena.peacock.controller.web.machine;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -47,9 +49,7 @@ import com.athena.peacock.common.core.action.FileWriteAction;
 import com.athena.peacock.common.core.action.ShellAction;
 import com.athena.peacock.common.core.action.support.Property;
 import com.athena.peacock.common.core.action.support.PropertyUtil;
-import com.athena.peacock.common.core.action.support.TargetHost;
 import com.athena.peacock.common.core.command.Command;
-import com.athena.peacock.common.core.util.SshExecUtil;
 import com.athena.peacock.common.netty.PeacockDatagram;
 import com.athena.peacock.common.netty.message.AbstractMessage;
 import com.athena.peacock.common.netty.message.ProvisioningCommandMessage;
@@ -178,95 +178,6 @@ public class MachineController {
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Instance 정보 변경 중 에러가 발생하였습니다.");
-			
-			logger.error("Unhandled Expeption has occurred. ", e);
-		}
-		
-		return jsonRes;
-	}
-	
-	/**
-	 * <pre>
-	 * allRestart
-	 * </pre>
-	 * @param jsonRes
-	 * @param machineId
-	 * @return
-	 */
-	@RequestMapping("/allRestart")
-	public @ResponseBody DtoJsonResponse allRestart(DtoJsonResponse jsonRes, String ip) {
-		try {
-			TargetHost targetHost = new TargetHost();
-			targetHost.setHost(ip);
-			targetHost.setPort(22);
-			targetHost.setUsername("root");
-			targetHost.setPassword("redhat");
-			
-			String data = SshExecUtil.executeCommand(targetHost, "service network restart");
-			data += SshExecUtil.executeCommand(targetHost, "service peacock-agent restart");
-			jsonRes.setData(data);
-			jsonRes.setMsg("network 및 Agent가 정상적으로 재시작하였습니다.");
-		} catch (Exception e) {
-			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Agent 시작 중 에러가 발생하였습니다.");
-			
-			logger.error("Unhandled Expeption has occurred. ", e);
-		}
-		
-		return jsonRes;
-	}
-	
-	/**
-	 * <pre>
-	 * networkRestart
-	 * </pre>
-	 * @param jsonRes
-	 * @param machineId
-	 * @return
-	 */
-	@RequestMapping("/networkRestart")
-	public @ResponseBody DtoJsonResponse networkRestart(DtoJsonResponse jsonRes, String ip) {
-		try {
-			TargetHost targetHost = new TargetHost();
-			targetHost.setHost(ip);
-			targetHost.setPort(22);
-			targetHost.setUsername("root");
-			targetHost.setPassword("redhat");
-			
-			jsonRes.setData(SshExecUtil.executeCommand(targetHost, "service network restart"));
-			jsonRes.setMsg("network가 정상적으로 재시작하였습니다.");
-		} catch (Exception e) {
-			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Agent 시작 중 에러가 발생하였습니다.");
-			
-			logger.error("Unhandled Expeption has occurred. ", e);
-		}
-		
-		return jsonRes;
-	}
-	
-	/**
-	 * <pre>
-	 * agentRestart
-	 * </pre>
-	 * @param jsonRes
-	 * @param machineId
-	 * @return
-	 */
-	@RequestMapping("/agentRestart")
-	public @ResponseBody DtoJsonResponse agentRestart(DtoJsonResponse jsonRes, String ip) {
-		try {
-			TargetHost targetHost = new TargetHost();
-			targetHost.setHost(ip);
-			targetHost.setPort(22);
-			targetHost.setUsername("root");
-			targetHost.setPassword("redhat");
-			
-			jsonRes.setData(SshExecUtil.executeCommand(targetHost, "service peacock-agent restart"));
-			jsonRes.setMsg("Agent가 정상적으로 재시작하였습니다.");
-		} catch (Exception e) {
-			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Agent 재시작 중 에러가 발생하였습니다.");
 			
 			logger.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -473,12 +384,12 @@ public class MachineController {
 			cmdMsg.setBlocking(true);
 
 			int sequence = 0;
-			Command command = new Command("GET_ACCOUNT");
+			Command command = new Command("GET_GROUP");
 			
 			ShellAction action = new ShellAction(sequence++);
 			
 			action.setCommand("cat");
-			action.addArguments("/etc/passwd");
+			action.addArguments("/etc/group");
 
 			command.addAction(action);
 			
@@ -487,11 +398,42 @@ public class MachineController {
 			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
 			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
 			
-			List<AccountDto> accountList = new ArrayList<AccountDto>();
-			AccountDto account = null;
+			Map<String, String> groupMap = new HashMap<String, String>();
 			String[] columns = null;
 			
 			String[] lines = response.getResults().get(0).split("\n");
+			for (String line : lines) {
+				if (line.startsWith("#")) {
+					continue;
+				}
+				
+				if (line.contains(":")) {
+					columns = line.split(":");
+					// key = gid, value = group_name
+					groupMap.put(columns[2], columns[0]);
+				}
+			}
+			
+			sequence = 0;
+			command = new Command("GET_ACCOUNT");
+			
+			action = new ShellAction(sequence++);
+			
+			action.setCommand("cat");
+			action.addArguments("/etc/passwd");
+
+			command.addAction(action);
+			
+			cmdMsg.addCommand(command);
+
+			datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+			response = peacockTransmitter.sendMessage(datagram);
+			
+			List<AccountDto> accountList = new ArrayList<AccountDto>();
+			AccountDto account = null;
+			columns = null;
+			
+			lines = response.getResults().get(0).split("\n");
 			for (String line : lines) {
 				if (line.startsWith("#")) {
 					continue;
@@ -504,6 +446,7 @@ public class MachineController {
 					account.setMachineId(machineId);
 					account.setAccount(columns[0]);
 					account.setUid(Integer.parseInt(columns[2]));
+					account.setGroup(groupMap.get(columns[3]));
 					account.setComment(columns[4]);
 					account.setHomeDir(columns[5]);
 					account.setShell(columns[6]);
@@ -786,7 +729,7 @@ public class MachineController {
 			cmdMsg.setBlocking(true);
 
 			sequence = 0;
-			command = new Command("GET_CRTPY_PASSWD");
+			command = new Command("GET_CRYPT_PASSWD");
 			
 			action = new ShellAction(sequence++);
 			

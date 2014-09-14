@@ -24,12 +24,16 @@
  */
 package com.athena.peacock.controller.web.software;
 
+import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -170,6 +174,8 @@ public class SoftwareController {
 			SoftwareRepoDto softwareRepo = softwareRepoService.getSoftwareRepo(provisioningDetail.getSoftwareId());
 			provisioningDetail.setSoftwareName(softwareRepo.getSoftwareName());
 			provisioningDetail.setVersion(softwareRepo.getSoftwareVersion());
+			provisioningDetail.setFileLocation(softwareRepo.getFileLocation());
+			provisioningDetail.setFileName(softwareRepo.getFileName());
 			
 			List<SoftwareDto> softwareList = softwareService.getSoftwareInstallListAll(provisioningDetail.getMachineId());
 			
@@ -195,7 +201,7 @@ public class SoftwareController {
 				return jsonRes;
 			}
 		
-			String urlPrefix = "http://" + request.getServerName() + ":" + request.getServerPort() + "/" + request.getContextPath() + "/repo";
+			String urlPrefix = "http://" + request.getServerName() + ":" + request.getServerPort() + "/" + request.getContextPath();
 			provisioningDetail.setUrlPrefix(urlPrefix);
 			
 			provisioningHandler.install(provisioningDetail);
@@ -261,6 +267,34 @@ public class SoftwareController {
 			
 			logger.error("Unhandled Expeption has occurred. ", e);
 		}
+		
+		return jsonRes;
+	}
+	
+	/**
+	 * <pre>
+	 * HTTPD 설치를 위해 선택된 사용자 계정이 세팅된 uriworkermap.properties 및 workers.properties 내용을 반환한다.
+	 * </pre>
+	 * @param jsonRes
+	 * @param account
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/getConnectorProp")
+	public @ResponseBody SimpleJsonResponse getConnectorProp(HttpServletRequest request, SimpleJsonResponse jsonRes, String account) throws Exception {
+		Assert.notNull(account, "account must not be null.");
+		
+		String urlPrefix = "http://" + request.getServerName() + ":" + request.getServerPort() + "/" + request.getContextPath();
+		
+		Map<String, String> properties = new HashMap<String, String>();
+				
+		String uriworkermap = IOUtils.toString(new URL(urlPrefix + "/httpd/conf/extra/uriworkermap.properties"), "UTF-8").replaceAll("\\$\\{USER\\}", account);
+		String workers = IOUtils.toString(new URL(urlPrefix + "/httpd/conf/extra/workers.properties"), "UTF-8").replaceAll("\\$\\{USER\\}", account);
+		
+		properties.put("uriworkermap", uriworkermap);
+		properties.put("workers", workers);
+		
+		jsonRes.setData(properties);
 		
 		return jsonRes;
 	}
