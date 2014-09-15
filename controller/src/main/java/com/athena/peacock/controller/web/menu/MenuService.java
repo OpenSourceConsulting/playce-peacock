@@ -101,7 +101,9 @@ public class MenuService {
 			treeNode.put("menuNm", menuDto.getMenuNm());
 			treeNode.put("thread", menuDto.getThread());
 			treeNode.put("read", menuDto.getReadYn());
+			treeNode.put("isRead", menuDto.isRead());
 			treeNode.put("write", menuDto.getWriteYn());
+			treeNode.put("isWrite", menuDto.isWrite());
 			
 			if(menuDto.getThread().length() == 2){
 				treeList.add(treeNode);

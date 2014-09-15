@@ -77,12 +77,20 @@ Ext.define('MyApp.controller.AdminController', {
 
             //User Data Loading
 
+            Ext.getCmp("permissionMenuTreeGrid").bindStore(Ext.getStore("permissionMenuTreeStore"));
             Ext.getCmp("permissionMenuTreeGrid").getStore().load({
                 params:{
                     permId : record.get("permId")
                 }
             });
 
+        }
+    },
+
+    onSearchUserPermissionNameKeydown: function(textfield, e, eOpts) {
+        //User Name Search
+        if(e.getKey() == e.ENTER){
+            this.searchUserPermission();
         }
     },
 
@@ -175,6 +183,9 @@ Ext.define('MyApp.controller.AdminController', {
             },
             "#userPermissionGrid": {
                 cellclick: this.onUserPermissionGridCellClick
+            },
+            "#searchUserPermissionName": {
+                keydown: this.onSearchUserPermissionNameKeydown
             }
         });
     },
@@ -249,6 +260,37 @@ Ext.define('MyApp.controller.AdminController', {
         });
     },
 
+    deleteUserPermission: function() {
+
+        //User Permission 삭제
+
+        Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){
+
+            if(btn == "yes"){
+
+                Ext.Ajax.request({
+                    url: GLOBAL.urlPrefix + "permission/delete",
+                    params : {
+                        permId : userConstants.actionRow.get("permId")
+                    },
+                    disableCaching : true,
+                    waitMsg: 'Delete User Permission...',
+                    success: function(response){
+                        var msg = Ext.JSON.decode(response.responseText).msg;
+                        Ext.MessageBox.alert('알림', msg);
+
+                        userConstants.selectRow = null;
+
+                        Ext.getCmp("userPermissionGrid").getStore().reload();
+                        Ext.getCmp("userPermissionDetailPanel").layout.setActiveItem(0);
+
+                    }
+                });
+            }
+
+        });
+    },
+
     searchUserDetail: function() {
 
         //User 상세 조회
@@ -273,6 +315,53 @@ Ext.define('MyApp.controller.AdminController', {
         });
 
         Ext.getCmp("userTitleLabel").setText("<h2>&nbsp;&nbsp;&nbsp;"+userConstants.selectRow.get("userName")+"</h2>", false);
+    },
+
+    changeMenuAuth: function(grid, field) {
+        var view = grid.getView(),
+            node = view.getNode(rowIndex),
+            record = view.getRecord(node),
+            thread = record.get('thread');
+
+
+        var allRecords = grid.getRecords();
+
+        if(thread.length == 2) {
+
+            Ext.each(allRecords, function (rec) {
+
+                if(rec.get('thread').substring(0,2) == thread) {
+                    rec.set(field, checked);
+                }
+            });
+
+
+        } else {
+
+            var thread = thread.substring(0, 2);
+            var changeCheck = checked;
+            Ext.each(allRecords, function (rec) {
+
+                if( rec.get('thread').length > 2 &&  rec.get('thread').substring(0,2) == thread ) {
+
+                    if(rec.get(field) == true){
+                        changeCheck = true;
+                    }
+
+                }
+
+            });
+
+            Ext.each(allRecords, function (rec) {
+
+                if( rec.get('thread') == thread ) {
+                    rec.set(field, changeCheck);
+                }
+
+            });
+
+        }
+
     }
 
 });

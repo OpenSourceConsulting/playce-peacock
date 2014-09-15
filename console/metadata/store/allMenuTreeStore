@@ -6,12 +6,11 @@
     },
     "codeClass": null,
     "userConfig": {
-        "autoLoad": false,
-        "designer|userClassName": "permissionMenuTreeStore",
+        "designer|userClassName": "allMenuTreeStore",
         "model": "MenuModel",
-        "storeId": "permissionMenuTreeStore"
+        "storeId": "allMenuTreeStore"
     },
-    "designerId": "fa2b9418-18cc-4b15-9f87-c5533b45602e",
+    "designerId": "5b54e3d6-2485-4d25-8645-342a1e484752",
     "cn": [
         {
             "type": "Ext.data.proxy.Ajax",
@@ -21,9 +20,9 @@
             },
             "codeClass": null,
             "userConfig": {
-                "url": "permission/menutree"
+                "url": "menu/alltree"
             },
-            "designerId": "795cdb4f-16aa-482c-8515-a4497a2cee9b",
+            "designerId": "ed15e61f-876d-4f72-8bce-e4b59b0544e0",
             "cn": [
                 {
                     "type": "Ext.data.reader.Json",
@@ -35,7 +34,7 @@
                     "userConfig": {
                         "root": null
                     },
-                    "designerId": "f45e4c03-46fb-4e99-b2b1-72a01bda1e0e"
+                    "designerId": "4494a99e-04ea-4098-98dc-d44057cc35ed"
                 }
             ]
         }

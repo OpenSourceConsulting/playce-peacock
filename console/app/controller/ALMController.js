@@ -412,13 +412,28 @@ Ext.define('MyApp.controller.ALMController', {
         if(cardNum != 0) {
             var activeItem = cardPanel.getLayout().activeItem;
             var activeIndex = cardPanel.items.indexOf(activeItem);
+            var form = Ext.getCmp("addProjectForm").getForm();
 
             if(activeIndex == 0) {
-                var form = Ext.getCmp("addProjectForm").getForm();
                 if(!form.isValid()) {
                     return;
+                } else {
+                    var duplYn = Ext.getCmp("proejctCodeDuplYnField").getValue();
+                    if(duplYn != "Y") {
+                        Ext.Msg.alert('Message', 'Project Code를 중복확인하시기 바랍니다.');
+                        return;
+                    }
                 }
             }
+
+            if(cardNum == 3) {
+                var reviewForm = Ext.getCmp("reviewProjectForm").getForm();
+                reviewForm.findField("projectName").setValue(form.findField("projectName").getValue());
+                reviewForm.findField("projectDescription").setValue(form.findField("projectDescription").getValue());
+                reviewForm.findField("groupDescription").setValue(form.findField("groupDescription").getValue());
+                reviewForm.findField("repository").setValue(form.findField("repository").getValue());
+            }
+
         }
 
         cardPanel.layout.setActiveItem(cardNum);

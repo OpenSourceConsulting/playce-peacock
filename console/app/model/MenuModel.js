@@ -40,6 +40,14 @@ Ext.define('MyApp.model.MenuModel', {
         {
             name: 'writeYn',
             type: 'int'
+        },
+        {
+            name: 'isRead',
+            type: 'boolean'
+        },
+        {
+            name: 'isWrite',
+            type: 'boolean'
         }
     ]
 });

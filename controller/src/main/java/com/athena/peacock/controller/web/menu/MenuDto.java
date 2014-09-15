@@ -38,6 +38,9 @@ public class MenuDto extends BaseDto {
 	
 	private int readYn;
 	private int writeYn;
+	
+	private boolean isRead;
+	private boolean isWrite;
 
 	/**
 	 * 
@@ -102,6 +105,42 @@ public class MenuDto extends BaseDto {
 	 */
 	public void setThread(String thread) {
 		this.thread = thread;
+	}
+
+	/**
+	 * @return the isRead
+	 */
+	public boolean isRead() {
+		if("1".equals(readYn)){
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * @param isRead the isRead to set
+	 */
+	public void setRead(boolean isRead) {
+		this.isRead = isRead;
+	}
+
+	/**
+	 * @return the isWrite
+	 */
+	public boolean isWrite() {
+		if("1".equals(writeYn)){
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * @param isWrite the isWrite to set
+	 */
+	public void setWrite(boolean isWrite) {
+		this.isWrite = isWrite;
 	}
 
 }

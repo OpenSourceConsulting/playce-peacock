@@ -33,6 +33,7 @@ Ext.define('MyApp.view.adminContainer', {
         'Ext.form.FieldContainer',
         'Ext.form.field.Display',
         'Ext.toolbar.Spacer',
+        'Ext.grid.plugin.CellEditing',
         'Ext.tree.Panel',
         'Ext.tree.View',
         'Ext.tree.Column',
@@ -454,7 +455,7 @@ Ext.define('MyApp.view.adminContainer', {
                                                     fieldLabel: 'Filtering',
                                                     labelWidth: 60,
                                                     name: 'searchUserName',
-                                                    emptyText: 'Search User Name',
+                                                    emptyText: 'Search Permission Name',
                                                     enableKeyEvents: true
                                                 }
                                             ]
@@ -534,7 +535,7 @@ Ext.define('MyApp.view.adminContainer', {
                                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
                                                         userConstants.actionRow = record;
 
-                                                        userConstants.me.deleteUser();
+                                                        userConstants.me.deleteUserPermission();
 
                                                     },
                                                     icon: 'resources/images/icons/delete.png',
@@ -542,6 +543,11 @@ Ext.define('MyApp.view.adminContainer', {
                                                 }
                                             ]
                                         }
+                                    ],
+                                    plugins: [
+                                        Ext.create('Ext.grid.plugin.CellEditing', {
+
+                                        })
                                     ]
                                 },
                                 {
@@ -593,17 +599,40 @@ Ext.define('MyApp.view.adminContainer', {
                                                             items: [
                                                                 {
                                                                     xtype: 'treepanel',
+                                                                    getRecords: function() {
+                                                                        var current = 0;
+                                                                        var records = [];
+                                                                        return (function find(nodes) {
+                                                                            var i, len = nodes.length;
+                                                                            for (i = 0; i < len; i++) {
+                                                                                records.push(nodes[i]);
+                                                                                current++;
+                                                                                var found = find(nodes[i].childNodes);
+                                                                            }
+
+                                                                            return records;
+
+                                                                        }(this.store.getRootNode().childNodes));
+
+                                                                    },
+                                                                    plugins: [
+                                                                        Ext.create('Ext.grid.plugin.CellEditing',
+                                                                        {
+                                                                            
+                                                                        })
+                                                                    ],
                                                                     height: 320,
                                                                     id: 'permissionMenuTreeGrid',
                                                                     itemId: 'permissionMenuTreeGrid',
                                                                     minHeight: 250,
                                                                     autoScroll: true,
+                                                                    autoDestroy: false,
                                                                     header: false,
                                                                     title: 'My Tree Grid Panel',
                                                                     columnLines: true,
                                                                     forceFit: false,
                                                                     rowLines: true,
-                                                                    store: 'permissionMenuTreeStore',
+                                                                    rootVisible: false,
                                                                     viewConfig: {
 
                                                                     },
@@ -619,14 +648,28 @@ Ext.define('MyApp.view.adminContainer', {
                                                                         {
                                                                             xtype: 'checkcolumn',
                                                                             minWidth: 100,
-                                                                            dataIndex: 'readYn',
-                                                                            text: 'Read'
+                                                                            dataIndex: 'isRead',
+                                                                            menuDisabled: true,
+                                                                            text: 'Read',
+                                                                            stopSelection: false,
+                                                                            listeners: {
+                                                                                checkchange: {
+                                                                                    fn: me.onCheckcolumnCheckChange,
+                                                                                    scope: me
+                                                                                }
+                                                                            }
                                                                         },
                                                                         {
                                                                             xtype: 'checkcolumn',
                                                                             minWidth: 100,
-                                                                            dataIndex: 'writeYn',
-                                                                            text: 'Write'
+                                                                            dataIndex: 'isWrite',
+                                                                            text: 'Write',
+                                                                            listeners: {
+                                                                                checkchange: {
+                                                                                    fn: me.onCheckcolumnCheckChange1,
+                                                                                    scope: me
+                                                                                }
+                                                                            }
                                                                         }
                                                                     ],
                                                                     dockedItems: [
@@ -657,6 +700,7 @@ Ext.define('MyApp.view.adminContainer', {
                                                                     xtype: 'gridpanel',
                                                                     height: 320,
                                                                     autoScroll: true,
+                                                                    autoDestroy: false,
                                                                     header: false,
                                                                     title: 'My Grid Panel',
                                                                     columnLines: true,
@@ -760,6 +804,14 @@ Ext.define('MyApp.view.adminContainer', {
         });
 
         me.callParent(arguments);
+    },
+
+    onCheckcolumnCheckChange: function(checkcolumn, rowIndex, checked, eOpts) {
+        userConstants.me.changeMenuAuth(Ext.getCmp("permissionMenuTreeGrid"), "isRead");
+    },
+
+    onCheckcolumnCheckChange1: function(checkcolumn, rowIndex, checked, eOpts) {
+        userConstants.me.changeMenuAuth(Ext.getCmp("permissionMenuTreeGrid"), "isWrite");
     }
 
 });

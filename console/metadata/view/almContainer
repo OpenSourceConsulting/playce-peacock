@@ -186,7 +186,9 @@
                                                         "implHandler": [
                                                             "var almProjectWindow = Ext.create(\"widget.AlmProjectWindow\");",
                                                             "",
-                                                            "almProjectWindow.show();"
+                                                            "almProjectWindow.show();",
+                                                            "",
+                                                            "Ext.getCmp('projectDuplBtn').hide();"
                                                         ]
                                                     },
                                                     "designerId": "106cf5f6-50b5-4172-9a7e-62f60dd0b515"

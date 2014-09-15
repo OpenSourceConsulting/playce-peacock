@@ -26,34 +26,148 @@
     "designerId": "5cb7ae82-c1fe-4450-a2c5-6352d3ba220d",
     "cn": [
         {
-            "type": "Ext.form.field.Text",
+            "type": "Ext.form.FieldContainer",
             "reference": {
                 "name": "items",
                 "type": "array"
             },
             "codeClass": null,
             "userConfig": {
-                "allowBlank": false,
-                "fieldLabel": "Project Code",
-                "layout|anchor": "100%",
-                "name": "projectCode"
+                "container|align": "middle",
+                "defaults": [
+                    "{",
+                    "    flex: 1",
+                    "}"
+                ],
+                "fieldLabel": "Label",
+                "height": 34,
+                "hideLabel": true,
+                "layout": "hbox",
+                "width": null
             },
-            "designerId": "8a855768-c10a-4b36-8fc9-9cb76d82a3b3",
+            "designerId": "d009f652-ceea-4e7e-b879-757edd4b97ac",
             "cn": [
                 {
-                    "type": "Ext.XTemplate",
+                    "type": "Ext.form.field.Text",
                     "reference": {
-                        "name": "afterLabelTextTpl",
-                        "type": "object"
+                        "name": "items",
+                        "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "designer|displayName": "afterLabelTextTpl",
-                        "implHandler": [
-                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
-                        ]
+                        "allowBlank": false,
+                        "fieldLabel": "Project Code",
+                        "layout|flex": 5,
+                        "name": "projectCode",
+                        "vtype": "template"
                     },
-                    "designerId": "9b8bc2c6-ea68-42d5-a20a-0b3a272b1e3e"
+                    "designerId": "8a855768-c10a-4b36-8fc9-9cb76d82a3b3",
+                    "cn": [
+                        {
+                            "type": "Ext.XTemplate",
+                            "reference": {
+                                "name": "afterLabelTextTpl",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "afterLabelTextTpl",
+                                "implHandler": [
+                                    "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                ]
+                            },
+                            "designerId": "9b8bc2c6-ea68-42d5-a20a-0b3a272b1e3e"
+                        },
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onTextfieldChange",
+                                "implHandler": [
+                                    "if(Ext.getCmp(\"proejctCodeDuplYnField\") != null){",
+                                    "    Ext.getCmp(\"proejctCodeDuplYnField\").setValue(\"\");",
+                                    "}"
+                                ],
+                                "name": "change",
+                                "scope": "me"
+                            },
+                            "designerId": "c93c1c6b-3d72-41eb-8120-4eb04de3588a"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "projectDuplBtn",
+                        "itemId": "projectDuplBtn",
+                        "layout|flex": 1,
+                        "margin": "0 0 0 10",
+                        "padding": null,
+                        "text": "중복확인"
+                    },
+                    "designerId": "e12f046e-d0a9-45c5-b990-420b1c4899c2",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "button",
+                                    "e"
+                                ],
+                                "fn": "handler",
+                                "implHandler": [
+                                    "var projectCode = Ext.getCmp(\"addProjectForm\").getForm().findField('projectCode').getValue();",
+                                    "",
+                                    "if(projectCode == '') {",
+                                    "    Ext.Msg.alert('Error', 'Project Code를 입력하세요.');",
+                                    "}",
+                                    "",
+                                    "Ext.Ajax.request({",
+                                    "    url: GLOBAL.urlPrefix + \"alm/project/wizard/\" + projectCode,",
+                                    "    method: 'GET',",
+                                    "    headers: { 'Content-Type': 'application/json' },",
+                                    "    waitMsg: 'Project Code Checking...',",
+                                    "    success: function (response) {",
+                                    "        ",
+                                    "        var responseData = Ext.JSON.decode(response.responseText);",
+                                    "        ",
+                                    "        if(responseData.success) {",
+                                    "            ",
+                                    "            Ext.Msg.alert('Success', responseData.msg);",
+                                    "            Ext.getCmp(\"proejctCodeDuplYnField\").setValue('Y');",
+                                    "        } else {",
+                                    "            ",
+                                    "            Ext.Msg.alert('Failure', responseData.msg);",
+                                    "            ",
+                                    "        }",
+                                    "        ",
+                                    "    },",
+                                    "    failure: function (response) {",
+                                    "        var msg = Ext.JSON.decode(response.responseText).msg;",
+                                    "        ",
+                                    "        Ext.Msg.alert('Failure', msg);",
+                                    "    }",
+                                    "});",
+                                    ""
+                                ]
+                            },
+                            "designerId": "512c3c3a-f8cc-4d8b-af49-0859fae764ff"
+                        }
+                    ]
                 }
             ]
         },
@@ -99,6 +213,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "allowBlank": false,
                 "fieldLabel": "Project Description",
                 "labelWidth": null,
                 "layout|anchor": "100%",
@@ -106,7 +221,24 @@
                 "name": "projectDescription",
                 "padding": ""
             },
-            "designerId": "59ba8136-b042-432b-bd4f-20b7c7af7027"
+            "designerId": "59ba8136-b042-432b-bd4f-20b7c7af7027",
+            "cn": [
+                {
+                    "type": "Ext.XTemplate",
+                    "reference": {
+                        "name": "afterLabelTextTpl",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|displayName": "afterLabelTextTpl",
+                        "implHandler": [
+                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                        ]
+                    },
+                    "designerId": "514391ee-1baf-43bb-b783-5e6a18bdd6cf"
+                }
+            ]
         },
         {
             "type": "Ext.form.field.Text",
@@ -116,6 +248,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "allowBlank": false,
                 "fieldLabel": "Group Description",
                 "labelWidth": null,
                 "layout|anchor": "100%",
@@ -123,7 +256,24 @@
                 "name": "groupDescription",
                 "padding": ""
             },
-            "designerId": "ed420667-a15e-481c-8135-dd51d63719e6"
+            "designerId": "ed420667-a15e-481c-8135-dd51d63719e6",
+            "cn": [
+                {
+                    "type": "Ext.XTemplate",
+                    "reference": {
+                        "name": "afterLabelTextTpl",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|displayName": "afterLabelTextTpl",
+                        "implHandler": [
+                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                        ]
+                    },
+                    "designerId": "b5c79485-6e2d-49d4-8856-36cd3c729a0f"
+                }
+            ]
         },
         {
             "type": "Ext.form.field.ComboBox",

@@ -312,6 +312,20 @@
                                     "masterInstanceId": "5cb7ae82-c1fe-4450-a2c5-6352d3ba220d"
                                 },
                                 {
+                                    "type": "Ext.form.field.Hidden",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Label",
+                                        "id": "proejctCodeDuplYnField",
+                                        "itemId": "proejctCodeDuplYnField"
+                                    },
+                                    "designerId": "b41c1fde-9cbe-4357-b7cf-d66664a8d182"
+                                },
+                                {
                                     "type": "Ext.toolbar.Toolbar",
                                     "reference": {
                                         "name": "dockedItems",
@@ -644,6 +658,7 @@
                                                                         "implHandler": [
                                                                             "var spaceStore = Ext.getCmp(\"wizardSelectSpaceGrid\").getStore();",
                                                                             "if(spaceStore.find('key', record.get('key')) > -1) {",
+                                                                            "    Ext.Msg.alert('Message', \"이미 선택된 Space 정보입니다.\");",
                                                                             "    return;",
                                                                             "}",
                                                                             "",
@@ -1211,6 +1226,7 @@
                                                                         "implHandler": [
                                                                             "var userStore = Ext.getCmp(\"wizardSelectUserGrid\").getStore();",
                                                                             "if(userStore.find('userId', record.get('userId')) > -1) {",
+                                                                            "    Ext.Msg.alert('Message', \"이미 선택된 User 정보입니다.\");",
                                                                             "    return;",
                                                                             "}",
                                                                             "",
@@ -1600,6 +1616,285 @@
                                         "text": "Step 4. Review Project Wizard"
                                     },
                                     "designerId": "94edb5a2-18f6-4cf4-9ce3-788dd4f1140f"
+                                },
+                                {
+                                    "type": "Ext.panel.Panel",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "autoScroll": true,
+                                        "header": false,
+                                        "height": 432,
+                                        "margin": "5 0 0 0",
+                                        "title": "My Panel"
+                                    },
+                                    "designerId": "19a6ba14-2287-4eac-b754-54b9a79de4b5",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.form.Panel",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "bodyPadding": 10,
+                                                "bodyStyle": [
+                                                    "'padding:5px 5px 0'"
+                                                ],
+                                                "defaults": [
+                                                    "{",
+                                                    "    border: false,",
+                                                    "    xtype: 'panel',",
+                                                    "    flex: 1,",
+                                                    "    layout: 'anchor'",
+                                                    "}"
+                                                ],
+                                                "fieldDefaults": [
+                                                    "{",
+                                                    "    msgTarget: 'side',",
+                                                    "    margin: '0 10',",
+                                                    "    readOnly: true,",
+                                                    "    labelStyle: 'font-weight: bold;',",
+                                                    "    labelSeparator: ' :'",
+                                                    "}"
+                                                ],
+                                                "frame": true,
+                                                "id": "reviewProjectForm",
+                                                "itemId": "reviewProjectForm",
+                                                "margin": 20,
+                                                "padding": "",
+                                                "title": "Project Information",
+                                                "waitMsgTarget": [
+                                                    "'instDescForm'"
+                                                ],
+                                                "width": 680
+                                            },
+                                            "designerId": "00bbe5e3-704b-4f39-a48f-68cd76789872",
+                                            "cn": [
+                                                {
+                                                    "type": "Ext.form.field.Display",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fieldLabel": "Project Name",
+                                                        "labelWidth": 140,
+                                                        "name": "projectName",
+                                                        "padding": 10
+                                                    },
+                                                    "designerId": "36e45723-d6c5-4d60-826b-3cb8551bb0b2"
+                                                },
+                                                {
+                                                    "type": "Ext.form.field.Display",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fieldLabel": "Project Description",
+                                                        "labelWidth": 140,
+                                                        "name": "projectDescription",
+                                                        "padding": 10
+                                                    },
+                                                    "designerId": "35f23889-3178-4e7f-a877-e410430d1825"
+                                                },
+                                                {
+                                                    "type": "Ext.form.field.Display",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fieldLabel": "Group Description",
+                                                        "labelWidth": 140,
+                                                        "name": "groupDescription",
+                                                        "padding": 10
+                                                    },
+                                                    "designerId": "42025794-dd3e-4a47-9b4a-949b14e975ca"
+                                                },
+                                                {
+                                                    "type": "Ext.form.field.Display",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fieldLabel": "Select Repository",
+                                                        "labelWidth": 140,
+                                                        "name": "repository",
+                                                        "padding": 10
+                                                    },
+                                                    "designerId": "6b571123-46de-4afe-a271-de255342b2ad"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "Ext.grid.Panel",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "autoScroll": true,
+                                                "columnLines": true,
+                                                "emptyText": "<div style='text-align:center;'>No Selected Data</div>",
+                                                "forceFit": true,
+                                                "frame": true,
+                                                "height": 180,
+                                                "id": null,
+                                                "itemId": null,
+                                                "margin": "0 20 20 20",
+                                                "store": "tempSpaceStore",
+                                                "style": null,
+                                                "title": "Space Information",
+                                                "width": 680
+                                            },
+                                            "designerId": "e23bb4d3-3816-43bd-abcf-a91ed13381cd",
+                                            "cn": [
+                                                {
+                                                    "type": "Ext.grid.View",
+                                                    "reference": {
+                                                        "name": "viewConfig",
+                                                        "type": "object"
+                                                    },
+                                                    "codeClass": null,
+                                                    "designerId": "5e62681f-c113-430f-a4bf-c99aa3cd6866"
+                                                },
+                                                {
+                                                    "type": "Ext.grid.column.Column",
+                                                    "reference": {
+                                                        "name": "columns",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "dataIndex": "key",
+                                                        "minWidth": 100,
+                                                        "text": "Space"
+                                                    },
+                                                    "designerId": "2bd583dc-9387-4c4f-b08c-7c48df9bb92b"
+                                                },
+                                                {
+                                                    "type": "Ext.grid.column.Column",
+                                                    "reference": {
+                                                        "name": "columns",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "dataIndex": "name",
+                                                        "minWidth": 150,
+                                                        "text": "Name"
+                                                    },
+                                                    "designerId": "80012306-e56b-4331-aff6-0180f876f290"
+                                                },
+                                                {
+                                                    "type": "Ext.grid.column.Column",
+                                                    "reference": {
+                                                        "name": "columns",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "dataIndex": "type",
+                                                        "minWidth": 80,
+                                                        "text": "Type"
+                                                    },
+                                                    "designerId": "4b1ef020-b4ff-449f-984a-cc20a0c5b320"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "Ext.grid.Panel",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "autoScroll": true,
+                                                "bodyBorder": null,
+                                                "border": null,
+                                                "columnLines": true,
+                                                "emptyText": "<div style='text-align:center;'>No Selected Data</div>",
+                                                "forceFit": true,
+                                                "frame": true,
+                                                "height": 200,
+                                                "id": null,
+                                                "itemId": null,
+                                                "margin": "0 20 10 20",
+                                                "store": "tempUserStore",
+                                                "title": "User Information"
+                                            },
+                                            "designerId": "831deefe-55e1-4239-b889-80d6d8a40883",
+                                            "cn": [
+                                                {
+                                                    "type": "Ext.grid.View",
+                                                    "reference": {
+                                                        "name": "viewConfig",
+                                                        "type": "object"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "border": null
+                                                    },
+                                                    "designerId": "d6d541a0-c4c4-4d17-b503-ab24e88bed3e"
+                                                },
+                                                {
+                                                    "type": "Ext.grid.column.Column",
+                                                    "reference": {
+                                                        "name": "columns",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "dataIndex": "userId",
+                                                        "minWidth": 100,
+                                                        "text": "User Name"
+                                                    },
+                                                    "designerId": "e508e9ab-3448-4823-8da9-6d4400e52243"
+                                                },
+                                                {
+                                                    "type": "Ext.grid.column.Column",
+                                                    "reference": {
+                                                        "name": "columns",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "dataIndex": "displayName",
+                                                        "minWidth": 150,
+                                                        "text": "Display Name"
+                                                    },
+                                                    "designerId": "3a10d008-3fb9-4236-ae9b-eb4831da86ce"
+                                                },
+                                                {
+                                                    "type": "Ext.grid.column.Column",
+                                                    "reference": {
+                                                        "name": "columns",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "dataIndex": "emailAddress",
+                                                        "minWidth": 200,
+                                                        "text": "Email"
+                                                    },
+                                                    "designerId": "55dc51b6-9965-46c2-a05f-044d474bff87"
+                                                }
+                                            ]
+                                        }
+                                    ]
                                 },
                                 {
                                     "type": "Ext.toolbar.Toolbar",

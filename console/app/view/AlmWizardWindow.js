@@ -23,12 +23,14 @@ Ext.define('MyApp.view.AlmWizardWindow', {
         'Ext.toolbar.TextItem',
         'Ext.form.Label',
         'Ext.form.Panel',
+        'Ext.form.field.Hidden',
         'Ext.button.Button',
         'Ext.grid.Panel',
         'Ext.grid.View',
         'Ext.form.field.Text',
         'Ext.grid.column.Action',
-        'Ext.grid.RowNumberer'
+        'Ext.grid.RowNumberer',
+        'Ext.form.field.Display'
     ],
 
     height: 600,
@@ -157,6 +159,12 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                 labelWidth: 120,
                                                 margin: '0 0 15 0'
                                             }
+                                        },
+                                        {
+                                            xtype: 'hiddenfield',
+                                            id: 'proejctCodeDuplYnField',
+                                            itemId: 'proejctCodeDuplYnField',
+                                            fieldLabel: 'Label'
                                         }
                                     ],
                                     dockedItems: [
@@ -277,6 +285,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
                                                                         var spaceStore = Ext.getCmp("wizardSelectSpaceGrid").getStore();
                                                                         if(spaceStore.find('key', record.get('key')) > -1) {
+                                                                            Ext.Msg.alert('Message', "이미 선택된 Space 정보입니다.");
                                                                             return;
                                                                         }
 
@@ -487,6 +496,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
                                                                         var userStore = Ext.getCmp("wizardSelectUserGrid").getStore();
                                                                         if(userStore.find('userId', record.get('userId')) > -1) {
+                                                                            Ext.Msg.alert('Message', "이미 선택된 User 정보입니다.");
                                                                             return;
                                                                         }
 
@@ -638,6 +648,137 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                             margin: '0 0 0 20',
                                             style: 'font-size:25px;',
                                             text: 'Step 4. Review Project Wizard'
+                                        },
+                                        {
+                                            xtype: 'panel',
+                                            height: 432,
+                                            margin: '5 0 0 0',
+                                            autoScroll: true,
+                                            header: false,
+                                            title: 'My Panel',
+                                            items: [
+                                                {
+                                                    xtype: 'form',
+                                                    frame: true,
+                                                    id: 'reviewProjectForm',
+                                                    itemId: 'reviewProjectForm',
+                                                    margin: 20,
+                                                    padding: '',
+                                                    width: 680,
+                                                    defaults: {
+                                                        border: false,
+                                                        xtype: 'panel',
+                                                        flex: 1,
+                                                        layout: 'anchor'
+                                                    },
+                                                    bodyPadding: 10,
+                                                    bodyStyle: 'padding:5px 5px 0',
+                                                    title: 'Project Information',
+                                                    fieldDefaults: {
+                                                        msgTarget: 'side',
+                                                        margin: '0 10',
+                                                        readOnly: true,
+                                                        labelStyle: 'font-weight: bold;',
+                                                        labelSeparator: ' :'
+                                                    },
+                                                    waitMsgTarget: 'instDescForm',
+                                                    items: [
+                                                        {
+                                                            xtype: 'displayfield',
+                                                            padding: 10,
+                                                            fieldLabel: 'Project Name',
+                                                            labelWidth: 140,
+                                                            name: 'projectName'
+                                                        },
+                                                        {
+                                                            xtype: 'displayfield',
+                                                            padding: 10,
+                                                            fieldLabel: 'Project Description',
+                                                            labelWidth: 140,
+                                                            name: 'projectDescription'
+                                                        },
+                                                        {
+                                                            xtype: 'displayfield',
+                                                            padding: 10,
+                                                            fieldLabel: 'Group Description',
+                                                            labelWidth: 140,
+                                                            name: 'groupDescription'
+                                                        },
+                                                        {
+                                                            xtype: 'displayfield',
+                                                            padding: 10,
+                                                            fieldLabel: 'Select Repository',
+                                                            labelWidth: 140,
+                                                            name: 'repository'
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    xtype: 'gridpanel',
+                                                    frame: true,
+                                                    height: 180,
+                                                    margin: '0 20 20 20',
+                                                    width: 680,
+                                                    autoScroll: true,
+                                                    title: 'Space Information',
+                                                    columnLines: true,
+                                                    emptyText: '<div style=\'text-align:center;\'>No Selected Data</div>',
+                                                    forceFit: true,
+                                                    store: 'tempSpaceStore',
+                                                    columns: [
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            minWidth: 100,
+                                                            dataIndex: 'key',
+                                                            text: 'Space'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            minWidth: 150,
+                                                            dataIndex: 'name',
+                                                            text: 'Name'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            minWidth: 80,
+                                                            dataIndex: 'type',
+                                                            text: 'Type'
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    xtype: 'gridpanel',
+                                                    frame: true,
+                                                    height: 200,
+                                                    margin: '0 20 10 20',
+                                                    autoScroll: true,
+                                                    title: 'User Information',
+                                                    columnLines: true,
+                                                    emptyText: '<div style=\'text-align:center;\'>No Selected Data</div>',
+                                                    forceFit: true,
+                                                    store: 'tempUserStore',
+                                                    columns: [
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            minWidth: 100,
+                                                            dataIndex: 'userId',
+                                                            text: 'User Name'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            minWidth: 150,
+                                                            dataIndex: 'displayName',
+                                                            text: 'Display Name'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            minWidth: 200,
+                                                            dataIndex: 'emailAddress',
+                                                            text: 'Email'
+                                                        }
+                                                    ]
+                                                }
+                                            ]
                                         }
                                     ],
                                     dockedItems: [

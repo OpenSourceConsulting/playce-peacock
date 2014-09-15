@@ -91,7 +91,8 @@ Ext.application({
         'tempSpaceStore',
         'tempUserStore',
         'PermissionStore',
-        'permissionMenuTreeStore'
+        'permissionMenuTreeStore',
+        'allMenuTreeStore'
     ],
     views: [
         'peacockViewport',

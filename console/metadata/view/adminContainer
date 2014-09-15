@@ -959,7 +959,7 @@
                                             "codeClass": null,
                                             "userConfig": {
                                                 "cls": null,
-                                                "emptyText": "Search User Name",
+                                                "emptyText": "Search Permission Name",
                                                 "enableKeyEvents": true,
                                                 "fieldLabel": "Filtering",
                                                 "fieldStyle": null,
@@ -1202,7 +1202,7 @@
                                                         "implHandler": [
                                                             "userConstants.actionRow = record;",
                                                             "",
-                                                            "userConstants.me.deleteUser();",
+                                                            "userConstants.me.deleteUserPermission();",
                                                             ""
                                                         ]
                                                     },
@@ -1211,6 +1211,15 @@
                                             ]
                                         }
                                     ]
+                                },
+                                {
+                                    "type": "Ext.grid.plugin.CellEditing",
+                                    "reference": {
+                                        "name": "plugins",
+                                        "type": "array"
+                                    },
+                                    "codeClass": "Ext.grid.plugin.CellEditing",
+                                    "designerId": "a096f9c9-dd8a-43f1-a25a-f4b9bd0d7385"
                                 }
                             ]
                         },
@@ -1335,6 +1344,7 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
+                                                                "autoDestroy": false,
                                                                 "autoScroll": true,
                                                                 "columnLines": true,
                                                                 "forceFit": false,
@@ -1344,14 +1354,32 @@
                                                                 "id": "permissionMenuTreeGrid",
                                                                 "itemId": "permissionMenuTreeGrid",
                                                                 "minHeight": 250,
+                                                                "plugins": [
+                                                                    "[",
+                                                                    "    Ext.create('Ext.grid.plugin.CellEditing', {",
+                                                                    "        ",
+                                                                    "    })",
+                                                                    "]"
+                                                                ],
+                                                                "rootVisible": false,
                                                                 "rowLines": true,
-                                                                "store": "permissionMenuTreeStore",
+                                                                "store": null,
                                                                 "title": "My Tree Grid Panel"
+                                                            },
+                                                            "configAlternates": {
+                                                                "plugins": "object"
                                                             },
                                                             "designerId": "89b16bdf-fbdc-4f01-b69e-504656d06e1d",
                                                             "isBuiltIn": true,
                                                             "iconCls": "icon-treegridpanel",
                                                             "autoName": "TreeGrid",
+                                                            "customConfigs": [
+                                                                {
+                                                                    "group": "(Custom Properties)",
+                                                                    "name": "plugins",
+                                                                    "type": "string"
+                                                                }
+                                                            ],
                                                             "cn": [
                                                                 {
                                                                     "type": "Ext.tree.View",
@@ -1386,11 +1414,32 @@
                                                                     },
                                                                     "codeClass": null,
                                                                     "userConfig": {
-                                                                        "dataIndex": "readYn",
+                                                                        "dataIndex": "isRead",
+                                                                        "menuDisabled": true,
                                                                         "minWidth": 100,
+                                                                        "stopSelection": false,
                                                                         "text": "Read"
                                                                     },
-                                                                    "designerId": "9fe411ce-73ed-475c-8a4c-103b1bec1084"
+                                                                    "designerId": "9fe411ce-73ed-475c-8a4c-103b1bec1084",
+                                                                    "cn": [
+                                                                        {
+                                                                            "type": "basiceventbinding",
+                                                                            "reference": {
+                                                                                "name": "listeners",
+                                                                                "type": "array"
+                                                                            },
+                                                                            "codeClass": null,
+                                                                            "userConfig": {
+                                                                                "fn": "onCheckcolumnCheckChange",
+                                                                                "implHandler": [
+                                                                                    "userConstants.me.changeMenuAuth(Ext.getCmp(\"permissionMenuTreeGrid\"), \"isRead\");"
+                                                                                ],
+                                                                                "name": "checkchange",
+                                                                                "scope": "me"
+                                                                            },
+                                                                            "designerId": "045872eb-2611-4b42-b9bd-731077089b65"
+                                                                        }
+                                                                    ]
                                                                 },
                                                                 {
                                                                     "type": "Ext.grid.column.CheckColumn",
@@ -1400,11 +1449,30 @@
                                                                     },
                                                                     "codeClass": null,
                                                                     "userConfig": {
-                                                                        "dataIndex": "writeYn",
+                                                                        "dataIndex": "isWrite",
                                                                         "minWidth": 100,
                                                                         "text": "Write"
                                                                     },
-                                                                    "designerId": "3f68786a-59cc-4050-ae8e-197f5bae4c9d"
+                                                                    "designerId": "3f68786a-59cc-4050-ae8e-197f5bae4c9d",
+                                                                    "cn": [
+                                                                        {
+                                                                            "type": "basiceventbinding",
+                                                                            "reference": {
+                                                                                "name": "listeners",
+                                                                                "type": "array"
+                                                                            },
+                                                                            "codeClass": null,
+                                                                            "userConfig": {
+                                                                                "fn": "onCheckcolumnCheckChange1",
+                                                                                "implHandler": [
+                                                                                    "userConstants.me.changeMenuAuth(Ext.getCmp(\"permissionMenuTreeGrid\"), \"isWrite\");"
+                                                                                ],
+                                                                                "name": "checkchange",
+                                                                                "scope": "me"
+                                                                            },
+                                                                            "designerId": "592597e9-9fa2-4d66-a6a2-604bed1984bc"
+                                                                        }
+                                                                    ]
                                                                 },
                                                                 {
                                                                     "type": "Ext.toolbar.Toolbar",
@@ -1445,6 +1513,34 @@
                                                                             "designerId": "0af1abb5-b7bf-488b-8296-43e191434cdc"
                                                                         }
                                                                     ]
+                                                                },
+                                                                {
+                                                                    "type": "basicfunction",
+                                                                    "reference": {
+                                                                        "name": "items",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "fn": "getRecords",
+                                                                        "implHandler": [
+                                                                            "var current = 0;",
+                                                                            "var records = [];",
+                                                                            "return (function find(nodes) {",
+                                                                            "    var i, len = nodes.length;",
+                                                                            "    for (i = 0; i < len; i++) {",
+                                                                            "        records.push(nodes[i]);",
+                                                                            "        current++;",
+                                                                            "        var found = find(nodes[i].childNodes);",
+                                                                            "    }",
+                                                                            "    ",
+                                                                            "    return records;",
+                                                                            "    ",
+                                                                            "}(this.store.getRootNode().childNodes));",
+                                                                            ""
+                                                                        ]
+                                                                    },
+                                                                    "designerId": "b35019ac-d737-4b61-8e85-6f5f0aef0480"
                                                                 }
                                                             ]
                                                         }
@@ -1479,6 +1575,7 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
+                                                                "autoDestroy": false,
                                                                 "autoScroll": true,
                                                                 "columnLines": true,
                                                                 "forceFit": true,

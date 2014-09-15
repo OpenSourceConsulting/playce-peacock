@@ -26,6 +26,7 @@ Ext.define('MyApp.store.permissionMenuTreeStore', {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
+            autoLoad: false,
             model: 'MyApp.model.MenuModel',
             storeId: 'permissionMenuTreeStore',
             proxy: {

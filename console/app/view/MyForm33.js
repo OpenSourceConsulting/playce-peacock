@@ -18,7 +18,9 @@ Ext.define('MyApp.view.MyForm33', {
     alias: 'widget.myform33',
 
     requires: [
+        'Ext.form.FieldContainer',
         'Ext.XTemplate',
+        'Ext.button.Button',
         'Ext.form.field.ComboBox'
     ],
 
@@ -41,14 +43,79 @@ Ext.define('MyApp.view.MyForm33', {
             },
             items: [
                 {
-                    xtype: 'textfield',
-                    anchor: '100%',
-                    afterLabelTextTpl: [
-                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-                    ],
-                    fieldLabel: 'Project Code',
-                    name: 'projectCode',
-                    allowBlank: false
+                    xtype: 'fieldcontainer',
+                    height: 34,
+                    defaults: {
+                        flex: 1
+                    },
+                    fieldLabel: 'Label',
+                    hideLabel: true,
+                    layout: {
+                        type: 'hbox',
+                        align: 'middle'
+                    },
+                    items: [
+                        {
+                            xtype: 'textfield',
+                            flex: 5,
+                            afterLabelTextTpl: [
+                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                            ],
+                            fieldLabel: 'Project Code',
+                            name: 'projectCode',
+                            allowBlank: false,
+                            vtype: 'template',
+                            listeners: {
+                                change: {
+                                    fn: me.onTextfieldChange,
+                                    scope: me
+                                }
+                            }
+                        },
+                        {
+                            xtype: 'button',
+                            handler: function(button, e) {
+                                var projectCode = Ext.getCmp("addProjectForm").getForm().findField('projectCode').getValue();
+
+                                if(projectCode == '') {
+                                    Ext.Msg.alert('Error', 'Project Code를 입력하세요.');
+                                }
+
+                                Ext.Ajax.request({
+                                    url: GLOBAL.urlPrefix + "alm/project/wizard/" + projectCode,
+                                    method: 'GET',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    waitMsg: 'Project Code Checking...',
+                                    success: function (response) {
+
+                                        var responseData = Ext.JSON.decode(response.responseText);
+
+                                        if(responseData.success) {
+
+                                            Ext.Msg.alert('Success', responseData.msg);
+                                            Ext.getCmp("proejctCodeDuplYnField").setValue('Y');
+                                        } else {
+
+                                            Ext.Msg.alert('Failure', responseData.msg);
+
+                                        }
+
+                                    },
+                                    failure: function (response) {
+                                        var msg = Ext.JSON.decode(response.responseText).msg;
+
+                                        Ext.Msg.alert('Failure', msg);
+                                    }
+                                });
+
+                            },
+                            flex: 1,
+                            id: 'projectDuplBtn',
+                            itemId: 'projectDuplBtn',
+                            margin: '0 0 0 10',
+                            text: '중복확인'
+                        }
+                    ]
                 },
                 {
                     xtype: 'textfield',
@@ -66,16 +133,24 @@ Ext.define('MyApp.view.MyForm33', {
                     anchor: '100%',
                     margin: '0 0 15 0',
                     padding: '',
+                    afterLabelTextTpl: [
+                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                    ],
                     fieldLabel: 'Project Description',
-                    name: 'projectDescription'
+                    name: 'projectDescription',
+                    allowBlank: false
                 },
                 {
                     xtype: 'textfield',
                     anchor: '100%',
                     margin: '0 0 15 0',
                     padding: '',
+                    afterLabelTextTpl: [
+                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                    ],
                     fieldLabel: 'Group Description',
-                    name: 'groupDescription'
+                    name: 'groupDescription',
+                    allowBlank: false
                 },
                 {
                     xtype: 'combobox',
@@ -96,6 +171,12 @@ Ext.define('MyApp.view.MyForm33', {
         });
 
         me.callParent(arguments);
+    },
+
+    onTextfieldChange: function(field, newValue, oldValue, eOpts) {
+        if(Ext.getCmp("proejctCodeDuplYnField") != null){
+            Ext.getCmp("proejctCodeDuplYnField").setValue("");
+        }
     }
 
 });

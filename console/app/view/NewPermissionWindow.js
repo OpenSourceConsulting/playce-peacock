@@ -23,12 +23,13 @@ Ext.define('MyApp.view.NewPermissionWindow', {
         'Ext.tree.Panel',
         'Ext.tree.View',
         'Ext.tree.Column',
+        'Ext.grid.column.CheckColumn',
         'Ext.toolbar.Toolbar',
         'Ext.button.Button'
     ],
 
-    height: 360,
-    width: 466,
+    height: 430,
+    width: 500,
     resizable: false,
     title: 'New Permission',
     modal: true,
@@ -40,7 +41,7 @@ Ext.define('MyApp.view.NewPermissionWindow', {
             items: [
                 {
                     xtype: 'form',
-                    padding: 10,
+                    padding: '10 10 0 10',
                     bodyPadding: 10,
                     header: false,
                     title: 'My Form',
@@ -50,41 +51,85 @@ Ext.define('MyApp.view.NewPermissionWindow', {
                             anchor: '100%',
                             margin: '0 0 10 0',
                             fieldLabel: 'Permission Name',
-                            labelWidth: 120
+                            labelWidth: 120,
+                            name: 'permNm'
+                        }
+                    ]
+                },
+                {
+                    xtype: 'treepanel',
+                    getRecords: function() {
+                        var current = 0;
+                        var records = [];
+                        return (function find(nodes) {
+                            var i, len = nodes.length;
+                            for (i = 0; i < len; i++) {
+                                records.push(nodes[i]);
+                                current++;
+                                var found = find(nodes[i].childNodes);
+                            }
+
+                            return records;
+
+                        }(this.store.getRootNode().childNodes));
+
+                    },
+                    plugins: [
+                        Ext.create('Ext.grid.plugin.CellEditing',
+                        {
+                            
+                        })
+                    ],
+                    frame: true,
+                    height: 270,
+                    id: 'allMenuTreeGrid',
+                    itemId: 'allMenuTreeGrid',
+                    margin: '5 20 10 20',
+                    width: 445,
+                    autoScroll: true,
+                    header: false,
+                    title: 'My Tree Grid Panel',
+                    columnLines: true,
+                    forceFit: false,
+                    rowLines: true,
+                    store: 'allMenuTreeStore',
+                    rootVisible: false,
+                    viewConfig: {
+
+                    },
+                    columns: [
+                        {
+                            xtype: 'treecolumn',
+                            dataIndex: 'menuNm',
+                            groupable: false,
+                            text: 'Menu',
+                            flex: 5
                         },
                         {
-                            xtype: 'treepanel',
-                            height: 230,
-                            width: 418,
-                            autoScroll: true,
-                            header: false,
-                            title: 'My Tree Grid Panel',
-                            columnLines: true,
-                            rowLines: true,
-                            viewConfig: {
-                                autoScroll: true
-                            },
-                            columns: [
-                                {
-                                    xtype: 'treecolumn',
-                                    minWidth: 150,
-                                    dataIndex: 'text',
-                                    text: 'Menu',
-                                    flex: 1
-                                },
-                                {
-                                    xtype: 'gridcolumn',
-                                    minWidth: 60,
-                                    dataIndex: 'value',
-                                    text: 'Read'
-                                },
-                                {
-                                    xtype: 'gridcolumn',
-                                    minWidth: 60,
-                                    dataIndex: 'value',
-                                    text: 'Write'
+                            xtype: 'checkcolumn',
+                            dataIndex: 'isRead',
+                            menuDisabled: true,
+                            text: 'Read',
+                            flex: 1,
+                            stopSelection: false,
+                            listeners: {
+                                checkchange: {
+                                    fn: me.onCheckcolumnCheckChange2,
+                                    scope: me
                                 }
-                            ]
+                            }
+                        },
+                        {
+                            xtype: 'checkcolumn',
+                            dataIndex: 'isWrite',
+                            text: 'Write',
+                            flex: 1,
+                            listeners: {
+                                checkchange: {
+                                    fn: me.onCheckcolumnCheckChange11,
+                                    scope: me
+                                }
+                            }
                         }
                     ]
                 }
@@ -106,12 +151,37 @@ Ext.define('MyApp.view.NewPermissionWindow', {
 
                                 if(projectForm.isValid()) {
 
+                                    var wizardData = {};
+
+                                    var spaceStore = Ext.getCmp("wizardSelectSpaceGrid").getStore();
+                                    var userStore = Ext.getCmp("wizardSelectUserGrid").getStore();
+
+                                    wizardData.project = projectForm.getForm().getFieldValues();
+
+                                    if(spaceStore.getCount() > 0 ) {
+
+                                        var spaceItems = [];
+                                        Ext.each(Ext.pluck(spaceStore.data.items, 'data'), function(item) {
+                                            var spaceItem = {};
+                                            spaceItem.mappingCode = item.key;
+                                            spaceItem.mappingType = "10";
+
+                                            spaceItems.push(spaceItem);
+                                        });
+
+                                        wizardData.confluence = spaceItems;
+                                    }
+
+                                    if(userStore.getCount() > 0 ) {
+                                        wizardData.users = Ext.pluck(userStore.data.items, 'data');
+                                    }
+
                                     Ext.Ajax.request({
-                                        url: GLOBAL.urlPrefix + "alm/project",
+                                        url: GLOBAL.urlPrefix + "alm/project/wizard",
                                         method: 'POST',
                                         headers: { 'Content-Type': 'application/json' },
-                                        waitMsg: 'Saving Data...',
-                                        jsonData: projectForm.getForm().getFieldValues(),
+                                        waitMsg: 'Create Project...',
+                                        jsonData: wizardData,
                                         success: function (response) {
 
                                             var responseData = Ext.JSON.decode(response.responseText);
@@ -166,6 +236,14 @@ Ext.define('MyApp.view.NewPermissionWindow', {
         });
 
         me.callParent(arguments);
+    },
+
+    onCheckcolumnCheckChange2: function(checkcolumn, rowIndex, checked, eOpts) {
+        userConstants.me.changeMenuAuth(Ext.getCmp("allMenuTreeGrid"), "isRead");
+    },
+
+    onCheckcolumnCheckChange11: function(checkcolumn, rowIndex, checked, eOpts) {
+        userConstants.me.changeMenuAuth(Ext.getCmp("allMenuTreeGrid"), "isWrite");
     }
 
 });

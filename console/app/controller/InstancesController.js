@@ -259,19 +259,24 @@ Ext.define('MyApp.controller.InstancesController', {
         });
 
         var comboStore = Ext.getStore("ComboHypervisorStore");
-        comboStore.load();
+        comboStore.load({
+            callback : function(records, options, success) {
 
-        comboStore.each(function (record, index) {
+                Ext.each(records, function (record, index) {
 
-            rhevmCycle.add({
-                xtype: 'menucheckitem',
-                code: record.get("hypervisorId"),
-                text: record.get("rhevmName"),
-                group : 'rhevm'
-            });
+                    rhevmCycle.add({
+                        xtype: 'menucheckitem',
+                        code: record.get("hypervisorId"),
+                        text: record.get("rhevmName"),
+                        group : 'rhevm'
+                    });
 
+                });
+
+                rhevmCycle.doLayout();
+
+            }
         });
-        rhevmCycle.doLayout();
 
     },
 

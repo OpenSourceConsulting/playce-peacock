@@ -105,6 +105,8 @@ Ext.define('MyApp.view.almContainer', {
                                                         var almProjectWindow = Ext.create("widget.AlmProjectWindow");
 
                                                         almProjectWindow.show();
+
+                                                        Ext.getCmp('projectDuplBtn').hide();
                                                     },
                                                     text: 'Create New Project'
                                                 },

@@ -310,6 +310,48 @@
             },
             "codeClass": null,
             "userConfig": {
+                "fn": "deleteUserPermission",
+                "implHandler": [
+                    "",
+                    "//User Permission 삭제",
+                    "",
+                    "Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){",
+                    "",
+                    "    if(btn == \"yes\"){",
+                    "",
+                    "        Ext.Ajax.request({",
+                    "            url: GLOBAL.urlPrefix + \"permission/delete\",",
+                    "            params : {",
+                    "                permId : userConstants.actionRow.get(\"permId\")",
+                    "            },",
+                    "            disableCaching : true,",
+                    "            waitMsg: 'Delete User Permission...',",
+                    "            success: function(response){",
+                    "                var msg = Ext.JSON.decode(response.responseText).msg;",
+                    "                Ext.MessageBox.alert('알림', msg);",
+                    "",
+                    "                userConstants.selectRow = null;",
+                    "",
+                    "                Ext.getCmp(\"userPermissionGrid\").getStore().reload();",
+                    "                Ext.getCmp(\"userPermissionDetailPanel\").layout.setActiveItem(0);",
+                    "",
+                    "            }",
+                    "        });",
+                    "    }",
+                    "",
+                    "});"
+                ]
+            },
+            "designerId": "def2f568-d1b1-4f1b-b059-8071f679a228"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
                 "fn": "searchUserDetail",
                 "implHandler": [
                     "",
@@ -387,12 +429,13 @@
                     "if(userConstants.selectRow == null || userConstants.selectRow.get(\"permId\") != record.get(\"permId\")) {",
                     "",
                     "    //User 상세 조회",
-                    "    ",
+                    "",
                     "    var detailPanel = Ext.getCmp(\"userPermissionDetailPanel\");",
                     "    detailPanel.layout.setActiveItem(1);",
-                    "    ",
+                    "",
                     "    //User Data Loading",
-                    "        ",
+                    "",
+                    "    Ext.getCmp(\"permissionMenuTreeGrid\").bindStore(Ext.getStore(\"permissionMenuTreeStore\"));",
                     "    Ext.getCmp(\"permissionMenuTreeGrid\").getStore().load({",
                     "        params:{",
                     "            permId : record.get(\"permId\")",
@@ -405,6 +448,90 @@
                 "scope": "me"
             },
             "designerId": "c79c7448-c55c-4a4e-904e-36b962224096"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "grid",
+                    "field"
+                ],
+                "fn": "changeMenuAuth",
+                "implHandler": [
+                    "var view = grid.getView(),",
+                    "    node = view.getNode(rowIndex),",
+                    "    record = view.getRecord(node),",
+                    "    thread = record.get('thread');",
+                    "",
+                    "",
+                    "var allRecords = grid.getRecords();",
+                    "",
+                    "if(thread.length == 2) {",
+                    "    ",
+                    "    Ext.each(allRecords, function (rec) {",
+                    "       ",
+                    "        if(rec.get('thread').substring(0,2) == thread) {",
+                    "            rec.set(field, checked);",
+                    "        }",
+                    "    });",
+                    "",
+                    "    ",
+                    "} else {",
+                    "    ",
+                    "    var thread = thread.substring(0, 2);",
+                    "    var changeCheck = checked;",
+                    "    Ext.each(allRecords, function (rec) {",
+                    "        ",
+                    "        if( rec.get('thread').length > 2 &&  rec.get('thread').substring(0,2) == thread ) {",
+                    "            ",
+                    "            if(rec.get(field) == true){",
+                    "                changeCheck = true;",
+                    "            }",
+                    "            ",
+                    "        }",
+                    "       ",
+                    "    });",
+                    "    ",
+                    "    Ext.each(allRecords, function (rec) {",
+                    "        ",
+                    "        if( rec.get('thread') == thread ) {",
+                    "            rec.set(field, changeCheck);",
+                    "        }",
+                    "        ",
+                    "    }); ",
+                    "    ",
+                    "}",
+                    ""
+                ]
+            },
+            "designerId": "64a8bfea-3d45-4e76-8a3b-be0a5b852762"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#searchUserPermissionName",
+                "designer|targetType": "Ext.form.field.Text",
+                "fn": "onSearchUserPermissionNameKeydown",
+                "implHandler": [
+                    "//User Name Search",
+                    "if(e.getKey() == e.ENTER){",
+                    "    this.searchUserPermission();",
+                    "}"
+                ],
+                "name": "keydown",
+                "scope": "me"
+            },
+            "designerId": "4c5429bd-7136-4d7f-b8c2-a27a05fff838"
         }
     ]
 }
