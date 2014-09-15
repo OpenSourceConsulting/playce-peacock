@@ -37,6 +37,11 @@ public class AlmReposirotyController {
 		return almRepositoryService.getRepositoryList(gridParam);
 	}
 	
+	@RequestMapping(value = "/repository", method = RequestMethod.POST)
+	public @ResponseBody GridJsonResponse createRepositoryList(ExtjsGridParam gridParam){
+		return almRepositoryService.getRepositoryList(gridParam);
+	}
+	
 	@RequestMapping(value = "/repository/{repositoryCode}", method = RequestMethod.GET)
 	public @ResponseBody DtoJsonResponse list(@PathVariable String repositoryCode){
 		return almRepositoryService.getRepository(repositoryCode);
