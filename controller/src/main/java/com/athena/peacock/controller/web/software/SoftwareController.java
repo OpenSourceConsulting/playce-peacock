@@ -37,6 +37,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,6 +63,9 @@ import com.athena.peacock.controller.web.user.UserDto;
 public class SoftwareController {
 
     protected final Logger logger = LoggerFactory.getLogger(SoftwareController.class);
+	
+    @Value("#{contextProperties['repository.url']}")
+    private String urlPrefix;
 
 	@Inject
 	@Named("softwareRepoService")
@@ -202,7 +206,7 @@ public class SoftwareController {
 				return jsonRes;
 			}
 		
-			String urlPrefix = "http://" + request.getServerName() + ":" + request.getServerPort() + "/" + request.getContextPath();
+			//String urlPrefix = "http://" + request.getServerName() + ":" + request.getServerPort() + "/" + request.getContextPath();
 			provisioningDetail.setUrlPrefix(urlPrefix);
 			
 			provisioningHandler.install(provisioningDetail);
@@ -282,15 +286,15 @@ public class SoftwareController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/getConnectorProp")
-	public @ResponseBody SimpleJsonResponse getConnectorProp(HttpServletRequest request, SimpleJsonResponse jsonRes, String account) throws Exception {
+	public @ResponseBody SimpleJsonResponse getConnectorProp(SimpleJsonResponse jsonRes, String account) throws Exception {
 		Assert.notNull(account, "account must not be null.");
 		
-		String urlPrefix = "http://" + request.getServerName() + ":" + request.getServerPort() + "/" + request.getContextPath();
+		//String urlPrefix = "http://" + request.getServerName() + ":" + request.getServerPort() + "/" + request.getContextPath();
 		
 		Map<String, String> properties = new HashMap<String, String>();
 				
-		String uriworkermap = IOUtils.toString(new URL(urlPrefix + "/httpd/conf/extra/uriworkermap.properties"), "UTF-8").replaceAll("\\$\\{USER\\}", account);
-		String workers = IOUtils.toString(new URL(urlPrefix + "/httpd/conf/extra/workers.properties"), "UTF-8").replaceAll("\\$\\{USER\\}", account);
+		String uriworkermap = IOUtils.toString(new URL(urlPrefix + "/repo/httpd/conf/extra/uriworkermap.properties"), "UTF-8").replaceAll("\\$\\{USER\\}", account);
+		String workers = IOUtils.toString(new URL(urlPrefix + "/repo/httpd/conf/extra/workers.properties"), "UTF-8").replaceAll("\\$\\{USER\\}", account);
 		
 		properties.put("uriworkermap", uriworkermap);
 		properties.put("workers", workers);

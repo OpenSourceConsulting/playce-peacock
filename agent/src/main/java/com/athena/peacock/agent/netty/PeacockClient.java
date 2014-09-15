@@ -50,7 +50,7 @@ import com.athena.peacock.common.constant.PeacockConstant;
 @Qualifier("peacockClient")
 public class PeacockClient {
 
-    private final String host = AgentConfigUtil.getConfig(PeacockConstant.SERVER_IP);
+    private final String[] hosts = AgentConfigUtil.getConfig(PeacockConstant.SERVER_IP).split(",");
     private final int port = Integer.parseInt(AgentConfigUtil.getConfig(PeacockConstant.SERVER_PORT));
 
     @Inject
@@ -64,7 +64,7 @@ public class PeacockClient {
 	@Inject
 	@Named("peacockClientHandler")
 	private PeacockClientHandler handler;
-    
+	
 	/**
 	 * <pre>
 	 * Netty Server와 연결하기 위한 Bootstrap을 초기화 한다.
@@ -73,7 +73,7 @@ public class PeacockClient {
 	 * @param group
 	 * @return
 	 */
-	public Bootstrap createBootstrap(Bootstrap bootstrap, EventLoopGroup group) {
+	public Bootstrap createBootstrap(Bootstrap bootstrap, EventLoopGroup group, String host) {
 		if (bootstrap != null) {
 			bootstrap.group(group)
 					 .channel(NioSocketChannel.class)
@@ -95,7 +95,9 @@ public class PeacockClient {
      */
     @PostConstruct
 	public void start() {
-		createBootstrap(new Bootstrap(), group);
+    	for (String host : hosts) {
+    		createBootstrap(new Bootstrap(), group, host);
+    	}
 	}//end of start()
 
 	/**
@@ -111,5 +113,4 @@ public class PeacockClient {
 	}//end of stop()
 	
 }
-//end of PeacockClient.java
 //end of PeacockClient.java

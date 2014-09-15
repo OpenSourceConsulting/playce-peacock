@@ -35,7 +35,13 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.IOUtils;
@@ -79,16 +85,21 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
     private static final Logger logger = LoggerFactory.getLogger(PeacockClientHandler.class);
 
     private boolean connected = false;
-    private Channel channel;
     
     private PeacockClient client = null;
     
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		logger.debug("channelActive() has invoked.");
+		logger.debug("channelActive() has invoked. RemoteAddress=[{}]", ctx.channel().remoteAddress());
 		
     	connected = true;
-    	channel = ctx.channel();
+		
+		String ipAddr = ctx.channel().remoteAddress().toString();
+		ipAddr = ipAddr.substring(1, ipAddr.indexOf(":"));
+
+		// register a new channel
+		ChannelManagement.registerChannel(ipAddr, ctx.channel());
+		
 		ctx.writeAndFlush(getAgentInitialInfo());
     }
 
@@ -213,13 +224,14 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
      */
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-		logger.debug("channelInactive() has invoked.");
+		logger.debug("channelInactive() has invoked. RemoteAddress=[{}]", ctx.channel().remoteAddress());
 
-		// Stop the agent daemon if the connection has lost.
-		//System.exit(-1);
+		// deregister a closed channel
+		ChannelManagement.deregisterChannel(ctx.channel());
 		
-		connected = false;
-		channel = null;
+		if (ChannelManagement.getChannelSize() == 0) {
+			connected = false;
+		}
 		
 		// 서버와의 연결이 종료되면 5초 단위로 재접속을 수행한다.
 		if (client == null) {
@@ -227,11 +239,12 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 		}
 		
 		final EventLoop eventLoop = ctx.channel().eventLoop();
+		final String ipAddr = ctx.channel().remoteAddress().toString();
 		eventLoop.schedule(new Runnable() {
 			@Override
 			public void run() {
                 logger.debug("Attempt to reconnect within 5 seconds.");
-				client.createBootstrap(new Bootstrap(), eventLoop);
+				client.createBootstrap(new Bootstrap(), eventLoop, ipAddr.substring(1, ipAddr.indexOf(":")));
 			}
 		}, 5L, TimeUnit.SECONDS);
 		
@@ -248,15 +261,24 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 	/**
 	 * @return the channel
 	 */
-	private Channel getChannel() {
-		return channel;
+	private Channel getAnyChannel() {
+		List<String> keyList = ChannelManagement.getKeys();
+		int idx = (int) (Math.random() * 10) % keyList.size();
+		return getChannel(keyList.get(idx));
+	}
+
+	/**
+	 * @return the channel
+	 */
+	private Channel getChannel(String ipAddr) {
+		return ChannelManagement.getChannel(ipAddr);
 	}
 
 	/**
 	 * @return the channel
 	 */
 	public void close() {
-		getChannel().close();
+		ChannelManagement.deregisterAllChannel();
 	}
 
 	/**
@@ -266,7 +288,9 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 	 * @param datagram
 	 */
 	public void sendMessage(PeacockDatagram<?> datagram) {
-		getChannel().writeAndFlush(datagram);
+		// Agent가 Controller로 메시지를 전송하는 경우는 Monitoring 정보를 수집하여 전송하는 경우 밖에 없으며,
+		// Agent는 하나만 동작하므로 어떤 체널로 전송이 되는 관계 없음.
+		getAnyChannel().writeAndFlush(datagram);
 	}//end of sendMessage()
 
 	/**
@@ -303,6 +327,106 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 		
 		return new PeacockDatagram<AgentInitialInfoMessage>(message);
     }//end of getAgentInitialInfo()
+
+    /**
+     * <pre>
+     * Channel 관리를 위한 클래스
+     * </pre>
+     * @author Sang-cheon Park
+     * @version 1.0
+     */
+    static class ChannelManagement {
+    	
+    	static Map<String, Channel> channelMap = new ConcurrentHashMap<String, Channel>();
+        
+        /**
+         * <pre>
+         * 신규 채널을 등록한다.
+         * </pre>
+         * @param ipAddr
+         * @param channel
+         */
+        synchronized static void registerChannel(String ipAddr, Channel channel) {
+        	logger.debug("ipAddr({}) and channel({}) will be added to channelMap.", ipAddr, channel);
+        	channelMap.put(ipAddr, channel);
+        }//end of registerChannel()
+
+		/**
+         * <pre>
+         * ipAddr에 해당하는 채널을 map에서 제거한다.
+         * </pre>
+         * @param ipAddr
+         */
+        synchronized static void deregisterChannel(String ipAddr) {
+        	logger.debug("ipAddr({}) will be removed from channelMap.", ipAddr);
+        	channelMap.remove(ipAddr);
+        }//end of deregisterChannel()
+        
+        /**
+         * <pre>
+         * 연결 종료된 채널을 map에서 제거한다.
+         * </pre>
+         * @param channel
+         */
+        synchronized static void deregisterChannel(Channel channel) {
+        	Iterator<Entry<String, Channel>> iter = channelMap.entrySet().iterator();
+        	
+        	Entry<String, Channel> entry = null;
+        	while (iter.hasNext()) {
+        		entry = iter.next();
+        		
+        		if (entry.getValue() != null && entry.getValue() == channel) {
+        			deregisterChannel(entry.getKey());
+        			break;
+        		}
+        	}
+        }//end of deregisterChannel()
+
+		/**
+		 * <pre>
+		 * 연결된 모든 채널을 제거한다.
+		 * </pre>
+		 */
+        synchronized static void deregisterAllChannel() {
+        	Iterator<Entry<String, Channel>> iter = channelMap.entrySet().iterator();
+        	
+        	while (iter.hasNext()) {
+        		deregisterChannel(iter.next().getKey());
+        	}
+		}//end of deregisterAllChannel()
+        
+        /**
+         * <pre>
+         * ipAddr에 해당하는 채널 정보를 가져온다.
+         * </pre>
+         * @param ipAddr
+         * @return
+         */
+        static Channel getChannel(String ipAddr) {
+        	return channelMap.get(ipAddr);
+        }//end of getChannel()
+        
+        /**
+         * <pre>
+         * 연결된 채널 수를 조회한다.
+         * </pre>
+         * @return
+         */
+        static int getChannelSize() {
+			return channelMap.size();
+		}//end of getChannelSize()
+        
+        /**
+         * <pre>
+         * 연결된 채널 IP 목록을 조회한다.
+         * </pre>
+         * @return
+         */
+        static List<String> getKeys() {
+        	return new ArrayList<String>(channelMap.keySet());
+        }//end of getKeys()
+    }
+    //end of ChannelManagement.java
 }
 //end of PeacockClientHandler.java
 

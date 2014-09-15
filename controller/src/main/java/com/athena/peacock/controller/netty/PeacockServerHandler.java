@@ -461,7 +461,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
          * @param agentId
          * @param channel
          */
-        static void registerChannel(String agentId, Channel channel) {
+    	synchronized static void registerChannel(String agentId, Channel channel) {
         	logger.debug("agentId({}) and channel({}) will be added to channelMap.", agentId, channel);
         	channelMap.put(agentId, channel);
         }//end of registerChannel()
@@ -472,7 +472,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
          * </pre>
          * @param agentId
          */
-        static void deregisterChannel(String agentId) {
+        synchronized static void deregisterChannel(String agentId) {
         	logger.debug("agentId({}) will be removed from channelMap.", agentId);
         	channelMap.remove(agentId);
         }//end of deregisterChannel()
@@ -483,7 +483,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
          * </pre>
          * @param channel
          */
-        static void deregisterChannel(Channel channel) {
+        synchronized static void deregisterChannel(Channel channel) {
         	Iterator<Entry<String, Channel>> iter = channelMap.entrySet().iterator();
         	
         	Entry<String, Channel> entry = null;

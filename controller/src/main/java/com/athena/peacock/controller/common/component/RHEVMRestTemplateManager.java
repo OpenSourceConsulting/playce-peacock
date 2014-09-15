@@ -52,7 +52,7 @@ import com.redhat.rhevm.api.model.Template;
  * @author Sang-cheon Park
  * @version 1.0
  */
-@Component
+@Component("rhevmRestTemplateManager")
 public class RHEVMRestTemplateManager implements InitializingBean {
 
 	private static Map<Integer, RHEVMRestTemplate> templates = new ConcurrentHashMap<Integer, RHEVMRestTemplate>();

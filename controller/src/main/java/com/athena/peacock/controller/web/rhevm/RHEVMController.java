@@ -97,6 +97,10 @@ public class RHEVMController {
 	public @ResponseBody GridJsonResponse getVMList(GridJsonResponse jsonRes, VMDto dto) throws Exception {
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
 		
+		if (rhevmService.getRHEVMRestTemplate(dto.getHypervisorId()) == null) {
+			rhevmService.init();
+		}
+		
 		try {
 			jsonRes.setList(rhevmService.getVirtualList(dto.getHypervisorId(), dto.getName()));
 			jsonRes.setMsg("VM 목록이 정상적으로 조회되었습니다.");
@@ -203,6 +207,10 @@ public class RHEVMController {
 	@RequestMapping("/templates")
 	public @ResponseBody GridJsonResponse getTemplateList(GridJsonResponse jsonRes, TemplateDto dto) throws Exception {
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
+		
+		if (rhevmService.getRHEVMRestTemplate(dto.getHypervisorId()) == null) {
+			rhevmService.init();
+		}
 		
 		try {
 			jsonRes.setList(rhevmService.getTemplateList(dto.getHypervisorId(), dto.getName()));

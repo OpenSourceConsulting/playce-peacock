@@ -27,6 +27,9 @@ package com.athena.peacock.controller.web.rhevm;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.CommandLineUtils.StringStreamConsumer;
 import org.codehaus.plexus.util.cli.Commandline;
@@ -78,9 +81,21 @@ import com.redhat.rhevm.api.model.VMs;
 public class RHEVMService {
 	
 	protected final Logger logger = LoggerFactory.getLogger(RHEVMService.class);
+
+	@Inject
+	@Named("rhevmRestTemplateManager")
+	private RHEVMRestTemplateManager manager;
 	
-	private RHEVMRestTemplate getRHEVMRestTemplate(int hypervisorId) {
+	public RHEVMRestTemplate getRHEVMRestTemplate(int hypervisorId) {
 		return RHEVMRestTemplateManager.getRHEVMRestTemplate(hypervisorId);
+	}
+	
+	public void init() {
+		try {
+			manager.afterPropertiesSet();
+		} catch (Exception e) {
+			logger.error("Unhandled Exception has occurred while initializing RHEVMRestTemplates.", e);
+		}
 	}
 
 	/**

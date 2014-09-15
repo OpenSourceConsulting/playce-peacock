@@ -55,11 +55,13 @@ public class PeacockClientListener implements ChannelFutureListener {
 		} else {
 			// 서버와의 연결을 위해 5초 단위로 재접속을 수행한다.
 			final EventLoop loop = future.channel().eventLoop();
+			final String host = future.channel().remoteAddress().toString();
+			
 			loop.schedule(new Runnable() {
 				@Override
 				public void run() {
                     logger.debug("Attempt to reconnect within 5 seconds.");
-					client.createBootstrap(new Bootstrap(), loop);
+					client.createBootstrap(new Bootstrap(), loop, host.substring(1, host.indexOf(":")));
 				}
 			}, 5L, TimeUnit.SECONDS);
 		}
