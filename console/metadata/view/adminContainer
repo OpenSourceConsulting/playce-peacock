@@ -1432,7 +1432,7 @@
                                                                             "userConfig": {
                                                                                 "fn": "onCheckcolumnCheckChange",
                                                                                 "implHandler": [
-                                                                                    "userConstants.me.changeMenuAuth(Ext.getCmp(\"permissionMenuTreeGrid\"), \"isRead\");"
+                                                                                    "userConstants.me.changeMenuAuth(Ext.getCmp(\"permissionMenuTreeGrid\"), \"isRead\", rowIndex, checked);"
                                                                                 ],
                                                                                 "name": "checkchange",
                                                                                 "scope": "me"
@@ -1465,7 +1465,7 @@
                                                                             "userConfig": {
                                                                                 "fn": "onCheckcolumnCheckChange1",
                                                                                 "implHandler": [
-                                                                                    "userConstants.me.changeMenuAuth(Ext.getCmp(\"permissionMenuTreeGrid\"), \"isWrite\");"
+                                                                                    "userConstants.me.changeMenuAuth(Ext.getCmp(\"permissionMenuTreeGrid\"), \"isWrite\", rowIndex, checked);"
                                                                                 ],
                                                                                 "name": "checkchange",
                                                                                 "scope": "me"

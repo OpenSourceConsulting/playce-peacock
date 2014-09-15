@@ -317,7 +317,7 @@ Ext.define('MyApp.controller.AdminController', {
         Ext.getCmp("userTitleLabel").setText("<h2>&nbsp;&nbsp;&nbsp;"+userConstants.selectRow.get("userName")+"</h2>", false);
     },
 
-    changeMenuAuth: function(grid, field) {
+    changeMenuAuth: function(grid, field, rowIndex, checked) {
         var view = grid.getView(),
             node = view.getNode(rowIndex),
             record = view.getRecord(node),

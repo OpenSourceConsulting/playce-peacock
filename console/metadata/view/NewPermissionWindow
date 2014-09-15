@@ -28,7 +28,16 @@
             "codeClass": null,
             "userConfig": {
                 "bodyPadding": 10,
+                "fieldDefaults": [
+                    "{",
+                    "    msgTarget: 'side',",
+                    "    labelWidth: 120",
+                    "}"
+                ],
                 "header": false,
+                "id": "newPermissionForm",
+                "itemId": "newPermissionForm",
+                "margin": null,
                 "padding": "10 10 0 10",
                 "title": "My Form"
             },
@@ -42,13 +51,45 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "allowBlank": false,
                         "fieldLabel": "Permission Name",
                         "labelWidth": 120,
                         "layout|anchor": "100%",
-                        "margin": "0 0 10 0",
+                        "margin": null,
                         "name": "permNm"
                     },
-                    "designerId": "985a6ea0-01a7-4f3c-b6d2-571473e7b0f5"
+                    "designerId": "985a6ea0-01a7-4f3c-b6d2-571473e7b0f5",
+                    "cn": [
+                        {
+                            "type": "Ext.XTemplate",
+                            "reference": {
+                                "name": "afterLabelTextTpl",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "afterLabelTextTpl",
+                                "implHandler": [
+                                    "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                ]
+                            },
+                            "designerId": "f4c3a9ab-2f8d-4714-a034-f714cb5d87ab"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.form.field.Hidden",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "Label",
+                        "layout|anchor": "100%",
+                        "name": "permMenus"
+                    },
+                    "designerId": "ace32b7d-5a4e-4908-a7eb-2d38bafea262"
                 }
             ]
         },
@@ -65,7 +106,7 @@
                 "border": null,
                 "columnLines": true,
                 "forceFit": false,
-                "frame": true,
+                "frameHeader": false,
                 "header": false,
                 "height": 270,
                 "iconCls": null,
@@ -108,6 +149,9 @@
                         "type": "object"
                     },
                     "codeClass": null,
+                    "userConfig": {
+                        "frame": false
+                    },
                     "designerId": "4c1968c9-b4ca-467b-9baf-2887b33e8d22"
                 },
                 {
@@ -153,7 +197,7 @@
                             "userConfig": {
                                 "fn": "onCheckcolumnCheckChange2",
                                 "implHandler": [
-                                    "userConstants.me.changeMenuAuth(Ext.getCmp(\"allMenuTreeGrid\"), \"isRead\");"
+                                    "userConstants.me.changeMenuAuth(Ext.getCmp(\"allMenuTreeGrid\"), \"isRead\", rowIndex, checked);"
                                 ],
                                 "name": "checkchange",
                                 "scope": "me"
@@ -187,7 +231,7 @@
                             "userConfig": {
                                 "fn": "onCheckcolumnCheckChange11",
                                 "implHandler": [
-                                    "userConstants.me.changeMenuAuth(Ext.getCmp(\"allMenuTreeGrid\"), \"isWrite\");"
+                                    "userConstants.me.changeMenuAuth(Ext.getCmp(\"allMenuTreeGrid\"), \"isWrite\", rowIndex, checked);"
                                 ],
                                 "name": "checkchange",
                                 "scope": "me"
@@ -223,6 +267,19 @@
                         ]
                     },
                     "designerId": "4e3328fc-330b-4a74-b831-6c8bf5e396f1"
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dock": "top",
+                        "height": 10
+                    },
+                    "designerId": "517a139b-b4d4-4204-8587-36224a3a6abe"
                 }
             ]
         },
@@ -272,68 +329,52 @@
                                 ],
                                 "fn": "handler",
                                 "implHandler": [
-                                    "var projectForm = Ext.getCmp(\"addProjectForm\");",
                                     "",
-                                    "if(projectForm.isValid()) {",
+                                    "var menuRecords = Ext.getCmp(\"allMenuTreeGrid\").getRecords();",
                                     "",
-                                    "    var wizardData = {};",
+                                    "var menus = [];",
+                                    "Ext.each(menuRecords, function(record) {",
+                                    "    var menu = {};",
+                                    "    menu.menuId = record.get(\"menuId\");",
+                                    "    menu.readYn = (record.get(\"isRead\") == true ? \"1\" : \"0\");",
+                                    "    menu.writeYn = (record.get(\"isWrite\") == true ? \"1\" : \"0\");",
+                                    "    ",
+                                    "    menus.push(menu);",
+                                    "    ",
+                                    "});",
                                     "",
-                                    "    var spaceStore = Ext.getCmp(\"wizardSelectSpaceGrid\").getStore();",
-                                    "    var userStore = Ext.getCmp(\"wizardSelectUserGrid\").getStore();",
+                                    "var permissionForm = Ext.getCmp(\"newPermissionForm\");",
                                     "",
-                                    "    wizardData.project = projectForm.getForm().getFieldValues();",
+                                    "permissionForm.getForm().findField(\"permMenus\").setValue(Ext.JSON.encode(menus));",
                                     "",
-                                    "    if(spaceStore.getCount() > 0 ) {",
+                                    "permissionForm.getForm().submit({",
+                                    "    clientValidation: true,",
+                                    "    url: GLOBAL.urlPrefix + \"permission/create\",",
+                                    "    method : \"POST\",",
+                                    "    params: {",
+                                    "        newStatus: 'delivered'",
+                                    "    },",
+                                    "    waitMsg: 'Saving Data...',",
+                                    "    success: function(form, action) {",
+                                    "        Ext.Msg.alert('Success', action.result.msg);",
                                     "",
-                                    "        var spaceItems = [];",
-                                    "        Ext.each(Ext.pluck(spaceStore.data.items, 'data'), function(item) {",
-                                    "            var spaceItem = {};",
-                                    "            spaceItem.mappingCode = item.key;",
-                                    "            spaceItem.mappingType = \"10\";",
+                                    "        Ext.getCmp('userPermissionGrid').getStore().load();",
                                     "",
-                                    "            spaceItems.push(spaceItem);",
-                                    "        });",
-                                    "",
-                                    "        wizardData.confluence = spaceItems;",
-                                    "    }",
-                                    "",
-                                    "    if(userStore.getCount() > 0 ) {",
-                                    "        wizardData.users = Ext.pluck(userStore.data.items, 'data');",
-                                    "    }",
-                                    "",
-                                    "    Ext.Ajax.request({",
-                                    "        url: GLOBAL.urlPrefix + \"alm/project/wizard\",",
-                                    "        method: 'POST',",
-                                    "        headers: { 'Content-Type': 'application/json' },",
-                                    "        waitMsg: 'Create Project...',",
-                                    "        jsonData: wizardData,",
-                                    "        success: function (response) {",
-                                    "",
-                                    "            var responseData = Ext.JSON.decode(response.responseText);",
-                                    "",
-                                    "            if(responseData.success) {",
-                                    "",
-                                    "                Ext.Msg.alert('Success', responseData.msg);",
-                                    "",
-                                    "                Ext.getCmp('almProjectGrid').getStore().reload();",
-                                    "                projectForm.up('window').close();",
-                                    "",
-                                    "            } else {",
-                                    "",
-                                    "                Ext.Msg.alert('Failure', responseData.msg);",
-                                    "",
-                                    "            }",
-                                    "",
-                                    "        },",
-                                    "        failure: function (response) {",
-                                    "            var msg = Ext.JSON.decode(response.responseText).msg;",
-                                    "",
-                                    "            Ext.Msg.alert('Failure', msg);",
+                                    "        permissionForm.up('window').close();",
+                                    "    },",
+                                    "    failure: function(form, action) {",
+                                    "        switch (action.failureType) {",
+                                    "            case Ext.form.action.Action.CLIENT_INVALID:",
+                                    "            Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');",
+                                    "            break;",
+                                    "            case Ext.form.action.Action.CONNECT_FAILURE:",
+                                    "            Ext.Msg.alert('Failure', 'Server communication failed');",
+                                    "            break;",
+                                    "            case Ext.form.action.Action.SERVER_INVALID:",
+                                    "            Ext.Msg.alert('Failure', action.result.msg);",
                                     "        }",
-                                    "    });",
-                                    "",
-                                    "}",
-                                    ""
+                                    "    }",
+                                    "});"
                                 ]
                             },
                             "designerId": "24b13139-739d-4405-8690-56bd4b28ce15"

@@ -111,7 +111,7 @@ public class MenuDto extends BaseDto {
 	 * @return the isRead
 	 */
 	public boolean isRead() {
-		if("1".equals(readYn)){
+		if(readYn == 1){
 			return true;
 		} else {
 			return false;
@@ -129,7 +129,7 @@ public class MenuDto extends BaseDto {
 	 * @return the isWrite
 	 */
 	public boolean isWrite() {
-		if("1".equals(writeYn)){
+		if(writeYn == 1){
 			return true;
 		} else {
 			return false;

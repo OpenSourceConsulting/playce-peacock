@@ -20,6 +20,8 @@ Ext.define('MyApp.view.NewPermissionWindow', {
     requires: [
         'Ext.form.Panel',
         'Ext.form.field.Text',
+        'Ext.XTemplate',
+        'Ext.form.field.Hidden',
         'Ext.tree.Panel',
         'Ext.tree.View',
         'Ext.tree.Column',
@@ -41,18 +43,33 @@ Ext.define('MyApp.view.NewPermissionWindow', {
             items: [
                 {
                     xtype: 'form',
+                    id: 'newPermissionForm',
+                    itemId: 'newPermissionForm',
                     padding: '10 10 0 10',
                     bodyPadding: 10,
                     header: false,
                     title: 'My Form',
+                    fieldDefaults: {
+                        msgTarget: 'side',
+                        labelWidth: 120
+                    },
                     items: [
                         {
                             xtype: 'textfield',
                             anchor: '100%',
-                            margin: '0 0 10 0',
+                            afterLabelTextTpl: [
+                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                            ],
                             fieldLabel: 'Permission Name',
                             labelWidth: 120,
-                            name: 'permNm'
+                            name: 'permNm',
+                            allowBlank: false
+                        },
+                        {
+                            xtype: 'hiddenfield',
+                            anchor: '100%',
+                            fieldLabel: 'Label',
+                            name: 'permMenus'
                         }
                     ]
                 },
@@ -80,13 +97,13 @@ Ext.define('MyApp.view.NewPermissionWindow', {
                             
                         })
                     ],
-                    frame: true,
                     height: 270,
                     id: 'allMenuTreeGrid',
                     itemId: 'allMenuTreeGrid',
                     margin: '5 20 10 20',
                     width: 445,
                     autoScroll: true,
+                    frameHeader: false,
                     header: false,
                     title: 'My Tree Grid Panel',
                     columnLines: true,
@@ -95,7 +112,7 @@ Ext.define('MyApp.view.NewPermissionWindow', {
                     store: 'allMenuTreeStore',
                     rootVisible: false,
                     viewConfig: {
-
+                        frame: false
                     },
                     columns: [
                         {
@@ -131,6 +148,13 @@ Ext.define('MyApp.view.NewPermissionWindow', {
                                 }
                             }
                         }
+                    ],
+                    dockedItems: [
+                        {
+                            xtype: 'toolbar',
+                            dock: 'top',
+                            height: 10
+                        }
                     ]
                 }
             ],
@@ -147,68 +171,52 @@ Ext.define('MyApp.view.NewPermissionWindow', {
                         {
                             xtype: 'button',
                             handler: function(button, e) {
-                                var projectForm = Ext.getCmp("addProjectForm");
 
-                                if(projectForm.isValid()) {
+                                var menuRecords = Ext.getCmp("allMenuTreeGrid").getRecords();
 
-                                    var wizardData = {};
+                                var menus = [];
+                                Ext.each(menuRecords, function(record) {
+                                    var menu = {};
+                                    menu.menuId = record.get("menuId");
+                                    menu.readYn = (record.get("isRead") == true ? "1" : "0");
+                                    menu.writeYn = (record.get("isWrite") == true ? "1" : "0");
 
-                                    var spaceStore = Ext.getCmp("wizardSelectSpaceGrid").getStore();
-                                    var userStore = Ext.getCmp("wizardSelectUserGrid").getStore();
+                                    menus.push(menu);
 
-                                    wizardData.project = projectForm.getForm().getFieldValues();
+                                });
 
-                                    if(spaceStore.getCount() > 0 ) {
+                                var permissionForm = Ext.getCmp("newPermissionForm");
 
-                                        var spaceItems = [];
-                                        Ext.each(Ext.pluck(spaceStore.data.items, 'data'), function(item) {
-                                            var spaceItem = {};
-                                            spaceItem.mappingCode = item.key;
-                                            spaceItem.mappingType = "10";
+                                permissionForm.getForm().findField("permMenus").setValue(Ext.JSON.encode(menus));
 
-                                            spaceItems.push(spaceItem);
-                                        });
+                                permissionForm.getForm().submit({
+                                    clientValidation: true,
+                                    url: GLOBAL.urlPrefix + "permission/create",
+                                    method : "POST",
+                                    params: {
+                                        newStatus: 'delivered'
+                                    },
+                                    waitMsg: 'Saving Data...',
+                                    success: function(form, action) {
+                                        Ext.Msg.alert('Success', action.result.msg);
 
-                                        wizardData.confluence = spaceItems;
-                                    }
+                                        Ext.getCmp('userPermissionGrid').getStore().load();
 
-                                    if(userStore.getCount() > 0 ) {
-                                        wizardData.users = Ext.pluck(userStore.data.items, 'data');
-                                    }
-
-                                    Ext.Ajax.request({
-                                        url: GLOBAL.urlPrefix + "alm/project/wizard",
-                                        method: 'POST',
-                                        headers: { 'Content-Type': 'application/json' },
-                                        waitMsg: 'Create Project...',
-                                        jsonData: wizardData,
-                                        success: function (response) {
-
-                                            var responseData = Ext.JSON.decode(response.responseText);
-
-                                            if(responseData.success) {
-
-                                                Ext.Msg.alert('Success', responseData.msg);
-
-                                                Ext.getCmp('almProjectGrid').getStore().reload();
-                                                projectForm.up('window').close();
-
-                                            } else {
-
-                                                Ext.Msg.alert('Failure', responseData.msg);
-
-                                            }
-
-                                        },
-                                        failure: function (response) {
-                                            var msg = Ext.JSON.decode(response.responseText).msg;
-
-                                            Ext.Msg.alert('Failure', msg);
+                                        permissionForm.up('window').close();
+                                    },
+                                    failure: function(form, action) {
+                                        switch (action.failureType) {
+                                            case Ext.form.action.Action.CLIENT_INVALID:
+                                            Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');
+                                            break;
+                                            case Ext.form.action.Action.CONNECT_FAILURE:
+                                            Ext.Msg.alert('Failure', 'Server communication failed');
+                                            break;
+                                            case Ext.form.action.Action.SERVER_INVALID:
+                                            Ext.Msg.alert('Failure', action.result.msg);
                                         }
-                                    });
-
-                                }
-
+                                    }
+                                });
                             },
                             margin: '0 15 0 0',
                             padding: '2 5 2 5',
@@ -239,11 +247,11 @@ Ext.define('MyApp.view.NewPermissionWindow', {
     },
 
     onCheckcolumnCheckChange2: function(checkcolumn, rowIndex, checked, eOpts) {
-        userConstants.me.changeMenuAuth(Ext.getCmp("allMenuTreeGrid"), "isRead");
+        userConstants.me.changeMenuAuth(Ext.getCmp("allMenuTreeGrid"), "isRead", rowIndex, checked);
     },
 
     onCheckcolumnCheckChange11: function(checkcolumn, rowIndex, checked, eOpts) {
-        userConstants.me.changeMenuAuth(Ext.getCmp("allMenuTreeGrid"), "isWrite");
+        userConstants.me.changeMenuAuth(Ext.getCmp("allMenuTreeGrid"), "isWrite", rowIndex, checked);
     }
 
 });

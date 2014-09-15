@@ -807,11 +807,11 @@ Ext.define('MyApp.view.adminContainer', {
     },
 
     onCheckcolumnCheckChange: function(checkcolumn, rowIndex, checked, eOpts) {
-        userConstants.me.changeMenuAuth(Ext.getCmp("permissionMenuTreeGrid"), "isRead");
+        userConstants.me.changeMenuAuth(Ext.getCmp("permissionMenuTreeGrid"), "isRead", rowIndex, checked);
     },
 
     onCheckcolumnCheckChange1: function(checkcolumn, rowIndex, checked, eOpts) {
-        userConstants.me.changeMenuAuth(Ext.getCmp("permissionMenuTreeGrid"), "isWrite");
+        userConstants.me.changeMenuAuth(Ext.getCmp("permissionMenuTreeGrid"), "isWrite", rowIndex, checked);
     }
 
 });
