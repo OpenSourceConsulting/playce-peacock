@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.athena.peacock.controller.web.alm.crowd.AlmCrowdService;
@@ -71,13 +72,24 @@ public class AlmProjectController {
 	 * <pre>
 	 * Project 리스트
 	 * </pre>
+	 * 
 	 * @param gridParam
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/project", method = RequestMethod.GET)
 	public @ResponseBody
-	GridJsonResponse list(ExtjsGridParam gridParam) {
+	GridJsonResponse list(
+			@RequestParam(value = "offset", defaultValue = "0") int offset,
+			@RequestParam(value = "search", required = false) String search) {
+		
+		ExtjsGridParam gridParam = new ExtjsGridParam();
+		gridParam.setPage(offset);
+
+		if (search != null) {
+			gridParam.setSearch(search);
+		}
+		
 		return almProjectService.getProjectList(gridParam);
 	}
 
@@ -85,6 +97,7 @@ public class AlmProjectController {
 	 * <pre>
 	 * Project 등록
 	 * </pre>
+	 * 
 	 * @param project
 	 * @return
 	 * @throws Exception
@@ -101,6 +114,7 @@ public class AlmProjectController {
 	 * <pre>
 	 * Project 상세 정보
 	 * </pre>
+	 * 
 	 * @param projectCode
 	 * @return
 	 * @throws Exception
@@ -115,6 +129,7 @@ public class AlmProjectController {
 	 * <pre>
 	 * Jenkins 목록 조회
 	 * </pre>
+	 * 
 	 * @param projectCode
 	 * @return
 	 * @throws Exception
@@ -129,6 +144,7 @@ public class AlmProjectController {
 	 * <pre>
 	 * 프로젝트 에 Job, Confluence 추가
 	 * </pre>
+	 * 
 	 * @param projectCode
 	 * @param mappingType
 	 * @param mappingCode
@@ -147,6 +163,7 @@ public class AlmProjectController {
 	 * <pre>
 	 * 프로젝트 할당된 Job, Confluence 목록 조회
 	 * </pre>
+	 * 
 	 * @param projectCode
 	 * @param mappingType
 	 * @param mappingCode
@@ -171,6 +188,7 @@ public class AlmProjectController {
 	 * <pre>
 	 * 프로젝트 Wizard 실행
 	 * </pre>
+	 * 
 	 * @param project
 	 * @return
 	 * @throws Exception
