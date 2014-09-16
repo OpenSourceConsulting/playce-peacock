@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+  xmlns:beans="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security.xsd">
+	
+	<!-- 
+	<http pattern="/**" 	security="none"/>
+	-->
+	<!-- Ignore Spring Security  -->
+    <http pattern="/resources/**" 	security="none"/>
+	<http pattern="/index.html*" 	security="none"/>
+	<http pattern="/app.js*" 		security="none"/>
+	<http pattern="/user/accessDenied*" 	security="none"/>
+	<http pattern="/user/onAfterLogout*" 	security="none"/>
+	<http pattern="/user/loginFail*" 		security="none"/>
+	
+    
+	<http>
+	  
+	  <!-- ==================================================== -->
+	  <!-- URL & 권한(ROLE) 매핑 -->
+	  <!-- ==================================================== -->
+	  
+	  <!-- B1 : Instances -->
+	  <intercept-url pattern="/machine/update*" access="ROLE_ADMIN, ROLE_B1_WRITE" />
+	  <intercept-url pattern="/machine/remove*" access="ROLE_ADMIN, ROLE_B1_WRITE" />
+	  <intercept-url pattern="/machine/**" 		access="ROLE_ADMIN, ROLE_B1_READ" />
+	  
+	  <!-- B2 : RHEV Management -->
+	  
+	  <!-- B301 : ALM Management > Project -->
+	  
+	  <!-- B302 : ALM Management > User -->
+	  
+	  <!-- B303 : ALM Management > Group -->
+	  
+	  <!-- B304 : ALM Management > Repository -->
+	  
+	  <!-- B401 : Administration > User -->
+	  <intercept-url pattern="/user/create*" access="ROLE_ADMIN, ROLE_B401_WRITE" />
+	  <intercept-url pattern="/user/update*" access="ROLE_ADMIN, ROLE_B401_WRITE" />
+	  <intercept-url pattern="/user/delete*" access="ROLE_ADMIN, ROLE_B401_WRITE" />
+	  <intercept-url pattern="/user/**" 	 access="ROLE_ADMIN, ROLE_B401_READ" />
+	  
+	  <!-- B402 : Administration > User Permission -->
+	  <intercept-url pattern="/permission/create*" 	access="ROLE_ADMIN, ROLE_B402_WRITE" />
+	  <intercept-url pattern="/permission/update*" 	access="ROLE_ADMIN, ROLE_B402_WRITE" />
+	  <intercept-url pattern="/permission/delete*" 	access="ROLE_ADMIN, ROLE_B402_WRITE" />
+	  <intercept-url pattern="/permission/**" 	 	access="ROLE_ADMIN, ROLE_B402_READ" />
+	  
+	  
+	  <!-- ==================================================== -->
+	  <!-- 인증 처리 설정 -->
+	  <!-- ==================================================== -->
+	  <form-login login-page='/user/accessDenied' login-processing-url="/user/login" 
+	  	default-target-url="/user/onAfterLogin" username-parameter="loginId" password-parameter="passwd"
+	  	authentication-failure-url="/user/loginFail"/>
+	  	
+	  <access-denied-handler error-page="/user/accessDenied" />
+	  <anonymous enabled="false" />
+	  <logout logout-url="/user/logout" logout-success-url="/user/onAfterLogout"/>
+	</http>
+	
+	
+	<authentication-manager>
+    	<authentication-provider user-service-ref='userService'/>
+  	</authentication-manager>
+  	
+  
+</beans:beans>

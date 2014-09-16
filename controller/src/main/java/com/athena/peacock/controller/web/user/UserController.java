@@ -27,6 +27,9 @@ package com.athena.peacock.controller.web.user;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -73,17 +76,10 @@ public class UserController {
 	@RequestMapping("/create")
 	public @ResponseBody SimpleJsonResponse create(SimpleJsonResponse jsonRes, UserDto user){
 		
-		try{
-			service.insertUser(user);
-			jsonRes.setMsg("사용자가 정상적으로 생성되었습니다.");
-			
-		}catch(Exception e){
-			
-			jsonRes.setSuccess(false);
-			jsonRes.setMsg("사용자 생성 중 에러가 발생하였습니다.");
-			
-			e.printStackTrace();
-		}
+		user.setRegUserId(UserService.getLoginUserId());
+		
+		service.insertUser(user);
+		jsonRes.setMsg("사용자가 정상적으로 생성되었습니다.");
 		
 		
 		return jsonRes;
@@ -92,17 +88,10 @@ public class UserController {
 	@RequestMapping("/update")
 	public @ResponseBody SimpleJsonResponse update(SimpleJsonResponse jsonRes, UserDto user){
 		
-		try{
-			service.updateUser(user);
-			jsonRes.setMsg("사용자 정보가 정상적으로 수정되었습니다.");
-			
-		}catch(Exception e){
-			
-			jsonRes.setSuccess(false);
-			jsonRes.setMsg("사용자 정보 수정 중 에러가 발생하였습니다.");
-			
-			e.printStackTrace();
-		}
+		user.setUpdUserId(UserService.getLoginUserId());
+		
+		service.updateUser(user);
+		jsonRes.setMsg("사용자 정보가 정상적으로 수정되었습니다.");
 		
 		
 		return jsonRes;
@@ -111,17 +100,8 @@ public class UserController {
 	@RequestMapping("/delete")
 	public @ResponseBody SimpleJsonResponse delete(SimpleJsonResponse jsonRes, @RequestParam("userId") int userId){
 		
-		try{
-			service.deleteUser(userId);
-			jsonRes.setMsg("사용자 정보가 정상적으로 삭제되었습니다.");
-			
-		}catch(Exception e){
-			
-			jsonRes.setSuccess(false);
-			jsonRes.setMsg("사용자 정보 삭제 중 에러가 발생하였습니다.");
-			
-			e.printStackTrace();
-		}
+		service.deleteUser(userId);
+		jsonRes.setMsg("사용자 정보가 정상적으로 삭제되었습니다.");
 		
 		return jsonRes;
 	}
@@ -151,12 +131,42 @@ public class UserController {
 		return jsonRes;
 	}
 	
-	@RequestMapping("/logout")
+	@RequestMapping("/onAfterLogout")
 	public @ResponseBody SimpleJsonResponse logout(SimpleJsonResponse jsonRes, HttpSession session){
 		
 		session.invalidate();
 		
 		jsonRes.setMsg("로그아웃 되었습니다.");
+		
+		return jsonRes;
+	}
+	
+	@RequestMapping("/onAfterLogin")
+	public @ResponseBody SimpleJsonResponse onAfterLogin(SimpleJsonResponse jsonRes){
+		
+		SecurityContext secContext = SecurityContextHolder.getContext();
+		
+		UserDetails userDetails = (UserDetails)secContext.getAuthentication().getPrincipal();
+		
+		jsonRes.setData(userDetails);
+		
+		return jsonRes;
+	}
+	
+	@RequestMapping("/accessDenied")
+	public @ResponseBody SimpleJsonResponse accessDenied(SimpleJsonResponse jsonRes){
+		
+		jsonRes.setSuccess(false);
+		jsonRes.setMsg("해당 작업에 대한 권한이 없습니다. 관리자에게 문의하세요.");
+		
+		return jsonRes;
+	}
+	
+	@RequestMapping("/loginFail")
+	public @ResponseBody SimpleJsonResponse loginFail(SimpleJsonResponse jsonRes){
+		
+		jsonRes.setSuccess(false);
+		jsonRes.setMsg("login ID 또는 password 가 잘못되었습니다.");
 		
 		return jsonRes;
 	}

@@ -27,9 +27,17 @@ package com.athena.peacock.controller.web.user;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
+import com.athena.peacock.controller.web.menu.MenuDto;
+import com.athena.peacock.controller.web.permission.PermissionDao;
 
 /**
  * <pre>
@@ -39,10 +47,15 @@ import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
  * @version 1.0
  */
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
+	
+	public static final String SUPER_USER = "admin";
 
 	@Autowired
 	private UserDao dao;
+	
+	@Autowired
+	private PermissionDao permDao;
 	
 	public UserService() {
 		// TODO Auto-generated constructor stub
@@ -82,6 +95,43 @@ public class UserService {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username)	throws UsernameNotFoundException {
+		
+		UserDto userDetails = dao.getLoginUser(username);
+		
+		if(SUPER_USER.equals(username)){
+			userDetails.addAuthority(new SimpleGrantedAuthority("ROLE_ADMIN"));
+		}
+		
+		List<MenuDto> dblist  = permDao.getUserMenuPermissions(userDetails.getUserId());
+		
+		for (MenuDto menuDto : dblist) {
+			
+			userDetails.addAuthority(new SimpleGrantedAuthority("ROLE_"+menuDto.getThread()+"_READ"));
+			if(menuDto.getWriteYn() > 0){
+				userDetails.addAuthority(new SimpleGrantedAuthority("ROLE_"+menuDto.getThread()+"_WRITE"));
+			}
+		}
+		
+		return userDetails;
+	}
+	
+	public static int getLoginUserId(){
+		
+		UserDto userDetails = getLoginUser();
+		
+		return userDetails.getUserId();
+	}
+	
+	public static UserDto getLoginUser(){
+		SecurityContext secContext = SecurityContextHolder.getContext();
+		
+		UserDto userDetails = (UserDto)secContext.getAuthentication().getPrincipal();
+		
+		return userDetails;
 	}
 }
 //end of UserService.java

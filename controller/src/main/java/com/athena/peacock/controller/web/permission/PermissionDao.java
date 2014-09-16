@@ -68,6 +68,10 @@ public class PermissionDao extends AbstractBaseDao {
 		return sqlSession.selectOne("Permission.getPermission", param);
 	}
 	
+	public List<MenuDto> getUserMenuPermissions(int userId){
+		return sqlSession.selectList("Permission.getUserMenuPermissions", userId);
+	}
+	
 	public void insertPermission(PermissionDto param){
 		sqlSession.insert("Permission.insertPermission", param);
 	}

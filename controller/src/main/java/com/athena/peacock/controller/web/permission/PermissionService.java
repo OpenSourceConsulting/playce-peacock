@@ -33,6 +33,7 @@ import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.TreeNode;
 import com.athena.peacock.controller.web.menu.MenuDto;
 import com.athena.peacock.controller.web.menu.MenuService;
+import com.athena.peacock.controller.web.user.UserService;
 
 /**
  * <pre>
@@ -58,15 +59,20 @@ public class PermissionService {
 	}
 	
 	public void insertPermission(PermissionDto dto){
+		
+		dto.setRegUserId(UserService.getLoginUserId());
+		
 		dao.insertPermission(dto);
 	}
 	
 	public void createPermission(PermissionDto dto, List<PermissionMenuMapDto> menus){
+		
 		insertPermission(dto);
 		
 		for (PermissionMenuMapDto permissionMenuMapDto : menus) {
 			
 			permissionMenuMapDto.setPermId(dto.getPermId());
+			permissionMenuMapDto.setRegUserId(dto.getRegUserId());
 			
 			menuMapDao.insertPermissionMenuMap(permissionMenuMapDto);
 		}
@@ -75,11 +81,14 @@ public class PermissionService {
 	
 	public void updateMenus(PermissionMenuMapDto dto, List<PermissionMenuMapDto> menus){
 		
+		dto.setUpdUserId(UserService.getLoginUserId());
+		
 		menuMapDao.deletePermissionMenuMap(dto);//permId 모두 삭제함
 		
 		for (PermissionMenuMapDto permissionMenuMapDto : menus) {
 			
 			permissionMenuMapDto.setPermId(dto.getPermId());
+			permissionMenuMapDto.setRegUserId(dto.getRegUserId());
 			
 			menuMapDao.insertPermissionMenuMap(permissionMenuMapDto);
 		}
@@ -107,6 +116,9 @@ public class PermissionService {
 	}
 	
 	public void updatePermission(PermissionDto param){
+		
+		param.setUpdUserId(UserService.getLoginUserId());
+		
 		dao.updatePermission(param);
 	}
 	
@@ -128,6 +140,9 @@ public class PermissionService {
 	}
 	
 	public void insertPermissionUser(PermissionUserMapDto param){
+		
+		param.setRegUserId(UserService.getLoginUserId());
+		
 		userMapDao.insertPermissionUserMap(param);
 	}
 	

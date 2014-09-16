@@ -44,6 +44,10 @@
 		<priority value="DEBUG"/>
 	</category>
 	
+	<category name="org.springframework.security">
+		<priority value="DEBUG"/>
+	</category>
+	
 	<logger name="java.sql.Connection">
         <level value="DEBUG" />
     </logger>

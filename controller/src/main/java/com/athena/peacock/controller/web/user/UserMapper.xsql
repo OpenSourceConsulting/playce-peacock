@@ -138,5 +138,23 @@
 			login_id = #{loginId}
 			AND hashed_passwd = password(#{passwd})
 	</select>
+	
+	<select id="getLoginUserByLoginId" parameterType="string" resultType="com.athena.peacock.controller.web.user.UserDto">
+		SELECT 
+			user_id AS userId
+		    ,login_id AS loginId
+		    ,passwd AS passwd
+		    ,user_name AS userName
+		    ,dept_name AS deptName
+		    ,email AS email
+		    ,last_logon AS lastLogon
+		    ,reg_user_id AS regUserId
+		    ,reg_dt AS regDt
+		    ,upd_user_id AS updUserId
+		    ,upd_dt AS updDt
+		FROM users_tbl
+		WHERE 
+			login_id = #{loginId}
+	</select>
 
 </mapper>

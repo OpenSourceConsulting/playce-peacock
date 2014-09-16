@@ -85,6 +85,24 @@
         	PERM_ID = #{permId}
     </select>
     
+    <select id="getUserMenuPermissions" parameterType="int" resultMap="MenuMap">
+    	SELECT
+			c.THREAD
+			,SUM(b.READ_YN)  READ_YN
+			,SUM(b.WRITE_YN) WRITE_YN
+		FROM
+			permission_user_map_tbl a
+			,permission_menu_map_tbl b
+			,menu_tbl c
+		WHERE
+			a.USER_ID = #{userId}
+			AND a.PERM_ID = b.PERM_ID
+			AND b.MENU_ID = c.MENU_ID
+			AND b.READ_YN > 0
+		GROUP BY
+			c.THREAD
+    </select>
+    
     <insert id="insertPermission" parameterType="com.athena.peacock.controller.web.permission.PermissionDto" >
     	<selectKey keyProperty="permId" resultType="int" order="BEFORE">
     		SELECT ifnull(MAX(PERM_ID), 0)+1 FROM permission_tbl 

@@ -12,7 +12,8 @@
 	<!-- Scans within the base package of the application for @Components to configure as beans -->
 	<!-- @Controller, @Service, @Configuration, etc. -->
 	<context:annotation-config />
-	<context:component-scan base-package="com.athena.peacock"/>
+	<context:component-scan base-package="com.athena.peacock" />
+			
 
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven conversion-service="conversionService">
@@ -118,4 +119,5 @@
 		<property name="suffix" value=".jsp" />
 		<property name="order" value="2" />
 	</bean>
+	
 </beans>

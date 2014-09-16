@@ -24,7 +24,14 @@
  */
 package com.athena.peacock.controller.web.user;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.athena.peacock.controller.web.common.dto.BaseDto;
 
@@ -35,7 +42,7 @@ import com.athena.peacock.controller.web.common.dto.BaseDto;
  * @author Bong-Jin Kwon
  * @version 1.0
  */
-public class UserDto extends BaseDto {
+public class UserDto extends BaseDto implements UserDetails {
 	
 	private static final long serialVersionUID = -1083153050593982734L;
 	
@@ -47,6 +54,13 @@ public class UserDto extends BaseDto {
 	private String deptName;
 	private String email;
 	private Date lastLogon;
+	
+	private List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
+
+	
+	
+	public UserDto() {
+	}
 
 	/**
 	 * @return the userId
@@ -158,6 +172,52 @@ public class UserDto extends BaseDto {
 	 */
 	public void setLastLogon(Date lastLogon) {
 		this.lastLogon = lastLogon;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		
+		return this.authorities;
+	}
+
+	@Override
+	public String getPassword() {
+		
+		return this.passwd;
+	}
+
+	@Override
+	public String getUsername() {
+		
+		return this.loginId;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		
+		return true;
+	}
+	
+	public void addAuthority(SimpleGrantedAuthority authority){
+		this.authorities.add(authority);
 	}
 }
 //end of User.java
