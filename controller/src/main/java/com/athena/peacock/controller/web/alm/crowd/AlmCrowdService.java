@@ -27,6 +27,8 @@ package com.athena.peacock.controller.web.alm.crowd;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -84,10 +86,12 @@ public class AlmCrowdService {
 
 	public AlmCrowdService() {
 		// TODO Auto-generated constructor stub
+	}
 
-		// 추후 변수처리
-		crowdClient = new RestCrowdClientFactory().newInstance(
-				"http://119.81.162.218:8095/crowd", "demo", "demo");
+	@PostConstruct
+	private void init() {
+		crowdClient = new RestCrowdClientFactory().newInstance(crowdUrl,
+				crowdId, crowdPw);
 	}
 
 	public void insertUser(AlmUserDto user) {
@@ -124,11 +128,14 @@ public class AlmCrowdService {
 
 		List<AlmUserDto> userLists = new ArrayList<AlmUserDto>();
 
+		int page = getCrowdPage(gridParam);
+
 		// UserList
 		PropertyRestriction<Boolean> restriction = Restriction.on(
 				UserTermKeys.ACTIVE).containing(true);
 
-		Iterable<User> usernames = crowdClient.searchUsers(restriction, 0, 10);
+		Iterable<User> usernames = crowdClient.searchUsers(restriction, page,
+				50);
 
 		for (User profile : usernames) {
 			AlmUserDto tmp = new AlmUserDto();
@@ -427,5 +434,15 @@ public class AlmCrowdService {
 		return response;
 	}
 
+	private int getCrowdPage(ExtjsGridParam gridParam) {
+
+		// paging 처리
+		int page = gridParam.getPage();
+		if (page > 1) {
+			page = page - 1;
+		}
+		
+		return page;
+	}
 }
 // end of UserService.java
