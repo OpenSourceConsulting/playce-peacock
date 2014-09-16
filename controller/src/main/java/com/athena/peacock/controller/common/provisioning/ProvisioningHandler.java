@@ -625,6 +625,29 @@ public class ProvisioningHandler {
 		String otherBindAddress = provisioningDetail.getOtherBindAddress();
 		String localIPAddress = provisioningDetail.getLocalIPAddress();
 		String hostName = provisioningDetail.getHostName();
+
+		logger.debug("fileLocation : " + fileLocation);
+		logger.debug("fileName : " + fileName);
+		logger.debug("user : " + user);
+		logger.debug("group : " + group);
+		logger.debug("serverHome : " + serverHome);
+		logger.debug("serverName : " + serverName);
+		logger.debug("catalinaHome : " + catalinaHome);
+		logger.debug("catalinaBase : " + catalinaBase);
+		logger.debug("portOffset : " + portOffset);
+		logger.debug("encoding : " + encoding);
+		logger.debug("heapSize : " + heapSize);
+		logger.debug("permgenSize : " + permgenSize);
+		logger.debug("httpEnable : " + httpEnable);
+		logger.debug("highAvailability : " + highAvailability);
+		logger.debug("bindAddress : " + bindAddress);
+		logger.debug("otherBindAddress : " + otherBindAddress);
+		logger.debug("localIPAddress : " + localIPAddress);
+		logger.debug("hostName : " + hostName);
+		logger.debug("machineId : " + provisioningDetail.getMachineId());
+		logger.debug("softwareId : " + provisioningDetail.getSoftwareId());
+		logger.debug("softwareName : " + provisioningDetail.getSoftwareName());
+		logger.debug("autoStart : " + provisioningDetail.getAutoStart());
 		
 		/**
 		 * DataSource Variables
@@ -643,6 +666,21 @@ public class ProvisioningHandler {
 		String maxIdle2 = (StringUtils.isEmpty(provisioningDetail.getMaxIdle2()) ? "1" : provisioningDetail.getMaxIdle2());
 		String maxActive1 = (StringUtils.isEmpty(provisioningDetail.getMaxActive1()) ? "5" : provisioningDetail.getMaxActive1());
 		String maxActive2 = (StringUtils.isEmpty(provisioningDetail.getMaxActive2()) ? "5" : provisioningDetail.getMaxActive2());
+		
+		logger.debug("databaseType1 : " + databaseType1);
+		logger.debug("databaseType2 : " + databaseType2);
+		logger.debug("jndiName1 : " + jndiName1);
+		logger.debug("jndiName2 : " + jndiName2);
+		logger.debug("connectionUrl1 : " + connectionUrl1);
+		logger.debug("connectionUrl2 : " + connectionUrl2);
+		logger.debug("userName1 : " + userName1);
+		logger.debug("userName2 : " + userName2);
+		logger.debug("password1 : " + password1);
+		logger.debug("password2 : " + password2);
+		logger.debug("maxIdle1 : " + maxIdle1);
+		logger.debug("maxIdle2 : " + maxIdle2);
+		logger.debug("maxActive1 : " + maxActive1);
+		logger.debug("maxActive2 : " + maxActive2);
 		
 		Command command = new Command("Tomcat INSTALL");
 		ShellAction s_action = null;
@@ -1039,6 +1077,31 @@ public class ProvisioningHandler {
 		String localIPAddress = provisioningDetail.getLocalIPAddress();
 		String hostName = provisioningDetail.getHostName();
 
+		logger.debug("fileLocation : " + fileLocation);
+		logger.debug("fileName : " + fileName);
+		logger.debug("user : " + user);
+		logger.debug("javaHome : " + javaHome);
+		logger.debug("jbossHome : " + jbossHome);
+		logger.debug("serverHome : " + serverHome);
+		logger.debug("serverBase : " + serverBase);
+		logger.debug("serverName : " + serverName);
+		logger.debug("domainIp : " + domainIp);
+		logger.debug("encoding : " + encoding);
+		logger.debug("bindPort : " + bindPort);
+		logger.debug("udpGroupAddr : " + udpGroupAddr);
+		logger.debug("multicastPort : " + multicastPort);
+		logger.debug("serverPeerID : " + serverPeerID);
+		logger.debug("jvmRoute : " + jvmRoute);
+		logger.debug("heapSize : " + heapSize);
+		logger.debug("heapSize : " + heapSize);
+		logger.debug("permgenSize : " + permgenSize);
+		logger.debug("localIPAddress : " + localIPAddress);
+		logger.debug("hostName : " + hostName);
+		logger.debug("machineId : " + provisioningDetail.getMachineId());
+		logger.debug("softwareId : " + provisioningDetail.getSoftwareId());
+		logger.debug("softwareName : " + provisioningDetail.getSoftwareName());
+		logger.debug("autoStart : " + provisioningDetail.getAutoStart());
+		
 		/**
 		 * DataSource Variables
 		 */
@@ -1056,6 +1119,21 @@ public class ProvisioningHandler {
 		String minPoolSize2 = (StringUtils.isEmpty(provisioningDetail.getMinPoolSize2()) ? "1" : provisioningDetail.getMinPoolSize2());
 		String maxPoolSize1 = (StringUtils.isEmpty(provisioningDetail.getMaxPoolSize1()) ? "5" : provisioningDetail.getMaxPoolSize1());
 		String maxPoolSize2 = (StringUtils.isEmpty(provisioningDetail.getMaxPoolSize2()) ? "5" : provisioningDetail.getMaxPoolSize2());
+
+		logger.debug("databaseType1 : " + databaseType1);
+		logger.debug("databaseType2 : " + databaseType2);
+		logger.debug("jndiName1 : " + jndiName1);
+		logger.debug("jndiName2 : " + jndiName2);
+		logger.debug("connectionUrl1 : " + connectionUrl1);
+		logger.debug("connectionUrl2 : " + connectionUrl2);
+		logger.debug("userName1 : " + userName1);
+		logger.debug("userName2 : " + userName2);
+		logger.debug("password1 : " + password1);
+		logger.debug("password2 : " + password2);
+		logger.debug("minPoolSize1 : " + minPoolSize1);
+		logger.debug("minPoolSize2 : " + minPoolSize2);
+		logger.debug("maxPoolSize1 : " + maxPoolSize1);
+		logger.debug("maxPoolSize2 : " + maxPoolSize2);
 		
 		Command command = new Command("JBoss INSTALL");
 		int sequence = 0;

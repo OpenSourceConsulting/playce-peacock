@@ -29,7 +29,7 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
         'Ext.form.field.Hidden'
     ],
 
-    height: 600,
+    height: 630,
     id: 'softwareInstallWindow',
     width: 500,
     resizable: false,
@@ -80,7 +80,18 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                 var installForm;
 
                                 if(index == 0) {
+
                                     installForm = Ext.getCmp("jbossEWSHttpdForm");
+
+                                } else if(index == 1) {
+
+                                    installForm = Ext.getCmp("jbossEWSTomcatForm");
+                                    installForm.getForm().findField("localIPAddress").setValue(instancesConstants.selectRow.get("ipAddr"));
+
+                                } else if(index == 2) {
+
+                                    installForm = Ext.getCmp("jbossEAPForm");
+                                    installForm.getForm().findField("localIPAddress").setValue(instancesConstants.selectRow.get("ipAddr"));
                                 }
 
                                 installForm.getForm().findField("machineId").setValue(instancesConstants.selectRow.get("machineId"));
@@ -251,7 +262,8 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             fieldLabel: 'workers.properties',
                                             labelAlign: 'top',
                                             labelStyle: 'font-weight: bold;',
-                                            name: 'workers'
+                                            name: 'workers',
+                                            rows: 5
                                         },
                                         {
                                             xtype: 'textareafield',
@@ -261,7 +273,8 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             fieldLabel: 'uriworkermap.properties',
                                             labelAlign: 'top',
                                             labelStyle: 'font-weight: bold;',
-                                            name: 'uriworkermap'
+                                            name: 'uriworkermap',
+                                            rows: 5
                                         },
                                         {
                                             xtype: 'checkboxfield',
@@ -383,7 +396,14 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             ],
                                             fieldLabel: 'Server Name',
                                             name: 'serverName',
-                                            allowBlank: false
+                                            allowBlank: false,
+                                            enableKeyEvents: true,
+                                            listeners: {
+                                                keyup: {
+                                                    fn: me.onTextfieldKeyup,
+                                                    scope: me
+                                                }
+                                            }
                                         },
                                         {
                                             xtype: 'textfield',
@@ -403,17 +423,22 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             ],
                                             fieldLabel: 'Catalina Base',
                                             name: 'catalinaBase',
+                                            readOnly: true,
                                             allowBlank: false
                                         },
                                         {
-                                            xtype: 'textfield',
+                                            xtype: 'combobox',
                                             anchor: '100%',
                                             afterLabelTextTpl: [
                                                 '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                             ],
                                             fieldLabel: 'Encoding',
                                             name: 'encoding',
-                                            allowBlank: false
+                                            allowBlank: false,
+                                            store: [
+                                                'UTF-8',
+                                                'EUC-KR'
+                                            ]
                                         },
                                         {
                                             xtype: 'textfield',
@@ -423,7 +448,8 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             ],
                                             fieldLabel: 'Port Offset',
                                             name: 'portOffset',
-                                            allowBlank: false
+                                            allowBlank: false,
+                                            vtype: 'numeric'
                                         },
                                         {
                                             xtype: 'textfield',
@@ -433,7 +459,8 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             ],
                                             fieldLabel: 'Heap Size(MB)',
                                             name: 'heapSize',
-                                            allowBlank: false
+                                            allowBlank: false,
+                                            vtype: 'numeric'
                                         },
                                         {
                                             xtype: 'textfield',
@@ -443,7 +470,8 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             ],
                                             fieldLabel: 'Permgen Size(MB)',
                                             name: 'permgenSize',
-                                            allowBlank: false
+                                            allowBlank: false,
+                                            vtype: 'numeric'
                                         },
                                         {
                                             xtype: 'textfield',
@@ -470,20 +498,28 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             name: 'highAvailability',
                                             boxLabel: 'Check when using clustering',
                                             inputValue: 'Y',
-                                            uncheckedValue: 'N'
+                                            uncheckedValue: 'N',
+                                            listeners: {
+                                                change: {
+                                                    fn: me.onCheckboxfieldChange,
+                                                    scope: me
+                                                }
+                                            }
                                         },
                                         {
                                             xtype: 'textfield',
                                             anchor: '100%',
                                             fieldLabel: 'Bind Address',
-                                            name: 'bindAddress'
+                                            name: 'bindAddress',
+                                            readOnly: true
                                         },
                                         {
                                             xtype: 'textfield',
                                             anchor: '100%',
                                             fieldLabel: 'Other Bind Address',
                                             labelWidth: 130,
-                                            name: 'otherBindAddress'
+                                            name: 'otherBindAddress',
+                                            readOnly: true
                                         },
                                         {
                                             xtype: 'checkboxfield',
@@ -493,55 +529,324 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             checked: true,
                                             inputValue: 'Y',
                                             uncheckedValue: 'N'
+                                        },
+                                        {
+                                            xtype: 'hiddenfield',
+                                            anchor: '100%',
+                                            fieldLabel: 'Label',
+                                            name: 'machineId'
+                                        },
+                                        {
+                                            xtype: 'hiddenfield',
+                                            anchor: '100%',
+                                            fieldLabel: 'Label',
+                                            name: 'softwareId'
+                                        },
+                                        {
+                                            xtype: 'hiddenfield',
+                                            anchor: '100%',
+                                            fieldLabel: 'Label',
+                                            name: 'softwareName'
+                                        },
+                                        {
+                                            xtype: 'hiddenfield',
+                                            anchor: '100%',
+                                            fieldLabel: 'Label',
+                                            name: 'group'
+                                        },
+                                        {
+                                            xtype: 'hiddenfield',
+                                            anchor: '100%',
+                                            fieldLabel: 'Label',
+                                            name: 'localIPAddress'
                                         }
                                     ]
                                 },
                                 {
                                     xtype: 'fieldset',
+                                    collapsed: true,
                                     collapsible: true,
                                     title: 'DataSource-1 Setting(Optional)',
                                     items: [
                                         {
-                                            xtype: 'textfield',
+                                            xtype: 'combobox',
                                             anchor: '100%',
                                             fieldLabel: 'Database Type',
-                                            name: 'databaseType1'
+                                            name: 'databaseType1',
+                                            store: [
+                                                'Oracle',
+                                                'MySQL'
+                                            ],
+                                            listeners: {
+                                                change: {
+                                                    fn: me.onComboboxChange2,
+                                                    scope: me
+                                                }
+                                            }
                                         },
                                         {
                                             xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType1').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
                                             anchor: '100%',
                                             fieldLabel: 'JNDI Name',
                                             name: 'jndiName1'
                                         },
                                         {
                                             xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType1').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
                                             anchor: '100%',
                                             fieldLabel: 'JDBC URL',
                                             name: 'connectionUrl1'
                                         },
                                         {
                                             xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType1').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
                                             anchor: '100%',
                                             fieldLabel: 'User Name',
                                             name: 'userName1'
                                         },
                                         {
                                             xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType1').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
                                             anchor: '100%',
                                             fieldLabel: 'Password',
                                             name: 'password1'
                                         },
                                         {
                                             xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType1').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
                                             anchor: '100%',
                                             fieldLabel: 'Max Idle',
                                             name: 'maxIdle1'
                                         },
                                         {
                                             xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType1').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
                                             anchor: '100%',
                                             fieldLabel: 'Max Active',
                                             name: 'maxActive1'
+                                        }
+                                    ]
+                                },
+                                {
+                                    xtype: 'fieldset',
+                                    collapsed: true,
+                                    collapsible: true,
+                                    title: 'DataSource-2 Setting(Optional)',
+                                    items: [
+                                        {
+                                            xtype: 'combobox',
+                                            anchor: '100%',
+                                            fieldLabel: 'Database Type',
+                                            name: 'databaseType2',
+                                            store: [
+                                                'Oracle',
+                                                'MySQL'
+                                            ],
+                                            listeners: {
+                                                change: {
+                                                    fn: me.onComboboxChange21,
+                                                    scope: me
+                                                }
+                                            }
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType2').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
+                                            anchor: '100%',
+                                            fieldLabel: 'JNDI Name',
+                                            name: 'jndiName2'
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType2').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
+                                            anchor: '100%',
+                                            fieldLabel: 'JDBC URL',
+                                            name: 'connectionUrl2'
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType2').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
+                                            anchor: '100%',
+                                            fieldLabel: 'User Name',
+                                            name: 'userName2'
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType2').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
+                                            anchor: '100%',
+                                            fieldLabel: 'Password',
+                                            name: 'password2'
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType2').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
+                                            anchor: '100%',
+                                            fieldLabel: 'Max Idle',
+                                            name: 'maxIdle2'
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType2').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
+                                            anchor: '100%',
+                                            fieldLabel: 'Max Active',
+                                            name: 'maxActive2'
                                         }
                                     ]
                                 }
@@ -566,116 +871,275 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                         {
                                             xtype: 'combobox',
                                             anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
                                             fieldLabel: 'User',
-                                            labelWidth: 110
+                                            name: 'user',
+                                            allowBlank: false,
+                                            displayField: 'account',
+                                            store: 'ComboAccountStore',
+                                            valueField: 'account',
+                                            listeners: {
+                                                change: {
+                                                    fn: me.onComboboxChange11,
+                                                    scope: me
+                                                }
+                                            }
                                         },
                                         {
                                             xtype: 'combobox',
                                             anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
                                             fieldLabel: 'Version',
-                                            labelWidth: 110
+                                            name: 'version',
+                                            allowBlank: false,
+                                            displayField: 'softwareVersion',
+                                            store: 'ComboSoftwareVersionStore',
+                                            valueField: 'softwareVersion',
+                                            listeners: {
+                                                change: {
+                                                    fn: me.onMycombobox13Change11,
+                                                    scope: me
+                                                }
+                                            }
                                         },
                                         {
                                             xtype: 'textfield',
                                             anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
                                             fieldLabel: 'Java Home',
-                                            labelWidth: 110
+                                            name: 'javaHome',
+                                            allowBlank: false
                                         },
                                         {
                                             xtype: 'textfield',
                                             anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
                                             fieldLabel: 'JBoss Home',
-                                            labelWidth: 110
+                                            name: 'jbossHome',
+                                            readOnly: true,
+                                            allowBlank: false
                                         },
                                         {
-                                            xtype: 'textfield',
+                                            xtype: 'combobox',
                                             anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
                                             fieldLabel: 'Base Template',
-                                            labelWidth: 110
+                                            name: 'baseTemplate',
+                                            allowBlank: false,
+                                            store: [
+                                                'codeServer11',
+                                                'codeServer11_cs',
+                                                'codeServer21',
+                                                'codeServer21_cs'
+                                            ],
+                                            listeners: {
+                                                change: {
+                                                    fn: me.onComboboxChange3,
+                                                    scope: me
+                                                }
+                                            }
                                         },
                                         {
                                             xtype: 'textfield',
                                             anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
                                             fieldLabel: 'Server Home',
-                                            labelWidth: 110
+                                            name: 'serverHome',
+                                            readOnly: true,
+                                            allowBlank: false
                                         },
                                         {
                                             xtype: 'textfield',
                                             anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
                                             fieldLabel: 'Server Base',
-                                            labelWidth: 110
+                                            name: 'serverBase',
+                                            readOnly: true,
+                                            allowBlank: false
                                         },
                                         {
                                             xtype: 'textfield',
                                             anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
                                             fieldLabel: 'Server Name',
-                                            labelWidth: 110
+                                            name: 'serverName',
+                                            allowBlank: false,
+                                            enableKeyEvents: true,
+                                            listeners: {
+                                                keyup: {
+                                                    fn: me.onTextfieldKeyup1,
+                                                    scope: me
+                                                }
+                                            }
                                         },
                                         {
                                             xtype: 'textfield',
                                             anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
                                             fieldLabel: 'Domain IP',
-                                            labelWidth: 110
+                                            name: 'domainIp',
+                                            allowBlank: false
                                         },
                                         {
-                                            xtype: 'textfield',
+                                            xtype: 'combobox',
                                             anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
                                             fieldLabel: 'Encoding',
-                                            labelWidth: 110
+                                            name: 'encoding',
+                                            allowBlank: false,
+                                            store: [
+                                                'UTF-8',
+                                                'EUC-KR'
+                                            ]
                                         },
                                         {
-                                            xtype: 'textfield',
+                                            xtype: 'combobox',
                                             anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
                                             fieldLabel: 'Bind Port',
-                                            labelWidth: 110
+                                            name: 'bindPort',
+                                            allowBlank: false,
+                                            store: [
+                                                'ports-default',
+                                                'ports-01',
+                                                'ports-02',
+                                                'ports-03'
+                                            ]
                                         },
                                         {
                                             xtype: 'textfield',
                                             anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
                                             fieldLabel: 'UDP Group Addr',
-                                            labelWidth: 110
+                                            name: 'udpGroupAddr',
+                                            allowBlank: false
                                         },
                                         {
                                             xtype: 'textfield',
                                             anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
                                             fieldLabel: 'Multicast Port',
-                                            labelWidth: 110
+                                            name: 'multicastPort',
+                                            allowBlank: false
                                         },
                                         {
                                             xtype: 'textfield',
                                             anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
                                             fieldLabel: 'Server Peer ID',
-                                            labelWidth: 110
+                                            name: 'serverPeerID',
+                                            allowBlank: false,
+                                            maxLength: 2,
+                                            vtype: 'numeric'
                                         },
                                         {
                                             xtype: 'textfield',
                                             anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
                                             fieldLabel: 'JVM Route',
-                                            labelWidth: 110
+                                            name: 'jvmRoute',
+                                            allowBlank: false
                                         },
                                         {
                                             xtype: 'textfield',
                                             anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
                                             fieldLabel: 'Heap Size(MB)',
-                                            labelWidth: 110
+                                            name: 'heapSize',
+                                            allowBlank: false,
+                                            vtype: 'numeric'
                                         },
                                         {
                                             xtype: 'textfield',
                                             anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
                                             fieldLabel: 'Permgen Size(MB)',
-                                            labelWidth: 110
+                                            name: 'permgenSize',
+                                            allowBlank: false,
+                                            vtype: 'numeric'
                                         },
                                         {
                                             xtype: 'textfield',
                                             anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
                                             fieldLabel: 'Host Name',
-                                            labelWidth: 110
+                                            name: 'hostName',
+                                            allowBlank: false
                                         },
                                         {
                                             xtype: 'checkboxfield',
                                             fieldLabel: 'Start Service',
-                                            labelWidth: 110,
-                                            boxLabel: 'Start Service after Installation'
+                                            name: 'autoStart',
+                                            boxLabel: 'Start Service after Installation',
+                                            checked: true,
+                                            inputValue: 'Y',
+                                            uncheckedValue: 'N'
+                                        },
+                                        {
+                                            xtype: 'hiddenfield',
+                                            anchor: '100%',
+                                            fieldLabel: 'Label',
+                                            name: 'machineId'
+                                        },
+                                        {
+                                            xtype: 'hiddenfield',
+                                            anchor: '100%',
+                                            fieldLabel: 'Label',
+                                            name: 'softwareId'
+                                        },
+                                        {
+                                            xtype: 'hiddenfield',
+                                            anchor: '100%',
+                                            fieldLabel: 'Label',
+                                            name: 'softwareName'
+                                        },
+                                        {
+                                            xtype: 'hiddenfield',
+                                            anchor: '100%',
+                                            fieldLabel: 'Label',
+                                            name: 'group'
+                                        },
+                                        {
+                                            xtype: 'hiddenfield',
+                                            anchor: '100%',
+                                            fieldLabel: 'Label',
+                                            name: 'localIPAddress'
                                         }
                                     ]
                                 },
@@ -689,43 +1153,281 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             xtype: 'combobox',
                                             anchor: '100%',
                                             fieldLabel: 'Database Type',
-                                            labelWidth: 110
+                                            name: 'databaseType1',
+                                            store: [
+                                                'Oracle',
+                                                'MySQL'
+                                            ],
+                                            listeners: {
+                                                change: {
+                                                    fn: me.onComboboxChange22,
+                                                    scope: me
+                                                }
+                                            }
                                         },
                                         {
                                             xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('jbossEAPForm').getForm().findField('databaseType1').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
                                             anchor: '100%',
                                             fieldLabel: 'JNDI Name',
-                                            labelWidth: 110
+                                            name: 'jndiName1'
                                         },
                                         {
                                             xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('jbossEAPForm').getForm().findField('databaseType1').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
                                             anchor: '100%',
                                             fieldLabel: 'JDBC URL',
-                                            labelWidth: 110
+                                            name: 'connectionUrl1'
                                         },
                                         {
                                             xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('jbossEAPForm').getForm().findField('databaseType1').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
                                             anchor: '100%',
                                             fieldLabel: 'User Name',
-                                            labelWidth: 110
+                                            name: 'userName1'
                                         },
                                         {
                                             xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('jbossEAPForm').getForm().findField('databaseType1').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
                                             anchor: '100%',
                                             fieldLabel: 'Password',
-                                            labelWidth: 110
+                                            name: 'password1'
                                         },
                                         {
                                             xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('jbossEAPForm').getForm().findField('databaseType1').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
                                             anchor: '100%',
                                             fieldLabel: 'Min Pool Size',
-                                            labelWidth: 110
+                                            name: 'minPoolSize1'
                                         },
                                         {
                                             xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('jbossEAPForm').getForm().findField('databaseType1').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
                                             anchor: '100%',
                                             fieldLabel: 'Max Pool Size',
-                                            labelWidth: 110
+                                            name: 'maxPoolSize1'
+                                        }
+                                    ]
+                                },
+                                {
+                                    xtype: 'fieldset',
+                                    collapsed: true,
+                                    collapsible: true,
+                                    title: 'DataSource-2 Setting(Optional)',
+                                    items: [
+                                        {
+                                            xtype: 'combobox',
+                                            anchor: '100%',
+                                            fieldLabel: 'Database Type',
+                                            name: 'databaseType2',
+                                            store: [
+                                                'Oracle',
+                                                'MySQL'
+                                            ],
+                                            listeners: {
+                                                change: {
+                                                    fn: me.onComboboxChange211,
+                                                    scope: me
+                                                }
+                                            }
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('jbossEAPForm').getForm().findField('databaseType2').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
+                                            anchor: '100%',
+                                            fieldLabel: 'JNDI Name',
+                                            name: 'jndiName2'
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('jbossEAPForm').getForm().findField('databaseType2').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
+                                            anchor: '100%',
+                                            fieldLabel: 'JDBC URL',
+                                            name: 'connectionUrl2'
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('jbossEAPForm').getForm().findField('databaseType2').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
+                                            anchor: '100%',
+                                            fieldLabel: 'User Name',
+                                            name: 'userName2'
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('jbossEAPForm').getForm().findField('databaseType2').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
+                                            anchor: '100%',
+                                            fieldLabel: 'Password',
+                                            name: 'password2'
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType2').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
+                                            anchor: '100%',
+                                            fieldLabel: 'Min Pool Size',
+                                            name: 'minPoolSize2'
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            validator: function(value) {
+                                                var chkValue = Ext.getCmp('jbossEAPForm').getForm().findField('databaseType2').getValue();
+
+                                                if(chkValue) {
+                                                    if(value) {
+                                                        return true;
+                                                    } else {
+                                                        return 'This field is required';
+                                                    }
+                                                } else {
+                                                    return true;
+                                                }
+
+                                            },
+                                            anchor: '100%',
+                                            fieldLabel: 'Max Pool Size',
+                                            name: 'maxPoolSize2'
                                         }
                                     ]
                                 }
@@ -800,45 +1502,25 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
         var form = field.up('form').getForm();
 
         var version = form.findField("version").getValue();
-        /*
-        //var homeDir = record.get("homeDir");
-        var homeDir = "/home2/" + newValue;
+
+        var homeDir = record.get("homeDir");
 
         form.findField("serverHome").setValue(homeDir);
         form.findField("serverName").setValue(newValue+"Server21");
+
+        form.findField("catalinaBase").setValue(homeDir + "/Servers/" + form.findField("serverName").getValue());
+
         form.findField("group").setValue(record.get("group"));
 
-        if(version) {
-            form.findField("catalinaHome").setValue(newValue+"Server21");
+        if(version == "6.0.41") {
+            form.findField("catalinaHome").setValue(homeDir+"/jboss-ews-2.1/tomcat6");
+        } else if(version == "7.0.54") {
+            form.findField("catalinaHome").setValue(homeDir+"/jboss-ews-2.1/tomcat7");
         }
 
-
-        Ext.Ajax.request({
-            url: GLOBAL.urlPrefix + "software/getConnectorProp",
-            params : {
-                account : newValue
-            },
-            disableCaching : true,
-            waitMsg: status + ' Get Properties Data...',
-            success: function(response){
-
-                var responseData = Ext.JSON.decode(response.responseText);
-
-                if(responseData.success) {
-
-                    form.findField("workers").setValue(responseData.data.workers);
-                    form.findField("uriworkermap").setValue(responseData.data.uriworkermap);
-
-                }
-
-            }
-        });
-
-        */
     },
 
     onMycombobox13Change1: function(field, newValue, oldValue, eOpts) {
-        /*
         var store = field.getStore();
         var record = store.findRecord("softwareVersion", newValue);
         var form = field.up('form').getForm();
@@ -846,17 +1528,168 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
         form.findField("softwareId").setValue(record.get("softwareId"));
         form.findField("softwareName").setValue(record.get("softwareName"));
 
-        if(newValue == '2.2.22') {
+        var homeDir = form.findField("serverHome").getValue();
 
-            form.findField("apacheHome").setValue("/opt/jboss/jboss-ews-2.0/httpd");
+        if(newValue == "6.0.41") {
+            form.findField("catalinaHome").setValue(homeDir+"/jboss-ews-2.1/tomcat6");
+        } else if(newValue == "7.0.54") {
+            form.findField("catalinaHome").setValue(homeDir+"/jboss-ews-2.1/tomcat7");
+        }
 
-        } else if(newValue == '2.2.26') {
+    },
 
-            form.findField("apacheHome").setValue("/opt/jboss/jboss-ews-2.1/httpd");
+    onTextfieldKeyup: function(textfield, e, eOpts) {
+        form.findField("catalinaBase").setValue(form.findField("serverHome").getValue() + "/Servers/" + textfield.getValue());
 
+    },
+
+    onCheckboxfieldChange: function(field, newValue, oldValue, eOpts) {
+        var form = field.up('form').getForm();
+
+        if(newValue == true) {
+
+            form.findField('bindAddress').setReadOnly(false);
+            form.findField('otherBindAddress').setReadOnly(false);
+
+            form.findField('bindAddress').setValue(instancesConstants.selectRow.get("ipAddr"));
+
+        } else {
+
+            form.findField('bindAddress').setReadOnly(true);
+            form.findField('otherBindAddress').setReadOnly(true);
+
+            form.findField('bindAddress').setValue("");
+            form.findField('otherBindAddress').setValue("");
 
         }
-        */
+    },
+
+    onComboboxChange2: function(field, newValue, oldValue, eOpts) {
+        var form = field.up('form').getForm();
+
+        if(newValue != '') {
+            form.findField("maxIdle1").setValue("1");
+            form.findField("maxActive1").setValue("5");
+        } else {
+            form.findField("maxIdle1").setValue("");
+            form.findField("maxActive1").setValue("");
+        }
+    },
+
+    onComboboxChange21: function(field, newValue, oldValue, eOpts) {
+        var form = field.up('form').getForm();
+
+        if(newValue != '') {
+            form.findField("maxIdle2").setValue("1");
+            form.findField("maxActive2").setValue("5");
+        } else {
+            form.findField("maxIdle2").setValue("");
+            form.findField("maxActive2").setValue("");
+        }
+    },
+
+    onComboboxChange11: function(field, newValue, oldValue, eOpts) {
+
+        var store = field.getStore();
+        var record = store.findRecord("account", newValue);
+        var form = field.up('form').getForm();
+
+        var version = (form.findField("version").getValue() == null ? "" : form.findField("version").getValue());
+        var baseTemplate = (form.findField("baseTemplate").getValue() == null ? "" : form.findField("baseTemplate").getValue());
+
+        var homeDir = record.get("homeDir");
+
+        form.findField("group").setValue(record.get("group"));
+
+        form.findField("serverHome").setValue(homeDir);
+        form.findField("serverBase").setValue(homeDir+"/Servers");
+        form.findField("serverName").setValue(newValue + baseTemplate);
+
+        if(version == "5.1.2") {
+            form.findField("jbossHome").setValue(homeDir+"/jboss-eap-5.1");
+        } else if(version == "5.2.0") {
+            form.findField("jbossHome").setValue(homeDir+"/jboss-eap-5.2");
+        }
+
+        if(baseTemplate) {
+
+            if(baseTemplate.indexOf("codeServer11") > -1) {
+
+                form.findField("jvmRoute").setValue(newValue + "_node1");
+
+            } else if(baseTemplate.indexOf("codeServer21") > -1) {
+
+                form.findField("jvmRoute").setValue(newValue + "_node2");
+            }
+        }
+
+
+    },
+
+    onMycombobox13Change11: function(field, newValue, oldValue, eOpts) {
+        var store = field.getStore();
+        var record = store.findRecord("softwareVersion", newValue);
+        var form = field.up('form').getForm();
+
+        form.findField("softwareId").setValue(record.get("softwareId"));
+        form.findField("softwareName").setValue(record.get("softwareName"));
+
+        var homeDir = form.findField("serverHome").getValue();
+
+        if(newValue == "5.1.2") {
+            form.findField("jbossHome").setValue(homeDir+"/jboss-eap-5.1");
+        } else if(newValue == "5.2.0") {
+            form.findField("jbossHome").setValue(homeDir+"/jboss-eap-5.2");
+        }
+
+    },
+
+    onComboboxChange3: function(field, newValue, oldValue, eOpts) {
+        var form = field.up('form').getForm();
+
+        var userName = form.findField("user").getValue();
+
+        form.findField("serverName").setValue(userName + newValue);
+
+        if(newValue.indexOf("codeServer11") > -1) {
+
+            form.findField("serverPeerID").setValue("1");
+            form.findField("jvmRoute").setValue(userName + "_node1");
+
+        } else if(newValue.indexOf("codeServer21") > -1) {
+
+            form.findField("serverPeerID").setValue("2");
+            form.findField("jvmRoute").setValue(userName + "_node2");
+        }
+    },
+
+    onTextfieldKeyup1: function(textfield, e, eOpts) {
+        form.findField("catalinaBase").setValue(form.findField("serverHome").getValue() + "/Servers/" + textfield.getValue());
+
+    },
+
+    onComboboxChange22: function(field, newValue, oldValue, eOpts) {
+        var form = field.up('form').getForm();
+
+        if(newValue != '') {
+            form.findField("minPoolSize1").setValue("1");
+            form.findField("maxPoolSize1").setValue("5");
+        } else {
+            form.findField("minPoolSize1").setValue("");
+            form.findField("maxPoolSize1").setValue("");
+        }
+    },
+
+    onComboboxChange211: function(field, newValue, oldValue, eOpts) {
+        var form = field.up('form').getForm();
+
+        if(newValue != '') {
+            form.findField("minPoolSize2").setValue("1");
+            form.findField("maxPoolSize2").setValue("5");
+        } else {
+            form.findField("minPoolSize2").setValue("");
+            form.findField("maxPoolSize2").setValue("");
+        }
     }
 
 });
