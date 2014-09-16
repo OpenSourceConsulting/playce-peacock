@@ -20,5 +20,30 @@
 		 SELECT * from alm_project_repository_tbl
 	</select>
 	
+	<insert id="insertRepository" parameterType="com.athena.peacock.controller.web.alm.repository.dto.RepositoryDto" >
+        INSERT INTO alm_project_repository_tbl
+        (
+        	REPOSITORY_CODE
+        	,REPOSIROTY_TYPE
+        	,REPOSIROTY_DESCRIPTION
+        	,REPOSIROTY_URL
+        ) VALUES (
+        	#{repositoryCode}
+        	,#{reposirotyType}
+        	,#{reposirotyDescription}
+        	,#{reposirotyUrl}
+        )
+    </insert>
+    
+    <update id="updateRepository" parameterType="com.athena.peacock.controller.web.alm.repository.dto.RepositoryDto" >
+        UPDATE alm_project_repository_tbl
+        SET
+        	REPOSITORY_CODE = #{repositoryCode}
+        	,REPOSIROTY_TYPE = #{reposirotyType}
+        	,REPOSIROTY_DESCRIPTION = #{reposirotyDescription}
+        	,REPOSIROTY_URL = #{reposirotyUrl}
+        WHERE
+        	REPOSITORY_CODE = #{repositoryCode}
+    </update>
 	
 </mapper>

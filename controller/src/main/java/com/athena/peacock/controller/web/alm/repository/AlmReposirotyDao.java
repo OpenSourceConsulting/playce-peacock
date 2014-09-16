@@ -17,5 +17,13 @@ public class AlmReposirotyDao extends AbstractBaseDao {
 	public List<RepositoryDto> getRepositoryList() {
 		return sqlSession.selectList("RepositoryMapper.getRepositoryList");
 	}
+	
+	public void insertAlmProjectRepository(RepositoryDto param){
+		sqlSession.insert("RepositoryMapper.insertRepository", param);
+	}
+	
+	public void updateAlmProjectRepository(RepositoryDto param){
+		sqlSession.update("RepositoryMapper.updateRepository", param);
+	}
 
 }

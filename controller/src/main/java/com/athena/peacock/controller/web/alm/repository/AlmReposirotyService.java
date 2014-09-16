@@ -38,4 +38,13 @@ public class AlmReposirotyService {
 		response.setData(dto);
 		return response;
 	}
+	
+	public DtoJsonResponse insertAlmProjectRepository(RepositoryDto param){
+		
+		DtoJsonResponse response = new DtoJsonResponse();
+		response.setMsg("Repository가 등록되었습니다.");
+		repositoryDao.insertAlmProjectRepository(param);
+	
+		return response;
+	}
 }
