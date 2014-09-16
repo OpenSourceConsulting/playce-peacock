@@ -96,6 +96,10 @@ public class UserService implements UserDetailsService {
 			return null;
 		}
 	}
+	
+	public void updateLastLogon(int userId){
+		dao.updateLastLogon(userId);
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username)	throws UsernameNotFoundException {

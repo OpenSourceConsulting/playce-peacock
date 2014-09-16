@@ -144,11 +144,24 @@ public class UserController {
 	@RequestMapping("/onAfterLogin")
 	public @ResponseBody SimpleJsonResponse onAfterLogin(SimpleJsonResponse jsonRes){
 		
-		SecurityContext secContext = SecurityContextHolder.getContext();
 		
-		UserDetails userDetails = (UserDetails)secContext.getAuthentication().getPrincipal();
+		UserDto userDetails = UserService.getLoginUser();
 		
 		jsonRes.setData(userDetails);
+		
+		if(userDetails != null){
+			service.updateLastLogon(userDetails.getRegUserId());
+		}
+		
+		return jsonRes;
+	}
+	
+	@RequestMapping("/notLogin")
+	public @ResponseBody SimpleJsonResponse notLogin(SimpleJsonResponse jsonRes){
+		
+		jsonRes.setSuccess(false);
+		jsonRes.setMsg("로그인 정보가 없습니다. 관리자에게 문의하세요.");
+		jsonRes.setData("notLogin");
 		
 		return jsonRes;
 	}

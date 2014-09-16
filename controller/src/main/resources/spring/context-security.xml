@@ -16,6 +16,7 @@
     <http pattern="/resources/**" 	security="none"/>
 	<http pattern="/index.html*" 	security="none"/>
 	<http pattern="/app.js*" 		security="none"/>
+	<http pattern="/user/notLogin*" 		security="none"/>
 	<http pattern="/user/accessDenied*" 	security="none"/>
 	<http pattern="/user/onAfterLogout*" 	security="none"/>
 	<http pattern="/user/loginFail*" 		security="none"/>
@@ -88,7 +89,7 @@
 	  <!-- ==================================================== -->
 	  <!-- 인증 처리 설정 -->
 	  <!-- ==================================================== -->
-	  <form-login login-page='/user/accessDenied' login-processing-url="/user/login" 
+	  <form-login login-page='/user/notLogin' login-processing-url="/user/login" 
 	  	default-target-url="/user/onAfterLogin" username-parameter="loginId" password-parameter="passwd"
 	  	authentication-failure-url="/user/loginFail"/>
 	  	
