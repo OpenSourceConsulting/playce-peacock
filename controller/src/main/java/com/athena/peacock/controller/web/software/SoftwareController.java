@@ -293,8 +293,8 @@ public class SoftwareController {
 		
 		Map<String, String> properties = new HashMap<String, String>();
 				
-		String uriworkermap = IOUtils.toString(new URL(urlPrefix + "/repo/httpd/conf/extra/uriworkermap.properties"), "UTF-8").replaceAll("\\$\\{USER\\}", account);
-		String workers = IOUtils.toString(new URL(urlPrefix + "/repo/httpd/conf/extra/workers.properties"), "UTF-8").replaceAll("\\$\\{USER\\}", account);
+		String uriworkermap = IOUtils.toString(new URL(urlPrefix + "/repo/httpd/conf/extra/uriworkermap.properties"), "UTF-8").replaceAll("\\$\\{user\\}", account);
+		String workers = IOUtils.toString(new URL(urlPrefix + "/repo/httpd/conf/extra/workers.properties"), "UTF-8").replaceAll("\\$\\{user\\}", account);
 		
 		properties.put("uriworkermap", uriworkermap);
 		properties.put("workers", workers);
