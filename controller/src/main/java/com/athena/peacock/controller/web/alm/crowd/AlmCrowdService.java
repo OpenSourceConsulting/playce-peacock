@@ -27,6 +27,7 @@ package com.athena.peacock.controller.web.alm.crowd;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmGroupDto;
@@ -69,6 +70,15 @@ import com.atlassian.crowd.service.client.CrowdClient;
  */
 @Service
 public class AlmCrowdService {
+
+	@Value("#{contextProperties['alm.crowd.url']}")
+	private String crowdUrl;
+
+	@Value("#{contextProperties['alm.crowd.id']}")
+	private String crowdId;
+
+	@Value("#{contextProperties['alm.crowd.pw']}")
+	private String crowdPw;
 
 	private CrowdClient crowdClient;
 
@@ -269,10 +279,10 @@ public class AlmCrowdService {
 
 		DtoJsonResponse response = new DtoJsonResponse();
 
-		//try {
-			//crowdClient.removeUser(username);
-			response.setMsg("유저  삭제 성공");
-		//}
+		// try {
+		// crowdClient.removeUser(username);
+		response.setMsg("유저  삭제 성공");
+		// }
 		return response;
 	}
 
