@@ -896,6 +896,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.model.PermissionModel": [],
   "MyApp.model.ProjectModel": [],
   "MyApp.model.SessionModel": [],
+  "MyApp.model.SoftwareModel": [],
+  "MyApp.model.SoftwareRepoModel": [],
   "MyApp.model.SpaceSummaryModel": [],
   "MyApp.model.TemplateModel": [],
   "MyApp.model.UserModel": [],
@@ -905,6 +907,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.model.instanceSoftwareModel": [],
   "MyApp.model.monitoringChartModel": [],
   "MyApp.store.AccountStore": [],
+  "MyApp.store.AllMenuTreeStore": [],
   "MyApp.store.AlmGroupStore": [],
   "MyApp.store.AlmGroupUsersStore": [],
   "MyApp.store.AlmJobStore": [],
@@ -919,32 +922,29 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.ComboDataCenterStore": [],
   "MyApp.store.ComboGroupStore": [],
   "MyApp.store.ComboHypervisorStore": [],
+  "MyApp.store.ComboSoftwareStore": [],
+  "MyApp.store.ComboSoftwareVersionStore": [],
   "MyApp.store.ComboTemplateStore": [],
   "MyApp.store.HypervisorStore": [],
   "MyApp.store.InstanceGroupStore": [],
   "MyApp.store.InstanceMonitoringStore": [],
   "MyApp.store.InstancePackageStore": [],
+  "MyApp.store.InstanceSoftwareStore": [],
   "MyApp.store.MachineStore": [],
   "MyApp.store.MenuTreeStore": [],
   "MyApp.store.MonitoringPopupStore": [],
+  "MyApp.store.PermissionMenuTreeStore": [],
   "MyApp.store.PermissionStore": [],
   "MyApp.store.PermissionUserStore": [],
   "MyApp.store.SessionStore": [],
+  "MyApp.store.TempSpaceStore": [],
+  "MyApp.store.TempUserStore": [],
   "MyApp.store.TemplateStore": [],
   "MyApp.store.UserStore": [],
   "MyApp.store.VMDiskStore": [],
   "MyApp.store.VMNetworkStore": [],
   "MyApp.store.VMStore": [],
-  "MyApp.store.allMenuTreeStore": [],
-  "MyApp.store.instanceListStore": [],
-  "MyApp.store.instanceMonitoringChartStore": [],
-  "MyApp.store.instanceOsListStore": [],
-  "MyApp.store.instanceSoftwareListStore": [],
-  "MyApp.store.permissionMenuTreeStore": [],
   "MyApp.store.tempChartData": [],
-  "MyApp.store.tempGridData": [],
-  "MyApp.store.tempSpaceStore": [],
-  "MyApp.store.tempUserStore": [],
   "MyApp.view.AgentSummaryWindow": [],
   "MyApp.view.AlarmCriticalWindow": [],
   "MyApp.view.AlarmWarningWindow": [],
@@ -963,6 +963,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.ManageGroupWindow": [],
   "MyApp.view.MonitoringChartWindow": [],
   "MyApp.view.MyForm33": [],
+  "MyApp.view.MyTextField136": [],
   "MyApp.view.NewPermissionWindow": [],
   "MyApp.view.PermissionUserWindow": [],
   "MyApp.view.RegAccountWindow": [],
@@ -970,6 +971,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.RegInstanceWindow": [],
   "MyApp.view.RegRhevmWindow": [],
   "MyApp.view.RegTemplateWindow": [],
+  "MyApp.view.SoftwareInstallLogWindow": [],
+  "MyApp.view.SoftwareInstallWindow": [],
   "MyApp.view.TemplateSummaryWindow": [],
   "MyApp.view.UserWindow": [],
   "MyApp.view.Viewport": [],
@@ -985,8 +988,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.peacockViewport": [],
   "MyApp.view.rhevmContainer": [],
   "MyApp.view.softwareConfigWindow": [],
-  "MyApp.view.softwareInstallLogWindow": [],
-  "MyApp.view.softwareInstallWindow": [],
   "RHEVMConstants": [],
   "almConstants": [],
   "dashboardConstants": [],
@@ -2025,6 +2026,8 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.model.PermissionModel": [],
   "MyApp.model.ProjectModel": [],
   "MyApp.model.SessionModel": [],
+  "MyApp.model.SoftwareModel": [],
+  "MyApp.model.SoftwareRepoModel": [],
   "MyApp.model.SpaceSummaryModel": [],
   "MyApp.model.TemplateModel": [],
   "MyApp.model.UserModel": [],
@@ -2034,6 +2037,7 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.model.instanceSoftwareModel": [],
   "MyApp.model.monitoringChartModel": [],
   "MyApp.store.AccountStore": [],
+  "MyApp.store.AllMenuTreeStore": [],
   "MyApp.store.AlmGroupStore": [],
   "MyApp.store.AlmGroupUsersStore": [],
   "MyApp.store.AlmJobStore": [],
@@ -2048,32 +2052,29 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.store.ComboDataCenterStore": [],
   "MyApp.store.ComboGroupStore": [],
   "MyApp.store.ComboHypervisorStore": [],
+  "MyApp.store.ComboSoftwareStore": [],
+  "MyApp.store.ComboSoftwareVersionStore": [],
   "MyApp.store.ComboTemplateStore": [],
   "MyApp.store.HypervisorStore": [],
   "MyApp.store.InstanceGroupStore": [],
   "MyApp.store.InstanceMonitoringStore": [],
   "MyApp.store.InstancePackageStore": [],
+  "MyApp.store.InstanceSoftwareStore": [],
   "MyApp.store.MachineStore": [],
   "MyApp.store.MenuTreeStore": [],
   "MyApp.store.MonitoringPopupStore": [],
+  "MyApp.store.PermissionMenuTreeStore": [],
   "MyApp.store.PermissionStore": [],
   "MyApp.store.PermissionUserStore": [],
   "MyApp.store.SessionStore": [],
+  "MyApp.store.TempSpaceStore": [],
+  "MyApp.store.TempUserStore": [],
   "MyApp.store.TemplateStore": [],
   "MyApp.store.UserStore": [],
   "MyApp.store.VMDiskStore": [],
   "MyApp.store.VMNetworkStore": [],
   "MyApp.store.VMStore": [],
-  "MyApp.store.allMenuTreeStore": [],
-  "MyApp.store.instanceListStore": [],
-  "MyApp.store.instanceMonitoringChartStore": [],
-  "MyApp.store.instanceOsListStore": [],
-  "MyApp.store.instanceSoftwareListStore": [],
-  "MyApp.store.permissionMenuTreeStore": [],
   "MyApp.store.tempChartData": [],
-  "MyApp.store.tempGridData": [],
-  "MyApp.store.tempSpaceStore": [],
-  "MyApp.store.tempUserStore": [],
   "MyApp.view.AgentSummaryWindow": [
     "widget.AgentSummaryWindow"
   ],
@@ -2128,6 +2129,9 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.MyForm33": [
     "widget.myform33"
   ],
+  "MyApp.view.MyTextField136": [
+    "widget.mytextfield136"
+  ],
   "MyApp.view.NewPermissionWindow": [
     "widget.NewPermissionWindow"
   ],
@@ -2148,6 +2152,12 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.RegTemplateWindow": [
     "widget.RegTemplateWindow"
+  ],
+  "MyApp.view.SoftwareInstallLogWindow": [
+    "widget.SoftwareInstallLogWindow"
+  ],
+  "MyApp.view.SoftwareInstallWindow": [
+    "widget.SoftwareInstallWindow"
   ],
   "MyApp.view.TemplateSummaryWindow": [
     "widget.TemplateSummaryWindow"
@@ -2191,12 +2201,6 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.softwareConfigWindow": [
     "widget.softwareConfigWindow"
-  ],
-  "MyApp.view.softwareInstallLogWindow": [
-    "widget.softwareInstallLogWindow"
-  ],
-  "MyApp.view.softwareInstallWindow": [
-    "widget.softwareInstallWindow"
   ],
   "RHEVMConstants": [],
   "almConstants": [],

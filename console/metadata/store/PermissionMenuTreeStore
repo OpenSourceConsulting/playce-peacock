@@ -7,9 +7,9 @@
     "codeClass": null,
     "userConfig": {
         "autoLoad": false,
-        "designer|userClassName": "permissionMenuTreeStore",
+        "designer|userClassName": "PermissionMenuTreeStore",
         "model": "MenuModel",
-        "storeId": "permissionMenuTreeStore"
+        "storeId": "PermissionMenuTreeStore"
     },
     "designerId": "fa2b9418-18cc-4b15-9f87-c5533b45602e",
     "cn": [

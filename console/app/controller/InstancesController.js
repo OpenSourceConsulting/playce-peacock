@@ -353,13 +353,13 @@ Ext.define('MyApp.controller.InstancesController', {
         } else if(tabIndex == 1) {
 
             //Software Data Loading
-            var softwareGrid = Ext.getCmp('instanceSoftwareGrid');
+            var softwareStore = Ext.getCmp('instanceSoftwareGrid').getStore();
 
-            softwareGrid.getStore().load({
-                params:{
-                    instanceID : record.get("instanceID")
-                }
-            });
+            softwareStore.getProxy().extraParams = {
+                machineId : instancesConstants.selectRow.get("machineId")
+            };
+
+            softwareStore.load();
 
         } else if(tabIndex == 2) {
 

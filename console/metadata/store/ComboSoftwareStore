@@ -1,0 +1,63 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": false,
+        "designer|userClassName": "ComboSoftwareStore",
+        "model": "SoftwareRepoModel",
+        "storeId": "ComboSoftwareStore"
+    },
+    "designerId": "12520a3d-8f69-454e-a4bd-cc4f6b489711",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "url": "software/getNames"
+            },
+            "designerId": "1428d8ec-3017-4c15-9530-45ab3368be1f",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "list"
+                    },
+                    "designerId": "d92acc8d-5056-4953-9775-76d295c4ab10"
+                },
+                {
+                    "type": "processcfgfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|params": [
+                            "config"
+                        ],
+                        "fn": "processMyAjaxProxy",
+                        "implHandler": [
+                            "config.actionMethods = {create: \"GET\", read: \"GET\", update: \"GET\", destroy: \"GET\"};",
+                            "",
+                            "return config;"
+                        ]
+                    },
+                    "designerId": "08f45cad-ae66-429f-b47d-dd7e45a51b9f"
+                }
+            ]
+        }
+    ]
+}

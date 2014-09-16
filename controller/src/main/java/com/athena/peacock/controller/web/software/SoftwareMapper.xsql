@@ -122,7 +122,7 @@
 		  FROM software_repo_tbl A JOIN software_tbl B
 			ON A.SOFTWARE_ID = B.SOFTWARE_ID
 		 WHERE B.MACHINE_ID = #{machineId}
-		 LIMIT #{start}, #{limit}
+		<!--  LIMIT #{start}, #{limit} -->
 	</select>
 	
 	<select id="getSoftwareInstallListAll" parameterType="String" resultType="com.athena.peacock.controller.web.software.SoftwareDto">

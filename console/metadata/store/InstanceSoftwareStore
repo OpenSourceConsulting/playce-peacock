@@ -7,11 +7,11 @@
     "codeClass": null,
     "userConfig": {
         "autoLoad": false,
-        "designer|userClassName": "instanceListStore",
-        "model": "instanceModel",
-        "storeId": "instanceListStore"
+        "designer|userClassName": "InstanceSoftwareStore",
+        "model": "SoftwareModel",
+        "storeId": "InstanceSoftwareStore"
     },
-    "designerId": "1aa7e75d-2bf0-48c4-997e-f1d9dc1afc92",
+    "designerId": "9c22c1f7-3081-47fd-b86e-7dc230eeaccb",
     "cn": [
         {
             "type": "Ext.data.proxy.Ajax",
@@ -21,9 +21,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "url": "/instance/listInstance"
+                "api": null,
+                "url": "software/list"
             },
-            "designerId": "969f7952-07e6-4aea-abea-8a7e1b2f37d2",
+            "designerId": "70099f4f-2ab7-4ec5-903b-b730315490f7",
             "cn": [
                 {
                     "type": "Ext.data.reader.Json",
@@ -35,7 +36,7 @@
                     "userConfig": {
                         "root": "list"
                     },
-                    "designerId": "1a6bad67-b93d-43bc-b04a-8cbb1e1b02a8"
+                    "designerId": "1ae9ce99-062f-4294-b18f-f0567f90a2b7"
                 },
                 {
                     "type": "processcfgfunction",
@@ -55,7 +56,7 @@
                             "return config;"
                         ]
                     },
-                    "designerId": "5281ae23-28d3-4121-b02a-508d0cd9e884"
+                    "designerId": "ba197d2b-65ae-418b-b7c7-c5fb78c1e244"
                 }
             ]
         }

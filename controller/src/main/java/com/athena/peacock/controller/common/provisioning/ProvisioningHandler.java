@@ -131,6 +131,22 @@ public class ProvisioningHandler {
 		String uriworkermap = provisioningDetail.getUriworkermap();
 		String workers = provisioningDetail.getWorkers();
 		
+		logger.debug("fileLocation : " + fileLocation);
+		logger.debug("fileName : " + fileName);
+		logger.debug("user : " + user);
+		logger.debug("group : " + group);
+		logger.debug("version : " + version);
+		logger.debug("apacheHome : " + apacheHome);
+		logger.debug("serverHome : " + serverHome);
+		logger.debug("httpPort : " + httpPort);
+		logger.debug("httpsPort : " + httpsPort);
+		logger.debug("uriworkermap : " + uriworkermap);
+		logger.debug("workers : " + workers);
+		logger.debug("machineId : " + provisioningDetail.getMachineId());
+		logger.debug("softwareId : " + provisioningDetail.getSoftwareId());
+		logger.debug("softwareName : " + provisioningDetail.getSoftwareName());
+		logger.debug("autoStart : " + provisioningDetail.getAutoStart());
+		
 		Command command = new Command("Apache INSTALL");
 		ShellAction s_action = null;
 		int sequence = 0;

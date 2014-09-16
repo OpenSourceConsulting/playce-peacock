@@ -44,7 +44,9 @@
             "AlmJobModel",
             "AlmRepositoryModel",
             "PermissionModel",
-            "MenuModel"
+            "MenuModel",
+            "SoftwareModel",
+            "SoftwareRepoModel"
         ],
         "name": "MyApp",
         "requires": [
@@ -53,11 +55,6 @@
         "stores": [
             "MenuTreeStore",
             "tempChartData",
-            "tempGridData",
-            "instanceListStore",
-            "instanceSoftwareListStore",
-            "instanceOsListStore",
-            "instanceMonitoringChartStore",
             "UserStore",
             "HypervisorStore",
             "VMStore",
@@ -86,12 +83,15 @@
             "AlmRepositoryStore",
             "ComboAlmRepositoryStore",
             "InstanceGroupStore",
-            "tempSpaceStore",
-            "tempUserStore",
+            "TempSpaceStore",
+            "TempUserStore",
             "PermissionStore",
-            "permissionMenuTreeStore",
-            "allMenuTreeStore",
-            "PermissionUserStore"
+            "PermissionMenuTreeStore",
+            "AllMenuTreeStore",
+            "PermissionUserStore",
+            "InstanceSoftwareStore",
+            "ComboSoftwareStore",
+            "ComboSoftwareVersionStore"
         ],
         "views": [
             "peacockViewport",
@@ -102,7 +102,7 @@
             "CrontabWindow",
             "ManageAccountWindow",
             "RegAccountWindow",
-            "softwareInstallWindow",
+            "SoftwareInstallWindow",
             "rhevmContainer",
             "RegTemplateWindow",
             "RegRhevmWindow",
@@ -112,7 +112,7 @@
             "AlmUserWindow",
             "AlmGroupWindow",
             "AlmUsersWindow",
-            "softwareInstallLogWindow",
+            "SoftwareInstallLogWindow",
             "softwareConfigWindow",
             "MonitoringChartWindow",
             "UserWindow",
@@ -133,7 +133,8 @@
             "AlarmWarningWindow",
             "NewPermissionWindow",
             "EditPermissionWindow",
-            "PermissionUserWindow"
+            "PermissionUserWindow",
+            "MyTextField136"
         ]
     },
     "designerId": "application"

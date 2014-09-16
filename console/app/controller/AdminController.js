@@ -419,7 +419,7 @@ Ext.define('MyApp.controller.AdminController', {
 
             Ext.getCmp("detailPermissionForm").getForm().loadRecord(userConstants.selectRow);
 
-            var menuStore = Ext.getStore("permissionMenuTreeStore");
+            var menuStore = Ext.getStore("PermissionMenuTreeStore");
 
             Ext.getCmp("permissionMenuTreeGrid").bindStore(menuStore);
 

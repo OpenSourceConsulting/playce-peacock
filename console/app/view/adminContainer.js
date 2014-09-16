@@ -442,7 +442,7 @@ Ext.define('MyApp.view.adminContainer', {
                                                         var permissionWindow = Ext.create("widget.NewPermissionWindow");
                                                         permissionWindow.show();
 
-                                                        Ext.getCmp("allMenuTreeGrid").bindStore(Ext.getStore("allMenuTreeStore"));
+                                                        Ext.getCmp("allMenuTreeGrid").bindStore(Ext.getStore("AllMenuTreeStore"));
                                                         Ext.getCmp("allMenuTreeGrid").getStore().load({
                                                             callback : function(records, options, success) {
                                                                 Ext.getCmp("allMenuTreeGrid").expandAll();

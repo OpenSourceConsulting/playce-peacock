@@ -1,0 +1,14 @@
+{
+    "type": "Ext.form.field.Text",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "mytextfield136",
+        "designer|userClassName": "MyTextField136",
+        "fieldLabel": "Label"
+    },
+    "designerId": "6ee42f5e-baa7-4187-9726-dcba250a4d0a"
+}
