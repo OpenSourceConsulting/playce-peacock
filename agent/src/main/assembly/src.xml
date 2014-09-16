@@ -13,6 +13,7 @@
             <outputDirectory>/</outputDirectory>
             <includes>
                 <include>*.sh</include>
+                <include>peacock-agent</include>
             </includes>
             <fileMode>0755</fileMode>
         </fileSet>
@@ -22,6 +23,7 @@
 			<excludes>
 				<exclude>**/.gitignore</exclude>
 				<exclude>*.sh</exclude>
+				<exclude>peacock-agent</exclude>
 			</excludes>
             <fileMode>0644</fileMode>
 			<directoryMode>0755</directoryMode>
