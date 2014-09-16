@@ -28,11 +28,41 @@
 	  <!-- ==================================================== -->
 	  
 	  <!-- B1 : Instances -->
-	  <intercept-url pattern="/machine/update*" access="ROLE_ADMIN, ROLE_B1_WRITE" />
-	  <intercept-url pattern="/machine/remove*" access="ROLE_ADMIN, ROLE_B1_WRITE" />
-	  <intercept-url pattern="/machine/**" 		access="ROLE_ADMIN, ROLE_B1_READ" />
+	  <intercept-url pattern="/config/update*" 			access="ROLE_ADMIN, ROLE_B1_WRITE" />
+	  <intercept-url pattern="/config/**" 				access="ROLE_ADMIN, ROLE_B1_READ" />
+	  
+	  <intercept-url pattern="/machine/update*" 		access="ROLE_ADMIN, ROLE_B1_WRITE" />
+	  <intercept-url pattern="/machine/agent*" 			access="ROLE_ADMIN, ROLE_B1_WRITE" />
+	  <intercept-url pattern="/machine/cli*" 			access="ROLE_ADMIN, ROLE_B1_WRITE" />
+	  <intercept-url pattern="/machine/remove*" 		access="ROLE_ADMIN, ROLE_B1_WRITE" />
+	  <intercept-url pattern="/machine/create*" 		access="ROLE_ADMIN, ROLE_B1_WRITE" />
+	  <intercept-url pattern="/machine/edit*" 			access="ROLE_ADMIN, ROLE_B1_WRITE" />
+	  <intercept-url pattern="/machine/**" 				access="ROLE_ADMIN, ROLE_B1_READ" />
+	  
+	  <intercept-url pattern="/monitor/**" 				access="ROLE_ADMIN, ROLE_B1_READ" />
+	  
+	  <intercept-url pattern="/package/reload*"			access="ROLE_ADMIN, ROLE_B1_WRITE" />
+	  <intercept-url pattern="/package/**" 				access="ROLE_ADMIN, ROLE_B1_READ" />
+	  
+	  <intercept-url pattern="/software/install*" 		access="ROLE_ADMIN, ROLE_B1_WRITE" />
+	  <intercept-url pattern="/software/remove*" 		access="ROLE_ADMIN, ROLE_B1_WRITE" />
+	  <intercept-url pattern="/software/**" 			access="ROLE_ADMIN, ROLE_B1_READ" />
 	  
 	  <!-- B2 : RHEV Management -->
+	  <intercept-url pattern="/rhevm/vms/start*" 		access="ROLE_ADMIN, ROLE_B2_WRITE" />
+	  <intercept-url pattern="/rhevm/vms/stop*" 		access="ROLE_ADMIN, ROLE_B2_WRITE" />
+	  <intercept-url pattern="/rhevm/vms/shutdown*"		access="ROLE_ADMIN, ROLE_B2_WRITE" />
+	  <intercept-url pattern="/rhevm/vms/remove*" 		access="ROLE_ADMIN, ROLE_B2_WRITE" />
+	  <intercept-url pattern="/rhevm/vms/export*" 		access="ROLE_ADMIN, ROLE_B2_WRITE" />
+	  <intercept-url pattern="/rhevm/vms/makeTemplate*" access="ROLE_ADMIN, ROLE_B2_WRITE" />
+	  <intercept-url pattern="/rhevm/vms/backup*"	 	access="ROLE_ADMIN, ROLE_B2_WRITE" />
+	  <intercept-url pattern="/rhevm/templates/remove*"	access="ROLE_ADMIN, ROLE_B2_WRITE" />
+	  <intercept-url pattern="/rhevm/**" 				access="ROLE_ADMIN, ROLE_B2_READ" />
+	  
+	  <intercept-url pattern="/hypervisor/insert*" 		access="ROLE_ADMIN, ROLE_B2_WRITE" />
+	  <intercept-url pattern="/hypervisor/update*" 		access="ROLE_ADMIN, ROLE_B2_WRITE" />
+	  <intercept-url pattern="/hypervisor/delete*" 		access="ROLE_ADMIN, ROLE_B2_WRITE" />
+	  <intercept-url pattern="/hypervisor/**" 			access="ROLE_ADMIN, ROLE_B2_READ" />
 	  
 	  <!-- B301 : ALM Management > Project -->
 	  
@@ -43,16 +73,16 @@
 	  <!-- B304 : ALM Management > Repository -->
 	  
 	  <!-- B401 : Administration > User -->
-	  <intercept-url pattern="/user/create*" access="ROLE_ADMIN, ROLE_B401_WRITE" />
-	  <intercept-url pattern="/user/update*" access="ROLE_ADMIN, ROLE_B401_WRITE" />
-	  <intercept-url pattern="/user/delete*" access="ROLE_ADMIN, ROLE_B401_WRITE" />
-	  <intercept-url pattern="/user/**" 	 access="ROLE_ADMIN, ROLE_B401_READ" />
+	  <intercept-url pattern="/user/create*" 			access="ROLE_ADMIN, ROLE_B401_WRITE" />
+	  <intercept-url pattern="/user/update*" 			access="ROLE_ADMIN, ROLE_B401_WRITE" />
+	  <intercept-url pattern="/user/delete*" 			access="ROLE_ADMIN, ROLE_B401_WRITE" />
+	  <intercept-url pattern="/user/**" 	 			access="ROLE_ADMIN, ROLE_B401_READ" />
 	  
 	  <!-- B402 : Administration > User Permission -->
-	  <intercept-url pattern="/permission/create*" 	access="ROLE_ADMIN, ROLE_B402_WRITE" />
-	  <intercept-url pattern="/permission/update*" 	access="ROLE_ADMIN, ROLE_B402_WRITE" />
-	  <intercept-url pattern="/permission/delete*" 	access="ROLE_ADMIN, ROLE_B402_WRITE" />
-	  <intercept-url pattern="/permission/**" 	 	access="ROLE_ADMIN, ROLE_B402_READ" />
+	  <intercept-url pattern="/permission/create*" 		access="ROLE_ADMIN, ROLE_B402_WRITE" />
+	  <intercept-url pattern="/permission/update*" 		access="ROLE_ADMIN, ROLE_B402_WRITE" />
+	  <intercept-url pattern="/permission/delete*" 		access="ROLE_ADMIN, ROLE_B402_WRITE" />
+	  <intercept-url pattern="/permission/**" 	 		access="ROLE_ADMIN, ROLE_B402_READ" />
 	  
 	  
 	  <!-- ==================================================== -->

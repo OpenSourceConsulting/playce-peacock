@@ -123,6 +123,7 @@ public class ProvisioningHandler {
 		
 		String user = provisioningDetail.getUser();
 		String group = provisioningDetail.getGroup();
+		String version = provisioningDetail.getVersion();
 		String apacheHome = provisioningDetail.getApacheHome();
 		String serverHome = provisioningDetail.getServerHome();
 		String httpPort = provisioningDetail.getHttpPort();
@@ -193,6 +194,40 @@ public class ProvisioningHandler {
 		s_action.addArguments("-Uvh");
 		s_action.addArguments("pcre-devel-7.8-6.el6.x86_64.rpm");
 		command.addAction(s_action);
+		
+		if (version.equals("2.2.26")) {
+			s_action = new ShellAction(sequence++);
+			s_action.setWorkingDiretory("/tmp");
+			s_action.setCommand("wget");
+			s_action.addArguments("${RepositoryUrl}" + fileLocation + "/openssl-devel-1.0.1e-16.el6_5.15.x86_64.rpm");
+			s_action.addArguments("-O");
+			s_action.addArguments("openssl-devel-1.0.1e-16.el6_5.15.x86_64.rpm");
+			command.addAction(s_action);
+			
+			s_action = new ShellAction(sequence++);
+			s_action.setWorkingDiretory("/tmp");
+			s_action.setCommand("wget");
+			s_action.addArguments("${RepositoryUrl}" + fileLocation + "/openssl-1.0.1e-16.el6_5.15.x86_64.rpm");
+			s_action.addArguments("-O");
+			s_action.addArguments("openssl-1.0.1e-16.el6_5.15.x86_64.rpm");
+			command.addAction(s_action);
+			
+			s_action = new ShellAction(sequence++);
+			s_action.setWorkingDiretory("/tmp");
+			s_action.setCommand("rpm");
+			s_action.addArguments("-Uvh");
+			s_action.addArguments("--nodeps");
+			s_action.addArguments("openssl-devel-1.0.1e-16.el6_5.15.x86_64.rpm");
+			command.addAction(s_action);
+			
+			s_action = new ShellAction(sequence++);
+			s_action.setWorkingDiretory("/tmp");
+			s_action.setCommand("rpm");
+			s_action.addArguments("-Uvh");
+			s_action.addArguments("--nodeps");
+			s_action.addArguments("openssl-1.0.1e-16.el6_5.15.x86_64.rpm");
+			command.addAction(s_action);
+		}
 		
 		String[] fileNames = fileName.split(",");
 		
