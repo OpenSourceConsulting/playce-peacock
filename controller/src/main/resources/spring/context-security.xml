@@ -85,6 +85,8 @@
 	  <intercept-url pattern="/permission/delete*" 		access="ROLE_ADMIN, ROLE_B402_WRITE" />
 	  <intercept-url pattern="/permission/**" 	 		access="ROLE_ADMIN, ROLE_B402_READ" />
 	  
+	  <!-- else url -->
+	  <intercept-url pattern="/**" 	 					access="ROLE_ADMIN" />
 	  
 	  <!-- ==================================================== -->
 	  <!-- 인증 처리 설정 -->
