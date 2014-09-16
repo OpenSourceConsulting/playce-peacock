@@ -1,0 +1,79 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "SoftwareInstallLogWindow",
+        "designer|userClassName": "SoftwareInstallLogWindow",
+        "height": 400,
+        "id": "softwareInstallLogWindow",
+        "itemId": "softwareInstallLogWindow",
+        "layout": "border",
+        "modal": true,
+        "resizable": false,
+        "title": "Software Install Log",
+        "width": 450
+    },
+    "configAlternates": {
+        "resizable": "boolean"
+    },
+    "designerId": "7d6087bc-fe21-435c-a27f-e744c2dbd872",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "header": false,
+                "layout|flex": 1,
+                "layout|region": "center",
+                "title": null
+            },
+            "designerId": "aea00081-d8bb-4c9d-82e6-b68deca0fc1b",
+            "cn": [
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "bodyPadding": 5,
+                        "header": false,
+                        "title": "My Form"
+                    },
+                    "designerId": "99642f69-1b5c-4ff8-9365-78bc00c87c5c",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.TextArea",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "",
+                                "height": 325,
+                                "id": null,
+                                "inputId": "inputFstab",
+                                "itemId": null,
+                                "labelAlign": "top",
+                                "name": "installLog",
+                                "padding": "10 10 5 10",
+                                "width": 410
+                            },
+                            "designerId": "3a383ed1-b545-403d-ba0d-ec5532534c8f"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

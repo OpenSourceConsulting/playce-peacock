@@ -16,53 +16,35 @@
 Ext.define('MyApp.controller.SoftwareInstallController', {
     extend: 'Ext.app.Controller',
 
-    refs: [
-        {
-            ref: 'mycombobox2',
-            selector: '#mycombobox2'
-        }
-    ],
+    onPopComboSoftwareNameChange: function(field, newValue, oldValue, eOpts) {
+        if(newValue != '') {
 
-    onComboboxChange: function(field, newValue, oldValue, eOpts) {
+            var store = Ext.getCmp("popComboSoftwareName").getStore();
+            var index = store.indexOf(store.findRecord("softwareName", newValue));
 
-        var frmID = null;
-        var installWindow = Ext.getCmp("softwareInstallWindow");
+            var versionStore = Ext.getStore("ComboSoftwareVersionStore");
 
-        if(newValue == 'Apache HTTP Server') {
+            versionStore.getProxy().extraParams = {
+                softwareName : newValue
+            };
+            versionStore.load();
 
-            frmID = 0;
-            installWindow.setSize(500, 350);
+            var installPanel = Ext.getCmp("softwareInstallPanel");
+            installPanel.layout.setActiveItem(index);
 
-        } else if(newValue == 'Apache Tomcat') {
+            if(index == 0) {
 
-            frmID = 1;
-            installWindow.setSize(500, 460);
-            //installWindow.height = 460;
 
-        } else if(newValue == 'JBoss EWS') {
-
-            frmID = 2;
-            installWindow.setSize(500, 520);
-
-        } else if(newValue == 'JBoss EAP') {
-
-            frmID = 3;
-            installWindow.setSize(500, 750);
+            }
 
         }
-
-
-        var installPanel = Ext.getCmp("softwareInstallPanel");
-        installPanel.layout.setActiveItem(frmID);
-
-        installWindow.center();
 
     },
 
     init: function(application) {
         this.control({
-            "#mycombobox2": {
-                change: this.onComboboxChange
+            "#popComboSoftwareName": {
+                change: this.onPopComboSoftwareNameChange
             }
         });
     }

@@ -173,28 +173,21 @@ Ext.define('MyApp.view.dashboardContainer', {
                             xtype: 'numbercolumn',
                             minWidth: 100,
                             dataIndex: 'field1',
-                            text: 'Apache',
+                            text: 'JBoss EWS(Httpd)',
                             format: '0,000'
                         },
                         {
                             xtype: 'numbercolumn',
                             minWidth: 100,
                             dataIndex: 'field2',
-                            text: 'Tomcat',
+                            text: 'JBoss EWS(Tomcat)',
                             format: '0,000'
                         },
                         {
                             xtype: 'numbercolumn',
                             minWidth: 100,
                             dataIndex: 'field3',
-                            text: 'EWS',
-                            format: '0,000'
-                        },
-                        {
-                            xtype: 'numbercolumn',
-                            minWidth: 100,
-                            dataIndex: 'field4',
-                            text: 'EAP',
+                            text: 'JBoss  EAP',
                             format: '0,000'
                         }
                     ],

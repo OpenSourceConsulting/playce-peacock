@@ -576,7 +576,7 @@
                         "dataIndex": "field1",
                         "format": "0,000",
                         "minWidth": 100,
-                        "text": "Apache"
+                        "text": "JBoss EWS(Httpd)"
                     },
                     "designerId": "e644ca7a-f90a-4632-90e7-ecbb9012b42a"
                 },
@@ -591,7 +591,7 @@
                         "dataIndex": "field2",
                         "format": "0,000",
                         "minWidth": 100,
-                        "text": "Tomcat"
+                        "text": "JBoss EWS(Tomcat)"
                     },
                     "designerId": "b90ff512-05fe-4316-9ddc-1fd493a2c00d"
                 },
@@ -606,24 +606,9 @@
                         "dataIndex": "field3",
                         "format": "0,000",
                         "minWidth": 100,
-                        "text": "EWS"
+                        "text": "JBoss  EAP"
                     },
                     "designerId": "8980f337-4140-497e-b760-13217a3129b4"
-                },
-                {
-                    "type": "Ext.grid.column.Number",
-                    "reference": {
-                        "name": "columns",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "dataIndex": "field4",
-                        "format": "0,000",
-                        "minWidth": 100,
-                        "text": "EAP"
-                    },
-                    "designerId": "0fb1193c-955d-429c-87f8-bf8ee2f9c5ab"
                 },
                 {
                     "type": "Ext.grid.View",

@@ -116,16 +116,19 @@ public class UserController {
 	
 	@RequestMapping("/login")
 	public @ResponseBody SimpleJsonResponse login(SimpleJsonResponse jsonRes, @RequestParam("loginId") String loginId, @RequestParam("passwd") String passwd, HttpSession session){
-		
-		UserDto user = service.getLoginUser(loginId, passwd);
-		
-		if(user == null){
-			jsonRes.setSuccess(false);
-			jsonRes.setMsg("login id 또는 비밀번호가 잘못되었습니다.");
-		}else{
-			jsonRes.setData(user);
-			session.setAttribute(SESSION_USER_KEY, user);
-		}
+		 try{
+			UserDto user = service.getLoginUser(loginId, passwd);
+			
+			if(user == null){
+				jsonRes.setSuccess(false);
+				jsonRes.setMsg("login id 또는 비밀번호가 잘못되었습니다.");
+			}else{
+				jsonRes.setData(user);
+				session.setAttribute(SESSION_USER_KEY, user);
+			}
+		 }catch(Exception e) {
+			 e.printStackTrace();
+		 }
 		
 		
 		return jsonRes;

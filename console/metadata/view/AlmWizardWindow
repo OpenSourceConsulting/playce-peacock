@@ -718,7 +718,7 @@
                                                 "height": 180,
                                                 "id": "wizardSelectSpaceGrid",
                                                 "itemId": "wizardSelectSpaceGrid",
-                                                "store": "tempSpaceStore",
+                                                "store": "TempSpaceStore",
                                                 "style": null,
                                                 "title": "My Grid Panel"
                                             },
@@ -1281,7 +1281,7 @@
                                                 "id": "wizardSelectUserGrid",
                                                 "itemId": "wizardSelectUserGrid",
                                                 "margin": null,
-                                                "store": "tempUserStore",
+                                                "store": "TempUserStore",
                                                 "title": ""
                                             },
                                             "designerId": "84f19540-5f83-4e49-a6b5-e8270d39f907",
@@ -1754,7 +1754,7 @@
                                                 "id": null,
                                                 "itemId": null,
                                                 "margin": "0 20 20 20",
-                                                "store": "tempSpaceStore",
+                                                "store": "TempSpaceStore",
                                                 "style": null,
                                                 "title": "Space Information",
                                                 "width": 680
@@ -1833,7 +1833,7 @@
                                                 "id": null,
                                                 "itemId": null,
                                                 "margin": "0 20 10 20",
-                                                "store": "tempUserStore",
+                                                "store": "TempUserStore",
                                                 "title": "User Information"
                                             },
                                             "designerId": "831deefe-55e1-4239-b889-80d6d8a40883",

@@ -499,7 +499,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                             autoScroll: true,
                                             columnLines: true,
                                             forceFit: true,
-                                            store: 'instanceSoftwareListStore',
+                                            store: 'InstanceSoftwareStore',
                                             dockedItems: [
                                                 {
                                                     xtype: 'toolbar',
@@ -508,66 +508,25 @@ Ext.define('MyApp.view.instancesContainer', {
                                                         {
                                                             xtype: 'button',
                                                             handler: function(button, e) {
-                                                                var softwareInstallWindow = Ext.create("widget.softwareInstallWindow");
+                                                                var softwareInstallWindow = Ext.create("widget.SoftwareInstallWindow");
 
                                                                 softwareInstallWindow.show();
+
+                                                                Ext.getCmp("popComboSoftwareName").getStore().load({
+                                                                    callback : function(records, options, success) {
+                                                                        Ext.getCmp("popComboSoftwareName").select(Ext.getCmp("popComboSoftwareName").getStore().getAt(0));
+                                                                    }
+                                                                });
+
+                                                                var accountStore = Ext.getStore("ComboAccountStore");
+                                                                accountStore.getProxy().extraParams = {
+                                                                    machineId : instancesConstants.selectRow.get("machineId")
+                                                                };
+
                                                             },
                                                             id: 'softwareInstallBtn',
                                                             itemId: 'softwareInstallBtn',
                                                             text: 'Software Install'
-                                                        },
-                                                        {
-                                                            xtype: 'tbseparator'
-                                                        },
-                                                        {
-                                                            xtype: 'cycle',
-                                                            id: 'softwareCycle',
-                                                            itemId: 'softwareCycle',
-                                                            showText: true,
-                                                            menu: {
-                                                                xtype: 'menu',
-                                                                id: 'softwareList',
-                                                                itemId: 'softwareList',
-                                                                items: [
-                                                                    {
-                                                                        xtype: 'menucheckitem',
-                                                                        text: 'Select Software'
-                                                                    },
-                                                                    {
-                                                                        xtype: 'menucheckitem',
-                                                                        text: 'Apache'
-                                                                    },
-                                                                    {
-                                                                        xtype: 'menucheckitem',
-                                                                        text: 'JBoss EAP'
-                                                                    },
-                                                                    {
-                                                                        xtype: 'menucheckitem',
-                                                                        text: 'JBoss EWS'
-                                                                    },
-                                                                    {
-                                                                        xtype: 'menucheckitem',
-                                                                        text: 'Tomcat'
-                                                                    }
-                                                                ]
-                                                            }
-                                                        },
-                                                        {
-                                                            xtype: 'cycle',
-                                                            id: 'versionCycle',
-                                                            itemId: 'versionCycle',
-                                                            showText: true,
-                                                            menu: {
-                                                                xtype: 'menu',
-                                                                id: 'versionList',
-                                                                itemId: 'versionList',
-                                                                items: [
-                                                                    {
-                                                                        xtype: 'menucheckitem',
-                                                                        text: 'Select Version'
-                                                                    }
-                                                                ]
-                                                            }
                                                         }
                                                     ]
                                                 }
@@ -578,12 +537,12 @@ Ext.define('MyApp.view.instancesContainer', {
                                                 },
                                                 {
                                                     xtype: 'gridcolumn',
-                                                    dataIndex: 'name',
+                                                    dataIndex: 'softwareName',
                                                     text: 'Name'
                                                 },
                                                 {
                                                     xtype: 'gridcolumn',
-                                                    dataIndex: 'version',
+                                                    dataIndex: 'softwareVersion',
                                                     text: 'Version'
                                                 },
                                                 {
@@ -598,7 +557,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                 },
                                                 {
                                                     xtype: 'gridcolumn',
-                                                    dataIndex: 'status',
+                                                    dataIndex: 'installStat',
                                                     text: 'Status'
                                                 },
                                                 {
@@ -632,9 +591,17 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     items: [
                                                         {
                                                             handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                                                var softwareInstallLogWindow = Ext.create("widget.softwareInstallLogWindow");
-
+                                                                var softwareInstallLogWindow = Ext.create("widget.SoftwareInstallLogWindow");
                                                                 softwareInstallLogWindow.show();
+
+                                                                softwareInstallLogWindow.down('form').getForm().load({
+                                                                    params : {
+                                                                        softwareId : record.get("softwareId"),
+                                                                        machineId : instancesConstants.selectRow.get("machineId")
+                                                                    }
+                                                                    ,url : GLOBAL.urlPrefix + "software/getInstallLog"
+                                                                    ,waitMsg:'Loading...'
+                                                                });
                                                             },
                                                             icon: 'resources/images/icons/application_view_list.png',
                                                             iconCls: ''

@@ -85,6 +85,7 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
     private static final Logger logger = LoggerFactory.getLogger(PeacockClientHandler.class);
 
     private boolean connected = false;
+    private static boolean packageCollected = false;
     
     private PeacockClient client = null;
     
@@ -126,7 +127,7 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 				ctx.writeAndFlush("Start OS Package collecting...");
 
 				String packageFile = null;
-				
+					
 				try {
 					packageFile = PropertyUtil.getProperty(PeacockConstant.PACKAGE_FILE_KEY);
 				} catch (Exception e) {
@@ -185,23 +186,26 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 					}
 				}
 				
-				// 패키지 정보 수집 이력이 없을 경우 수행
-				String packageFile = null;
-				
-				try {
-					packageFile = PropertyUtil.getProperty(PeacockConstant.PACKAGE_FILE_KEY);
-				} catch (Exception e) {
-					// nothing to do.
-				} finally {
-					if (StringUtils.isEmpty(packageFile)) {
-						packageFile = "/peacock/agent/config/package.log";
+				// 패키지 정보 수집을 수행하지 않았고 패키지 정보 수집 이력이 없는 경우 수행
+				if (!packageCollected) {
+					packageCollected = true;
+					String packageFile = null;
+					
+					try {
+						packageFile = PropertyUtil.getProperty(PeacockConstant.PACKAGE_FILE_KEY);
+					} catch (Exception e) {
+						// nothing to do.
+					} finally {
+						if (StringUtils.isEmpty(packageFile)) {
+							packageFile = "/peacock/agent/config/package.log";
+						}
 					}
-				}
-				
-				file = new File(packageFile);
-				
-				if(!file.exists()) {
-					new PackageGatherThread(ctx, packageFile).start();
+					
+					file = new File(packageFile);
+					
+					if(!file.exists()) {
+						new PackageGatherThread(ctx, packageFile).start();
+					}
 				}
 				
 				Scheduler scheduler = (Scheduler)AppContext.getBean("quartzJobScheduler");

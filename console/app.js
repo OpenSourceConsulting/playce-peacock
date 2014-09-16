@@ -50,16 +50,13 @@ Ext.application({
         'AlmJobModel',
         'AlmRepositoryModel',
         'PermissionModel',
-        'MenuModel'
+        'MenuModel',
+        'SoftwareModel',
+        'SoftwareRepoModel'
     ],
     stores: [
         'MenuTreeStore',
         'tempChartData',
-        'tempGridData',
-        'instanceListStore',
-        'instanceSoftwareListStore',
-        'instanceOsListStore',
-        'instanceMonitoringChartStore',
         'UserStore',
         'HypervisorStore',
         'VMStore',
@@ -88,12 +85,15 @@ Ext.application({
         'AlmRepositoryStore',
         'ComboAlmRepositoryStore',
         'InstanceGroupStore',
-        'tempSpaceStore',
-        'tempUserStore',
+        'TempSpaceStore',
+        'TempUserStore',
         'PermissionStore',
-        'permissionMenuTreeStore',
-        'allMenuTreeStore',
-        'PermissionUserStore'
+        'PermissionMenuTreeStore',
+        'AllMenuTreeStore',
+        'PermissionUserStore',
+        'InstanceSoftwareStore',
+        'ComboSoftwareStore',
+        'ComboSoftwareVersionStore'
     ],
     views: [
         'peacockViewport',
@@ -104,7 +104,7 @@ Ext.application({
         'CrontabWindow',
         'ManageAccountWindow',
         'RegAccountWindow',
-        'softwareInstallWindow',
+        'SoftwareInstallWindow',
         'rhevmContainer',
         'RegTemplateWindow',
         'RegRhevmWindow',
@@ -114,7 +114,7 @@ Ext.application({
         'AlmUserWindow',
         'AlmGroupWindow',
         'AlmUsersWindow',
-        'softwareInstallLogWindow',
+        'SoftwareInstallLogWindow',
         'softwareConfigWindow',
         'MonitoringChartWindow',
         'UserWindow',
@@ -135,7 +135,8 @@ Ext.application({
         'AlarmWarningWindow',
         'NewPermissionWindow',
         'EditPermissionWindow',
-        'PermissionUserWindow'
+        'PermissionUserWindow',
+        'MyTextField136'
     ],
     controllers: [
         'LoginController',

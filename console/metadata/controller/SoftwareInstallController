@@ -11,19 +11,6 @@
     "designerId": "b0a458ee-4781-4ac1-86f6-5eed071d8b49",
     "cn": [
         {
-            "type": "controllerref",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "ref": "mycombobox2",
-                "selector": "#mycombobox2"
-            },
-            "designerId": "4a2fde46-34d9-4688-8652-1190727825f8"
-        },
-        {
             "type": "controlleraction",
             "reference": {
                 "name": "listeners",
@@ -31,48 +18,37 @@
             },
             "codeClass": null,
             "userConfig": {
-                "designer|controlQuery": "#mycombobox2",
+                "designer|controlQuery": "#popComboSoftwareName",
                 "designer|targetType": "Ext.form.field.ComboBox",
-                "fn": "onComboboxChange",
+                "fn": "onPopComboSoftwareNameChange",
                 "implHandler": [
+                    "if(newValue != '') {",
                     "",
-                    "var frmID = null;",
-                    "var installWindow = Ext.getCmp(\"softwareInstallWindow\");",
+                    "    var store = Ext.getCmp(\"popComboSoftwareName\").getStore();",
+                    "    var index = store.indexOf(store.findRecord(\"softwareName\", newValue));",
                     "",
-                    "if(newValue == 'Apache HTTP Server') {",
+                    "    var versionStore = Ext.getStore(\"ComboSoftwareVersionStore\");",
                     "",
-                    "    frmID = 0;",
-                    "    installWindow.setSize(500, 350);",
+                    "    versionStore.getProxy().extraParams = {",
+                    "        softwareName : newValue",
+                    "    };",
+                    "    versionStore.load();",
                     "",
-                    "} else if(newValue == 'Apache Tomcat') {",
+                    "    var installPanel = Ext.getCmp(\"softwareInstallPanel\");",
+                    "    installPanel.layout.setActiveItem(index);",
                     "",
-                    "    frmID = 1;",
-                    "    installWindow.setSize(500, 460);",
-                    "    //installWindow.height = 460;",
+                    "    if(index == 0) {",
                     "",
-                    "} else if(newValue == 'JBoss EWS') {",
                     "",
-                    "    frmID = 2;",
-                    "    installWindow.setSize(500, 520);",
-                    "",
-                    "} else if(newValue == 'JBoss EAP') {",
-                    "",
-                    "    frmID = 3;",
-                    "    installWindow.setSize(500, 750);",
+                    "    }",
                     "",
                     "}",
-                    "",
-                    "",
-                    "var installPanel = Ext.getCmp(\"softwareInstallPanel\");",
-                    "installPanel.layout.setActiveItem(frmID);",
-                    "",
-                    "installWindow.center();",
                     ""
                 ],
                 "name": "change",
                 "scope": "me"
             },
-            "designerId": "b493ff10-d805-443e-a5bd-c4b1574d11eb"
+            "designerId": "85e65448-caef-498b-8aae-e7efe3888070"
         }
     ]
 }

@@ -414,6 +414,10 @@ public class MachineController {
 				}
 			}
 			
+			cmdMsg = new ProvisioningCommandMessage();
+			cmdMsg.setAgentId(machineId);
+			cmdMsg.setBlocking(true);
+			
 			sequence = 0;
 			command = new Command("GET_ACCOUNT");
 			

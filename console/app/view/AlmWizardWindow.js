@@ -319,7 +319,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                     title: 'My Grid Panel',
                                                     columnLines: true,
                                                     forceFit: true,
-                                                    store: 'tempSpaceStore',
+                                                    store: 'TempSpaceStore',
                                                     dockedItems: [
                                                         {
                                                             xtype: 'toolbar',
@@ -530,7 +530,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                     title: '',
                                                     columnLines: true,
                                                     forceFit: true,
-                                                    store: 'tempUserStore',
+                                                    store: 'TempUserStore',
                                                     dockedItems: [
                                                         {
                                                             xtype: 'toolbar',
@@ -724,7 +724,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                     columnLines: true,
                                                     emptyText: '<div style=\'text-align:center;\'>No Selected Data</div>',
                                                     forceFit: true,
-                                                    store: 'tempSpaceStore',
+                                                    store: 'TempSpaceStore',
                                                     columns: [
                                                         {
                                                             xtype: 'gridcolumn',
@@ -756,7 +756,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                     columnLines: true,
                                                     emptyText: '<div style=\'text-align:center;\'>No Selected Data</div>',
                                                     forceFit: true,
-                                                    store: 'tempUserStore',
+                                                    store: 'TempUserStore',
                                                     columns: [
                                                         {
                                                             xtype: 'gridcolumn',

@@ -6,9 +6,9 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userClassName": "allMenuTreeStore",
+        "designer|userClassName": "AllMenuTreeStore",
         "model": "MenuModel",
-        "storeId": "allMenuTreeStore"
+        "storeId": "AllMenuTreeStore"
     },
     "designerId": "5b54e3d6-2485-4d25-8645-342a1e484752",
     "cn": [

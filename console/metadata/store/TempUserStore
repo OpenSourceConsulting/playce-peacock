@@ -6,9 +6,9 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userClassName": "tempUserStore",
+        "designer|userClassName": "TempUserStore",
         "model": "AlmUserModel",
-        "storeId": "tempUserStore"
+        "storeId": "TempUserStore"
     },
     "designerId": "022670ea-9307-4ef6-ab8e-34bc3a139b42"
 }

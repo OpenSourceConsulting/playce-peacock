@@ -81,7 +81,7 @@ public class PeacockClient {
 					 .handler(new LoggingHandler(LogLevel.WARN))
 			         .handler(initializer)
 					 .remoteAddress(host, port)
-					 .connect().addListener(new PeacockClientListener(this));
+					 .connect().addListener(new PeacockClientListener(this, host));
 		}
 		
 		return bootstrap;
