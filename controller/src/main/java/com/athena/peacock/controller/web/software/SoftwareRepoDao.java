@@ -60,7 +60,7 @@ public class SoftwareRepoDao extends AbstractBaseDao {
 		return sqlSession.selectList("SoftwareRepoMapper.getSoftwareRepoList", softwareRepo);
 	}
 
-	public List<String> getSoftwareNames() {
+	public List<SoftwareRepoDto> getSoftwareNames() {
 		return sqlSession.selectList("SoftwareRepoMapper.getSoftwareNames");
 	}
 

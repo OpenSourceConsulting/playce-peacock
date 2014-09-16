@@ -81,8 +81,8 @@
 		 LIMIT #{start}, #{limit}
 	</select>
 	
-	<select id="getSoftwareNames" resultType="String">
-		SELECT DISTINCT(SOFTWARE_NAME) 
+	<select id="getSoftwareNames" resultType="com.athena.peacock.controller.web.software.SoftwareRepoDto">
+		SELECT DISTINCT(SOFTWARE_NAME) AS softwareName
 		  FROM software_repo_tbl
 		 ORDER BY SOFTWARE_ID
 	</select>

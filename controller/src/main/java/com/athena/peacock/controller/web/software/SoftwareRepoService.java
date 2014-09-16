@@ -68,7 +68,7 @@ public class SoftwareRepoService {
 		return softwareRepoDao.getSoftwareRepoList(softwareRepo);
 	}
 
-	public List<String> getSoftwareNames() {
+	public List<SoftwareRepoDto> getSoftwareNames() {
 		return softwareRepoDao.getSoftwareNames();
 	}
 

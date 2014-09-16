@@ -108,7 +108,7 @@ public class SoftwareController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/getNames")
-	public @ResponseBody List<String> getNames() throws Exception {
+	public @ResponseBody List<SoftwareRepoDto> getNames() throws Exception {
 		return softwareRepoService.getSoftwareNames();
 	}
 	
