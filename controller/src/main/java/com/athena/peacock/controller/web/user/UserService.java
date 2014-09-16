@@ -108,6 +108,8 @@ public class UserService implements UserDetailsService {
 		
 		if(SUPER_USER.equals(username)){
 			userDetails.addAuthority(new SimpleGrantedAuthority("ROLE_ADMIN"));
+		}else if(username != null){
+			userDetails.addAuthority(new SimpleGrantedAuthority("ROLE_USER"));
 		}
 		
 		List<MenuDto> dblist  = permDao.getUserMenuPermissions(userDetails.getUserId());

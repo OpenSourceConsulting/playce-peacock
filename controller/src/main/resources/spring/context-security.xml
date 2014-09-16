@@ -74,6 +74,7 @@
 	  <!-- B304 : ALM Management > Repository -->
 	  
 	  <!-- B401 : Administration > User -->
+	  <intercept-url pattern="/user/onAfterLogin*" 	 	access="ROLE_ADMIN, ROLE_USER" />
 	  <intercept-url pattern="/user/create*" 			access="ROLE_ADMIN, ROLE_B401_WRITE" />
 	  <intercept-url pattern="/user/update*" 			access="ROLE_ADMIN, ROLE_B401_WRITE" />
 	  <intercept-url pattern="/user/delete*" 			access="ROLE_ADMIN, ROLE_B401_WRITE" />
