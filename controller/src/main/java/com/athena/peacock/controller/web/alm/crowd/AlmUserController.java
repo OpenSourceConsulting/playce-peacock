@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmUserAddDto;
@@ -67,7 +68,18 @@ public class AlmUserController {
 
 	@RequestMapping(value = "/usermanagement", method = RequestMethod.GET)
 	public @ResponseBody
-	GridJsonResponse userList(ExtjsGridParam gridParam) {
+	GridJsonResponse userList(
+			@RequestParam(value = "offset", defaultValue = "0") int offset,
+			@RequestParam(value = "search", required = false) String search) {
+
+		
+		ExtjsGridParam gridParam = new ExtjsGridParam();
+		gridParam.setPage(offset);
+
+		if (search != null) {
+			gridParam.setSearch(search);
+		}
+
 		return service.getList("USER", gridParam);
 	}
 

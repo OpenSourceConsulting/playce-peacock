@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmGroupDto;
@@ -68,15 +69,24 @@ public class AlmGroupController {
 	// 그룹 리스트
 	@RequestMapping(value = "/groupmanagement", method = RequestMethod.GET)
 	public @ResponseBody
-	GridJsonResponse getGroupList(ExtjsGridParam gridParam) {
+	GridJsonResponse getGroupList(
+			@RequestParam(value = "offset", defaultValue = "0") int offset,
+			@RequestParam(value = "search", required = false) String search) {
+
+		ExtjsGridParam gridParam = new ExtjsGridParam();
+		gridParam.setPage(offset);
+
+		if (search != null) {
+			gridParam.setSearch(search);
+		}
+
 		return service.getList("GROUP", gridParam);
 	}
 
 	// 그룹 정보
 	@RequestMapping(value = "/groupmanagement/{groupname}", method = RequestMethod.GET)
 	public @ResponseBody
-	DtoJsonResponse getGroup(DtoJsonResponse jsonRes,
-			@PathVariable String groupname) {
+	DtoJsonResponse getGroup(@PathVariable String groupname) {
 		return service.getGroup(groupname);
 	}
 
@@ -108,8 +118,7 @@ public class AlmGroupController {
 	// 그룹 정보
 	@RequestMapping(value = "/groupmanagement/{groupname}/users", method = RequestMethod.GET)
 	public @ResponseBody
-	GridJsonResponse getGroupUsers(DtoJsonResponse jsonRes,
-			@PathVariable String groupname) {
+	GridJsonResponse getGroupUsers(@PathVariable String groupname) {
 		return service.getGroupUser(groupname);
 	}
 
