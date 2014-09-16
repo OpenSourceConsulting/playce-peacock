@@ -1,0 +1,63 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": false,
+        "designer|userClassName": "PermissionUserStore",
+        "model": "UserModel",
+        "storeId": "PermissionUserStore"
+    },
+    "designerId": "f2ba10d8-6021-4219-a6e6-a91d12fff191",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "url": "permission/userlist"
+            },
+            "designerId": "0a951bc0-e3bf-4b5b-80a5-47f1421eb85b",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "list"
+                    },
+                    "designerId": "d9758cb7-8912-4099-a44d-1023094f7256"
+                },
+                {
+                    "type": "processcfgfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|params": [
+                            "config"
+                        ],
+                        "fn": "processMyAjaxProxy",
+                        "implHandler": [
+                            "config.actionMethods = {create: \"POST\", read: \"POST\", update: \"POST\", destroy: \"POST\"};",
+                            "",
+                            "return config;"
+                        ]
+                    },
+                    "designerId": "b328c58c-bf6d-43f1-901b-510b7b411978"
+                }
+            ]
+        }
+    ]
+}

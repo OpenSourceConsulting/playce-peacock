@@ -37,7 +37,8 @@ Ext.define('MyApp.view.adminContainer', {
         'Ext.tree.Panel',
         'Ext.tree.View',
         'Ext.tree.Column',
-        'Ext.grid.column.CheckColumn'
+        'Ext.grid.column.CheckColumn',
+        'Ext.form.field.Hidden'
     ],
 
     height: 755,
@@ -438,10 +439,15 @@ Ext.define('MyApp.view.adminContainer', {
                                                     xtype: 'button',
                                                     handler: function(button, e) {
 
-                                                        var userWindow = Ext.create("widget.NewPermissionWindow");
+                                                        var permissionWindow = Ext.create("widget.NewPermissionWindow");
+                                                        permissionWindow.show();
 
-                                                        userWindow.show();
-
+                                                        Ext.getCmp("allMenuTreeGrid").bindStore(Ext.getStore("allMenuTreeStore"));
+                                                        Ext.getCmp("allMenuTreeGrid").getStore().load({
+                                                            callback : function(records, options, success) {
+                                                                Ext.getCmp("allMenuTreeGrid").expandAll();
+                                                            }
+                                                        });
                                                     },
                                                     text: 'Create New Permission'
                                                 },
@@ -465,7 +471,7 @@ Ext.define('MyApp.view.adminContainer', {
                                             dock: 'bottom',
                                             width: 360,
                                             displayInfo: true,
-                                            store: 'UserStore'
+                                            store: 'PermissionStore'
                                         }
                                     ],
                                     columns: [
@@ -510,10 +516,10 @@ Ext.define('MyApp.view.adminContainer', {
                                                 {
                                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
 
-                                                        var userWindow = Ext.create("widget.EditPermissionWindow");
+                                                        var permissionWindow = Ext.create("widget.EditPermissionWindow");
+                                                        permissionWindow.show();
 
-                                                        userWindow.show();
-
+                                                        Ext.getCmp("editPermissionForm").getForm().loadRecord(record);
                                                     },
                                                     icon: 'resources/images/icons/cog.png',
                                                     iconCls: ''
@@ -576,8 +582,8 @@ Ext.define('MyApp.view.adminContainer', {
                                                     xtype: 'label',
                                                     dock: 'top',
                                                     html: '<h2></h2>',
-                                                    id: 'almGroupTitleLabel1',
-                                                    itemId: 'almGroupTitleLabel1',
+                                                    id: 'permittionDetailTitleLabel',
+                                                    itemId: 'permittionDetailTitleLabel',
                                                     margin: '5 0 0 0',
                                                     padding: 2,
                                                     text: ''
@@ -586,7 +592,9 @@ Ext.define('MyApp.view.adminContainer', {
                                             items: [
                                                 {
                                                     xtype: 'tabpanel',
-                                                    height: 393,
+                                                    height: 360,
+                                                    id: 'userPermissionDetailTabPanel',
+                                                    itemId: 'userPermissionDetailTabPanel',
                                                     padding: '15 10 10 10',
                                                     style: 'background:#ffffff;',
                                                     activeTab: 0,
@@ -594,7 +602,7 @@ Ext.define('MyApp.view.adminContainer', {
                                                     items: [
                                                         {
                                                             xtype: 'panel',
-                                                            height: 300,
+                                                            height: 280,
                                                             title: 'Detail',
                                                             items: [
                                                                 {
@@ -621,7 +629,7 @@ Ext.define('MyApp.view.adminContainer', {
                                                                             
                                                                         })
                                                                     ],
-                                                                    height: 320,
+                                                                    height: 260,
                                                                     id: 'permissionMenuTreeGrid',
                                                                     itemId: 'permissionMenuTreeGrid',
                                                                     minHeight: 250,
@@ -683,10 +691,84 @@ Ext.define('MyApp.view.adminContainer', {
                                                                                 },
                                                                                 {
                                                                                     xtype: 'button',
+                                                                                    handler: function(button, e) {
+
+                                                                                        var menuRecords = Ext.getCmp("permissionMenuTreeGrid").getRecords();
+
+                                                                                        var menus = [];
+                                                                                        Ext.each(menuRecords, function(record) {
+                                                                                            var menu = {};
+                                                                                            menu.menuId = record.get("menuId");
+                                                                                            menu.readYn = (record.get("isRead") == true ? "1" : "0");
+                                                                                            menu.writeYn = (record.get("isWrite") == true ? "1" : "0");
+
+                                                                                            menus.push(menu);
+
+                                                                                        });
+
+                                                                                        var permissionForm = Ext.getCmp("detailPermissionForm");
+
+                                                                                        permissionForm.getForm().findField("permMenus").setValue(Ext.JSON.encode(menus));
+
+                                                                                        permissionForm.getForm().submit({
+                                                                                            clientValidation: true,
+                                                                                            url: GLOBAL.urlPrefix + "permission/updatemenus",
+                                                                                            method : "POST",
+                                                                                            params: {
+                                                                                                newStatus: 'delivered'
+                                                                                            },
+                                                                                            waitMsg: 'Saving Data...',
+                                                                                            success: function(form, action) {
+                                                                                                Ext.Msg.alert('Success', action.result.msg);
+
+                                                                                                Ext.getCmp('permissionMenuTreeGrid').getStore().load({
+                                                                                                    callback : function(records, options, success) {
+                                                                                                        Ext.getCmp("permissionMenuTreeGrid").expandAll();
+                                                                                                    }
+                                                                                                });
+
+                                                                                                permissionForm.up('window').close();
+                                                                                            },
+                                                                                            failure: function(form, action) {
+                                                                                                switch (action.failureType) {
+                                                                                                    case Ext.form.action.Action.CLIENT_INVALID:
+                                                                                                    Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');
+                                                                                                    break;
+                                                                                                    case Ext.form.action.Action.CONNECT_FAILURE:
+                                                                                                    Ext.Msg.alert('Failure', 'Server communication failed');
+                                                                                                    break;
+                                                                                                    case Ext.form.action.Action.SERVER_INVALID:
+                                                                                                    Ext.Msg.alert('Failure', action.result.msg);
+                                                                                                }
+                                                                                            }
+                                                                                        });
+                                                                                    },
                                                                                     padding: '3 10 3 10',
                                                                                     text: 'Save'
                                                                                 }
                                                                             ]
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    xtype: 'form',
+                                                                    id: 'detailPermissionForm',
+                                                                    itemId: 'detailPermissionForm',
+                                                                    bodyPadding: 10,
+                                                                    header: false,
+                                                                    title: 'My Form',
+                                                                    items: [
+                                                                        {
+                                                                            xtype: 'hiddenfield',
+                                                                            anchor: '100%',
+                                                                            fieldLabel: 'Label',
+                                                                            name: 'permId'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'hiddenfield',
+                                                                            anchor: '100%',
+                                                                            fieldLabel: 'Label',
+                                                                            name: 'permMenus'
                                                                         }
                                                                     ]
                                                                 }
@@ -698,36 +780,40 @@ Ext.define('MyApp.view.adminContainer', {
                                                             items: [
                                                                 {
                                                                     xtype: 'gridpanel',
-                                                                    height: 320,
+                                                                    height: 290,
+                                                                    id: 'permissionUsersGrid',
+                                                                    itemId: 'permissionUsersGrid',
                                                                     autoScroll: true,
                                                                     autoDestroy: false,
                                                                     header: false,
                                                                     title: 'My Grid Panel',
                                                                     columnLines: true,
                                                                     forceFit: true,
+                                                                    store: 'PermissionUserStore',
                                                                     columns: [
                                                                         {
                                                                             xtype: 'gridcolumn',
                                                                             minWidth: 60,
-                                                                            dataIndex: 'string',
+                                                                            defaultWidth: 60,
+                                                                            dataIndex: 'userId',
                                                                             text: 'ID'
                                                                         },
                                                                         {
                                                                             xtype: 'gridcolumn',
-                                                                            minWidth: 100,
-                                                                            dataIndex: 'number',
+                                                                            minWidth: 120,
+                                                                            dataIndex: 'loginId',
                                                                             text: 'Login ID'
                                                                         },
                                                                         {
                                                                             xtype: 'gridcolumn',
-                                                                            minWidth: 150,
-                                                                            dataIndex: 'date',
+                                                                            minWidth: 180,
+                                                                            dataIndex: 'userName',
                                                                             text: 'User Name'
                                                                         },
                                                                         {
                                                                             xtype: 'gridcolumn',
-                                                                            minWidth: 120,
-                                                                            dataIndex: 'bool',
+                                                                            minWidth: 180,
+                                                                            dataIndex: 'deptName',
                                                                             text: 'Dep Name'
                                                                         },
                                                                         {
@@ -743,10 +829,33 @@ Ext.define('MyApp.view.adminContainer', {
                                                                             items: [
                                                                                 {
                                                                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                                                                        userConstants.actionRow = record;
 
-                                                                                        userConstants.me.deleteUser();
+                                                                                        //User Permission - User 삭제
 
+                                                                                        Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){
+
+                                                                                            if(btn == "yes"){
+
+                                                                                                Ext.Ajax.request({
+                                                                                                    url: GLOBAL.urlPrefix + "permission/deleteuser",
+                                                                                                    params : {
+                                                                                                        permId : userConstants.selectRow.get("permId"),
+                                                                                                        userId : record.get("userId")
+                                                                                                    },
+                                                                                                    disableCaching : true,
+                                                                                                    waitMsg: 'Delete Permission User...',
+                                                                                                    success: function(response){
+                                                                                                        var msg = Ext.JSON.decode(response.responseText).msg;
+                                                                                                        Ext.MessageBox.alert('알림', msg);
+
+                                                                                                        Ext.getCmp("userPermissionGrid").getStore().reload();
+                                                                                                        Ext.getCmp("permissionUsersGrid").getStore().reload();
+
+                                                                                                    }
+                                                                                                });
+                                                                                            }
+
+                                                                                        });
                                                                                     },
                                                                                     icon: 'resources/images/icons/delete.png',
                                                                                     iconCls: ''
@@ -764,8 +873,9 @@ Ext.define('MyApp.view.adminContainer', {
                                                                                     handler: function(button, e) {
 
                                                                                         var userWindow = Ext.create("widget.PermissionUserWindow");
-
                                                                                         userWindow.show();
+
+                                                                                        userConstants.me.searchPopAllUser(true);
 
                                                                                     },
                                                                                     text: 'Add User'
@@ -775,8 +885,11 @@ Ext.define('MyApp.view.adminContainer', {
                                                                                 },
                                                                                 {
                                                                                     xtype: 'textfield',
+                                                                                    id: 'searchPermissionUserName',
+                                                                                    itemId: 'searchPermissionUserName',
                                                                                     fieldLabel: 'Filtering',
-                                                                                    labelWidth: 60
+                                                                                    labelWidth: 60,
+                                                                                    enableKeyEvents: true
                                                                                 }
                                                                             ]
                                                                         },
@@ -784,7 +897,8 @@ Ext.define('MyApp.view.adminContainer', {
                                                                             xtype: 'pagingtoolbar',
                                                                             dock: 'bottom',
                                                                             width: 360,
-                                                                            displayInfo: true
+                                                                            displayInfo: true,
+                                                                            store: 'PermissionUserStore'
                                                                         }
                                                                     ]
                                                                 }

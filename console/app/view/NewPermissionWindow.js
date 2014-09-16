@@ -30,7 +30,7 @@ Ext.define('MyApp.view.NewPermissionWindow', {
         'Ext.button.Button'
     ],
 
-    height: 430,
+    height: 470,
     width: 500,
     resizable: false,
     title: 'New Permission',
@@ -97,7 +97,7 @@ Ext.define('MyApp.view.NewPermissionWindow', {
                             
                         })
                     ],
-                    height: 270,
+                    height: 320,
                     id: 'allMenuTreeGrid',
                     itemId: 'allMenuTreeGrid',
                     margin: '5 20 10 20',
@@ -109,7 +109,6 @@ Ext.define('MyApp.view.NewPermissionWindow', {
                     columnLines: true,
                     forceFit: false,
                     rowLines: true,
-                    store: 'allMenuTreeStore',
                     rootVisible: false,
                     viewConfig: {
                         frame: false

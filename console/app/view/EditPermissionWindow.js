@@ -20,6 +20,8 @@ Ext.define('MyApp.view.EditPermissionWindow', {
     requires: [
         'Ext.form.Panel',
         'Ext.form.field.Text',
+        'Ext.XTemplate',
+        'Ext.form.field.Hidden',
         'Ext.toolbar.Toolbar',
         'Ext.button.Button'
     ],
@@ -37,6 +39,8 @@ Ext.define('MyApp.view.EditPermissionWindow', {
             items: [
                 {
                     xtype: 'form',
+                    id: 'editPermissionForm',
+                    itemId: 'editPermissionForm',
                     padding: 10,
                     bodyPadding: 10,
                     header: false,
@@ -45,9 +49,19 @@ Ext.define('MyApp.view.EditPermissionWindow', {
                         {
                             xtype: 'textfield',
                             anchor: '100%',
-                            margin: '0 0 10 0',
+                            afterLabelTextTpl: [
+                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                            ],
                             fieldLabel: 'Permission Name',
-                            labelWidth: 120
+                            labelWidth: 120,
+                            name: 'permNm',
+                            allowBlank: false
+                        },
+                        {
+                            xtype: 'hiddenfield',
+                            anchor: '100%',
+                            fieldLabel: 'Label',
+                            name: 'permId'
                         }
                     ]
                 }
@@ -65,43 +79,37 @@ Ext.define('MyApp.view.EditPermissionWindow', {
                         {
                             xtype: 'button',
                             handler: function(button, e) {
-                                var projectForm = Ext.getCmp("addProjectForm");
 
-                                if(projectForm.isValid()) {
+                                var permissionForm = Ext.getCmp("editPermissionForm");
 
-                                    Ext.Ajax.request({
-                                        url: GLOBAL.urlPrefix + "alm/project",
-                                        method: 'POST',
-                                        headers: { 'Content-Type': 'application/json' },
-                                        waitMsg: 'Saving Data...',
-                                        jsonData: projectForm.getForm().getFieldValues(),
-                                        success: function (response) {
+                                permissionForm.getForm().submit({
+                                    clientValidation: true,
+                                    url: GLOBAL.urlPrefix + "permission/update",
+                                    method : "POST",
+                                    params: {
+                                        newStatus: 'delivered'
+                                    },
+                                    waitMsg: 'Saving Data...',
+                                    success: function(form, action) {
+                                        Ext.Msg.alert('Success', action.result.msg);
 
-                                            var responseData = Ext.JSON.decode(response.responseText);
+                                        Ext.getCmp('userPermissionGrid').getStore().load();
 
-                                            if(responseData.success) {
-
-                                                Ext.Msg.alert('Success', responseData.msg);
-
-                                                Ext.getCmp('almProjectGrid').getStore().reload();
-                                                projectForm.up('window').close();
-
-                                            } else {
-
-                                                Ext.Msg.alert('Failure', responseData.msg);
-
-                                            }
-
-                                        },
-                                        failure: function (response) {
-                                            var msg = Ext.JSON.decode(response.responseText).msg;
-
-                                            Ext.Msg.alert('Failure', msg);
+                                        permissionForm.up('window').close();
+                                    },
+                                    failure: function(form, action) {
+                                        switch (action.failureType) {
+                                            case Ext.form.action.Action.CLIENT_INVALID:
+                                            Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');
+                                            break;
+                                            case Ext.form.action.Action.CONNECT_FAILURE:
+                                            Ext.Msg.alert('Failure', 'Server communication failed');
+                                            break;
+                                            case Ext.form.action.Action.SERVER_INVALID:
+                                            Ext.Msg.alert('Failure', action.result.msg);
                                         }
-                                    });
-
-                                }
-
+                                    }
+                                });
                             },
                             margin: '0 15 0 0',
                             padding: '2 5 2 5',

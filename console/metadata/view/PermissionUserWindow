@@ -31,6 +31,9 @@
                 "forceFit": true,
                 "header": false,
                 "height": 275,
+                "id": "allPermissionUserGrid",
+                "itemId": "allPermissionUserGrid",
+                "store": "UserStore",
                 "title": "My Grid Panel"
             },
             "designerId": "395f04f1-87ec-42db-826f-07a20fe54236",
@@ -43,7 +46,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "string",
+                        "dataIndex": "userId",
                         "minWidth": 60,
                         "text": "ID"
                     },
@@ -57,7 +60,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "number",
+                        "dataIndex": "loginId",
                         "minWidth": 120,
                         "text": "Login ID"
                     },
@@ -71,7 +74,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "date",
+                        "dataIndex": "userName",
                         "minWidth": 150,
                         "text": "User Name"
                     },
@@ -85,7 +88,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "bool",
+                        "dataIndex": "deptName",
                         "minWidth": 150,
                         "text": "Dep Name"
                     },
@@ -151,7 +154,33 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
-                                            "alert('add');"
+                                            "",
+                                            "//User Permission - User 등록",
+                                            "",
+                                            "Ext.MessageBox.confirm('Confirm', '추가 하시겠습니까?', function(btn){",
+                                            "",
+                                            "    if(btn == \"yes\"){",
+                                            "",
+                                            "        Ext.Ajax.request({",
+                                            "            url: GLOBAL.urlPrefix + \"permission/insertuser\",",
+                                            "            params : {",
+                                            "                permId : userConstants.selectRow.get(\"permId\"),",
+                                            "                userId : record.get(\"userId\")",
+                                            "            },",
+                                            "            disableCaching : true,",
+                                            "            waitMsg: 'Add Permission User...',",
+                                            "            success: function(response){",
+                                            "                var msg = Ext.JSON.decode(response.responseText).msg;",
+                                            "                Ext.MessageBox.alert('알림', msg);",
+                                            "",
+                                            "                Ext.getCmp(\"userPermissionGrid\").getStore().reload();",
+                                            "                Ext.getCmp(\"permissionUsersGrid\").getStore().reload();",
+                                            "",
+                                            "            }",
+                                            "        });",
+                                            "    }",
+                                            "",
+                                            "});"
                                         ]
                                     },
                                     "designerId": "1e47e2ed-fe1b-47c6-9f5c-840ed06673f7"
@@ -179,6 +208,7 @@
                     "userConfig": {
                         "displayInfo": true,
                         "dock": "bottom",
+                        "store": "UserStore",
                         "width": 360
                     },
                     "designerId": "acf9753c-a403-44d2-80fc-5264bc77fd7c"
@@ -204,7 +234,10 @@
                             "codeClass": null,
                             "userConfig": {
                                 "emptyText": "Search User Name",
+                                "enableKeyEvents": true,
                                 "fieldLabel": "Filtering",
+                                "id": "searchPopUserName",
+                                "itemId": "searchPopUserName",
                                 "labelWidth": 60,
                                 "layout|flex": null
                             },

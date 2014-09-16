@@ -928,10 +928,15 @@
                                                         "fn": "handler",
                                                         "implHandler": [
                                                             "",
-                                                            "var userWindow = Ext.create(\"widget.NewPermissionWindow\");",
+                                                            "var permissionWindow = Ext.create(\"widget.NewPermissionWindow\");",
+                                                            "permissionWindow.show();",
                                                             "",
-                                                            "userWindow.show();",
-                                                            ""
+                                                            "Ext.getCmp(\"allMenuTreeGrid\").bindStore(Ext.getStore(\"allMenuTreeStore\"));",
+                                                            "Ext.getCmp(\"allMenuTreeGrid\").getStore().load({",
+                                                            "    callback : function(records, options, success) {",
+                                                            "        Ext.getCmp(\"allMenuTreeGrid\").expandAll();",
+                                                            "    }",
+                                                            "});"
                                                         ]
                                                     },
                                                     "designerId": "d3925133-b14c-426b-ba87-9c8c858c4d7d"
@@ -992,7 +997,7 @@
                                     "userConfig": {
                                         "displayInfo": true,
                                         "dock": "bottom",
-                                        "store": "UserStore",
+                                        "store": "PermissionStore",
                                         "width": 360
                                     },
                                     "designerId": "d9e9308d-2d51-4a49-aa56-0b586da09a30"
@@ -1128,10 +1133,10 @@
                                                         "fn": "handler",
                                                         "implHandler": [
                                                             "",
-                                                            "var userWindow = Ext.create(\"widget.EditPermissionWindow\");",
+                                                            "var permissionWindow = Ext.create(\"widget.EditPermissionWindow\");",
+                                                            "permissionWindow.show();",
                                                             "",
-                                                            "userWindow.show();",
-                                                            ""
+                                                            "Ext.getCmp(\"editPermissionForm\").getForm().loadRecord(record);"
                                                         ]
                                                     },
                                                     "designerId": "aca36b1a-1ea3-4b97-940e-a48a3da9a2ac"
@@ -1284,8 +1289,8 @@
                                             "userConfig": {
                                                 "dock": "top",
                                                 "html": "<h2></h2>",
-                                                "id": "almGroupTitleLabel1",
-                                                "itemId": "almGroupTitleLabel1",
+                                                "id": "permittionDetailTitleLabel",
+                                                "itemId": "permittionDetailTitleLabel",
                                                 "margin": "5 0 0 0",
                                                 "minHeight": null,
                                                 "padding": 2,
@@ -1304,7 +1309,9 @@
                                             "userConfig": {
                                                 "activeTab": 0,
                                                 "dock": null,
-                                                "height": 393,
+                                                "height": 360,
+                                                "id": "userPermissionDetailTabPanel",
+                                                "itemId": "userPermissionDetailTabPanel",
                                                 "padding": "15 10 10 10",
                                                 "plain": true,
                                                 "style": "background:#ffffff;"
@@ -1322,7 +1329,7 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
-                                                        "height": 300,
+                                                        "height": 280,
                                                         "title": "Detail"
                                                     },
                                                     "designerId": "6eb64683-9efc-4ad4-ac1d-fc9ddffa9b6a",
@@ -1349,7 +1356,7 @@
                                                                 "columnLines": true,
                                                                 "forceFit": false,
                                                                 "header": false,
-                                                                "height": 320,
+                                                                "height": 260,
                                                                 "iconCls": null,
                                                                 "id": "permissionMenuTreeGrid",
                                                                 "itemId": "permissionMenuTreeGrid",
@@ -1510,7 +1517,77 @@
                                                                                 "padding": "3 10 3 10",
                                                                                 "text": "Save"
                                                                             },
-                                                                            "designerId": "0af1abb5-b7bf-488b-8296-43e191434cdc"
+                                                                            "designerId": "0af1abb5-b7bf-488b-8296-43e191434cdc",
+                                                                            "cn": [
+                                                                                {
+                                                                                    "type": "fixedfunction",
+                                                                                    "reference": {
+                                                                                        "name": "items",
+                                                                                        "type": "array"
+                                                                                    },
+                                                                                    "codeClass": null,
+                                                                                    "userConfig": {
+                                                                                        "designer|params": [
+                                                                                            "button",
+                                                                                            "e"
+                                                                                        ],
+                                                                                        "fn": "handler",
+                                                                                        "implHandler": [
+                                                                                            "",
+                                                                                            "var menuRecords = Ext.getCmp(\"permissionMenuTreeGrid\").getRecords();",
+                                                                                            "",
+                                                                                            "var menus = [];",
+                                                                                            "Ext.each(menuRecords, function(record) {",
+                                                                                            "    var menu = {};",
+                                                                                            "    menu.menuId = record.get(\"menuId\");",
+                                                                                            "    menu.readYn = (record.get(\"isRead\") == true ? \"1\" : \"0\");",
+                                                                                            "    menu.writeYn = (record.get(\"isWrite\") == true ? \"1\" : \"0\");",
+                                                                                            "",
+                                                                                            "    menus.push(menu);",
+                                                                                            "",
+                                                                                            "});",
+                                                                                            "",
+                                                                                            "var permissionForm = Ext.getCmp(\"detailPermissionForm\");",
+                                                                                            "",
+                                                                                            "permissionForm.getForm().findField(\"permMenus\").setValue(Ext.JSON.encode(menus));",
+                                                                                            "",
+                                                                                            "permissionForm.getForm().submit({",
+                                                                                            "    clientValidation: true,",
+                                                                                            "    url: GLOBAL.urlPrefix + \"permission/updatemenus\",",
+                                                                                            "    method : \"POST\",",
+                                                                                            "    params: {",
+                                                                                            "        newStatus: 'delivered'",
+                                                                                            "    },",
+                                                                                            "    waitMsg: 'Saving Data...',",
+                                                                                            "    success: function(form, action) {",
+                                                                                            "        Ext.Msg.alert('Success', action.result.msg);",
+                                                                                            "",
+                                                                                            "        Ext.getCmp('permissionMenuTreeGrid').getStore().load({",
+                                                                                            "            callback : function(records, options, success) {",
+                                                                                            "                Ext.getCmp(\"permissionMenuTreeGrid\").expandAll();",
+                                                                                            "            }",
+                                                                                            "        });",
+                                                                                            "",
+                                                                                            "        permissionForm.up('window').close();",
+                                                                                            "    },",
+                                                                                            "    failure: function(form, action) {",
+                                                                                            "        switch (action.failureType) {",
+                                                                                            "            case Ext.form.action.Action.CLIENT_INVALID:",
+                                                                                            "            Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');",
+                                                                                            "            break;",
+                                                                                            "            case Ext.form.action.Action.CONNECT_FAILURE:",
+                                                                                            "            Ext.Msg.alert('Failure', 'Server communication failed');",
+                                                                                            "            break;",
+                                                                                            "            case Ext.form.action.Action.SERVER_INVALID:",
+                                                                                            "            Ext.Msg.alert('Failure', action.result.msg);",
+                                                                                            "        }",
+                                                                                            "    }",
+                                                                                            "});"
+                                                                                        ]
+                                                                                    },
+                                                                                    "designerId": "b21d18e7-ca0c-43ea-bd19-c6bef7663122"
+                                                                                }
+                                                                            ]
                                                                         }
                                                                     ]
                                                                 },
@@ -1541,6 +1618,52 @@
                                                                         ]
                                                                     },
                                                                     "designerId": "b35019ac-d737-4b61-8e85-6f5f0aef0480"
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "Ext.form.Panel",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "bodyPadding": 10,
+                                                                "header": false,
+                                                                "id": "detailPermissionForm",
+                                                                "itemId": "detailPermissionForm",
+                                                                "title": "My Form"
+                                                            },
+                                                            "designerId": "136c0478-ff52-47ca-8062-a40ab372241a",
+                                                            "cn": [
+                                                                {
+                                                                    "type": "Ext.form.field.Hidden",
+                                                                    "reference": {
+                                                                        "name": "items",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "fieldLabel": "Label",
+                                                                        "layout|anchor": "100%",
+                                                                        "name": "permId"
+                                                                    },
+                                                                    "designerId": "cb730e0d-e199-4c53-91c8-7d891878eb2e"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.form.field.Hidden",
+                                                                    "reference": {
+                                                                        "name": "items",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "fieldLabel": "Label",
+                                                                        "layout|anchor": "100%",
+                                                                        "name": "permMenus"
+                                                                    },
+                                                                    "designerId": "daa87428-f807-45ee-bb2b-827cec068b61"
                                                                 }
                                                             ]
                                                         }
@@ -1580,7 +1703,10 @@
                                                                 "columnLines": true,
                                                                 "forceFit": true,
                                                                 "header": false,
-                                                                "height": 320,
+                                                                "height": 290,
+                                                                "id": "permissionUsersGrid",
+                                                                "itemId": "permissionUsersGrid",
+                                                                "store": "PermissionUserStore",
                                                                 "title": "My Grid Panel"
                                                             },
                                                             "designerId": "be3035d3-1181-4854-a347-0546538d78cd",
@@ -1593,7 +1719,8 @@
                                                                     },
                                                                     "codeClass": null,
                                                                     "userConfig": {
-                                                                        "dataIndex": "string",
+                                                                        "dataIndex": "userId",
+                                                                        "defaultWidth": 60,
                                                                         "minWidth": 60,
                                                                         "text": "ID"
                                                                     },
@@ -1607,8 +1734,8 @@
                                                                     },
                                                                     "codeClass": null,
                                                                     "userConfig": {
-                                                                        "dataIndex": "number",
-                                                                        "minWidth": 100,
+                                                                        "dataIndex": "loginId",
+                                                                        "minWidth": 120,
                                                                         "text": "Login ID"
                                                                     },
                                                                     "designerId": "02b2dfd2-d650-4595-a817-7674526aff27"
@@ -1621,8 +1748,8 @@
                                                                     },
                                                                     "codeClass": null,
                                                                     "userConfig": {
-                                                                        "dataIndex": "date",
-                                                                        "minWidth": 150,
+                                                                        "dataIndex": "userName",
+                                                                        "minWidth": 180,
                                                                         "text": "User Name"
                                                                     },
                                                                     "designerId": "446a8e18-abec-4439-8750-fb8cb4f387a2"
@@ -1635,8 +1762,8 @@
                                                                     },
                                                                     "codeClass": null,
                                                                     "userConfig": {
-                                                                        "dataIndex": "bool",
-                                                                        "minWidth": 120,
+                                                                        "dataIndex": "deptName",
+                                                                        "minWidth": 180,
                                                                         "text": "Dep Name"
                                                                     },
                                                                     "designerId": "16cdef40-1734-4312-8130-8ea1abc8787d"
@@ -1701,10 +1828,33 @@
                                                                                         ],
                                                                                         "fn": "handler",
                                                                                         "implHandler": [
-                                                                                            "userConstants.actionRow = record;",
                                                                                             "",
-                                                                                            "userConstants.me.deleteUser();",
-                                                                                            ""
+                                                                                            "//User Permission - User 삭제",
+                                                                                            "",
+                                                                                            "Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){",
+                                                                                            "",
+                                                                                            "    if(btn == \"yes\"){",
+                                                                                            "",
+                                                                                            "        Ext.Ajax.request({",
+                                                                                            "            url: GLOBAL.urlPrefix + \"permission/deleteuser\",",
+                                                                                            "            params : {",
+                                                                                            "                permId : userConstants.selectRow.get(\"permId\"),",
+                                                                                            "                userId : record.get(\"userId\")",
+                                                                                            "            },",
+                                                                                            "            disableCaching : true,",
+                                                                                            "            waitMsg: 'Delete Permission User...',",
+                                                                                            "            success: function(response){",
+                                                                                            "                var msg = Ext.JSON.decode(response.responseText).msg;",
+                                                                                            "                Ext.MessageBox.alert('알림', msg);",
+                                                                                            "",
+                                                                                            "                Ext.getCmp(\"userPermissionGrid\").getStore().reload();",
+                                                                                            "                Ext.getCmp(\"permissionUsersGrid\").getStore().reload();",
+                                                                                            "",
+                                                                                            "            }",
+                                                                                            "        });",
+                                                                                            "    }",
+                                                                                            "",
+                                                                                            "});"
                                                                                         ]
                                                                                     },
                                                                                     "designerId": "39c6ea04-a493-4647-a048-c96110a88e39"
@@ -1764,8 +1914,9 @@
                                                                                         "implHandler": [
                                                                                             "",
                                                                                             "var userWindow = Ext.create(\"widget.PermissionUserWindow\");",
-                                                                                            "",
                                                                                             "userWindow.show();",
+                                                                                            "",
+                                                                                            "userConstants.me.searchPopAllUser(true);",
                                                                                             ""
                                                                                         ]
                                                                                     },
@@ -1793,7 +1944,10 @@
                                                                             },
                                                                             "codeClass": null,
                                                                             "userConfig": {
+                                                                                "enableKeyEvents": true,
                                                                                 "fieldLabel": "Filtering",
+                                                                                "id": "searchPermissionUserName",
+                                                                                "itemId": "searchPermissionUserName",
                                                                                 "labelWidth": 60,
                                                                                 "layout|flex": null
                                                                             },
@@ -1811,6 +1965,7 @@
                                                                     "userConfig": {
                                                                         "displayInfo": true,
                                                                         "dock": "bottom",
+                                                                        "store": "PermissionUserStore",
                                                                         "width": 360
                                                                     },
                                                                     "designerId": "37f3360d-79a4-4775-8134-c591c870a45b"

@@ -70,20 +70,14 @@ Ext.define('MyApp.controller.AdminController', {
 
         if(userConstants.selectRow == null || userConstants.selectRow.get("permId") != record.get("permId")) {
 
+            userConstants.selectRow = record;
+
             //User 상세 조회
 
             var detailPanel = Ext.getCmp("userPermissionDetailPanel");
             detailPanel.layout.setActiveItem(1);
 
-            //User Data Loading
-
-            Ext.getCmp("permissionMenuTreeGrid").bindStore(Ext.getStore("permissionMenuTreeStore"));
-            Ext.getCmp("permissionMenuTreeGrid").getStore().load({
-                params:{
-                    permId : record.get("permId")
-                }
-            });
-
+            this.searchUserPermissionDetail(0);
         }
     },
 
@@ -91,6 +85,34 @@ Ext.define('MyApp.controller.AdminController', {
         //User Name Search
         if(e.getKey() == e.ENTER){
             this.searchUserPermission();
+        }
+    },
+
+    onTabpanelTabChange: function(tabPanel, newCard, oldCard, eOpts) {
+        if(newCard.title == 'Detail') {
+
+            this.searchUserPermissionDetail(0);
+
+        } else {
+
+            Ext.getCmp("searchPermissionUserName").setValue("");
+
+            this.searchUserPermissionDetail(1);
+
+        }
+    },
+
+    onSearchPermissionUserNameKeydown: function(textfield, e, eOpts) {
+        //User Name Search
+        if(e.getKey() == e.ENTER){
+            this.searchUserPermissionDetail(1);
+        }
+    },
+
+    onSearchPopUserNameKeydown: function(textfield, e, eOpts) {
+        //User Name Search
+        if(e.getKey() == e.ENTER){
+            this.searchPopAllUser();
         }
     },
 
@@ -128,11 +150,13 @@ Ext.define('MyApp.controller.AdminController', {
 
         userConstants.selectRow = null;
 
-        Ext.getCmp("userPermissionGrid").getStore().load({
-            params:{
-                search : Ext.getCmp("searchUserPermissionName").getRawValue()
-            }
-        });
+        var permissionStore = Ext.getCmp('userPermissionGrid').getStore();
+
+        permissionStore.getProxy().extraParams = {
+            search : Ext.getCmp("searchUserPermissionName").getRawValue()
+        };
+
+        permissionStore.load();
 
         var detailPanel = Ext.getCmp("userPermissionDetailPanel");
         detailPanel.layout.setActiveItem(0);
@@ -186,6 +210,15 @@ Ext.define('MyApp.controller.AdminController', {
             },
             "#searchUserPermissionName": {
                 keydown: this.onSearchUserPermissionNameKeydown
+            },
+            "#userPermissionDetailTabPanel": {
+                tabchange: this.onTabpanelTabChange
+            },
+            "#searchPermissionUserName": {
+                keydown: this.onSearchPermissionUserNameKeydown
+            },
+            "#searchPopUserName": {
+                keydown: this.onSearchPopUserNameKeydown
             }
         });
     },
@@ -332,17 +365,20 @@ Ext.define('MyApp.controller.AdminController', {
 
                 if(rec.get('thread').substring(0,2) == thread) {
                     rec.set(field, checked);
+                    if(field == 'isWrite' && checked == true) {
+                        rec.set("isRead", checked);
+                    }
                 }
             });
 
 
         } else {
 
-            var thread = thread.substring(0, 2);
+            var parentThread = thread.substring(0, 2);
             var changeCheck = checked;
             Ext.each(allRecords, function (rec) {
 
-                if( rec.get('thread').length > 2 &&  rec.get('thread').substring(0,2) == thread ) {
+                if( rec.get('thread').length > 2 &&  rec.get('thread').substring(0,2) == parentThread ) {
 
                     if(rec.get(field) == true){
                         changeCheck = true;
@@ -350,18 +386,79 @@ Ext.define('MyApp.controller.AdminController', {
 
                 }
 
+                if(field == 'isWrite' && checked == true && rec.get('thread') == thread ) {
+                    rec.set("isRead", checked);
+                }
+
             });
 
             Ext.each(allRecords, function (rec) {
 
-                if( rec.get('thread') == thread ) {
+                if( rec.get('thread') == parentThread ) {
                     rec.set(field, changeCheck);
+                    if(field == 'isWrite' && changeCheck == true) {
+                        rec.set("isRead", changeCheck);
+                    }
                 }
 
             });
 
         }
 
+    },
+
+    searchUserPermissionDetail: function(index) {
+
+        Ext.getCmp("userPermissionDetailTabPanel").setActiveTab(index);
+
+        if(index == 0) {
+
+            //User Permission Detail Loading
+
+            Ext.getCmp("permittionDetailTitleLabel").setText("<h2>&nbsp;&nbsp;&nbsp;"+userConstants.selectRow.get("permNm")+"</h2>", false);
+
+            Ext.getCmp("detailPermissionForm").getForm().loadRecord(userConstants.selectRow);
+
+            var menuStore = Ext.getStore("permissionMenuTreeStore");
+
+            Ext.getCmp("permissionMenuTreeGrid").bindStore(menuStore);
+
+            menuStore.getProxy().extraParams = {
+                permId : userConstants.selectRow.get("permId")
+            };
+
+            menuStore.load({
+                callback : function(records, options, success) {
+                    Ext.getCmp("permissionMenuTreeGrid").expandAll();
+                }
+            });
+
+        } else {
+
+            var userStore = Ext.getCmp('permissionUsersGrid').getStore();
+
+            userStore.getProxy().extraParams = {
+                permId : userConstants.selectRow.get("permId"),
+                search : Ext.getCmp("searchPermissionUserName").getRawValue()
+            };
+
+            userStore.load();
+        }
+    },
+
+    searchPopAllUser: function(init) {
+
+        if(init) {
+            Ext.getCmp("searchPopUserName").setValue("");
+        }
+
+        var userStore = Ext.getCmp('allPermissionUserGrid').getStore();
+
+        userStore.getProxy().extraParams = {
+            search : Ext.getCmp("searchPopUserName").getRawValue()
+        };
+
+        userStore.load();
     }
 
 });

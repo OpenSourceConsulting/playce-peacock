@@ -29,6 +29,8 @@
             "userConfig": {
                 "bodyPadding": 10,
                 "header": false,
+                "id": "editPermissionForm",
+                "itemId": "editPermissionForm",
                 "padding": 10,
                 "title": "My Form"
             },
@@ -42,12 +44,45 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "allowBlank": false,
                         "fieldLabel": "Permission Name",
                         "labelWidth": 120,
                         "layout|anchor": "100%",
-                        "margin": "0 0 10 0"
+                        "margin": null,
+                        "name": "permNm"
                     },
-                    "designerId": "ec642eed-e49e-4489-9ba8-9880077dcfb8"
+                    "designerId": "12c20dd8-1421-4d39-8b59-b522a520acbd",
+                    "cn": [
+                        {
+                            "type": "Ext.XTemplate",
+                            "reference": {
+                                "name": "afterLabelTextTpl",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "afterLabelTextTpl",
+                                "implHandler": [
+                                    "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                ]
+                            },
+                            "designerId": "6cd4d1f2-c61b-4794-8f41-2c86ab1dd2cb"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.form.field.Hidden",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "Label",
+                        "layout|anchor": "100%",
+                        "name": "permId"
+                    },
+                    "designerId": "eea2e377-5b07-410b-9bab-c6fba6de3076"
                 }
             ]
         },
@@ -97,43 +132,37 @@
                                 ],
                                 "fn": "handler",
                                 "implHandler": [
-                                    "var projectForm = Ext.getCmp(\"addProjectForm\");",
                                     "",
-                                    "if(projectForm.isValid()) {",
+                                    "var permissionForm = Ext.getCmp(\"editPermissionForm\");",
                                     "",
-                                    "     Ext.Ajax.request({",
-                                    "         url: GLOBAL.urlPrefix + \"alm/project\",",
-                                    "         method: 'POST',",
-                                    "         headers: { 'Content-Type': 'application/json' },",
-                                    "         waitMsg: 'Saving Data...',",
-                                    "         jsonData: projectForm.getForm().getFieldValues(),",
-                                    "         success: function (response) {",
-                                    "             ",
-                                    "            var responseData = Ext.JSON.decode(response.responseText);",
-                                    "            ",
-                                    "             if(responseData.success) {",
-                                    "                 ",
-                                    "                Ext.Msg.alert('Success', responseData.msg);",
-                                    "    ",
-                                    "                Ext.getCmp('almProjectGrid').getStore().reload();",
-                                    "                projectForm.up('window').close();",
-                                    "                 ",
-                                    "             } else {",
-                                    "                 ",
-                                    "                Ext.Msg.alert('Failure', responseData.msg);",
-                                    "                 ",
-                                    "             }",
-                                    "            ",
-                                    "        },",
-                                    "        failure: function (response) {",
-                                    "            var msg = Ext.JSON.decode(response.responseText).msg;",
+                                    "permissionForm.getForm().submit({",
+                                    "    clientValidation: true,",
+                                    "    url: GLOBAL.urlPrefix + \"permission/update\",",
+                                    "    method : \"POST\",",
+                                    "    params: {",
+                                    "        newStatus: 'delivered'",
+                                    "    },",
+                                    "    waitMsg: 'Saving Data...',",
+                                    "    success: function(form, action) {",
+                                    "        Ext.Msg.alert('Success', action.result.msg);",
                                     "",
-                                    "            Ext.Msg.alert('Failure', msg);",
+                                    "        Ext.getCmp('userPermissionGrid').getStore().load();",
+                                    "",
+                                    "        permissionForm.up('window').close();",
+                                    "    },",
+                                    "    failure: function(form, action) {",
+                                    "        switch (action.failureType) {",
+                                    "            case Ext.form.action.Action.CLIENT_INVALID:",
+                                    "            Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');",
+                                    "            break;",
+                                    "            case Ext.form.action.Action.CONNECT_FAILURE:",
+                                    "            Ext.Msg.alert('Failure', 'Server communication failed');",
+                                    "            break;",
+                                    "            case Ext.form.action.Action.SERVER_INVALID:",
+                                    "            Ext.Msg.alert('Failure', action.result.msg);",
                                     "        }",
-                                    "     });",
-                                    "",
-                                    "}",
-                                    ""
+                                    "    }",
+                                    "});"
                                 ]
                             },
                             "designerId": "2653ec92-d3d6-4ae5-8d2b-ffe1ad41fcc5"

@@ -39,33 +39,36 @@ Ext.define('MyApp.view.PermissionUserWindow', {
                 {
                     xtype: 'gridpanel',
                     height: 275,
+                    id: 'allPermissionUserGrid',
+                    itemId: 'allPermissionUserGrid',
                     header: false,
                     title: 'My Grid Panel',
                     columnLines: true,
                     forceFit: true,
+                    store: 'UserStore',
                     columns: [
                         {
                             xtype: 'gridcolumn',
                             minWidth: 60,
-                            dataIndex: 'string',
+                            dataIndex: 'userId',
                             text: 'ID'
                         },
                         {
                             xtype: 'gridcolumn',
                             minWidth: 120,
-                            dataIndex: 'number',
+                            dataIndex: 'loginId',
                             text: 'Login ID'
                         },
                         {
                             xtype: 'gridcolumn',
                             minWidth: 150,
-                            dataIndex: 'date',
+                            dataIndex: 'userName',
                             text: 'User Name'
                         },
                         {
                             xtype: 'gridcolumn',
                             minWidth: 150,
-                            dataIndex: 'bool',
+                            dataIndex: 'deptName',
                             text: 'Dep Name'
                         },
                         {
@@ -81,7 +84,33 @@ Ext.define('MyApp.view.PermissionUserWindow', {
                             items: [
                                 {
                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                        alert('add');
+
+                                        //User Permission - User 등록
+
+                                        Ext.MessageBox.confirm('Confirm', '추가 하시겠습니까?', function(btn){
+
+                                            if(btn == "yes"){
+
+                                                Ext.Ajax.request({
+                                                    url: GLOBAL.urlPrefix + "permission/insertuser",
+                                                    params : {
+                                                        permId : userConstants.selectRow.get("permId"),
+                                                        userId : record.get("userId")
+                                                    },
+                                                    disableCaching : true,
+                                                    waitMsg: 'Add Permission User...',
+                                                    success: function(response){
+                                                        var msg = Ext.JSON.decode(response.responseText).msg;
+                                                        Ext.MessageBox.alert('알림', msg);
+
+                                                        Ext.getCmp("userPermissionGrid").getStore().reload();
+                                                        Ext.getCmp("permissionUsersGrid").getStore().reload();
+
+                                                    }
+                                                });
+                                            }
+
+                                        });
                                     },
                                     icon: 'resources/images/icons/add.png',
                                     iconCls: ''
@@ -94,7 +123,8 @@ Ext.define('MyApp.view.PermissionUserWindow', {
                             xtype: 'pagingtoolbar',
                             dock: 'bottom',
                             width: 360,
-                            displayInfo: true
+                            displayInfo: true,
+                            store: 'UserStore'
                         },
                         {
                             xtype: 'toolbar',
@@ -102,9 +132,12 @@ Ext.define('MyApp.view.PermissionUserWindow', {
                             items: [
                                 {
                                     xtype: 'textfield',
+                                    id: 'searchPopUserName',
+                                    itemId: 'searchPopUserName',
                                     fieldLabel: 'Filtering',
                                     labelWidth: 60,
-                                    emptyText: 'Search User Name'
+                                    emptyText: 'Search User Name',
+                                    enableKeyEvents: true
                                 }
                             ]
                         }
