@@ -198,7 +198,7 @@ public class HypervisorController {
 			RHEVMRestTemplateManager.removeRHEVMRestTemplate(hypervisorId);
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Hypervisor 삭제 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("Hypervisor 삭제 중 에러가 발생하였습니다.<br/>Agent가 설치된 Instance 목록이 존재할 경우 삭제가 불가능합니다.");
 			
 			logger.error("Unhandled Expeption has occurred. ", e);
 		}
