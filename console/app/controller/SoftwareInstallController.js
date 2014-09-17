@@ -32,8 +32,20 @@ Ext.define('MyApp.controller.SoftwareInstallController', {
             var installPanel = Ext.getCmp("softwareInstallPanel");
             installPanel.layout.setActiveItem(index);
 
-            if(index == 0) {
+            if(index == 1) {
 
+                var form = Ext.getCmp("jbossEWSTomcatForm").getForm();
+
+                form.findField('bindAddress').setValue(instancesConstants.selectRow.get("ipAddr"));
+                form.findField('encoding').setValue("UTF-8");
+
+            } else if(index == 2) {
+
+                var form = Ext.getCmp("jbossEAPForm").getForm();
+
+                form.findField('encoding').setValue("UTF-8");
+                form.findField('bindPort').setValue("ports-default");
+                form.findField('hostName').setValue(instancesConstants.selectRow.get("hostName"));
 
             }
 

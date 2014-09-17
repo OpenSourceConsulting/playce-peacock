@@ -157,5 +157,13 @@ public class ConfigDto extends BaseDto {
 	public void setAutoRestart(String autoRestart) {
 		this.autoRestart = autoRestart;
 	}
+
+	/**
+	 * @return the configDisplayFileId
+	 */
+	public String getConfigDisplayFileId() {
+		return configFileId + "(" + String.valueOf(getRegDt()) + ")";
+	}
+
 }
 //end of ConfigDto.java

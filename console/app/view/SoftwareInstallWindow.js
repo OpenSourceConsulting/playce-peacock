@@ -135,7 +135,14 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                         {
                             xtype: 'button',
                             handler: function(button, e) {
-                                button.up("window").close();
+                                Ext.MessageBox.confirm('Confirm', '작업을 취소하시겠습니까?', function(btn){
+
+                                    if(btn == "yes"){
+                                        button.up("window").close();
+                                    }
+
+                                });
+
                             },
                             id: 'installCancelBtn',
                             itemId: 'installCancelBtn',
@@ -375,6 +382,7 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             ],
                                             fieldLabel: 'Java Home',
                                             name: 'javaHome',
+                                            value: '/usr/java/default',
                                             allowBlank: false
                                         },
                                         {
@@ -434,6 +442,7 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             ],
                                             fieldLabel: 'Encoding',
                                             name: 'encoding',
+                                            value: 'UTF-8',
                                             allowBlank: false,
                                             store: [
                                                 'UTF-8',
@@ -448,6 +457,7 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             ],
                                             fieldLabel: 'Port Offset',
                                             name: 'portOffset',
+                                            value: 0,
                                             allowBlank: false,
                                             vtype: 'numeric'
                                         },
@@ -459,6 +469,7 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             ],
                                             fieldLabel: 'Heap Size(MB)',
                                             name: 'heapSize',
+                                            value: 1024,
                                             allowBlank: false,
                                             vtype: 'numeric'
                                         },
@@ -470,6 +481,7 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             ],
                                             fieldLabel: 'Permgen Size(MB)',
                                             name: 'permgenSize',
+                                            value: 256,
                                             allowBlank: false,
                                             vtype: 'numeric'
                                         },
@@ -497,6 +509,7 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             fieldLabel: 'High Availability',
                                             name: 'highAvailability',
                                             boxLabel: 'Check when using clustering',
+                                            checked: true,
                                             inputValue: 'Y',
                                             uncheckedValue: 'N',
                                             listeners: {
@@ -574,8 +587,22 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             fieldLabel: 'Database Type',
                                             name: 'databaseType1',
                                             store: [
-                                                'Oracle',
-                                                'MySQL'
+                                                [
+                                                    'oracle',
+                                                    'Oracle'
+                                                ],
+                                                [
+                                                    'mysql',
+                                                    'My-SQL'
+                                                ],
+                                                [
+                                                    'mssql',
+                                                    'MS-SQL'
+                                                ],
+                                                [
+                                                    'db2',
+                                                    'DB2'
+                                                ]
                                             ],
                                             listeners: {
                                                 change: {
@@ -718,8 +745,22 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             fieldLabel: 'Database Type',
                                             name: 'databaseType2',
                                             store: [
-                                                'Oracle',
-                                                'MySQL'
+                                                [
+                                                    'oracle',
+                                                    'Oracle'
+                                                ],
+                                                [
+                                                    'mysql',
+                                                    'My-SQL'
+                                                ],
+                                                [
+                                                    'mssql',
+                                                    'MS-SQL'
+                                                ],
+                                                [
+                                                    'db2',
+                                                    'DB2'
+                                                ]
                                             ],
                                             listeners: {
                                                 change: {
@@ -914,6 +955,7 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             ],
                                             fieldLabel: 'Java Home',
                                             name: 'javaHome',
+                                            value: '/usr/java/1.6.0_29',
                                             allowBlank: false
                                         },
                                         {
@@ -996,6 +1038,7 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             ],
                                             fieldLabel: 'Domain IP',
                                             name: 'domainIp',
+                                            value: '0.0.0.0',
                                             allowBlank: false
                                         },
                                         {
@@ -1036,6 +1079,7 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             ],
                                             fieldLabel: 'UDP Group Addr',
                                             name: 'udpGroupAddr',
+                                            value: '224.0.0.2',
                                             allowBlank: false
                                         },
                                         {
@@ -1046,6 +1090,7 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             ],
                                             fieldLabel: 'Multicast Port',
                                             name: 'multicastPort',
+                                            value: 42111,
                                             allowBlank: false
                                         },
                                         {
@@ -1078,6 +1123,7 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             ],
                                             fieldLabel: 'Heap Size(MB)',
                                             name: 'heapSize',
+                                            value: 1024,
                                             allowBlank: false,
                                             vtype: 'numeric'
                                         },
@@ -1089,6 +1135,7 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             ],
                                             fieldLabel: 'Permgen Size(MB)',
                                             name: 'permgenSize',
+                                            value: 256,
                                             allowBlank: false,
                                             vtype: 'numeric'
                                         },
@@ -1155,8 +1202,22 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             fieldLabel: 'Database Type',
                                             name: 'databaseType1',
                                             store: [
-                                                'Oracle',
-                                                'MySQL'
+                                                [
+                                                    'oracle',
+                                                    'Oracle'
+                                                ],
+                                                [
+                                                    'mysql',
+                                                    'My-SQL'
+                                                ],
+                                                [
+                                                    'mssql',
+                                                    'MS-SQL'
+                                                ],
+                                                [
+                                                    'db2',
+                                                    'DB2'
+                                                ]
                                             ],
                                             listeners: {
                                                 change: {
@@ -1299,8 +1360,22 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             fieldLabel: 'Database Type',
                                             name: 'databaseType2',
                                             store: [
-                                                'Oracle',
-                                                'MySQL'
+                                                [
+                                                    'oracle',
+                                                    'Oracle'
+                                                ],
+                                                [
+                                                    'mysql',
+                                                    'My-SQL'
+                                                ],
+                                                [
+                                                    'mssql',
+                                                    'MS-SQL'
+                                                ],
+                                                [
+                                                    'db2',
+                                                    'DB2'
+                                                ]
                                             ],
                                             listeners: {
                                                 change: {
@@ -1551,14 +1626,11 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
             form.findField('bindAddress').setReadOnly(false);
             form.findField('otherBindAddress').setReadOnly(false);
 
-            form.findField('bindAddress').setValue(instancesConstants.selectRow.get("ipAddr"));
-
         } else {
 
             form.findField('bindAddress').setReadOnly(true);
             form.findField('otherBindAddress').setReadOnly(true);
 
-            form.findField('bindAddress').setValue("");
             form.findField('otherBindAddress').setValue("");
 
         }

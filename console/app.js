@@ -52,7 +52,8 @@ Ext.application({
         'PermissionModel',
         'MenuModel',
         'SoftwareModel',
-        'SoftwareRepoModel'
+        'SoftwareRepoModel',
+        'ConfigModel'
     ],
     stores: [
         'MenuTreeStore',
@@ -93,7 +94,9 @@ Ext.application({
         'PermissionUserStore',
         'InstanceSoftwareStore',
         'ComboSoftwareStore',
-        'ComboSoftwareVersionStore'
+        'ComboSoftwareVersionStore',
+        'ComboSoftwareConfigFileStore',
+        'ComboSoftwareConfigVersionStore'
     ],
     views: [
         'peacockViewport',
@@ -115,7 +118,7 @@ Ext.application({
         'AlmGroupWindow',
         'AlmUsersWindow',
         'SoftwareInstallLogWindow',
-        'softwareConfigWindow',
+        'SoftwareConfigWindow',
         'MonitoringChartWindow',
         'UserWindow',
         'EditInstanceWindow',
@@ -135,8 +138,7 @@ Ext.application({
         'AlarmWarningWindow',
         'NewPermissionWindow',
         'EditPermissionWindow',
-        'PermissionUserWindow',
-        'MyTextField136'
+        'PermissionUserWindow'
     ],
     controllers: [
         'LoginController',

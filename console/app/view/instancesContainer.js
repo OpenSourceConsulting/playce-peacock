@@ -508,21 +508,28 @@ Ext.define('MyApp.view.instancesContainer', {
                                                         {
                                                             xtype: 'button',
                                                             handler: function(button, e) {
-                                                                var softwareInstallWindow = Ext.create("widget.SoftwareInstallWindow");
+                                                                if(instancesConstants.selectRow.get("status") == "Running") {
 
-                                                                softwareInstallWindow.show();
+                                                                    var softwareInstallWindow = Ext.create("widget.SoftwareInstallWindow");
 
-                                                                Ext.getCmp("popComboSoftwareName").getStore().load({
-                                                                    callback : function(records, options, success) {
-                                                                        Ext.getCmp("popComboSoftwareName").select(Ext.getCmp("popComboSoftwareName").getStore().getAt(0));
-                                                                    }
-                                                                });
+                                                                    softwareInstallWindow.show();
 
-                                                                var accountStore = Ext.getStore("ComboAccountStore");
-                                                                accountStore.getProxy().extraParams = {
-                                                                    machineId : instancesConstants.selectRow.get("machineId")
-                                                                };
+                                                                    Ext.getCmp("popComboSoftwareName").getStore().load({
+                                                                        callback : function(records, options, success) {
+                                                                            Ext.getCmp("popComboSoftwareName").select(Ext.getCmp("popComboSoftwareName").getStore().getAt(0));
+                                                                        }
+                                                                    });
 
+                                                                    var accountStore = Ext.getStore("ComboAccountStore");
+                                                                    accountStore.getProxy().extraParams = {
+                                                                        machineId : instancesConstants.selectRow.get("machineId")
+                                                                    };
+
+                                                                } else {
+
+                                                                    Ext.MessageBox.alert('Error', "Instance가 Running 상태일 경우에만 Software Install이 가능합니다.");
+
+                                                                }
                                                             },
                                                             id: 'softwareInstallBtn',
                                                             itemId: 'softwareInstallBtn',
@@ -547,8 +554,8 @@ Ext.define('MyApp.view.instancesContainer', {
                                                 },
                                                 {
                                                     xtype: 'gridcolumn',
-                                                    dataIndex: 'installDate',
-                                                    text: 'InstallDate'
+                                                    dataIndex: 'regDt',
+                                                    text: 'Install Date'
                                                 },
                                                 {
                                                     xtype: 'gridcolumn',
@@ -571,9 +578,24 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     items: [
                                                         {
                                                             handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                                                var softwareConfigWindow = Ext.create("widget.softwareConfigWindow");
+                                                                if(instancesConstants.selectRow.get("status") == "Running" && record.get("installStat") == "설치 완료") {
 
-                                                                softwareConfigWindow.show();
+                                                                    var softwareConfigWindow = Ext.create("widget.SoftwareConfigWindow");
+                                                                    softwareConfigWindow.show();
+
+                                                                    softwareConfigWindow.down('form').getForm().findField("machineId").setValue(instancesConstants.selectRow.get("machineId"));
+                                                                    softwareConfigWindow.down('form').getForm().findField("softwareId").setValue(record.get("softwareId"));
+
+                                                                    var fileStore = Ext.getStore("ComboSoftwareConfigFileStore");
+                                                                    fileStore.getProxy().extraParams = {
+                                                                        machineId : instancesConstants.selectRow.get("machineId"),
+                                                                        softwareId : record.get("softwareId")
+                                                                    };
+
+                                                                } else {
+                                                                    Ext.MessageBox.alert('Error', "Instance가 Running 상태이고 Sofware 가 설치완료일 경우에만 수정 가능합니다.");
+                                                                }
+
                                                             },
                                                             icon: 'resources/images/icons/cog.png',
                                                             iconCls: ''
@@ -618,6 +640,38 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     menuText: '',
                                                     items: [
                                                         {
+                                                            handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                                                if(instancesConstants.selectRow.get("status") == "Running" && record.get("installStat") == "설치 완료") {
+
+                                                                    Ext.MessageBox.confirm('Confirm', 'Uninstall 하시겠습니까?', function(btn){
+
+                                                                        if(btn == "yes"){
+
+                                                                            Ext.Ajax.request({
+                                                                                url: GLOBAL.urlPrefix + "software/remove",
+                                                                                params : {
+                                                                                    softwareId : record.get("softwareId"),
+                                                                                    machineId : instancesConstants.selectRow.get("machineId")
+                                                                                },
+                                                                                disableCaching : true,
+                                                                                waitMsg: 'Uninstall Software...',
+                                                                                success: function(response){
+                                                                                    var msg = Ext.JSON.decode(response.responseText).msg;
+                                                                                    Ext.MessageBox.alert('알림', msg);
+
+                                                                                    Ext.getCmp("instanceSoftwareGrid").getStore().reload();
+
+                                                                                }
+                                                                            });
+                                                                        }
+
+                                                                    });
+
+
+                                                                } else {
+                                                                    Ext.MessageBox.alert('Error', "Instance가 Running 상태이고 Sofware 가 설치완료일 경우에만 Uninstall 가능합니다.");
+                                                                }
+                                                            },
                                                             icon: 'resources/images/icons/delete.png',
                                                             iconCls: ''
                                                         }

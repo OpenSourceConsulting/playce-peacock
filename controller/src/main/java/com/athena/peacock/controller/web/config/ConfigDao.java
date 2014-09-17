@@ -41,7 +41,7 @@ import com.athena.peacock.controller.web.config.ConfigDto;
 @Repository("configDao")
 public class ConfigDao extends AbstractBaseDao {
 
-	public List<String> getConfigFileNames(ConfigDto config) {
+	public List<ConfigDto>  getConfigFileNames(ConfigDto config) {
 		return sqlSession.selectList("ConfigMapper.getConfigFileNames", config);
 	}
 	

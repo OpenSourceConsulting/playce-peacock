@@ -48,7 +48,7 @@ public class ConfigService {
 	@Named("configDao")
 	private ConfigDao configDao;
 
-	public List<String> getConfigFileNames(ConfigDto config) {
+	public List<ConfigDto> getConfigFileNames(ConfigDto config) {
 		return configDao.getConfigFileNames(config);
 	}
 

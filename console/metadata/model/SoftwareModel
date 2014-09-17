@@ -178,6 +178,20 @@
                 "type": "string"
             },
             "designerId": "238b77e3-f856-46e5-a3c5-41938f4b2cf3"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dateFormat": null,
+                "name": "regDt",
+                "type": "string"
+            },
+            "designerId": "bd9b2b2c-b30d-4c57-a6b5-4796d7258ba8"
         }
     ]
 }

@@ -3,8 +3,8 @@
 
 <mapper namespace="ConfigMapper">
 
-	<select id="getConfigFileNames" parameterType="com.athena.peacock.controller.web.config.ConfigDto" resultType="String">
-		SELECT DISTINCT(CONFIG_FILE_NAME)
+	<select id="getConfigFileNames" parameterType="com.athena.peacock.controller.web.config.ConfigDto" resultType="com.athena.peacock.controller.web.config.ConfigDto">
+		SELECT DISTINCT(CONFIG_FILE_NAME) AS configFileName
 		  FROM config_tbl
 		 WHERE MACHINE_ID = #{machineId}
 		   AND SOFTWARE_ID = #{softwareId}

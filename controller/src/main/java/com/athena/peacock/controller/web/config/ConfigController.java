@@ -87,7 +87,7 @@ public class ConfigController {
 	 * @return
 	 */
 	@RequestMapping("/getConfigFileNames")
-	public @ResponseBody List<String> getConfigFileNames(ConfigDto config) {
+	public @ResponseBody List<ConfigDto> getConfigFileNames(ConfigDto config) {
 		Assert.notNull(config.getMachineId(), "machineId can not be null.");
 		Assert.notNull(config.getSoftwareId(), "softwareId can not be null.");
 		

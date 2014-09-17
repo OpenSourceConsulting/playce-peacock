@@ -94,7 +94,7 @@ public class SoftwareController {
 		
 		jsonRes.setTotal(softwareService.getSoftwareInstallListCnt(machine));
 		jsonRes.setList(softwareService.getSoftwareInstallList(machine));
-		
+		System.out.println("aaa:::"+softwareService.getSoftwareInstallList(machine).get(0).getRegDt());
 		return jsonRes;
 	}
 	

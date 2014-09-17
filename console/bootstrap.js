@@ -884,6 +884,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.model.AlmRepositoryModel": [],
   "MyApp.model.AlmUserModel": [],
   "MyApp.model.ClusterModel": [],
+  "MyApp.model.ConfigModel": [],
   "MyApp.model.DataCenterModel": [],
   "MyApp.model.DiskModel": [],
   "MyApp.model.GroupModel": [],
@@ -922,6 +923,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.ComboDataCenterStore": [],
   "MyApp.store.ComboGroupStore": [],
   "MyApp.store.ComboHypervisorStore": [],
+  "MyApp.store.ComboSoftwareConfigFileStore": [],
+  "MyApp.store.ComboSoftwareConfigVersionStore": [],
   "MyApp.store.ComboSoftwareStore": [],
   "MyApp.store.ComboSoftwareVersionStore": [],
   "MyApp.store.ComboTemplateStore": [],
@@ -963,7 +966,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.ManageGroupWindow": [],
   "MyApp.view.MonitoringChartWindow": [],
   "MyApp.view.MyForm33": [],
-  "MyApp.view.MyTextField136": [],
   "MyApp.view.NewPermissionWindow": [],
   "MyApp.view.PermissionUserWindow": [],
   "MyApp.view.RegAccountWindow": [],
@@ -971,6 +973,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.RegInstanceWindow": [],
   "MyApp.view.RegRhevmWindow": [],
   "MyApp.view.RegTemplateWindow": [],
+  "MyApp.view.SoftwareConfigWindow": [],
   "MyApp.view.SoftwareInstallLogWindow": [],
   "MyApp.view.SoftwareInstallWindow": [],
   "MyApp.view.TemplateSummaryWindow": [],
@@ -987,7 +990,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.loginWindow": [],
   "MyApp.view.peacockViewport": [],
   "MyApp.view.rhevmContainer": [],
-  "MyApp.view.softwareConfigWindow": [],
   "RHEVMConstants": [],
   "almConstants": [],
   "dashboardConstants": [],
@@ -2014,6 +2016,7 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.model.AlmRepositoryModel": [],
   "MyApp.model.AlmUserModel": [],
   "MyApp.model.ClusterModel": [],
+  "MyApp.model.ConfigModel": [],
   "MyApp.model.DataCenterModel": [],
   "MyApp.model.DiskModel": [],
   "MyApp.model.GroupModel": [],
@@ -2052,6 +2055,8 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.store.ComboDataCenterStore": [],
   "MyApp.store.ComboGroupStore": [],
   "MyApp.store.ComboHypervisorStore": [],
+  "MyApp.store.ComboSoftwareConfigFileStore": [],
+  "MyApp.store.ComboSoftwareConfigVersionStore": [],
   "MyApp.store.ComboSoftwareStore": [],
   "MyApp.store.ComboSoftwareVersionStore": [],
   "MyApp.store.ComboTemplateStore": [],
@@ -2129,9 +2134,6 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.MyForm33": [
     "widget.myform33"
   ],
-  "MyApp.view.MyTextField136": [
-    "widget.mytextfield136"
-  ],
   "MyApp.view.NewPermissionWindow": [
     "widget.NewPermissionWindow"
   ],
@@ -2152,6 +2154,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.RegTemplateWindow": [
     "widget.RegTemplateWindow"
+  ],
+  "MyApp.view.SoftwareConfigWindow": [
+    "widget.SoftwareConfigWindow"
   ],
   "MyApp.view.SoftwareInstallLogWindow": [
     "widget.SoftwareInstallLogWindow"
@@ -2198,9 +2203,6 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.rhevmContainer": [
     "widget.rhevmcontainer"
-  ],
-  "MyApp.view.softwareConfigWindow": [
-    "widget.softwareConfigWindow"
   ],
   "RHEVMConstants": [],
   "almConstants": [],

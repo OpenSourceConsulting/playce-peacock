@@ -134,6 +134,8 @@ Ext.define('MyApp.controller.InstancesController', {
 
         } else if(newCard.title == "Software"){
 
+            this.searchInstanceDetail(1);
+
         } else if(newCard.title == "OS Package"){
 
             Ext.getCmp("searchPackageName").setValue("");

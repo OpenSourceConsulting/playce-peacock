@@ -46,7 +46,8 @@
             "PermissionModel",
             "MenuModel",
             "SoftwareModel",
-            "SoftwareRepoModel"
+            "SoftwareRepoModel",
+            "ConfigModel"
         ],
         "name": "MyApp",
         "requires": [
@@ -91,7 +92,9 @@
             "PermissionUserStore",
             "InstanceSoftwareStore",
             "ComboSoftwareStore",
-            "ComboSoftwareVersionStore"
+            "ComboSoftwareVersionStore",
+            "ComboSoftwareConfigFileStore",
+            "ComboSoftwareConfigVersionStore"
         ],
         "views": [
             "peacockViewport",
@@ -113,7 +116,7 @@
             "AlmGroupWindow",
             "AlmUsersWindow",
             "SoftwareInstallLogWindow",
-            "softwareConfigWindow",
+            "SoftwareConfigWindow",
             "MonitoringChartWindow",
             "UserWindow",
             "EditInstanceWindow",
@@ -133,8 +136,7 @@
             "AlarmWarningWindow",
             "NewPermissionWindow",
             "EditPermissionWindow",
-            "PermissionUserWindow",
-            "MyTextField136"
+            "PermissionUserWindow"
         ]
     },
     "designerId": "application"

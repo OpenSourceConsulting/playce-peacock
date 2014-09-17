@@ -118,7 +118,7 @@
                                     "",
                                     "    installForm = Ext.getCmp(\"jbossEWSTomcatForm\");",
                                     "    installForm.getForm().findField(\"localIPAddress\").setValue(instancesConstants.selectRow.get(\"ipAddr\"));",
-                                    "    ",
+                                    "",
                                     "} else if(index == 2) {",
                                     "",
                                     "    installForm = Ext.getCmp(\"jbossEAPForm\");",
@@ -193,7 +193,14 @@
                                 ],
                                 "fn": "handler",
                                 "implHandler": [
-                                    "button.up(\"window\").close();"
+                                    "Ext.MessageBox.confirm('Confirm', '작업을 취소하시겠습니까?', function(btn){",
+                                    "",
+                                    "    if(btn == \"yes\"){",
+                                    "        button.up(\"window\").close();",
+                                    "    }",
+                                    "",
+                                    "});",
+                                    ""
                                 ]
                             },
                             "designerId": "ed0553be-1d46-42ec-b6fa-60d7bacb0857"
@@ -852,7 +859,10 @@
                                         "fieldLabel": "Java Home",
                                         "labelWidth": null,
                                         "layout|anchor": "100%",
-                                        "name": "javaHome"
+                                        "name": "javaHome",
+                                        "value": [
+                                            "\"/usr/java/default\""
+                                        ]
                                     },
                                     "designerId": "4e4aaf67-9e53-4964-9c94-476756b22aec",
                                     "cn": [
@@ -1044,6 +1054,9 @@
                                             "    \"UTF-8\",",
                                             "    \"EUC-KR\"",
                                             "]"
+                                        ],
+                                        "value": [
+                                            "UTF-8"
                                         ]
                                     },
                                     "configAlternates": {
@@ -1081,6 +1094,9 @@
                                         "labelWidth": null,
                                         "layout|anchor": "100%",
                                         "name": "portOffset",
+                                        "value": [
+                                            "0"
+                                        ],
                                         "vtype": "numeric"
                                     },
                                     "designerId": "21c2dfcb-5db8-4666-bdd8-e40594a8eec7",
@@ -1115,6 +1131,9 @@
                                         "labelWidth": null,
                                         "layout|anchor": "100%",
                                         "name": "heapSize",
+                                        "value": [
+                                            "1024"
+                                        ],
                                         "vtype": "numeric"
                                     },
                                     "designerId": "c230723f-aa00-4c61-a62e-d48fac3fe892",
@@ -1149,6 +1168,9 @@
                                         "labelWidth": null,
                                         "layout|anchor": "100%",
                                         "name": "permgenSize",
+                                        "value": [
+                                            "256"
+                                        ],
                                         "vtype": "numeric"
                                     },
                                     "designerId": "0641689b-b8cd-48d9-b61a-d69e0ae57ad7",
@@ -1230,6 +1252,7 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "boxLabel": "Check when using clustering",
+                                        "checked": true,
                                         "fieldLabel": "High Availability",
                                         "inputValue": "Y",
                                         "labelWidth": null,
@@ -1255,14 +1278,11 @@
                                                     "    form.findField('bindAddress').setReadOnly(false);",
                                                     "    form.findField('otherBindAddress').setReadOnly(false);",
                                                     "",
-                                                    "    form.findField('bindAddress').setValue(instancesConstants.selectRow.get(\"ipAddr\"));",
-                                                    "",
                                                     "} else {",
                                                     "",
                                                     "    form.findField('bindAddress').setReadOnly(true);",
                                                     "    form.findField('otherBindAddress').setReadOnly(true);",
                                                     "",
-                                                    "    form.findField('bindAddress').setValue(\"\");",
                                                     "    form.findField('otherBindAddress').setValue(\"\");",
                                                     "",
                                                     "}"
@@ -1423,8 +1443,10 @@
                                         "name": "databaseType1",
                                         "store": [
                                             "[",
-                                            "    \"Oracle\",",
-                                            "    \"MySQL\"",
+                                            "    [\"oracle\", \"Oracle\"],",
+                                            "    [\"mysql\", \"My-SQL\"],",
+                                            "    [\"mssql\", \"MS-SQL\"],",
+                                            "    [\"db2\", \"DB2\"]",
                                             "]"
                                         ]
                                     },
@@ -1761,8 +1783,10 @@
                                         "name": "databaseType2",
                                         "store": [
                                             "[",
-                                            "    \"Oracle\",",
-                                            "    \"MySQL\"",
+                                            "    [\"oracle\", \"Oracle\"],",
+                                            "    [\"mysql\", \"My-SQL\"],",
+                                            "    [\"mssql\", \"MS-SQL\"],",
+                                            "    [\"db2\", \"DB2\"]",
                                             "]"
                                         ]
                                     },
@@ -2161,13 +2185,13 @@
                                                     "}",
                                                     "",
                                                     "if(baseTemplate) {",
-                                                    "    ",
+                                                    "",
                                                     "    if(baseTemplate.indexOf(\"codeServer11\") > -1) {",
-                                                    "        ",
+                                                    "",
                                                     "        form.findField(\"jvmRoute\").setValue(newValue + \"_node1\");",
-                                                    "        ",
+                                                    "",
                                                     "    } else if(baseTemplate.indexOf(\"codeServer21\") > -1) {",
-                                                    "        ",
+                                                    "",
                                                     "        form.findField(\"jvmRoute\").setValue(newValue + \"_node2\");",
                                                     "    }",
                                                     "}",
@@ -2276,7 +2300,10 @@
                                         "fieldLabel": "Java Home",
                                         "labelWidth": null,
                                         "layout|anchor": "100%",
-                                        "name": "javaHome"
+                                        "name": "javaHome",
+                                        "value": [
+                                            "\"/usr/java/1.6.0_29\""
+                                        ]
                                     },
                                     "designerId": "eea0d5b6-7eea-4605-a694-6f65691ef788",
                                     "cn": [
@@ -2539,7 +2566,10 @@
                                         "fieldLabel": "Domain IP",
                                         "labelWidth": null,
                                         "layout|anchor": "100%",
-                                        "name": "domainIp"
+                                        "name": "domainIp",
+                                        "value": [
+                                            "\"0.0.0.0\""
+                                        ]
                                     },
                                     "designerId": "e4bbbb1e-3871-4d56-98f4-6b7927c93e35",
                                     "cn": [
@@ -2658,7 +2688,10 @@
                                         "fieldLabel": "UDP Group Addr",
                                         "labelWidth": null,
                                         "layout|anchor": "100%",
-                                        "name": "udpGroupAddr"
+                                        "name": "udpGroupAddr",
+                                        "value": [
+                                            "\"224.0.0.2\""
+                                        ]
                                     },
                                     "designerId": "f7627d00-918c-40ac-b354-5fd432dde086",
                                     "cn": [
@@ -2691,7 +2724,10 @@
                                         "fieldLabel": "Multicast Port",
                                         "labelWidth": null,
                                         "layout|anchor": "100%",
-                                        "name": "multicastPort"
+                                        "name": "multicastPort",
+                                        "value": [
+                                            "42111"
+                                        ]
                                     },
                                     "designerId": "90a2b435-e7fd-4b68-a3ab-096028643074",
                                     "cn": [
@@ -2793,6 +2829,9 @@
                                         "labelWidth": null,
                                         "layout|anchor": "100%",
                                         "name": "heapSize",
+                                        "value": [
+                                            "1024"
+                                        ],
                                         "vtype": "numeric"
                                     },
                                     "designerId": "d7c96c37-7377-406a-8e0c-b1f66f23781d",
@@ -2827,6 +2866,9 @@
                                         "labelWidth": null,
                                         "layout|anchor": "100%",
                                         "name": "permgenSize",
+                                        "value": [
+                                            "256"
+                                        ],
                                         "vtype": "numeric"
                                     },
                                     "designerId": "a274205d-241a-4ce8-bfea-8e269c635df0",
@@ -2998,8 +3040,10 @@
                                         "name": "databaseType1",
                                         "store": [
                                             "[",
-                                            "    \"Oracle\",",
-                                            "    \"MySQL\"",
+                                            "    [\"oracle\", \"Oracle\"],",
+                                            "    [\"mysql\", \"My-SQL\"],",
+                                            "    [\"mssql\", \"MS-SQL\"],",
+                                            "    [\"db2\", \"DB2\"]",
                                             "]"
                                         ]
                                     },
@@ -3336,8 +3380,10 @@
                                         "name": "databaseType2",
                                         "store": [
                                             "[",
-                                            "    \"Oracle\",",
-                                            "    \"MySQL\"",
+                                            "    [\"oracle\", \"Oracle\"],",
+                                            "    [\"mysql\", \"My-SQL\"],",
+                                            "    [\"mssql\", \"MS-SQL\"],",
+                                            "    [\"db2\", \"DB2\"]",
                                             "]"
                                         ]
                                     },
