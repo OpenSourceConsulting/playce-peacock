@@ -23,6 +23,10 @@ public class AlmProjectDao extends AbstractBaseDao {
 		sqlSession.insert("ProjectMapper.insertProject", project);
 	}
 	
+	public List<ProjectMappingDto> getProjectMapping(ProjectMappingDto mappingDto){
+		return sqlSession.selectList("ProjectMapper.getProjectList");
+	}
+	
 	public void insertProjectMapping(ProjectMappingDto mappingDto){
 		sqlSession.insert("ProjectMapper.insertProjectMapping",mappingDto);
 	}

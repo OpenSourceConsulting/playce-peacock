@@ -173,9 +173,8 @@ public class AlmProjectController {
 	@RequestMapping(value = "/project/{projectCode}/{mappingType}", method = RequestMethod.GET)
 	public @ResponseBody
 	DtoJsonResponse getProjectMapping(@PathVariable String projectCode,
-			@PathVariable String mappingType, @PathVariable String mappingCode) {
-		return almProjectService.createProjectMapping(projectCode, mappingType,
-				mappingCode);
+			@PathVariable String mappingType) {
+		return almProjectService.getProjectMapping(projectCode, mappingType);
 	}
 
 	@RequestMapping(value = "/project/test", method = RequestMethod.GET)

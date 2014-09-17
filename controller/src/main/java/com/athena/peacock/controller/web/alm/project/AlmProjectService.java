@@ -122,7 +122,7 @@ public class AlmProjectService {
 
 		if (count == 0) {
 			response.setMsg("사용가능한 code 입니다.");
-		}else{
+		} else {
 			response.setSuccess(false);
 			response.setMsg("이미 사용중인 code 입니다.");
 		}
@@ -150,11 +150,11 @@ public class AlmProjectService {
 		mappingDto.setMappingCode(mappingCode);
 
 		if (mappingtype.equals("jenkins")) {
-			mappingDto.setMappingType(30);
+			mappingDto.setMappingType(20);
 		} else if (mappingtype.equals("svn")) {
 			mappingDto.setMappingType(30);
 		} else if (mappingtype.equals("confluence")) {
-			mappingDto.setMappingType(30);
+			mappingDto.setMappingType(10);
 		} else {
 			response.setSuccess(false);
 			response.setMsg("mapping code가 정확하지 않습니다");
@@ -162,6 +162,32 @@ public class AlmProjectService {
 		}
 
 		projectDao.insertProjectMapping(mappingDto);
+		return response;
+	}
+
+	public DtoJsonResponse getProjectMapping(String projectCode, String mappingtype) {
+
+		DtoJsonResponse response = new DtoJsonResponse();
+
+		ProjectMappingDto mappingDto = new ProjectMappingDto();
+		mappingDto.setProjectCode(projectCode);
+
+		//10 Confluence
+		//20 Jenkins
+		//30 SVN
+		if (mappingtype.equals("jenkins")) {
+			mappingDto.setMappingType(20);
+		} else if (mappingtype.equals("svn")) {
+			mappingDto.setMappingType(30);
+		} else if (mappingtype.equals("confluence")) {
+			mappingDto.setMappingType(10);
+		} else {
+			response.setSuccess(false);
+			response.setMsg("mapping code가 정확하지 않습니다");
+			return response;
+		}
+
+		response.setData(projectDao.getProjectMapping(mappingDto));
 		return response;
 	}
 
