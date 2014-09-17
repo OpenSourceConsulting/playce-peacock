@@ -285,26 +285,26 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
                     form.findField("configFilePath").setValue(fileLocation + "/" + fileName);
                     form.findField("configFileContents").setValue(responseData.data.configFileContents);
 
-                }
+                    Ext.Ajax.request({
+                        url: GLOBAL.urlPrefix + "config/getSystemConfig",
+                        params : {
+                            machineId : instancesConstants.selectRow.get("machineId"),
+                            configFileLocation : fileLocation,
+                            configFileName : fileName
+                        },
+                        disableCaching : true,
+                        success: function(response2){
 
-            }
-        });
+                            var responseData2 = Ext.JSON.decode(response2.responseText);
 
-        Ext.Ajax.request({
-            url: GLOBAL.urlPrefix + "config/getSystemConfig",
-            params : {
-                machineId : instancesConstants.selectRow.get("machineId"),
-                configFileLocation : fileLocation,
-                configFileName : fileName
-            },
-            disableCaching : true,
-            success: function(response){
+                            if(responseData2.success) {
 
-                var responseData = Ext.JSON.decode(response.responseText);
+                                form.findField("configSystemContents").setValue(responseData2.data);
 
-                if(responseData.success) {
+                            }
 
-                    form.findField("configSystemContents").setValue(responseData.data);
+                        }
+                    });
 
                 }
 
