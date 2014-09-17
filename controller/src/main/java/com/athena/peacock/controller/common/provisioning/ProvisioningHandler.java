@@ -383,12 +383,34 @@ public class ProvisioningHandler {
 		s_action.addArguments("/etc/init.d/" + user + "_httpd");
 		command.addAction(s_action);
 
-		/** chown -R root.sys /home2/${USER} */
+		/** chown -R root.sys /home2/${USER}
+		 *  ~/bin, ~/conf, ~/log, ~/run */
 		s_action = new ShellAction(sequence++);
 		s_action.setCommand("chown");
 		s_action.addArguments("-R");
 		s_action.addArguments("root.sys");
-		s_action.addArguments(serverHome);
+		s_action.addArguments(serverHome + "/bin");
+		command.addAction(s_action);
+		
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("chown");
+		s_action.addArguments("-R");
+		s_action.addArguments("root.sys");
+		s_action.addArguments(serverHome + "/conf");
+		command.addAction(s_action);
+		
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("chown");
+		s_action.addArguments("-R");
+		s_action.addArguments("root.sys");
+		s_action.addArguments(serverHome + "/log");
+		command.addAction(s_action);
+		
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("chown");
+		s_action.addArguments("-R");
+		s_action.addArguments("root.sys");
+		s_action.addArguments(serverHome + "/run");
 		command.addAction(s_action);
 
 		/** chmod 755 /home2/${USER} */
@@ -399,12 +421,14 @@ public class ProvisioningHandler {
 		command.addAction(s_action);
 
 		/** chown -R ${USERID}:${GROUPID} /home2/${USER}/www */
+		/*
 		s_action = new ShellAction(sequence++);
 		s_action.setCommand("chown");
 		s_action.addArguments("-R");
 		s_action.addArguments(user + ":" + group);
 		s_action.addArguments(serverHome + "/www");
 		command.addAction(s_action);
+		*/
 
 		/** chmod 700 /home2/${USER}/www */
 		s_action = new ShellAction(sequence++);
@@ -413,21 +437,53 @@ public class ProvisioningHandler {
 		s_action.addArguments(serverHome + "/www");
 		command.addAction(s_action);
 
-		/** chown -R ${USERID}:${GROUPID} /home2/${USER}/.bash* */
+		/** chown -R ${USERID}:${GROUPID} /home2/${USER}/.bash*
+		 *  chown -R ${USERID}:${GROUPID} /home2/${USER}/.*rc
+		 *  .bash_logout, .bash_profile, .bashrc, .kshrc, .mkshrc, .zshrc 
+		 */
+		/*
 		s_action = new ShellAction(sequence++);
 		s_action.setCommand("chown");
 		s_action.addArguments("-R");
 		s_action.addArguments(user + ":" + group);
-		s_action.addArguments(serverHome + "/.bash*");
+		s_action.addArguments(serverHome + "/.bash_logout");
 		command.addAction(s_action);
-
-		/** chown -R ${USERID}:${GROUPID} /home2/${USER}/.*rc */
+		
 		s_action = new ShellAction(sequence++);
 		s_action.setCommand("chown");
 		s_action.addArguments("-R");
 		s_action.addArguments(user + ":" + group);
-		s_action.addArguments(serverHome + "/.*rc");
+		s_action.addArguments(serverHome + "/.bash_profile");
 		command.addAction(s_action);
+		
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("chown");
+		s_action.addArguments("-R");
+		s_action.addArguments(user + ":" + group);
+		s_action.addArguments(serverHome + "/.bashrc");
+		command.addAction(s_action);
+		
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("chown");
+		s_action.addArguments("-R");
+		s_action.addArguments(user + ":" + group);
+		s_action.addArguments(serverHome + "/.kshrc");
+		command.addAction(s_action);
+		
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("chown");
+		s_action.addArguments("-R");
+		s_action.addArguments(user + ":" + group);
+		s_action.addArguments(serverHome + "/.mkshrc");
+		command.addAction(s_action);
+		
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("chown");
+		s_action.addArguments("-R");
+		s_action.addArguments(user + ":" + group);
+		s_action.addArguments(serverHome + "/.zshrc");
+		command.addAction(s_action);
+		*/
 		
 		// Add Set Directory & Permission
 		cmdMsg.addCommand(command);
@@ -877,6 +933,12 @@ public class ProvisioningHandler {
 			} else if (databaseType1.toLowerCase().equals("mysql")) {
 				driverClassName = "com.mysql.jdbc.Driver";
 				query = "SELECT 1";
+			} else if (databaseType1.toLowerCase().equals("mssql")) {
+				driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+				query = "SELECT 1";
+			} else if (databaseType1.toLowerCase().equals("db2")) {
+				driverClassName = "com.ibm.db2.jcc.DB2Driver";
+				query = "VALUES 1";
 			}
 			
 			encPasswd = ewsPasswordEncrypt(password1);
@@ -909,6 +971,12 @@ public class ProvisioningHandler {
 			} else if (databaseType2.toLowerCase().equals("mysql")) {
 				driverClassName = "com.mysql.jdbc.Driver";
 				query = "SELECT 1";
+			} else if (databaseType1.toLowerCase().equals("mssql")) {
+				driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+				query = "SELECT 1";
+			} else if (databaseType1.toLowerCase().equals("db2")) {
+				driverClassName = "com.ibm.db2.jcc.DB2Driver";
+				query = "VALUES 1";
 			}
 			
 			encPasswd = ewsPasswordEncrypt(password2);
@@ -1322,6 +1390,12 @@ public class ProvisioningHandler {
 				exceptionSorter = "org.jboss.resource.adapter.jdbc.vendor.MySQLExceptionSorter";
 				connectionChecker = "org.jboss.resource.adapter.jdbc.vendor.MySQLValidConnectionChecker";
 				query = "SELECT 1";
+			} else if (databaseType1.toLowerCase().equals("mssql")) {
+				driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+				query = "SELECT 1";
+			} else if (databaseType1.toLowerCase().equals("db2")) {
+				driverClassName = "com.ibm.db2.jcc.DB2Driver";
+				query = "VALUES 1";
 			}
 		
 			localTxDatasource.append("	<local-tx-datasource>").append("\n");
@@ -1333,10 +1407,18 @@ public class ProvisioningHandler {
 			localTxDatasource.append("		<min-pool-size>" + minPoolSize1 + "</min-pool-size>").append("\n");
 			localTxDatasource.append("		<max-pool-size>" + maxPoolSize1 + "</max-pool-size>").append("\n\n");
 			localTxDatasource.append("		<!--").append("\n");
-			localTxDatasource.append("		<valid-connection-checker-class-name>" + connectionChecker + "</valid-connection-checker-class-name>").append("\n");
+			if (connectionChecker == null) {
+				localTxDatasource.append("		<valid-connection-checker-class-name/>").append("\n");
+			} else {
+				localTxDatasource.append("		<valid-connection-checker-class-name>" + connectionChecker + "</valid-connection-checker-class-name>").append("\n");
+			}
 			localTxDatasource.append("		-->").append("\n\n");
 			localTxDatasource.append("		<!-- Checks the Oracle error codes and messages for fatal errors -->").append("\n");
-			localTxDatasource.append("		<exception-sorter-class-name>" + exceptionSorter + "</exception-sorter-class-name>").append("\n\n");
+			if (exceptionSorter == null) {
+				localTxDatasource.append("		<exception-sorter-class-name/>").append("\n\n");
+			} else {
+				localTxDatasource.append("		<exception-sorter-class-name>" + exceptionSorter + "</exception-sorter-class-name>").append("\n\n");
+			}
 			localTxDatasource.append("		<new-connection-sql>" + query + "</new-connection-sql>").append("\n");
 			localTxDatasource.append("		<check-valid-connection-sql>" + query + "</check-valid-connection-sql>").append("\n");
 			localTxDatasource.append("	</local-tx-datasource>").append("\n");
@@ -1367,6 +1449,12 @@ public class ProvisioningHandler {
 				exceptionSorter = "org.jboss.resource.adapter.jdbc.vendor.MySQLExceptionSorter";
 				connectionChecker = "org.jboss.resource.adapter.jdbc.vendor.MySQLValidConnectionChecker";
 				query = "SELECT 1";
+			} else if (databaseType1.toLowerCase().equals("mssql")) {
+				driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+				query = "SELECT 1";
+			} else if (databaseType1.toLowerCase().equals("db2")) {
+				driverClassName = "com.ibm.db2.jcc.DB2Driver";
+				query = "VALUES 1";
 			}
 			
 			localTxDatasource.append("	<local-tx-datasource>").append("\n");
@@ -1378,10 +1466,18 @@ public class ProvisioningHandler {
 			localTxDatasource.append("		<min-pool-size>" + minPoolSize2 + "</min-pool-size>").append("\n");
 			localTxDatasource.append("		<max-pool-size>" + maxPoolSize2 + "</max-pool-size>").append("\n\n");
 			localTxDatasource.append("		<!--").append("\n");
-			localTxDatasource.append("		<valid-connection-checker-class-name>" + connectionChecker + "</valid-connection-checker-class-name>").append("\n");
+			if (connectionChecker == null) {
+				localTxDatasource.append("		<valid-connection-checker-class-name/>").append("\n");
+			} else {
+				localTxDatasource.append("		<valid-connection-checker-class-name>" + connectionChecker + "</valid-connection-checker-class-name>").append("\n");
+			}
 			localTxDatasource.append("		-->").append("\n\n");
 			localTxDatasource.append("		<!-- Checks the Oracle error codes and messages for fatal errors -->").append("\n");
-			localTxDatasource.append("		<exception-sorter-class-name>" + exceptionSorter + "</exception-sorter-class-name>").append("\n\n");
+			if (exceptionSorter == null) {
+				localTxDatasource.append("		<exception-sorter-class-name/>").append("\n\n");
+			} else {
+				localTxDatasource.append("		<exception-sorter-class-name>" + exceptionSorter + "</exception-sorter-class-name>").append("\n\n");
+			}
 			localTxDatasource.append("		<new-connection-sql>" + query + "</new-connection-sql>").append("\n");
 			localTxDatasource.append("		<check-valid-connection-sql>" + query + "</check-valid-connection-sql>").append("\n");
 			localTxDatasource.append("	</local-tx-datasource>").append("\n");
@@ -1936,6 +2032,8 @@ public class ProvisioningHandler {
 
 class InstallThread extends Thread {
 
+    protected final Logger logger = LoggerFactory.getLogger(InstallThread.class);
+
 	private PeacockTransmitter peacockTransmitter;
 	private SoftwareService softwareService;
 	private ProvisioningCommandMessage cmdMsg;
@@ -1959,6 +2057,8 @@ class InstallThread extends Thread {
 			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
 			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
 			
+			logger.debug("[{}] Installed.", software.getSoftwareName());
+			
 			StringBuilder sb = new StringBuilder("");
 			List<String> commands = response.getCommands();
 			List<String> results = response.getResults();
@@ -1972,18 +2072,28 @@ class InstallThread extends Thread {
 			}
 			software.setInstallStat("COMPLETED");
 			software.setInstallLog(sb.toString());
+
+			logger.debug("Install Log : [{}]", sb.toString());
 			
 			softwareService.insertSoftware(software, configList);
 		} catch (Exception e) {
 			software.setInstallStat("INST_ERROR");
 			software.setInstallLog(e.getMessage());
 			
-			e.printStackTrace();
+			try {
+				softwareService.insertSoftware(software);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			
+			logger.error("Unhandled Exception has occurred.", e);
 		}
 	}
 }
 
 class UninstallThread extends Thread {
+
+    protected final Logger logger = LoggerFactory.getLogger(UninstallThread.class);
 
 	private PeacockTransmitter peacockTransmitter;
 	private SoftwareService softwareService;
@@ -2010,6 +2120,8 @@ class UninstallThread extends Thread {
 			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
 			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
 			
+			logger.debug("[{}] Uninstalled.", software.getSoftwareName());
+			
 			configService.deleteConfig(config);
 			
 			StringBuilder sb = new StringBuilder("");
@@ -2026,13 +2138,21 @@ class UninstallThread extends Thread {
 			software.setDeleteYn("Y");
 			software.setInstallStat("DELETED");
 			software.setInstallLog(sb.toString());
+
+			logger.debug("Uninstall Log : [{}]", sb.toString());
 			
 			softwareService.updateSoftware(software);
 		} catch (Exception e) {
 			software.setInstallStat("UNINST_ERROR");
 			software.setInstallLog(e.getMessage());
 			
-			e.printStackTrace();
+			try {
+				softwareService.updateSoftware(software);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			
+			logger.error("Unhandled Exception has occurred.", e);
 		}
 	}
 }
