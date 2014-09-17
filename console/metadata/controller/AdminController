@@ -556,11 +556,11 @@
                     "if(newCard.title == 'Detail') {",
                     "",
                     "    this.searchUserPermissionDetail(0);",
-                    "    ",
+                    "",
                     "} else {",
                     "",
                     "    Ext.getCmp(\"searchPermissionUserName\").setValue(\"\");",
-                    "    ",
+                    "",
                     "    this.searchUserPermissionDetail(1);",
                     "",
                     "}"

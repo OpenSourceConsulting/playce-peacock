@@ -12,8 +12,13 @@
         "id": "softwareConfigWindow",
         "itemId": "softwareConfigWindow",
         "layout": "border",
+        "modal": true,
+        "resizable": false,
         "title": "Edit Config",
         "width": 500
+    },
+    "configAlternates": {
+        "resizable": "boolean"
     },
     "designerId": "5cb08927-3fe3-45bf-82e1-4167803988d6",
     "cn": [
@@ -340,9 +345,7 @@
                                 "layout|flex": null,
                                 "name": "configFilePath",
                                 "padding": "20 0 0 0",
-                                "value": [
-                                    "Display Field"
-                                ]
+                                "value": null
                             },
                             "designerId": "bf26e211-6852-4aeb-ba07-719b1ea98bc9"
                         },

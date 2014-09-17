@@ -1,0 +1,53 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "ProjectMappingModel"
+    },
+    "designerId": "92c0ff45-2f6a-43a3-bcf2-3d55cae75c8a",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "projectCode",
+                "type": "string"
+            },
+            "designerId": "8bb9a305-f681-4c77-9e5f-b1b5ee7891c3"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "mappingType",
+                "type": "string"
+            },
+            "designerId": "8a53e2da-0fa6-421a-b035-7436c201e07c"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "mappingCode",
+                "type": "string"
+            },
+            "designerId": "4b167e92-c4fc-4a0c-828a-e59a54c3c3cd"
+        }
+    ]
+}

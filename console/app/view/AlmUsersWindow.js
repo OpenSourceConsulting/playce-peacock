@@ -93,6 +93,7 @@ Ext.define('MyApp.view.AlmUsersWindow', {
                                                         var type = Ext.getCmp("addAlmUserType").getValue();
 
                                                         if(type == "group") {
+
                                                             Ext.Ajax.request({
                                                                 url : GLOBAL.urlPrefix + "alm/groupmanagement/"
                                                                 + almConstants.selectRow.get("name") + "/" + record.get("userId"),
@@ -108,6 +109,25 @@ Ext.define('MyApp.view.AlmUsersWindow', {
 
                                                                 }
                                                             });
+
+                                                        } else if(type == "project") {
+
+                                                            Ext.Ajax.request({
+                                                                url : GLOBAL.urlPrefix + "alm/groupmanagement/"
+                                                                + almConstants.selectRow.get("projectCode") + "/" + record.get("userId"),
+                                                                method: 'POST',
+                                                                headers: { 'Content-Type': 'application/json' },
+                                                                disableCaching : true,
+                                                                waitMsg: 'Add Project User...',
+                                                                success: function(response){
+                                                                    var msg = Ext.JSON.decode(response.responseText).msg;
+                                                                    Ext.MessageBox.alert('알림', msg);
+
+                                                                    Ext.getCmp("almProjectUserGrid").getStore().reload();
+
+                                                                }
+                                                            });
+
                                                         }
                                                     }
 

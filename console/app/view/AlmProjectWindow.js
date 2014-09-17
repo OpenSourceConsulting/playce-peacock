@@ -81,6 +81,7 @@ Ext.define('MyApp.view.AlmProjectWindow', {
                                                         Ext.Msg.alert('Success', responseData.msg);
 
                                                         Ext.getCmp('almProjectGrid').getStore().reload();
+
                                                         projectForm.up('window').close();
 
                                                     } else {

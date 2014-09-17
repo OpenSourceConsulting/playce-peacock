@@ -895,6 +895,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.model.NetworkModel": [],
   "MyApp.model.PackageModel": [],
   "MyApp.model.PermissionModel": [],
+  "MyApp.model.ProjectMappingModel": [],
   "MyApp.model.ProjectModel": [],
   "MyApp.model.SessionModel": [],
   "MyApp.model.SoftwareModel": [],
@@ -912,6 +913,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.AlmGroupStore": [],
   "MyApp.store.AlmGroupUsersStore": [],
   "MyApp.store.AlmJobStore": [],
+  "MyApp.store.AlmProjectConfluencesStore": [],
+  "MyApp.store.AlmProjectJenkinsStore": [],
   "MyApp.store.AlmProjectStore": [],
   "MyApp.store.AlmProjectUsersStore": [],
   "MyApp.store.AlmRepositoryStore": [],
@@ -952,7 +955,10 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.AlarmCriticalWindow": [],
   "MyApp.view.AlarmWarningWindow": [],
   "MyApp.view.AlmGroupWindow": [],
+  "MyApp.view.AlmProjectJobWindow": [],
+  "MyApp.view.AlmProjectSpaceWindow": [],
   "MyApp.view.AlmProjectWindow": [],
+  "MyApp.view.AlmRepositoryWindow": [],
   "MyApp.view.AlmUserWindow": [],
   "MyApp.view.AlmUsersWindow": [],
   "MyApp.view.AlmWizardWindow": [],
@@ -982,8 +988,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.VmSummaryWindow": [],
   "MyApp.view.adminContainer": [],
   "MyApp.view.almContainer": [],
-  "MyApp.view.almProjectJobWindow": [],
-  "MyApp.view.almProjectSpaceWindow": [],
   "MyApp.view.blankPanel": [],
   "MyApp.view.dashboardContainer": [],
   "MyApp.view.instancesContainer": [],
@@ -2027,6 +2031,7 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.model.NetworkModel": [],
   "MyApp.model.PackageModel": [],
   "MyApp.model.PermissionModel": [],
+  "MyApp.model.ProjectMappingModel": [],
   "MyApp.model.ProjectModel": [],
   "MyApp.model.SessionModel": [],
   "MyApp.model.SoftwareModel": [],
@@ -2044,6 +2049,8 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.store.AlmGroupStore": [],
   "MyApp.store.AlmGroupUsersStore": [],
   "MyApp.store.AlmJobStore": [],
+  "MyApp.store.AlmProjectConfluencesStore": [],
+  "MyApp.store.AlmProjectJenkinsStore": [],
   "MyApp.store.AlmProjectStore": [],
   "MyApp.store.AlmProjectUsersStore": [],
   "MyApp.store.AlmRepositoryStore": [],
@@ -2092,8 +2099,17 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.AlmGroupWindow": [
     "widget.AlmGroupWindow"
   ],
+  "MyApp.view.AlmProjectJobWindow": [
+    "widget.AlmProjectJobWindow"
+  ],
+  "MyApp.view.AlmProjectSpaceWindow": [
+    "widget.AlmProjectSpaceWindow"
+  ],
   "MyApp.view.AlmProjectWindow": [
     "widget.AlmProjectWindow"
+  ],
+  "MyApp.view.AlmRepositoryWindow": [
+    "widget.AlmRepositoryWindow"
   ],
   "MyApp.view.AlmUserWindow": [
     "widget.AlmUserWindow"
@@ -2179,12 +2195,6 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.almContainer": [
     "widget.almcontainer"
-  ],
-  "MyApp.view.almProjectJobWindow": [
-    "widget.almProjectJobWindow"
-  ],
-  "MyApp.view.almProjectSpaceWindow": [
-    "widget.almProjectSpaceWindow"
   ],
   "MyApp.view.blankPanel": [
     "widget.blankpanel"

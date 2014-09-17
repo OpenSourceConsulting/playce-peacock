@@ -1,0 +1,302 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "AlmRepositoryWindow",
+        "designer|userClassName": "AlmRepositoryWindow",
+        "height": 220,
+        "modal": true,
+        "resizable": false,
+        "title": "Add Repository",
+        "width": 470
+    },
+    "configAlternates": {
+        "resizable": "boolean"
+    },
+    "designerId": "dd0fce27-4652-4d03-aac8-09585e31ff23",
+    "cn": [
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyPadding": 10,
+                "fieldDefaults": [
+                    "{",
+                    "    msgTarget: 'side',",
+                    "    labelWidth: 145",
+                    "}"
+                ],
+                "header": false,
+                "id": "popRepositoryForm",
+                "itemId": "popRepositoryForm",
+                "padding": 5,
+                "title": "My Form"
+            },
+            "designerId": "57f928d0-a63e-4421-bb3c-4eed1423b7a9",
+            "cn": [
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "allowBlank": false,
+                        "fieldLabel": "Repository Name",
+                        "layout|anchor": "100%",
+                        "name": "repositoryCode"
+                    },
+                    "designerId": "21920810-b1a3-45e5-878d-1ee383373e51",
+                    "cn": [
+                        {
+                            "type": "Ext.XTemplate",
+                            "reference": {
+                                "name": "afterLabelTextTpl",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "afterLabelTextTpl",
+                                "implHandler": [
+                                    "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                ]
+                            },
+                            "designerId": "9a7c6284-ce7c-408c-b582-a97bfcd804c7"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "Repository Type",
+                        "layout|anchor": "100%",
+                        "name": "repositoryType",
+                        "store": [
+                            "[",
+                            "    [\"10\", \"svn\"],",
+                            "    [\"20\", \"git\"]",
+                            "]"
+                        ]
+                    },
+                    "configAlternates": {
+                        "store": "array"
+                    },
+                    "designerId": "017eca28-7c3c-4ac6-a6e5-32ff12828ac2"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "allowBlank": false,
+                        "fieldLabel": "Repository Description",
+                        "layout|anchor": "100%",
+                        "name": "repositoryDescription"
+                    },
+                    "designerId": "5ed70cde-774f-46e9-8ea5-a154de7721e6",
+                    "cn": [
+                        {
+                            "type": "Ext.XTemplate",
+                            "reference": {
+                                "name": "afterLabelTextTpl",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "afterLabelTextTpl",
+                                "implHandler": [
+                                    "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                ]
+                            },
+                            "designerId": "2fbd0511-21d1-43e7-bd99-62ea147c436c"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "allowBlank": false,
+                        "fieldLabel": "Repository Url",
+                        "layout|anchor": "100%",
+                        "name": "repositoryUrl"
+                    },
+                    "designerId": "65eb4f76-de54-4155-aa3b-6d6c5b0803d2",
+                    "cn": [
+                        {
+                            "type": "Ext.XTemplate",
+                            "reference": {
+                                "name": "afterLabelTextTpl",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "afterLabelTextTpl",
+                                "implHandler": [
+                                    "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                ]
+                            },
+                            "designerId": "9e5627a5-54dc-44cc-b0d7-b286f0da24bb"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "container|pack": "center",
+                "designer|uiInterfaceName": "footer",
+                "dock": "bottom",
+                "ui": "footer"
+            },
+            "designerId": "bb97574a-e789-41ed-bdfb-cfca53e4f863",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": null,
+                        "itemId": null,
+                        "layout|flex": null,
+                        "margin": "0 15 0 0",
+                        "padding": "2 5 2 5",
+                        "text": "Create"
+                    },
+                    "designerId": "e84f2f7b-7386-431b-b5a8-5426db01cab0",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "button",
+                                    "e"
+                                ],
+                                "fn": "handler",
+                                "implHandler": [
+                                    "",
+                                    "var repositoryForm = Ext.getCmp(\"popRepositoryForm\");",
+                                    "if(repositoryForm.isValid()) {",
+                                    "",
+                                    "     Ext.Ajax.request({",
+                                    "         url: GLOBAL.urlPrefix + \"alm/repository\",",
+                                    "         method: 'POST',",
+                                    "         headers: { 'Content-Type': 'application/json' },",
+                                    "         waitMsg: 'Saving Data...',",
+                                    "         jsonData: repositoryForm.getForm().getFieldValues(),",
+                                    "         success: function (response) {",
+                                    "",
+                                    "            var responseData = Ext.JSON.decode(response.responseText);",
+                                    "",
+                                    "             if(responseData.success) {",
+                                    "",
+                                    "                Ext.Msg.alert('Success', responseData.msg);",
+                                    "",
+                                    "                Ext.getCmp('almRepositoryGrid').getStore().reload();",
+                                    "                repositoryForm.up('window').close();",
+                                    "",
+                                    "             } else {",
+                                    "",
+                                    "                Ext.Msg.alert('Failure', responseData.msg);",
+                                    "",
+                                    "             }",
+                                    "        },",
+                                    "        failure: function (response) {",
+                                    "            var msg = Ext.JSON.decode(response.responseText).msg;",
+                                    "",
+                                    "            Ext.Msg.alert('Failure', msg);",
+                                    "        }",
+                                    "     });",
+                                    "",
+                                    "}",
+                                    ""
+                                ]
+                            },
+                            "designerId": "5637b29e-8500-4b4b-ba88-05df002da405"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": null,
+                        "itemId": null,
+                        "layout|flex": null,
+                        "margin": "0 0 0 0",
+                        "padding": "2 5 2 5",
+                        "text": "Cancel"
+                    },
+                    "designerId": "d859472f-d2fa-4778-a065-faa76d2a257a",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "button",
+                                    "e"
+                                ],
+                                "fn": "handler",
+                                "implHandler": [
+                                    "Ext.MessageBox.confirm('Confirm', '작업을 취소하시겠습니까?', function(btn){",
+                                    "",
+                                    "    if(btn == \"yes\"){",
+                                    "        button.up(\"window\").close();",
+                                    "    }",
+                                    "",
+                                    "});",
+                                    ""
+                                ]
+                            },
+                            "designerId": "097e05b8-eb04-4095-b3c2-a747962f73fa"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

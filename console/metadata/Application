@@ -47,7 +47,8 @@
             "MenuModel",
             "SoftwareModel",
             "SoftwareRepoModel",
-            "ConfigModel"
+            "ConfigModel",
+            "ProjectMappingModel"
         ],
         "name": "MyApp",
         "requires": [
@@ -94,7 +95,9 @@
             "ComboSoftwareStore",
             "ComboSoftwareVersionStore",
             "ComboSoftwareConfigFileStore",
-            "ComboSoftwareConfigVersionStore"
+            "ComboSoftwareConfigVersionStore",
+            "AlmProjectConfluencesStore",
+            "AlmProjectJenkinsStore"
         ],
         "views": [
             "peacockViewport",
@@ -121,9 +124,9 @@
             "UserWindow",
             "EditInstanceWindow",
             "RegInstanceWindow",
-            "almProjectSpaceWindow",
+            "AlmProjectSpaceWindow",
             "AlmProjectWindow",
-            "almProjectJobWindow",
+            "AlmProjectJobWindow",
             "ManageGroupWindow",
             "RegInstanceGroupWindow",
             "MyForm33",
@@ -136,7 +139,8 @@
             "AlarmWarningWindow",
             "NewPermissionWindow",
             "EditPermissionWindow",
-            "PermissionUserWindow"
+            "PermissionUserWindow",
+            "AlmRepositoryWindow"
         ]
     },
     "designerId": "application"

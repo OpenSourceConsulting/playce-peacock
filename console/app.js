@@ -53,7 +53,8 @@ Ext.application({
         'MenuModel',
         'SoftwareModel',
         'SoftwareRepoModel',
-        'ConfigModel'
+        'ConfigModel',
+        'ProjectMappingModel'
     ],
     stores: [
         'MenuTreeStore',
@@ -96,7 +97,9 @@ Ext.application({
         'ComboSoftwareStore',
         'ComboSoftwareVersionStore',
         'ComboSoftwareConfigFileStore',
-        'ComboSoftwareConfigVersionStore'
+        'ComboSoftwareConfigVersionStore',
+        'AlmProjectConfluencesStore',
+        'AlmProjectJenkinsStore'
     ],
     views: [
         'peacockViewport',
@@ -123,9 +126,9 @@ Ext.application({
         'UserWindow',
         'EditInstanceWindow',
         'RegInstanceWindow',
-        'almProjectSpaceWindow',
+        'AlmProjectSpaceWindow',
         'AlmProjectWindow',
-        'almProjectJobWindow',
+        'AlmProjectJobWindow',
         'ManageGroupWindow',
         'RegInstanceGroupWindow',
         'MyForm33',
@@ -138,7 +141,8 @@ Ext.application({
         'AlarmWarningWindow',
         'NewPermissionWindow',
         'EditPermissionWindow',
-        'PermissionUserWindow'
+        'PermissionUserWindow',
+        'AlmRepositoryWindow'
     ],
     controllers: [
         'LoginController',

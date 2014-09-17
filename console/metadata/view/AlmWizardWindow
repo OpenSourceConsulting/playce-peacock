@@ -1239,6 +1239,34 @@
                                                             ]
                                                         }
                                                     ]
+                                                },
+                                                {
+                                                    "type": "Ext.toolbar.Toolbar",
+                                                    "reference": {
+                                                        "name": "dockedItems",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "dock": "top"
+                                                    },
+                                                    "designerId": "6c80eb41-08b9-4f43-b256-a06e48212df6",
+                                                    "cn": [
+                                                        {
+                                                            "type": "Ext.form.field.Text",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "fieldLabel": "Filtering",
+                                                                "labelWidth": 60,
+                                                                "layout|flex": null
+                                                            },
+                                                            "designerId": "1af17397-8903-4847-886b-415a5f455b0b"
+                                                        }
+                                                    ]
                                                 }
                                             ]
                                         }

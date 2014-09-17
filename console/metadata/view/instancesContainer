@@ -1277,7 +1277,7 @@
                                                                     "",
                                                                     "    var softwareConfigWindow = Ext.create(\"widget.SoftwareConfigWindow\");",
                                                                     "    softwareConfigWindow.show();",
-                                                                    "    ",
+                                                                    "",
                                                                     "    softwareConfigWindow.down('form').getForm().findField(\"machineId\").setValue(instancesConstants.selectRow.get(\"machineId\"));",
                                                                     "    softwareConfigWindow.down('form').getForm().findField(\"softwareId\").setValue(record.get(\"softwareId\"));",
                                                                     "",

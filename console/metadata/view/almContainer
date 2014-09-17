@@ -661,7 +661,9 @@
                                                                                             "",
                                                                                             "almGroupUsersWindow.show();",
                                                                                             "",
-                                                                                            "var grid = Ext.getCmp(\"popAlmUsersGrid\").getStore().load();"
+                                                                                            "var grid = Ext.getCmp(\"popAlmUsersGrid\").getStore().load();",
+                                                                                            "Ext.getCmp(\"addAlmUserType\").setValue(\"project\");",
+                                                                                            ""
                                                                                         ]
                                                                                     },
                                                                                     "designerId": "69e76283-1e18-47e2-b8c4-6f70d74ebe14"
@@ -828,7 +830,7 @@
                                                                 "forceFit": true,
                                                                 "id": "almProjectConfluenceGrid",
                                                                 "itemId": "almProjectConfluenceGrid",
-                                                                "store": null,
+                                                                "store": "AlmProjectConfluencesStore",
                                                                 "title": null
                                                             },
                                                             "designerId": "a061d72e-8cbf-49bb-8363-4af857b6d0f4",
@@ -886,7 +888,7 @@
                                                                                         ],
                                                                                         "fn": "handler",
                                                                                         "implHandler": [
-                                                                                            "var almProjectSpaceWindow = Ext.create(\"widget.almProjectSpaceWindow\");",
+                                                                                            "var almProjectSpaceWindow = Ext.create(\"widget.AlmProjectSpaceWindow\");",
                                                                                             "",
                                                                                             "almProjectSpaceWindow.show();",
                                                                                             "",
@@ -917,7 +919,7 @@
                                                                     },
                                                                     "codeClass": null,
                                                                     "userConfig": {
-                                                                        "dataIndex": "name",
+                                                                        "dataIndex": "mappingCode",
                                                                         "minWidth": 150,
                                                                         "text": "Space"
                                                                     },
@@ -1030,7 +1032,7 @@
                                                                 "forceFit": true,
                                                                 "id": "almProjectJenkinsGrid",
                                                                 "itemId": "almProjectJenkinsGrid",
-                                                                "store": "AlmJobStore",
+                                                                "store": "AlmProjectJenkinsStore",
                                                                 "title": null
                                                             },
                                                             "designerId": "8776d4be-2045-43a1-9df6-e3210f90e9ca",
@@ -1088,7 +1090,7 @@
                                                                                         ],
                                                                                         "fn": "handler",
                                                                                         "implHandler": [
-                                                                                            "var almProjectJobWindow = Ext.create(\"widget.almProjectJobWindow\");",
+                                                                                            "var almProjectJobWindow = Ext.create(\"widget.AlmProjectJobWindow\");",
                                                                                             "",
                                                                                             "almProjectJobWindow.show();",
                                                                                             "",
@@ -1119,7 +1121,7 @@
                                                                     },
                                                                     "codeClass": null,
                                                                     "userConfig": {
-                                                                        "dataIndex": "name",
+                                                                        "dataIndex": "mappingCode",
                                                                         "minWidth": 150,
                                                                         "text": "Job"
                                                                     },
@@ -1332,14 +1334,127 @@
                                             "userConfig": {
                                                 "cls": null,
                                                 "emptyText": "Search User Name",
+                                                "enableKeyEvents": true,
                                                 "fieldLabel": "Filtering",
                                                 "fieldStyle": null,
-                                                "id": "inputUserName3",
-                                                "itemId": "inputUserName",
+                                                "id": "inputAlmUserName",
+                                                "itemId": "inputAlmUserName",
                                                 "labelWidth": 60,
                                                 "layout|flex": null
                                             },
                                             "designerId": "b65d6a7f-e7ee-4be5-b795-f646408ca6c8"
+                                        },
+                                        {
+                                            "type": "Ext.toolbar.Spacer",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "layout|flex": 1
+                                            },
+                                            "designerId": "e1c4f923-2db6-4b02-9de6-386e5eb3a8fe"
+                                        },
+                                        {
+                                            "type": "Ext.button.Button",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "height": 30,
+                                                "iconAlign": null,
+                                                "iconCls": "x-toolbar-scroll-left",
+                                                "iconMask": false,
+                                                "layout|flex": null,
+                                                "text": null,
+                                                "tooltipType": null,
+                                                "width": 25
+                                            },
+                                            "configAlternates": {
+                                                "iconMask": "boolean"
+                                            },
+                                            "designerId": "e69339d0-8f5e-4d08-822f-eb156fa0481a",
+                                            "customConfigs": [
+                                                {
+                                                    "group": "(Custom Properties)",
+                                                    "name": "iconMask",
+                                                    "type": "string"
+                                                }
+                                            ],
+                                            "cn": [
+                                                {
+                                                    "type": "fixedfunction",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "designer|params": [
+                                                            "button",
+                                                            "e"
+                                                        ],
+                                                        "fn": "handler",
+                                                        "implHandler": [
+                                                            "almConstants.me.searchAlmUser(false, 'left');"
+                                                        ]
+                                                    },
+                                                    "designerId": "8f0471e0-32da-409e-b853-020973f37789"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "Ext.button.Button",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "height": 30,
+                                                "iconAlign": null,
+                                                "iconCls": "x-toolbar-scroll-right",
+                                                "iconMask": false,
+                                                "layout|flex": null,
+                                                "text": null,
+                                                "tooltipType": null,
+                                                "width": 25
+                                            },
+                                            "configAlternates": {
+                                                "iconMask": "boolean"
+                                            },
+                                            "designerId": "7e291642-246d-41f4-8cbc-450823239b47",
+                                            "customConfigs": [
+                                                {
+                                                    "group": "(Custom Properties)",
+                                                    "name": "iconMask",
+                                                    "type": "string"
+                                                }
+                                            ],
+                                            "cn": [
+                                                {
+                                                    "type": "fixedfunction",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "designer|params": [
+                                                            "button",
+                                                            "e"
+                                                        ],
+                                                        "fn": "handler",
+                                                        "implHandler": [
+                                                            "almConstants.me.searchAlmUser(false, 'right');"
+                                                        ]
+                                                    },
+                                                    "designerId": "122932da-979f-40ad-82ed-2899b8b8ea1b"
+                                                }
+                                            ]
                                         }
                                     ]
                                 },
@@ -1807,14 +1922,127 @@
                                             "userConfig": {
                                                 "cls": null,
                                                 "emptyText": "Search Group Name",
+                                                "enableKeyEvents": true,
                                                 "fieldLabel": "Filtering",
                                                 "fieldStyle": null,
-                                                "id": "inputUserName2",
-                                                "itemId": "inputUserName",
+                                                "id": "inputAlmGroupName",
+                                                "itemId": "inputAlmGroupName",
                                                 "labelWidth": 60,
                                                 "layout|flex": null
                                             },
                                             "designerId": "0167b12d-5cd0-4869-93d4-219f743335ba"
+                                        },
+                                        {
+                                            "type": "Ext.toolbar.Spacer",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "layout|flex": 1
+                                            },
+                                            "designerId": "d72cd6ee-9a44-4b92-aa01-ebbc540b1641"
+                                        },
+                                        {
+                                            "type": "Ext.button.Button",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "height": 30,
+                                                "iconAlign": null,
+                                                "iconCls": "x-toolbar-scroll-left",
+                                                "iconMask": false,
+                                                "layout|flex": null,
+                                                "text": null,
+                                                "tooltipType": null,
+                                                "width": 25
+                                            },
+                                            "configAlternates": {
+                                                "iconMask": "boolean"
+                                            },
+                                            "designerId": "109b4935-3f69-42fb-8214-3d01e5ea25a6",
+                                            "customConfigs": [
+                                                {
+                                                    "group": "(Custom Properties)",
+                                                    "name": "iconMask",
+                                                    "type": "string"
+                                                }
+                                            ],
+                                            "cn": [
+                                                {
+                                                    "type": "fixedfunction",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "designer|params": [
+                                                            "button",
+                                                            "e"
+                                                        ],
+                                                        "fn": "handler",
+                                                        "implHandler": [
+                                                            "almConstants.me.searchAlmGroup(false, 'left');"
+                                                        ]
+                                                    },
+                                                    "designerId": "57f6e95a-c812-4a9e-b018-de19fc9c0c31"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "Ext.button.Button",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "height": 30,
+                                                "iconAlign": null,
+                                                "iconCls": "x-toolbar-scroll-right",
+                                                "iconMask": false,
+                                                "layout|flex": null,
+                                                "text": null,
+                                                "tooltipType": null,
+                                                "width": 25
+                                            },
+                                            "configAlternates": {
+                                                "iconMask": "boolean"
+                                            },
+                                            "designerId": "b3c7c5a9-72a9-48b0-acab-3b4ae00c0b9c",
+                                            "customConfigs": [
+                                                {
+                                                    "group": "(Custom Properties)",
+                                                    "name": "iconMask",
+                                                    "type": "string"
+                                                }
+                                            ],
+                                            "cn": [
+                                                {
+                                                    "type": "fixedfunction",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "designer|params": [
+                                                            "button",
+                                                            "e"
+                                                        ],
+                                                        "fn": "handler",
+                                                        "implHandler": [
+                                                            "almConstants.me.searchAlmGroup(false, 'right');"
+                                                        ]
+                                                    },
+                                                    "designerId": "d819c88e-dd45-4762-a958-cba8a1c32078"
+                                                }
+                                            ]
                                         }
                                     ]
                                 },
@@ -2528,7 +2756,9 @@
                                                         ],
                                                         "fn": "handler",
                                                         "implHandler": [
-                                                            "almConstants.me.showAlmGroupWindow();"
+                                                            "var repositoryWindow = Ext.create(\"widget.AlmRepositoryWindow\");",
+                                                            "repositoryWindow.show();",
+                                                            ""
                                                         ]
                                                     },
                                                     "designerId": "3d1635dc-f370-4865-bf6b-39ee5672cf42"

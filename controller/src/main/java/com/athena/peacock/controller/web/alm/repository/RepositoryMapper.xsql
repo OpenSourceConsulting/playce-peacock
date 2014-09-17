@@ -29,9 +29,9 @@
         	,REPOSIROTY_URL
         ) VALUES (
         	#{repositoryCode}
-        	,#{reposirotyType}
-        	,#{reposirotyDescription}
-        	,#{reposirotyUrl}
+        	,#{repositoryType}
+        	,#{repositoryDescription}
+        	,#{repositoryUrl}
         )
     </insert>
     

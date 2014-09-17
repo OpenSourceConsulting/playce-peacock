@@ -508,6 +508,19 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                                 }
                                                             ]
                                                         }
+                                                    ],
+                                                    dockedItems: [
+                                                        {
+                                                            xtype: 'toolbar',
+                                                            dock: 'top',
+                                                            items: [
+                                                                {
+                                                                    xtype: 'textfield',
+                                                                    fieldLabel: 'Filtering',
+                                                                    labelWidth: 60
+                                                                }
+                                                            ]
+                                                        }
                                                     ]
                                                 }
                                             ]

@@ -33,8 +33,10 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
     id: 'softwareConfigWindow',
     itemId: 'softwareConfigWindow',
     width: 500,
+    resizable: false,
     layout: 'border',
     title: 'Edit Config',
+    modal: true,
 
     initComponent: function() {
         var me = this;
@@ -166,8 +168,7 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
                                     xtype: 'displayfield',
                                     padding: '20 0 0 0',
                                     fieldLabel: 'Path',
-                                    name: 'configFilePath',
-                                    value: 'Display Field'
+                                    name: 'configFilePath'
                                 },
                                 {
                                     xtype: 'hiddenfield',

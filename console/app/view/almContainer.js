@@ -298,6 +298,8 @@ Ext.define('MyApp.view.almContainer', {
                                                                                         almGroupUsersWindow.show();
 
                                                                                         var grid = Ext.getCmp("popAlmUsersGrid").getStore().load();
+                                                                                        Ext.getCmp("addAlmUserType").setValue("project");
+
                                                                                     },
                                                                                     text: 'Add Users to Project'
                                                                                 }
@@ -358,6 +360,7 @@ Ext.define('MyApp.view.almContainer', {
                                                                     autoScroll: true,
                                                                     columnLines: true,
                                                                     forceFit: true,
+                                                                    store: 'AlmProjectConfluencesStore',
                                                                     dockedItems: [
                                                                         {
                                                                             xtype: 'toolbar',
@@ -370,7 +373,7 @@ Ext.define('MyApp.view.almContainer', {
                                                                                 {
                                                                                     xtype: 'button',
                                                                                     handler: function(button, e) {
-                                                                                        var almProjectSpaceWindow = Ext.create("widget.almProjectSpaceWindow");
+                                                                                        var almProjectSpaceWindow = Ext.create("widget.AlmProjectSpaceWindow");
 
                                                                                         almProjectSpaceWindow.show();
 
@@ -386,7 +389,7 @@ Ext.define('MyApp.view.almContainer', {
                                                                         {
                                                                             xtype: 'gridcolumn',
                                                                             minWidth: 150,
-                                                                            dataIndex: 'name',
+                                                                            dataIndex: 'mappingCode',
                                                                             text: 'Space'
                                                                         },
                                                                         {
@@ -424,7 +427,7 @@ Ext.define('MyApp.view.almContainer', {
                                                                     autoScroll: true,
                                                                     columnLines: true,
                                                                     forceFit: true,
-                                                                    store: 'AlmJobStore',
+                                                                    store: 'AlmProjectJenkinsStore',
                                                                     dockedItems: [
                                                                         {
                                                                             xtype: 'toolbar',
@@ -437,7 +440,7 @@ Ext.define('MyApp.view.almContainer', {
                                                                                 {
                                                                                     xtype: 'button',
                                                                                     handler: function(button, e) {
-                                                                                        var almProjectJobWindow = Ext.create("widget.almProjectJobWindow");
+                                                                                        var almProjectJobWindow = Ext.create("widget.AlmProjectJobWindow");
 
                                                                                         almProjectJobWindow.show();
 
@@ -453,7 +456,7 @@ Ext.define('MyApp.view.almContainer', {
                                                                         {
                                                                             xtype: 'gridcolumn',
                                                                             minWidth: 150,
-                                                                            dataIndex: 'name',
+                                                                            dataIndex: 'mappingCode',
                                                                             text: 'Job'
                                                                         },
                                                                         {
@@ -524,11 +527,36 @@ Ext.define('MyApp.view.almContainer', {
                                                 },
                                                 {
                                                     xtype: 'textfield',
-                                                    id: 'inputUserName3',
-                                                    itemId: 'inputUserName',
+                                                    id: 'inputAlmUserName',
+                                                    itemId: 'inputAlmUserName',
                                                     fieldLabel: 'Filtering',
                                                     labelWidth: 60,
-                                                    emptyText: 'Search User Name'
+                                                    emptyText: 'Search User Name',
+                                                    enableKeyEvents: true
+                                                },
+                                                {
+                                                    xtype: 'tbspacer',
+                                                    flex: 1
+                                                },
+                                                {
+                                                    xtype: 'button',
+                                                    handler: function(button, e) {
+                                                        almConstants.me.searchAlmUser(false, 'left');
+                                                    },
+                                                    iconMask: false,
+                                                    height: 30,
+                                                    width: 25,
+                                                    iconCls: 'x-toolbar-scroll-left'
+                                                },
+                                                {
+                                                    xtype: 'button',
+                                                    handler: function(button, e) {
+                                                        almConstants.me.searchAlmUser(false, 'right');
+                                                    },
+                                                    iconMask: false,
+                                                    height: 30,
+                                                    width: 25,
+                                                    iconCls: 'x-toolbar-scroll-right'
                                                 }
                                             ]
                                         }
@@ -718,11 +746,36 @@ Ext.define('MyApp.view.almContainer', {
                                                 },
                                                 {
                                                     xtype: 'textfield',
-                                                    id: 'inputUserName2',
-                                                    itemId: 'inputUserName',
+                                                    id: 'inputAlmGroupName',
+                                                    itemId: 'inputAlmGroupName',
                                                     fieldLabel: 'Filtering',
                                                     labelWidth: 60,
-                                                    emptyText: 'Search Group Name'
+                                                    emptyText: 'Search Group Name',
+                                                    enableKeyEvents: true
+                                                },
+                                                {
+                                                    xtype: 'tbspacer',
+                                                    flex: 1
+                                                },
+                                                {
+                                                    xtype: 'button',
+                                                    handler: function(button, e) {
+                                                        almConstants.me.searchAlmGroup(false, 'left');
+                                                    },
+                                                    iconMask: false,
+                                                    height: 30,
+                                                    width: 25,
+                                                    iconCls: 'x-toolbar-scroll-left'
+                                                },
+                                                {
+                                                    xtype: 'button',
+                                                    handler: function(button, e) {
+                                                        almConstants.me.searchAlmGroup(false, 'right');
+                                                    },
+                                                    iconMask: false,
+                                                    height: 30,
+                                                    width: 25,
+                                                    iconCls: 'x-toolbar-scroll-right'
                                                 }
                                             ]
                                         }
@@ -1030,7 +1083,9 @@ Ext.define('MyApp.view.almContainer', {
                                                 {
                                                     xtype: 'button',
                                                     handler: function(button, e) {
-                                                        almConstants.me.showAlmGroupWindow();
+                                                        var repositoryWindow = Ext.create("widget.AlmRepositoryWindow");
+                                                        repositoryWindow.show();
+
                                                     },
                                                     text: 'Add Repository'
                                                 },

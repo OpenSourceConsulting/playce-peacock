@@ -6,21 +6,21 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userAlias": "almProjectJobWindow",
-        "designer|userClassName": "almProjectJobWindow",
+        "designer|userAlias": "AlmProjectSpaceWindow",
+        "designer|userClassName": "AlmProjectSpaceWindow",
         "height": 300,
-        "id": "almProjectJobWindow",
-        "itemId": "almProjectJobWindow",
+        "id": "almProjectSpaceWindow",
+        "itemId": "almProjectSpaceWindow",
         "layout": "border",
         "modal": true,
         "resizable": false,
-        "title": "Add Job",
-        "width": 380
+        "title": "Add Space",
+        "width": 550
     },
     "configAlternates": {
         "resizable": "boolean"
     },
-    "designerId": "d8e29b55-2774-4a59-b5ed-83b6fe54b606",
+    "designerId": "75dc64ae-25ef-43f8-925f-8371b076930b",
     "cn": [
         {
             "type": "Ext.panel.Panel",
@@ -37,7 +37,7 @@
                 "layout|region": "center",
                 "title": "almSpacePanel"
             },
-            "designerId": "8da40dd3-373d-48f1-b5e9-2ad9a453e171",
+            "designerId": "e56d1e52-f412-491f-9dda-348f641e3376",
             "cn": [
                 {
                     "type": "Ext.grid.Panel",
@@ -52,12 +52,12 @@
                         "columnLines": true,
                         "forceFit": true,
                         "height": 240,
-                        "id": "almJobGrid",
-                        "itemId": "almJobGrid",
-                        "store": "AlmJobStore",
+                        "id": "almSpaceGrid",
+                        "itemId": "almSpaceGrid",
+                        "store": "AlmSpaceStore",
                         "title": null
                     },
-                    "designerId": "2f4f6ca9-0acb-4b94-8361-6ec13d60edcc",
+                    "designerId": "859bf38b-eeba-4056-952c-441b923f7bb6",
                     "cn": [
                         {
                             "type": "Ext.toolbar.Toolbar",
@@ -70,7 +70,7 @@
                                 "dock": "top",
                                 "padding": "5 0 20 0"
                             },
-                            "designerId": "872776e7-01a0-46df-96dd-e185f84b5811",
+                            "designerId": "9d16530e-d9fb-4d6e-ac21-5c41070f9ae3",
                             "cn": [
                                 {
                                     "type": "Ext.form.field.Text",
@@ -84,7 +84,7 @@
                                         "labelWidth": 60,
                                         "layout|flex": null
                                     },
-                                    "designerId": "112036c3-0482-44f3-a897-2ea2b6910b9d"
+                                    "designerId": "013c5ba7-3aaf-4309-a97d-5b6a68d9a85a"
                                 }
                             ]
                         },
@@ -96,11 +96,39 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "dataIndex": "key",
+                                "minWidth": 100,
+                                "text": "Space"
+                            },
+                            "designerId": "da7dd984-79b6-4395-855f-943a401d000e"
+                        },
+                        {
+                            "type": "Ext.grid.column.Column",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
                                 "dataIndex": "name",
                                 "minWidth": 200,
-                                "text": "Job"
+                                "text": "Name"
                             },
-                            "designerId": "94f9239b-4c63-4706-8b99-b43f23469902"
+                            "designerId": "9f507025-d449-4a43-91c2-03a475e40a48"
+                        },
+                        {
+                            "type": "Ext.grid.column.Column",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dataIndex": "type",
+                                "minWidth": 100,
+                                "text": "Type"
+                            },
+                            "designerId": "520c13c8-ecdb-4b41-a471-a748ddb18fc2"
                         },
                         {
                             "type": "Ext.grid.column.Action",
@@ -121,7 +149,7 @@
                                 "text": "Add",
                                 "width": 60
                             },
-                            "designerId": "aa8efb13-0272-4ea7-9a3f-c38a0b6564d6",
+                            "designerId": "06efe0cf-5dde-4fba-81c3-d77fffa575ca",
                             "customConfigs": [
                                 {
                                     "group": "(Custom Properties)",
@@ -141,7 +169,7 @@
                                         "icon": "resources/images/icons/add.png",
                                         "iconCls": ""
                                     },
-                                    "designerId": "83e605e3-299b-408c-83e9-3efe25f090d8",
+                                    "designerId": "43f79306-8461-4d4e-b47f-914fbc03f0cb",
                                     "cn": [
                                         {
                                             "type": "fixedfunction",
@@ -162,10 +190,33 @@
                                                 ],
                                                 "fn": "handler",
                                                 "implHandler": [
-                                                    "alert('add');"
+                                                    "",
+                                                    "Ext.MessageBox.confirm('Confirm', 'Space를 등록 하시겠습니까?', function(btn){",
+                                                    "",
+                                                    "    if(btn == \"yes\"){",
+                                                    "",
+                                                    "        Ext.Ajax.request({",
+                                                    "            url : GLOBAL.urlPrefix + \"alm/project/\"",
+                                                    "            + almConstants.selectRow.get(\"projectCode\") + \"/confluence/\" + record.get(\"key\"),",
+                                                    "            method: 'POST',",
+                                                    "            headers: { 'Content-Type': 'application/json' },",
+                                                    "            disableCaching : true,",
+                                                    "            waitMsg: 'Add Project Space...',",
+                                                    "            success: function(response){",
+                                                    "                var msg = Ext.JSON.decode(response.responseText).msg;",
+                                                    "                Ext.MessageBox.alert('알림', msg);",
+                                                    "                ",
+                                                    "                Ext.getCmp(\"almProjectConfluenceGrid\").getStore().reload();",
+                                                    "                ",
+                                                    "            }",
+                                                    "        });",
+                                                    "        ",
+                                                    "    }",
+                                                    "",
+                                                    "});"
                                                 ]
                                             },
-                                            "designerId": "459ff18b-8eeb-4251-9edb-ad514ac001b6"
+                                            "designerId": "f2f0f5ca-b327-4990-b711-c68585a1e874"
                                         }
                                     ]
                                 }
@@ -178,7 +229,7 @@
                                 "type": "object"
                             },
                             "codeClass": null,
-                            "designerId": "126e8e54-0ccd-461b-be16-2a95f5c565ad"
+                            "designerId": "11f9cd62-fb36-4b80-84a1-0f89762355ee"
                         }
                     ]
                 }

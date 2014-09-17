@@ -119,7 +119,8 @@
                     "    userContextMenu: almUserGridContextMenu,",
                     "    groupContextMenu: almGroupGridContextMenu,",
                     "    selectRow : null,",
-                    "    actionRow : null",
+                    "    actionRow : null,",
+                    "    page : null",
                     "});",
                     ""
                 ]
@@ -273,24 +274,82 @@
             "codeClass": null,
             "userConfig": {
                 "designer|params": [
-                    "init"
+                    "init",
+                    "pagingType"
                 ],
                 "fn": "searchAlmUser",
                 "implHandler": [
                     "",
                     "if(init) {",
                     "    Ext.getCmp(\"almUserGrid\").reconfigure(Ext.getCmp(\"almUserGrid\").store, Ext.getCmp(\"almUserGrid\").initialConfig.columns);",
+                    "    almConstants.page = 1;",
+                    "    Ext.getCmp(\"inputAlmUserName\").setValue(\"\");",
+                    "}",
+                    "",
+                    "if(pagingType == 'left' && almConstants.page > 1) {",
+                    "    almConstants.page-- ;",
+                    "} else if(pagingType == 'right') {",
+                    "    almConstants.page++ ;",
                     "}",
                     "",
                     "almConstants.selectRow = null;",
                     "",
-                    "Ext.getCmp(\"almUserGrid\").getStore().load();",
+                    "Ext.getCmp(\"almUserGrid\").getStore().load({",
+                    "    params:{",
+                    "        limit : almConstants.page,",
+                    "        search : Ext.getCmp(\"inputAlmUserName\").getValue()",
+                    "    }",
+                    "});",
                     "",
                     "var detailPanel = Ext.getCmp(\"almUserDetailPanel\");",
-                    "detailPanel.layout.setActiveItem(0);"
+                    "detailPanel.layout.setActiveItem(0);",
+                    ""
                 ]
             },
             "designerId": "cb1355f9-c358-4732-9f1c-3ebf3bd77ad2"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "init",
+                    "pagingType"
+                ],
+                "fn": "searchAlmGroup",
+                "implHandler": [
+                    "",
+                    "if(init) {",
+                    "    Ext.getCmp(\"almGroupGrid\").reconfigure(Ext.getCmp(\"almGroupGrid\").store, Ext.getCmp(\"almGroupGrid\").initialConfig.columns);",
+                    "    almConstants.page = 1;",
+                    "    Ext.getCmp(\"inputAlmGroupName\").setValue(\"\");",
+                    "}",
+                    "",
+                    "if(pagingType == 'left' && almConstants.page > 1) {",
+                    "    almConstants.page-- ;",
+                    "} else if(pagingType == 'right') {",
+                    "    almConstants.page++ ;",
+                    "}",
+                    "",
+                    "almConstants.selectRow = null;",
+                    "",
+                    "Ext.getCmp(\"almGroupGrid\").getStore().load({",
+                    "    params:{",
+                    "        limit : almConstants.page,",
+                    "        search : Ext.getCmp(\"inputAlmGroupName\").getValue()",
+                    "    }",
+                    "});",
+                    "",
+                    "var detailPanel = Ext.getCmp(\"almGroupDetailPanel\");",
+                    "detailPanel.layout.setActiveItem(0);",
+                    ""
+                ]
+            },
+            "designerId": "644d1e4a-c5d7-4579-bcd1-892dff5f445a"
         },
         {
             "type": "basicfunction",
@@ -415,16 +474,11 @@
                     "",
                     "} else if(newCard.title == \"User\"){",
                     "",
-                    "    this.searchAlmUser();",
+                    "    this.searchAlmUser(true);",
                     "",
                     "} else if(newCard.title == \"Group\"){",
                     "",
-                    "    almConstants.selectRow = null;",
-                    "",
-                    "    Ext.getCmp(\"almGroupGrid\").getStore().load();",
-                    "",
-                    "    var detailPanel = Ext.getCmp(\"almGroupDetailPanel\");",
-                    "    detailPanel.layout.setActiveItem(0);",
+                    "    this.searchAlmGroup(true);",
                     "",
                     "} else if(newCard.title == \"Repository\"){",
                     "",
@@ -468,30 +522,17 @@
                     "",
                     "} else if(newCard.title == \"Confluence\"){",
                     "",
-                    "    var grid = Ext.getCmp(\"almProjectGroupGrid\");",
+                    "    var confStore = Ext.getCmp(\"almProjectConfluenceGrid\").getStore();",
+                    "    confStore.getProxy().url = GLOBAL.urlPrefix + 'alm/project/'+almConstants.selectRow.get(\"projectCode\")+'/confluence';",
                     "",
-                    "    var store = Ext.create('Ext.data.Store', {",
-                    "        alias: 'store.ModeStore',",
-                    "        autoLoad: false,",
-                    "        fields: [{",
-                    "            name: 'name',",
-                    "            type: 'string'",
-                    "        }, {",
-                    "            name: 'text',",
-                    "            type: 'string'",
-                    "        }],",
-                    "        data: [",
-                    "      { name : \"A468827\", text : \"Remove Group from Project\"},",
-                    "      { name : \"BP08882\", text : \"Remove Group from Project\"}",
-                    "    ]",
-                    "    });",
-                    "",
-                    "    grid.getView().bindStore(store);",
+                    "    confStore.load();",
                     "",
                     "} else {",
                     "",
-                    "    var grid = Ext.getCmp(\"almProjectJenkinsGrid\").getStore().load();",
+                    "    var jenkinsStore = Ext.getCmp(\"almProjectJenkinsGrid\").getStore();",
+                    "    jenkinsStore.getProxy().url = GLOBAL.urlPrefix + 'alm/project/'+almConstants.selectRow.get(\"projectCode\")+'/jenkins';",
                     "",
+                    "    jenkinsStore.load();",
                     "}"
                 ],
                 "name": "tabchange",
@@ -665,6 +706,54 @@
                 ]
             },
             "designerId": "e76c4fe4-a53d-413a-a1f4-b2113d936fa2"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#inputAlmUserName",
+                "designer|targetType": "Ext.form.field.Text",
+                "fn": "onInputAlmUserNameKeydown",
+                "implHandler": [
+                    "//User Name Search",
+                    "if(e.getKey() == e.ENTER){",
+                    "    ",
+                    "    almConstants.page = 1;",
+                    "    this.searchAlmUser();",
+                    "}"
+                ],
+                "name": "keydown",
+                "scope": "me"
+            },
+            "designerId": "f4c5ef11-16f0-4d16-a6f3-71bc7587c397"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#inputAlmGroupName",
+                "designer|targetType": "Ext.form.field.Text",
+                "fn": "onInputAlmGroupNameKeydown",
+                "implHandler": [
+                    "//User Name Search",
+                    "if(e.getKey() == e.ENTER){",
+                    "    ",
+                    "    almConstants.page = 1;",
+                    "    this.searchAlmGroup();",
+                    "}"
+                ],
+                "name": "keydown",
+                "scope": "me"
+            },
+            "designerId": "31502585-beaf-43f3-9a92-8f83eead0f8e"
         }
     ]
 }
