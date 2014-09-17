@@ -477,30 +477,38 @@ public class RHEVMController {
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
 		Assert.notNull(dto.getVmId(), "vmId must not be null.");
 		
-		try {
-			// VM 중지 전 Agent를 중지시킨다.
-			ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
-			cmdMsg.setAgentId(dto.getVmId());
-			cmdMsg.setBlocking(true);
+		final String vmId = dto.getVmId();
+		
+		new Thread() {
+			public void run() {
+				try {
+					// VM 중지 전 Agent를 중지시킨다.
+					ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
+					cmdMsg.setAgentId(vmId);
+					cmdMsg.setBlocking(true);
 
-			int sequence = 0;
-			Command command = new Command("STOP_AGENT");
-			
-			ShellAction action = new ShellAction(sequence++);
-			
-			action.setCommand("service");
-			action.addArguments("peacock-agent stop");
+					int sequence = 0;
+					Command command = new Command("STOP_AGENT");
+					
+					ShellAction action = new ShellAction(sequence++);
+					
+					action.setCommand("service");
+					action.addArguments("peacock-agent stop");
 
-			command.addAction(action);
-			
-			cmdMsg.addCommand(command);
+					command.addAction(action);
+					
+					cmdMsg.addCommand(command);
 
-			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
-			peacockTransmitter.sendMessage(datagram);
-		} catch (Exception e) {
-			// ignore this exception
-			// Agent가 설치되지 않은 VM일 경우 에러가 발생할 수 있고, 이미 Agent가 종료되어 연결된 Channel이 없을 수 있다.
-		}
+					PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+					peacockTransmitter.sendMessage(datagram);
+				} catch (Exception e) {
+					// ignore this exception
+					// Agent가 설치되지 않은 VM일 경우 에러가 발생할 수 있고, 이미 Agent가 종료되어 연결된 Channel이 없을 수 있다.
+				}
+			};
+		}.start();
+		
+		Thread.sleep(1000);
 		
 		try {
 			jsonRes.setData(rhevmService.stopVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
@@ -529,30 +537,38 @@ public class RHEVMController {
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
 		Assert.notNull(dto.getVmId(), "vmId must not be null.");
 		
-		try {
-			// VM shutdown 전 Agent를 중지시킨다.
-			ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
-			cmdMsg.setAgentId(dto.getVmId());
-			cmdMsg.setBlocking(true);
+		final String vmId = dto.getVmId();
+		
+		new Thread() {
+			public void run() {
+				try {
+					// VM 중지 전 Agent를 중지시킨다.
+					ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
+					cmdMsg.setAgentId(vmId);
+					cmdMsg.setBlocking(true);
 
-			int sequence = 0;
-			Command command = new Command("STOP_AGENT");
-			
-			ShellAction action = new ShellAction(sequence++);
-			
-			action.setCommand("service");
-			action.addArguments("peacock-agent stop");
+					int sequence = 0;
+					Command command = new Command("STOP_AGENT");
+					
+					ShellAction action = new ShellAction(sequence++);
+					
+					action.setCommand("service");
+					action.addArguments("peacock-agent stop");
 
-			command.addAction(action);
-			
-			cmdMsg.addCommand(command);
+					command.addAction(action);
+					
+					cmdMsg.addCommand(command);
 
-			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
-			peacockTransmitter.sendMessage(datagram);
-		} catch (Exception e) {
-			// ignore this exception
-			// Agent가 설치되지 않은 VM일 경우 에러가 발생할 수 있고, 이미 Agent가 종료되어 연결된 Channel이 없을 수 있다.
-		}
+					PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+					peacockTransmitter.sendMessage(datagram);
+				} catch (Exception e) {
+					// ignore this exception
+					// Agent가 설치되지 않은 VM일 경우 에러가 발생할 수 있고, 이미 Agent가 종료되어 연결된 Channel이 없을 수 있다.
+				}
+			};
+		}.start();
+		
+		Thread.sleep(1000);
 		
 		try {
 			jsonRes.setData(rhevmService.shutdownVirtualMachine(dto.getHypervisorId(), dto.getVmId()));

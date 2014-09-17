@@ -131,7 +131,7 @@ public class MachineService {
 		MachineDto m = machineDao.getMachine(machine.getMachineId());
 		
 		// Instance 이름이 변경되었을 경우 DB 업데이트
-		if (machine.getDisplayName().equals(m.getDisplayName())) {
+		if (!machine.getDisplayName().equals(m.getDisplayName())) {
 			if (machine.getDisplayName().toLowerCase().startsWith("hhilws") && !machine.getDisplayName().toLowerCase().startsWith("hhilwsd")) {
 				m.setIsPrd("Y");
 			} else {
