@@ -62,6 +62,7 @@ import com.redhat.rhevm.api.model.CpuTopology;
 import com.redhat.rhevm.api.model.DataCenter;
 import com.redhat.rhevm.api.model.DataCenters;
 import com.redhat.rhevm.api.model.Host;
+import com.redhat.rhevm.api.model.Hosts;
 import com.redhat.rhevm.api.model.IP;
 import com.redhat.rhevm.api.model.Network;
 import com.redhat.rhevm.api.model.OperatingSystem;
@@ -113,12 +114,16 @@ public class RHEVMService {
 			url =  url + "?search=" + name;
 		}
 		
+		List<Cluster> clusterList = getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.CLUSTERS, HttpMethod.GET, Clusters.class).getClusters();
+		List<Host> hostList = getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.HOSTS, HttpMethod.GET, Hosts.class).getHosts();
+		
 		VMs vms = getRHEVMRestTemplate(hypervisorId).submit(url, HttpMethod.GET, VMs.class);
 		List<VM> vmList = vms.getVMs();
 		
 		for( VM vm : vmList) {
-			vmDtoList.add(makeDto(hypervisorId, vm));
+			vmDtoList.add(makeDto(hypervisorId, vm, clusterList, hostList));
 		}
+		
 		return vmDtoList;
 	}
 	
@@ -137,12 +142,16 @@ public class RHEVMService {
 			url =  url + "?search=" + name;
 		}
 		
+		List<DataCenter> dataCenterList = getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.DATA_CENTERS, HttpMethod.GET, DataCenters.class).getDataCenters();
+		List<Cluster> clusterList = getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.CLUSTERS, HttpMethod.GET, Clusters.class).getClusters();
+		
 		Templates templates = getRHEVMRestTemplate(hypervisorId).submit(url, HttpMethod.GET, Templates.class);
 		List<Template> templateList = templates.getTemplates();
 		
 		for( Template template : templateList) {
-			templateDtoList.add(makeDto(hypervisorId, template));
+			templateDtoList.add(makeDto(hypervisorId, template, dataCenterList, clusterList));
 		}
+		
 		return templateDtoList;
 	}
 	
@@ -156,7 +165,7 @@ public class RHEVMService {
 		String templateUrl =  RHEVApi.TEMPLATES + "/" + templateId;
 		Template template = getRHEVMRestTemplate(hypervisorId).submit(templateUrl, HttpMethod.GET, Template.class);
 		
-		return makeDto(hypervisorId, template);
+		return makeDto(hypervisorId, template, null, null);
 	}
 	
 	/**
@@ -349,7 +358,7 @@ public class RHEVMService {
 	public VMDto getVirtualMachine(int hypervisorId, String vmId) throws Exception {
 		String callUrl = RHEVApi.VMS + "/" + vmId;
 		VM vm = getRHEVMRestTemplate(hypervisorId).submit(callUrl,  HttpMethod.GET, VM.class);
-		return makeDto(hypervisorId, vm);
+		return makeDto(hypervisorId, vm, null, null);
 	}
 
 	/**
@@ -584,7 +593,7 @@ public class RHEVMService {
 	 * @param template
 	 * @return
 	 */
-	private TemplateDto makeDto(int hypervisorId, Template template) {
+	private TemplateDto makeDto(int hypervisorId, Template template, List<DataCenter> dataCenterList, List<Cluster> clusterList) {
 		TemplateDto dto = new TemplateDto();
 		
 		dto.setTemplateId(template.getId());
@@ -608,12 +617,38 @@ public class RHEVMService {
 		
 		try {
 			String clusterUrl = template.getCluster().getHref();
-			Cluster cluster = getRHEVMRestTemplate(hypervisorId).submit(clusterUrl,  HttpMethod.GET, Cluster.class);
-			if(cluster != null) dto.setCluster(cluster.getName());
+			Cluster cluster = null;
+			
+			if (clusterList != null) {
+				for (int i = 0; i < clusterList.size(); i++) {
+					cluster = clusterList.get(i);
+
+					if (cluster.getHref().equals(clusterUrl)) {
+						dto.setCluster(cluster.getName());
+						break;
+					}
+				}
+			} else {
+				cluster = getRHEVMRestTemplate(hypervisorId).submit(clusterUrl, HttpMethod.GET, Cluster.class);
+				if(cluster != null) dto.setCluster(cluster.getName());
+			}
 			
 			String dcUrl = cluster.getDataCenter().getHref();
-			DataCenter dc = getRHEVMRestTemplate(hypervisorId).submit(dcUrl,  HttpMethod.GET, DataCenter.class);
-			if( dc != null) dto.setDataCenter(dc.getName());
+			DataCenter dc = null;
+
+			if (dataCenterList != null) {
+				for (int i = 0; i < dataCenterList.size(); i++) {
+					dc = dataCenterList.get(i);
+
+					if (dc.getHref().equals(dcUrl)) {
+						dto.setDataCenter(dc.getName());
+						break;
+					}
+				}
+			} else {
+				dc = getRHEVMRestTemplate(hypervisorId).submit(dcUrl, HttpMethod.GET, DataCenter.class);
+				if( dc != null) dto.setDataCenter(dc.getName());
+			}
 		
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -679,7 +714,7 @@ public class RHEVMService {
 	 * @param vm
 	 * @return
 	 */
-	private VMDto makeDto(int hypervisorId, VM vm) {
+	private VMDto makeDto(int hypervisorId, VM vm, List<Cluster> clusterList, List<Host> hostList) {
 		VMDto dto = new VMDto();
 		dto.setVmId(vm.getId());
 		dto.setName(vm.getName());
@@ -711,22 +746,53 @@ public class RHEVMService {
 			}
 			
 			String clusterUrl = vm.getCluster().getHref();
-			Cluster cluster = getRHEVMRestTemplate(hypervisorId).submit(clusterUrl, HttpMethod.GET, Cluster.class);
-			if(cluster != null) dto.setCluster(cluster.getName());
+			Cluster cluster = null;
+			if (clusterList != null) {
+				for (int i = 0; i < clusterList.size(); i++) {
+					cluster = clusterList.get(i);
+
+					if (cluster.getHref().equals(clusterUrl)) {
+						dto.setCluster(cluster.getName());
+						break;
+					}
+				}
+			} else {
+				cluster = getRHEVMRestTemplate(hypervisorId).submit(clusterUrl, HttpMethod.GET, Cluster.class);
+				if(cluster != null) dto.setCluster(cluster.getName());
+			}
 			
-			String dcUrl = cluster.getDataCenter().getHref();
-			DataCenter dc = getRHEVMRestTemplate(hypervisorId).submit(dcUrl, HttpMethod.GET, DataCenter.class);
-			if( dc != null) dto.setDataCenter(dc.getName());
+			// DataCenter는 표시되는 곳이 없음. 단건 조회일 경우에만 추출한다.
+			if (clusterList == null) {
+				String dcUrl = cluster.getDataCenter().getHref();
+				DataCenter dc = getRHEVMRestTemplate(hypervisorId).submit(dcUrl, HttpMethod.GET, DataCenter.class);
+				if( dc != null) dto.setDataCenter(dc.getName());
+			}
 			
 			if( vm.getHost() != null ) {
 				String hostUrl = vm.getHost().getHref();
-				Host host = getRHEVMRestTemplate(hypervisorId).submit(hostUrl, HttpMethod.GET, Host.class);
-				if( host != null ) dto.setHost(host.getName());
+				Host host = null;
+				
+				if (hostList != null) {
+					for (int i = 0; i < hostList.size(); i++) {
+						host = hostList.get(i);
+						
+						if (host.getHref().equals(hostUrl)) {
+							dto.setHost(host.getName());
+							break;
+						}
+					}
+				} else {
+					host = getRHEVMRestTemplate(hypervisorId).submit(hostUrl, HttpMethod.GET, Host.class);
+					if( host != null ) dto.setHost(host.getName());
+				}
 			}
 			
-			String templateUrl = vm.getTemplate().getHref();
-			Template template = getRHEVMRestTemplate(hypervisorId).submit(templateUrl, HttpMethod.GET, Template.class);
-			if( template != null ) dto.setTemplate(template.getName());
+			// Template 정보는 상세 조회시에만 표시됨. 다건 조회일 경우는 Skip
+			if (clusterList == null) {
+				String templateUrl = vm.getTemplate().getHref();
+				Template template = getRHEVMRestTemplate(hypervisorId).submit(templateUrl, HttpMethod.GET, Template.class);
+				if( template != null ) dto.setTemplate(template.getName());
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
