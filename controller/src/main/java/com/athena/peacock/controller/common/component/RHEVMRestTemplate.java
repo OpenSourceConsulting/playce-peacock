@@ -55,6 +55,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
@@ -302,6 +303,20 @@ public class RHEVMRestTemplate {
 			logger.debug("[Request URL] : {}", getUrl(api));
 			logger.debug("[Response] : {}", response);
 			
+			if(response.getStatusCode().equals(HttpStatus.BAD_REQUEST) 
+					|| response.getStatusCode().equals(HttpStatus.UNAUTHORIZED)
+					|| response.getStatusCode().equals(HttpStatus.PAYMENT_REQUIRED)
+					|| response.getStatusCode().equals(HttpStatus.FORBIDDEN)
+					|| response.getStatusCode().equals(HttpStatus.METHOD_NOT_ALLOWED)
+					|| response.getStatusCode().equals(HttpStatus.NOT_ACCEPTABLE)
+					|| response.getStatusCode().equals(HttpStatus.INTERNAL_SERVER_ERROR)
+					|| response.getStatusCode().equals(HttpStatus.NOT_IMPLEMENTED)
+					|| response.getStatusCode().equals(HttpStatus.BAD_GATEWAY)
+					|| response.getStatusCode().equals(HttpStatus.SERVICE_UNAVAILABLE)
+					|| response.getStatusCode().equals(HttpStatus.GATEWAY_TIMEOUT)) {
+				throw new Exception(response.getStatusCode().value() + " " + response.getStatusCode().toString());
+			}
+			
 			return clazz.cast(response.getBody());
 		} catch (RestClientException e) {
 			logger.error("RestClientException has occurred.", e);
@@ -311,5 +326,17 @@ public class RHEVMRestTemplate {
 			throw e;
 		}
 	}//end of submit()
+	
+	public static void main(String[] args) {
+		String protocol = "HTTPS";
+		String host = "";
+		String domain = "internal";
+		String port = "8443";
+		String username = "admin";
+		String password = "";
+		
+		RHEVMRestTemplate rhevTemplate = new RHEVMRestTemplate(protocol, host, domain, port, username, password);
+		System.out.println(rhevTemplate.getCredential());
+	}
 }
 //end of RHEVMRestTemplate.java

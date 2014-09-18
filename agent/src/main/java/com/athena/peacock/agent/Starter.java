@@ -65,7 +65,7 @@ public class Starter {
 	@SuppressWarnings("resource")
 	public static void main(String[] args) {
 		
-		int rand = (int) (Math.random() * 100) % 60;
+		int rand = (int) (Math.random() * 100) % 50;
 		System.setProperty("random.seconds", Integer.toString(rand));
 		
 		String configFile = null;

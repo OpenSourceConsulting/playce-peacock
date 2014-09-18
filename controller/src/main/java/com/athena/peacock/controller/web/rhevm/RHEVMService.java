@@ -667,9 +667,24 @@ public class RHEVMService {
 		
 		dto.setName(nic.getName());
 		dto.setType(nic.getInterface());
-		dto.setLinked(Boolean.toString(nic.isLinked()));
-		dto.setPlugged(Boolean.toString(nic.isPlugged()));
-		dto.setActive(Boolean.toString(nic.isActive()));
+		
+		if (nic.isLinked() != null) { 
+			dto.setLinked(Boolean.toString(nic.isLinked()));
+		} else {
+			dto.setLinked("N/A");
+		}
+		
+		if (nic.isPlugged() != null) {
+			dto.setPlugged(Boolean.toString(nic.isPlugged()));
+		} else {
+			dto.setPlugged("N/A");
+		}
+		
+		if (nic.isActive() != null) {
+			dto.setActive(Boolean.toString(nic.isActive()));
+		} else {
+			dto.setActive("N/A");
+		}
 		
 		if (nic.getMac() != null) {
 			dto.setMacAddress(nic.getMac().getAddress());
@@ -699,12 +714,37 @@ public class RHEVMService {
 		
 		dto.setName(disk.getName());
 		dto.setActive(disk.getActive());
-		dto.setVirtualSize((disk.getSize()/1024/1024) + "");
-		dto.setActualSize((disk.getActualSize()/1024/1024) + "");
-		dto.setBootable(Boolean.toString(disk.isBootable()));
-		dto.setSharable(Boolean.toString(disk.isShareable()));
 		dto.setInterface(disk.getInterface());
-		dto.setStatus(disk.getStatus().getState());
+		
+		if (disk.getSize() != null) {
+			dto.setVirtualSize((disk.getSize()/1024/1024) + "");
+		} else {
+			dto.setVirtualSize("N/A");
+		}
+		
+		if (disk.getActualSize() != null) {
+			dto.setActualSize((disk.getActualSize()/1024/1024) + "");
+		} else {
+			dto.setActualSize("N/A");
+		}
+		
+		if (disk.isBootable() != null) {
+			dto.setBootable(Boolean.toString(disk.isBootable()));
+		} else {
+			dto.setBootable("N/A");
+		}
+		
+		if (disk.isShareable() != null) {
+			dto.setSharable(Boolean.toString(disk.isShareable()));
+		} else {
+			dto.setSharable("N/A");
+		}
+		
+		if (disk.getStatus() != null) {
+			dto.setStatus(disk.getStatus().getState());
+		} else {
+			dto.setStatus("N/A");
+		}
 
 		return dto;
 	}

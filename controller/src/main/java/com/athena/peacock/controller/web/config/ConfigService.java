@@ -72,6 +72,8 @@ public class ConfigService {
 	
 	public void updateConfig(ConfigDto config) throws Exception {
 		configDao.deleteConfig(config);
+		
+		config.setDeleteYn("N");
 		configDao.insertConfig(config);
 	}
 	

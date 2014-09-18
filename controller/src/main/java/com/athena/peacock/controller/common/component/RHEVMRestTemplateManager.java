@@ -117,8 +117,15 @@ public class RHEVMRestTemplateManager implements InitializingBean {
 	}//end of getAllTemplates()
 	
 	public static void main(String[] args) throws Exception {
-		RHEVMRestTemplate rhevTemplate = new RHEVMRestTemplate("HTTPS", "121.138.109.61", "internal", "8543", "admin", "redhat");
-
+		String protocol = "HTTPS";
+		String host = "";
+		String domain = "internal";
+		String port = "8443";
+		String username = "admin";
+		String password = "";
+		
+		RHEVMRestTemplate rhevTemplate = new RHEVMRestTemplate(protocol, host, domain, port, username, password);
+		
 		String callUrl = RHEVApi.VMS + "/907df084-d7d6-4ecd-bf23-20531df58922/nics";
 		Nics nics = rhevTemplate.submit(callUrl, HttpMethod.GET, Nics.class);
 		

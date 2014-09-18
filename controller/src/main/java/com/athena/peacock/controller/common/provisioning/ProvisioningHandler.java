@@ -44,9 +44,7 @@ import org.springframework.stereotype.Component;
 import com.athena.peacock.common.core.action.ConfigAction;
 import com.athena.peacock.common.core.action.FileWriteAction;
 import com.athena.peacock.common.core.action.ShellAction;
-import com.athena.peacock.common.core.action.SshAction;
 import com.athena.peacock.common.core.action.support.Property;
-import com.athena.peacock.common.core.action.support.TargetHost;
 import com.athena.peacock.common.core.command.Command;
 import com.athena.peacock.common.netty.PeacockDatagram;
 import com.athena.peacock.common.netty.message.AbstractMessage;
@@ -55,7 +53,6 @@ import com.athena.peacock.common.netty.message.ProvisioningResponseMessage;
 import com.athena.peacock.controller.netty.PeacockTransmitter;
 import com.athena.peacock.controller.web.config.ConfigDto;
 import com.athena.peacock.controller.web.config.ConfigService;
-import com.athena.peacock.controller.web.machine.MachineDto;
 import com.athena.peacock.controller.web.machine.MachineService;
 import com.athena.peacock.controller.web.software.SoftwareDto;
 import com.athena.peacock.controller.web.software.SoftwareService;
@@ -266,6 +263,7 @@ public class ProvisioningHandler {
 				s_action = new ShellAction(sequence++);
 				s_action.setWorkingDiretory("/tmp");
 				s_action.setCommand("unzip");
+				s_action.addArguments("-o");
 				s_action.addArguments(fileNames[i]);
 				s_action.addArguments("-d");
 				s_action.addArguments(apacheHome);
@@ -286,6 +284,7 @@ public class ProvisioningHandler {
 				s_action = new ShellAction(sequence++);
 				s_action.setWorkingDiretory("/tmp");
 				s_action.setCommand("unzip");
+				s_action.addArguments("-o");
 				s_action.addArguments(fileNames[i]);
 				s_action.addArguments("-d");
 				s_action.addArguments(serverHome);
@@ -792,6 +791,7 @@ public class ProvisioningHandler {
 			s_action = new ShellAction(sequence++);
 			s_action.setWorkingDiretory("/tmp");
 			s_action.setCommand("unzip");
+			s_action.addArguments("-o");
 			s_action.addArguments(fileNames[i]);
 			s_action.addArguments("-d");
 			s_action.addArguments(serverHome);
@@ -818,14 +818,6 @@ public class ProvisioningHandler {
 		s_action.setCommand("mv");
 		s_action.addArguments("codeServer21");
 		s_action.addArguments(serverName);
-		command.addAction(s_action);
-		
-		// chonw -R ${user}:${group} /home/${user}
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("chown");
-		s_action.addArguments("-R");
-		s_action.addArguments(user + ":" + group);
-		s_action.addArguments(serverHome);
 		command.addAction(s_action);
 		
 		// Add Directory & File Setting Command
@@ -971,10 +963,10 @@ public class ProvisioningHandler {
 			} else if (databaseType2.toLowerCase().equals("mysql")) {
 				driverClassName = "com.mysql.jdbc.Driver";
 				query = "SELECT 1";
-			} else if (databaseType1.toLowerCase().equals("mssql")) {
+			} else if (databaseType2.toLowerCase().equals("mssql")) {
 				driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 				query = "SELECT 1";
-			} else if (databaseType1.toLowerCase().equals("db2")) {
+			} else if (databaseType2.toLowerCase().equals("db2")) {
 				driverClassName = "com.ibm.db2.jcc.DB2Driver";
 				query = "VALUES 1";
 			}
@@ -1013,25 +1005,30 @@ public class ProvisioningHandler {
 		
 		command = new Command("Set IP & Hostname");
 		sequence = 0;
-		
-		// ShellAction으로는 Redirection 및 sed 관련 명령 수행이 부적합하기 때문에 SshAction을 사용한다.
-		MachineDto machine = machineService.getMachine(provisioningDetail.getMachineId());
 
-		TargetHost targetHost = new TargetHost();
-		targetHost.setHost(machine.getIpAddr());
-		targetHost.setPort(Integer.parseInt(machine.getSshPort()));
-		targetHost.setUsername(machine.getSshUsername());
-		targetHost.setPassword(machine.getSshPassword());
-		targetHost.setKeyfile(machine.getSshKeyFile());
-		
-		List<String> commandList = new ArrayList<String>();
-		commandList.add("hostname " + hostName);
-		commandList.add("echo " + localIPAddress + " " + hostName  + " >> /etc/hosts");
-		commandList.add("sed -i 's/localhost.localdomain/" + hostName + "/g' /etc/sysconfig/network");
+		// Set IP & Hostname
+		s_action = new ShellAction(sequence++);
+		s_action.setWorkingDiretory(serverHome);
+		s_action.setCommand("sh");
+		s_action.addArguments("ews_init.sh");
+		s_action.addArguments(localIPAddress);
+		s_action.addArguments(hostName);
+		command.addAction(s_action);
 
-		SshAction sh_action = new SshAction(sequence++);
-		sh_action.setTargetHost(targetHost);
-		sh_action.setCommandList(commandList);
+		s_action = new ShellAction(sequence++);
+		s_action.setWorkingDiretory(serverHome);
+		s_action.setCommand("rm");
+		s_action.addArguments("-f");
+		s_action.addArguments("ews_init.sh");
+		command.addAction(s_action);
+		
+		// chonw -R ${user}:${group} /home/${user}
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("chown");
+		s_action.addArguments("-R");
+		s_action.addArguments(user + ":" + group);
+		s_action.addArguments(serverHome);
+		command.addAction(s_action);
 		
 		// Add Set IP & Hostname Command
 		cmdMsg.addCommand(command);
@@ -1128,8 +1125,10 @@ public class ProvisioningHandler {
 		String fileName = provisioningDetail.getFileName();
 		
 		String user = provisioningDetail.getUser();
+		String group = provisioningDetail.getGroup();
 		String javaHome = provisioningDetail.getJavaHome();
 		String jbossHome = provisioningDetail.getJbossHome();
+		String baseTemplate = provisioningDetail.getBaseTemplate();
 		String serverHome = provisioningDetail.getServerHome();
 		String serverBase = provisioningDetail.getServerBase();
 		String serverName = provisioningDetail.getServerName();
@@ -1148,8 +1147,10 @@ public class ProvisioningHandler {
 		logger.debug("fileLocation : " + fileLocation);
 		logger.debug("fileName : " + fileName);
 		logger.debug("user : " + user);
+		logger.debug("group : " + group);
 		logger.debug("javaHome : " + javaHome);
 		logger.debug("jbossHome : " + jbossHome);
+		logger.debug("baseTemplate : " + baseTemplate);
 		logger.debug("serverHome : " + serverHome);
 		logger.debug("serverBase : " + serverBase);
 		logger.debug("serverName : " + serverName);
@@ -1227,6 +1228,7 @@ public class ProvisioningHandler {
 			s_action = new ShellAction(sequence++);
 			s_action.setWorkingDiretory("/tmp");
 			s_action.setCommand("unzip");
+			s_action.addArguments("-o");
 			s_action.addArguments(fileNames[i]);
 			s_action.addArguments("-d");
 			s_action.addArguments(serverHome);
@@ -1234,18 +1236,22 @@ public class ProvisioningHandler {
 		}
 		
 		// ${server.base}/codeServer11_cs/lib, ${server.base}/codeServer21_cs/lib 에는 ${jboss.home}/server/all/lib에 있는 라이브러리 파일을 복사해 넣는다.
+		// Set IP & Hostname
 		s_action = new ShellAction(sequence++);
-		s_action.setCommand("cp");
-		s_action.addArguments(jbossHome + "/server/all/lib/*.jar");
-		s_action.addArguments(serverBase + "/codeServer11_cs/lib/");
-		s_action.addArguments(serverHome);
+		s_action.setWorkingDiretory(serverHome);
+		s_action.setCommand("sh");
+		s_action.addArguments("eap_init.sh");
+		s_action.addArguments(localIPAddress);
+		s_action.addArguments(hostName);
+		s_action.addArguments(jbossHome + "/server/all/lib");
+		s_action.addArguments(serverBase);
 		command.addAction(s_action);
-		
+
 		s_action = new ShellAction(sequence++);
-		s_action.setCommand("cp");
-		s_action.addArguments(jbossHome + "/server/all/lib/*.jar");
-		s_action.addArguments(serverBase + "/codeServer21_cs/lib/");
-		s_action.addArguments(serverHome);
+		s_action.setWorkingDiretory(serverHome);
+		s_action.setCommand("rm");
+		s_action.addArguments("-f");
+		s_action.addArguments("eap_init.sh");
 		command.addAction(s_action);
 		
 		// Add JBoss INSTALL Command
@@ -1320,6 +1326,36 @@ public class ProvisioningHandler {
 		s_action.addArguments("codeServer21_cs");
 		s_action.addArguments(user + "Server21_cs");
 		command.addAction(s_action);
+		
+		if (baseTemplate.endsWith("Server11") && !serverName.equals(user + "Server11")) {
+			s_action = new ShellAction(sequence++);
+			s_action.setWorkingDiretory(serverBase);
+			s_action.setCommand("mv");
+			s_action.addArguments(user + "Server11");
+			s_action.addArguments(serverName);
+			command.addAction(s_action);
+		} else if (baseTemplate.endsWith("Server11_cs") && !serverName.equals(user + "Server11_cs")) {
+			s_action = new ShellAction(sequence++);
+			s_action.setWorkingDiretory(serverBase);
+			s_action.setCommand("mv");
+			s_action.addArguments(user + "Server11_cs");
+			s_action.addArguments(serverName);
+			command.addAction(s_action);
+		} else if (baseTemplate.endsWith("Server21") && !serverName.equals(user + "Server21")) {
+			s_action = new ShellAction(sequence++);
+			s_action.setWorkingDiretory(serverBase);
+			s_action.setCommand("mv");
+			s_action.addArguments(user + "Server21");
+			s_action.addArguments(serverName);
+			command.addAction(s_action);
+		} else if (baseTemplate.endsWith("Server21_cs") && !serverName.equals(user + "Server21_cs")) {
+			s_action = new ShellAction(sequence++);
+			s_action.setWorkingDiretory(serverBase);
+			s_action.setCommand("mv");
+			s_action.addArguments(user + "Server21_cs");
+			s_action.addArguments(serverName);
+			command.addAction(s_action);
+		}
 		
 		// jboss_init 변환
 		List<Property> properties = new ArrayList<Property>();
@@ -1531,42 +1567,32 @@ public class ProvisioningHandler {
 		fw_action.setContents(loginConfigXml);
 		fw_action.setFileName(serverBase + "/" + user + "Server21_cs/conf/login-config.xml");
 		command.addAction(fw_action);
+
+		// chonw -R ${user}:${group} /home/${user}
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("chown");
+		s_action.addArguments("-R");
+		s_action.addArguments(user + ":" + group);
+		s_action.addArguments(serverHome);
+		command.addAction(s_action);
 		
 		// Add JBoss INSTALL Command
 		cmdMsg.addCommand(command);
-		
-		command = new Command("Set IP & Hostname");
-		sequence = 0;
-		
-		// ShellAction으로는 Redirection 및 sed 관련 명령 수행이 부적합하기 때문에 SshAction을 사용한다.
-		MachineDto machine = machineService.getMachine(provisioningDetail.getMachineId());
 
-		TargetHost targetHost = new TargetHost();
-		targetHost.setHost(machine.getIpAddr());
-		targetHost.setPort(Integer.parseInt(machine.getSshPort()));
-		targetHost.setUsername(machine.getSshUsername());
-		targetHost.setPassword(machine.getSshPassword());
-		targetHost.setKeyfile(machine.getSshKeyFile());
-		
-		List<String> commandList = new ArrayList<String>();
-		commandList.add("hostname " + hostName);
-		commandList.add("echo " + localIPAddress + " " + hostName  + " >> /etc/hosts");
-		commandList.add("sed -i 's/localhost.localdomain/" + hostName + "/g' /etc/sysconfig/network");
-
-		SshAction sh_action = new SshAction(sequence++);
-		sh_action.setTargetHost(targetHost);
-		sh_action.setCommandList(commandList);
-		
-		// Add Set IP & Hostname Command
-		cmdMsg.addCommand(command);
+		String startArgs = "-l " + user + " -c " + "'cd " + serverBase + "/" + serverName + " && sh startNode.sh notail'";
+		String stopArgs = "-l " + user + " -c " + "'cd " + serverBase + "/" + serverName + " && sh kill.sh'";
 		
 		if (provisioningDetail.getAutoStart().equals("Y")) {
 			command = new Command("Service Start");
 			sequence = 0;
 			s_action = new ShellAction(sequence++);
 			s_action.setWorkingDiretory(serverBase + "/" + serverName);
-			s_action.setCommand("sh");
-			s_action.addArguments("startNode.sh notail");
+			s_action.setCommand("runuser");
+			s_action.addArguments(startArgs);
+			//s_action.addArguments("-l");
+			//s_action.addArguments(user);
+			//s_action.addArguments("-c");
+			//s_action.addArguments("'sh " + serverBase + "/" + serverName + "/startNode.sh notail'");
 			command.addAction(s_action);
 			
 			cmdMsg.addCommand(command);
@@ -1574,14 +1600,14 @@ public class ProvisioningHandler {
 		
 		/***************************************************************
 		 *  software_tbl에 소프트웨어 설치 정보 및 config_tbl에 설정파일 정보 추가
-		 ***************************************************************/
+		 ***************************************************************/		
 		SoftwareDto software = new SoftwareDto();
 		software.setSoftwareId(provisioningDetail.getSoftwareId());
 		software.setMachineId(provisioningDetail.getMachineId());
 		software.setInstallLocation(jbossHome + "," + serverBase + ", " + serverHome + "/apps," + serverHome + "/svrlogs," + serverHome + "/wily");
 		software.setInstallStat("INSTALLING");
-		software.setServiceStopCmd("WORKING_DIR:" + serverBase + "/" + serverName + ",CMD:kill.sh,ARGS:");
-		software.setServiceStartCmd("WORKING_DIR:" + serverBase + "/" + serverName + ",CMD:startNode.sh,ARGS:notail");
+		software.setServiceStopCmd("WORKING_DIR:" + serverBase + "/" + serverName + ",CMD:runuser,ARGS:" + stopArgs);
+		software.setServiceStartCmd("WORKING_DIR:" + serverBase + "/" + serverName + ",CMD:runuser,ARGS:" + startArgs);
 		software.setDescription("JBoss Provisioning");
 		software.setDeleteYn("N");
 		software.setRegUserId(provisioningDetail.getUserId());
