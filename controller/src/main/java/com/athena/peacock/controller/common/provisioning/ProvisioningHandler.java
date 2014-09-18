@@ -1780,16 +1780,39 @@ public class ProvisioningHandler {
 		Command command = new Command("Uninstall");
 		int sequence = 0;
 		
+		String stopCmd = software.getServiceStopCmd();
+		
+		String workingDir = null;
+		String cmd = null;
+		String args = null;
+		
+		/**
+		 * Stop Service
+		 */
+		if (stopCmd.split(",")[0].split(":").length == 2) {
+			workingDir = stopCmd.split(",")[0].split(":")[1];
+		}
+		if (stopCmd.split(",")[1].split(":").length == 2) {
+			cmd = stopCmd.split(",")[1].split(":")[1];
+		}
+		if (stopCmd.split(",")[2].split(":").length == 2) {
+			args = stopCmd.split(",")[2].split(":")[1];
+		}
+		
 		ShellAction s_action = new ShellAction(sequence++);
-		s_action.setCommand("service");
-		s_action.addArguments(provisioningDetail.getUser() + "_httpd");
-		s_action.addArguments("stop");
+		if (workingDir != null) {
+			s_action.setWorkingDiretory("");
+		}
+		s_action.setCommand(cmd);
+		if (args != null) {
+			s_action.addArguments(args);
+		}
 		command.addAction(s_action);
 		
 		s_action = new ShellAction(sequence++);
 		s_action.setCommand("rm");
 		s_action.addArguments("-f");
-		s_action.addArguments("/etc/init.d/" + provisioningDetail.getUser() + "_httpd");
+		s_action.addArguments("/etc/init.d/" + args.split(" ")[0]);
 		command.addAction(s_action);
 		
 		for (ConfigDto _config : configList) {
