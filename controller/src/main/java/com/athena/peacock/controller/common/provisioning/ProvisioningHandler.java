@@ -2087,8 +2087,10 @@ class InstallThread extends Thread {
 			List<String> results = response.getResults();
 			
 			for (int i = 0; i < results.size(); i++) {
-				if (commands.get(i) != null) {
-					sb.append("[Command] : " + commands.get(i) + "\n");
+				if (i < commands.size()) {
+					if (commands.get(i) != null) {
+						sb.append("[Command] : " + commands.get(i) + "\n");
+					}
 				}
 
 				sb.append(results.get(i) + "\n");

@@ -88,7 +88,10 @@ public class Command implements Serializable {
         		response.addCommand(result.substring(0, result.indexOf("\n")));
         		response.addResult(result.substring(result.indexOf("\n") + 1));
         	} else {
-            	response.addResult(result);
+        		if (result != null && !result.equals("")) {
+        			response.addCommand("\n");
+        			response.addResult(result);
+        		}
         	}
             
         	logger.debug("[{}] has done.", action.getClass().getCanonicalName());
