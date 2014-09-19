@@ -27,7 +27,6 @@ package com.athena.peacock.controller.web.alm.confluence;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -37,7 +36,6 @@ import javax.annotation.PostConstruct;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
-import org.apache.xmlrpc.client.XmlRpcClientException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +43,6 @@ import com.athena.peacock.controller.web.alm.confluence.dto.SpaceSummaryDto;
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmUserDto;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
-import com.atlassian.crowd.integration.rest.service.factory.RestCrowdClientFactory;
 
 /**
  * <pre>
