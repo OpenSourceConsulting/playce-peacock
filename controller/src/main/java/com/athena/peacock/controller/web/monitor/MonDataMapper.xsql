@@ -71,7 +71,7 @@
 	<insert id="insertMonData" parameterType="com.athena.peacock.controller.web.monitor.MonDataDto">
 		INSERT INTO mon_data_tbl
 					(MACHINE_ID, MON_FACTOR_ID, MON_DATA_VALUE, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT)
-			 VALUES (#{machineId}, #{monFactorId}, #{monDataValue}, #{regUserId}, DATE_ADD(NOW(), INTERVAL 3 second), #{updUserId}, DATE_ADD(NOW(), INTERVAL 3 second))
+			 VALUES (#{machineId}, #{monFactorId}, #{monDataValue}, #{regUserId}, DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i'), #{updUserId}, DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i'))
 	</insert>
 	
 	<select id="getAllMonDataList" parameterType="com.athena.peacock.controller.web.monitor.MonDataDto" resultMap="monDataResult">
