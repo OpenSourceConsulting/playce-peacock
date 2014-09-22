@@ -28,13 +28,13 @@ Ext.define('MyApp.view.instancesContainer', {
         'Ext.form.field.Text',
         'Ext.form.field.Hidden',
         'Ext.toolbar.Paging',
+        'Ext.grid.RowNumberer',
         'Ext.tab.Panel',
         'Ext.tab.Tab',
         'Ext.form.Panel',
         'Ext.form.FieldContainer',
         'Ext.form.field.Display',
         'Ext.form.field.Checkbox',
-        'Ext.grid.RowNumberer',
         'Ext.grid.column.Action',
         'Ext.form.Label',
         'Ext.chart.Chart',
@@ -204,9 +204,16 @@ Ext.define('MyApp.view.instancesContainer', {
                         },
                         {
                             xtype: 'gridcolumn',
+                            hidden: true,
                             minWidth: 100,
                             dataIndex: 'displayId',
+                            hideable: false,
                             text: 'Instance ID'
+                        },
+                        {
+                            xtype: 'rownumberer',
+                            width: 45,
+                            text: 'No'
                         },
                         {
                             xtype: 'gridcolumn',
@@ -593,9 +600,17 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                     };
 
                                                                 } else {
-                                                                    Ext.MessageBox.alert('Error', "Instance가 Running 상태이고 Sofware 가 설치완료일 경우에만 수정 가능합니다.");
-                                                                }
 
+                                                                    if(instancesConstants.selectRow.get("status") != "Running") {
+
+                                                                        Ext.MessageBox.alert('Error', "Agent가 동작하고 있지 않습니다. Agent 상태를 확인하십시오.");
+
+                                                                    } else {
+
+                                                                        Ext.MessageBox.alert('Error', "Config는 Software 설치 완료시에만 수정 가능합니다.");
+                                                                    }
+
+                                                                }
                                                             },
                                                             icon: 'resources/images/icons/cog.png',
                                                             iconCls: ''
@@ -604,10 +619,10 @@ Ext.define('MyApp.view.instancesContainer', {
                                                 },
                                                 {
                                                     xtype: 'actioncolumn',
-                                                    text: 'Install Log',
+                                                    text: 'Log',
                                                     maxWidth: 100,
                                                     style: 'text-align:left;',
-                                                    width: 65,
+                                                    width: 50,
                                                     align: 'center',
                                                     menuText: '',
                                                     items: [
@@ -641,7 +656,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     items: [
                                                         {
                                                             handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                                                if(instancesConstants.selectRow.get("status") == "Running" && record.get("installStat") == "설치 완료") {
+                                                                if(instancesConstants.selectRow.get("status") == "Running" && (record.get("installStat") == "설치 완료" || record.get("installStat") == "설치 에러"))  {
 
                                                                     Ext.MessageBox.confirm('Confirm', 'Uninstall 하시겠습니까?', function(btn){
 
@@ -669,7 +684,16 @@ Ext.define('MyApp.view.instancesContainer', {
 
 
                                                                 } else {
-                                                                    Ext.MessageBox.alert('Error', "Instance가 Running 상태이고 Sofware 가 설치완료일 경우에만 Uninstall 가능합니다.");
+
+                                                                    if(instancesConstants.selectRow.get("status") != "Running") {
+
+                                                                        Ext.MessageBox.alert('Error', "Agent가 동작하고 있지 않습니다. Agent 상태를 확인하십시오.");
+
+                                                                    } else {
+
+                                                                        Ext.MessageBox.alert('Error', "Software가 설치되지 않았거나 이미 삭제되었습니다.");
+                                                                    }
+
                                                                 }
                                                             },
                                                             icon: 'resources/images/icons/delete.png',

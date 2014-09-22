@@ -60,6 +60,34 @@
                     "designerId": "aaa32b0c-0939-4075-b555-a56e50d1bf7e"
                 }
             ]
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onJsonstoreLoad",
+                "implHandler": [
+                    "/*",
+                    "var defaultRow = (RHEVMConstants.page-1)*100;",
+                    "",
+                    "var pagingDesc = \"\";",
+                    "if(store.getTotalCount() == 0) {",
+                    "    pagingDesc = (defaultRow + 1) + \" ~ N/A\";",
+                    "} else {",
+                    "    pagingDesc = (defaultRow + 1) + \" ~ \" + (defaultRow + store.getTotalCount());",
+                    "}",
+                    "",
+                    "alert(pagingDesc);",
+                    "*/"
+                ],
+                "name": "load",
+                "scope": "me"
+            },
+            "designerId": "c8509aaf-dba4-408d-9741-7aad1e2efc35"
         }
     ]
 }

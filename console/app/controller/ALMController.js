@@ -129,6 +129,9 @@ Ext.define('MyApp.controller.ALMController', {
 
             var userStore = Ext.getCmp("almProjectUserGrid").getStore();
             userStore.getProxy().url = GLOBAL.urlPrefix + 'alm/groupmanagement/'+almConstants.selectRow.get("projectCode")+'/users';
+            userStore.getProxy().extraParams = {
+                limit : 1
+            };
 
             userStore.load();
 
@@ -449,6 +452,9 @@ Ext.define('MyApp.controller.ALMController', {
 
             var userStore = Ext.getCmp("almGroupUserGrid").getStore();
             userStore.getProxy().url = GLOBAL.urlPrefix + 'alm/groupmanagement/'+almConstants.selectRow.get("name")+'/users';
+            userStore.getProxy().extraParams = {
+                limit : 1
+            };
 
             userStore.load();
 

@@ -55,6 +55,9 @@
                 "implHandler": [
                     "",
                     "//RHEVM Tab Change",
+                    "",
+                    "RHEVMConstants.page = 1;",
+                    "",
                     "if(newCard.title == \"Templates\"){",
                     "",
                     "    Ext.getCmp(\"searchRhevmTemplateName\").setValue(\"\");",
@@ -199,7 +202,8 @@
                     "    selectRow : null,",
                     "    actionRow : null,",
                     "    childSelectRow : null,",
-                    "    childActionRow : null",
+                    "    childActionRow : null,",
+                    "    page : 0",
                     "});"
                 ]
             },
@@ -441,7 +445,8 @@
             "codeClass": null,
             "userConfig": {
                 "designer|params": [
-                    "grid_id"
+                    "grid_id",
+                    "pagingType"
                 ],
                 "fn": "searchRhevmChildGrid",
                 "implHandler": [
@@ -455,10 +460,13 @@
                     "detailDPanel.collapse();",
                     "",
                     "if(grid_id == null) {",
+                    "    ",
+                    "    RHEVMConstants.page = 1;",
                     "",
                     "    //Virtual Machines Data Loading",
                     "    var vmGrid = Ext.getCmp('rhevmVMGrid');",
                     "    vmGrid.reconfigure(vmGrid.store, vmGrid.initialConfig.columns);",
+                    "    vmGrid.getStore().removeAll();",
                     "",
                     "    vmGrid.getStore().load({",
                     "        params:{",
@@ -474,12 +482,21 @@
                     "    } else {",
                     "        searchName = Ext.getCmp(\"searchRhevmTemplateName\").getRawValue();",
                     "    }",
+                    "    ",
+                    "    if(pagingType == 'left') {",
+                    "        RHEVMConstants.page--;",
+                    "    } else if(pagingType == 'right') {",
+                    "        RHEVMConstants.page++;",
+                    "    }",
                     "",
                     "    var grid = Ext.getCmp(grid_id);",
+                    "    grid.getStore().removeAll();",
+                    "    ",
                     "    grid.getStore().load({",
                     "        params:{",
                     "            hypervisorId : RHEVMConstants.selectRow.get(\"hypervisorId\"),",
-                    "            name : searchName",
+                    "            name : searchName,",
+                    "            start : ((RHEVMConstants.page-1)*100 + 1)",
                     "        }",
                     "    });",
                     "",

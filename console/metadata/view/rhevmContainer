@@ -773,6 +773,19 @@
                                                     "designerId": "ac9ae5e9-4acf-4e79-92c8-c8983fef1e4f"
                                                 },
                                                 {
+                                                    "type": "Ext.grid.RowNumberer",
+                                                    "reference": {
+                                                        "name": "columns",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "text": "No",
+                                                        "width": 45
+                                                    },
+                                                    "designerId": "e787732d-c2cb-4e4e-a01f-214eb484f5de"
+                                                },
+                                                {
                                                     "type": "Ext.grid.column.Column",
                                                     "reference": {
                                                         "name": "columns",
@@ -1036,6 +1049,19 @@
                                                     "designerId": "f679e9bd-892e-4666-8e1e-cfa9f9201d8b"
                                                 },
                                                 {
+                                                    "type": "Ext.grid.RowNumberer",
+                                                    "reference": {
+                                                        "name": "columns",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "text": "No",
+                                                        "width": 45
+                                                    },
+                                                    "designerId": "ebb99e52-abd1-46d8-b217-0bd2d0367900"
+                                                },
+                                                {
                                                     "type": "Ext.grid.column.Column",
                                                     "reference": {
                                                         "name": "columns",
@@ -1266,6 +1292,134 @@
                                                                         ]
                                                                     },
                                                                     "designerId": "6ccdcf3f-abec-4006-ad04-80f0dfbb209e"
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "Ext.toolbar.Spacer",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "layout|flex": 1
+                                                            },
+                                                            "designerId": "65e3503d-7238-4fc5-bea0-a5617caf695b"
+                                                        },
+                                                        {
+                                                            "type": "Ext.button.Button",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "height": 30,
+                                                                "hidden": true,
+                                                                "iconAlign": null,
+                                                                "iconCls": "x-toolbar-scroll-left",
+                                                                "iconMask": false,
+                                                                "layout|flex": null,
+                                                                "text": null,
+                                                                "tooltipType": null,
+                                                                "width": 25
+                                                            },
+                                                            "configAlternates": {
+                                                                "iconMask": "boolean"
+                                                            },
+                                                            "designerId": "7ead966a-024e-49b4-88a7-617dbf4e996b",
+                                                            "customConfigs": [
+                                                                {
+                                                                    "group": "(Custom Properties)",
+                                                                    "name": "iconMask",
+                                                                    "type": "string"
+                                                                }
+                                                            ],
+                                                            "cn": [
+                                                                {
+                                                                    "type": "fixedfunction",
+                                                                    "reference": {
+                                                                        "name": "items",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "designer|params": [
+                                                                            "button",
+                                                                            "e"
+                                                                        ],
+                                                                        "fn": "handler",
+                                                                        "implHandler": [
+                                                                            "RHEVMConstants.me.searchRhevmChildGrid('rhevmTemplateGrid', 'left');"
+                                                                        ]
+                                                                    },
+                                                                    "designerId": "77000546-0dc0-4fd1-906a-28bdb27a747e"
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "Ext.form.Label",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "hidden": true,
+                                                                "layout|flex": null,
+                                                                "text": "0"
+                                                            },
+                                                            "designerId": "b56f8498-93c0-4c61-babf-b77b32742bf9"
+                                                        },
+                                                        {
+                                                            "type": "Ext.button.Button",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "height": 30,
+                                                                "hidden": true,
+                                                                "iconAlign": null,
+                                                                "iconCls": "x-toolbar-scroll-right",
+                                                                "iconMask": false,
+                                                                "layout|flex": null,
+                                                                "text": null,
+                                                                "tooltipType": null,
+                                                                "width": 25
+                                                            },
+                                                            "configAlternates": {
+                                                                "iconMask": "boolean"
+                                                            },
+                                                            "designerId": "3dfb079e-763e-492b-8041-6fc32c08f0c5",
+                                                            "customConfigs": [
+                                                                {
+                                                                    "group": "(Custom Properties)",
+                                                                    "name": "iconMask",
+                                                                    "type": "string"
+                                                                }
+                                                            ],
+                                                            "cn": [
+                                                                {
+                                                                    "type": "fixedfunction",
+                                                                    "reference": {
+                                                                        "name": "items",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "designer|params": [
+                                                                            "button",
+                                                                            "e"
+                                                                        ],
+                                                                        "fn": "handler",
+                                                                        "implHandler": [
+                                                                            "RHEVMConstants.me.searchRhevmChildGrid('rhevmTemplateGrid', 'right');"
+                                                                        ]
+                                                                    },
+                                                                    "designerId": "903a9416-0ac5-4f15-8256-3189f6b34930"
                                                                 }
                                                             ]
                                                         }

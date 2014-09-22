@@ -37,7 +37,13 @@ Ext.define('MyApp.store.VMStore', {
                     type: 'json',
                     root: 'list'
                 }
-            })
+            }),
+            listeners: {
+                load: {
+                    fn: me.onJsonstoreLoad,
+                    scope: me
+                }
+            }
         }, cfg)]);
     },
 
@@ -45,6 +51,10 @@ Ext.define('MyApp.store.VMStore', {
         config.actionMethods = {create: "POST", read: "POST", update: "POST", destroy: "POST"};
 
         return config;
+    },
+
+    onJsonstoreLoad: function(store, records, successful, eOpts) {
+            //alert(store.getTotalCount());
     }
 
 });

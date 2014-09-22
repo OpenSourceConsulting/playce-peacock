@@ -37,7 +37,13 @@ Ext.define('MyApp.store.TemplateStore', {
                     type: 'json',
                     root: 'list'
                 }
-            })
+            }),
+            listeners: {
+                load: {
+                    fn: me.onJsonstoreLoad,
+                    scope: me
+                }
+            }
         }, cfg)]);
     },
 
@@ -45,6 +51,21 @@ Ext.define('MyApp.store.TemplateStore', {
         config.actionMethods = {create: "POST", read: "POST", update: "POST", destroy: "POST"};
 
         return config;
+    },
+
+    onJsonstoreLoad: function(store, records, successful, eOpts) {
+        /*
+        var defaultRow = (RHEVMConstants.page-1)*100;
+
+        var pagingDesc = "";
+        if(store.getTotalCount() == 0) {
+            pagingDesc = (defaultRow + 1) + " ~ N/A";
+        } else {
+            pagingDesc = (defaultRow + 1) + " ~ " + (defaultRow + store.getTotalCount());
+        }
+
+        alert(pagingDesc);
+        */
     }
 
 });

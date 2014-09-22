@@ -297,7 +297,11 @@ Ext.define('MyApp.view.almContainer', {
 
                                                                                         almGroupUsersWindow.show();
 
-                                                                                        var grid = Ext.getCmp("popAlmUsersGrid").getStore().load();
+                                                                                        Ext.getCmp("popAlmUsersGrid").getStore().load({
+                                                                                            params:{
+                                                                                                limit : 1
+                                                                                            }
+                                                                                        });
                                                                                         Ext.getCmp("addAlmUserType").setValue("project");
 
                                                                                     },
@@ -310,7 +314,7 @@ Ext.define('MyApp.view.almContainer', {
                                                                         {
                                                                             xtype: 'gridcolumn',
                                                                             minWidth: 100,
-                                                                            dataIndex: 'userId',
+                                                                            dataIndex: 'name',
                                                                             text: 'Name'
                                                                         },
                                                                         {
@@ -1037,7 +1041,11 @@ Ext.define('MyApp.view.almContainer', {
 
                                                                                         almGroupUsersWindow.show();
 
-                                                                                        Ext.getCmp("popAlmUsersGrid").getStore().load();
+                                                                                        Ext.getCmp("popAlmUsersGrid").getStore().load({
+                                                                                            params:{
+                                                                                                limit : 1
+                                                                                            }
+                                                                                        });
                                                                                         Ext.getCmp("addAlmUserType").setValue("group");
 
                                                                                     },

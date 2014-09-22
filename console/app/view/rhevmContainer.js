@@ -28,6 +28,7 @@ Ext.define('MyApp.view.rhevmContainer', {
         'Ext.grid.column.Action',
         'Ext.tab.Panel',
         'Ext.tab.Tab',
+        'Ext.form.Label',
         'Ext.form.Panel',
         'Ext.form.FieldContainer',
         'Ext.form.field.Display',
@@ -315,6 +316,11 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                     },
                                                     columns: [
                                                         {
+                                                            xtype: 'rownumberer',
+                                                            width: 45,
+                                                            text: 'No'
+                                                        },
+                                                        {
                                                             xtype: 'gridcolumn',
                                                             hidden: true,
                                                             minWidth: 100,
@@ -414,6 +420,11 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                     store: 'TemplateStore',
                                                     columns: [
                                                         {
+                                                            xtype: 'rownumberer',
+                                                            width: 45,
+                                                            text: 'No'
+                                                        },
+                                                        {
                                                             xtype: 'gridcolumn',
                                                             hidden: true,
                                                             minWidth: 100,
@@ -496,6 +507,37 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                                     },
                                                                     iconMask: false,
                                                                     iconCls: 'x-tbar-loading'
+                                                                },
+                                                                {
+                                                                    xtype: 'tbspacer',
+                                                                    flex: 1
+                                                                },
+                                                                {
+                                                                    xtype: 'button',
+                                                                    handler: function(button, e) {
+                                                                        RHEVMConstants.me.searchRhevmChildGrid('rhevmTemplateGrid', 'left');
+                                                                    },
+                                                                    iconMask: false,
+                                                                    height: 30,
+                                                                    hidden: true,
+                                                                    width: 25,
+                                                                    iconCls: 'x-toolbar-scroll-left'
+                                                                },
+                                                                {
+                                                                    xtype: 'label',
+                                                                    hidden: true,
+                                                                    text: '0'
+                                                                },
+                                                                {
+                                                                    xtype: 'button',
+                                                                    handler: function(button, e) {
+                                                                        RHEVMConstants.me.searchRhevmChildGrid('rhevmTemplateGrid', 'right');
+                                                                    },
+                                                                    iconMask: false,
+                                                                    height: 30,
+                                                                    hidden: true,
+                                                                    width: 25,
+                                                                    iconCls: 'x-toolbar-scroll-right'
                                                                 }
                                                             ]
                                                         }

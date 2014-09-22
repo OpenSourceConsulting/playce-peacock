@@ -407,10 +407,25 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "displayId",
+                        "hidden": true,
+                        "hideable": false,
                         "minWidth": 100,
                         "text": "Instance ID"
                     },
                     "designerId": "c2698940-401b-4d7a-98c0-50864c1f6ec8"
+                },
+                {
+                    "type": "Ext.grid.RowNumberer",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "text": "No",
+                        "width": 45
+                    },
+                    "designerId": "2bde355f-a4a2-41fd-8933-af6223974631"
                 },
                 {
                     "type": "Ext.grid.column.Column",
@@ -1288,9 +1303,17 @@
                                                                     "    };",
                                                                     "",
                                                                     "} else {",
-                                                                    "    Ext.MessageBox.alert('Error', \"Instance가 Running 상태이고 Sofware 가 설치완료일 경우에만 수정 가능합니다.\");",
-                                                                    "}",
-                                                                    ""
+                                                                    "    ",
+                                                                    "    if(instancesConstants.selectRow.get(\"status\") != \"Running\") {",
+                                                                    "        ",
+                                                                    "        Ext.MessageBox.alert('Error', \"Agent가 동작하고 있지 않습니다. Agent 상태를 확인하십시오.\");",
+                                                                    "        ",
+                                                                    "    } else {",
+                                                                    "        ",
+                                                                    "        Ext.MessageBox.alert('Error', \"Config는 Software 설치 완료시에만 수정 가능합니다.\");",
+                                                                    "    }",
+                                                                    "    ",
+                                                                    "}"
                                                                 ]
                                                             },
                                                             "designerId": "6d2725ad-8820-4878-9722-12368b7c2cb9"
@@ -1313,8 +1336,8 @@
                                                 "style": [
                                                     "\"text-align:left;\""
                                                 ],
-                                                "text": "Install Log",
-                                                "width": 65
+                                                "text": "Log",
+                                                "width": 50
                                             },
                                             "designerId": "a2f3a887-c1a4-48b3-b04e-8ce7bd25bac7",
                                             "customConfigs": [
@@ -1434,12 +1457,12 @@
                                                                 ],
                                                                 "fn": "handler",
                                                                 "implHandler": [
-                                                                    "if(instancesConstants.selectRow.get(\"status\") == \"Running\" && record.get(\"installStat\") == \"설치 완료\") {",
-                                                                    "    ",
+                                                                    "if(instancesConstants.selectRow.get(\"status\") == \"Running\" && (record.get(\"installStat\") == \"설치 완료\" || record.get(\"installStat\") == \"설치 에러\"))  {",
+                                                                    "",
                                                                     "    Ext.MessageBox.confirm('Confirm', 'Uninstall 하시겠습니까?', function(btn){",
-                                                                    "    ",
+                                                                    "",
                                                                     "        if(btn == \"yes\"){",
-                                                                    "    ",
+                                                                    "",
                                                                     "            Ext.Ajax.request({",
                                                                     "                url: GLOBAL.urlPrefix + \"software/remove\",",
                                                                     "                params : {",
@@ -1451,18 +1474,27 @@
                                                                     "                success: function(response){",
                                                                     "                    var msg = Ext.JSON.decode(response.responseText).msg;",
                                                                     "                    Ext.MessageBox.alert('알림', msg);",
-                                                                    "    ",
+                                                                    "",
                                                                     "                    Ext.getCmp(\"instanceSoftwareGrid\").getStore().reload();",
-                                                                    "    ",
+                                                                    "",
                                                                     "                }",
                                                                     "            });",
                                                                     "        }",
-                                                                    "    ",
+                                                                    "",
                                                                     "    });",
                                                                     "",
-                                                                    "    ",
+                                                                    "",
                                                                     "} else {",
-                                                                    "    Ext.MessageBox.alert('Error', \"Instance가 Running 상태이고 Sofware 가 설치완료일 경우에만 Uninstall 가능합니다.\");",
+                                                                    "    ",
+                                                                    "    if(instancesConstants.selectRow.get(\"status\") != \"Running\") {",
+                                                                    "        ",
+                                                                    "        Ext.MessageBox.alert('Error', \"Agent가 동작하고 있지 않습니다. Agent 상태를 확인하십시오.\");",
+                                                                    "        ",
+                                                                    "    } else {",
+                                                                    "        ",
+                                                                    "        Ext.MessageBox.alert('Error', \"Software가 설치되지 않았거나 이미 삭제되었습니다.\");",
+                                                                    "    }",
+                                                                    "    ",
                                                                     "}"
                                                                 ]
                                                             },

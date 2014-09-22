@@ -35,6 +35,9 @@ Ext.define('MyApp.controller.RHEVMController', {
     onRhevmTabPanelTabChange: function(tabPanel, newCard, oldCard, eOpts) {
 
         //RHEVM Tab Change
+
+        RHEVMConstants.page = 1;
+
         if(newCard.title == "Templates"){
 
             Ext.getCmp("searchRhevmTemplateName").setValue("");
@@ -255,7 +258,8 @@ Ext.define('MyApp.controller.RHEVMController', {
                     selectRow : null,
                     actionRow : null,
                     childSelectRow : null,
-                    childActionRow : null
+                    childActionRow : null,
+                    page : 0
                 });
 
         this.control({
@@ -379,7 +383,7 @@ Ext.define('MyApp.controller.RHEVMController', {
 
     },
 
-    searchRhevmChildGrid: function(grid_id) {
+    searchRhevmChildGrid: function(grid_id, pagingType) {
 
         //RHEVM Detail Tab 조회
 
@@ -391,9 +395,12 @@ Ext.define('MyApp.controller.RHEVMController', {
 
         if(grid_id == null) {
 
+            RHEVMConstants.page = 1;
+
             //Virtual Machines Data Loading
             var vmGrid = Ext.getCmp('rhevmVMGrid');
             vmGrid.reconfigure(vmGrid.store, vmGrid.initialConfig.columns);
+            vmGrid.getStore().removeAll();
 
             vmGrid.getStore().load({
                 params:{
@@ -410,11 +417,20 @@ Ext.define('MyApp.controller.RHEVMController', {
                 searchName = Ext.getCmp("searchRhevmTemplateName").getRawValue();
             }
 
+            if(pagingType == 'left') {
+                RHEVMConstants.page--;
+            } else if(pagingType == 'right') {
+                RHEVMConstants.page++;
+            }
+
             var grid = Ext.getCmp(grid_id);
+            grid.getStore().removeAll();
+
             grid.getStore().load({
                 params:{
                     hypervisorId : RHEVMConstants.selectRow.get("hypervisorId"),
-                    name : searchName
+                    name : searchName,
+                    start : ((RHEVMConstants.page-1)*100 + 1)
                 }
             });
 

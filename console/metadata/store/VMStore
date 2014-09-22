@@ -60,6 +60,23 @@
                     "designerId": "92b0eb12-ed24-4d16-8e8f-2bfb78b36c35"
                 }
             ]
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onJsonstoreLoad",
+                "implHandler": [
+                    "    //alert(store.getTotalCount());"
+                ],
+                "name": "load",
+                "scope": "me"
+            },
+            "designerId": "be200549-dbb7-4af7-822c-ad0533559154"
         }
     ]
 }

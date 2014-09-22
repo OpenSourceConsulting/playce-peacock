@@ -661,7 +661,11 @@
                                                                                             "",
                                                                                             "almGroupUsersWindow.show();",
                                                                                             "",
-                                                                                            "var grid = Ext.getCmp(\"popAlmUsersGrid\").getStore().load();",
+                                                                                            "Ext.getCmp(\"popAlmUsersGrid\").getStore().load({",
+                                                                                            "    params:{",
+                                                                                            "        limit : 1",
+                                                                                            "    }",
+                                                                                            "});",
                                                                                             "Ext.getCmp(\"addAlmUserType\").setValue(\"project\");",
                                                                                             ""
                                                                                         ]
@@ -689,7 +693,7 @@
                                                                     },
                                                                     "codeClass": null,
                                                                     "userConfig": {
-                                                                        "dataIndex": "userId",
+                                                                        "dataIndex": "name",
                                                                         "minWidth": 100,
                                                                         "text": "Name"
                                                                     },
@@ -2636,7 +2640,11 @@
                                                                                             "",
                                                                                             "almGroupUsersWindow.show();",
                                                                                             "",
-                                                                                            "Ext.getCmp(\"popAlmUsersGrid\").getStore().load();",
+                                                                                            "Ext.getCmp(\"popAlmUsersGrid\").getStore().load({",
+                                                                                            "    params:{",
+                                                                                            "        limit : 1",
+                                                                                            "    }",
+                                                                                            "});",
                                                                                             "Ext.getCmp(\"addAlmUserType\").setValue(\"group\");",
                                                                                             ""
                                                                                         ]

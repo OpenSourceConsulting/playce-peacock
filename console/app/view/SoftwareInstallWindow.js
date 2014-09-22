@@ -955,7 +955,7 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             ],
                                             fieldLabel: 'Java Home',
                                             name: 'javaHome',
-                                            value: '/usr/java/1.6.0_29',
+                                            value: '/usr/java/jdk1.7.0_09',
                                             allowBlank: false
                                         },
                                         {
@@ -1675,6 +1675,10 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
 
         form.findField("serverHome").setValue(homeDir);
         form.findField("serverBase").setValue(homeDir+"/Servers");
+
+        if(baseTemplate.length > 4) {
+            baseTemplate = baseTemplate.substring(4, baseTemplate.length);
+        }
         form.findField("serverName").setValue(newValue + baseTemplate);
 
         if(version == "5.1.2") {
@@ -1721,7 +1725,12 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
 
         var userName = form.findField("user").getValue();
 
-        form.findField("serverName").setValue(userName + newValue);
+        var baseTemplate = newValue;
+
+        if(baseTemplate.length > 4) {
+            baseTemplate = baseTemplate.substring(4, baseTemplate.length);
+        }
+        form.findField("serverName").setValue(userName + baseTemplate);
 
         if(newValue.indexOf("codeServer11") > -1) {
 
