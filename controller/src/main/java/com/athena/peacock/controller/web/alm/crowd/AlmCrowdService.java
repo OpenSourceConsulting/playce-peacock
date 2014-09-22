@@ -39,6 +39,7 @@ import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 import com.atlassian.crowd.embedded.api.PasswordCredential;
+import com.atlassian.crowd.embedded.api.SearchRestriction;
 import com.atlassian.crowd.exception.ApplicationPermissionException;
 import com.atlassian.crowd.exception.GroupNotFoundException;
 import com.atlassian.crowd.exception.InvalidAuthenticationException;
@@ -130,13 +131,19 @@ public class AlmCrowdService {
 
 		int page = getCrowdPage(gridParam);
 
-		// UserList
-		PropertyRestriction<Boolean> restriction = Restriction.on(
-				UserTermKeys.ACTIVE).containing(true);
+		Iterable<User> usernames;
 
-		Iterable<User> usernames = crowdClient.searchUsers(restriction, page,
-				50);
-		
+		if (gridParam.getSearch() != null) {
+			PropertyRestriction<String> restriction = Restriction.on(
+					UserTermKeys.USERNAME).startingWith(gridParam.getSearch());
+			usernames = crowdClient.searchUsers(restriction, page, 50);
+
+		} else {
+			PropertyRestriction<Boolean> restriction = Restriction.on(
+					UserTermKeys.ACTIVE).containing(true);
+			usernames = crowdClient.searchUsers(restriction, page, 50);
+		}
+
 		for (User profile : usernames) {
 			AlmUserDto tmp = new AlmUserDto();
 			tmp.setUserId(profile.getName()); // id
@@ -266,7 +273,7 @@ public class AlmCrowdService {
 				userData.getDisplayName(), userData.getEmail(),
 				new PasswordEntity(userData.getPassword()), true);
 		try {
-			
+
 			crowdClient.updateUser(myuser);
 			response.setMsg("사용자 수정 성공");
 		} catch (InvalidUserException e) {
@@ -471,12 +478,12 @@ public class AlmCrowdService {
 
 		// paging 처리
 		int page = gridParam.getPage();
-		if (page > 1) {
+		if (page >= 1) {
 			page = page - 1;
 		}
 
-		page = page * 50;
-		
+		page = page * 10;
+
 		return page;
 	}
 }

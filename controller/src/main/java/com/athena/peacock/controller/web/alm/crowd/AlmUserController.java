@@ -72,9 +72,6 @@ public class AlmUserController {
 			@RequestParam(value = "limit", defaultValue = "0") int offset,
 			@RequestParam(value = "search", required = false) String search) {
 
-		
-
-		
 		ExtjsGridParam gridParam = new ExtjsGridParam();
 		gridParam.setPage(offset);
 
