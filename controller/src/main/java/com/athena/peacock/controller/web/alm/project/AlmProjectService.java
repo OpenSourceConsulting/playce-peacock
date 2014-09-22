@@ -30,6 +30,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.athena.peacock.controller.web.alm.crowd.AlmCrowdService;
+import com.athena.peacock.controller.web.alm.crowd.dto.AlmGroupDto;
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmUserDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto;
@@ -52,6 +54,9 @@ public class AlmProjectService {
 
 	@Autowired
 	private AlmProjectDao projectDao;
+
+	@Autowired
+	private AlmCrowdService crowdService;
 
 	public AlmProjectService() {
 		// TODO Auto-generated constructor stub
@@ -100,6 +105,9 @@ public class AlmProjectService {
 		DtoJsonResponse response = new DtoJsonResponse();
 		projectDao.insertProject(project);
 
+		// Group 생성
+		addGroup(project.getProjectCode(), project.getGroupDescription());
+
 		response.setMsg("프로젝트 생성 성공");
 		return response;
 		//
@@ -110,6 +118,20 @@ public class AlmProjectService {
 
 		DtoJsonResponse response = new DtoJsonResponse();
 		response.setMsg("프로젝트 Wizard 생성 요청 되었습니다.");
+
+		// Project DTO
+		ProjectDto pDto = project.getProject();
+
+		// Project Insert
+		projectDao.insertProject(pDto);
+
+		// Project Group 생성
+		addGroup(pDto.getProjectCode(), pDto.getGroupDescription());
+
+		// User를 그룹에 추가
+		List<AlmUserDto> userList = project.getUsers();
+		addUserToGroup(pDto.getProjectCode(), userList);
+		
 		return response;
 
 	}
@@ -165,16 +187,17 @@ public class AlmProjectService {
 		return response;
 	}
 
-	public DtoJsonResponse getProjectMapping(String projectCode, String mappingtype) {
+	public DtoJsonResponse getProjectMapping(String projectCode,
+			String mappingtype) {
 
 		DtoJsonResponse response = new DtoJsonResponse();
 
 		ProjectMappingDto mappingDto = new ProjectMappingDto();
 		mappingDto.setProjectCode(projectCode);
 
-		//10 Confluence
-		//20 Jenkins
-		//30 SVN
+		// 10 Confluence
+		// 20 Jenkins
+		// 30 SVN
 		if (mappingtype.equals("jenkins")) {
 			mappingDto.setMappingType(20);
 		} else if (mappingtype.equals("svn")) {
@@ -253,6 +276,25 @@ public class AlmProjectService {
 		return dto;
 		//
 
+	}
+
+	private void addGroup(String name, String description) {
+
+		AlmGroupDto groupData = new AlmGroupDto();
+		groupData.setActive(true);
+		groupData.setDescription(description);
+		groupData.setName(name);
+
+		// Group 생성
+		crowdService.addGroup(groupData);
+	}
+
+	private void addUserToGroup(String groupName, List<AlmUserDto> userList) {
+
+		// Group 생성
+		for (AlmUserDto username : userList) {
+			crowdService.addUserToGroup(username.getUserId(), groupName);
+		}
 	}
 }
 // end of UserService.java
