@@ -54,8 +54,6 @@ public class AlmJenkinsService {
 	}
 
 	public void createJob(String jobName, String templateName, String newJobName) {
-
-		System.out.println("testtest");
 		jenkinsClient.copyJob(jobName, templateName, newJobName);
 	}
 

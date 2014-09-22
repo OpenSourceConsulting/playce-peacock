@@ -198,7 +198,6 @@ public class AlmProjectController {
 	public @ResponseBody
 	DtoJsonResponse createProjectWizard(@RequestBody ProjectWizardDto project) {
 		Gson gson = new Gson();
-		System.out.println(gson.toJson(project));
 		return almProjectService.createProjectWizrd(project);
 	}
 

@@ -132,10 +132,6 @@ public class JenkinsClient {
 
 	public void copyJob(String jobName, String templateName, String newJobName) {
 
-		System.out.println("*************");
-		System.out.println("*************");
-		System.out.println("*************");
-		System.out.println(newJobName);
 		try {
 			final String url = "http://119.81.162.221:8080/jenkins/job/"
 					+ jobName + "/buildWithParameters?JOB_NAME=" + newJobName;
@@ -161,8 +157,6 @@ public class JenkinsClient {
 
 		} catch (Exception e) {
 			// logger.debug("exception {}", e.getMessage());
-
-			System.out.println("*****************");
 			e.printStackTrace();
 		}
 

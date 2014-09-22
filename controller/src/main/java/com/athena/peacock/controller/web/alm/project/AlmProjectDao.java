@@ -11,30 +11,31 @@ import com.athena.peacock.controller.web.common.dao.AbstractBaseDao;
 @Repository("almProjectDao")
 public class AlmProjectDao extends AbstractBaseDao {
 
-	public ProjectDto getProject(String projectCode){
+	public ProjectDto getProject(String projectCode) {
 		return sqlSession.selectOne("ProjectMapper.getProject", projectCode);
 	}
-	
-	public List<ProjectDto> getProjectList(){
+
+	public List<ProjectDto> getProjectList() {
 		return sqlSession.selectList("ProjectMapper.getProjectList");
 	}
-	
-	public void insertProject(ProjectDto project){
+
+	public void insertProject(ProjectDto project) {
 		sqlSession.insert("ProjectMapper.insertProject", project);
 	}
-	
-	public List<ProjectMappingDto> getProjectMapping(ProjectMappingDto mappingDto){
-		
-		System.out.println(mappingDto.getMappingType());
-		System.out.println(mappingDto.getProjectCode());
-		return sqlSession.selectList("ProjectMapper.getProjectMapping", mappingDto);
+
+	public List<ProjectMappingDto> getProjectMapping(
+			ProjectMappingDto mappingDto) {
+
+		return sqlSession.selectList("ProjectMapper.getProjectMapping",
+				mappingDto);
 	}
-	
-	public void insertProjectMapping(ProjectMappingDto mappingDto){
-		sqlSession.insert("ProjectMapper.insertProjectMapping",mappingDto);
+
+	public void insertProjectMapping(ProjectMappingDto mappingDto) {
+		sqlSession.insert("ProjectMapper.insertProjectMapping", mappingDto);
 	}
-	
-	public int getProjectExist(String projectCode){
-		return sqlSession.selectOne("ProjectMapper.getProjectExist", projectCode);
+
+	public int getProjectExist(String projectCode) {
+		return sqlSession.selectOne("ProjectMapper.getProjectExist",
+				projectCode);
 	}
 }

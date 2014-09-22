@@ -110,8 +110,6 @@ public class AlmConfluenceService {
 		Object[] spaces = (Object[]) rpcClient.execute("confluence2.getSpaces",
 				loginTokenVector);
 
-		System.out.println(spaces.length);
-
 		// Print projects
 		for (int i = 0; i < spaces.length; i++) {
 			Map space = (Map) spaces[i];
