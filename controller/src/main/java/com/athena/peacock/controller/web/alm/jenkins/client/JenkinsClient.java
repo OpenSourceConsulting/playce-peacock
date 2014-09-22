@@ -27,7 +27,8 @@ public class JenkinsClient {
 	static RestTemplate restTemplate = new RestTemplate();
 
 	@SuppressWarnings("rawtypes")
-	public Object httpRequest(HttpMethod method, Class cls, Map params, Object data, String... segments) {
+	public Object httpRequest(HttpMethod method, Class cls, Map params,
+			Object data, String... segments) {
 
 		final String url = "https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=vmware";
 		HttpHeaders requestHeaders = new HttpHeaders();
@@ -56,15 +57,14 @@ public class JenkinsClient {
 		return responseEntity.getBody();
 
 	}
-	
-	
+
 	public JenkinsResponseDto getJobs() {
 
 		try {
 			final String url = "http://119.81.162.221:8080/jenkins/api/json";
 
 			HttpHeaders requestHeaders = new HttpHeaders();
-		
+
 			List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
 			acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
 			requestHeaders.setAccept(acceptableMediaTypes);
@@ -72,8 +72,45 @@ public class JenkinsClient {
 
 			// Populate the headers in an HttpEntity object to use for the
 			// request
-			HttpEntity<?> requestEntity = new HttpEntity<Object>(
-					requestHeaders);
+			HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
+
+			// Create a new RestTemplate instance
+			RestTemplate restTemplate = new RestTemplate();
+			restTemplate.getMessageConverters().add(
+					new MappingJackson2HttpMessageConverter());
+
+			// Perform the HTTP GET request
+			ResponseEntity<JenkinsResponseDto> responseEntity = restTemplate
+					.exchange(url, HttpMethod.GET, requestEntity,
+							JenkinsResponseDto.class);
+
+			return responseEntity.getBody();
+		} catch (Exception e) {
+			// logger.debug("exception {}", e.getMessage());
+
+		}
+
+		return null;
+	}
+
+	public JenkinsResponseDto createJob(String name) {
+
+		try {
+			final String url = "http://119.81.162.221:8080/jenkins/createItem?name="
+					+ name;
+			// http://119.81.162.221:8080/jenkins/createItem?name=Test069&mode=copy&from=Test007
+			
+			
+			HttpHeaders requestHeaders = new HttpHeaders();
+
+			List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
+			acceptableMediaTypes.add(MediaType.APPLICATION_XML);
+			requestHeaders.setAccept(acceptableMediaTypes);
+			requestHeaders.setContentType(MediaType.APPLICATION_XML);
+
+			// Populate the headers in an HttpEntity object to use for the
+			// request
+			HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
 
 			// Create a new RestTemplate instance
 			RestTemplate restTemplate = new RestTemplate();
