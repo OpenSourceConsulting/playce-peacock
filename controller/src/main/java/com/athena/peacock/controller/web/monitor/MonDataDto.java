@@ -44,6 +44,9 @@ public class MonDataDto extends BaseDto {
 	private String timeRange = "30m";
 	private String period = "1m";
 
+	private String instanceName;
+	private Integer hypervisorId;
+	
 	/**
 	 * @return the machineId
 	 */
@@ -126,6 +129,34 @@ public class MonDataDto extends BaseDto {
 	 */
 	public void setPeriod(String period) {
 		this.period = period;
+	}
+
+	/**
+	 * @return the instanceName
+	 */
+	public String getInstanceName() {
+		return instanceName;
+	}
+
+	/**
+	 * @param instanceName the instanceName to set
+	 */
+	public void setInstanceName(String instanceName) {
+		this.instanceName = instanceName;
+	}
+
+	/**
+	 * @return the hypervisorId
+	 */
+	public Integer getHypervisorId() {
+		return hypervisorId;
+	}
+
+	/**
+	 * @param hypervisorId the hypervisorId to set
+	 */
+	public void setHypervisorId(Integer hypervisorId) {
+		this.hypervisorId = hypervisorId;
 	}
 	
 }

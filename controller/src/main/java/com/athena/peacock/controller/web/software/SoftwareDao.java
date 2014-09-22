@@ -58,6 +58,10 @@ public class SoftwareDao extends AbstractBaseDao {
 		return sqlSession.selectOne("SoftwareMapper.getSoftware", software);
 	}
 
+	public int getSoftwareListCnt(SoftwareDto software) {
+		return sqlSession.selectOne("SoftwareMapper.getSoftwareListCnt", software);
+	}
+
 	public List<SoftwareDto> getSoftwareList(SoftwareDto software) {
 		return sqlSession.selectList("SoftwareMapper.getSoftwareList", software);
 	}

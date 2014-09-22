@@ -38,10 +38,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.athena.peacock.controller.common.component.RHEVMRestTemplate;
 import com.athena.peacock.controller.common.component.RHEVMRestTemplateManager;
 import com.athena.peacock.controller.netty.PeacockTransmitter;
+import com.athena.peacock.controller.web.alm.AlmDashboardComponent;
 import com.athena.peacock.controller.web.machine.MachineDao;
 import com.athena.peacock.controller.web.machine.MachineDto;
 import com.athena.peacock.controller.web.monitor.MonDataDao;
 import com.athena.peacock.controller.web.rhevm.RHEVApi;
+import com.athena.peacock.controller.web.software.SoftwareDao;
+import com.athena.peacock.controller.web.software.SoftwareDto;
+import com.athena.peacock.controller.web.software.SoftwareRepoDao;
+import com.athena.peacock.controller.web.software.SoftwareRepoDto;
 import com.redhat.rhevm.api.model.API;
 import com.redhat.rhevm.api.model.IP;
 import com.redhat.rhevm.api.model.Template;
@@ -60,7 +65,7 @@ import com.redhat.rhevm.api.model.VMs;
 @Transactional(rollbackFor = {Throwable.class}, propagation = Propagation.REQUIRED)
 public class DashboardService {
 
-	public static final String DASH_BOARD = "DASH_BOARD";
+	public DashboardDto dashboardDto;
 	
     protected final Logger logger = LoggerFactory.getLogger(DashboardService.class);
     
@@ -71,12 +76,28 @@ public class DashboardService {
 	@Inject
 	@Named("monDataDao")
 	private MonDataDao monDataDao;
+	
+	@Inject
+	@Named("softwareRepoDao")
+	private SoftwareRepoDao softwareRepoDao;
+    
+	@Inject
+	@Named("softwareDao")
+	private SoftwareDao softwareDao;
+
+	@Inject
+	@Named("almDashboardComponent")
+	AlmDashboardComponent almDashboardComponent;
 
     @Inject
     @Named("peacockTransmitter")
 	private PeacockTransmitter peacockTransmitter;
     
-    public DashboardDto getDashboardInfo() throws Exception {
+    public synchronized DashboardDto getDashboardInfo(boolean refresh) throws Exception {
+    	if (!refresh && dashboardDto != null) {
+    		return dashboardDto;
+    	}
+    	
 		DashboardDto dto = new DashboardDto();
 		
 		List<RHEVMRestTemplate> rhevmTemplateList = RHEVMRestTemplateManager.getAllTemplates();
@@ -127,6 +148,7 @@ public class DashboardService {
 			
 			// Agent 목록 조회
 			MachineDto machine = new MachineDto();
+			machine.setHypervisorId(restTemplate.getHypervisorId());
 			machine.setStart(1);
 			machine.setLimit(2000);
 			List<MachineDto> machineList = machineDao.getMachineList(machine);
@@ -146,6 +168,8 @@ public class DashboardService {
 				} else {
 					instanceDto.setAgentStatus("Down");
 				}
+				
+				agentList.add(instanceDto);
 			}
 			
 			dto.getVmTotalCnt().put(restTemplate.getRhevmName(), total);
@@ -157,91 +181,55 @@ public class DashboardService {
 			dto.getAgentTotalCnt().put(restTemplate.getRhevmName(), agentTotalCnt);
 			dto.getAgentRunningCnt().put(restTemplate.getRhevmName(), agentRunningCnt);
 			
-			// critical alarm list
-			monDataDao.getAlarmList(restTemplate.getHypervisorId(), dto);
-/*
-			Map<String, AlarmDto> alarmList = monDataDao.getAlarmList(restTemplate.getHypervisorId(), dto);
-			
-			int cpuAlarmCnt = 0;
-			int memoryAlarmCnt = 0;
-			int diskAlarmCnt = 0;
-			
-			AlarmDto alarm = null;
-			Iterator<AlarmDto> iter = alarmList.values().iterator();
-			while (iter.hasNext()) {
-				alarm = iter.next();
-				
-				if (alarm.getCpu()) {
-					cpuAlarmCnt++;
-				}
-				if (alarm.getMemory()) {
-					memoryAlarmCnt++;
-				}
-				if(alarm.getDisk()) {
-					diskAlarmCnt++;
-				}
-			}
-			
-			dto.getCpuCriticalCnt().put(restTemplate.getRhevmName(), cpuAlarmCnt);
-			dto.getMemoryCriticalCnt().put(restTemplate.getRhevmName(), memoryAlarmCnt);
-			dto.getDiskCriticalCnt().put(restTemplate.getRhevmName(), diskAlarmCnt);
-			
-			// warning alarm list
-			alarmList = monDataDao.getWarningList(restTemplate.getHypervisorId());
-
-			cpuAlarmCnt = 0;
-			memoryAlarmCnt = 0;
-			diskAlarmCnt = 0;
-			
-			alarm = null;
-			iter = alarmList.values().iterator();
-			while (iter.hasNext()) {
-				alarm = iter.next();
-				
-				if (alarm.getCpu()) {
-					cpuAlarmCnt++;
-				}
-				if (alarm.getMemory()) {
-					memoryAlarmCnt++;
-				}
-				if(alarm.getDisk()) {
-					diskAlarmCnt++;
-				}
-			}
-			dto.getCpuWarningCnt().put(restTemplate.getRhevmName(), cpuAlarmCnt);
-			dto.getMemoryWarningCnt().put(restTemplate.getRhevmName(), memoryAlarmCnt);
-			dto.getDiskWarningCnt().put(restTemplate.getRhevmName(), diskAlarmCnt)
-*/
+			// critical / alarm list, cpu / memory / disk top 5 list
+			monDataDao.getAlarmList(restTemplate.getHypervisorId(), restTemplate.getRhevmName(), dto);
 		}
 		
 		// project cnt
-		
+		dto.setProjectCnt(almDashboardComponent.getProjectCnt());
 		
 		// svn cnt
+		dto.setSvnCnt(almDashboardComponent.getSvnCnt());
 		
+		// jenkins cnt
+		dto.setJenkinsCnt(almDashboardComponent.getJenkinsCnt());
 		
-		// jenking cnt
+		// httpd, tomcat, jboss cnt
+		SoftwareRepoDto softwareRepo = new SoftwareRepoDto();
+		softwareRepo.setStart(1);
+		softwareRepo.setLimit(100);
+		List<SoftwareRepoDto> softwareRepoList = softwareRepoDao.getSoftwareRepoList(softwareRepo);
 		
+		int httpdCnt = 0;
+		int tomcatCnt = 0;
+		int jbossCnt = 0;
+		SoftwareDto software = null;
+		for (SoftwareRepoDto repo : softwareRepoList) {
+			if (repo.getSoftwareName().toLowerCase().indexOf("httpd") >= 0) {
+				software = new SoftwareDto();
+				software.setSoftwareId(repo.getSoftwareId());
+				software.setDeleteYn("N");
+				httpdCnt += softwareDao.getSoftwareListCnt(software);
+			} else if (repo.getSoftwareName().toLowerCase().indexOf("tomcat") >= 0) {
+				software = new SoftwareDto();
+				software.setSoftwareId(repo.getSoftwareId());
+				software.setDeleteYn("N");
+				tomcatCnt += softwareDao.getSoftwareListCnt(software);
+			} else if (repo.getSoftwareName().toLowerCase().indexOf("jboss") >= 0) {
+				software = new SoftwareDto();
+				software.setSoftwareId(repo.getSoftwareId());
+				software.setDeleteYn("N");
+				jbossCnt += softwareDao.getSoftwareListCnt(software);
+			}
+		}
 		
-		// httpd cnt
+		dto.setHttpdCnt(httpdCnt);
+		dto.setTomcatCnt(tomcatCnt);
+		dto.setJbossCnt(jbossCnt);
 		
+		dashboardDto = dto;
 		
-		// tomcat cnt
-		
-		
-		// jboss cnt
-		
-		
-		// cpu top 5
-		
-		
-		// memory top 5
-		
-		
-		// disk top 5
-		
-		
-		return dto;
+		return dashboardDto;
     }
 }
 //end of DashboardService.java

@@ -22,7 +22,6 @@
  */
 package com.athena.peacock.controller.web.dashboard;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -61,9 +60,9 @@ public class DashboardDto {
 	private int tomcatCnt = 0;
 	private int jbossCnt = 0;
 	
-	private List<TopMonitorDto> cpuTopList = new ArrayList<TopMonitorDto>();
-	private List<TopMonitorDto> memoryTopList = new ArrayList<TopMonitorDto>();
-	private List<TopMonitorDto> diskTopList = new ArrayList<TopMonitorDto>();
+	private List<TopMonitorDto> cpuTopList;
+	private List<TopMonitorDto> memoryTopList;
+	private List<TopMonitorDto> diskTopList;
 
 	/**
 	 * @return the vmTotalCnt
