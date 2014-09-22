@@ -82,14 +82,14 @@ public class AlmProjectController {
 	GridJsonResponse list(
 			@RequestParam(value = "offset", defaultValue = "0") int offset,
 			@RequestParam(value = "search", required = false) String search) {
-		
+
 		ExtjsGridParam gridParam = new ExtjsGridParam();
 		gridParam.setPage(offset);
 
 		if (search != null) {
 			gridParam.setSearch(search);
 		}
-		
+
 		return almProjectService.getProjectList(gridParam);
 	}
 
@@ -155,6 +155,7 @@ public class AlmProjectController {
 	public @ResponseBody
 	DtoJsonResponse createProjectMapping(@PathVariable String projectCode,
 			@PathVariable String mappingType, @PathVariable String mappingCode) {
+
 		return almProjectService.createProjectMapping(projectCode, mappingType,
 				mappingCode);
 	}
@@ -174,6 +175,7 @@ public class AlmProjectController {
 	public @ResponseBody
 	DtoJsonResponse getProjectMapping(@PathVariable String projectCode,
 			@PathVariable String mappingType) {
+
 		return almProjectService.getProjectMapping(projectCode, mappingType);
 	}
 

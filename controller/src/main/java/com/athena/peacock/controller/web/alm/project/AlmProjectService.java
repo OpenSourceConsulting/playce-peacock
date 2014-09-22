@@ -141,6 +141,14 @@ public class AlmProjectService {
 
 		// Job 생성
 		createJob("jobCopy", null, pDto.getProjectCode());
+
+		// Job Mapping
+		ProjectMappingDto jenkinsMapping = new ProjectMappingDto();
+		jenkinsMapping.setMappingCode(pDto.getProjectCode());
+		jenkinsMapping.setMappingType(20);
+		jenkinsMapping.setProjectCode(pDto.getProjectCode());
+		projectDao.getProjectMapping(jenkinsMapping);
+
 		return response;
 
 	}
@@ -182,10 +190,13 @@ public class AlmProjectService {
 
 		if (mappingtype.equals("jenkins")) {
 			mappingDto.setMappingType(20);
+			response.setMsg("Jenkins Job이 추가되었습니다.");
 		} else if (mappingtype.equals("svn")) {
 			mappingDto.setMappingType(30);
+			response.setMsg("SVN Repository가 추가되었습니다.");
 		} else if (mappingtype.equals("confluence")) {
 			mappingDto.setMappingType(10);
+			response.setMsg("Confluence Space가 추가되었습니다.");
 		} else {
 			response.setSuccess(false);
 			response.setMsg("mapping code가 정확하지 않습니다");
@@ -193,6 +204,7 @@ public class AlmProjectService {
 		}
 
 		projectDao.insertProjectMapping(mappingDto);
+
 		return response;
 	}
 
