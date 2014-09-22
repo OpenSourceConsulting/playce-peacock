@@ -69,9 +69,12 @@ public class AlmUserController {
 	@RequestMapping(value = "/usermanagement", method = RequestMethod.GET)
 	public @ResponseBody
 	GridJsonResponse userList(
-			@RequestParam(value = "offset", defaultValue = "0") int offset,
+			@RequestParam(value = "limit", defaultValue = "0") int offset,
 			@RequestParam(value = "search", required = false) String search) {
 
+		
+
+		
 		ExtjsGridParam gridParam = new ExtjsGridParam();
 		gridParam.setPage(offset);
 

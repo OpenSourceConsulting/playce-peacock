@@ -136,7 +136,7 @@ public class AlmCrowdService {
 
 		Iterable<User> usernames = crowdClient.searchUsers(restriction, page,
 				50);
-
+		
 		for (User profile : usernames) {
 			AlmUserDto tmp = new AlmUserDto();
 			tmp.setUserId(profile.getName()); // id
@@ -475,6 +475,8 @@ public class AlmCrowdService {
 			page = page - 1;
 		}
 
+		page = page * 50;
+		
 		return page;
 	}
 }

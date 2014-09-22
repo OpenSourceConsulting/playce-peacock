@@ -70,7 +70,7 @@ public class AlmGroupController {
 	@RequestMapping(value = "/groupmanagement", method = RequestMethod.GET)
 	public @ResponseBody
 	GridJsonResponse getGroupList(
-			@RequestParam(value = "offset", defaultValue = "0") int offset,
+			@RequestParam(value = "limit", defaultValue = "0") int offset,
 			@RequestParam(value = "search", required = false) String search) {
 
 		ExtjsGridParam gridParam = new ExtjsGridParam();
