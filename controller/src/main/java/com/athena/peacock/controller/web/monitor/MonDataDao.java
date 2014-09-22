@@ -24,12 +24,16 @@
  */
 package com.athena.peacock.controller.web.monitor;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.athena.peacock.controller.web.common.dao.AbstractBaseDao;
+import com.athena.peacock.controller.web.dashboard.AlarmDto;
 
 /**
  * <pre>
@@ -41,6 +45,24 @@ import com.athena.peacock.controller.web.common.dao.AbstractBaseDao;
 @Repository("monDataDao")
 public class MonDataDao extends AbstractBaseDao {
 
+    @Value("#{contextProperties['cpu.critical.value'] ? : 90}")
+    private int cpuCriticalValue;
+
+    @Value("#{contextProperties['memory.critical.value'] ? : 90}")
+    private int memoryCriticalValue;
+
+    @Value("#{contextProperties['disk.critical.value'] ? : 90}")
+    private int diskCriticalValue;
+
+    @Value("#{contextProperties['cpu.warning.value'] ? : 70}")
+    private int cpuWarninglValue;
+
+    @Value("#{contextProperties['memory.warning.value'] ? : 70}")
+    private int memoryWarningValue;
+
+    @Value("#{contextProperties['disk.warning.value'] ? : 70}")
+    private int diskWarningValue;
+
 	public void insertMonData(MonDataDto monData) {
 		sqlSession.insert("MonDataMapper.insertMonData", monData);
 	}
@@ -51,6 +73,44 @@ public class MonDataDao extends AbstractBaseDao {
 
 	public List<Map<String, String>> getAllMonDataList(MonDataDto monData) {
 		return sqlSession.selectList("MonDataMapper.getAllMonDataList", monData);
+	}
+
+	public Map<String, AlarmDto> getCriticalList(Integer hypervisorId) {
+		Map<String, Integer> param = new HashMap<String, Integer>();
+		param.put("hypervisorId", hypervisorId);
+		param.put("cpuCriticalValue", cpuCriticalValue);
+		param.put("memoryCriticalValue", memoryCriticalValue);
+		param.put("diskCriticalValue", diskCriticalValue);
+		
+		// cpu critial alarm
+		List<AlarmDto> alarmList = sqlSession.selectList("MonDataMapper.getCpuCritalList", param);
+		
+		Map<String, AlarmDto> alarmMap = new TreeMap<String, AlarmDto>();
+		for (AlarmDto alarm : alarmList) {
+			alarmMap.put(alarm.getInstanceName(), alarm);
+		}
+		
+		alarmList = sqlSession.selectList("MonDataMapper.getMemoryCritalList", param);
+		for (AlarmDto alarm : alarmList) {
+			if (alarmMap.containsKey(alarm.getInstanceName())) {
+				alarmMap.get(alarm.getInstanceName()).setMemory(alarm.getMemory());
+			} else {
+				alarmMap.put(alarm.getInstanceName(), alarm);
+			}
+		}
+		
+		MonDataDto monData = new MonDataDto();
+		List<MonDataDto> monDataList = sqlSession.selectList("MonDataMapper.getMonDataList", monData);
+		//alarmList = sqlSession.selectList("MonDataMapper.getDiskCritalList", param);
+
+		
+		
+		return null;
+	}
+
+	public Map<String, AlarmDto> getWarningList(Integer hypervisorId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
 //end of MonDataDao.java

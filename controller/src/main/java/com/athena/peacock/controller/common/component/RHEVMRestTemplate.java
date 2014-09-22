@@ -28,6 +28,7 @@ package com.athena.peacock.controller.common.component;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
@@ -77,6 +78,7 @@ public class RHEVMRestTemplate {
 	private static final String AUTH_HEADER_KEY = "Authorization";
 	   
 	private Integer hypervisorId;
+	private String rhevmName;
 	private String protocol;
 	private String host;
 	private String domain;
@@ -113,6 +115,20 @@ public class RHEVMRestTemplate {
 	 */
 	public void setHypervisorId(Integer hypervisorId) {
 		this.hypervisorId = hypervisorId;
+	}
+
+	/**
+	 * @return the rhevmName
+	 */
+	public String getRhevmName() {
+		return rhevmName;
+	}
+
+	/**
+	 * @param rhevmName the rhevmName to set
+	 */
+	public void setRhevmName(String rhevmName) {
+		this.rhevmName = rhevmName;
 	}
 
 	/**
@@ -298,7 +314,7 @@ public class RHEVMRestTemplate {
 		try {
 			RestTemplate rt = new RestTemplate();
 			
-			ResponseEntity<?> response = rt.exchange(getUrl(api), method, setHTTPEntity(body, rootElementName), clazz);
+			ResponseEntity<?> response = rt.exchange(new URI(getUrl(api)), method, setHTTPEntity(body, rootElementName), clazz);
 			
 			logger.debug("[Request URL] : {}", getUrl(api));
 			logger.debug("[Response] : {}", response);

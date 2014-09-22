@@ -33,6 +33,7 @@ package com.athena.peacock.controller.web.rhevm;
  * @version 1.0
  */
 public interface RHEVApi {
+	public static final String API = "/api";
 	public static final String VMS = "/api/vms";
 	public static final String DATA_CENTERS = "/api/datacenters";
 	public static final String NETWORKS = "/api/networks";

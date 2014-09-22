@@ -69,6 +69,9 @@ public class VMDto extends RHEVBaseDto {
 	private String sshPassword;
 	private String sshKeyFile;
     private CommonsMultipartFile keyFile;
+    
+    // paging 관련
+    private int start;
 	
 	public String getType() {
 		return type;
@@ -250,5 +253,11 @@ public class VMDto extends RHEVBaseDto {
 	}
 	public void setKeyFile(CommonsMultipartFile keyFile) {
 		this.keyFile = keyFile;
+	}
+	public int getStart() {
+		return start;
+	}
+	public void setStart(int start) {
+		this.start = start;
 	}
 }

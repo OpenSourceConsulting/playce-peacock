@@ -42,8 +42,8 @@ import org.springframework.stereotype.Component;
 import com.athena.peacock.controller.web.hypervisor.HypervisorDto;
 import com.athena.peacock.controller.web.hypervisor.HypervisorService;
 import com.athena.peacock.controller.web.rhevm.RHEVApi;
-import com.athena.peacock.controller.web.rhevm.domain.Nics;
 import com.redhat.rhevm.api.model.Template;
+import com.redhat.rhevm.api.model.VMs;
 
 /**
  * <pre>
@@ -92,6 +92,7 @@ public class RHEVMRestTemplateManager implements InitializingBean {
 				hypervisor.getRhevmPort(), hypervisor.getRhevmUsername(), hypervisor.getRhevmPassword());
 		
 		template.setHypervisorId(hypervisor.getHypervisorId());
+		template.setRhevmName(hypervisor.getRhevmName());
 		
 		templates.put(hypervisor.getHypervisorId(), template);
 	}//end of setRHEVMRestTemplate()
@@ -126,17 +127,19 @@ public class RHEVMRestTemplateManager implements InitializingBean {
 		
 		RHEVMRestTemplate rhevTemplate = new RHEVMRestTemplate(protocol, host, domain, port, username, password);
 		
-		String callUrl = RHEVApi.VMS + "/907df084-d7d6-4ecd-bf23-20531df58922/nics";
-		Nics nics = rhevTemplate.submit(callUrl, HttpMethod.GET, Nics.class);
+		String callUrl = RHEVApi.VMS + "?search=192.168.0.99+page+1";
+		VMs vms = rhevTemplate.submit(callUrl, HttpMethod.GET, VMs.class);
 		
-		JAXBContext context = JAXBContext.newInstance(Nics.class);
+		System.err.println(vms.getVMs().size());
+		
+		JAXBContext context = JAXBContext.newInstance(VMs.class);
 		Marshaller marshaller = context.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
 		StringWriter writer = new StringWriter();
 		
-		QName qName = new QName("com.redhat.rhevm.api.model", "nics");
-	    JAXBElement<Nics> root = new JAXBElement<Nics>(qName, Nics.class, nics);
+		QName qName = new QName("com.redhat.rhevm.api.model", "vms");
+	    JAXBElement<VMs> root = new JAXBElement<VMs>(qName, VMs.class, vms);
 		
 	    //*
 	    marshaller.marshal(root, writer);

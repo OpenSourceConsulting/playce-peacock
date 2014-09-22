@@ -25,6 +25,7 @@
 package com.athena.peacock.controller.web.rhevm;
 
 import java.io.File;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -102,7 +103,11 @@ public class RHEVMController {
 		}
 		
 		try {
-			jsonRes.setList(rhevmService.getVirtualList(dto.getHypervisorId(), dto.getName()));
+			int page = ((dto.getStart() - 1) / 100) + 1;
+			
+			List<VMDto> vmDtoList = rhevmService.getVirtualList(dto.getHypervisorId(), dto.getName(), page);
+			jsonRes.setTotal(vmDtoList.size());
+			jsonRes.setList(vmDtoList);
 			jsonRes.setMsg("VM 목록이 정상적으로 조회되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
@@ -213,7 +218,11 @@ public class RHEVMController {
 		}
 		
 		try {
-			jsonRes.setList(rhevmService.getTemplateList(dto.getHypervisorId(), dto.getName()));
+			int page = ((dto.getStart() - 1) / 100) + 1;
+			
+			List<TemplateDto> templateDtoList = rhevmService.getTemplateList(dto.getHypervisorId(), dto.getName(), page);
+			jsonRes.setTotal(templateDtoList.size());
+			jsonRes.setList(templateDtoList);
 			jsonRes.setMsg("템플릿 목록이 정상적으로 조회되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);

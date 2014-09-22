@@ -53,6 +53,7 @@ import com.athena.peacock.controller.web.rhevm.dto.DiskDto;
 import com.athena.peacock.controller.web.rhevm.dto.NetworkDto;
 import com.athena.peacock.controller.web.rhevm.dto.TemplateDto;
 import com.athena.peacock.controller.web.rhevm.dto.VMDto;
+import com.redhat.rhevm.api.model.API;
 import com.redhat.rhevm.api.model.Action;
 import com.redhat.rhevm.api.model.Boot;
 import com.redhat.rhevm.api.model.CPU;
@@ -98,6 +99,19 @@ public class RHEVMService {
 			logger.error("Unhandled Exception has occurred while initializing RHEVMRestTemplates.", e);
 		}
 	}
+	
+	/**
+	 * <pre>
+	 * VM's total / active count를 조회한다.
+	 * </pre>
+	 * @param hypervisorId
+	 * @return
+	 * @throws RestClientException
+	 * @throws Exception
+	 */
+	public API getAPI(int hypervisorId) throws RestClientException, Exception {
+		return getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.API, HttpMethod.GET, API.class);
+	}
 
 	/**
 	 * RHEV에 생성되어 있는 가상머신의 목록을 조회한다.
@@ -105,13 +119,15 @@ public class RHEVMService {
 	 * @throws RestClientException
 	 * @throws Exception
 	 */
-	public List<VMDto> getVirtualList(int hypervisorId, String name) throws RestClientException, Exception {
+	public List<VMDto> getVirtualList(int hypervisorId, String name, int page) throws RestClientException, Exception {
 		List<VMDto> vmDtoList = new ArrayList<VMDto>();
 		
 		String url = RHEVApi.VMS;
 		
 		if (!StringUtils.isEmpty(name)) {
-			url =  url + "?search=" + name;
+			url =  url + "?search=" + name + "+page+" + page;
+		} else {
+			url = url + "?page+" + page;
 		}
 		
 		List<Cluster> clusterList = getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.CLUSTERS, HttpMethod.GET, Clusters.class).getClusters();
@@ -133,13 +149,15 @@ public class RHEVMService {
 	 * @throws RestClientException
 	 * @throws Exception
 	 */
-	public List<TemplateDto> getTemplateList(int hypervisorId, String name)  throws RestClientException, Exception {
+	public List<TemplateDto> getTemplateList(int hypervisorId, String name, int page)  throws RestClientException, Exception {
 		List<TemplateDto> templateDtoList = new ArrayList<TemplateDto>();
 		
 		String url = RHEVApi.TEMPLATES;
 		
 		if (!StringUtils.isEmpty(name)) {
-			url =  url + "?search=" + name;
+			url =  url + "?search=" + name + "+page+" + page;
+		} else {
+			url = url + "?page+" + page;
 		}
 		
 		List<DataCenter> dataCenterList = getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.DATA_CENTERS, HttpMethod.GET, DataCenters.class).getDataCenters();

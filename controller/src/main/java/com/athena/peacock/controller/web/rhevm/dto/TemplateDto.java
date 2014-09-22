@@ -47,6 +47,9 @@ public class TemplateDto extends RHEVBaseDto {
 	private String haEnabled;
 	private Integer haPriority;
 	
+	// paging 관련
+	private int start;
+	
 	public String getTemplateId() {
 		return templateId;
 	}
@@ -131,5 +134,10 @@ public class TemplateDto extends RHEVBaseDto {
 	public void setHaPriority(Integer haPriority) {
 		this.haPriority = haPriority;
 	}
-	
+	public int getStart() {
+		return start;
+	}
+	public void setStart(int start) {
+		this.start = start;
+	}
 }

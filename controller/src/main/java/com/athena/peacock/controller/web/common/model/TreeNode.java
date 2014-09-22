@@ -34,6 +34,8 @@ import java.util.List;
  */
 public class TreeNode extends HashMap<String, Object> {
 
+	private static final long serialVersionUID = 1L;
+	
 	private static final String KEY_CHILDREN = "children";
 	/**
 	 * 
@@ -66,6 +68,7 @@ public class TreeNode extends HashMap<String, Object> {
 		put(KEY_CHILDREN, new ArrayList<TreeNode>());
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void addChild(TreeNode node){
 		List<TreeNode> children = (List<TreeNode>)get(KEY_CHILDREN);
 		

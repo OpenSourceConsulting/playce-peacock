@@ -10,6 +10,11 @@
     </bean>
     
     <!-- ========================= Job & Trigger DEFINITIONS ========================= -->    
+    <bean name="dashboardInfoCollectJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="com.athena.peacock.controller.job.DashboardInfoCollectJob"/>
+        <property name="jobListenerNames" value="JobLogListener"/>
+    </bean>
+    
     <bean name="inspectMachineStatusJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
         <property name="jobClass" value="com.athena.peacock.controller.job.InspectMachineStatusJob"/>
         <property name="jobListenerNames" value="JobLogListener"/>
@@ -20,6 +25,12 @@
             </map>
         </property>
         -->
+    </bean>
+
+    <bean id="dashboardInfoCollectTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="dashboardInfoCollectJobDetail"/>
+        <!-- Every minutes -->
+        <property name="cronExpression" value="0 0/10 * * * ?"/>
     </bean>
 
     <bean id="inspectMachineStatusTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">

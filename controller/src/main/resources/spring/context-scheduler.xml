@@ -12,6 +12,7 @@
         <property name="applicationContextSchedulerContextKey" value="APPCTX"/>
         <property name="triggers">
             <list>
+                <ref bean="dashboardInfoCollectTrigger"/>
                 <!-- <ref bean="inspectMachineStatusTrigger"/> -->
             </list>
         </property>
