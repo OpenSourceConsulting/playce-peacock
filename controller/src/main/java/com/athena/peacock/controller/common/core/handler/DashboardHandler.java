@@ -20,45 +20,45 @@
  * ---------------	----------------	------------
  * Sang-cheon Park	2014. 9. 19.		First Draft.
  */
-package com.athena.peacock.controller.job;
+package com.athena.peacock.controller.common.core.handler;
 
-import com.athena.peacock.common.provider.AppContext;
-import com.athena.peacock.common.scheduler.InternalJobExecutionException;
-import com.athena.peacock.common.scheduler.quartz.BaseJob;
-import com.athena.peacock.common.scheduler.quartz.JobExecution;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+import com.athena.peacock.controller.common.core.InitializingTask;
 import com.athena.peacock.controller.web.dashboard.DashboardService;
 
 /**
  * <pre>
- * Dashboard 화면에 보여줄 데이터를 수집하기 위한 Quartz Job
+ * 
  * </pre>
  * @author Sang-cheon Park
  * @version 1.0
  */
-public class DashboardInfoCollectJob extends BaseJob {
+@Component
+@Qualifier("dashboardHandler")
+public class DashboardHandler implements InitializingTask {
+
+    protected final Logger logger = LoggerFactory.getLogger(DashboardHandler.class);
 	
-	private DashboardService dashboardService;
-	
-	// TODO
-	// Instance Grid의 정보 RHEV Manager 상의 정보를 주기적으로 동기화.
+    @Inject
+    @Named("dashboardService")
+    private DashboardService dashboardService;
 
 	@Override
-	protected void executeInternal(JobExecution context) throws InternalJobExecutionException {
-		
+	public void init() {
 		try {
-			logger.debug("Dashboard Info Collecting...");
-
-			if (dashboardService == null) {
-				dashboardService = AppContext.getBean(DashboardService.class);
-			}
-			
 			if (!dashboardService.getStatus().equals("GATHERING")) {
 				dashboardService.refreshDashboardInfo();
 			}
 		} catch (Exception e) {
-			logger.error("Unhandled exception has occurred.", e);
-			throw new InternalJobExecutionException(e);
+			logger.error("can not initiate dashboard info : ", e);
 		}
 	}
 }
-//end of DashboardInfoCollectJob.java
+//end of DashboardHandler.java

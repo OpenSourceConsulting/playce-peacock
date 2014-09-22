@@ -25,6 +25,9 @@ package com.athena.peacock.controller.common.core.handler;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
 import com.athena.peacock.controller.common.core.InitializingTask;
 import com.athena.peacock.controller.web.rhevm.RHEVMService;
 
@@ -35,6 +38,8 @@ import com.athena.peacock.controller.web.rhevm.RHEVMService;
  * @author Sang-cheon Park
  * @version 1.0
  */
+@Component
+@Qualifier("rhevmReloadHandler")
 public class RHEVMReloadHandler implements InitializingTask {
 	
     @Inject

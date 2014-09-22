@@ -64,8 +64,6 @@ import com.redhat.rhevm.api.model.VMs;
 @Service("dashboardService")
 @Transactional(rollbackFor = {Throwable.class}, propagation = Propagation.REQUIRED)
 public class DashboardService {
-
-	public DashboardDto dashboardDto;
 	
     protected final Logger logger = LoggerFactory.getLogger(DashboardService.class);
     
@@ -92,11 +90,19 @@ public class DashboardService {
     @Inject
     @Named("peacockTransmitter")
 	private PeacockTransmitter peacockTransmitter;
+
+	private DashboardDto dashboardDto;
+	private String status = "INIT";
     
-    public synchronized DashboardDto getDashboardInfo(boolean refresh) throws Exception {
-    	if (!refresh && dashboardDto != null) {
-    		return dashboardDto;
-    	}
+    /**
+	 * @return the status
+	 */
+	public String getStatus() {
+		return status;
+	}
+
+	public synchronized void refreshDashboardInfo() throws Exception {
+    	status = "GATHERING";
     	
 		DashboardDto dto = new DashboardDto();
 		
@@ -228,6 +234,28 @@ public class DashboardService {
 		dto.setJbossCnt(jbossCnt);
 		
 		dashboardDto = dto;
+
+    	status = "DONE";
+    }
+    
+    public DashboardDto getDashboardInfo() throws Exception {
+    	if (dashboardDto != null) {
+    		return dashboardDto;
+    	}
+    	
+    	if (status.equals("INIT")) {
+    		refreshDashboardInfo();
+    	} else if (status.equals("GATHERING")) {
+    		while (true) {
+    			Thread.sleep(500);
+    			
+    			if (status.equals("GATHERING")) {
+    				continue;
+    			} else {
+    				break;
+    			}
+    		}
+    	}
 		
 		return dashboardDto;
     }

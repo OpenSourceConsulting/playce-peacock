@@ -53,7 +53,7 @@ public class DashboardController {
 	
 	@RequestMapping("/main")
 	public @ResponseBody DtoJsonResponse main(DtoJsonResponse jsonRes) throws Exception {
-		jsonRes.setData(dashboardService.getDashboardInfo(false));
+		jsonRes.setData(dashboardService.getDashboardInfo());
 		
 		return jsonRes;
 	}
