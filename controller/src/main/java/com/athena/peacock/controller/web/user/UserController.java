@@ -153,7 +153,7 @@ public class UserController {
 		jsonRes.setData(userDetails);
 		
 		if(userDetails != null){
-			service.updateLastLogon(userDetails.getRegUserId());
+			service.updateLastLogon(userDetails.getUserId());
 		}
 		
 		return jsonRes;
