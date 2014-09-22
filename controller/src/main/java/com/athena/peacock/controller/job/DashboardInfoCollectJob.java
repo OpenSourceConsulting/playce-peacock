@@ -26,8 +26,6 @@ import com.athena.peacock.common.provider.AppContext;
 import com.athena.peacock.common.scheduler.InternalJobExecutionException;
 import com.athena.peacock.common.scheduler.quartz.BaseJob;
 import com.athena.peacock.common.scheduler.quartz.JobExecution;
-import com.athena.peacock.controller.common.util.ThreadLocalUtil;
-import com.athena.peacock.controller.web.dashboard.DashboardDto;
 import com.athena.peacock.controller.web.dashboard.DashboardService;
 
 /**
@@ -54,9 +52,7 @@ public class DashboardInfoCollectJob extends BaseJob {
 				dashboardService = AppContext.getBean(DashboardService.class);
 			}
 			
-			DashboardDto dto = dashboardService.getDashboardInfo();
-			
-			ThreadLocalUtil.add(DashboardService.DASH_BOARD, dto);
+			dashboardService.getDashboardInfo(true);
 		} catch (Exception e) {
 			logger.error("Unhandled exception has occurred.", e);
 			throw new InternalJobExecutionException(e);

@@ -37,7 +37,7 @@ public class SoftwareRepoDto extends BaseDto {
 
 	private static final long serialVersionUID = 1L;
 	
-	private int softwareId;
+	private Integer softwareId;
 	private String softwareName;
 	private String softwareVersion;
 	private String softwareVendor;
@@ -48,14 +48,14 @@ public class SoftwareRepoDto extends BaseDto {
 	/**
 	 * @return the softwareId
 	 */
-	public int getSoftwareId() {
+	public Integer getSoftwareId() {
 		return softwareId;
 	}
 
 	/**
 	 * @param softwareId the softwareId to set
 	 */
-	public void setSoftwareId(int softwareId) {
+	public void setSoftwareId(Integer softwareId) {
 		this.softwareId = softwareId;
 	}
 

@@ -20,43 +20,30 @@
  * ---------------	----------------	------------
  * Sang-cheon Park	2014. 9. 22.		First Draft.
  */
-package com.athena.peacock.controller.web.dashboard;
+package com.athena.peacock.controller.web.alm;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
-import com.athena.peacock.controller.web.machine.MachineController;
+import org.springframework.stereotype.Component;
 
 /**
  * <pre>
- * 
+ * Dashboard 데이터 조회용 컴포넌트
  * </pre>
  * @author Sang-cheon Park
  * @version 1.0
  */
-@Controller("dashboardController")
-@RequestMapping("/dashboard")
-public class DashboardController {
+@Component("almDashboardComponent")
+public class AlmDashboardComponent {
 
-    protected final Logger logger = LoggerFactory.getLogger(MachineController.class);
-
-	@Inject
-	@Named("dashboardService")
-	private DashboardService dashboardService;
-	
-	@RequestMapping("/main")
-	public @ResponseBody DtoJsonResponse main(DtoJsonResponse jsonRes) throws Exception {
-		jsonRes.setData(dashboardService.getDashboardInfo(false));
-		
-		return jsonRes;
+	public int getProjectCnt() {
+		return 0;
 	}
-
+	
+	public int getSvnCnt() {
+		return 0;
+	}
+	
+	public int getJenkinsCnt() {
+		return 0;
+	}
 }
-//end of DashboardController.java
+//end of AlmDashboardComponent.java

@@ -13,56 +13,56 @@
 	</resultMap>
 	
 	<sql id="time_range_perid_condition_sql">
-		AND REG_DT &lt;= NOW() 
+		AND A.REG_DT &lt;= NOW() 
 		<choose>
 			<when test="timeRange == '1h'">
-				AND REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 1 HOUR)
+				AND A.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 1 HOUR)
 			</when>
 			<when test="timeRange == '3h'">
-				AND REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 3 HOUR)
+				AND A.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 3 HOUR)
 			</when>
 			<when test="timeRange == '6h'">
-				AND REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 6 HOUR)
+				AND A.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 6 HOUR)
 			</when>
 			<when test="timeRange == '12h'">
-				AND REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 12 HOUR)
+				AND A.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 12 HOUR)
 			</when>
 			<when test="timeRange == '24h'">
-				AND REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 24 HOUR)
+				AND A.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 24 HOUR)
 			</when>
 			<when test="timeRange == '3d'">
-				AND REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 3 DAY)
+				AND A.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 3 DAY)
 			</when>
 			<when test="timeRange == '1w'">
-				AND REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 1 WEEK)
+				AND A.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 1 WEEK)
 			</when>
 			<when test="timeRange == '2w'">
-				AND REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 2 WEEK)
+				AND A.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 2 WEEK)
 			</when>
 			<otherwise>
-				AND REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 30 MINUTE)
+				AND A.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 30 MINUTE)
 			</otherwise>
 		</choose>
 		<choose>
 			<when test="period == '5m'">
-				AND MOD(MINUTE(REG_DT), 5) = MOD(MINUTE(NOW()), 5)
+				AND MOD(MINUTE(A.REG_DT), 5) = MOD(MINUTE(NOW()), 5)
 			</when>
 			<when test="period == '15m'">
-				AND MOD(MINUTE(REG_DT), 15) = MOD(MINUTE(NOW()), 15)
+				AND MOD(MINUTE(A.REG_DT), 15) = MOD(MINUTE(NOW()), 15)
 			</when>
 			<when test="period == '30m'">
-				AND MOD(MINUTE(REG_DT), 30) = MOD(MINUTE(NOW()), 30)
+				AND MOD(MINUTE(A.REG_DT), 30) = MOD(MINUTE(NOW()), 30)
 			</when>
 			<when test="period == '1h'">
-				AND MOD(MINUTE(REG_DT), 60) = MINUTE(NOW())
+				AND MOD(MINUTE(A.REG_DT), 60) = MINUTE(NOW())
 			</when>
 			<when test="period == '6h'">
-				AND MOD(HOUR(REG_DT), 6) = 0
-				AND MOD(MINUTE(REG_DT), 60) = MINUTE(NOW())
+				AND MOD(HOUR(A.REG_DT), 6) = 0
+				AND MOD(MINUTE(A.REG_DT), 60) = MINUTE(NOW())
 			</when>
 			<when test="period == '1d'">
-				AND MOD(HOUR(REG_DT), 24) = 0
-				AND MOD(MINUTE(REG_DT), 60) = MINUTE(NOW())
+				AND MOD(HOUR(A.REG_DT), 24) = 0
+				AND MOD(MINUTE(A.REG_DT), 60) = MINUTE(NOW())
 			</when>
 			<otherwise />
 		</choose>
@@ -87,15 +87,15 @@
 					   , GROUP_CONCAT(if(MON_FACTOR_ID = 'FACTOR_005', MON_DATA_VALUE, NULL)) AS 'FACTOR_005'
 					   , GROUP_CONCAT(if(MON_FACTOR_ID = 'FACTOR_006', MON_DATA_VALUE, NULL)) AS 'FACTOR_006'
 					   , DATE_FORMAT(REG_DT, '%m-%d %H:%i') regDt
-				  FROM mon_data_tbl m 
+				  FROM mon_data_tbl A 
 				 WHERE 1=1 
 			<if test="machineId != null">AND MACHINE_ID = #{machineId}</if>
 			<include refid="time_range_perid_condition_sql"/>
 				 GROUP BY REG_DT
 				) A 
 		 RIGHT 
-		  JOIN (SELECT DATE_FORMAT(REG_DT, '%m-%d %H:%i') regDt
-		          FROM time_tbl
+		  JOIN (SELECT DATE_FORMAT(A.REG_DT, '%m-%d %H:%i') regDt
+		          FROM time_tbl A
 				 WHERE 1=1
 			<include refid="time_range_perid_condition_sql"/>
 				) B
@@ -103,19 +103,134 @@
 	</select>
 
 	<select id="getMonDataList" parameterType="com.athena.peacock.controller.web.monitor.MonDataDto" resultType="com.athena.peacock.controller.web.monitor.MonDataDto">
-		SELECT MACHINE_ID AS machineId,
-			   MON_FACTOR_ID AS monFactorId,
-			   MON_DATA_ID AS monDataId,
-			   MON_DATA_VALUE AS monDataValue,
-			   REG_USER_ID AS regUserId,
-			   REG_DT AS regDt,
-			   UPD_USER_ID AS updUserId,
-			   UPD_DT AS updDt
-		  FROM mon_data_tbl
+		SELECT A.MACHINE_ID AS machineId,
+			   B.DISPLAY_NAME AS instanceName,
+			   A.MON_FACTOR_ID AS monFactorId,
+			   A.MON_DATA_ID AS monDataId,
+			   A.MON_DATA_VALUE AS monDataValue,
+			   A.REG_USER_ID AS regUserId,
+			   A.REG_DT AS regDt,
+			   A.UPD_USER_ID AS updUserId,
+			   A.UPD_DT AS updDt
+		  FROM mon_data_tbl A JOIN machine_tbl B
+		    ON A.MACHINE_ID = B.MACHINE_ID
 		 WHERE 1=1
-		<if test="machineId != null">AND MACHINE_ID = #{machineId}</if>
-		<if test="monFactorId != null">AND MON_FACTOR_ID = #{monFactorId}</if>
+		<if test="machineId != null">AND A.MACHINE_ID = #{machineId}</if>
+		<if test="monFactorId != null">AND A.MON_FACTOR_ID = #{monFactorId}</if>
+		<if test="hypervisorId != null">AND B.HYPERVISOR_ID = #{hypervisorId}</if>
 		<include refid="time_range_perid_condition_sql"/>
+	</select>
+	
+	<select id="getCpuCritalList" parameterType="map" resultType="com.athena.peacock.controller.web.dashboard.AlarmDto">
+		SELECT DISTINCT(T.DISPLAY_NAME) AS instanceName
+			   , 'true' AS cpu
+		  FROM mon_data_tbl M JOIN machine_tbl T
+		    ON M.MACHINE_ID = T.MACHINE_ID
+		 WHERE T.HYPERVISOR_ID = #{hypervisorId}
+		   AND M.REG_DT &lt;= NOW()
+		   AND M.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 1 HOUR)
+		   AND M.MON_FACTOR_ID = 'FACTOR_002'
+		   AND M.MON_DATA_VALUE &gt;= #{cpuCriticalValue}
+	</select>
+	
+	<select id="getCpuWarningList" parameterType="map" resultType="com.athena.peacock.controller.web.dashboard.AlarmDto">
+		SELECT DISTINCT(T.DISPLAY_NAME) AS instanceName
+			   , 'true' AS cpu
+		  FROM mon_data_tbl M JOIN machine_tbl T
+		    ON M.MACHINE_ID = T.MACHINE_ID
+		 WHERE T.HYPERVISOR_ID = #{hypervisorId}
+		   AND M.REG_DT &lt;= NOW()
+		   AND M.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 1 HOUR)
+		   AND M.MON_FACTOR_ID = 'FACTOR_002'
+		   AND M.MON_DATA_VALUE &gt;= #{cpuWarningValue}
+		   AND M.MON_DATA_VALUE &lt; #{cpuCriticalValue}
+	</select>
+	
+	<select id="getMemoryCritalList" parameterType="map" resultType="com.athena.peacock.controller.web.dashboard.AlarmDto">
+		SELECT DISTINCT(T.DISPLAY_NAME) AS instanceName
+			   , 'true' AS memory
+		  FROM (SELECT a.MACHINE_ID
+					   , (a.MON_DATA_VALUE / b.MON_DATA_VALUE * 100) AS MON_DATA_VALUE
+				  FROM mon_data_tbl a JOIN mon_data_tbl b
+					ON a.MACHINE_ID = b.MACHINE_ID
+				   AND a.REG_DT = b.REG_DT
+				   AND a.MON_FACTOR_ID = 'FACTOR_005'
+				   AND b.MON_FACTOR_ID = 'FACTOR_003'
+				 WHERE a.REG_DT &lt;= NOW()
+				   AND a.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 1 HOUR)) M JOIN machine_tbl T
+		    ON M.MACHINE_ID = T.MACHINE_ID
+		 WHERE T.HYPERVISOR_ID = #{hypervisorId}
+		   AND M.MON_DATA_VALUE &gt;= #{memoryCriticalValue}
+	</select>
+	
+	<select id="getMemoryWarningList" parameterType="map" resultType="com.athena.peacock.controller.web.dashboard.AlarmDto">
+		SELECT DISTINCT(T.DISPLAY_NAME) AS instanceName
+			   , 'true' AS memory
+		  FROM (SELECT a.MACHINE_ID
+					   , (a.MON_DATA_VALUE / b.MON_DATA_VALUE * 100) AS MON_DATA_VALUE
+				  FROM mon_data_tbl a join mon_data_tbl b
+					ON a.MACHINE_ID = b.MACHINE_ID
+				   AND a.REG_DT = b.REG_DT
+				   AND a.MON_FACTOR_ID = 'FACTOR_005'
+				   AND b.MON_FACTOR_ID = 'FACTOR_003'
+				 WHERE a.REG_DT &lt;= NOW()
+				   AND a.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 1 HOUR)) M JOIN machine_tbl T
+		    ON M.MACHINE_ID = T.MACHINE_ID
+		 WHERE T.HYPERVISOR_ID = #{hypervisorId}
+		   AND M.MON_DATA_VALUE &gt;= #{memoryWarningValue}
+		   AND M.MON_DATA_VALUE &lt; #{memoryCriticalValue}
+	</select>
+	
+	<select id="getTop5CpuList" resultType="com.athena.peacock.controller.web.dashboard.TopMonitorDto">
+		SELECT (SELECT t.DISPLAY_NAME FROM machine_tbl t WHERE t.MACHINE_ID = a.MACHINE_ID) AS instanceName
+			   , FORMAT(FLOOR(AVG(a.MON_DATA_VALUE)), 0) AS free
+			   , FORMAT(FLOOR(AVG(b.MON_DATA_VALUE)), 0) AS used
+		  FROM mon_data_tbl a JOIN mon_data_tbl b
+			ON a.MACHINE_ID = b.MACHINE_ID
+		   AND a.REG_DT = b.REG_DT
+		   AND a.MON_FACTOR_ID = 'FACTOR_001'
+		   AND b.MON_FACTOR_ID = 'FACTOR_002'
+		 WHERE a.REG_DT &lt;= NOW()
+		   AND a.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 1 HOUR)
+		 GROUP BY a.MACHINE_ID
+		 ORDER BY b.MON_DATA_VALUE DESC
+		 LIMIT 5
+	</select>
+	
+	<select id="getTop5MemoryList" resultType="com.athena.peacock.controller.web.dashboard.TopMonitorDto">
+		SELECT A.instanceName
+			   , FORMAT(FLOOR(A.free), 0) AS free
+		       , (100 - FORMAT(FLOOR(A.free), 0)) AS used
+		  FROM (SELECT (SELECT t.DISPLAY_NAME FROM machine_tbl t WHERE t.MACHINE_ID = a.MACHINE_ID) AS instanceName
+					   , AVG(a.MON_DATA_VALUE / b.MON_DATA_VALUE * 100) AS free
+				  FROM mon_data_tbl a JOIN mon_data_tbl b
+					ON a.MACHINE_ID = b.MACHINE_ID
+				   AND a.REG_DT = b.REG_DT
+				   AND a.MON_FACTOR_ID = 'FACTOR_004'
+				   AND b.MON_FACTOR_ID = 'FACTOR_003'
+				 WHERE a.REG_DT &lt;= NOW()
+				   AND a.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 1 HOUR)
+				 GROUP BY a.MACHINE_ID
+				 ORDER BY a.MON_DATA_VALUE DESC) A
+		 LIMIT 5
+	</select>
+	
+	<select id="getTop5DiskList" resultType="com.athena.peacock.controller.web.dashboard.TopMonitorDto">
+		SELECT A.instanceName
+		       , (100 - FORMAT(FLOOR(A.used), 0)) AS free
+		       , FORMAT(FLOOR(A.used), 0) AS used
+		  FROM (SELECT (SELECT t.DISPLAY_NAME FROM machine_tbl t WHERE t.MACHINE_ID = a.MACHINE_ID) AS instanceName
+					   , AVG(a.MON_DATA_VALUE / b.MON_DATA_VALUE * 100) AS used
+				  FROM mon_data_tbl a JOIN mon_data_tbl b
+					ON a.MACHINE_ID = b.MACHINE_ID
+				   AND a.REG_DT = b.REG_DT
+				   AND a.MON_FACTOR_ID = 'FACTOR_008'
+				   AND b.MON_FACTOR_ID = 'FACTOR_007'
+				 WHERE a.REG_DT &lt;= NOW()
+				   AND a.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 1 HOUR)
+				 GROUP BY a.MACHINE_ID
+				 ORDER BY a.MON_DATA_VALUE DESC) A
+		 LIMIT 5
 	</select>
 
 </mapper>

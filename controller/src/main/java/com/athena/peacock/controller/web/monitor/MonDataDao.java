@@ -35,6 +35,7 @@ import org.springframework.stereotype.Repository;
 import com.athena.peacock.controller.web.common.dao.AbstractBaseDao;
 import com.athena.peacock.controller.web.dashboard.AlarmDto;
 import com.athena.peacock.controller.web.dashboard.DashboardDto;
+import com.athena.peacock.controller.web.dashboard.TopMonitorDto;
 
 /**
  * <pre>
@@ -76,7 +77,7 @@ public class MonDataDao extends AbstractBaseDao {
 		return sqlSession.selectList("MonDataMapper.getAllMonDataList", monData);
 	}
 
-	public void getAlarmList(Integer hypervisorId, DashboardDto dto) {
+	public void getAlarmList(Integer hypervisorId, String rhevmName, DashboardDto dto) {
 		Map<String, Integer> param = new HashMap<String, Integer>();
 		param.put("hypervisorId", hypervisorId);
 		param.put("cpuCriticalValue", cpuCriticalValue);
@@ -86,12 +87,21 @@ public class MonDataDao extends AbstractBaseDao {
 		param.put("memoryWarningValue", memoryWarningValue);
 		param.put("diskWarningValue", diskWarningValue);
 		
+		int criticalCpuAlarmCnt = 0;
+		int criticalMemoryAlarmCnt = 0;
+		int criticalDiskAlarmCnt = 0;
+		
+		int warningCpuAlarmCnt = 0;
+		int warningMemoryAlarmCnt = 0;
+		int warningDiskAlarmCnt = 0;
+		
 		// cpu critial alarm
 		List<AlarmDto> alarmList = sqlSession.selectList("MonDataMapper.getCpuCritalList", param);
 		
 		Map<String, AlarmDto> criticalAlarmMap = new TreeMap<String, AlarmDto>();
 		for (AlarmDto alarm : alarmList) {
 			criticalAlarmMap.put(alarm.getInstanceName(), alarm);
+			criticalCpuAlarmCnt++;
 		}
 		
 		// memory critical alarm
@@ -102,6 +112,8 @@ public class MonDataDao extends AbstractBaseDao {
 			} else {
 				criticalAlarmMap.put(alarm.getInstanceName(), alarm);
 			}
+			
+			criticalMemoryAlarmCnt++;
 		}
 
 		// cpu warning alarm
@@ -110,6 +122,7 @@ public class MonDataDao extends AbstractBaseDao {
 		Map<String, AlarmDto> warningAlarmMap = new TreeMap<String, AlarmDto>();
 		for (AlarmDto alarm : alarmList) {
 			warningAlarmMap.put(alarm.getInstanceName(), alarm);
+			warningCpuAlarmCnt++;
 		}
 		
 		// memory warning alarm
@@ -120,37 +133,93 @@ public class MonDataDao extends AbstractBaseDao {
 			} else {
 				warningAlarmMap.put(alarm.getInstanceName(), alarm);
 			}
+			
+			warningMemoryAlarmCnt++;
 		}
 		
+		// disk critical / warning alarm
 		MonDataDto monData = new MonDataDto();
+		monData.setHypervisorId(hypervisorId);
 		monData.setMonFactorId("FACTOR_006");
 		monData.setTimeRange("1h");
 		List<MonDataDto> monDataList = sqlSession.selectList("MonDataMapper.getMonDataList", monData);
 		
-		AlarmDto a = null;
+		AlarmDto alarm = null;
 		String value = null;
 		String[] partitions = null;
+		
 		for (MonDataDto md : monDataList) {
 			value = md.getMonDataValue();
 			
 			partitions = value.split(",");
 			
 			for (String partition : partitions) {
-				if (Long.parseLong(partition.split(":")[1]) >= (long) diskWarningValue &&
-						Long.parseLong(partition.split(":")[1]) < (long) diskCriticalValue) {
+				if (Double.parseDouble(partition.split(":")[1]) >= (double) diskWarningValue &&
+						Double.parseDouble(partition.split(":")[1]) < (double) diskCriticalValue) {
 					
-				} else if (Long.parseLong(partition.split(":")[1]) >= (long) diskCriticalValue) {
+					if (criticalAlarmMap.containsKey(md.getInstanceName()) && criticalAlarmMap.get(md.getInstanceName()).getDisk()) {
+						continue;
+					}
 					
+					if (warningAlarmMap.containsKey(md.getInstanceName())) {
+						warningAlarmMap.get(md.getInstanceName()).setDisk(true);
+					} else {
+						alarm = new AlarmDto();
+						alarm.setInstanceName(md.getInstanceName());
+						alarm.setDisk(true);
+						warningAlarmMap.put(alarm.getInstanceName(), alarm);
+					}
+					
+					criticalDiskAlarmCnt++;
+				} else if (Double.parseDouble(partition.split(":")[1]) >= (double) diskCriticalValue) {
+
+					if (warningAlarmMap.containsKey(md.getInstanceName()) && warningAlarmMap.get(md.getInstanceName()).getDisk()) {
+						continue;
+					}
+					
+					if (criticalAlarmMap.containsKey(md.getInstanceName())) {
+						criticalAlarmMap.get(md.getInstanceName()).setDisk(true);
+					} else {
+						alarm = new AlarmDto();
+						alarm.setInstanceName(md.getInstanceName());
+						alarm.setDisk(true);
+						criticalAlarmMap.put(alarm.getInstanceName(), alarm);
+					}
+					
+					warningDiskAlarmCnt++;
 				}
 			}
 		}
 		
-		//alarmList = sqlSession.selectList("MonDataMapper.getDiskCritalList", param);
-	}
-
-	public Map<String, AlarmDto> getWarningList(Integer hypervisorId) {
-		// TODO Auto-generated method stub
-		return null;
+		// top 5 - cpu
+		List<TopMonitorDto> topList = null;
+		if (dto.getCpuTopList() == null) {
+			topList = sqlSession.selectList("MonDataMapper.getTop5CpuList");
+			dto.setCpuTopList(topList);
+		}
+		
+		// top 5 - memory
+		if (dto.getMemoryTopList() == null) {
+			topList = sqlSession.selectList("MonDataMapper.getTop5MemoryList");
+			dto.setMemoryTopList(topList);
+		}
+		
+		// top 5 - disk
+		if (dto.getDiskTopList() == null) {
+			topList = sqlSession.selectList("MonDataMapper.getTop5DiskList");
+			dto.setDiskTopList(topList);
+		}
+		
+		dto.getCriticalList().put(rhevmName, criticalAlarmMap);
+		dto.getWarningList().put(rhevmName, warningAlarmMap);
+		
+		dto.getCpuCriticalCnt().put(rhevmName, criticalCpuAlarmCnt);
+		dto.getMemoryCriticalCnt().put(rhevmName, criticalMemoryAlarmCnt);
+		dto.getDiskCriticalCnt().put(rhevmName, criticalDiskAlarmCnt);
+		
+		dto.getCpuWarningCnt().put(rhevmName, warningCpuAlarmCnt);
+		dto.getMemoryWarningCnt().put(rhevmName, warningMemoryAlarmCnt);
+		dto.getDiskWarningCnt().put(rhevmName, warningDiskAlarmCnt);
 	}
 }
 //end of MonDataDao.java

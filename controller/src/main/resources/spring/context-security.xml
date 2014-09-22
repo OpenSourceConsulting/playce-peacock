@@ -28,6 +28,8 @@
 	  <!-- URL & 권한(ROLE) 매핑 -->
 	  <!-- ==================================================== -->
 	  
+	  <intercept-url pattern="/dashboard/**" 	 	access="ROLE_ADMIN, ROLE_USER" />
+	  
 	  <!-- B1 : Instances -->
 	  <intercept-url pattern="/config/update*" 			access="ROLE_ADMIN, ROLE_B1_WRITE" />
 	  <intercept-url pattern="/config/**" 				access="ROLE_ADMIN, ROLE_B1_READ" />
