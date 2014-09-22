@@ -34,6 +34,7 @@ import org.springframework.stereotype.Repository;
 
 import com.athena.peacock.controller.web.common.dao.AbstractBaseDao;
 import com.athena.peacock.controller.web.dashboard.AlarmDto;
+import com.athena.peacock.controller.web.dashboard.DashboardDto;
 
 /**
  * <pre>
@@ -45,22 +46,22 @@ import com.athena.peacock.controller.web.dashboard.AlarmDto;
 @Repository("monDataDao")
 public class MonDataDao extends AbstractBaseDao {
 
-    @Value("#{contextProperties['cpu.critical.value'] ? : 90}")
+    @Value("#{contextProperties['cpu.critical.value']}")
     private int cpuCriticalValue;
 
-    @Value("#{contextProperties['memory.critical.value'] ? : 90}")
+    @Value("#{contextProperties['memory.critical.value']}")
     private int memoryCriticalValue;
 
-    @Value("#{contextProperties['disk.critical.value'] ? : 90}")
+    @Value("#{contextProperties['disk.critical.value']}")
     private int diskCriticalValue;
 
-    @Value("#{contextProperties['cpu.warning.value'] ? : 70}")
-    private int cpuWarninglValue;
+    @Value("#{contextProperties['cpu.warning.value']}")
+    private int cpuWarningValue;
 
-    @Value("#{contextProperties['memory.warning.value'] ? : 70}")
+    @Value("#{contextProperties['memory.warning.value']}")
     private int memoryWarningValue;
 
-    @Value("#{contextProperties['disk.warning.value'] ? : 70}")
+    @Value("#{contextProperties['disk.warning.value']}")
     private int diskWarningValue;
 
 	public void insertMonData(MonDataDto monData) {
@@ -75,37 +76,76 @@ public class MonDataDao extends AbstractBaseDao {
 		return sqlSession.selectList("MonDataMapper.getAllMonDataList", monData);
 	}
 
-	public Map<String, AlarmDto> getCriticalList(Integer hypervisorId) {
+	public void getAlarmList(Integer hypervisorId, DashboardDto dto) {
 		Map<String, Integer> param = new HashMap<String, Integer>();
 		param.put("hypervisorId", hypervisorId);
 		param.put("cpuCriticalValue", cpuCriticalValue);
 		param.put("memoryCriticalValue", memoryCriticalValue);
 		param.put("diskCriticalValue", diskCriticalValue);
+		param.put("cpuWarningValue", cpuWarningValue);
+		param.put("memoryWarningValue", memoryWarningValue);
+		param.put("diskWarningValue", diskWarningValue);
 		
 		// cpu critial alarm
 		List<AlarmDto> alarmList = sqlSession.selectList("MonDataMapper.getCpuCritalList", param);
 		
-		Map<String, AlarmDto> alarmMap = new TreeMap<String, AlarmDto>();
+		Map<String, AlarmDto> criticalAlarmMap = new TreeMap<String, AlarmDto>();
 		for (AlarmDto alarm : alarmList) {
-			alarmMap.put(alarm.getInstanceName(), alarm);
+			criticalAlarmMap.put(alarm.getInstanceName(), alarm);
 		}
 		
+		// memory critical alarm
 		alarmList = sqlSession.selectList("MonDataMapper.getMemoryCritalList", param);
 		for (AlarmDto alarm : alarmList) {
-			if (alarmMap.containsKey(alarm.getInstanceName())) {
-				alarmMap.get(alarm.getInstanceName()).setMemory(alarm.getMemory());
+			if (criticalAlarmMap.containsKey(alarm.getInstanceName())) {
+				criticalAlarmMap.get(alarm.getInstanceName()).setMemory(alarm.getMemory());
 			} else {
-				alarmMap.put(alarm.getInstanceName(), alarm);
+				criticalAlarmMap.put(alarm.getInstanceName(), alarm);
+			}
+		}
+
+		// cpu warning alarm
+		alarmList = sqlSession.selectList("MonDataMapper.getCpuWarningList", param);
+
+		Map<String, AlarmDto> warningAlarmMap = new TreeMap<String, AlarmDto>();
+		for (AlarmDto alarm : alarmList) {
+			warningAlarmMap.put(alarm.getInstanceName(), alarm);
+		}
+		
+		// memory warning alarm
+		alarmList = sqlSession.selectList("MonDataMapper.getMemoryWarningList", param);
+		for (AlarmDto alarm : alarmList) {
+			if (warningAlarmMap.containsKey(alarm.getInstanceName())) {
+				warningAlarmMap.get(alarm.getInstanceName()).setMemory(alarm.getMemory());
+			} else {
+				warningAlarmMap.put(alarm.getInstanceName(), alarm);
 			}
 		}
 		
 		MonDataDto monData = new MonDataDto();
+		monData.setMonFactorId("FACTOR_006");
+		monData.setTimeRange("1h");
 		List<MonDataDto> monDataList = sqlSession.selectList("MonDataMapper.getMonDataList", monData);
+		
+		AlarmDto a = null;
+		String value = null;
+		String[] partitions = null;
+		for (MonDataDto md : monDataList) {
+			value = md.getMonDataValue();
+			
+			partitions = value.split(",");
+			
+			for (String partition : partitions) {
+				if (Long.parseLong(partition.split(":")[1]) >= (long) diskWarningValue &&
+						Long.parseLong(partition.split(":")[1]) < (long) diskCriticalValue) {
+					
+				} else if (Long.parseLong(partition.split(":")[1]) >= (long) diskCriticalValue) {
+					
+				}
+			}
+		}
+		
 		//alarmList = sqlSession.selectList("MonDataMapper.getDiskCritalList", param);
-
-		
-		
-		return null;
 	}
 
 	public Map<String, AlarmDto> getWarningList(Integer hypervisorId) {

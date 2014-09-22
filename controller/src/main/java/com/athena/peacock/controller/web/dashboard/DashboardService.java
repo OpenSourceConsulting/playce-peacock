@@ -23,9 +23,7 @@
 package com.athena.peacock.controller.web.dashboard;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -160,7 +158,9 @@ public class DashboardService {
 			dto.getAgentRunningCnt().put(restTemplate.getRhevmName(), agentRunningCnt);
 			
 			// critical alarm list
-			Map<String, AlarmDto> alarmList = monDataDao.getCriticalList(restTemplate.getHypervisorId());
+			monDataDao.getAlarmList(restTemplate.getHypervisorId(), dto);
+/*
+			Map<String, AlarmDto> alarmList = monDataDao.getAlarmList(restTemplate.getHypervisorId(), dto);
 			
 			int cpuAlarmCnt = 0;
 			int memoryAlarmCnt = 0;
@@ -210,7 +210,8 @@ public class DashboardService {
 			}
 			dto.getCpuWarningCnt().put(restTemplate.getRhevmName(), cpuAlarmCnt);
 			dto.getMemoryWarningCnt().put(restTemplate.getRhevmName(), memoryAlarmCnt);
-			dto.getDiskWarningCnt().put(restTemplate.getRhevmName(), diskAlarmCnt);
+			dto.getDiskWarningCnt().put(restTemplate.getRhevmName(), diskAlarmCnt)
+*/
 		}
 		
 		// project cnt

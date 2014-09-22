@@ -127,7 +127,7 @@ public class RHEVMService {
 		if (!StringUtils.isEmpty(name)) {
 			url =  url + "?search=" + name + "+page+" + page;
 		} else {
-			url = url + "?page+" + page;
+			url = url + "?search=page+" + page;
 		}
 		
 		List<Cluster> clusterList = getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.CLUSTERS, HttpMethod.GET, Clusters.class).getClusters();
@@ -157,7 +157,7 @@ public class RHEVMService {
 		if (!StringUtils.isEmpty(name)) {
 			url =  url + "?search=" + name + "+page+" + page;
 		} else {
-			url = url + "?page+" + page;
+			url = url + "?search=page+" + page;
 		}
 		
 		List<DataCenter> dataCenterList = getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.DATA_CENTERS, HttpMethod.GET, DataCenters.class).getDataCenters();
