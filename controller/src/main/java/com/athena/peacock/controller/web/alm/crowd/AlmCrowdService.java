@@ -256,6 +256,39 @@ public class AlmCrowdService {
 		return response;
 	}
 
+	// 유저 수정
+	public DtoJsonResponse modifyUser(AlmUserAddDto userData) {
+
+		DtoJsonResponse response = new DtoJsonResponse();
+
+		UserEntity myuser = new UserEntity(userData.getName(),
+				userData.getFirstName(), userData.getLastName(),
+				userData.getDisplayName(), userData.getEmail(),
+				new PasswordEntity(userData.getPassword()), true);
+		try {
+			
+			crowdClient.updateUser(myuser);
+			response.setMsg("사용자 수정 성공");
+		} catch (InvalidUserException e) {
+			response.setSuccess(false);
+			response.setMsg("InvalidUserException");
+		} catch (OperationFailedException e) {
+			response.setSuccess(false);
+			response.setMsg("OperationFailedException");
+		} catch (InvalidAuthenticationException e) {
+			response.setSuccess(false);
+			response.setMsg("InvalidAuthenticationException");
+		} catch (ApplicationPermissionException e) {
+			response.setSuccess(false);
+			response.setMsg("ApplicationPermissionException");
+		} catch (UserNotFoundException e) {
+			response.setSuccess(false);
+			response.setMsg("UserNotFoundException");
+		}
+
+		return response;
+	}
+
 	// 유저 삭제
 	public DtoJsonResponse removeUser(String username) {
 
@@ -441,7 +474,7 @@ public class AlmCrowdService {
 		if (page > 1) {
 			page = page - 1;
 		}
-		
+
 		return page;
 	}
 }

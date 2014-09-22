@@ -72,7 +72,6 @@ public class AlmUserController {
 			@RequestParam(value = "offset", defaultValue = "0") int offset,
 			@RequestParam(value = "search", required = false) String search) {
 
-		
 		ExtjsGridParam gridParam = new ExtjsGridParam();
 		gridParam.setPage(offset);
 
@@ -106,6 +105,23 @@ public class AlmUserController {
 		}
 
 		return service.addUser(userData);
+	}
+
+	// User 추가
+	@RequestMapping(value = "/usermanagement", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody
+	DtoJsonResponse modifyUser(@Valid @RequestBody AlmUserAddDto userData,
+			BindingResult result) {
+
+		if (result.hasErrors()) {
+			DtoJsonResponse response = new DtoJsonResponse();
+			response.setSuccess(false);
+			response.setMsg("invalid parameter");
+			response.setData(result.getAllErrors());
+			return response;
+		}
+
+		return service.modifyUser(userData);
 	}
 
 	// User 삭제
