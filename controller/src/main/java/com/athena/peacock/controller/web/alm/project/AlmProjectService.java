@@ -33,6 +33,7 @@ import org.springframework.stereotype.Service;
 import com.athena.peacock.controller.web.alm.crowd.AlmCrowdService;
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmGroupDto;
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmUserDto;
+import com.athena.peacock.controller.web.alm.jenkins.AlmJenkinsService;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectWizardDto;
@@ -57,6 +58,9 @@ public class AlmProjectService {
 
 	@Autowired
 	private AlmCrowdService crowdService;
+
+	@Autowired
+	private AlmJenkinsService jenkinsService;
 
 	public AlmProjectService() {
 		// TODO Auto-generated constructor stub
@@ -130,8 +134,13 @@ public class AlmProjectService {
 
 		// User를 그룹에 추가
 		List<AlmUserDto> userList = project.getUsers();
-		addUserToGroup(pDto.getProjectCode(), userList);
-		
+
+		if (userList != null) {
+			addUserToGroup(pDto.getProjectCode(), userList);
+		}
+
+		// Job 생성
+		createJob("jobCopy", null, pDto.getProjectCode());
 		return response;
 
 	}
@@ -276,6 +285,12 @@ public class AlmProjectService {
 		return dto;
 		//
 
+	}
+
+	private void createJob(String jobName, String templateName,
+			String newJobName) {
+
+		jenkinsService.createJob(jobName, templateName, newJobName);
 	}
 
 	private void addGroup(String name, String description) {

@@ -35,25 +35,29 @@ import com.athena.peacock.controller.web.common.model.GridJsonResponse;
  * <pre>
  * 사용자 관리 컨트롤러.
  * </pre>
+ * 
  * @author Jungsu Han
  * @version 1.0
  */
 @Service
 public class AlmJenkinsService {
-	
+
 	@Autowired
 	private JenkinsClient jenkinsClient;
-	
-	
-	public GridJsonResponse getJobs(){
-		
+
+	public GridJsonResponse getJobs() {
+
 		GridJsonResponse response = new GridJsonResponse();
 		JenkinsResponseDto dto = jenkinsClient.getJobs();
 		response.setList(dto.getJobs());
 		return response;
 	}
-	
-	
-	
+
+	public void createJob(String jobName, String templateName, String newJobName) {
+
+		System.out.println("testtest");
+		jenkinsClient.copyJob(jobName, templateName, newJobName);
+	}
+
 }
-//end of AlmUserController.java
+// end of AlmUserController.java
