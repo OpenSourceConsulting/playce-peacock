@@ -100,7 +100,10 @@ public class UserController {
 	@RequestMapping("/updateMyAccount")
 	public @ResponseBody SimpleJsonResponse updateMyAccount(SimpleJsonResponse jsonRes, UserDto user){
 		
-		user.setUpdUserId(UserService.getLoginUserId());
+		int userId = UserService.getLoginUserId();
+		
+		user.setUserId(userId);
+		user.setUpdUserId(userId);
 		
 		service.updateUser(user);
 		jsonRes.setMsg("내 정보가 정상적으로 수정되었습니다.");
@@ -127,7 +130,11 @@ public class UserController {
 	}
 	
 	@RequestMapping("/getMyAccount")
-	public @ResponseBody DtoJsonResponse getMyAccount(DtoJsonResponse jsonRes, @RequestParam("userId") int userId){
+	public @ResponseBody DtoJsonResponse getMyAccount(){
+		
+		DtoJsonResponse jsonRes = new DtoJsonResponse();
+		
+		int userId = UserService.getLoginUserId();
 		
 		jsonRes.setData(service.getUser(userId));
 		

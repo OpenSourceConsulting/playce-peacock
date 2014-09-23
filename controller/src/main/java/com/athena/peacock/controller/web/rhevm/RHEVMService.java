@@ -136,8 +136,9 @@ public class RHEVMService {
 		VMs vms = getRHEVMRestTemplate(hypervisorId).submit(url, HttpMethod.GET, VMs.class);
 		List<VM> vmList = vms.getVMs();
 		
+		int seq = (page * 100) + 1;
 		for( VM vm : vmList) {
-			vmDtoList.add(makeDto(hypervisorId, vm, clusterList, hostList));
+			vmDtoList.add(makeDto(hypervisorId, vm, clusterList, hostList, seq++));
 		}
 		
 		return vmDtoList;
@@ -165,9 +166,10 @@ public class RHEVMService {
 		
 		Templates templates = getRHEVMRestTemplate(hypervisorId).submit(url, HttpMethod.GET, Templates.class);
 		List<Template> templateList = templates.getTemplates();
-		
+
+		int seq = (page * 100) + 1;
 		for( Template template : templateList) {
-			templateDtoList.add(makeDto(hypervisorId, template, dataCenterList, clusterList));
+			templateDtoList.add(makeDto(hypervisorId, template, dataCenterList, clusterList, seq));
 		}
 		
 		return templateDtoList;
@@ -183,7 +185,7 @@ public class RHEVMService {
 		String templateUrl =  RHEVApi.TEMPLATES + "/" + templateId;
 		Template template = getRHEVMRestTemplate(hypervisorId).submit(templateUrl, HttpMethod.GET, Template.class);
 		
-		return makeDto(hypervisorId, template, null, null);
+		return makeDto(hypervisorId, template, null, null, 1);
 	}
 	
 	/**
@@ -376,7 +378,7 @@ public class RHEVMService {
 	public VMDto getVirtualMachine(int hypervisorId, String vmId) throws Exception {
 		String callUrl = RHEVApi.VMS + "/" + vmId;
 		VM vm = getRHEVMRestTemplate(hypervisorId).submit(callUrl,  HttpMethod.GET, VM.class);
-		return makeDto(hypervisorId, vm, null, null);
+		return makeDto(hypervisorId, vm, null, null, 1);
 	}
 
 	/**
@@ -611,9 +613,10 @@ public class RHEVMService {
 	 * @param template
 	 * @return
 	 */
-	private TemplateDto makeDto(int hypervisorId, Template template, List<DataCenter> dataCenterList, List<Cluster> clusterList) {
+	private TemplateDto makeDto(int hypervisorId, Template template, List<DataCenter> dataCenterList, List<Cluster> clusterList, int seq) {
 		TemplateDto dto = new TemplateDto();
 		
+		dto.setSeq(seq);
 		dto.setTemplateId(template.getId());
 		dto.setName(template.getName());
 		dto.setDescription(template.getDescription());
@@ -772,8 +775,9 @@ public class RHEVMService {
 	 * @param vm
 	 * @return
 	 */
-	private VMDto makeDto(int hypervisorId, VM vm, List<Cluster> clusterList, List<Host> hostList) {
+	private VMDto makeDto(int hypervisorId, VM vm, List<Cluster> clusterList, List<Host> hostList, int seq) {
 		VMDto dto = new VMDto();
+		dto.setSeq(seq);
 		dto.setVmId(vm.getId());
 		dto.setName(vm.getName());
 		dto.setDescription(vm.getDescription());

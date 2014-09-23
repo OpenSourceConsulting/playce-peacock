@@ -66,7 +66,7 @@ if [ e$PID != "e" ] ; then
     exit;
 fi
 
-if [ $JAVA_HOME ] then
+if [ $JAVA_HOME ] ; then
 	nohup $JAVA_HOME/bin/java -cp .:lib/* com.athena.peacock.agent.Starter > /dev/null 2>&1 &
 else
 	nohup java -cp .:lib/* com.athena.peacock.agent.Starter > /dev/null 2>&1 &

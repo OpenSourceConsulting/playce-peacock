@@ -36,6 +36,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
  */
 
 public class VMDto extends RHEVBaseDto {
+	private int seq;
 	private String type;
 	private String status;
 	private String dataCenter;
@@ -72,7 +73,13 @@ public class VMDto extends RHEVBaseDto {
     
     // paging 관련
     private int start;
-	
+    
+	public int getSeq() {
+		return seq;
+	}
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
 	public String getType() {
 		return type;
 	}

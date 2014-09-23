@@ -90,6 +90,10 @@ public class SshExecUtil {
     	Assert.notNull(command, "command cannot be null.");
     	
         File result = new File(SshExecUtil.class.getClassLoader().getResource(".").getFile(), "result.log");
+        
+        if (!command.startsWith("sudo")) {
+        	command += "sudo " + command;
+        }
     	
 		logger.debug("[ssh exec] " + command);
 		
