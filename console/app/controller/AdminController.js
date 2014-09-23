@@ -231,12 +231,16 @@ Ext.define('MyApp.controller.AdminController', {
 
         userWindow.show();
 
+        var editUrl = GLOBAL.urlPrefix + "user/getMyAccount";
+
         if(type != 'new') {
 
             userWindow.setTitle("Edit User");
 
             if(user_id == null) {
                 user_id = userConstants.actionRow.get("userId");
+
+                editUrl = GLOBAL.urlPrefix + "user/getUser";
             }
 
             var userForm = Ext.getCmp("userForm");
@@ -247,7 +251,7 @@ Ext.define('MyApp.controller.AdminController', {
                 params : {
                     userId : user_id
                 }
-                ,url : GLOBAL.urlPrefix + "user/getUser"
+                ,url : editUrl
                 ,waitMsg:'Loading...'
                 ,success: function(form, action) {
 

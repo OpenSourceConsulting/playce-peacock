@@ -955,7 +955,7 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             ],
                                             fieldLabel: 'Java Home',
                                             name: 'javaHome',
-                                            value: '/usr/java/jdk1.7.0_09',
+                                            value: '/usr/java/jdk1.6.0_29',
                                             allowBlank: false
                                         },
                                         {

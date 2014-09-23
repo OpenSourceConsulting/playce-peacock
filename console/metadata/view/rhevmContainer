@@ -989,6 +989,138 @@
                                                                     "designerId": "c206f659-e7d1-43cf-befc-7badc1d0d321"
                                                                 }
                                                             ]
+                                                        },
+                                                        {
+                                                            "type": "Ext.toolbar.Spacer",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "layout|flex": 1
+                                                            },
+                                                            "designerId": "eed4c88c-0499-4250-9472-179f1aefd5c2"
+                                                        },
+                                                        {
+                                                            "type": "Ext.button.Button",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "cls": "paging-left-btn",
+                                                                "height": 30,
+                                                                "iconAlign": null,
+                                                                "iconCls": "x-toolbar-scroll-left",
+                                                                "iconMask": false,
+                                                                "id": "vmPagingLeftBtn",
+                                                                "itemId": "vmPagingLeftBtn",
+                                                                "layout|flex": null,
+                                                                "text": null,
+                                                                "tooltipType": null,
+                                                                "width": 25
+                                                            },
+                                                            "configAlternates": {
+                                                                "iconMask": "boolean"
+                                                            },
+                                                            "designerId": "5d654e28-6bab-4ee9-82c2-34f6f2782990",
+                                                            "customConfigs": [
+                                                                {
+                                                                    "group": "(Custom Properties)",
+                                                                    "name": "iconMask",
+                                                                    "type": "string"
+                                                                }
+                                                            ],
+                                                            "cn": [
+                                                                {
+                                                                    "type": "fixedfunction",
+                                                                    "reference": {
+                                                                        "name": "items",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "designer|params": [
+                                                                            "button",
+                                                                            "e"
+                                                                        ],
+                                                                        "fn": "handler",
+                                                                        "implHandler": [
+                                                                            "RHEVMConstants.me.searchRhevmChildGrid('rhevmVMGrid', 'left');"
+                                                                        ]
+                                                                    },
+                                                                    "designerId": "e401920b-ea0d-4880-8ba0-a9e414242163"
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "Ext.form.Label",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "id": "vmPagingLabel",
+                                                                "itemId": "vmPagingLabel",
+                                                                "layout|flex": null,
+                                                                "text": "0"
+                                                            },
+                                                            "designerId": "767f91a2-dfa2-4b76-8eee-69a6400f0d6e"
+                                                        },
+                                                        {
+                                                            "type": "Ext.button.Button",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "height": 30,
+                                                                "iconAlign": null,
+                                                                "iconCls": "x-toolbar-scroll-right",
+                                                                "iconMask": false,
+                                                                "id": "vmPagingRightBtn",
+                                                                "itemId": "vmPagingRightBtn",
+                                                                "layout|flex": null,
+                                                                "text": null,
+                                                                "tooltipType": null,
+                                                                "width": 25
+                                                            },
+                                                            "configAlternates": {
+                                                                "iconMask": "boolean"
+                                                            },
+                                                            "designerId": "d128815b-320a-41fd-8b6d-e4755103f7fc",
+                                                            "customConfigs": [
+                                                                {
+                                                                    "group": "(Custom Properties)",
+                                                                    "name": "iconMask",
+                                                                    "type": "string"
+                                                                }
+                                                            ],
+                                                            "cn": [
+                                                                {
+                                                                    "type": "fixedfunction",
+                                                                    "reference": {
+                                                                        "name": "items",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "designer|params": [
+                                                                            "button",
+                                                                            "e"
+                                                                        ],
+                                                                        "fn": "handler",
+                                                                        "implHandler": [
+                                                                            "RHEVMConstants.me.searchRhevmChildGrid('rhevmVMGrid', 'right');"
+                                                                        ]
+                                                                    },
+                                                                    "designerId": "3b095453-9c79-4899-86c4-20fccccb7091"
+                                                                }
+                                                            ]
                                                         }
                                                     ]
                                                 }
@@ -1258,6 +1390,8 @@
                                                             "userConfig": {
                                                                 "iconCls": "x-tbar-loading",
                                                                 "iconMask": false,
+                                                                "id": null,
+                                                                "itemId": null,
                                                                 "layout|flex": null,
                                                                 "text": null,
                                                                 "tooltipType": null
@@ -1315,11 +1449,13 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
+                                                                "cls": "paging-left-btn",
                                                                 "height": 30,
-                                                                "hidden": true,
                                                                 "iconAlign": null,
                                                                 "iconCls": "x-toolbar-scroll-left",
                                                                 "iconMask": false,
+                                                                "id": "templatePagingLeftBtn",
+                                                                "itemId": "templatePagingLeftBtn",
                                                                 "layout|flex": null,
                                                                 "text": null,
                                                                 "tooltipType": null,
@@ -1366,7 +1502,8 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
-                                                                "hidden": true,
+                                                                "id": "templatePagingLabel",
+                                                                "itemId": "templatePagingLabel",
                                                                 "layout|flex": null,
                                                                 "text": "0"
                                                             },
@@ -1381,10 +1518,11 @@
                                                             "codeClass": null,
                                                             "userConfig": {
                                                                 "height": 30,
-                                                                "hidden": true,
                                                                 "iconAlign": null,
                                                                 "iconCls": "x-toolbar-scroll-right",
                                                                 "iconMask": false,
+                                                                "id": "templatePagingRightBtn",
+                                                                "itemId": "templatePagingRightBtn",
                                                                 "layout|flex": null,
                                                                 "text": null,
                                                                 "tooltipType": null,

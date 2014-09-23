@@ -41,6 +41,10 @@ Ext.define('MyApp.controller.RHEVMController', {
         if(newCard.title == "Templates"){
 
             Ext.getCmp("searchRhevmTemplateName").setValue("");
+            Ext.getCmp("vmPagingLeftBtn").setDisabled(false);
+            Ext.getCmp("vmPagingLabel").setText("0");
+            Ext.getCmp("vmPagingRightBtn").setDisabled(false);
+
             Ext.getCmp("rhevmTemplateGrid").reconfigure(Ext.getCmp("rhevmTemplateGrid").store, Ext.getCmp("rhevmTemplateGrid").initialConfig.columns);
 
             this.searchRhevmChildGrid("rhevmTemplateGrid");
@@ -48,6 +52,9 @@ Ext.define('MyApp.controller.RHEVMController', {
         } else {
 
             Ext.getCmp("searchRhevmVMName").setValue("");
+            Ext.getCmp("templatePagingLeftBtn").setDisabled(false);
+            Ext.getCmp("templatePagingLabel").setText("0");
+            Ext.getCmp("templatePagingRightBtn").setDisabled(false);
             Ext.getCmp("rhevmVMGrid").reconfigure(Ext.getCmp("rhevmVMGrid").store, Ext.getCmp("rhevmVMGrid").initialConfig.columns);
 
             this.searchRhevmChildGrid("rhevmVMGrid");
@@ -396,6 +403,9 @@ Ext.define('MyApp.controller.RHEVMController', {
         if(grid_id == null) {
 
             RHEVMConstants.page = 1;
+            Ext.getCmp("vmPagingLeftBtn").setDisabled(false);
+            Ext.getCmp("vmPagingLabel").setText("0");
+            Ext.getCmp("vmPagingRightBtn").setDisabled(false);
 
             //Virtual Machines Data Loading
             var vmGrid = Ext.getCmp('rhevmVMGrid');

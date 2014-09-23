@@ -2306,7 +2306,7 @@
                                         "layout|anchor": "100%",
                                         "name": "javaHome",
                                         "value": [
-                                            "\"/usr/java/jdk1.7.0_09\""
+                                            "\"/usr/java/jdk1.6.0_29\""
                                         ]
                                     },
                                     "designerId": "eea0d5b6-7eea-4605-a694-6f65691ef788",

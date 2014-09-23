@@ -161,6 +161,10 @@ Ext.define('MyApp.view.UserWindow', {
                                             userId = userForm.getForm().findField("userId").getValue();
                                         }
 
+                                        if(editType == 'myAccount') {
+                                            action = GLOBAL.urlPrefix + "user/updateMyAccount";
+                                        }
+
                                         userForm.getForm().submit({
                                             clientValidation: true,
                                             url: action,
