@@ -333,6 +333,8 @@ public class AlmCrowdService {
 		return response;
 	}
 
+	
+	// 그룹 생성
 	public DtoJsonResponse addGroup(AlmGroupDto groupData) {
 
 		DtoJsonResponse response = new DtoJsonResponse();
@@ -481,7 +483,7 @@ public class AlmCrowdService {
 		if (page >= 1) {
 			page = page - 1;
 		}
-		page = page * 10;
+		page = page * 50;
 		return page;
 	}
 }

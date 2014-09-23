@@ -1,10 +1,9 @@
 package com.athena.peacock.controller.web.alm.jenkins.client;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -18,50 +17,23 @@ import com.athena.peacock.controller.web.alm.jenkins.clinet.model.JenkinsRespons
 
 @Component
 public class JenkinsClient {
-
-	// Public API
-	public static String PUBLIC_API_URL = "://ips/v1";
-
-	private String apiUrl = PUBLIC_API_URL;
+	
+	
+	@Value("#{contextProperties['alm.jenkins.url']}")
+	private String JENKINS_URL;
 
 	static RestTemplate restTemplate = new RestTemplate();
-
-	@SuppressWarnings("rawtypes")
-	public Object httpRequest(HttpMethod method, Class cls, Map params,
-			Object data, String... segments) {
-
-		final String url = "https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=vmware";
-		HttpHeaders requestHeaders = new HttpHeaders();
-		List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
-		acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
-
-		requestHeaders.setAccept(acceptableMediaTypes);
-
-		// Populate the headers in an HttpEntity object to use for the request
-		HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
-
-		// Create a new RestTemplate instance
-		RestTemplate restTemplate = new RestTemplate();
-
-		MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
-		messageConverter.setSupportedMediaTypes(Collections
-				.singletonList(new MediaType("text", "javascript")));
-		restTemplate.getMessageConverters().add(messageConverter);
-
-		// Perform the HTTP GET request
-
-		@SuppressWarnings("unchecked")
-		ResponseEntity responseEntity = restTemplate.exchange(url,
-				HttpMethod.GET, requestEntity, cls, new Object[0]);
-
-		return responseEntity.getBody();
-
-	}
 
 	public JenkinsResponseDto getJobs() {
 
 		try {
-			final String url = "http://119.81.162.221:8080/jenkins/api/json";
+			System.out.println("***************");
+			System.out.println("***************");
+			System.out.println("***************");
+			System.out.println("***************");
+			System.out.println("***************");
+			System.out.println(JENKINS_URL);
+			String url = JENKINS_URL+"/api/json";
 
 			HttpHeaders requestHeaders = new HttpHeaders();
 
@@ -96,6 +68,10 @@ public class JenkinsClient {
 	public JenkinsResponseDto createJob(String name) {
 
 		try {
+			
+			StringBuffer sb = new StringBuffer();
+			sb.append(JENKINS_URL);
+			
 			final String url = "http://119.81.162.221:8080/jenkins/createItem?name="
 					+ name;
 			// http://119.81.162.221:8080/jenkins/createItem?name=Test069&mode=copy&from=Test007
