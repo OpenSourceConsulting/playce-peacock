@@ -208,10 +208,10 @@ public class AlmProjectService {
 		return response;
 	}
 
-	public DtoJsonResponse getProjectMapping(String projectCode,
+	public GridJsonResponse getProjectMapping(String projectCode,
 			String mappingtype) {
 
-		DtoJsonResponse response = new DtoJsonResponse();
+		GridJsonResponse response = new GridJsonResponse();
 
 		ProjectMappingDto mappingDto = new ProjectMappingDto();
 		mappingDto.setProjectCode(projectCode);
@@ -231,7 +231,7 @@ public class AlmProjectService {
 			return response;
 		}
 
-		response.setData(projectDao.getProjectMapping(mappingDto));
+		response.setList(projectDao.getProjectMapping(mappingDto));
 		return response;
 	}
 

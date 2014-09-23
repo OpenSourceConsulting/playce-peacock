@@ -91,8 +91,6 @@ Ext.define('MyApp.view.almContainer', {
 
                                                         almConstants.me.goAlmWizardPanel(0);
 
-                                                        Ext.getCmp('wizardAddSpaceGrid').getStore().load();
-                                                        Ext.getCmp('wizardAddUserGrid').getStore().load();
                                                         Ext.getCmp("wizardSelectSpaceGrid").getStore().removeAll();
                                                         Ext.getCmp("wizardSelectUserGrid").getStore().removeAll();
 

@@ -481,7 +481,19 @@ Ext.define('MyApp.controller.ALMController', {
                 }
             }
 
-            if(cardNum == 3) {
+            if(cardNum == 1) {
+
+                Ext.getCmp('wizardAddSpaceGrid').getStore().load();
+
+            } else if(cardNum == 2) {
+
+                Ext.getCmp('wizardAddUserGrid').getStore().load({
+                    params:{
+                        limit : 1
+                    }
+                });
+
+            } else if(cardNum == 3) {
                 var reviewForm = Ext.getCmp("reviewProjectForm").getForm();
                 reviewForm.findField("projectName").setValue(form.findField("projectName").getValue());
                 reviewForm.findField("projectDescription").setValue(form.findField("projectDescription").getValue());

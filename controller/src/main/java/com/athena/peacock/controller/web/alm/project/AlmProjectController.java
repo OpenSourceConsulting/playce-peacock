@@ -173,7 +173,7 @@ public class AlmProjectController {
 	 */
 	@RequestMapping(value = "/project/{projectCode}/{mappingType}", method = RequestMethod.GET)
 	public @ResponseBody
-	DtoJsonResponse getProjectMapping(@PathVariable String projectCode,
+	GridJsonResponse getProjectMapping(@PathVariable String projectCode,
 			@PathVariable String mappingType) {
 
 		return almProjectService.getProjectMapping(projectCode, mappingType);

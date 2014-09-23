@@ -99,7 +99,7 @@ Ext.define('MyApp.view.AlmProjectJobWindow', {
 
                                                         Ext.Ajax.request({
                                                             url : GLOBAL.urlPrefix + "alm/project/"
-                                                            + almConstants.selectRow.get("projectCode") + "/confluence/" + record.get("name"),
+                                                            + almConstants.selectRow.get("projectCode") + "/jenkins/" + record.get("name"),
                                                             method: 'POST',
                                                             headers: { 'Content-Type': 'application/json' },
                                                             disableCaching : true,
