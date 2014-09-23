@@ -67,57 +67,43 @@ public class AlmProjectService {
 
 	}
 
+	
+	// Project List
 	public GridJsonResponse getProjectList(ExtjsGridParam gridParam) {
 
 		GridJsonResponse response = new GridJsonResponse();
-
 		List<ProjectDto> projects = projectDao.getProjectList();
 		response.setList(projects);
-
 		return response;
+		
 	}
 
+	// Project 상세정보
 	public DtoJsonResponse getProject(String projectCode) {
 
 		DtoJsonResponse response = new DtoJsonResponse();
-
 		ProjectDto dto = projectDao.getProject(projectCode);
 		response.setData(dto);
 		return response;
+		
 	}
 
-	public GridJsonResponse getUserList(String projectCode) {
-
-		GridJsonResponse response = new GridJsonResponse();
-
-		List<ProjectDto> projects = new ArrayList<ProjectDto>();
-
-		ProjectDto dto1 = new ProjectDto();
-		// dto1.setProjectId("w001");
-		dto1.setProjectDescription("Project ~");
-		dto1.setProjectName("HHI Project");
-
-		projects.add(dto1);
-
-		response.setList(projects);
-
-		return response;
-	}
-
+	// Project 생성
 	public DtoJsonResponse createProject(ProjectDto project) {
 
 		DtoJsonResponse response = new DtoJsonResponse();
 		projectDao.insertProject(project);
 
+		// SVN 생성
 		// Group 생성
 		addGroup(project.getProjectCode(), project.getGroupDescription());
-
 		response.setMsg("프로젝트 생성 성공");
 		return response;
 		//
 
 	}
 
+	// Project Wizard  실행
 	public DtoJsonResponse createProjectWizrd(ProjectWizardDto project) {
 
 		DtoJsonResponse response = new DtoJsonResponse();
@@ -149,9 +135,9 @@ public class AlmProjectService {
 		jenkinsMapping.setProjectCode(pDto.getProjectCode());
 		projectDao.insertProjectMapping(jenkinsMapping);
 
-		// Confluence 저장 
+		// Confluence 저장
 		List<ProjectMappingDto> confluences = project.getConfluence();
-		
+
 		if (confluences != null) {
 			for (ProjectMappingDto confluence : confluences) {
 				ProjectMappingDto confluenceMapping = new ProjectMappingDto();
@@ -247,7 +233,7 @@ public class AlmProjectService {
 		response.setList(projectDao.getProjectMapping(mappingDto));
 		return response;
 	}
-	
+
 	public DtoJsonResponse deleteProjectMapping(String projectCode,
 			String mappingtype, String mappingCode) {
 
@@ -276,7 +262,6 @@ public class AlmProjectService {
 
 		return response;
 	}
-
 
 	public ProjectWizardDto getWizard() {
 
@@ -363,6 +348,7 @@ public class AlmProjectService {
 
 		// User 그룹에 추가
 		for (AlmUserDto username : userList) {
+			// USER HISTORY
 			crowdService.addUserToGroup(username.getUserId(), groupName);
 		}
 	}
