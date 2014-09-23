@@ -92,7 +92,7 @@ public class SshExecUtil {
         File result = new File(SshExecUtil.class.getClassLoader().getResource(".").getFile(), "result.log");
         
         if (!command.startsWith("sudo")) {
-        	command += "sudo " + command;
+        	command = "sudo " + command;
         }
     	
 		logger.debug("[ssh exec] " + command);
