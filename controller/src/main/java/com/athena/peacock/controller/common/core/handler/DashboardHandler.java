@@ -54,7 +54,16 @@ public class DashboardHandler implements InitializingTask {
 	public void init() {
 		try {
 			if (!dashboardService.getStatus().equals("GATHERING")) {
-				dashboardService.refreshDashboardInfo();
+				// Dashboard 데이터 수집 여부시 까지 Block되지 않고 서버 구동을 완료시키기 위해 Thread로 수집한다.
+				new Thread() {
+					public void run() {
+						try {
+							dashboardService.refreshDashboardInfo();
+						} catch (Exception e) {
+							logger.error("can not initiate dashboard info : ", e);
+						}
+					}
+				}.start();
 			}
 		} catch (Exception e) {
 			logger.error("can not initiate dashboard info : ", e);

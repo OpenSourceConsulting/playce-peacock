@@ -130,8 +130,33 @@ public class MachineService {
 	public void updateMachine(MachineDto machine) throws RestClientException, Exception {
 		MachineDto m = machineDao.getMachine(machine.getMachineId());
 		
-		// Instance 이름이 변경되었을 경우 DB 업데이트
+		// Instance 이름이 변경되었을 경우 DB, RHEV-M 업데이트
 		if (!machine.getDisplayName().equals(m.getDisplayName())) {
+			if (m.getHypervisorId() != null && m.getHypervisorId() > 0) {
+				int major = RHEVMRestTemplateManager.getRHEVMRestTemplate(m.getHypervisorId()).getMajor();
+				int minor = RHEVMRestTemplateManager.getRHEVMRestTemplate(m.getHypervisorId()).getMinor();
+
+				VM vm = null;
+				
+				double version = Double.parseDouble(major + "." + minor);
+				if (version >= 3.2) {
+					vm = new VM();
+					vm.setName(m.getDisplayName());
+					RHEVMRestTemplateManager.getRHEVMRestTemplate(m.getHypervisorId()).submit(RHEVApi.VMS + "/" + m.getMachineId(), HttpMethod.PUT, vm, "vm", VM.class);
+				} else {
+					String callUrl = RHEVApi.VMS + "/" + machine.getMachineId();
+					vm = RHEVMRestTemplateManager.getRHEVMRestTemplate(m.getHypervisorId()).submit(callUrl, HttpMethod.GET, VM.class);
+					
+					if (vm.getStatus().getState().toLowerCase().equals("down")) {
+						vm = new VM();
+						vm.setName(m.getDisplayName());
+						RHEVMRestTemplateManager.getRHEVMRestTemplate(m.getHypervisorId()).submit(RHEVApi.VMS + "/" + m.getMachineId(), HttpMethod.PUT, vm, "vm", VM.class);
+					} else {
+						throw new Exception("VM_UP_STAT");
+					}
+				}
+			}
+			
 			if (machine.getDisplayName().toLowerCase().startsWith("hhilws") && !machine.getDisplayName().toLowerCase().startsWith("hhilwsd")) {
 				m.setIsPrd("Y");
 			} else {
@@ -159,12 +184,6 @@ public class MachineService {
 			}
 			
 			updateAdditionalInfo(machine);
-		}
-		
-		if (m.getHypervisorId() != null && m.getHypervisorId() > 0) {
-			VM vm = new VM();
-			vm.setName(m.getDisplayName());
-			RHEVMRestTemplateManager.getRHEVMRestTemplate(m.getHypervisorId()).submit(RHEVApi.VMS + "/" + m.getMachineId(), HttpMethod.PUT, vm, "vm", VM.class);
 		}
 		
 		// 세팅하려는 고정 IP 값이 있는지, Agent가 Running 상태인지, 기존 IP와 다른지 검사하여 고정 IP 변경 작업을 수행한다.

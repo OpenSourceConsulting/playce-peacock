@@ -85,6 +85,8 @@ public class RHEVMRestTemplate {
 	private String port;
 	private String username;
 	private String password;
+	private int major;
+	private int minor;
 	
 	private String credential;
 	
@@ -129,6 +131,22 @@ public class RHEVMRestTemplate {
 	 */
 	public void setRhevmName(String rhevmName) {
 		this.rhevmName = rhevmName;
+	}
+
+	public int getMajor() {
+		return major;
+	}
+
+	public void setMajor(int major) {
+		this.major = major;
+	}
+
+	public int getMinor() {
+		return minor;
+	}
+
+	public void setMinor(int minor) {
+		this.minor = minor;
 	}
 
 	/**

@@ -38,12 +38,15 @@ import javax.xml.namespace.QName;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClientException;
 
 import com.athena.peacock.controller.web.hypervisor.HypervisorDto;
 import com.athena.peacock.controller.web.hypervisor.HypervisorService;
 import com.athena.peacock.controller.web.rhevm.RHEVApi;
+import com.redhat.rhevm.api.model.API;
 import com.redhat.rhevm.api.model.Template;
 import com.redhat.rhevm.api.model.VMs;
+import com.redhat.rhevm.api.model.Version;
 
 /**
  * <pre>
@@ -93,6 +96,23 @@ public class RHEVMRestTemplateManager implements InitializingBean {
 		
 		template.setHypervisorId(hypervisor.getHypervisorId());
 		template.setRhevmName(hypervisor.getRhevmName());
+		
+		try {
+			API api = template.submit(RHEVApi.API, HttpMethod.GET, API.class);
+			
+			if (api != null) {
+				Version version = api.getProductInfo().getVersion();
+				
+				if (version != null) {
+					template.setMajor(version.getMajor());
+					template.setMinor(version.getMinor());
+				}
+			}
+		} catch (RestClientException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		templates.put(hypervisor.getHypervisorId(), template);
 	}//end of setRHEVMRestTemplate()

@@ -177,7 +177,12 @@ public class MachineController {
 			jsonRes.setMsg("Instance 정보가 정상적으로 변경되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Instance 정보 변경 중 에러가 발생하였습니다.");
+			
+			if (e.getMessage().equals("VM_UP_STAT")) {
+				jsonRes.setMsg("RHEV-M 패키지 버전이 3.2 미만이고 VM이 Up 상태일 경우 인스턴스 정보를 변경할 수 없습니다.");
+			} else {
+				jsonRes.setMsg("Instance 정보 변경 중 에러가 발생하였습니다.");
+			}
 			
 			logger.error("Unhandled Expeption has occurred. ", e);
 		}
