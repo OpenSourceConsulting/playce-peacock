@@ -32,10 +32,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.tmatesoft.svn.core.SVNException;
 
 import com.athena.peacock.controller.web.alm.crowd.AlmCrowdService;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectWizardDto;
+import com.athena.peacock.controller.web.alm.svn.AlmSvnService;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
@@ -58,6 +60,9 @@ public class AlmProjectController {
 
 	@Autowired
 	private AlmCrowdService almCrowdService;
+
+	@Autowired
+	private AlmSvnService svnService;
 
 	/**
 	 * <pre>
@@ -239,5 +244,20 @@ public class AlmProjectController {
 
 		// return almProjectService.createProjectWizrd();
 	}
+
+	@RequestMapping(value = "/project/svn", method = RequestMethod.GET)
+	public @ResponseBody
+	DtoJsonResponse svnHistory() {
+		try {
+			svnService.getSvn();
+		} catch (SVNException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+		// return almProjectService.createProjectWizrd();
+	}
+
 }
 // end of AlmUserController.java
