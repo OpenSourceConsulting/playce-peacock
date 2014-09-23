@@ -54,7 +54,29 @@ Ext.define('MyApp.store.VMStore', {
     },
 
     onJsonstoreLoad: function(store, records, successful, eOpts) {
-            //alert(store.getTotalCount());
+        var defaultRow = (RHEVMConstants.page-1)*100;
+
+        var pagingDesc = "";
+        if(store.getTotalCount() == 0) {
+            pagingDesc = (defaultRow + 1) + " ~ N/A";
+        } else {
+            pagingDesc = (defaultRow + 1) + " ~ " + (defaultRow + store.getTotalCount());
+        }
+
+        Ext.getCmp("vmPagingLabel").setText(pagingDesc);
+
+        if(RHEVMConstants.page == 1) {
+            Ext.getCmp("vmPagingLeftBtn").setDisabled(true);
+        } else {
+            Ext.getCmp("vmPagingLeftBtn").setDisabled(false);
+        }
+
+        if(store.getTotalCount() < 100) {
+            Ext.getCmp("vmPagingRightBtn").setDisabled(true);
+        } else {
+            Ext.getCmp("vmPagingRightBtn").setDisabled(false);
+        }
+
     }
 
 });

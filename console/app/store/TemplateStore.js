@@ -54,7 +54,6 @@ Ext.define('MyApp.store.TemplateStore', {
     },
 
     onJsonstoreLoad: function(store, records, successful, eOpts) {
-        /*
         var defaultRow = (RHEVMConstants.page-1)*100;
 
         var pagingDesc = "";
@@ -64,8 +63,20 @@ Ext.define('MyApp.store.TemplateStore', {
             pagingDesc = (defaultRow + 1) + " ~ " + (defaultRow + store.getTotalCount());
         }
 
-        alert(pagingDesc);
-        */
+        Ext.getCmp("templatePagingLabel").setText(pagingDesc);
+
+        if(RHEVMConstants.page == 1) {
+            Ext.getCmp("templatePagingLeftBtn").setDisabled(true);
+        } else {
+            Ext.getCmp("templatePagingLeftBtn").setDisabled(false);
+        }
+
+        if(store.getTotalCount() < 100) {
+            Ext.getCmp("templatePagingRightBtn").setDisabled(true);
+        } else {
+            Ext.getCmp("templatePagingRightBtn").setDisabled(false);
+        }
+
     }
 
 });

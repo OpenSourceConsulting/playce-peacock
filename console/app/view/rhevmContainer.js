@@ -397,6 +397,41 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                                     },
                                                                     iconMask: false,
                                                                     iconCls: 'x-tbar-loading'
+                                                                },
+                                                                {
+                                                                    xtype: 'tbspacer',
+                                                                    flex: 1
+                                                                },
+                                                                {
+                                                                    xtype: 'button',
+                                                                    handler: function(button, e) {
+                                                                        RHEVMConstants.me.searchRhevmChildGrid('rhevmVMGrid', 'left');
+                                                                    },
+                                                                    iconMask: false,
+                                                                    cls: 'paging-left-btn',
+                                                                    height: 30,
+                                                                    id: 'vmPagingLeftBtn',
+                                                                    itemId: 'vmPagingLeftBtn',
+                                                                    width: 25,
+                                                                    iconCls: 'x-toolbar-scroll-left'
+                                                                },
+                                                                {
+                                                                    xtype: 'label',
+                                                                    id: 'vmPagingLabel',
+                                                                    itemId: 'vmPagingLabel',
+                                                                    text: '0'
+                                                                },
+                                                                {
+                                                                    xtype: 'button',
+                                                                    handler: function(button, e) {
+                                                                        RHEVMConstants.me.searchRhevmChildGrid('rhevmVMGrid', 'right');
+                                                                    },
+                                                                    iconMask: false,
+                                                                    height: 30,
+                                                                    id: 'vmPagingRightBtn',
+                                                                    itemId: 'vmPagingRightBtn',
+                                                                    width: 25,
+                                                                    iconCls: 'x-toolbar-scroll-right'
                                                                 }
                                                             ]
                                                         }
@@ -518,14 +553,17 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                                         RHEVMConstants.me.searchRhevmChildGrid('rhevmTemplateGrid', 'left');
                                                                     },
                                                                     iconMask: false,
+                                                                    cls: 'paging-left-btn',
                                                                     height: 30,
-                                                                    hidden: true,
+                                                                    id: 'templatePagingLeftBtn',
+                                                                    itemId: 'templatePagingLeftBtn',
                                                                     width: 25,
                                                                     iconCls: 'x-toolbar-scroll-left'
                                                                 },
                                                                 {
                                                                     xtype: 'label',
-                                                                    hidden: true,
+                                                                    id: 'templatePagingLabel',
+                                                                    itemId: 'templatePagingLabel',
                                                                     text: '0'
                                                                 },
                                                                 {
@@ -535,7 +573,8 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                                     },
                                                                     iconMask: false,
                                                                     height: 30,
-                                                                    hidden: true,
+                                                                    id: 'templatePagingRightBtn',
+                                                                    itemId: 'templatePagingRightBtn',
                                                                     width: 25,
                                                                     iconCls: 'x-toolbar-scroll-right'
                                                                 }
