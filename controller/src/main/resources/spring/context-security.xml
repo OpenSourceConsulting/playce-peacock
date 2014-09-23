@@ -77,13 +77,14 @@
 	  <!-- B304 : ALM Management > Repository -->
 	  
 	  <!-- B401 : Administration > User -->
+	  
+	  <intercept-url pattern="/user/getMyAccount" 	 	access="ROLE_ADMIN,ROLE_USER" />   <!-- My Account -->
+	  <intercept-url pattern="/user/updateMyAccount" 	access="ROLE_ADMIN,ROLE_USER" />   <!-- My Account -->
+	  
 	  <intercept-url pattern="/user/onAfterLogin*" 	 	access="ROLE_ADMIN, ROLE_USER" />
 	  <intercept-url pattern="/user/create*" 			access="ROLE_ADMIN, ROLE_B401_WRITE" />
 	  <intercept-url pattern="/user/update*" 			access="ROLE_ADMIN, ROLE_B401_WRITE" />
 	  <intercept-url pattern="/user/delete*" 			access="ROLE_ADMIN, ROLE_B401_WRITE" />
-	  
-	  <intercept-url pattern="/user/getMyAccount" 	 method="POST" access="ROLE_ADMIN,ROLE_USER" />   <!-- My Account -->
-	  <intercept-url pattern="/user/updateMyAccount" method="POST" access="ROLE_ADMIN,ROLE_USER" />   <!-- My Account -->
 	  
 	  <intercept-url pattern="/user/**" 	 			access="ROLE_ADMIN, ROLE_B401_READ" />
 	  
