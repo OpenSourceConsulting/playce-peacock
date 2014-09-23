@@ -110,7 +110,7 @@ public class AlmUserController {
 	// User 추가
 	@RequestMapping(value = "/usermanagement", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody
-	DtoJsonResponse modifyUser(@Valid @RequestBody AlmUserAddDto userData,
+	DtoJsonResponse modifyUser(@RequestBody AlmUserAddDto userData,
 			BindingResult result) {
 
 		if (result.hasErrors()) {
