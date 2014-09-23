@@ -47,7 +47,7 @@ import com.athena.peacock.controller.web.common.model.GridJsonResponse;
  * 
  * </pre>
  * 
- * @author Bong-Jin Kwon
+ * @author Dave
  * @version 1.0
  */
 @Service
@@ -147,7 +147,20 @@ public class AlmProjectService {
 		jenkinsMapping.setMappingCode(pDto.getProjectCode());
 		jenkinsMapping.setMappingType(20);
 		jenkinsMapping.setProjectCode(pDto.getProjectCode());
-		projectDao.getProjectMapping(jenkinsMapping);
+		projectDao.insertProjectMapping(jenkinsMapping);
+
+		// Confluence 저장 
+		List<ProjectMappingDto> confluences = project.getConfluence();
+		
+		if (confluences != null) {
+			for (ProjectMappingDto confluence : confluences) {
+				ProjectMappingDto confluenceMapping = new ProjectMappingDto();
+				confluenceMapping.setMappingType(10);
+				confluenceMapping.setProjectCode(pDto.getProjectCode());
+				confluenceMapping.setMappingCode(confluence.getMappingCode());
+				projectDao.insertProjectMapping(confluenceMapping);
+			}
+		}
 
 		return response;
 
@@ -318,7 +331,7 @@ public class AlmProjectService {
 
 	private void addUserToGroup(String groupName, List<AlmUserDto> userList) {
 
-		// Group 생성
+		// User 그룹에 추가
 		for (AlmUserDto username : userList) {
 			crowdService.addUserToGroup(username.getUserId(), groupName);
 		}
