@@ -999,7 +999,7 @@ Ext.define('MyApp.view.almContainer', {
 
                                                                                                 Ext.Ajax.request({
                                                                                                     url : GLOBAL.urlPrefix + "alm/groupmanagement/"
-                                                                                                    + almConstants.selectRow.get("name") + "/" + record.get("userId"),
+                                                                                                    + almConstants.selectRow.get("name") + "/" + record.get("name"),
                                                                                                     method: 'DELETE',
                                                                                                     headers: { 'Content-Type': 'application/json' },
                                                                                                     disableCaching : true,

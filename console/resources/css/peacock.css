@@ -3,7 +3,7 @@
  */
 .no-icon {
    display : none;
-   background-image:url('ext/resources/images/default/s.gif') !important;
+   /*background-image:url('ext/resources/images/default/s.gif') !important;*/
 }
 .parent-node {
    padding-top: 5px;
