@@ -32,6 +32,7 @@ package com.athena.peacock.controller.web.rhevm.dto;
  * @version 1.0
  */
 public class TemplateDto extends RHEVBaseDto {
+	private int seq;
 	private String templateId;
 	private String type;
 	private String status;
@@ -50,6 +51,12 @@ public class TemplateDto extends RHEVBaseDto {
 	// paging 관련
 	private int start;
 	
+	public int getSeq() {
+		return seq;
+	}
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
 	public String getTemplateId() {
 		return templateId;
 	}
