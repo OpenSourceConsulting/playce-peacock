@@ -316,11 +316,6 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                     },
                                                     columns: [
                                                         {
-                                                            xtype: 'rownumberer',
-                                                            width: 45,
-                                                            text: 'No'
-                                                        },
-                                                        {
                                                             xtype: 'gridcolumn',
                                                             hidden: true,
                                                             minWidth: 100,
@@ -333,6 +328,12 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                             dataIndex: 'vmId',
                                                             hideable: false,
                                                             text: ''
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            width: 45,
+                                                            dataIndex: 'seq',
+                                                            text: 'No'
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
@@ -455,11 +456,6 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                     store: 'TemplateStore',
                                                     columns: [
                                                         {
-                                                            xtype: 'rownumberer',
-                                                            width: 45,
-                                                            text: 'No'
-                                                        },
-                                                        {
                                                             xtype: 'gridcolumn',
                                                             hidden: true,
                                                             minWidth: 100,
@@ -472,6 +468,12 @@ Ext.define('MyApp.view.rhevmContainer', {
                                                             dataIndex: 'templateId',
                                                             hideable: false,
                                                             text: ''
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            width: 45,
+                                                            dataIndex: 'seq',
+                                                            text: 'No'
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',

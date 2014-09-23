@@ -773,19 +773,6 @@
                                                     "designerId": "ac9ae5e9-4acf-4e79-92c8-c8983fef1e4f"
                                                 },
                                                 {
-                                                    "type": "Ext.grid.RowNumberer",
-                                                    "reference": {
-                                                        "name": "columns",
-                                                        "type": "array"
-                                                    },
-                                                    "codeClass": null,
-                                                    "userConfig": {
-                                                        "text": "No",
-                                                        "width": 45
-                                                    },
-                                                    "designerId": "e787732d-c2cb-4e4e-a01f-214eb484f5de"
-                                                },
-                                                {
                                                     "type": "Ext.grid.column.Column",
                                                     "reference": {
                                                         "name": "columns",
@@ -824,11 +811,27 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
+                                                        "dataIndex": "seq",
+                                                        "defaultWidth": null,
+                                                        "minWidth": null,
+                                                        "text": "No",
+                                                        "width": 45
+                                                    },
+                                                    "designerId": "7227a87b-17ef-40e6-bd5d-587ea71e60c8"
+                                                },
+                                                {
+                                                    "type": "Ext.grid.column.Column",
+                                                    "reference": {
+                                                        "name": "columns",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
                                                         "dataIndex": "name",
                                                         "minWidth": 150,
                                                         "text": "Name"
                                                     },
-                                                    "designerId": "7227a87b-17ef-40e6-bd5d-587ea71e60c8"
+                                                    "designerId": "50be488f-a995-4d7a-84e6-a527f91a3296"
                                                 },
                                                 {
                                                     "type": "Ext.grid.column.Column",
@@ -1181,19 +1184,6 @@
                                                     "designerId": "f679e9bd-892e-4666-8e1e-cfa9f9201d8b"
                                                 },
                                                 {
-                                                    "type": "Ext.grid.RowNumberer",
-                                                    "reference": {
-                                                        "name": "columns",
-                                                        "type": "array"
-                                                    },
-                                                    "codeClass": null,
-                                                    "userConfig": {
-                                                        "text": "No",
-                                                        "width": 45
-                                                    },
-                                                    "designerId": "ebb99e52-abd1-46d8-b217-0bd2d0367900"
-                                                },
-                                                {
                                                     "type": "Ext.grid.column.Column",
                                                     "reference": {
                                                         "name": "columns",
@@ -1232,11 +1222,26 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
+                                                        "dataIndex": "seq",
+                                                        "minWidth": null,
+                                                        "text": "No",
+                                                        "width": 45
+                                                    },
+                                                    "designerId": "50da7201-3abf-43af-a567-c7265e55f29a"
+                                                },
+                                                {
+                                                    "type": "Ext.grid.column.Column",
+                                                    "reference": {
+                                                        "name": "columns",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
                                                         "dataIndex": "name",
                                                         "minWidth": 120,
                                                         "text": "Name"
                                                     },
-                                                    "designerId": "50da7201-3abf-43af-a567-c7265e55f29a"
+                                                    "designerId": "5e27e4b2-fb05-48c0-9740-fb70aa2ffc63"
                                                 },
                                                 {
                                                     "type": "Ext.grid.column.Column",

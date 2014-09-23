@@ -387,7 +387,7 @@
                                         "text": "Edit",
                                         "width": 65
                                     },
-                                    "designerId": "8cd2fabb-beb1-4378-80e1-924a36739aed",
+                                    "designerId": "3f7d7a9f-6a92-48ac-bc7c-fcd490155e07",
                                     "customConfigs": [
                                         {
                                             "group": "(Custom Properties)",
@@ -407,7 +407,7 @@
                                                 "icon": "resources/images/icons/cog.png",
                                                 "iconCls": ""
                                             },
-                                            "designerId": "1b504af8-6edf-4c49-bca1-71f31af48c60",
+                                            "designerId": "b7a4052f-4ae7-4713-97bd-70dc01ef9d0d",
                                             "cn": [
                                                 {
                                                     "type": "fixedfunction",
@@ -432,7 +432,7 @@
                                                             "userConstants.me.showUserWindow('edit');"
                                                         ]
                                                     },
-                                                    "designerId": "722f995c-d5af-4fc9-8d6a-54d15b653911"
+                                                    "designerId": "0622f588-74a3-468e-a30e-81f5a00d1b7c"
                                                 }
                                             ]
                                         }
@@ -1309,7 +1309,7 @@
                                             "userConfig": {
                                                 "activeTab": 0,
                                                 "dock": null,
-                                                "height": 360,
+                                                "height": null,
                                                 "id": "userPermissionDetailTabPanel",
                                                 "itemId": "userPermissionDetailTabPanel",
                                                 "padding": "15 10 10 10",
@@ -1329,7 +1329,8 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
-                                                        "height": 280,
+                                                        "autoScroll": true,
+                                                        "height": null,
                                                         "title": "Detail"
                                                     },
                                                     "designerId": "6eb64683-9efc-4ad4-ac1d-fc9ddffa9b6a",
@@ -1344,326 +1345,350 @@
                                                             "designerId": "7105b6fe-a5dd-4f8a-a4ec-dea18a9ce803"
                                                         },
                                                         {
-                                                            "type": "Ext.tree.Panel",
+                                                            "type": "Ext.panel.Panel",
                                                             "reference": {
                                                                 "name": "items",
                                                                 "type": "array"
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
-                                                                "autoDestroy": false,
                                                                 "autoScroll": true,
-                                                                "columnLines": true,
-                                                                "forceFit": false,
                                                                 "header": false,
-                                                                "height": 260,
-                                                                "iconCls": null,
-                                                                "id": "permissionMenuTreeGrid",
-                                                                "itemId": "permissionMenuTreeGrid",
-                                                                "minHeight": 250,
-                                                                "plugins": [
-                                                                    "[",
-                                                                    "    Ext.create('Ext.grid.plugin.CellEditing', {",
-                                                                    "        ",
-                                                                    "    })",
-                                                                    "]"
-                                                                ],
-                                                                "rootVisible": false,
-                                                                "rowLines": true,
-                                                                "store": null,
-                                                                "title": "My Tree Grid Panel"
+                                                                "layout": "fit",
+                                                                "title": "My Panel"
                                                             },
-                                                            "configAlternates": {
-                                                                "plugins": "object"
-                                                            },
-                                                            "designerId": "89b16bdf-fbdc-4f01-b69e-504656d06e1d",
-                                                            "isBuiltIn": true,
-                                                            "iconCls": "icon-treegridpanel",
-                                                            "autoName": "TreeGrid",
-                                                            "customConfigs": [
-                                                                {
-                                                                    "group": "(Custom Properties)",
-                                                                    "name": "plugins",
-                                                                    "type": "string"
-                                                                }
-                                                            ],
+                                                            "designerId": "82d30154-c88b-459b-8a3a-0c8e48d8bbac",
                                                             "cn": [
                                                                 {
-                                                                    "type": "Ext.tree.View",
-                                                                    "reference": {
-                                                                        "name": "viewConfig",
-                                                                        "type": "object"
-                                                                    },
-                                                                    "codeClass": null,
-                                                                    "designerId": "6cdd2156-cd1d-44b5-8003-787e34c998bf"
-                                                                },
-                                                                {
-                                                                    "type": "Ext.tree.Column",
-                                                                    "reference": {
-                                                                        "name": "columns",
-                                                                        "type": "array"
-                                                                    },
-                                                                    "codeClass": null,
-                                                                    "userConfig": {
-                                                                        "dataIndex": "menuNm",
-                                                                        "flex": 1,
-                                                                        "groupable": false,
-                                                                        "minWidth": 300,
-                                                                        "text": "Menu"
-                                                                    },
-                                                                    "designerId": "19867c33-4a06-45cd-be52-7bd85b4db531"
-                                                                },
-                                                                {
-                                                                    "type": "Ext.grid.column.CheckColumn",
-                                                                    "reference": {
-                                                                        "name": "columns",
-                                                                        "type": "array"
-                                                                    },
-                                                                    "codeClass": null,
-                                                                    "userConfig": {
-                                                                        "dataIndex": "isRead",
-                                                                        "menuDisabled": true,
-                                                                        "minWidth": 100,
-                                                                        "stopSelection": false,
-                                                                        "text": "Read"
-                                                                    },
-                                                                    "designerId": "9fe411ce-73ed-475c-8a4c-103b1bec1084",
-                                                                    "cn": [
-                                                                        {
-                                                                            "type": "basiceventbinding",
-                                                                            "reference": {
-                                                                                "name": "listeners",
-                                                                                "type": "array"
-                                                                            },
-                                                                            "codeClass": null,
-                                                                            "userConfig": {
-                                                                                "fn": "onCheckcolumnCheckChange",
-                                                                                "implHandler": [
-                                                                                    "userConstants.me.changeMenuAuth(Ext.getCmp(\"permissionMenuTreeGrid\"), \"isRead\", rowIndex, checked);"
-                                                                                ],
-                                                                                "name": "checkchange",
-                                                                                "scope": "me"
-                                                                            },
-                                                                            "designerId": "045872eb-2611-4b42-b9bd-731077089b65"
-                                                                        }
-                                                                    ]
-                                                                },
-                                                                {
-                                                                    "type": "Ext.grid.column.CheckColumn",
-                                                                    "reference": {
-                                                                        "name": "columns",
-                                                                        "type": "array"
-                                                                    },
-                                                                    "codeClass": null,
-                                                                    "userConfig": {
-                                                                        "dataIndex": "isWrite",
-                                                                        "minWidth": 100,
-                                                                        "text": "Write"
-                                                                    },
-                                                                    "designerId": "3f68786a-59cc-4050-ae8e-197f5bae4c9d",
-                                                                    "cn": [
-                                                                        {
-                                                                            "type": "basiceventbinding",
-                                                                            "reference": {
-                                                                                "name": "listeners",
-                                                                                "type": "array"
-                                                                            },
-                                                                            "codeClass": null,
-                                                                            "userConfig": {
-                                                                                "fn": "onCheckcolumnCheckChange1",
-                                                                                "implHandler": [
-                                                                                    "userConstants.me.changeMenuAuth(Ext.getCmp(\"permissionMenuTreeGrid\"), \"isWrite\", rowIndex, checked);"
-                                                                                ],
-                                                                                "name": "checkchange",
-                                                                                "scope": "me"
-                                                                            },
-                                                                            "designerId": "592597e9-9fa2-4d66-a6a2-604bed1984bc"
-                                                                        }
-                                                                    ]
-                                                                },
-                                                                {
-                                                                    "type": "Ext.toolbar.Toolbar",
+                                                                    "type": "Ext.tree.Panel",
                                                                     "reference": {
                                                                         "name": "dockedItems",
                                                                         "type": "array"
                                                                     },
                                                                     "codeClass": null,
                                                                     "userConfig": {
-                                                                        "dock": "top"
+                                                                        "autoDestroy": false,
+                                                                        "columnLines": true,
+                                                                        "dock": "top",
+                                                                        "flex": null,
+                                                                        "forceFit": false,
+                                                                        "header": false,
+                                                                        "height": null,
+                                                                        "iconCls": null,
+                                                                        "id": "permissionMenuTreeGrid",
+                                                                        "itemId": "permissionMenuTreeGrid",
+                                                                        "minHeight": null,
+                                                                        "plugins": [
+                                                                            "[",
+                                                                            "    Ext.create('Ext.grid.plugin.CellEditing', {",
+                                                                            "        ",
+                                                                            "    })",
+                                                                            "]"
+                                                                        ],
+                                                                        "rootVisible": false,
+                                                                        "rowLines": true,
+                                                                        "store": null,
+                                                                        "title": "My Tree Grid Panel"
                                                                     },
-                                                                    "designerId": "32c8ccbc-616d-4c22-8910-e7969ba67baf",
-                                                                    "cn": [
+                                                                    "configAlternates": {
+                                                                        "plugins": "object"
+                                                                    },
+                                                                    "designerId": "89b16bdf-fbdc-4f01-b69e-504656d06e1d",
+                                                                    "isBuiltIn": true,
+                                                                    "iconCls": "icon-treegridpanel",
+                                                                    "autoName": "TreeGrid",
+                                                                    "customConfigs": [
                                                                         {
-                                                                            "type": "Ext.toolbar.Spacer",
-                                                                            "reference": {
-                                                                                "name": "items",
-                                                                                "type": "array"
-                                                                            },
-                                                                            "codeClass": null,
-                                                                            "userConfig": {
-                                                                                "layout|flex": 1
-                                                                            },
-                                                                            "designerId": "c19f0c1d-37ac-4358-afa8-a9bc7f650b2d"
+                                                                            "group": "(Custom Properties)",
+                                                                            "name": "plugins",
+                                                                            "type": "string"
                                                                         },
                                                                         {
-                                                                            "type": "Ext.button.Button",
+                                                                            "group": "(Custom Properties)",
+                                                                            "name": "flex",
+                                                                            "type": "string"
+                                                                        }
+                                                                    ],
+                                                                    "cn": [
+                                                                        {
+                                                                            "type": "Ext.tree.View",
                                                                             "reference": {
-                                                                                "name": "items",
+                                                                                "name": "viewConfig",
+                                                                                "type": "object"
+                                                                            },
+                                                                            "codeClass": null,
+                                                                            "designerId": "6cdd2156-cd1d-44b5-8003-787e34c998bf"
+                                                                        },
+                                                                        {
+                                                                            "type": "Ext.tree.Column",
+                                                                            "reference": {
+                                                                                "name": "columns",
                                                                                 "type": "array"
                                                                             },
                                                                             "codeClass": null,
                                                                             "userConfig": {
-                                                                                "layout|flex": null,
-                                                                                "padding": "3 10 3 10",
-                                                                                "text": "Save"
+                                                                                "dataIndex": "menuNm",
+                                                                                "flex": 1,
+                                                                                "groupable": false,
+                                                                                "minWidth": 300,
+                                                                                "text": "Menu"
                                                                             },
-                                                                            "designerId": "0af1abb5-b7bf-488b-8296-43e191434cdc",
+                                                                            "designerId": "19867c33-4a06-45cd-be52-7bd85b4db531"
+                                                                        },
+                                                                        {
+                                                                            "type": "Ext.grid.column.CheckColumn",
+                                                                            "reference": {
+                                                                                "name": "columns",
+                                                                                "type": "array"
+                                                                            },
+                                                                            "codeClass": null,
+                                                                            "userConfig": {
+                                                                                "dataIndex": "isRead",
+                                                                                "menuDisabled": true,
+                                                                                "minWidth": 100,
+                                                                                "stopSelection": false,
+                                                                                "text": "Read"
+                                                                            },
+                                                                            "designerId": "9fe411ce-73ed-475c-8a4c-103b1bec1084",
                                                                             "cn": [
                                                                                 {
-                                                                                    "type": "fixedfunction",
+                                                                                    "type": "basiceventbinding",
+                                                                                    "reference": {
+                                                                                        "name": "listeners",
+                                                                                        "type": "array"
+                                                                                    },
+                                                                                    "codeClass": null,
+                                                                                    "userConfig": {
+                                                                                        "fn": "onCheckcolumnCheckChange",
+                                                                                        "implHandler": [
+                                                                                            "userConstants.me.changeMenuAuth(Ext.getCmp(\"permissionMenuTreeGrid\"), \"isRead\", rowIndex, checked);"
+                                                                                        ],
+                                                                                        "name": "checkchange",
+                                                                                        "scope": "me"
+                                                                                    },
+                                                                                    "designerId": "045872eb-2611-4b42-b9bd-731077089b65"
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "type": "Ext.grid.column.CheckColumn",
+                                                                            "reference": {
+                                                                                "name": "columns",
+                                                                                "type": "array"
+                                                                            },
+                                                                            "codeClass": null,
+                                                                            "userConfig": {
+                                                                                "dataIndex": "isWrite",
+                                                                                "minWidth": 100,
+                                                                                "text": "Write"
+                                                                            },
+                                                                            "designerId": "3f68786a-59cc-4050-ae8e-197f5bae4c9d",
+                                                                            "cn": [
+                                                                                {
+                                                                                    "type": "basiceventbinding",
+                                                                                    "reference": {
+                                                                                        "name": "listeners",
+                                                                                        "type": "array"
+                                                                                    },
+                                                                                    "codeClass": null,
+                                                                                    "userConfig": {
+                                                                                        "fn": "onCheckcolumnCheckChange1",
+                                                                                        "implHandler": [
+                                                                                            "userConstants.me.changeMenuAuth(Ext.getCmp(\"permissionMenuTreeGrid\"), \"isWrite\", rowIndex, checked);"
+                                                                                        ],
+                                                                                        "name": "checkchange",
+                                                                                        "scope": "me"
+                                                                                    },
+                                                                                    "designerId": "592597e9-9fa2-4d66-a6a2-604bed1984bc"
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "type": "Ext.toolbar.Toolbar",
+                                                                            "reference": {
+                                                                                "name": "dockedItems",
+                                                                                "type": "array"
+                                                                            },
+                                                                            "codeClass": null,
+                                                                            "userConfig": {
+                                                                                "dock": "top"
+                                                                            },
+                                                                            "designerId": "32c8ccbc-616d-4c22-8910-e7969ba67baf",
+                                                                            "cn": [
+                                                                                {
+                                                                                    "type": "Ext.toolbar.Spacer",
                                                                                     "reference": {
                                                                                         "name": "items",
                                                                                         "type": "array"
                                                                                     },
                                                                                     "codeClass": null,
                                                                                     "userConfig": {
-                                                                                        "designer|params": [
-                                                                                            "button",
-                                                                                            "e"
-                                                                                        ],
-                                                                                        "fn": "handler",
-                                                                                        "implHandler": [
-                                                                                            "",
-                                                                                            "var menuRecords = Ext.getCmp(\"permissionMenuTreeGrid\").getRecords();",
-                                                                                            "",
-                                                                                            "var menus = [];",
-                                                                                            "Ext.each(menuRecords, function(record) {",
-                                                                                            "    var menu = {};",
-                                                                                            "    menu.menuId = record.get(\"menuId\");",
-                                                                                            "    menu.readYn = (record.get(\"isRead\") == true ? \"1\" : \"0\");",
-                                                                                            "    menu.writeYn = (record.get(\"isWrite\") == true ? \"1\" : \"0\");",
-                                                                                            "",
-                                                                                            "    menus.push(menu);",
-                                                                                            "",
-                                                                                            "});",
-                                                                                            "",
-                                                                                            "var permissionForm = Ext.getCmp(\"detailPermissionForm\");",
-                                                                                            "",
-                                                                                            "permissionForm.getForm().findField(\"permMenus\").setValue(Ext.JSON.encode(menus));",
-                                                                                            "",
-                                                                                            "permissionForm.getForm().submit({",
-                                                                                            "    clientValidation: true,",
-                                                                                            "    url: GLOBAL.urlPrefix + \"permission/updatemenus\",",
-                                                                                            "    method : \"POST\",",
-                                                                                            "    params: {",
-                                                                                            "        newStatus: 'delivered'",
-                                                                                            "    },",
-                                                                                            "    waitMsg: 'Saving Data...',",
-                                                                                            "    success: function(form, action) {",
-                                                                                            "        Ext.Msg.alert('Success', action.result.msg);",
-                                                                                            "",
-                                                                                            "        Ext.getCmp('permissionMenuTreeGrid').getStore().load({",
-                                                                                            "            callback : function(records, options, success) {",
-                                                                                            "                Ext.getCmp(\"permissionMenuTreeGrid\").expandAll();",
-                                                                                            "            }",
-                                                                                            "        });",
-                                                                                            "",
-                                                                                            "        permissionForm.up('window').close();",
-                                                                                            "    },",
-                                                                                            "    failure: function(form, action) {",
-                                                                                            "        switch (action.failureType) {",
-                                                                                            "            case Ext.form.action.Action.CLIENT_INVALID:",
-                                                                                            "            Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');",
-                                                                                            "            break;",
-                                                                                            "            case Ext.form.action.Action.CONNECT_FAILURE:",
-                                                                                            "            Ext.Msg.alert('Failure', 'Server communication failed');",
-                                                                                            "            break;",
-                                                                                            "            case Ext.form.action.Action.SERVER_INVALID:",
-                                                                                            "            Ext.Msg.alert('Failure', action.result.msg);",
-                                                                                            "        }",
-                                                                                            "    }",
-                                                                                            "});"
-                                                                                        ]
+                                                                                        "layout|flex": 1
                                                                                     },
-                                                                                    "designerId": "b21d18e7-ca0c-43ea-bd19-c6bef7663122"
+                                                                                    "designerId": "c19f0c1d-37ac-4358-afa8-a9bc7f650b2d"
+                                                                                },
+                                                                                {
+                                                                                    "type": "Ext.button.Button",
+                                                                                    "reference": {
+                                                                                        "name": "items",
+                                                                                        "type": "array"
+                                                                                    },
+                                                                                    "codeClass": null,
+                                                                                    "userConfig": {
+                                                                                        "layout|flex": null,
+                                                                                        "padding": "3 10 3 10",
+                                                                                        "text": "Save"
+                                                                                    },
+                                                                                    "designerId": "0af1abb5-b7bf-488b-8296-43e191434cdc",
+                                                                                    "cn": [
+                                                                                        {
+                                                                                            "type": "fixedfunction",
+                                                                                            "reference": {
+                                                                                                "name": "items",
+                                                                                                "type": "array"
+                                                                                            },
+                                                                                            "codeClass": null,
+                                                                                            "userConfig": {
+                                                                                                "designer|params": [
+                                                                                                    "button",
+                                                                                                    "e"
+                                                                                                ],
+                                                                                                "fn": "handler",
+                                                                                                "implHandler": [
+                                                                                                    "",
+                                                                                                    "var menuRecords = Ext.getCmp(\"permissionMenuTreeGrid\").getRecords();",
+                                                                                                    "",
+                                                                                                    "var menus = [];",
+                                                                                                    "Ext.each(menuRecords, function(record) {",
+                                                                                                    "    var menu = {};",
+                                                                                                    "    menu.menuId = record.get(\"menuId\");",
+                                                                                                    "    menu.readYn = (record.get(\"isRead\") == true ? \"1\" : \"0\");",
+                                                                                                    "    menu.writeYn = (record.get(\"isWrite\") == true ? \"1\" : \"0\");",
+                                                                                                    "",
+                                                                                                    "    menus.push(menu);",
+                                                                                                    "",
+                                                                                                    "});",
+                                                                                                    "",
+                                                                                                    "var permissionForm = Ext.getCmp(\"detailPermissionForm\");",
+                                                                                                    "",
+                                                                                                    "permissionForm.getForm().findField(\"permMenus\").setValue(Ext.JSON.encode(menus));",
+                                                                                                    "",
+                                                                                                    "permissionForm.getForm().submit({",
+                                                                                                    "    clientValidation: true,",
+                                                                                                    "    url: GLOBAL.urlPrefix + \"permission/updatemenus\",",
+                                                                                                    "    method : \"POST\",",
+                                                                                                    "    params: {",
+                                                                                                    "        newStatus: 'delivered'",
+                                                                                                    "    },",
+                                                                                                    "    waitMsg: 'Saving Data...',",
+                                                                                                    "    success: function(form, action) {",
+                                                                                                    "        Ext.Msg.alert('Success', action.result.msg);",
+                                                                                                    "",
+                                                                                                    "        Ext.getCmp('permissionMenuTreeGrid').getStore().load({",
+                                                                                                    "            callback : function(records, options, success) {",
+                                                                                                    "                Ext.getCmp(\"permissionMenuTreeGrid\").expandAll();",
+                                                                                                    "            }",
+                                                                                                    "        });",
+                                                                                                    "",
+                                                                                                    "        permissionForm.up('window').close();",
+                                                                                                    "    },",
+                                                                                                    "    failure: function(form, action) {",
+                                                                                                    "        switch (action.failureType) {",
+                                                                                                    "            case Ext.form.action.Action.CLIENT_INVALID:",
+                                                                                                    "            Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');",
+                                                                                                    "            break;",
+                                                                                                    "            case Ext.form.action.Action.CONNECT_FAILURE:",
+                                                                                                    "            Ext.Msg.alert('Failure', 'Server communication failed');",
+                                                                                                    "            break;",
+                                                                                                    "            case Ext.form.action.Action.SERVER_INVALID:",
+                                                                                                    "            Ext.Msg.alert('Failure', action.result.msg);",
+                                                                                                    "        }",
+                                                                                                    "    }",
+                                                                                                    "});"
+                                                                                                ]
+                                                                                            },
+                                                                                            "designerId": "b21d18e7-ca0c-43ea-bd19-c6bef7663122"
+                                                                                        }
+                                                                                    ]
                                                                                 }
                                                                             ]
+                                                                        },
+                                                                        {
+                                                                            "type": "basicfunction",
+                                                                            "reference": {
+                                                                                "name": "items",
+                                                                                "type": "array"
+                                                                            },
+                                                                            "codeClass": null,
+                                                                            "userConfig": {
+                                                                                "fn": "getRecords",
+                                                                                "implHandler": [
+                                                                                    "var current = 0;",
+                                                                                    "var records = [];",
+                                                                                    "return (function find(nodes) {",
+                                                                                    "    var i, len = nodes.length;",
+                                                                                    "    for (i = 0; i < len; i++) {",
+                                                                                    "        records.push(nodes[i]);",
+                                                                                    "        current++;",
+                                                                                    "        var found = find(nodes[i].childNodes);",
+                                                                                    "    }",
+                                                                                    "    ",
+                                                                                    "    return records;",
+                                                                                    "    ",
+                                                                                    "}(this.store.getRootNode().childNodes));",
+                                                                                    ""
+                                                                                ]
+                                                                            },
+                                                                            "designerId": "b35019ac-d737-4b61-8e85-6f5f0aef0480"
                                                                         }
                                                                     ]
                                                                 },
                                                                 {
-                                                                    "type": "basicfunction",
+                                                                    "type": "Ext.form.Panel",
                                                                     "reference": {
                                                                         "name": "items",
                                                                         "type": "array"
                                                                     },
                                                                     "codeClass": null,
                                                                     "userConfig": {
-                                                                        "fn": "getRecords",
-                                                                        "implHandler": [
-                                                                            "var current = 0;",
-                                                                            "var records = [];",
-                                                                            "return (function find(nodes) {",
-                                                                            "    var i, len = nodes.length;",
-                                                                            "    for (i = 0; i < len; i++) {",
-                                                                            "        records.push(nodes[i]);",
-                                                                            "        current++;",
-                                                                            "        var found = find(nodes[i].childNodes);",
-                                                                            "    }",
-                                                                            "    ",
-                                                                            "    return records;",
-                                                                            "    ",
-                                                                            "}(this.store.getRootNode().childNodes));",
-                                                                            ""
-                                                                        ]
+                                                                        "bodyPadding": 10,
+                                                                        "header": false,
+                                                                        "height": 5,
+                                                                        "id": "detailPermissionForm",
+                                                                        "itemId": "detailPermissionForm",
+                                                                        "title": "My Form"
                                                                     },
-                                                                    "designerId": "b35019ac-d737-4b61-8e85-6f5f0aef0480"
-                                                                }
-                                                            ]
-                                                        },
-                                                        {
-                                                            "type": "Ext.form.Panel",
-                                                            "reference": {
-                                                                "name": "items",
-                                                                "type": "array"
-                                                            },
-                                                            "codeClass": null,
-                                                            "userConfig": {
-                                                                "bodyPadding": 10,
-                                                                "header": false,
-                                                                "id": "detailPermissionForm",
-                                                                "itemId": "detailPermissionForm",
-                                                                "title": "My Form"
-                                                            },
-                                                            "designerId": "136c0478-ff52-47ca-8062-a40ab372241a",
-                                                            "cn": [
-                                                                {
-                                                                    "type": "Ext.form.field.Hidden",
-                                                                    "reference": {
-                                                                        "name": "items",
-                                                                        "type": "array"
-                                                                    },
-                                                                    "codeClass": null,
-                                                                    "userConfig": {
-                                                                        "fieldLabel": "Label",
-                                                                        "layout|anchor": "100%",
-                                                                        "name": "permId"
-                                                                    },
-                                                                    "designerId": "cb730e0d-e199-4c53-91c8-7d891878eb2e"
-                                                                },
-                                                                {
-                                                                    "type": "Ext.form.field.Hidden",
-                                                                    "reference": {
-                                                                        "name": "items",
-                                                                        "type": "array"
-                                                                    },
-                                                                    "codeClass": null,
-                                                                    "userConfig": {
-                                                                        "fieldLabel": "Label",
-                                                                        "layout|anchor": "100%",
-                                                                        "name": "permMenus"
-                                                                    },
-                                                                    "designerId": "daa87428-f807-45ee-bb2b-827cec068b61"
+                                                                    "designerId": "136c0478-ff52-47ca-8062-a40ab372241a",
+                                                                    "cn": [
+                                                                        {
+                                                                            "type": "Ext.form.field.Hidden",
+                                                                            "reference": {
+                                                                                "name": "items",
+                                                                                "type": "array"
+                                                                            },
+                                                                            "codeClass": null,
+                                                                            "userConfig": {
+                                                                                "fieldLabel": "Label",
+                                                                                "layout|anchor": "100%",
+                                                                                "name": "permId"
+                                                                            },
+                                                                            "designerId": "cb730e0d-e199-4c53-91c8-7d891878eb2e"
+                                                                        },
+                                                                        {
+                                                                            "type": "Ext.form.field.Hidden",
+                                                                            "reference": {
+                                                                                "name": "items",
+                                                                                "type": "array"
+                                                                            },
+                                                                            "codeClass": null,
+                                                                            "userConfig": {
+                                                                                "fieldLabel": "Label",
+                                                                                "layout|anchor": "100%",
+                                                                                "name": "permMenus"
+                                                                            },
+                                                                            "designerId": "daa87428-f807-45ee-bb2b-827cec068b61"
+                                                                        }
+                                                                    ]
                                                                 }
                                                             ]
                                                         }

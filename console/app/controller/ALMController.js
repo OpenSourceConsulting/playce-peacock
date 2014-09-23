@@ -61,6 +61,11 @@ Ext.define('MyApp.controller.ALMController', {
     onAlmUserGridCellClick: function(tableview, td, cellIndex, record, tr, rowIndex, e, eOpts) {
         //ALM User Grid Item Click
 
+        if(cellIndex > 5) {
+            //Action Column 예외처리
+            return;
+        }
+
         if(almConstants.selectRow == null || almConstants.selectRow.get("userId") != record.get("userId")) {
 
             almConstants.selectRow = record;
@@ -75,7 +80,7 @@ Ext.define('MyApp.controller.ALMController', {
         var position = e.getXY();
         e.stopEvent();
 
-        almConstants.selectRow = record;
+        almConstants.actionRow = record;
 
         almConstants.userContextMenu.showAt(position);
 
@@ -83,7 +88,7 @@ Ext.define('MyApp.controller.ALMController', {
     },
 
     onAlmGroupGridBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
-        //ALM Group Grid Right Click Menu 호출
+        /*ALM Group Grid Right Click Menu 호출
 
         var position = e.getXY();
         e.stopEvent();
@@ -92,7 +97,7 @@ Ext.define('MyApp.controller.ALMController', {
 
         almConstants.groupContextMenu.showAt(position);
 
-
+        */
     },
 
     onAlmTabPanelTabChange: function(tabPanel, newCard, oldCard, eOpts) {
@@ -217,17 +222,17 @@ Ext.define('MyApp.controller.ALMController', {
                     [
                     { text: 'Edit',
                         handler: function() {
-                            alm.showAlmUserWindow();
+                            alm.showAlmUserWindow('edit');
                         }
                     },
                     { text: 'Delete',
                         handler: function() {
-                            alert('delete');
+                            alm.deleteAlmUserWindow();
                         }
                     },
                     { text: 'Clone User',
                         handler: function() {
-                            alm.showAlmUserWindow();
+                            alm.showAlmUserWindow('clone');
                         }
                     }
                     ]
@@ -417,10 +422,46 @@ Ext.define('MyApp.controller.ALMController', {
         Ext.getCmp("almUserTitleLabel").setText("<h2>&nbsp;&nbsp;&nbsp;"+almConstants.selectRow.get("displayName")+"</h2>", false);
     },
 
-    showAlmUserWindow: function() {
+    showAlmUserWindow: function(type) {
         var almUserWindow = Ext.create("widget.AlmUserWindow");
 
         almUserWindow.show();
+
+        if(type == 'edit' || type == 'clone') {
+
+            if(type == 'edit') {
+                almUserWindow.setTitle("Edit User");
+            } else {
+                almUserWindow.setTitle("Clone User");
+            }
+
+            var userForm = Ext.getCmp("popAlmUserForm");
+
+            userForm.getForm().waitMsgTarget = userForm.getEl();
+
+            userForm.getForm().load({
+                 url : GLOBAL.urlPrefix + "alm/usermanagement/" + almConstants.actionRow.get("userId")
+                ,method : 'GET'
+                ,waitMsg:'Loading...'
+                ,success: function(form, action) {
+
+                    if(type == 'edit') {
+                        form.findField('userId').setRawValue(almConstants.actionRow.get("userId"));
+                        form.findField('name').setReadOnly(true);
+                    }
+
+                    form.findField('email').setRawValue(form.findField('emailAddress').getRawValue());
+
+                    form.findField('password').setDisabled(true);
+                    form.findField('confirmPassword').setDisabled(true);
+
+                    form.findField('password').hide();
+                    form.findField('confirmPassword').hide();
+
+                    almUserWindow.setHeight(250);
+                }
+            });
+        }
     },
 
     showAlmGroupWindow: function() {
@@ -514,6 +555,36 @@ Ext.define('MyApp.controller.ALMController', {
             }
 
         }
+    },
+
+    deleteAlmUserWindow: function() {
+
+        //User 삭제
+
+        Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){
+
+            if(btn == "yes"){
+
+                Ext.Ajax.request({
+                    url: GLOBAL.urlPrefix + "alm/usermanagement/" + almConstants.actionRow.get("userId"),
+                    method : 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                    disableCaching : true,
+                    waitMsg: 'Delete ALM User...',
+                    success: function(response){
+                        var msg = Ext.JSON.decode(response.responseText).msg;
+                        Ext.MessageBox.alert('알림', msg);
+
+                        almConstants.selectRow = null;
+
+                        Ext.getCmp("almUserGrid").getStore().reload();
+                        Ext.getCmp("almUserDetailPanel").layout.setActiveItem(0);
+
+                    }
+                });
+            }
+
+        });
     }
 
 });

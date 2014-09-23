@@ -209,21 +209,6 @@ Ext.define('MyApp.controller.LoginController', {
 
             this.getUserName().focus();
 
-            /**
-             * 비밀번호 재설정 Label click event를 catch 하도록 설정
-             */
-            this.getPasswdResetLabel().getEl().on('click', function() {
-                Ext.Msg.show({
-                    title: "Message",
-                    msg: "Password reset funtion isn't implemented yet.",
-                    buttons: Ext.Msg.OK,
-                    fn: function(choice) {
-                        // do nothing.
-                    },
-                    icon: Ext.Msg.QUESTION
-                });
-            });
-
         }
 
     },

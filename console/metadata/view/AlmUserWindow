@@ -287,6 +287,34 @@
                                     "designerId": "db3dde0a-6832-4114-bdf7-1b28c7394966"
                                 }
                             ]
+                        },
+                        {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Label",
+                                "layout|anchor": "100%",
+                                "name": "userId"
+                            },
+                            "designerId": "8a69d021-a090-42a0-83a4-7febc20a1934"
+                        },
+                        {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Label",
+                                "layout|anchor": "100%",
+                                "name": "emailAddress"
+                            },
+                            "designerId": "bf14c370-d410-433d-8ab4-093853c1c2a1"
                         }
                     ]
                 },
@@ -317,8 +345,8 @@
                                 "itemId": null,
                                 "layout|flex": null,
                                 "margin": "0 15 0 0",
-                                "padding": "2 5 2 5",
-                                "text": "Create"
+                                "padding": "2 8 2 8",
+                                "text": "Save"
                             },
                             "designerId": "396abda4-04b2-4da6-a859-ea986350442a",
                             "cn": [
@@ -337,16 +365,32 @@
                                         "fn": "handler",
                                         "implHandler": [
                                             "",
-                                            "",
                                             "var almUserForm = Ext.getCmp(\"popAlmUserForm\");",
+                                            "",
+                                            "var actionMethod = \"POST\";",
+                                            "",
+                                            "var userId = null;",
+                                            "",
+                                            "if(almUserForm.getForm().findField(\"userId\").getValue().length > 0){",
+                                            "",
+                                            "    userId = almUserForm.getForm().findField(\"userId\").getValue();",
+                                            "    actionMethod = \"PUT\";",
+                                            "",
+                                            "}",
+                                            "",
                                             "if(almUserForm.isValid()) {",
+                                            "",
+                                            "    var sendData = almUserForm.getForm().getFieldValues();",
+                                            "",
+                                            "    delete sendData.userId;",
+                                            "    delete sendData.emailAddress;",
                                             "",
                                             "     Ext.Ajax.request({",
                                             "         url: GLOBAL.urlPrefix + \"alm/usermanagement\",",
-                                            "         method: 'POST',",
+                                            "         method: actionMethod,",
                                             "         headers: { 'Content-Type': 'application/json' },",
                                             "         waitMsg: 'Saving Data...',",
-                                            "         jsonData: almUserForm.getForm().getFieldValues(),",
+                                            "         jsonData: sendData,",
                                             "         success: function (response) {",
                                             "",
                                             "            var responseData = Ext.JSON.decode(response.responseText);",
@@ -355,7 +399,26 @@
                                             "",
                                             "                Ext.Msg.alert('Success', responseData.msg);",
                                             "",
-                                            "                Ext.getCmp('almUserGrid').getStore().reload();",
+                                            "                Ext.getCmp('almUserGrid').getStore().reload({",
+                                            "                    callback:function(records, operation, success){",
+                                            "",
+                                            "                        if(userId){",
+                                            "",
+                                            "                            Ext.each(records, function(record) {",
+                                            "                                ",
+                                            "                                if(record.get(\"userId\") == userId) {",
+                                            "                                    Ext.getCmp('almUserGrid').getSelectionModel().select(record,true,false);",
+                                            "",
+                                            "                                    almConstants.selectRow = record;",
+                                            "                                    almConstants.me.selectAlmUserGrid();",
+                                            "                                }",
+                                            "",
+                                            "                            });",
+                                            "                        }",
+                                            "                        ",
+                                            "                    }",
+                                            "                });",
+                                            "                 ",
                                             "                almUserForm.up('window').close();",
                                             "",
                                             "             } else {",
@@ -371,8 +434,7 @@
                                             "        }",
                                             "     });",
                                             "",
-                                            "}",
-                                            ""
+                                            "}"
                                         ]
                                     },
                                     "designerId": "d123108a-c43c-43e8-bef0-d6aa94a7d71b"

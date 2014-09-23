@@ -60,6 +60,7 @@ Ext.define('MyApp.view.loginWindow', {
                             html: '<h3>현대중공업 자동화 배포시스템에 오신 것을 환영합니다.<br/>사용하시려면 <font color="red">로그인</font>을 해주십시오.</h3>',
                             id: 'welcomeLabel',
                             itemId: 'welcomeLabel',
+                            margin: '5 0 0 0',
                             style: '{text-align: center;}',
                             text: ''
                         },
@@ -67,6 +68,7 @@ Ext.define('MyApp.view.loginWindow', {
                             xtype: 'form',
                             id: 'loginForm',
                             itemId: 'loginForm',
+                            margin: '5 0 0 0',
                             bodyPadding: 10,
                             items: [
                                 {
@@ -102,7 +104,7 @@ Ext.define('MyApp.view.loginWindow', {
                                         type: 'vbox',
                                         align: 'center',
                                         defaultMargins: {
-                                            top: 10,
+                                            top: 20,
                                             right: 5,
                                             bottom: 5,
                                             left: 5
@@ -115,13 +117,6 @@ Ext.define('MyApp.view.loginWindow', {
                                             itemId: 'loginBtn',
                                             scale: 'medium',
                                             text: '로그인'
-                                        },
-                                        {
-                                            xtype: 'label',
-                                            margins: '5 0 0 0',
-                                            html: '<a href="javascript:;">비밀번호 재 설정</a>',
-                                            id: 'passwdResetLabel',
-                                            itemId: 'passwdResetLabel'
                                         }
                                     ]
                                 }

@@ -217,6 +217,19 @@
                 "type": "string"
             },
             "designerId": "46d65898-ca1b-475f-bb6c-9852295f49a7"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "seq",
+                "type": "int"
+            },
+            "designerId": "ca6c26d5-9572-4bc0-9313-0fc19e36876b"
         }
     ]
 }

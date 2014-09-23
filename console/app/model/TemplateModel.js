@@ -84,6 +84,10 @@ Ext.define('MyApp.model.TemplateModel', {
         {
             name: 'cluster',
             type: 'string'
+        },
+        {
+            name: 'seq',
+            type: 'int'
         }
     ]
 });

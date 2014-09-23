@@ -600,6 +600,26 @@ Ext.define('MyApp.view.almContainer', {
                                         },
                                         {
                                             xtype: 'actioncolumn',
+                                            text: 'Edit',
+                                            maxWidth: 65,
+                                            minWidth: 65,
+                                            style: 'text-align:left;',
+                                            width: 65,
+                                            align: 'center',
+                                            menuText: '',
+                                            items: [
+                                                {
+                                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                                        almConstants.actionRow = record;
+                                                        almConstants.me.showAlmUserWindow('edit');
+                                                    },
+                                                    icon: 'resources/images/icons/cog.png',
+                                                    iconCls: ''
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            xtype: 'actioncolumn',
                                             text: 'Delete',
                                             maxWidth: 60,
                                             minWidth: 70,
@@ -611,7 +631,8 @@ Ext.define('MyApp.view.almContainer', {
                                             items: [
                                                 {
                                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                                        alert('delete');
+                                                        almConstants.actionRow = record;
+                                                        almConstants.me.deleteAlmUserWindow();
                                                     },
                                                     icon: 'resources/images/icons/delete.png',
                                                     iconCls: ''

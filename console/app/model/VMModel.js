@@ -120,6 +120,10 @@ Ext.define('MyApp.model.VMModel', {
         {
             name: 'haPriority',
             type: 'string'
+        },
+        {
+            name: 'seq',
+            type: 'int'
         }
     ]
 });

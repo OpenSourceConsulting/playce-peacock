@@ -334,6 +334,19 @@
                 "type": "string"
             },
             "designerId": "3fe115d6-62b7-4349-9a70-da9f51e0cc7f"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "seq",
+                "type": "int"
+            },
+            "designerId": "95f199a6-cf0e-4fbc-b636-806fb930b04b"
         }
     ]
 }

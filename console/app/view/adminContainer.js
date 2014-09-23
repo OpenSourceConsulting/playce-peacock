@@ -592,7 +592,6 @@ Ext.define('MyApp.view.adminContainer', {
                                             items: [
                                                 {
                                                     xtype: 'tabpanel',
-                                                    height: 360,
                                                     id: 'userPermissionDetailTabPanel',
                                                     itemId: 'userPermissionDetailTabPanel',
                                                     padding: '15 10 10 10',
@@ -602,173 +601,183 @@ Ext.define('MyApp.view.adminContainer', {
                                                     items: [
                                                         {
                                                             xtype: 'panel',
-                                                            height: 280,
+                                                            autoScroll: true,
                                                             title: 'Detail',
                                                             items: [
                                                                 {
-                                                                    xtype: 'treepanel',
-                                                                    getRecords: function() {
-                                                                        var current = 0;
-                                                                        var records = [];
-                                                                        return (function find(nodes) {
-                                                                            var i, len = nodes.length;
-                                                                            for (i = 0; i < len; i++) {
-                                                                                records.push(nodes[i]);
-                                                                                current++;
-                                                                                var found = find(nodes[i].childNodes);
-                                                                            }
-
-                                                                            return records;
-
-                                                                        }(this.store.getRootNode().childNodes));
-
-                                                                    },
-                                                                    plugins: [
-                                                                        Ext.create('Ext.grid.plugin.CellEditing',
-                                                                        {
-                                                                            
-                                                                        })
-                                                                    ],
-                                                                    height: 260,
-                                                                    id: 'permissionMenuTreeGrid',
-                                                                    itemId: 'permissionMenuTreeGrid',
-                                                                    minHeight: 250,
+                                                                    xtype: 'panel',
                                                                     autoScroll: true,
-                                                                    autoDestroy: false,
+                                                                    layout: 'fit',
                                                                     header: false,
-                                                                    title: 'My Tree Grid Panel',
-                                                                    columnLines: true,
-                                                                    forceFit: false,
-                                                                    rowLines: true,
-                                                                    rootVisible: false,
-                                                                    viewConfig: {
-
-                                                                    },
-                                                                    columns: [
-                                                                        {
-                                                                            xtype: 'treecolumn',
-                                                                            minWidth: 300,
-                                                                            dataIndex: 'menuNm',
-                                                                            groupable: false,
-                                                                            text: 'Menu',
-                                                                            flex: 1
-                                                                        },
-                                                                        {
-                                                                            xtype: 'checkcolumn',
-                                                                            minWidth: 100,
-                                                                            dataIndex: 'isRead',
-                                                                            menuDisabled: true,
-                                                                            text: 'Read',
-                                                                            stopSelection: false,
-                                                                            listeners: {
-                                                                                checkchange: {
-                                                                                    fn: me.onCheckcolumnCheckChange,
-                                                                                    scope: me
-                                                                                }
-                                                                            }
-                                                                        },
-                                                                        {
-                                                                            xtype: 'checkcolumn',
-                                                                            minWidth: 100,
-                                                                            dataIndex: 'isWrite',
-                                                                            text: 'Write',
-                                                                            listeners: {
-                                                                                checkchange: {
-                                                                                    fn: me.onCheckcolumnCheckChange1,
-                                                                                    scope: me
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    ],
+                                                                    title: 'My Panel',
                                                                     dockedItems: [
                                                                         {
-                                                                            xtype: 'toolbar',
-                                                                            dock: 'top',
-                                                                            items: [
+                                                                            xtype: 'treepanel',
+                                                                            getRecords: function() {
+                                                                                var current = 0;
+                                                                                var records = [];
+                                                                                return (function find(nodes) {
+                                                                                    var i, len = nodes.length;
+                                                                                    for (i = 0; i < len; i++) {
+                                                                                        records.push(nodes[i]);
+                                                                                        current++;
+                                                                                        var found = find(nodes[i].childNodes);
+                                                                                    }
+
+                                                                                    return records;
+
+                                                                                }(this.store.getRootNode().childNodes));
+
+                                                                            },
+                                                                            plugins: [
+                                                                                Ext.create('Ext.grid.plugin.CellEditing',
                                                                                 {
-                                                                                    xtype: 'tbspacer',
+                                                                                    
+                                                                                })
+                                                                            ],
+                                                                            dock: 'top',
+                                                                            id: 'permissionMenuTreeGrid',
+                                                                            itemId: 'permissionMenuTreeGrid',
+                                                                            autoDestroy: false,
+                                                                            header: false,
+                                                                            title: 'My Tree Grid Panel',
+                                                                            columnLines: true,
+                                                                            forceFit: false,
+                                                                            rowLines: true,
+                                                                            rootVisible: false,
+                                                                            viewConfig: {
+
+                                                                            },
+                                                                            columns: [
+                                                                                {
+                                                                                    xtype: 'treecolumn',
+                                                                                    minWidth: 300,
+                                                                                    dataIndex: 'menuNm',
+                                                                                    groupable: false,
+                                                                                    text: 'Menu',
                                                                                     flex: 1
                                                                                 },
                                                                                 {
-                                                                                    xtype: 'button',
-                                                                                    handler: function(button, e) {
+                                                                                    xtype: 'checkcolumn',
+                                                                                    minWidth: 100,
+                                                                                    dataIndex: 'isRead',
+                                                                                    menuDisabled: true,
+                                                                                    text: 'Read',
+                                                                                    stopSelection: false,
+                                                                                    listeners: {
+                                                                                        checkchange: {
+                                                                                            fn: me.onCheckcolumnCheckChange,
+                                                                                            scope: me
+                                                                                        }
+                                                                                    }
+                                                                                },
+                                                                                {
+                                                                                    xtype: 'checkcolumn',
+                                                                                    minWidth: 100,
+                                                                                    dataIndex: 'isWrite',
+                                                                                    text: 'Write',
+                                                                                    listeners: {
+                                                                                        checkchange: {
+                                                                                            fn: me.onCheckcolumnCheckChange1,
+                                                                                            scope: me
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            ],
+                                                                            dockedItems: [
+                                                                                {
+                                                                                    xtype: 'toolbar',
+                                                                                    dock: 'top',
+                                                                                    items: [
+                                                                                        {
+                                                                                            xtype: 'tbspacer',
+                                                                                            flex: 1
+                                                                                        },
+                                                                                        {
+                                                                                            xtype: 'button',
+                                                                                            handler: function(button, e) {
 
-                                                                                        var menuRecords = Ext.getCmp("permissionMenuTreeGrid").getRecords();
+                                                                                                var menuRecords = Ext.getCmp("permissionMenuTreeGrid").getRecords();
 
-                                                                                        var menus = [];
-                                                                                        Ext.each(menuRecords, function(record) {
-                                                                                            var menu = {};
-                                                                                            menu.menuId = record.get("menuId");
-                                                                                            menu.readYn = (record.get("isRead") == true ? "1" : "0");
-                                                                                            menu.writeYn = (record.get("isWrite") == true ? "1" : "0");
+                                                                                                var menus = [];
+                                                                                                Ext.each(menuRecords, function(record) {
+                                                                                                    var menu = {};
+                                                                                                    menu.menuId = record.get("menuId");
+                                                                                                    menu.readYn = (record.get("isRead") == true ? "1" : "0");
+                                                                                                    menu.writeYn = (record.get("isWrite") == true ? "1" : "0");
 
-                                                                                            menus.push(menu);
+                                                                                                    menus.push(menu);
 
-                                                                                        });
-
-                                                                                        var permissionForm = Ext.getCmp("detailPermissionForm");
-
-                                                                                        permissionForm.getForm().findField("permMenus").setValue(Ext.JSON.encode(menus));
-
-                                                                                        permissionForm.getForm().submit({
-                                                                                            clientValidation: true,
-                                                                                            url: GLOBAL.urlPrefix + "permission/updatemenus",
-                                                                                            method : "POST",
-                                                                                            params: {
-                                                                                                newStatus: 'delivered'
-                                                                                            },
-                                                                                            waitMsg: 'Saving Data...',
-                                                                                            success: function(form, action) {
-                                                                                                Ext.Msg.alert('Success', action.result.msg);
-
-                                                                                                Ext.getCmp('permissionMenuTreeGrid').getStore().load({
-                                                                                                    callback : function(records, options, success) {
-                                                                                                        Ext.getCmp("permissionMenuTreeGrid").expandAll();
-                                                                                                    }
                                                                                                 });
 
-                                                                                                permissionForm.up('window').close();
+                                                                                                var permissionForm = Ext.getCmp("detailPermissionForm");
+
+                                                                                                permissionForm.getForm().findField("permMenus").setValue(Ext.JSON.encode(menus));
+
+                                                                                                permissionForm.getForm().submit({
+                                                                                                    clientValidation: true,
+                                                                                                    url: GLOBAL.urlPrefix + "permission/updatemenus",
+                                                                                                    method : "POST",
+                                                                                                    params: {
+                                                                                                        newStatus: 'delivered'
+                                                                                                    },
+                                                                                                    waitMsg: 'Saving Data...',
+                                                                                                    success: function(form, action) {
+                                                                                                        Ext.Msg.alert('Success', action.result.msg);
+
+                                                                                                        Ext.getCmp('permissionMenuTreeGrid').getStore().load({
+                                                                                                            callback : function(records, options, success) {
+                                                                                                                Ext.getCmp("permissionMenuTreeGrid").expandAll();
+                                                                                                            }
+                                                                                                        });
+
+                                                                                                        permissionForm.up('window').close();
+                                                                                                    },
+                                                                                                    failure: function(form, action) {
+                                                                                                        switch (action.failureType) {
+                                                                                                            case Ext.form.action.Action.CLIENT_INVALID:
+                                                                                                            Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');
+                                                                                                            break;
+                                                                                                            case Ext.form.action.Action.CONNECT_FAILURE:
+                                                                                                            Ext.Msg.alert('Failure', 'Server communication failed');
+                                                                                                            break;
+                                                                                                            case Ext.form.action.Action.SERVER_INVALID:
+                                                                                                            Ext.Msg.alert('Failure', action.result.msg);
+                                                                                                        }
+                                                                                                    }
+                                                                                                });
                                                                                             },
-                                                                                            failure: function(form, action) {
-                                                                                                switch (action.failureType) {
-                                                                                                    case Ext.form.action.Action.CLIENT_INVALID:
-                                                                                                    Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');
-                                                                                                    break;
-                                                                                                    case Ext.form.action.Action.CONNECT_FAILURE:
-                                                                                                    Ext.Msg.alert('Failure', 'Server communication failed');
-                                                                                                    break;
-                                                                                                    case Ext.form.action.Action.SERVER_INVALID:
-                                                                                                    Ext.Msg.alert('Failure', action.result.msg);
-                                                                                                }
-                                                                                            }
-                                                                                        });
-                                                                                    },
-                                                                                    padding: '3 10 3 10',
-                                                                                    text: 'Save'
+                                                                                            padding: '3 10 3 10',
+                                                                                            text: 'Save'
+                                                                                        }
+                                                                                    ]
                                                                                 }
                                                                             ]
                                                                         }
-                                                                    ]
-                                                                },
-                                                                {
-                                                                    xtype: 'form',
-                                                                    id: 'detailPermissionForm',
-                                                                    itemId: 'detailPermissionForm',
-                                                                    bodyPadding: 10,
-                                                                    header: false,
-                                                                    title: 'My Form',
+                                                                    ],
                                                                     items: [
                                                                         {
-                                                                            xtype: 'hiddenfield',
-                                                                            anchor: '100%',
-                                                                            fieldLabel: 'Label',
-                                                                            name: 'permId'
-                                                                        },
-                                                                        {
-                                                                            xtype: 'hiddenfield',
-                                                                            anchor: '100%',
-                                                                            fieldLabel: 'Label',
-                                                                            name: 'permMenus'
+                                                                            xtype: 'form',
+                                                                            height: 5,
+                                                                            id: 'detailPermissionForm',
+                                                                            itemId: 'detailPermissionForm',
+                                                                            bodyPadding: 10,
+                                                                            header: false,
+                                                                            title: 'My Form',
+                                                                            items: [
+                                                                                {
+                                                                                    xtype: 'hiddenfield',
+                                                                                    anchor: '100%',
+                                                                                    fieldLabel: 'Label',
+                                                                                    name: 'permId'
+                                                                                },
+                                                                                {
+                                                                                    xtype: 'hiddenfield',
+                                                                                    anchor: '100%',
+                                                                                    fieldLabel: 'Label',
+                                                                                    name: 'permMenus'
+                                                                                }
+                                                                            ]
                                                                         }
                                                                     ]
                                                                 }

@@ -237,7 +237,7 @@
                     "",
                     "    if(user_id == null) {",
                     "        user_id = userConstants.actionRow.get(\"userId\");",
-                    "        ",
+                    "",
                     "        editUrl = GLOBAL.urlPrefix + \"user/getUser\";",
                     "    }",
                     "",

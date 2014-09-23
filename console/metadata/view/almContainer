@@ -1551,6 +1551,75 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "align": "center",
+                                        "maxWidth": 65,
+                                        "menuText": "",
+                                        "minWidth": 65,
+                                        "style": [
+                                            "\"text-align:left;\""
+                                        ],
+                                        "text": "Edit",
+                                        "width": 65
+                                    },
+                                    "designerId": "9dd97dd2-ee5a-4373-a41f-fe54c71e4be5",
+                                    "customConfigs": [
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "text",
+                                            "type": "string"
+                                        }
+                                    ],
+                                    "cn": [
+                                        {
+                                            "type": "actioncolumnitem",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "icon": "resources/images/icons/cog.png",
+                                                "iconCls": ""
+                                            },
+                                            "designerId": "1b504af8-6edf-4c49-bca1-71f31af48c60",
+                                            "cn": [
+                                                {
+                                                    "type": "fixedfunction",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "designer|params": [
+                                                            "view",
+                                                            "rowIndex",
+                                                            "colIndex",
+                                                            "item",
+                                                            "e",
+                                                            "record",
+                                                            "row"
+                                                        ],
+                                                        "fn": "handler",
+                                                        "implHandler": [
+                                                            "almConstants.actionRow = record;",
+                                                            "almConstants.me.showAlmUserWindow('edit');"
+                                                        ]
+                                                    },
+                                                    "designerId": "722f995c-d5af-4fc9-8d6a-54d15b653911"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.grid.column.Action",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "align": "center",
                                         "defaultWidth": 60,
                                         "maxWidth": 60,
                                         "menuText": "",
@@ -1602,7 +1671,8 @@
                                                         ],
                                                         "fn": "handler",
                                                         "implHandler": [
-                                                            "alert('delete');"
+                                                            "almConstants.actionRow = record;",
+                                                            "almConstants.me.deleteAlmUserWindow();"
                                                         ]
                                                     },
                                                     "designerId": "e800b6f6-0600-47fa-a4ca-9741cbad624a"

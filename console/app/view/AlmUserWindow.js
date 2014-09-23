@@ -21,6 +21,7 @@ Ext.define('MyApp.view.AlmUserWindow', {
         'Ext.form.Panel',
         'Ext.form.field.Text',
         'Ext.XTemplate',
+        'Ext.form.field.Hidden',
         'Ext.toolbar.Toolbar',
         'Ext.button.Button',
         'Ext.form.field.Checkbox',
@@ -135,6 +136,18 @@ Ext.define('MyApp.view.AlmUserWindow', {
                                     labelWidth: 120,
                                     name: 'email',
                                     allowBlank: false
+                                },
+                                {
+                                    xtype: 'hiddenfield',
+                                    anchor: '100%',
+                                    fieldLabel: 'Label',
+                                    name: 'userId'
+                                },
+                                {
+                                    xtype: 'hiddenfield',
+                                    anchor: '100%',
+                                    fieldLabel: 'Label',
+                                    name: 'emailAddress'
                                 }
                             ]
                         },
@@ -196,16 +209,32 @@ Ext.define('MyApp.view.AlmUserWindow', {
                                     xtype: 'button',
                                     handler: function(button, e) {
 
-
                                         var almUserForm = Ext.getCmp("popAlmUserForm");
+
+                                        var actionMethod = "POST";
+
+                                        var userId = null;
+
+                                        if(almUserForm.getForm().findField("userId").getValue().length > 0){
+
+                                            userId = almUserForm.getForm().findField("userId").getValue();
+                                            actionMethod = "PUT";
+
+                                        }
+
                                         if(almUserForm.isValid()) {
+
+                                            var sendData = almUserForm.getForm().getFieldValues();
+
+                                            delete sendData.userId;
+                                            delete sendData.emailAddress;
 
                                             Ext.Ajax.request({
                                                 url: GLOBAL.urlPrefix + "alm/usermanagement",
-                                                method: 'POST',
+                                                method: actionMethod,
                                                 headers: { 'Content-Type': 'application/json' },
                                                 waitMsg: 'Saving Data...',
-                                                jsonData: almUserForm.getForm().getFieldValues(),
+                                                jsonData: sendData,
                                                 success: function (response) {
 
                                                     var responseData = Ext.JSON.decode(response.responseText);
@@ -214,7 +243,26 @@ Ext.define('MyApp.view.AlmUserWindow', {
 
                                                         Ext.Msg.alert('Success', responseData.msg);
 
-                                                        Ext.getCmp('almUserGrid').getStore().reload();
+                                                        Ext.getCmp('almUserGrid').getStore().reload({
+                                                            callback:function(records, operation, success){
+
+                                                                if(userId){
+
+                                                                    Ext.each(records, function(record) {
+
+                                                                        if(record.get("userId") == userId) {
+                                                                            Ext.getCmp('almUserGrid').getSelectionModel().select(record,true,false);
+
+                                                                            almConstants.selectRow = record;
+                                                                            almConstants.me.selectAlmUserGrid();
+                                                                        }
+
+                                                                    });
+                                                                }
+
+                                                            }
+                                                        });
+
                                                         almUserForm.up('window').close();
 
                                                     } else {
@@ -231,11 +279,10 @@ Ext.define('MyApp.view.AlmUserWindow', {
                                             });
 
                                         }
-
                                     },
                                     margin: '0 15 0 0',
-                                    padding: '2 5 2 5',
-                                    text: 'Create'
+                                    padding: '2 8 2 8',
+                                    text: 'Save'
                                 },
                                 {
                                     xtype: 'button',
