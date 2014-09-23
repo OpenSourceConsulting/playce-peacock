@@ -659,13 +659,9 @@
                                                                                             "",
                                                                                             "almGroupUsersWindow.show();",
                                                                                             "",
-                                                                                            "Ext.getCmp(\"popAlmUsersGrid\").getStore().load({",
-                                                                                            "    params:{",
-                                                                                            "        limit : 1",
-                                                                                            "    }",
-                                                                                            "});",
                                                                                             "Ext.getCmp(\"addAlmUserType\").setValue(\"project\");",
-                                                                                            ""
+                                                                                            "",
+                                                                                            "almConstants.me.searchPopAlmUser(true);"
                                                                                         ]
                                                                                     },
                                                                                     "designerId": "69e76283-1e18-47e2-b8c4-6f70d74ebe14"
@@ -987,7 +983,29 @@
                                                                                         ],
                                                                                         "fn": "handler",
                                                                                         "implHandler": [
-                                                                                            "alert('delete');"
+                                                                                            "Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){",
+                                                                                            "",
+                                                                                            "    if(btn == \"yes\"){",
+                                                                                            "",
+                                                                                            "        Ext.Ajax.request({",
+                                                                                            "            url : GLOBAL.urlPrefix + \"alm/project/\"",
+                                                                                            "                    + almConstants.selectRow.get(\"projectCode\") + \"/confluence/\" + record.get(\"mappingCode\"),",
+                                                                                            "            method: 'DELETE',",
+                                                                                            "            headers: { 'Content-Type': 'application/json' },",
+                                                                                            "            disableCaching : true,",
+                                                                                            "            waitMsg: 'Delete Project confluence...',",
+                                                                                            "            success: function(response){",
+                                                                                            "                var msg = Ext.JSON.decode(response.responseText).msg;",
+                                                                                            "                Ext.MessageBox.alert('알림', msg);",
+                                                                                            "",
+                                                                                            "                Ext.getCmp(\"almProjectConfluenceGrid\").getStore().reload();",
+                                                                                            "",
+                                                                                            "            }",
+                                                                                            "        });",
+                                                                                            "    }",
+                                                                                            "",
+                                                                                            "});",
+                                                                                            ""
                                                                                         ]
                                                                                     },
                                                                                     "designerId": "3de94652-6dbf-4f75-a460-a6c335faabdd"
@@ -1189,7 +1207,29 @@
                                                                                         ],
                                                                                         "fn": "handler",
                                                                                         "implHandler": [
-                                                                                            "alert('delete');"
+                                                                                            "Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){",
+                                                                                            "",
+                                                                                            "    if(btn == \"yes\"){",
+                                                                                            "",
+                                                                                            "        Ext.Ajax.request({",
+                                                                                            "            url : GLOBAL.urlPrefix + \"alm/project/\"",
+                                                                                            "                    + almConstants.selectRow.get(\"projectCode\") + \"/jenkins/\" + record.get(\"mappingCode\"),",
+                                                                                            "            method: 'DELETE',",
+                                                                                            "            headers: { 'Content-Type': 'application/json' },",
+                                                                                            "            disableCaching : true,",
+                                                                                            "            waitMsg: 'Delete Project Jenkins...',",
+                                                                                            "            success: function(response){",
+                                                                                            "                var msg = Ext.JSON.decode(response.responseText).msg;",
+                                                                                            "                Ext.MessageBox.alert('알림', msg);",
+                                                                                            "",
+                                                                                            "                Ext.getCmp(\"almProjectJenkinsGrid\").getStore().reload();",
+                                                                                            "",
+                                                                                            "            }",
+                                                                                            "        });",
+                                                                                            "    }",
+                                                                                            "",
+                                                                                            "});",
+                                                                                            ""
                                                                                         ]
                                                                                     },
                                                                                     "designerId": "ac72b9a2-d7f7-49a5-9bfc-e7058b81860d"
@@ -2708,13 +2748,9 @@
                                                                                             "",
                                                                                             "almGroupUsersWindow.show();",
                                                                                             "",
-                                                                                            "Ext.getCmp(\"popAlmUsersGrid\").getStore().load({",
-                                                                                            "    params:{",
-                                                                                            "        limit : 1",
-                                                                                            "    }",
-                                                                                            "});",
                                                                                             "Ext.getCmp(\"addAlmUserType\").setValue(\"group\");",
-                                                                                            ""
+                                                                                            "",
+                                                                                            "almConstants.me.searchPopAlmUser(true);"
                                                                                         ]
                                                                                     },
                                                                                     "designerId": "54b041f2-c801-490c-b5d9-c7f4e632ef55"

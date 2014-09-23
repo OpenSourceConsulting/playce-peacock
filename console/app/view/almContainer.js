@@ -295,13 +295,9 @@ Ext.define('MyApp.view.almContainer', {
 
                                                                                         almGroupUsersWindow.show();
 
-                                                                                        Ext.getCmp("popAlmUsersGrid").getStore().load({
-                                                                                            params:{
-                                                                                                limit : 1
-                                                                                            }
-                                                                                        });
                                                                                         Ext.getCmp("addAlmUserType").setValue("project");
 
+                                                                                        almConstants.me.searchPopAlmUser(true);
                                                                                     },
                                                                                     text: 'Add Users to Project'
                                                                                 }
@@ -407,7 +403,29 @@ Ext.define('MyApp.view.almContainer', {
                                                                             items: [
                                                                                 {
                                                                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                                                                        alert('delete');
+                                                                                        Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){
+
+                                                                                            if(btn == "yes"){
+
+                                                                                                Ext.Ajax.request({
+                                                                                                    url : GLOBAL.urlPrefix + "alm/project/"
+                                                                                                    + almConstants.selectRow.get("projectCode") + "/confluence/" + record.get("mappingCode"),
+                                                                                                    method: 'DELETE',
+                                                                                                    headers: { 'Content-Type': 'application/json' },
+                                                                                                    disableCaching : true,
+                                                                                                    waitMsg: 'Delete Project confluence...',
+                                                                                                    success: function(response){
+                                                                                                        var msg = Ext.JSON.decode(response.responseText).msg;
+                                                                                                        Ext.MessageBox.alert('알림', msg);
+
+                                                                                                        Ext.getCmp("almProjectConfluenceGrid").getStore().reload();
+
+                                                                                                    }
+                                                                                                });
+                                                                                            }
+
+                                                                                        });
+
                                                                                     },
                                                                                     icon: 'resources/images/icons/delete.png',
                                                                                     iconCls: ''
@@ -474,7 +492,29 @@ Ext.define('MyApp.view.almContainer', {
                                                                             items: [
                                                                                 {
                                                                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                                                                        alert('delete');
+                                                                                        Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){
+
+                                                                                            if(btn == "yes"){
+
+                                                                                                Ext.Ajax.request({
+                                                                                                    url : GLOBAL.urlPrefix + "alm/project/"
+                                                                                                    + almConstants.selectRow.get("projectCode") + "/jenkins/" + record.get("mappingCode"),
+                                                                                                    method: 'DELETE',
+                                                                                                    headers: { 'Content-Type': 'application/json' },
+                                                                                                    disableCaching : true,
+                                                                                                    waitMsg: 'Delete Project Jenkins...',
+                                                                                                    success: function(response){
+                                                                                                        var msg = Ext.JSON.decode(response.responseText).msg;
+                                                                                                        Ext.MessageBox.alert('알림', msg);
+
+                                                                                                        Ext.getCmp("almProjectJenkinsGrid").getStore().reload();
+
+                                                                                                    }
+                                                                                                });
+                                                                                            }
+
+                                                                                        });
+
                                                                                     },
                                                                                     icon: 'resources/images/icons/delete.png',
                                                                                     iconCls: ''
@@ -1060,13 +1100,9 @@ Ext.define('MyApp.view.almContainer', {
 
                                                                                         almGroupUsersWindow.show();
 
-                                                                                        Ext.getCmp("popAlmUsersGrid").getStore().load({
-                                                                                            params:{
-                                                                                                limit : 1
-                                                                                            }
-                                                                                        });
                                                                                         Ext.getCmp("addAlmUserType").setValue("group");
 
+                                                                                        almConstants.me.searchPopAlmUser(true);
                                                                                     },
                                                                                     width: 150,
                                                                                     text: 'Add Users to Group'

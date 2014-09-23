@@ -22,14 +22,16 @@ Ext.define('MyApp.view.AlmUsersWindow', {
         'Ext.grid.column.Action',
         'Ext.grid.View',
         'Ext.toolbar.Toolbar',
-        'Ext.form.field.Hidden',
-        'Ext.button.Button'
+        'Ext.form.field.Text',
+        'Ext.toolbar.Spacer',
+        'Ext.button.Button',
+        'Ext.form.field.Hidden'
     ],
 
-    height: 300,
+    height: 310,
     id: 'AlmUsersWindow',
     itemId: 'AlmUsersWindow',
-    width: 430,
+    width: 500,
     resizable: false,
     layout: 'border',
     title: 'Add Users',
@@ -51,7 +53,7 @@ Ext.define('MyApp.view.AlmUsersWindow', {
                     items: [
                         {
                             xtype: 'gridpanel',
-                            height: 210,
+                            height: 220,
                             id: 'popAlmUsersGrid',
                             itemId: 'popAlmUsersGrid',
                             autoScroll: true,
@@ -143,9 +145,50 @@ Ext.define('MyApp.view.AlmUsersWindow', {
                                 {
                                     xtype: 'toolbar',
                                     dock: 'top',
-                                    height: 10,
-                                    minHeight: 10,
-                                    padding: 0
+                                    hidden: true,
+                                    id: 'instancesToolbar5',
+                                    itemId: 'instancesToolbar1',
+                                    width: 150,
+                                    items: [
+                                        {
+                                            xtype: 'textfield',
+                                            id: 'inputPopAlmUserName',
+                                            itemId: 'inputPopAlmUserName',
+                                            fieldLabel: 'Filtering',
+                                            labelWidth: 60,
+                                            emptyText: 'Search User Name',
+                                            enableKeyEvents: true
+                                        },
+                                        {
+                                            xtype: 'tbspacer',
+                                            flex: 1
+                                        },
+                                        {
+                                            xtype: 'button',
+                                            handler: function(button, e) {
+                                                almConstants.me.searchPopAlmUser(false, 'left');
+                                            },
+                                            iconMask: false,
+                                            height: 30,
+                                            width: 25,
+                                            iconCls: 'x-toolbar-scroll-left'
+                                        },
+                                        {
+                                            xtype: 'button',
+                                            handler: function(button, e) {
+                                                almConstants.me.searchPopAlmUser(false, 'right');
+                                            },
+                                            iconMask: false,
+                                            height: 30,
+                                            width: 25,
+                                            iconCls: 'x-toolbar-scroll-right'
+                                        }
+                                    ]
+                                },
+                                {
+                                    xtype: 'toolbar',
+                                    dock: 'top',
+                                    height: 10
                                 }
                             ]
                         },

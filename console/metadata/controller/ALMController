@@ -85,12 +85,12 @@
                     "         handler: function() {",
                     "             alm.deleteAlmUserWindow();",
                     "         }",
-                    "        },",
+                    "        }/*,",
                     "        { text: 'Clone User',",
                     "         handler: function() {",
                     "             alm.showAlmUserWindow('clone');",
                     "         }",
-                    "        }",
+                    "        }*/",
                     "    ]",
                     "",
                     "});",
@@ -120,7 +120,8 @@
                     "    groupContextMenu: almGroupGridContextMenu,",
                     "    selectRow : null,",
                     "    actionRow : null,",
-                    "    page : null",
+                    "    page : null,",
+                    "    popPage : null",
                     "});",
                     ""
                 ]
@@ -312,6 +313,80 @@
                 ]
             },
             "designerId": "cb1355f9-c358-4732-9f1c-3ebf3bd77ad2"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "init",
+                    "pagingType"
+                ],
+                "fn": "searchPopAlmUser",
+                "implHandler": [
+                    "",
+                    "if(init) {",
+                    "    almConstants.popPage = 1;",
+                    "    Ext.getCmp(\"inputPopAlmUserName\").setValue(\"\");",
+                    "}",
+                    "",
+                    "if(pagingType == 'left' && almConstants.popPage > 1) {",
+                    "    almConstants.popPage-- ;",
+                    "} else if(pagingType == 'right') {",
+                    "    almConstants.popPage++ ;",
+                    "}",
+                    "",
+                    "Ext.getCmp(\"popAlmUsersGrid\").getStore().load({",
+                    "    params:{",
+                    "        limit : almConstants.popPage,",
+                    "        search : Ext.getCmp(\"inputPopAlmUserName\").getValue()",
+                    "    }",
+                    "});",
+                    ""
+                ]
+            },
+            "designerId": "0ce79f75-5332-4a88-b004-46e3f6b818ab"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "init",
+                    "pagingType"
+                ],
+                "fn": "searchWizardUser",
+                "implHandler": [
+                    "",
+                    "if(init) {",
+                    "    almConstants.popPage = 1;",
+                    "    Ext.getCmp(\"inputWizardUserName\").setValue(\"\");",
+                    "}",
+                    "",
+                    "if(pagingType == 'left' && almConstants.popPage > 1) {",
+                    "    almConstants.popPage-- ;",
+                    "} else if(pagingType == 'right') {",
+                    "    almConstants.popPage++ ;",
+                    "}",
+                    "",
+                    "Ext.getCmp(\"wizardAddUserGrid\").getStore().load({",
+                    "    params:{",
+                    "        limit : almConstants.popPage,",
+                    "        search : Ext.getCmp(\"inputWizardUserName\").getValue()",
+                    "    }",
+                    "});",
+                    ""
+                ]
+            },
+            "designerId": "111f4ed2-3243-45ac-bba5-4468f799e707"
         },
         {
             "type": "basicfunction",
@@ -731,18 +806,14 @@
                     "            }",
                     "        }",
                     "    }",
-                    "    ",
+                    "",
                     "    if(cardNum == 1) {",
-                    "        ",
+                    "",
                     "        Ext.getCmp('wizardAddSpaceGrid').getStore().load();",
                     "",
                     "    } else if(cardNum == 2) {",
-                    "        ",
-                    "        Ext.getCmp('wizardAddUserGrid').getStore().load({",
-                    "            params:{",
-                    "                limit : 1",
-                    "            }",
-                    "        });",
+                    "",
+                    "        this.searchWizardUser(true);",
                     "        ",
                     "    } else if(cardNum == 3) {",
                     "        var reviewForm = Ext.getCmp(\"reviewProjectForm\").getForm();",
@@ -807,7 +878,7 @@
                 "implHandler": [
                     "//User Name Search",
                     "if(e.getKey() == e.ENTER){",
-                    "    ",
+                    "",
                     "    almConstants.page = 1;",
                     "    this.searchAlmGroup();",
                     "}"
@@ -857,6 +928,30 @@
                 ]
             },
             "designerId": "c57df97b-af88-4677-bc86-f06548df9424"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#inputWizardUserName",
+                "designer|targetType": "Ext.form.field.Text",
+                "fn": "onInputWizardUserNameKeydown",
+                "implHandler": [
+                    "//User Name Search",
+                    "if(e.getKey() == e.ENTER){",
+                    "",
+                    "    almConstants.popPage = 1;",
+                    "    this.searchWizardUser();",
+                    "}"
+                ],
+                "name": "keydown",
+                "scope": "me"
+            },
+            "designerId": "f3adaf08-ee1d-4727-be33-8df22f02f6c6"
         }
     ]
 }

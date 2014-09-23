@@ -8,14 +8,14 @@
     "userConfig": {
         "designer|userAlias": "AlmUsersWindow",
         "designer|userClassName": "AlmUsersWindow",
-        "height": 300,
+        "height": 310,
         "id": "AlmUsersWindow",
         "itemId": "AlmUsersWindow",
         "layout": "border",
         "modal": true,
         "resizable": false,
         "title": "Add Users",
-        "width": 430
+        "width": 500
     },
     "configAlternates": {
         "resizable": "boolean"
@@ -52,7 +52,7 @@
                         "bodyBorder": false,
                         "columnLines": true,
                         "forceFit": true,
-                        "height": 210,
+                        "height": 220,
                         "id": "popAlmUsersGrid",
                         "itemId": "popAlmUsersGrid",
                         "store": "AlmUserStore",
@@ -220,14 +220,166 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "border": null,
+                                "cls": null,
                                 "dock": "top",
-                                "height": 10,
-                                "maxWidth": null,
-                                "minHeight": 10,
-                                "padding": 0,
-                                "width": null
+                                "hidden": true,
+                                "id": "instancesToolbar5",
+                                "itemId": "instancesToolbar1",
+                                "style": null,
+                                "width": 150
                             },
-                            "designerId": "a262929a-40cb-45a0-b7a7-19a03de9374a"
+                            "configAlternates": {
+                                "style": "string"
+                            },
+                            "designerId": "4b859733-831b-4015-b37e-2400e02ac20e",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "cls": null,
+                                        "emptyText": "Search User Name",
+                                        "enableKeyEvents": true,
+                                        "fieldLabel": "Filtering",
+                                        "fieldStyle": null,
+                                        "id": "inputPopAlmUserName",
+                                        "itemId": "inputPopAlmUserName",
+                                        "labelWidth": 60,
+                                        "layout|flex": null
+                                    },
+                                    "designerId": "871aa61f-8492-498e-9786-a0b31bcb3e0c"
+                                },
+                                {
+                                    "type": "Ext.toolbar.Spacer",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "layout|flex": 1
+                                    },
+                                    "designerId": "64d4a226-f6d8-425b-9198-4092fe717bdc"
+                                },
+                                {
+                                    "type": "Ext.button.Button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "height": 30,
+                                        "iconAlign": null,
+                                        "iconCls": "x-toolbar-scroll-left",
+                                        "iconMask": false,
+                                        "layout|flex": null,
+                                        "text": null,
+                                        "tooltipType": null,
+                                        "width": 25
+                                    },
+                                    "configAlternates": {
+                                        "iconMask": "boolean"
+                                    },
+                                    "designerId": "be046051-9973-400c-be13-999f0ecc6eb2",
+                                    "customConfigs": [
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "iconMask",
+                                            "type": "string"
+                                        }
+                                    ],
+                                    "cn": [
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "button",
+                                                    "e"
+                                                ],
+                                                "fn": "handler",
+                                                "implHandler": [
+                                                    "almConstants.me.searchPopAlmUser(false, 'left');"
+                                                ]
+                                            },
+                                            "designerId": "982d31e0-5365-4012-8dde-0442f3a63b87"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.button.Button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "height": 30,
+                                        "iconAlign": null,
+                                        "iconCls": "x-toolbar-scroll-right",
+                                        "iconMask": false,
+                                        "layout|flex": null,
+                                        "text": null,
+                                        "tooltipType": null,
+                                        "width": 25
+                                    },
+                                    "configAlternates": {
+                                        "iconMask": "boolean"
+                                    },
+                                    "designerId": "662a5ca9-3b77-4b99-ab1b-d74c9b60eca4",
+                                    "customConfigs": [
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "iconMask",
+                                            "type": "string"
+                                        }
+                                    ],
+                                    "cn": [
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "button",
+                                                    "e"
+                                                ],
+                                                "fn": "handler",
+                                                "implHandler": [
+                                                    "almConstants.me.searchPopAlmUser(false, 'right');"
+                                                ]
+                                            },
+                                            "designerId": "d83df8cf-eeb3-4abc-a02b-91256a23cd27"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.toolbar.Toolbar",
+                            "reference": {
+                                "name": "dockedItems",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dock": "top",
+                                "height": 10
+                            },
+                            "designerId": "6acdf883-9ec3-467f-94e9-964142ad5731"
                         }
                     ]
                 },

@@ -212,6 +212,15 @@ Ext.define('MyApp.controller.ALMController', {
         }
     },
 
+    onInputWizardUserNameKeydown: function(textfield, e, eOpts) {
+        //User Name Search
+        if(e.getKey() == e.ENTER){
+
+            almConstants.popPage = 1;
+            this.searchWizardUser();
+        }
+    },
+
     init: function(application) {
                 //ALM Menu Config Setting
 
@@ -229,12 +238,12 @@ Ext.define('MyApp.controller.ALMController', {
                         handler: function() {
                             alm.deleteAlmUserWindow();
                         }
-                    },
+                    }/*,
                     { text: 'Clone User',
                         handler: function() {
                             alm.showAlmUserWindow('clone');
                         }
-                    }
+                    }*/
                     ]
 
                 });
@@ -264,7 +273,8 @@ Ext.define('MyApp.controller.ALMController', {
                     groupContextMenu: almGroupGridContextMenu,
                     selectRow : null,
                     actionRow : null,
-                    page : null
+                    page : null,
+                    popPage : null
                 });
 
 
@@ -297,6 +307,9 @@ Ext.define('MyApp.controller.ALMController', {
             },
             "#inputAlmGroupName": {
                 keydown: this.onInputAlmGroupNameKeydown
+            },
+            "#inputWizardUserName": {
+                keydown: this.onInputWizardUserNameKeydown
             }
         });
     },
@@ -342,6 +355,50 @@ Ext.define('MyApp.controller.ALMController', {
 
         var detailPanel = Ext.getCmp("almUserDetailPanel");
         detailPanel.layout.setActiveItem(0);
+
+    },
+
+    searchPopAlmUser: function(init, pagingType) {
+
+        if(init) {
+            almConstants.popPage = 1;
+            Ext.getCmp("inputPopAlmUserName").setValue("");
+        }
+
+        if(pagingType == 'left' && almConstants.popPage > 1) {
+            almConstants.popPage-- ;
+        } else if(pagingType == 'right') {
+            almConstants.popPage++ ;
+        }
+
+        Ext.getCmp("popAlmUsersGrid").getStore().load({
+            params:{
+                limit : almConstants.popPage,
+                search : Ext.getCmp("inputPopAlmUserName").getValue()
+            }
+        });
+
+    },
+
+    searchWizardUser: function(init, pagingType) {
+
+        if(init) {
+            almConstants.popPage = 1;
+            Ext.getCmp("inputWizardUserName").setValue("");
+        }
+
+        if(pagingType == 'left' && almConstants.popPage > 1) {
+            almConstants.popPage-- ;
+        } else if(pagingType == 'right') {
+            almConstants.popPage++ ;
+        }
+
+        Ext.getCmp("wizardAddUserGrid").getStore().load({
+            params:{
+                limit : almConstants.popPage,
+                search : Ext.getCmp("inputWizardUserName").getValue()
+            }
+        });
 
     },
 
@@ -528,11 +585,7 @@ Ext.define('MyApp.controller.ALMController', {
 
             } else if(cardNum == 2) {
 
-                Ext.getCmp('wizardAddUserGrid').getStore().load({
-                    params:{
-                        limit : 1
-                    }
-                });
+                this.searchWizardUser(true);
 
             } else if(cardNum == 3) {
                 var reviewForm = Ext.getCmp("reviewProjectForm").getForm();

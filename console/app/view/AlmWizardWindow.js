@@ -30,6 +30,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
         'Ext.form.field.Text',
         'Ext.grid.column.Action',
         'Ext.grid.RowNumberer',
+        'Ext.toolbar.Spacer',
         'Ext.form.field.Display'
     ],
 
@@ -513,11 +514,42 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                         {
                                                             xtype: 'toolbar',
                                                             dock: 'top',
+                                                            id: 'instancesToolbar6',
+                                                            itemId: 'instancesToolbar2',
+                                                            width: 150,
                                                             items: [
                                                                 {
                                                                     xtype: 'textfield',
+                                                                    id: 'inputWizardUserName',
+                                                                    itemId: 'inputWizardUserName',
                                                                     fieldLabel: 'Filtering',
-                                                                    labelWidth: 60
+                                                                    labelWidth: 60,
+                                                                    emptyText: 'Search User Name',
+                                                                    enableKeyEvents: true
+                                                                },
+                                                                {
+                                                                    xtype: 'tbspacer',
+                                                                    flex: 1
+                                                                },
+                                                                {
+                                                                    xtype: 'button',
+                                                                    handler: function(button, e) {
+                                                                        almConstants.me.searchWizardUser(false, 'left');
+                                                                    },
+                                                                    iconMask: false,
+                                                                    height: 30,
+                                                                    width: 25,
+                                                                    iconCls: 'x-toolbar-scroll-left'
+                                                                },
+                                                                {
+                                                                    xtype: 'button',
+                                                                    handler: function(button, e) {
+                                                                        almConstants.me.searchWizardUser(false, 'right');
+                                                                    },
+                                                                    iconMask: false,
+                                                                    height: 30,
+                                                                    width: 25,
+                                                                    iconCls: 'x-toolbar-scroll-right'
                                                                 }
                                                             ]
                                                         }
