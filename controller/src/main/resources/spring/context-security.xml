@@ -14,6 +14,7 @@
 	-->
 	<!-- Ignore Spring Security  -->
     <http pattern="/resources/**" 	security="none"/>
+	<http pattern="/favicon.ico" 	security="none"/>
 	<http pattern="/index.html*" 	security="none"/>
 	<http pattern="/app.js*" 		security="none"/>
 	<http pattern="/user/notLogin*" 		security="none"/>
