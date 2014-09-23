@@ -22,7 +22,10 @@
  */
 package com.athena.peacock.controller.web.alm;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.athena.peacock.controller.web.alm.jenkins.AlmJenkinsService;
 
 /**
  * <pre>
@@ -34,6 +37,9 @@ import org.springframework.stereotype.Component;
 @Component("almDashboardComponent")
 public class AlmDashboardComponent {
 
+	@Autowired
+	private AlmJenkinsService jenkinsService;
+	
 	public int getProjectCnt() {
 		return 0;
 	}
@@ -43,7 +49,7 @@ public class AlmDashboardComponent {
 	}
 	
 	public int getJenkinsCnt() {
-		return 0;
+		return jenkinsService.getJobs().getList().size();
 	}
 }
 //end of AlmDashboardComponent.java
