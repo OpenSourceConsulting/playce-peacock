@@ -28,6 +28,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.TreeNode;
@@ -65,6 +66,7 @@ public class PermissionService {
 		dao.insertPermission(dto);
 	}
 	
+	@Transactional
 	public void createPermission(PermissionDto dto, List<PermissionMenuMapDto> menus){
 		
 		insertPermission(dto);
@@ -79,6 +81,7 @@ public class PermissionService {
 		
 	}
 	
+	@Transactional
 	public void updateMenus(PermissionMenuMapDto dto, List<PermissionMenuMapDto> menus){
 		
 		dto.setUpdUserId(UserService.getLoginUserId());
@@ -129,6 +132,7 @@ public class PermissionService {
 	 * </pre>
 	 * @param param
 	 */
+	@Transactional
 	public void deletePermission(PermissionDto param){
 		
 		PermissionMenuMapDto menuMapDto = new PermissionMenuMapDto();
@@ -139,6 +143,7 @@ public class PermissionService {
 		dao.deletePermission(param);
 	}
 	
+	@Transactional
 	public void insertPermissionUser(PermissionUserMapDto param){
 		
 		param.setRegUserId(UserService.getLoginUserId());

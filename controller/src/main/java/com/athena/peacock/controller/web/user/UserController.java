@@ -97,6 +97,18 @@ public class UserController {
 		return jsonRes;
 	}
 	
+	@RequestMapping("/updateMyAccount")
+	public @ResponseBody SimpleJsonResponse updateMyAccount(SimpleJsonResponse jsonRes, UserDto user){
+		
+		user.setUpdUserId(UserService.getLoginUserId());
+		
+		service.updateUser(user);
+		jsonRes.setMsg("내 정보가 정상적으로 수정되었습니다.");
+		
+		
+		return jsonRes;
+	}
+	
 	@RequestMapping("/delete")
 	public @ResponseBody SimpleJsonResponse delete(SimpleJsonResponse jsonRes, @RequestParam("userId") int userId){
 		
@@ -108,6 +120,14 @@ public class UserController {
 	
 	@RequestMapping("/getUser")
 	public @ResponseBody DtoJsonResponse getUser(DtoJsonResponse jsonRes, @RequestParam("userId") int userId){
+		
+		jsonRes.setData(service.getUser(userId));
+		
+		return jsonRes;
+	}
+	
+	@RequestMapping("/getMyAccount")
+	public @ResponseBody DtoJsonResponse getMyAccount(DtoJsonResponse jsonRes, @RequestParam("userId") int userId){
 		
 		jsonRes.setData(service.getUser(userId));
 		
