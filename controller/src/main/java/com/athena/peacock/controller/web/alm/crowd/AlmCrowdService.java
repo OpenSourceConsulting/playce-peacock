@@ -168,7 +168,7 @@ public class AlmCrowdService {
 				GroupTermKeys.ACTIVE).containing(true);
 
 		Iterable<Group> groupnames = crowdClient.searchGroups(groupRestriction,
-				0, 10);
+				0, 50);
 
 		for (Group profile : groupnames) {
 			AlmGroupDto tmp = new AlmGroupDto();
