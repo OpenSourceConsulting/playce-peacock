@@ -106,6 +106,9 @@ public class SshExecUtil {
 		exec.setUsername(targetHost.getUsername());
 		exec.setPassword(targetHost.getPassword());
 		
+		// to enable sudo like 'ssh -t' option
+		exec.setUsePty(true);
+		
 		if (targetHost.getKeyfile() != null) {
 			exec.setKeyfile(targetHost.getKeyfile());
 		}

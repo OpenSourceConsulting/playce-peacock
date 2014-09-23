@@ -136,7 +136,7 @@ public class RHEVMService {
 		VMs vms = getRHEVMRestTemplate(hypervisorId).submit(url, HttpMethod.GET, VMs.class);
 		List<VM> vmList = vms.getVMs();
 		
-		int seq = (page * 100) + 1;
+		int seq = ((page - 1) * 100) + 1;
 		for( VM vm : vmList) {
 			vmDtoList.add(makeDto(hypervisorId, vm, clusterList, hostList, seq++));
 		}
@@ -167,9 +167,9 @@ public class RHEVMService {
 		Templates templates = getRHEVMRestTemplate(hypervisorId).submit(url, HttpMethod.GET, Templates.class);
 		List<Template> templateList = templates.getTemplates();
 
-		int seq = (page * 100) + 1;
+		int seq = ((page - 1) * 100) + 1;
 		for( Template template : templateList) {
-			templateDtoList.add(makeDto(hypervisorId, template, dataCenterList, clusterList, seq));
+			templateDtoList.add(makeDto(hypervisorId, template, dataCenterList, clusterList, seq++));
 		}
 		
 		return templateDtoList;
