@@ -33,6 +33,10 @@ public class AlmProjectDao extends AbstractBaseDao {
 	public void insertProjectMapping(ProjectMappingDto mappingDto) {
 		sqlSession.insert("ProjectMapper.insertProjectMapping", mappingDto);
 	}
+	
+	public void deleteProjectMapping(ProjectMappingDto mappingDto) {
+		sqlSession.delete("ProjectMapper.deleteProjectMapping", mappingDto);
+	}
 
 	public int getProjectExist(String projectCode) {
 		return sqlSession.selectOne("ProjectMapper.getProjectExist",

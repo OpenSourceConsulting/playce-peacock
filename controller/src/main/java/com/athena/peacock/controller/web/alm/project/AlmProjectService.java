@@ -247,6 +247,36 @@ public class AlmProjectService {
 		response.setList(projectDao.getProjectMapping(mappingDto));
 		return response;
 	}
+	
+	public DtoJsonResponse deleteProjectMapping(String projectCode,
+			String mappingtype, String mappingCode) {
+
+		DtoJsonResponse response = new DtoJsonResponse();
+
+		ProjectMappingDto mappingDto = new ProjectMappingDto();
+		mappingDto.setProjectCode(projectCode);
+		mappingDto.setMappingCode(mappingCode);
+
+		if (mappingtype.equals("jenkins")) {
+			mappingDto.setMappingType(20);
+			response.setMsg("Jenkins Job이 삭제되었습니다.");
+		} else if (mappingtype.equals("svn")) {
+			mappingDto.setMappingType(30);
+			response.setMsg("SVN Repository가 삭제되었습니다.");
+		} else if (mappingtype.equals("confluence")) {
+			mappingDto.setMappingType(10);
+			response.setMsg("Confluence Space가 삭제되었습니다.");
+		} else {
+			response.setSuccess(false);
+			response.setMsg("mapping code가 정확하지 않습니다");
+			return response;
+		}
+
+		projectDao.deleteProjectMapping(mappingDto);
+
+		return response;
+	}
+
 
 	public ProjectWizardDto getWizard() {
 

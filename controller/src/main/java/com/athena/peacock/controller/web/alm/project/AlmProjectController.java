@@ -46,7 +46,7 @@ import com.google.gson.Gson;
  * 프로젝트 관련 컨트롤러.
  * </pre>
  * 
- * @author Jungsu Han
+ * @author Dave Han
  * @version 1.0
  */
 @Controller
@@ -157,6 +157,26 @@ public class AlmProjectController {
 			@PathVariable String mappingType, @PathVariable String mappingCode) {
 
 		return almProjectService.createProjectMapping(projectCode, mappingType,
+				mappingCode);
+	}
+
+	/**
+	 * <pre>
+	 * 프로젝트 에 Job, Confluence 삭제
+	 * </pre>
+	 * 
+	 * @param projectCode
+	 * @param mappingType
+	 * @param mappingCode
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/project/{projectCode}/{mappingType}/{mappingCode}", method = RequestMethod.DELETE)
+	public @ResponseBody
+	DtoJsonResponse deleteProjectMapping(@PathVariable String projectCode,
+			@PathVariable String mappingType, @PathVariable String mappingCode) {
+
+		return almProjectService.deleteProjectMapping(projectCode, mappingType,
 				mappingCode);
 	}
 

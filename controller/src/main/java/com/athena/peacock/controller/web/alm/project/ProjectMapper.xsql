@@ -52,4 +52,15 @@
 		)
 	</insert>
 	
+	<delete id="deleteProjectMapping" parameterType="com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto">
+		DELETE FROM 
+			alm_project_mapping_tbl
+		WHERE
+			PROJECT_CODE = #{projectCode}
+		AND
+			MAPPING_TYPE = #{mappingType}
+		AND 
+			MAPPING_CODE =  #{mappingCode}	
+	</delete>
+	
 </mapper>
