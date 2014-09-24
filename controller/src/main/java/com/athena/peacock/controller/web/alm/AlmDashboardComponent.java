@@ -25,6 +25,7 @@ package com.athena.peacock.controller.web.alm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.athena.peacock.common.provider.AppContext;
 import com.athena.peacock.controller.web.alm.jenkins.AlmJenkinsService;
 
 /**
@@ -49,6 +50,10 @@ public class AlmDashboardComponent {
 	}
 	
 	public int getJenkinsCnt() {
+		if (jenkinsService == null) {
+			jenkinsService = AppContext.getBean(AlmJenkinsService.class);
+		}
+		
 		return jenkinsService.getJobs().getList().size();
 	}
 }
