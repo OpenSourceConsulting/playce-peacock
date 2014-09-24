@@ -141,7 +141,7 @@ public class MachineService {
 				double version = Double.parseDouble(major + "." + minor);
 				if (version >= 3.2) {
 					vm = new VM();
-					vm.setName(m.getDisplayName());
+					vm.setName(machine.getDisplayName());
 					RHEVMRestTemplateManager.getRHEVMRestTemplate(m.getHypervisorId()).submit(RHEVApi.VMS + "/" + m.getMachineId(), HttpMethod.PUT, vm, "vm", VM.class);
 				} else {
 					String callUrl = RHEVApi.VMS + "/" + machine.getMachineId();
@@ -149,7 +149,7 @@ public class MachineService {
 					
 					if (vm.getStatus().getState().toLowerCase().equals("down")) {
 						vm = new VM();
-						vm.setName(m.getDisplayName());
+						vm.setName(machine.getDisplayName());
 						RHEVMRestTemplateManager.getRHEVMRestTemplate(m.getHypervisorId()).submit(RHEVApi.VMS + "/" + m.getMachineId(), HttpMethod.PUT, vm, "vm", VM.class);
 					} else {
 						throw new Exception("VM_UP_STAT");

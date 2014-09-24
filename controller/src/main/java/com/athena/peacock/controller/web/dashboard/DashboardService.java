@@ -157,7 +157,7 @@ public class DashboardService {
 			// Agent 목록 조회
 			MachineDto machine = new MachineDto();
 			machine.setHypervisorId(restTemplate.getHypervisorId());
-			machine.setStart(1);
+			machine.setStart(0);
 			machine.setLimit(2000);
 			List<MachineDto> machineList = machineDao.getMachineList(machine);
 			
@@ -204,7 +204,7 @@ public class DashboardService {
 		
 		// httpd, tomcat, jboss cnt
 		SoftwareRepoDto softwareRepo = new SoftwareRepoDto();
-		softwareRepo.setStart(1);
+		softwareRepo.setStart(0);
 		softwareRepo.setLimit(100);
 		List<SoftwareRepoDto> softwareRepoList = softwareRepoDao.getSoftwareRepoList(softwareRepo);
 		

@@ -31,14 +31,19 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
+
+import com.athena.peacock.common.provider.AppContext;
 
 /**
  * <pre>
@@ -50,7 +55,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Qualifier("peacockServer")
-public class PeacockServer {
+public class PeacockServer implements InitializingBean, ApplicationContextAware {
 	
     @Value("#{contextProperties['listen.port']}")
     private int port;
@@ -73,7 +78,7 @@ public class PeacockServer {
     
     private Channel channel;
 	
-	@PostConstruct
+	//@PostConstruct
 	public void start() throws Exception {
 		
 		new Thread() {
@@ -99,6 +104,34 @@ public class PeacockServer {
 	public void stop() {
 		if (channel != null) {
 			channel.close();
+		}
+	}
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		new Thread() {
+			@Override
+			public void run() {
+		        try {
+					ServerBootstrap b = new ServerBootstrap();
+			        b.group(bossGroup, workerGroup)
+			         .channel(NioServerSocketChannel.class)
+			         .handler(new LoggingHandler(LogLevel.WARN))
+			         .childHandler(initializer);
+
+			        // Bind and start to accept incoming connections.
+					channel = b.bind(port).sync().channel().closeFuture().sync().channel();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}.start();
+	}
+
+	@Override
+	public void setApplicationContext(ApplicationContext ctx) throws BeansException {
+		if (AppContext.getApplicationContext() == null) {
+			AppContext.setApplicationContext(ctx);
 		}
 	}
 }
