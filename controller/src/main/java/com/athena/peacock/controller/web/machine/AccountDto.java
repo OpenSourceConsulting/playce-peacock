@@ -41,6 +41,7 @@ public class AccountDto implements Serializable {
 	private String homeDir;
 	private String shell;
 	private String group;
+	private String[] groups;
 	private String comment;
 	private Integer uid;
 
@@ -126,6 +127,20 @@ public class AccountDto implements Serializable {
 	 */
 	public void setGroup(String group) {
 		this.group = group;
+	}
+
+	/**
+	 * @return the groups
+	 */
+	public String[] getGroups() {
+		return groups;
+	}
+
+	/**
+	 * @param groups the groups to set
+	 */
+	public void setGroups(String[] groups) {
+		this.groups = groups;
 	}
 
 	/**

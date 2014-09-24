@@ -26,6 +26,8 @@ package com.athena.peacock.controller.web.rhevm;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -651,7 +653,10 @@ public class RHEVMService {
 				}
 			} else {
 				cluster = getRHEVMRestTemplate(hypervisorId).submit(clusterUrl, HttpMethod.GET, Cluster.class);
-				if(cluster != null) dto.setCluster(cluster.getName());
+				
+				if(cluster != null) {
+					dto.setCluster(cluster.getName());
+				}
 			}
 			
 			String dcUrl = cluster.getDataCenter().getHref();
@@ -668,12 +673,52 @@ public class RHEVMService {
 				}
 			} else {
 				dc = getRHEVMRestTemplate(hypervisorId).submit(dcUrl, HttpMethod.GET, DataCenter.class);
-				if( dc != null) dto.setDataCenter(dc.getName());
+				
+				if( dc != null) {
+					dto.setDataCenter(dc.getName());
+				}
 			}
 		
+			// dataCenterList가 null이고 clusterList가 null일 경우 전체 DataCenter 및 각 DataCenter에 대한 HostCluster 정보를 함께 조회한다.
+			if (dataCenterList == null && clusterList == null) {
+				dataCenterList = getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.DATA_CENTERS, HttpMethod.GET, DataCenters.class).getDataCenters();
+				
+				Map<String, List<String>> clusterMap = new TreeMap<String, List<String>>();
+				List<String> clusterNameList = null;
+				
+				String dataCenterId = null;
+				String dataCenterName = null;
+				// up 상태인 data center만 추출한다.
+				for (DataCenter dataCenter : dataCenterList) {
+					if (dataCenter.getStatus().getState().toLowerCase().equals("up")) {
+						dataCenterId = dataCenter.getId();
+						dataCenterName = dataCenter.getName();
+						
+						clusterList = getRHEVMRestTemplate(hypervisorId).submit(RHEVApi.CLUSTERS, HttpMethod.GET, Clusters.class).getClusters();
+
+						clusterNameList = new ArrayList<String>();
+						
+						// 지정된 data center에 속한 cluster만 추출한다.
+						for (Cluster c : clusterList) {
+							if (c.getDataCenter().getId().equals(dataCenterId)) {
+								clusterNameList.add(c.getName());
+							}
+						}
+						
+						if (clusterNameList.size() > 0) {
+							clusterMap.put(dataCenterName, clusterNameList);
+						}
+					}
+				}
+				
+				if (clusterMap.size() > 0) {
+					dto.setClusterMap(clusterMap);
+				}
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unhandled Exception has occurred while make templateDto.", e);
 		}
+		
 		return dto;
 	}
 	
@@ -857,7 +902,7 @@ public class RHEVMService {
 			}
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unhandled Exception has occurred while make vmDto.", e);
 		}
 		
 		return dto;

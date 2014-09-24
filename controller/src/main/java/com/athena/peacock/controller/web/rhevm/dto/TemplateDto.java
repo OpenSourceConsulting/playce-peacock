@@ -24,6 +24,9 @@
  */
 package com.athena.peacock.controller.web.rhevm.dto;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <pre>
  * 여러가지 RHEVM 서버들의 정보를 포함하는 클래스
@@ -47,6 +50,8 @@ public class TemplateDto extends RHEVBaseDto {
 	private String os;
 	private String haEnabled;
 	private Integer haPriority;
+	
+	private Map<String, List<String>> clusterMap;
 	
 	// paging 관련
 	private int start;
@@ -140,6 +145,12 @@ public class TemplateDto extends RHEVBaseDto {
 	}
 	public void setHaPriority(Integer haPriority) {
 		this.haPriority = haPriority;
+	}
+	public Map<String, List<String>> getClusterMap() {
+		return clusterMap;
+	}
+	public void setClusterMap(Map<String, List<String>> clusterMap) {
+		this.clusterMap = clusterMap;
 	}
 	public int getStart() {
 		return start;

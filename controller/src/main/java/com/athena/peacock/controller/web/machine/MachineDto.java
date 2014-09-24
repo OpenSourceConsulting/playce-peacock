@@ -57,6 +57,7 @@ public class MachineDto extends BaseDto {
 	private String hostName;
 	private String deleteYn;
 	private String status;
+	private String description;
 	
 	// machine_additional_info_tbl 관련 필드
 	private String ipAddress;
@@ -320,6 +321,20 @@ public class MachineDto extends BaseDto {
 	 */
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	/**

@@ -57,6 +57,8 @@ import com.athena.peacock.common.netty.message.ProvisioningResponseMessage;
 import com.athena.peacock.controller.netty.PeacockTransmitter;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
+import com.athena.peacock.controller.web.rhevm.RHEVMService;
+import com.athena.peacock.controller.web.rhevm.dto.VMDto;
 import com.athena.peacock.controller.web.user.UserController;
 import com.athena.peacock.controller.web.user.UserDto;
 
@@ -77,6 +79,10 @@ public class MachineController {
 	@Inject
 	@Named("machineService")
 	private MachineService machineService;
+
+	@Inject
+	@Named("rhevmService")
+	private RHEVMService rhevmService;
 
     @Inject
     @Named("peacockTransmitter")
@@ -116,7 +122,16 @@ public class MachineController {
 	 */
 	@RequestMapping("/getMachine")
 	public @ResponseBody DtoJsonResponse getMachine(DtoJsonResponse jsonRes, String machineId) throws Exception {
-		jsonRes.setData(machineService.getMachine(machineId));
+		MachineDto machine = machineService.getMachine(machineId);
+		
+		if (rhevmService.getRHEVMRestTemplate(machine.getHypervisorId()) == null) {
+			rhevmService.init();
+		}
+		
+		VMDto vm = rhevmService.getVirtualMachine(machine.getHypervisorId(), machine.getMachineId());
+		machine.setDescription(vm.getDescription());
+		
+		jsonRes.setData(machine);
 		
 		return jsonRes;
 	}
@@ -773,6 +788,20 @@ public class MachineController {
 			}
 			if (StringUtils.isNotEmpty(account.getGroup())) {
 				args += "-g " + account.getGroup() + " ";
+			}
+			if (account.getGroups() != null && account.getGroups().length > 0) {
+				String group = null;
+				for (int i = 0; i < account.getGroups().length; i++) {
+					group = account.getGroups()[i];
+					
+					if (i == 0) {
+						args += "-G " + group;
+					} else {
+						args += "," + group;
+					}
+				}
+				
+				args += " ";
 			}
 			if (account.getUid() != null && account.getUid() >= 0) {
 				args += "-u " + account.getUid() + " ";
