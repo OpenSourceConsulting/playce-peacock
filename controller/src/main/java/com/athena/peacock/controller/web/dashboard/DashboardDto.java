@@ -22,6 +22,7 @@
  */
 package com.athena.peacock.controller.web.dashboard;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -35,6 +36,7 @@ import java.util.TreeMap;
  */
 public class DashboardDto {
 
+	private List<String> rhevmNames = new ArrayList<String>();
 	private Map<String, Integer> vmTotalCnt = new TreeMap<String, Integer>();
 	private Map<String, Integer> vmUpCnt = new TreeMap<String, Integer>();
 	private Map<String, Integer> templateTotalCnt = new TreeMap<String, Integer>();
@@ -63,6 +65,30 @@ public class DashboardDto {
 	private List<TopMonitorDto> cpuTopList;
 	private List<TopMonitorDto> memoryTopList;
 	private List<TopMonitorDto> diskTopList;
+
+	/**
+	 * @return the rhevmNames
+	 */
+	public List<String> getRhevmNames() {
+		if (this.rhevmNames == null) {
+			this.rhevmNames = new ArrayList<String>();
+		}
+		return rhevmNames;
+	}
+
+	/**
+	 * @param rhevmNames the rhevmNames to set
+	 */
+	public void setRhevmNames(List<String> rhevmNames) {
+		this.rhevmNames = rhevmNames;
+	}
+
+	/**
+	 * @return the rhevmNames
+	 */
+	public void addRhevmNames(String rhevmName) {
+		this.rhevmNames.add(rhevmName);
+	}
 
 	/**
 	 * @return the vmTotalCnt

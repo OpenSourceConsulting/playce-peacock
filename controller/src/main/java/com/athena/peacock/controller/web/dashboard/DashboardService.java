@@ -109,6 +109,8 @@ public class DashboardService {
 		List<RHEVMRestTemplate> rhevmTemplateList = RHEVMRestTemplateManager.getAllTemplates();
 		
 		for (RHEVMRestTemplate restTemplate : rhevmTemplateList) {
+			dto.addRhevmNames(restTemplate.getRhevmName());
+			
 			API api = restTemplate.submit(RHEVApi.API, HttpMethod.GET, API.class);
 			
 			int total = (int) (long) api.getSummary().getVMs().getTotal();
