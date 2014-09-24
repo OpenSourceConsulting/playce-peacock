@@ -588,7 +588,7 @@
                                             "bottom"
                                         ],
                                         "label": null,
-                                        "stacked": true,
+                                        "stacked": false,
                                         "title": [
                                             "Used CPU",
                                             "Free CPU"
@@ -702,7 +702,7 @@
                                             "bottom"
                                         ],
                                         "label": null,
-                                        "stacked": true,
+                                        "stacked": false,
                                         "title": [
                                             "Used Memory",
                                             "Free Memory"
@@ -819,7 +819,7 @@
                                             "bottom"
                                         ],
                                         "label": null,
-                                        "stacked": true,
+                                        "stacked": false,
                                         "title": [
                                             "Used Storage",
                                             "Free Storage"

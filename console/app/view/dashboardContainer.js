@@ -271,7 +271,7 @@ Ext.define('MyApp.view.dashboardContainer', {
                                                 'cpuUsed',
                                                 'cpuFree'
                                             ],
-                                            stacked: true
+                                            stacked: false
                                         }
                                     ],
                                     legend: {
@@ -332,7 +332,7 @@ Ext.define('MyApp.view.dashboardContainer', {
                                                 'memoryUsed',
                                                 'memoryFree'
                                             ],
-                                            stacked: true
+                                            stacked: false
                                         }
                                     ],
                                     legend: {
@@ -394,7 +394,7 @@ Ext.define('MyApp.view.dashboardContainer', {
                                                 'storageUsed',
                                                 'storageFree'
                                             ],
-                                            stacked: true
+                                            stacked: false
                                         }
                                     ],
                                     legend: {
