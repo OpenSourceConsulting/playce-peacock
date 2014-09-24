@@ -204,11 +204,7 @@ public class AlmProjectController {
 		return almProjectService.getProjectMapping(projectCode, mappingType);
 	}
 
-	@RequestMapping(value = "/project/test", method = RequestMethod.GET)
-	public @ResponseBody
-	ProjectWizardDto getProjectMappingTest() {
-		return almProjectService.getWizard();
-	}
+	
 
 	/**
 	 * <pre>
@@ -239,12 +235,15 @@ public class AlmProjectController {
 	@RequestMapping(value = "/project/wizard/{projectCode}", method = RequestMethod.GET)
 	public @ResponseBody
 	DtoJsonResponse checkProjectCode(@PathVariable String projectCode) {
-
 		return almProjectService.checkProjectCode(projectCode);
-
-		// return almProjectService.createProjectWizrd();
 	}
 
+	/*@RequestMapping(value = "/project/test", method = RequestMethod.GET)
+	public @ResponseBody
+	ProjectWizardDto getProjectMappingTest() {
+		return almProjectService.getWizard();
+	}
+	
 	@RequestMapping(value = "/project/svn", method = RequestMethod.GET)
 	public @ResponseBody
 	DtoJsonResponse svnHistory() {
@@ -257,7 +256,7 @@ public class AlmProjectController {
 		return null;
 
 		// return almProjectService.createProjectWizrd();
-	}
+	}*/
 
 }
 // end of AlmUserController.java

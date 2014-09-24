@@ -24,11 +24,11 @@
  */
 package com.athena.peacock.controller.web.alm.project;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.tmatesoft.svn.core.SVNException;
 
 import com.athena.peacock.controller.web.alm.crowd.AlmCrowdService;
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmGroupDto;
@@ -37,7 +37,7 @@ import com.athena.peacock.controller.web.alm.jenkins.AlmJenkinsService;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectWizardDto;
-import com.athena.peacock.controller.web.alm.repository.dto.RepositoryDto;
+import com.athena.peacock.controller.web.alm.svn.AlmSvnService;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
@@ -62,12 +62,14 @@ public class AlmProjectService {
 	@Autowired
 	private AlmJenkinsService jenkinsService;
 
+	@Autowired
+	private AlmSvnService svnService;
+
 	public AlmProjectService() {
 		// TODO Auto-generated constructor stub
 
 	}
 
-	
 	// Project List
 	public GridJsonResponse getProjectList(ExtjsGridParam gridParam) {
 
@@ -75,7 +77,7 @@ public class AlmProjectService {
 		List<ProjectDto> projects = projectDao.getProjectList();
 		response.setList(projects);
 		return response;
-		
+
 	}
 
 	// Project 상세정보
@@ -85,7 +87,7 @@ public class AlmProjectService {
 		ProjectDto dto = projectDao.getProject(projectCode);
 		response.setData(dto);
 		return response;
-		
+
 	}
 
 	// Project 생성
@@ -103,7 +105,7 @@ public class AlmProjectService {
 
 	}
 
-	// Project Wizard  실행
+	// Project Wizard 실행
 	public DtoJsonResponse createProjectWizrd(ProjectWizardDto project) {
 
 		DtoJsonResponse response = new DtoJsonResponse();
@@ -146,6 +148,15 @@ public class AlmProjectService {
 				confluenceMapping.setMappingCode(confluence.getMappingCode());
 				projectDao.insertProjectMapping(confluenceMapping);
 			}
+		}
+
+		// SVN 프로젝트 생성
+		try {
+			svnService.createSvnProject(pDto.getRepository(),
+					pDto.getProjectCode());
+		} catch (SVNException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		return response;
@@ -263,7 +274,33 @@ public class AlmProjectService {
 		return response;
 	}
 
-	public ProjectWizardDto getWizard() {
+	private void createJob(String jobName, String templateName,
+			String newJobName) {
+
+		jenkinsService.createJob(jobName, templateName, newJobName);
+	}
+
+	private void addGroup(String name, String description) {
+
+		AlmGroupDto groupData = new AlmGroupDto();
+		groupData.setActive(true);
+		groupData.setDescription(description);
+		groupData.setName(name);
+
+		// Group 생성
+		crowdService.addGroup(groupData);
+	}
+
+	private void addUserToGroup(String groupName, List<AlmUserDto> userList) {
+
+		// User 그룹에 추가
+		for (AlmUserDto username : userList) {
+			// USER HISTORY
+			crowdService.addUserToGroup(username.getUserId(), groupName);
+		}
+	}
+	
+	/*public ProjectWizardDto getWizard() {
 
 		DtoJsonResponse response = new DtoJsonResponse();
 
@@ -325,32 +362,6 @@ public class AlmProjectService {
 		return dto;
 		//
 
-	}
-
-	private void createJob(String jobName, String templateName,
-			String newJobName) {
-
-		jenkinsService.createJob(jobName, templateName, newJobName);
-	}
-
-	private void addGroup(String name, String description) {
-
-		AlmGroupDto groupData = new AlmGroupDto();
-		groupData.setActive(true);
-		groupData.setDescription(description);
-		groupData.setName(name);
-
-		// Group 생성
-		crowdService.addGroup(groupData);
-	}
-
-	private void addUserToGroup(String groupName, List<AlmUserDto> userList) {
-
-		// User 그룹에 추가
-		for (AlmUserDto username : userList) {
-			// USER HISTORY
-			crowdService.addUserToGroup(username.getUserId(), groupName);
-		}
-	}
+	}*/
 }
 // end of UserService.java
