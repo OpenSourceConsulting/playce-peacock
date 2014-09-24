@@ -157,6 +157,7 @@ public class AlmProjectService {
 		}
 
 		// Job 생성
+
 		createJob("JobCopy", null, pDto.getProjectCode());
 
 		return response;
@@ -300,56 +301,5 @@ public class AlmProjectService {
 		}
 	}
 
-	/*
-	 * public ProjectWizardDto getWizard() {
-	 * 
-	 * DtoJsonResponse response = new DtoJsonResponse();
-	 * 
-	 * ProjectWizardDto dto = new ProjectWizardDto();
-	 * 
-	 * ProjectDto project = new ProjectDto(); List<AlmUserDto> users = new
-	 * ArrayList<AlmUserDto>(); List<ProjectMappingDto> jenkins = new
-	 * ArrayList<ProjectMappingDto>(); List<ProjectMappingDto> confluence = new
-	 * ArrayList<ProjectMappingDto>();
-	 * 
-	 * project.setProjectName("하이웨이 V3"); project.setProjectCode("w1000");
-	 * project.setGroupDescription("하이웨이 v3 프로젝트");
-	 * project.setGroupDescription("group description");
-	 * 
-	 * AlmUserDto user1 = new AlmUserDto(); user1.setUserId("a001");
-	 * 
-	 * AlmUserDto user2 = new AlmUserDto(); user2.setUserId("a002");
-	 * 
-	 * users.add(user1); users.add(user2);
-	 * 
-	 * ProjectMappingDto jenkinsDto = new ProjectMappingDto();
-	 * jenkinsDto.setMappingCode("Test"); jenkinsDto.setMappingType(10);
-	 * jenkinsDto.setProjectCode("w1000");
-	 * 
-	 * ProjectMappingDto confluenceDto1 = new ProjectMappingDto();
-	 * confluenceDto1.setMappingCode("new"); confluenceDto1.setMappingType(10);
-	 * confluenceDto1.setProjectCode("con1");
-	 * 
-	 * ProjectMappingDto confluenceDto2 = new ProjectMappingDto();
-	 * confluenceDto2.setMappingCode("con2"); confluenceDto2.setMappingType(10);
-	 * confluenceDto2.setProjectCode("w1000");
-	 * 
-	 * jenkins.add(jenkinsDto); confluence.add(confluenceDto1);
-	 * confluence.add(confluenceDto2);
-	 * 
-	 * // Repository RepositoryDto repository = new RepositoryDto();
-	 * repository.setRepositoryCode("hiway");
-	 * repository.setRepositoryDescription("hiway repository");
-	 * repository.setRepositoryType(10);
-	 * repository.setRepositoryUrl("http://www");
-	 * 
-	 * dto.setConfluence(confluence); dto.setJenkins(jenkins);
-	 * dto.setProject(project); dto.setRepository(repository);
-	 * dto.setUsers(users);
-	 * 
-	 * response.setData(dto); response.setMsg("프로젝트 생성 성공"); return dto; //
-	 * 
-	 * }
-	 */
 }
 // end of UserService.java
