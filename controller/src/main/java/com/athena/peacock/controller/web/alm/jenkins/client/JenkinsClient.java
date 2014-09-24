@@ -27,12 +27,6 @@ public class JenkinsClient {
 	public JenkinsResponseDto getJobs() {
 
 		try {
-			System.out.println("***************");
-			System.out.println("***************");
-			System.out.println("***************");
-			System.out.println("***************");
-			System.out.println("***************");
-			System.out.println(JENKINS_URL);
 			String url = JENKINS_URL+"/api/json";
 
 			HttpHeaders requestHeaders = new HttpHeaders();
@@ -72,7 +66,7 @@ public class JenkinsClient {
 			StringBuffer sb = new StringBuffer();
 			sb.append(JENKINS_URL);
 			
-			final String url = "http://119.81.162.221:8080/jenkins/createItem?name="
+			final String url = JENKINS_URL+"//createItem?name="
 					+ name;
 			// http://119.81.162.221:8080/jenkins/createItem?name=Test069&mode=copy&from=Test007
 
@@ -109,7 +103,7 @@ public class JenkinsClient {
 	public void copyJob(String jobName, String templateName, String newJobName) {
 
 		try {
-			final String url = "http://119.81.162.221:8080/jenkins/job/"
+			final String url = JENKINS_URL+"/job/"
 					+ jobName + "/buildWithParameters?JOB_NAME=" + newJobName;
 			HttpHeaders requestHeaders = new HttpHeaders();
 
