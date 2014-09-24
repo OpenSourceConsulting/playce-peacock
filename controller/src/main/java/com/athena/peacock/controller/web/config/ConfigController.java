@@ -200,6 +200,11 @@ public class ConfigController {
 			ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
 			cmdMsg.setAgentId(config.getMachineId());
 			cmdMsg.setBlocking(true);
+			
+			if (config.getConfigFileLocation() == null || config.getConfigFileLocation().equals("")) {
+				ConfigDto c = configService.getConfig(config);
+				config.setConfigFileLocation(c.getConfigFileLocation());
+			}
 
 			Command command = new Command("Save Config File Contents");
 			int sequence = 0;
@@ -248,12 +253,17 @@ public class ConfigController {
 
 				s_action = new ShellAction(sequence++);
 				if (workingDir != null) {
-					s_action.setWorkingDiretory("");
+					s_action.setWorkingDiretory(workingDir);
 				}
 				s_action.setCommand(cmd);
 				if (args != null) {
 					s_action.addArguments(args);
 				}
+				command.addAction(s_action);
+
+				s_action = new ShellAction(sequence++);
+				s_action.setCommand("sleep");
+				s_action.addArguments("5");
 				command.addAction(s_action);
 
 				/**
@@ -271,7 +281,7 @@ public class ConfigController {
 
 				s_action = new ShellAction(sequence++);
 				if (workingDir != null) {
-					s_action.setWorkingDiretory("");
+					s_action.setWorkingDiretory(workingDir);
 				}
 				s_action.setCommand(cmd);
 				if (args != null) {
@@ -284,6 +294,8 @@ public class ConfigController {
 				datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
 				peacockTransmitter.sendMessage(datagram);
 			}
+			
+			jsonRes.setMsg(config.getConfigFileName() + " 파일이 정상적으로 수정되었습니다.");
 		} catch (Exception e) {
 			String message = config.getConfigFileName() + " 저장 중 에러가 발생하였습니다.";
 			

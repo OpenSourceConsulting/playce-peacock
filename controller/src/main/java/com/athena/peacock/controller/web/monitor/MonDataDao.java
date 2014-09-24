@@ -24,6 +24,7 @@
  */
 package com.athena.peacock.controller.web.monitor;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -210,8 +211,8 @@ public class MonDataDao extends AbstractBaseDao {
 			dto.setDiskTopList(topList);
 		}
 		
-		dto.getCriticalList().put(rhevmName, criticalAlarmMap);
-		dto.getWarningList().put(rhevmName, warningAlarmMap);
+		dto.getCriticalList().put(rhevmName, new ArrayList<AlarmDto>(criticalAlarmMap.values()));
+		dto.getWarningList().put(rhevmName, new ArrayList<AlarmDto>(warningAlarmMap.values()));
 		
 		dto.getCpuCriticalCnt().put(rhevmName, criticalCpuAlarmCnt);
 		dto.getMemoryCriticalCnt().put(rhevmName, criticalMemoryAlarmCnt);

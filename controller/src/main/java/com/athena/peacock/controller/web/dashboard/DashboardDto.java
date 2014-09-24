@@ -52,8 +52,8 @@ public class DashboardDto {
 	private Map<String, List<InstanceDto>> vmList = new TreeMap<String, List<InstanceDto>>();
 	private Map<String, List<TemplateDto>> templateList = new TreeMap<String, List<TemplateDto>>();
 	private Map<String, List<InstanceDto>> agentList = new TreeMap<String, List<InstanceDto>>();
-	private Map<String, Map<String, AlarmDto>> criticalList = new TreeMap<String, Map<String, AlarmDto>>();
-	private Map<String, Map<String, AlarmDto>> warningList = new TreeMap<String, Map<String, AlarmDto>>();
+	private Map<String, List<AlarmDto>> criticalList = new TreeMap<String, List<AlarmDto>>();
+	private Map<String, List<AlarmDto>> warningList = new TreeMap<String, List<AlarmDto>>();
 	
 	private int projectCnt = 0;
 	private int svnCnt = 0;
@@ -289,28 +289,28 @@ public class DashboardDto {
 	/**
 	 * @return the criticalList
 	 */
-	public Map<String, Map<String, AlarmDto>> getCriticalList() {
+	public Map<String, List<AlarmDto>> getCriticalList() {
 		return criticalList;
 	}
 
 	/**
 	 * @param criticalList the criticalList to set
 	 */
-	public void setCriticalList(Map<String, Map<String, AlarmDto>> criticalList) {
+	public void setCriticalList(Map<String, List<AlarmDto>> criticalList) {
 		this.criticalList = criticalList;
 	}
 
 	/**
 	 * @return the warningList
 	 */
-	public Map<String, Map<String, AlarmDto>> getWarningList() {
+	public Map<String, List<AlarmDto>> getWarningList() {
 		return warningList;
 	}
 
 	/**
 	 * @param warningList the warningList to set
 	 */
-	public void setWarningList(Map<String, Map<String, AlarmDto>> warningList) {
+	public void setWarningList(Map<String, List<AlarmDto>> warningList) {
 		this.warningList = warningList;
 	}
 
