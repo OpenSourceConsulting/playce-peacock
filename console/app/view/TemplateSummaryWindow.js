@@ -36,12 +36,15 @@ Ext.define('MyApp.view.TemplateSummaryWindow', {
             items: [
                 {
                     xtype: 'gridpanel',
+                    height: 435,
                     id: 'templateSummaryGrid',
                     itemId: 'templateSummaryGrid',
+                    autoScroll: true,
                     header: false,
                     title: 'My Grid Panel',
                     columnLines: true,
                     forceFit: true,
+                    store: 'DashboardTemplateStore',
                     columns: [
                         {
                             xtype: 'rownumberer',
@@ -51,13 +54,13 @@ Ext.define('MyApp.view.TemplateSummaryWindow', {
                         {
                             xtype: 'gridcolumn',
                             minWidth: 150,
-                            dataIndex: 'field1',
+                            dataIndex: 'templateName',
                             text: 'Template Name'
                         },
                         {
                             xtype: 'gridcolumn',
                             minWidth: 100,
-                            dataIndex: 'field2',
+                            dataIndex: 'description',
                             text: 'Description'
                         }
                     ]

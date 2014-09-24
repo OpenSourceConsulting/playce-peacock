@@ -58,7 +58,6 @@ Ext.application({
     ],
     stores: [
         'MenuTreeStore',
-        'tempChartData',
         'UserStore',
         'HypervisorStore',
         'VMStore',
@@ -99,7 +98,16 @@ Ext.application({
         'ComboSoftwareConfigFileStore',
         'ComboSoftwareConfigVersionStore',
         'AlmProjectConfluencesStore',
-        'AlmProjectJenkinsStore'
+        'AlmProjectJenkinsStore',
+        'DashboardServerStore',
+        'DashboardProjectStore',
+        'DashboardSwStore',
+        'DashboardChartStore',
+        'DashboardVmStore',
+        'DashboardTemplateStore',
+        'DashboardAgentStore',
+        'DashboardCriticalStore',
+        'DashboardWarningStore'
     ],
     views: [
         'peacockViewport',

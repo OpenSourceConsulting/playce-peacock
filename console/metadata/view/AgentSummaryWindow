@@ -29,11 +29,14 @@
             },
             "codeClass": null,
             "userConfig": {
+                "autoScroll": true,
                 "columnLines": true,
                 "forceFit": true,
                 "header": false,
+                "height": 435,
                 "id": "agentSummaryGrid",
                 "itemId": "agentSummaryGrid",
+                "store": "DashboardAgentStore",
                 "title": "My Grid Panel"
             },
             "designerId": "7a643e4d-44c5-4b44-9311-0869d2aa6c92",
@@ -59,7 +62,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "field1",
+                        "dataIndex": "instanceName",
                         "minWidth": 150,
                         "text": "Instance Name"
                     },
@@ -73,7 +76,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "field2",
+                        "dataIndex": "ipAddress",
                         "minWidth": 120,
                         "text": "IP Address"
                     },
@@ -87,7 +90,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "field3",
+                        "dataIndex": "agentStatus",
                         "minWidth": 60,
                         "text": "Status"
                     },

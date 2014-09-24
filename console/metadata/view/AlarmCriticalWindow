@@ -29,11 +29,14 @@
             },
             "codeClass": null,
             "userConfig": {
+                "autoScroll": true,
                 "columnLines": true,
                 "forceFit": true,
                 "header": false,
+                "height": 435,
                 "id": "alarmCriticalGrid",
                 "itemId": "alarmCriticalGrid",
+                "store": "DashboardCriticalStore",
                 "title": "My Grid Panel"
             },
             "designerId": "f7d8235c-403c-445d-8445-9078e1c65ea1",
@@ -59,7 +62,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "field1",
+                        "dataIndex": "instanceName",
                         "minWidth": 150,
                         "text": "Instance Name"
                     },
@@ -73,11 +76,41 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "field2",
+                        "dataIndex": "cpu",
                         "minWidth": 60,
                         "text": "CPU"
                     },
-                    "designerId": "9c7c214b-0785-4c31-aa81-06e421ab093b"
+                    "designerId": "9c7c214b-0785-4c31-aa81-06e421ab093b",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "metaData",
+                                    "record",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "store",
+                                    "view"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "if(value == true) {",
+                                    "    return \"O\";",
+                                    "} else {",
+                                    "    return \"\";",
+                                    "}"
+                                ]
+                            },
+                            "designerId": "98c980c0-893d-401a-bd4e-7c1430bfcddb"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.grid.column.Column",
@@ -87,11 +120,41 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "field3",
+                        "dataIndex": "memory",
                         "minWidth": 60,
                         "text": "Memory"
                     },
-                    "designerId": "84d1139a-f158-492d-b276-0bae85a7902c"
+                    "designerId": "84d1139a-f158-492d-b276-0bae85a7902c",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "metaData",
+                                    "record",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "store",
+                                    "view"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "if(value == true) {",
+                                    "    return \"O\";",
+                                    "} else {",
+                                    "    return \"\";",
+                                    "}"
+                                ]
+                            },
+                            "designerId": "a00fd16a-2a69-4ad5-87bd-3e6c5574efb8"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.grid.column.Column",
@@ -101,11 +164,41 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "field4",
+                        "dataIndex": "disk",
                         "minWidth": 60,
                         "text": "Disk"
                     },
-                    "designerId": "32399df1-e203-4510-b00f-ebd735470ec3"
+                    "designerId": "32399df1-e203-4510-b00f-ebd735470ec3",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "metaData",
+                                    "record",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "store",
+                                    "view"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "if(value == true) {",
+                                    "    return \"O\";",
+                                    "} else {",
+                                    "    return \"\";",
+                                    "}"
+                                ]
+                            },
+                            "designerId": "2d8b9512-5cd4-44aa-9bb8-1acca600e0ec"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.grid.View",

@@ -1,0 +1,158 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "DashboardServerStore",
+        "storeId": "DashboardServerStore"
+    },
+    "designerId": "9c6f9c8e-4b46-4e6a-a7ca-a36f24a83b0a",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "rhevmName",
+                "type": "string"
+            },
+            "designerId": "8c84ee02-0d4b-4da4-8550-af0ffc8307dd"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "vmCnt",
+                "type": "string"
+            },
+            "designerId": "8f4ca1c8-00f6-420c-8db8-0c8be4c68847"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "templateCnt",
+                "type": "string"
+            },
+            "designerId": "e866d88c-985c-4bee-a1ca-0c734c06f097"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "agentCnt",
+                "type": "string"
+            },
+            "designerId": "f41ce651-98ab-4b3d-94ba-5b8ce441e6b0"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "criticalCnt",
+                "type": "string"
+            },
+            "designerId": "06333ba4-b19c-4e7e-95c6-852127685ac2"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "warningCnt",
+                "type": "string"
+            },
+            "designerId": "4e8f3193-8491-421b-b792-823562b3b04c"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "vmList",
+                "type": "auto"
+            },
+            "designerId": "82242a59-ccd9-4a41-943d-900157bbd7eb"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "templateList",
+                "type": "auto"
+            },
+            "designerId": "89a1b5de-3a33-4d52-9423-735906ad1457"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "agentList",
+                "type": "auto"
+            },
+            "designerId": "9f5683f0-eeef-4104-969d-87d0ef775d37"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "criticalList",
+                "type": "auto"
+            },
+            "designerId": "427ff875-e5ef-453b-85f4-2ed4b95cd3ae"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "warningList",
+                "type": "auto"
+            },
+            "designerId": "ee5c10b7-d345-466d-8710-cae357a6d0ec"
+        }
+    ]
+}

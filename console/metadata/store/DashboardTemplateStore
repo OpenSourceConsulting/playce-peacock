@@ -1,0 +1,41 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "DashboardTemplateStore",
+        "storeId": "DashboardTemplateStore"
+    },
+    "designerId": "0952c0d7-b649-4df2-b80f-1dbaf8ec7016",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "templateName",
+                "type": "string"
+            },
+            "designerId": "a3493358-0deb-4e9d-bb0c-805caa19336b"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "description",
+                "type": "string"
+            },
+            "designerId": "4dcd81e4-e91d-4687-80fc-ca53808eacdc"
+        }
+    ]
+}

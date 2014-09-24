@@ -1,0 +1,67 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "DashboardWarningStore",
+        "storeId": "DashboardWarningStore"
+    },
+    "designerId": "49e0dd29-0ec6-494f-9889-e9ce3d7470d2",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "instanceName",
+                "type": "string"
+            },
+            "designerId": "903fce21-52e3-424b-99eb-7c89f5d37295"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "cpu",
+                "type": "boolean"
+            },
+            "designerId": "2169743e-b2f4-492c-bbfd-48897e111424"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "memory",
+                "type": "boolean"
+            },
+            "designerId": "3c860fa3-2d04-4bef-8aeb-2f22f8a08f21"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "disk",
+                "type": "boolean"
+            },
+            "designerId": "06281b70-4483-498b-8098-99ff2820bae9"
+        }
+    ]
+}

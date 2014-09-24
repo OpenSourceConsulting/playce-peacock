@@ -39,6 +39,7 @@
                 "margin": "10 10 5 10",
                 "maxHeight": null,
                 "minHeight": 150,
+                "store": "DashboardServerStore",
                 "title": "Server Summary"
             },
             "designerId": "9e1b0fe7-d63c-4131-8d82-06946eb0e00a",
@@ -51,7 +52,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "field1",
+                        "dataIndex": "rhevmName",
                         "minWidth": 150,
                         "text": "RHEV Manager"
                     },
@@ -65,7 +66,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "field2",
+                        "dataIndex": "vmCnt",
                         "minHeight": null,
                         "minWidth": 70,
                         "style": null,
@@ -95,7 +96,7 @@
                                 ],
                                 "fn": "renderer",
                                 "implHandler": [
-                                    "metaData.tdAttr = 'style=\"cursor: pointer;\"';",
+                                    "metaData.tdAttr = 'style=\"cursor: pointer;color:#157fcc;font-weight: bold;\"';",
                                     "return value;"
                                 ]
                             },
@@ -111,7 +112,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "field3",
+                        "dataIndex": "templateCnt",
                         "minWidth": 70,
                         "text": "Templates"
                     },
@@ -136,7 +137,7 @@
                                 ],
                                 "fn": "renderer",
                                 "implHandler": [
-                                    "metaData.tdAttr = 'style=\"cursor: pointer;\"';",
+                                    "metaData.tdAttr = 'style=\"cursor: pointer;color:#157fcc;font-weight: bold;\"';",
                                     "return value;"
                                 ]
                             },
@@ -152,7 +153,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "field4",
+                        "dataIndex": "agentCnt",
                         "minWidth": 100,
                         "text": "Agent (Running)"
                     },
@@ -177,7 +178,7 @@
                                 ],
                                 "fn": "renderer",
                                 "implHandler": [
-                                    "metaData.tdAttr = 'style=\"cursor: pointer;\"';",
+                                    "metaData.tdAttr = 'style=\"cursor: pointer;color:#157fcc;font-weight: bold;\"';",
                                     "return value;"
                                 ]
                             },
@@ -193,7 +194,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "field5",
+                        "dataIndex": "criticalCnt",
                         "minWidth": 180,
                         "text": "Critical (CPU / Memory / Disk)"
                     },
@@ -218,7 +219,7 @@
                                 ],
                                 "fn": "renderer",
                                 "implHandler": [
-                                    "metaData.tdAttr = 'style=\"cursor: pointer;\"';",
+                                    "metaData.tdAttr = 'style=\"cursor: pointer;color:#157fcc;font-weight: bold;\"';",
                                     "return value;"
                                 ]
                             },
@@ -234,7 +235,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "field6",
+                        "dataIndex": "warningCnt",
                         "minWidth": 180,
                         "text": "Warning (CPU / Memory / Disk)"
                     },
@@ -259,7 +260,7 @@
                                 ],
                                 "fn": "renderer",
                                 "implHandler": [
-                                    "metaData.tdAttr = 'style=\"cursor: pointer;\"';",
+                                    "metaData.tdAttr = 'style=\"cursor: pointer;color:#157fcc;font-weight: bold;\"';",
                                     "return value;"
                                 ]
                             },
@@ -275,175 +276,6 @@
                     },
                     "codeClass": null,
                     "designerId": "1fb4acd6-d018-4c63-83ae-577471a2e076"
-                },
-                {
-                    "type": "basiceventbinding",
-                    "reference": {
-                        "name": "listeners",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "fn": "onServerSummaryGridCellClick",
-                        "implHandler": [
-                            "var window;",
-                            "var store;",
-                            "if(cellIndex == 1) {",
-                            "    ",
-                            "    window = Ext.create(\"widget.VmSummaryWindow\");",
-                            "    window.show();",
-                            "    ",
-                            "        ",
-                            "    store = Ext.create('Ext.data.Store', {",
-                            "        alias: 'store.ModeStore0',",
-                            "        autoLoad: false,",
-                            "        fields: [{",
-                            "            name: 'field1',",
-                            "            type: 'string'",
-                            "        }, {",
-                            "            name: 'field2',",
-                            "            type: 'string'",
-                            "        }, {",
-                            "            name: 'field3',",
-                            "            type: 'string'",
-                            "        }],",
-                            "        data: [",
-                            "            { field1 : \"Peacock Svr-1\", field2 : \"192.168.0.2\", field3 : \"Up\"},",
-                            "            { field1 : \"Peacock Svr-2\", field2 : \"192.168.0.3\", field3 : \"Up\"},",
-                            "            { field1 : \"Peacock Svr-3\", field2 : \"192.168.0.4\", field3 : \"Down\"},",
-                            "            { field1 : \"Peacock Svr-4\", field2 : \"192.168.0.5\", field3 : \"Down\"},",
-                            "            { field1 : \"Peacock Svr-5\", field2 : \"192.168.0.6\", field3 : \"Up\"}",
-                            "        ]",
-                            "    });",
-                            "    ",
-                            "    Ext.getCmp(\"vmSummaryGrid\").getView().bindStore(store);",
-                            "    ",
-                            "",
-                            "} else if(cellIndex == 2) {",
-                            "    ",
-                            "    window = Ext.create(\"widget.TemplateSummaryWindow\");",
-                            "    window.show();",
-                            "    ",
-                            "        ",
-                            "    store = Ext.create('Ext.data.Store', {",
-                            "        alias: 'store.ModeStore0',",
-                            "        autoLoad: false,",
-                            "        fields: [{",
-                            "            name: 'field1',",
-                            "            type: 'string'",
-                            "        }, {",
-                            "            name: 'field2',",
-                            "            type: 'string'",
-                            "        }, {",
-                            "            name: 'field3',",
-                            "            type: 'string'",
-                            "        }],",
-                            "        data: [",
-                            "            { field1 : \"Peacock Template-1 \", field2 : \"\"},",
-                            "            { field1 : \"Peacock Template-2 \", field2 : \"\"},",
-                            "            { field1 : \"Peacock Template-3 \", field2 : \"\"},",
-                            "            { field1 : \"Peacock Template-4 \", field2 : \"\"},",
-                            "            { field1 : \"Peacock Template-5 \", field2 : \"\"}",
-                            "        ]",
-                            "    });",
-                            "    ",
-                            "    Ext.getCmp(\"templateSummaryGrid\").getView().bindStore(store);",
-                            "    ",
-                            "",
-                            "} else if(cellIndex == 3) {",
-                            "    ",
-                            "    window = Ext.create(\"widget.AgentSummaryWindow\");",
-                            "    window.show();",
-                            "    ",
-                            "    store = Ext.create('Ext.data.Store', {",
-                            "        alias: 'store.ModeStore0',",
-                            "        autoLoad: false,",
-                            "        fields: [{",
-                            "            name: 'field1',",
-                            "            type: 'string'",
-                            "        }, {",
-                            "            name: 'field2',",
-                            "            type: 'string'",
-                            "        }, {",
-                            "            name: 'field3',",
-                            "            type: 'string'",
-                            "        }],",
-                            "        data: [",
-                            "            { field1 : \"Peacock Svr-1\", field2 : \"192.168.0.2\", field3 : \"Running\"},",
-                            "            { field1 : \"Peacock Svr-2\", field2 : \"192.168.0.3\", field3 : \"Running\"},",
-                            "            { field1 : \"Peacock Svr-3\", field2 : \"192.168.0.4\", field3 : \"Down\"},",
-                            "            { field1 : \"Peacock Svr-4\", field2 : \"192.168.0.5\", field3 : \"Down\"},",
-                            "            { field1 : \"Peacock Svr-5\", field2 : \"192.168.0.6\", field3 : \"Running\"}",
-                            "        ]",
-                            "    });",
-                            "    ",
-                            "    Ext.getCmp(\"agentSummaryGrid\").getView().bindStore(store);",
-                            "    ",
-                            "} else if(cellIndex == 4) {",
-                            "    ",
-                            "    window = Ext.create(\"widget.AlarmCriticalWindow\");",
-                            "    window.show();",
-                            "    ",
-                            "    store = Ext.create('Ext.data.Store', {",
-                            "        alias: 'store.ModeStore0',",
-                            "        autoLoad: false,",
-                            "        fields: [{",
-                            "            name: 'field1',",
-                            "            type: 'string'",
-                            "        }, {",
-                            "            name: 'field2',",
-                            "            type: 'string'",
-                            "        }, {",
-                            "            name: 'field3',",
-                            "            type: 'string'",
-                            "        }, {",
-                            "            name: 'field4',",
-                            "            type: 'string'",
-                            "        }],",
-                            "        data: [",
-                            "            { field1 : \"Peacock Svr-1\", field2 : \"O\", field3 : \"\", field4 : \"\"},",
-                            "            { field1 : \"Peacock Svr-2\", field2 : \"\", field3 : \"O\", field4 : \"\"}",
-                            "        ]",
-                            "    });",
-                            "    ",
-                            "    Ext.getCmp(\"alarmCriticalGrid\").getView().bindStore(store);",
-                            "    ",
-                            "} else if(cellIndex == 5) {",
-                            "    ",
-                            "    window = Ext.create(\"widget.AlarmWarningWindow\");",
-                            "    window.show();",
-                            "    ",
-                            "    store = Ext.create('Ext.data.Store', {",
-                            "        alias: 'store.ModeStore0',",
-                            "        autoLoad: false,",
-                            "        fields: [{",
-                            "            name: 'field1',",
-                            "            type: 'string'",
-                            "        }, {",
-                            "            name: 'field2',",
-                            "            type: 'string'",
-                            "        }, {",
-                            "            name: 'field3',",
-                            "            type: 'string'",
-                            "        },  {",
-                            "            name: 'field4',",
-                            "            type: 'string'",
-                            "        }],",
-                            "        data: [",
-                            "            { field1 : \"Peacock Svr-3\", field2 : \"\", field3 : \"O\", field4 : \"\"},",
-                            "            { field1 : \"Peacock Svr-4\", field2 : \"\", field3 : \"\", field4 : \"O\"},",
-                            "            { field1 : \"Peacock Svr-5\", field2 : \"\", field3 : \"O\", field4 : \"\"}",
-                            "        ]",
-                            "    });",
-                            "    ",
-                            "    Ext.getCmp(\"alarmWarningGrid\").getView().bindStore(store);",
-                            "    ",
-                            "}"
-                        ],
-                        "name": "cellclick",
-                        "scope": "me"
-                    },
-                    "designerId": "301dc3a7-3fc6-47cd-bf1a-9afe28f842f3"
                 }
             ]
         },
@@ -467,6 +299,7 @@
                 "maxHeight": 100,
                 "minHeight": null,
                 "minWidth": null,
+                "store": "DashboardProjectStore",
                 "style": null,
                 "title": "Project Summary"
             },
@@ -484,7 +317,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "field1",
+                        "dataIndex": "projectSummary",
                         "format": "0,000",
                         "minWidth": 100,
                         "text": "Project Summary"
@@ -499,7 +332,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "field2",
+                        "dataIndex": "svnRepository",
                         "format": "0,000",
                         "minWidth": 100,
                         "text": "SVN Repository"
@@ -514,7 +347,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "field3",
+                        "dataIndex": "jenkinsJob",
                         "format": "0,000",
                         "minWidth": 100,
                         "text": "Jenkins Job",
@@ -561,6 +394,7 @@
                 "margin": "5 10 5 10",
                 "maxHeight": 100,
                 "minHeight": null,
+                "store": "DashboardSwStore",
                 "title": "S/W Summary"
             },
             "designerId": "15786892-1135-4027-bafd-53f1ce485994",
@@ -573,7 +407,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "field1",
+                        "dataIndex": "ewsHttpd",
                         "format": "0,000",
                         "minWidth": 100,
                         "text": "JBoss EWS(Httpd)"
@@ -588,7 +422,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "field2",
+                        "dataIndex": "ewsTomcat",
                         "format": "0,000",
                         "minWidth": 100,
                         "text": "JBoss EWS(Tomcat)"
@@ -603,7 +437,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "field3",
+                        "dataIndex": "eap",
                         "format": "0,000",
                         "minWidth": 100,
                         "text": "JBoss  EAP"
@@ -682,7 +516,7 @@
                                 "minWidth": 300,
                                 "padding": "",
                                 "shadow": false,
-                                "store": "tempChartData",
+                                "store": "DashboardChartStore",
                                 "style": "font-size: 14px;font-weight: bold;text-align: center;",
                                 "width": 356
                             },
@@ -709,8 +543,8 @@
                                         "label": [
                                             "{",
                                             "    renderer: function(v) {",
-                                            "        if(v.length > 10) {",
-                                            "            return v.substring(0, 10) + \"..\";",
+                                            "        if(v.length > 13) {",
+                                            "            return v.substring(0, 13) + \"..\";",
                                             "        } else {",
                                             "            return v;",
                                             "        }",
@@ -759,7 +593,7 @@
                                             "Used CPU",
                                             "Free CPU"
                                         ],
-                                        "xField": "cate",
+                                        "xField": "instanceName",
                                         "yField": [
                                             "cpu1",
                                             "cpu2"
@@ -796,7 +630,7 @@
                                 "minWidth": 300,
                                 "padding": "",
                                 "shadow": false,
-                                "store": "tempChartData",
+                                "store": "DashboardChartStore",
                                 "style": "font-size: 14px;font-weight: bold;text-align: center;",
                                 "width": 356
                             },
@@ -823,8 +657,8 @@
                                         "label": [
                                             "{",
                                             "    renderer: function(v) {",
-                                            "        if(v.length > 10) {",
-                                            "            return v.substring(0, 10) + \"..\";",
+                                            "        if(v.length > 13) {",
+                                            "            return v.substring(0, 13) + \"..\";",
                                             "        } else {",
                                             "            return v;",
                                             "        }",
@@ -873,7 +707,7 @@
                                             "Used Memory",
                                             "Free Memory"
                                         ],
-                                        "xField": "cate",
+                                        "xField": "instanceName",
                                         "yField": [
                                             "memory1",
                                             "memory2"
@@ -913,7 +747,7 @@
                                 "minWidth": 300,
                                 "padding": "",
                                 "shadow": false,
-                                "store": "tempChartData",
+                                "store": "DashboardChartStore",
                                 "style": "font-size: 14px;font-weight: bold;text-align: center;",
                                 "width": 356
                             },
@@ -940,8 +774,8 @@
                                         "label": [
                                             "{",
                                             "    renderer: function(v) {",
-                                            "        if(v.length > 10) {",
-                                            "            return v.substring(0, 10) + \"..\";",
+                                            "        if(v.length > 13) {",
+                                            "            return v.substring(0, 13) + \"..\";",
                                             "        } else {",
                                             "            return v;",
                                             "        }",
@@ -963,8 +797,8 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "fields": [
-                                            "storage1",
-                                            "storage2"
+                                            "storageUsed",
+                                            "storageFree"
                                         ],
                                         "maximum": 100,
                                         "minimum": 0,
@@ -990,10 +824,10 @@
                                             "Used Storage",
                                             "Free Storage"
                                         ],
-                                        "xField": "cate",
+                                        "xField": "instanceName",
                                         "yField": [
-                                            "storage1",
-                                            "storage2"
+                                            "storageUsed",
+                                            "storageFree"
                                         ]
                                     },
                                     "designerId": "222d2286-4ee2-4992-bb89-799baaa91930"

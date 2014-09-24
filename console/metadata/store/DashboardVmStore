@@ -1,0 +1,67 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "DashboardVmStore",
+        "storeId": "DashboardVmStore"
+    },
+    "designerId": "1cf70923-5f0a-45c8-8b32-9b0f0277ba37",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "instanceName",
+                "type": "string"
+            },
+            "designerId": "47a807d7-9462-4672-80f7-868779893676"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "ipAddress",
+                "type": "string"
+            },
+            "designerId": "a7a4adbe-404b-4014-808c-05f53cf4d57f"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "vmStatus",
+                "type": "string"
+            },
+            "designerId": "3eeae8ad-da15-4085-a771-25052dad7348"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "agentStatus",
+                "type": "string"
+            },
+            "designerId": "a51b152d-00d3-4735-abf8-5ba998c6e487"
+        }
+    ]
+}

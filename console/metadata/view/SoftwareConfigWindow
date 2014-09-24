@@ -292,10 +292,12 @@
                                             "        var responseData = Ext.JSON.decode(response.responseText);",
                                             "",
                                             "        if(responseData.success) {",
-                                            "            ",
+                                            "",
                                             "            fileLocation = responseData.data.configFileLocation;",
                                             "            fileName = responseData.data.configFileName;",
                                             "            ",
+                                            "            form.findField(\"configFileLocation\").setValue(fileLocation);",
+                                            "",
                                             "            form.findField(\"configFilePath\").setValue(fileLocation + \"/\" + fileName);",
                                             "            form.findField(\"configFileContents\").setValue(responseData.data.configFileContents);",
                                             "",
@@ -308,15 +310,15 @@
                                             "                },",
                                             "                disableCaching : true,",
                                             "                success: function(response2){",
-                                            "            ",
+                                            "",
                                             "                    var responseData2 = Ext.JSON.decode(response2.responseText);",
-                                            "            ",
+                                            "",
                                             "                    if(responseData2.success) {",
-                                            "            ",
+                                            "",
                                             "                        form.findField(\"configSystemContents\").setValue(responseData2.data);",
-                                            "            ",
+                                            "",
                                             "                    }",
-                                            "            ",
+                                            "",
                                             "                }",
                                             "            });",
                                             "",
@@ -376,6 +378,20 @@
                                 "name": "softwareId"
                             },
                             "designerId": "b90783ce-ed76-4b11-a78c-fad6fe0beba7"
+                        },
+                        {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Label",
+                                "layout|flex": null,
+                                "name": "configFileLocation"
+                            },
+                            "designerId": "6eb16e99-d3e6-4d17-8e87-0a513ccd39f1"
                         }
                     ]
                 },

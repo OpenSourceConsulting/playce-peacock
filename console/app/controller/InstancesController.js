@@ -747,9 +747,7 @@ Ext.define('MyApp.controller.InstancesController', {
 
             }
         });
-        var monitoringChartWindow = Ext.create("widget.monitoringChartWindow");
 
-        monitoringChartWindow.show();
     },
 
     viewInstanceMonitoringPopup: function(type) {

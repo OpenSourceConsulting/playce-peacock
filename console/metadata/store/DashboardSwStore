@@ -1,0 +1,54 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "DashboardSwStore",
+        "storeId": "DashboardSwStore"
+    },
+    "designerId": "2a98009c-7038-4751-8c94-3241de454a1c",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "ewsHttpd",
+                "type": "string"
+            },
+            "designerId": "4b6d7db5-f9ff-43e6-9277-fbc2ac4a70dd"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "ewsTomcat",
+                "type": "string"
+            },
+            "designerId": "b5a277b3-2377-46d2-848b-3d94ceff1c3d"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "eap",
+                "type": "string"
+            },
+            "designerId": "17aa12c2-0e42-4475-9b83-ce76a03ac27a"
+        }
+    ]
+}

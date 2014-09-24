@@ -37,12 +37,15 @@ Ext.define('MyApp.view.AlarmWarningWindow', {
             items: [
                 {
                     xtype: 'gridpanel',
+                    height: 435,
                     id: 'alarmWarningGrid',
                     itemId: 'alarmWarningGrid',
+                    autoScroll: true,
                     header: false,
                     title: 'My Grid Panel',
                     columnLines: true,
                     forceFit: true,
+                    store: 'DashboardWarningStore',
                     columns: [
                         {
                             xtype: 'rownumberer',
@@ -52,25 +55,46 @@ Ext.define('MyApp.view.AlarmWarningWindow', {
                         {
                             xtype: 'gridcolumn',
                             minWidth: 150,
-                            dataIndex: 'field1',
+                            dataIndex: 'instanceName',
                             text: 'Instance Name'
                         },
                         {
                             xtype: 'gridcolumn',
+                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                if(value == true) {
+                                    return "O";
+                                } else {
+                                    return "";
+                                }
+                            },
                             minWidth: 60,
-                            dataIndex: 'field2',
+                            dataIndex: 'cpu',
                             text: 'CPU'
                         },
                         {
                             xtype: 'gridcolumn',
+                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                if(value == true) {
+                                    return "O";
+                                } else {
+                                    return "";
+                                }
+                            },
                             minWidth: 60,
-                            dataIndex: 'field3',
+                            dataIndex: 'memory',
                             text: 'Memory'
                         },
                         {
                             xtype: 'gridcolumn',
+                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                if(value == true) {
+                                    return "O";
+                                } else {
+                                    return "";
+                                }
+                            },
                             minWidth: 60,
-                            dataIndex: 'field4',
+                            dataIndex: 'disk',
                             text: 'Disk'
                         }
                     ]

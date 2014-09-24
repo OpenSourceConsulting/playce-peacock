@@ -27,11 +27,14 @@
             },
             "codeClass": null,
             "userConfig": {
+                "autoScroll": true,
                 "columnLines": true,
                 "forceFit": true,
                 "header": false,
+                "height": 435,
                 "id": "templateSummaryGrid",
                 "itemId": "templateSummaryGrid",
+                "store": "DashboardTemplateStore",
                 "title": "My Grid Panel"
             },
             "designerId": "5e235e59-9eba-41b1-8242-d30ef7f5ea12",
@@ -57,7 +60,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "field1",
+                        "dataIndex": "templateName",
                         "minWidth": 150,
                         "text": "Template Name"
                     },
@@ -71,7 +74,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "field2",
+                        "dataIndex": "description",
                         "minWidth": 100,
                         "text": "Description"
                     },

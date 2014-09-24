@@ -1,0 +1,54 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "DashboardProjectStore",
+        "storeId": "DashboardProjectStore"
+    },
+    "designerId": "439b89cd-822a-498b-a134-bf2fc22af653",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "projectSummary",
+                "type": "string"
+            },
+            "designerId": "a0d2327d-7459-4b88-b84d-93b0fa6459ae"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "svnRepository",
+                "type": "string"
+            },
+            "designerId": "a0daa9e2-13b4-4262-824e-525d0d6ecb7f"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "jenkinsJob",
+                "type": "string"
+            },
+            "designerId": "31e3dd08-78eb-476f-95e1-bc9c6ffc4eae"
+        }
+    ]
+}

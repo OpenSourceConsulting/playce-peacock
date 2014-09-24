@@ -56,70 +56,65 @@ Ext.define('MyApp.view.dashboardContainer', {
                     title: 'Server Summary',
                     columnLines: true,
                     forceFit: true,
+                    store: 'DashboardServerStore',
                     columns: [
                         {
                             xtype: 'gridcolumn',
                             minWidth: 150,
-                            dataIndex: 'field1',
+                            dataIndex: 'rhevmName',
                             text: 'RHEV Manager'
                         },
                         {
                             xtype: 'gridcolumn',
                             renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                metaData.tdAttr = 'style="cursor: pointer;"';
+                                metaData.tdAttr = 'style="cursor: pointer;color:#157fcc;font-weight: bold;"';
                                 return value;
                             },
                             minWidth: 70,
-                            dataIndex: 'field2',
+                            dataIndex: 'vmCnt',
                             text: 'VMs (up)'
                         },
                         {
                             xtype: 'gridcolumn',
                             renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                metaData.tdAttr = 'style="cursor: pointer;"';
+                                metaData.tdAttr = 'style="cursor: pointer;color:#157fcc;font-weight: bold;"';
                                 return value;
                             },
                             minWidth: 70,
-                            dataIndex: 'field3',
+                            dataIndex: 'templateCnt',
                             text: 'Templates'
                         },
                         {
                             xtype: 'gridcolumn',
                             renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                metaData.tdAttr = 'style="cursor: pointer;"';
+                                metaData.tdAttr = 'style="cursor: pointer;color:#157fcc;font-weight: bold;"';
                                 return value;
                             },
                             minWidth: 100,
-                            dataIndex: 'field4',
+                            dataIndex: 'agentCnt',
                             text: 'Agent (Running)'
                         },
                         {
                             xtype: 'gridcolumn',
                             renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                metaData.tdAttr = 'style="cursor: pointer;"';
+                                metaData.tdAttr = 'style="cursor: pointer;color:#157fcc;font-weight: bold;"';
                                 return value;
                             },
                             minWidth: 180,
-                            dataIndex: 'field5',
+                            dataIndex: 'criticalCnt',
                             text: 'Critical (CPU / Memory / Disk)'
                         },
                         {
                             xtype: 'gridcolumn',
                             renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                metaData.tdAttr = 'style="cursor: pointer;"';
+                                metaData.tdAttr = 'style="cursor: pointer;color:#157fcc;font-weight: bold;"';
                                 return value;
                             },
                             minWidth: 180,
-                            dataIndex: 'field6',
+                            dataIndex: 'warningCnt',
                             text: 'Warning (CPU / Memory / Disk)'
                         }
-                    ],
-                    listeners: {
-                        cellclick: {
-                            fn: me.onServerSummaryGridCellClick,
-                            scope: me
-                        }
-                    }
+                    ]
                 },
                 {
                     xtype: 'gridpanel',
@@ -131,25 +126,26 @@ Ext.define('MyApp.view.dashboardContainer', {
                     title: 'Project Summary',
                     columnLines: true,
                     forceFit: true,
+                    store: 'DashboardProjectStore',
                     columns: [
                         {
                             xtype: 'numbercolumn',
                             minWidth: 100,
-                            dataIndex: 'field1',
+                            dataIndex: 'projectSummary',
                             text: 'Project Summary',
                             format: '0,000'
                         },
                         {
                             xtype: 'numbercolumn',
                             minWidth: 100,
-                            dataIndex: 'field2',
+                            dataIndex: 'svnRepository',
                             text: 'SVN Repository',
                             format: '0,000'
                         },
                         {
                             xtype: 'numbercolumn',
                             minWidth: 100,
-                            dataIndex: 'field3',
+                            dataIndex: 'jenkinsJob',
                             text: 'Jenkins Job',
                             format: '0,000'
                         }
@@ -168,25 +164,26 @@ Ext.define('MyApp.view.dashboardContainer', {
                     title: 'S/W Summary',
                     columnLines: true,
                     forceFit: true,
+                    store: 'DashboardSwStore',
                     columns: [
                         {
                             xtype: 'numbercolumn',
                             minWidth: 100,
-                            dataIndex: 'field1',
+                            dataIndex: 'ewsHttpd',
                             text: 'JBoss EWS(Httpd)',
                             format: '0,000'
                         },
                         {
                             xtype: 'numbercolumn',
                             minWidth: 100,
-                            dataIndex: 'field2',
+                            dataIndex: 'ewsTomcat',
                             text: 'JBoss EWS(Tomcat)',
                             format: '0,000'
                         },
                         {
                             xtype: 'numbercolumn',
                             minWidth: 100,
-                            dataIndex: 'field3',
+                            dataIndex: 'eap',
                             text: 'JBoss  EAP',
                             format: '0,000'
                         }
@@ -232,17 +229,17 @@ Ext.define('MyApp.view.dashboardContainer', {
                                     shadow: false,
                                     animate: true,
                                     insetPadding: 20,
-                                    store: 'tempChartData',
+                                    store: 'DashboardChartStore',
                                     axes: [
                                         {
                                             type: 'Category',
                                             fields: [
-                                                'cate'
+                                                'instanceName'
                                             ],
                                             label: {
                                                 renderer: function(v) {
-                                                    if(v.length > 10) {
-                                                        return v.substring(0, 10) + "..";
+                                                    if(v.length > 13) {
+                                                        return v.substring(0, 13) + "..";
                                                     } else {
                                                         return v;
                                                     }
@@ -253,8 +250,8 @@ Ext.define('MyApp.view.dashboardContainer', {
                                         {
                                             type: 'Numeric',
                                             fields: [
-                                                'cpu1',
-                                                'cpu2'
+                                                'cpuUsed',
+                                                'cpuFree'
                                             ],
                                             position: 'bottom',
                                             maximum: 100,
@@ -269,10 +266,10 @@ Ext.define('MyApp.view.dashboardContainer', {
                                                 'Free CPU'
                                             ],
                                             axis: 'bottom',
-                                            xField: 'cate',
+                                            xField: 'instanceName',
                                             yField: [
-                                                'cpu1',
-                                                'cpu2'
+                                                'cpuUsed',
+                                                'cpuFree'
                                             ],
                                             stacked: true
                                         }
@@ -293,17 +290,17 @@ Ext.define('MyApp.view.dashboardContainer', {
                                     width: 356,
                                     shadow: false,
                                     insetPadding: 20,
-                                    store: 'tempChartData',
+                                    store: 'DashboardChartStore',
                                     axes: [
                                         {
                                             type: 'Category',
                                             fields: [
-                                                'cate'
+                                                'instanceName'
                                             ],
                                             label: {
                                                 renderer: function(v) {
-                                                    if(v.length > 10) {
-                                                        return v.substring(0, 10) + "..";
+                                                    if(v.length > 13) {
+                                                        return v.substring(0, 13) + "..";
                                                     } else {
                                                         return v;
                                                     }
@@ -314,8 +311,8 @@ Ext.define('MyApp.view.dashboardContainer', {
                                         {
                                             type: 'Numeric',
                                             fields: [
-                                                'memory1',
-                                                'memory2'
+                                                'memoryUsed',
+                                                'memoryFree'
                                             ],
                                             position: 'bottom',
                                             maximum: 100,
@@ -330,10 +327,10 @@ Ext.define('MyApp.view.dashboardContainer', {
                                                 'Free Memory'
                                             ],
                                             axis: 'bottom',
-                                            xField: 'cate',
+                                            xField: 'instanceName',
                                             yField: [
-                                                'memory1',
-                                                'memory2'
+                                                'memoryUsed',
+                                                'memoryFree'
                                             ],
                                             stacked: true
                                         }
@@ -355,17 +352,17 @@ Ext.define('MyApp.view.dashboardContainer', {
                                     shadow: false,
                                     animate: true,
                                     insetPadding: 20,
-                                    store: 'tempChartData',
+                                    store: 'DashboardChartStore',
                                     axes: [
                                         {
                                             type: 'Category',
                                             fields: [
-                                                'cate'
+                                                'instanceName'
                                             ],
                                             label: {
                                                 renderer: function(v) {
-                                                    if(v.length > 10) {
-                                                        return v.substring(0, 10) + "..";
+                                                    if(v.length > 13) {
+                                                        return v.substring(0, 13) + "..";
                                                     } else {
                                                         return v;
                                                     }
@@ -376,8 +373,8 @@ Ext.define('MyApp.view.dashboardContainer', {
                                         {
                                             type: 'Numeric',
                                             fields: [
-                                                'storage1',
-                                                'storage2'
+                                                'storageUsed',
+                                                'storageFree'
                                             ],
                                             position: 'bottom',
                                             maximum: 100,
@@ -392,10 +389,10 @@ Ext.define('MyApp.view.dashboardContainer', {
                                                 'Free Storage'
                                             ],
                                             axis: 'bottom',
-                                            xField: 'cate',
+                                            xField: 'instanceName',
                                             yField: [
-                                                'storage1',
-                                                'storage2'
+                                                'storageUsed',
+                                                'storageFree'
                                             ],
                                             stacked: true
                                         }
@@ -412,162 +409,6 @@ Ext.define('MyApp.view.dashboardContainer', {
         });
 
         me.callParent(arguments);
-    },
-
-    onServerSummaryGridCellClick: function(tableview, td, cellIndex, record, tr, rowIndex, e, eOpts) {
-        var window;
-        var store;
-        if(cellIndex == 1) {
-
-            window = Ext.create("widget.VmSummaryWindow");
-            window.show();
-
-
-            store = Ext.create('Ext.data.Store', {
-                alias: 'store.ModeStore0',
-                autoLoad: false,
-                fields: [{
-                    name: 'field1',
-                    type: 'string'
-                }, {
-                    name: 'field2',
-                    type: 'string'
-                }, {
-                    name: 'field3',
-                    type: 'string'
-                }],
-                data: [
-                    { field1 : "Peacock Svr-1", field2 : "192.168.0.2", field3 : "Up"},
-                    { field1 : "Peacock Svr-2", field2 : "192.168.0.3", field3 : "Up"},
-                    { field1 : "Peacock Svr-3", field2 : "192.168.0.4", field3 : "Down"},
-                    { field1 : "Peacock Svr-4", field2 : "192.168.0.5", field3 : "Down"},
-                    { field1 : "Peacock Svr-5", field2 : "192.168.0.6", field3 : "Up"}
-                ]
-            });
-
-            Ext.getCmp("vmSummaryGrid").getView().bindStore(store);
-
-
-        } else if(cellIndex == 2) {
-
-            window = Ext.create("widget.TemplateSummaryWindow");
-            window.show();
-
-
-            store = Ext.create('Ext.data.Store', {
-                alias: 'store.ModeStore0',
-                autoLoad: false,
-                fields: [{
-                    name: 'field1',
-                    type: 'string'
-                }, {
-                    name: 'field2',
-                    type: 'string'
-                }, {
-                    name: 'field3',
-                    type: 'string'
-                }],
-                data: [
-                    { field1 : "Peacock Template-1 ", field2 : ""},
-                    { field1 : "Peacock Template-2 ", field2 : ""},
-                    { field1 : "Peacock Template-3 ", field2 : ""},
-                    { field1 : "Peacock Template-4 ", field2 : ""},
-                    { field1 : "Peacock Template-5 ", field2 : ""}
-                ]
-            });
-
-            Ext.getCmp("templateSummaryGrid").getView().bindStore(store);
-
-
-        } else if(cellIndex == 3) {
-
-            window = Ext.create("widget.AgentSummaryWindow");
-            window.show();
-
-            store = Ext.create('Ext.data.Store', {
-                alias: 'store.ModeStore0',
-                autoLoad: false,
-                fields: [{
-                    name: 'field1',
-                    type: 'string'
-                }, {
-                    name: 'field2',
-                    type: 'string'
-                }, {
-                    name: 'field3',
-                    type: 'string'
-                }],
-                data: [
-                    { field1 : "Peacock Svr-1", field2 : "192.168.0.2", field3 : "Running"},
-                    { field1 : "Peacock Svr-2", field2 : "192.168.0.3", field3 : "Running"},
-                    { field1 : "Peacock Svr-3", field2 : "192.168.0.4", field3 : "Down"},
-                    { field1 : "Peacock Svr-4", field2 : "192.168.0.5", field3 : "Down"},
-                    { field1 : "Peacock Svr-5", field2 : "192.168.0.6", field3 : "Running"}
-                ]
-            });
-
-            Ext.getCmp("agentSummaryGrid").getView().bindStore(store);
-
-        } else if(cellIndex == 4) {
-
-            window = Ext.create("widget.AlarmCriticalWindow");
-            window.show();
-
-            store = Ext.create('Ext.data.Store', {
-                alias: 'store.ModeStore0',
-                autoLoad: false,
-                fields: [{
-                    name: 'field1',
-                    type: 'string'
-                }, {
-                    name: 'field2',
-                    type: 'string'
-                }, {
-                    name: 'field3',
-                    type: 'string'
-                }, {
-                    name: 'field4',
-                    type: 'string'
-                }],
-                data: [
-                    { field1 : "Peacock Svr-1", field2 : "O", field3 : "", field4 : ""},
-                    { field1 : "Peacock Svr-2", field2 : "", field3 : "O", field4 : ""}
-                ]
-            });
-
-            Ext.getCmp("alarmCriticalGrid").getView().bindStore(store);
-
-        } else if(cellIndex == 5) {
-
-            window = Ext.create("widget.AlarmWarningWindow");
-            window.show();
-
-            store = Ext.create('Ext.data.Store', {
-                alias: 'store.ModeStore0',
-                autoLoad: false,
-                fields: [{
-                    name: 'field1',
-                    type: 'string'
-                }, {
-                    name: 'field2',
-                    type: 'string'
-                }, {
-                    name: 'field3',
-                    type: 'string'
-                },  {
-                    name: 'field4',
-                    type: 'string'
-                }],
-                data: [
-                    { field1 : "Peacock Svr-3", field2 : "", field3 : "O", field4 : ""},
-                    { field1 : "Peacock Svr-4", field2 : "", field3 : "", field4 : "O"},
-                    { field1 : "Peacock Svr-5", field2 : "", field3 : "O", field4 : ""}
-                ]
-            });
-
-            Ext.getCmp("alarmWarningGrid").getView().bindStore(store);
-
-        }
     }
 
 });

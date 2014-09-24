@@ -27,11 +27,14 @@
             },
             "codeClass": null,
             "userConfig": {
+                "autoScroll": true,
                 "columnLines": true,
                 "forceFit": true,
                 "header": false,
+                "height": 435,
                 "id": "vmSummaryGrid",
                 "itemId": "vmSummaryGrid",
+                "store": "DashboardVmStore",
                 "title": "My Grid Panel"
             },
             "designerId": "8a1f0a32-48f4-423d-8baa-56f920f97d5b",
@@ -57,7 +60,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "field1",
+                        "dataIndex": "instanceName",
                         "minWidth": 150,
                         "text": "Instance Name"
                     },
@@ -71,7 +74,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "field2",
+                        "dataIndex": "ipAddress",
                         "minWidth": 120,
                         "text": "IP Address"
                     },
@@ -85,7 +88,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "field3",
+                        "dataIndex": "vmStatus",
                         "defaultWidth": null,
                         "minWidth": 60,
                         "text": "Status",

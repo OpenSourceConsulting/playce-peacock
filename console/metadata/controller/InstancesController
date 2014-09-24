@@ -717,7 +717,7 @@
                     "} else if(newCard.title == \"Software\"){",
                     "",
                     "    this.searchInstanceDetail(1);",
-                    "    ",
+                    "",
                     "} else if(newCard.title == \"OS Package\"){",
                     "",
                     "    Ext.getCmp(\"searchPackageName\").setValue(\"\");",
@@ -1009,9 +1009,7 @@
                     "",
                     "    }",
                     "});",
-                    "var monitoringChartWindow = Ext.create(\"widget.monitoringChartWindow\");",
-                    "",
-                    "monitoringChartWindow.show();"
+                    ""
                 ]
             },
             "designerId": "798a979a-2268-44a3-8fc7-b1d75f1f7096"

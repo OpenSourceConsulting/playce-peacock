@@ -179,6 +179,11 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
                                     xtype: 'hiddenfield',
                                     fieldLabel: 'Label',
                                     name: 'softwareId'
+                                },
+                                {
+                                    xtype: 'hiddenfield',
+                                    fieldLabel: 'Label',
+                                    name: 'configFileLocation'
                                 }
                             ]
                         }
@@ -282,6 +287,8 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
 
                     fileLocation = responseData.data.configFileLocation;
                     fileName = responseData.data.configFileName;
+
+                    form.findField("configFileLocation").setValue(fileLocation);
 
                     form.findField("configFilePath").setValue(fileLocation + "/" + fileName);
                     form.findField("configFileContents").setValue(responseData.data.configFileContents);

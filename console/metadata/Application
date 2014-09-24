@@ -56,7 +56,6 @@
         ],
         "stores": [
             "MenuTreeStore",
-            "tempChartData",
             "UserStore",
             "HypervisorStore",
             "VMStore",
@@ -97,7 +96,16 @@
             "ComboSoftwareConfigFileStore",
             "ComboSoftwareConfigVersionStore",
             "AlmProjectConfluencesStore",
-            "AlmProjectJenkinsStore"
+            "AlmProjectJenkinsStore",
+            "DashboardServerStore",
+            "DashboardProjectStore",
+            "DashboardSwStore",
+            "DashboardChartStore",
+            "DashboardVmStore",
+            "DashboardTemplateStore",
+            "DashboardAgentStore",
+            "DashboardCriticalStore",
+            "DashboardWarningStore"
         ],
         "views": [
             "peacockViewport",

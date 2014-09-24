@@ -37,12 +37,15 @@ Ext.define('MyApp.view.AgentSummaryWindow', {
             items: [
                 {
                     xtype: 'gridpanel',
+                    height: 435,
                     id: 'agentSummaryGrid',
                     itemId: 'agentSummaryGrid',
+                    autoScroll: true,
                     header: false,
                     title: 'My Grid Panel',
                     columnLines: true,
                     forceFit: true,
+                    store: 'DashboardAgentStore',
                     columns: [
                         {
                             xtype: 'rownumberer',
@@ -52,19 +55,19 @@ Ext.define('MyApp.view.AgentSummaryWindow', {
                         {
                             xtype: 'gridcolumn',
                             minWidth: 150,
-                            dataIndex: 'field1',
+                            dataIndex: 'instanceName',
                             text: 'Instance Name'
                         },
                         {
                             xtype: 'gridcolumn',
                             minWidth: 120,
-                            dataIndex: 'field2',
+                            dataIndex: 'ipAddress',
                             text: 'IP Address'
                         },
                         {
                             xtype: 'gridcolumn',
                             minWidth: 60,
-                            dataIndex: 'field3',
+                            dataIndex: 'agentStatus',
                             text: 'Status'
                         }
                     ]
