@@ -372,6 +372,10 @@ Ext.define('MyApp.controller.AdminController', {
                     if(field == 'isWrite' && checked == true) {
                         rec.set("isRead", checked);
                     }
+
+                    if(field == 'isRead' && checked == false) {
+                        rec.set("isWrite", checked);
+                    }
                 }
             });
 
@@ -394,6 +398,9 @@ Ext.define('MyApp.controller.AdminController', {
                     rec.set("isRead", checked);
                 }
 
+                if(field == 'isRead' && checked == false && rec.get('thread') == thread ) {
+                    rec.set("isWrite", checked);
+                }
             });
 
             Ext.each(allRecords, function (rec) {
@@ -402,6 +409,9 @@ Ext.define('MyApp.controller.AdminController', {
                     rec.set(field, changeCheck);
                     if(field == 'isWrite' && changeCheck == true) {
                         rec.set("isRead", changeCheck);
+                    }
+                    if(field == 'isRead' && changeCheck == false) {
+                        rec.set("isWrite", changeCheck);
                     }
                 }
 
