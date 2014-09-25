@@ -60,6 +60,7 @@ public class VMDto extends RHEVBaseDto {
 	private String creationTime;
 	
 	// machine_additional_info_tbl 관련 필드
+	private String hostName;
 	private String ipAddress;
 	private String netmask;
 	private String gateway;
@@ -200,6 +201,12 @@ public class VMDto extends RHEVBaseDto {
 	}
 	public void setHaPriority(Integer haPriority) {
 		this.haPriority = haPriority;
+	}
+	public String getHostName() {
+		return hostName;
+	}
+	public void setHostName(String hostName) {
+		this.hostName = hostName;
 	}
 	public String getIpAddress() {
 		return ipAddress;

@@ -72,6 +72,8 @@ public class HypervisorController {
 	public @ResponseBody GridJsonResponse list(GridJsonResponse jsonRes) throws Exception {
 		List<HypervisorDto> hypervisorList = hypervisorService.getHypervisorList();
 		
+		RHEVMRestTemplateManager.resetRHEVMRestTemplate(hypervisorList);
+		
 		jsonRes.setTotal(hypervisorList.size());
 		jsonRes.setList(hypervisorList);
 		

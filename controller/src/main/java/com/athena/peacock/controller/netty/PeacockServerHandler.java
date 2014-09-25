@@ -53,6 +53,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 
+import com.athena.peacock.common.core.action.ShellAction;
+import com.athena.peacock.common.core.command.Command;
 import com.athena.peacock.common.netty.PeacockDatagram;
 import com.athena.peacock.common.netty.message.AbstractMessage;
 import com.athena.peacock.common.netty.message.AgentInitialInfoMessage;
@@ -60,6 +62,7 @@ import com.athena.peacock.common.netty.message.AgentSystemStatusMessage;
 import com.athena.peacock.common.netty.message.MessageType;
 import com.athena.peacock.common.netty.message.OSPackageInfoMessage;
 import com.athena.peacock.common.netty.message.PackageInfo;
+import com.athena.peacock.common.netty.message.ProvisioningCommandMessage;
 import com.athena.peacock.common.netty.message.ProvisioningResponseMessage;
 import com.athena.peacock.common.provider.AppContext;
 import com.athena.peacock.controller.common.component.RHEVMRestTemplate;
@@ -172,6 +175,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 						String clusterName = null;
 						String isPrd = "N";
 						String isVm = "N";
+						String description = null;
 						boolean isMatch = false;
 						try {
 							List<RHEVMRestTemplate> templates = RHEVMRestTemplateManager.getAllTemplates();
@@ -194,6 +198,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 												machineId = vm.getId();
 												hypervisorId = restTemplate.getHypervisorId();
 												displayName = vm.getName();
+												description = vm.getDescription();
 												
 												Cluster cluster = restTemplate.submit(vm.getCluster().getHref(), HttpMethod.GET, Cluster.class);
 												clusterName = cluster.getName();
@@ -229,8 +234,44 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 							machineService = AppContext.getBean(MachineService.class);
 						}
 						
-						// machine_additional_info_tbl에 고정 IP로 변경해야 할 내용이 있는지 조회한다.(현재 연결된 IP와 applyYn 정보를 이용)
+						// machine_additional_info_tbl에 hostname 및 고정 IP 등 변경해야 할 내용이 있는지 조회한다.(현재 연결된 IP와 applyYn 정보를 이용)
 						MachineDto machine = machineService.getAdditionalInfo(machineId);
+						
+						// 변경해야 할 hostname 정보가 있으면 chhost.sh를 실행하여 변경한다.
+						if (machine != null && StringUtils.isNotEmpty(machine.getHostName()) && !machine.getHostName().equals(infoMsg.getHostName())) {
+							try {
+								// /etc/hosts 파일에 저장될 ipAddress가 현재 Machine의 IP인지 수정 대상 IP인지 확인한다.
+								String ipAddress = null;
+								
+								if (StringUtils.isNotEmpty(machine.getIpAddress())) {
+									ipAddress = machine.getIpAddress();
+								} else {
+									ipAddress = ipAddr;
+								}
+								
+								ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
+								cmdMsg.setAgentId(machine.getMachineId());
+								cmdMsg.setBlocking(true);
+
+								int sequence = 0;
+								Command command = new Command("SET_HOSTNAME");
+								
+								ShellAction action = new ShellAction(sequence++);
+								action.setCommand("sh");
+								action.addArguments("chhost.sh");
+								action.addArguments(ipAddress);
+								action.addArguments(machine.getHostName());
+								command.addAction(action);
+								
+								cmdMsg.addCommand(command);
+								
+								datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+								ctx.channel().writeAndFlush(datagram);
+							} catch (Exception e) {
+								// HostName 변경이 실패하더라고 고정 IP 세팅을 할 수 있도록 예외를 무시한다.
+								logger.error("Unhandled exception has occurred while change hostname.", e);
+							}
+						}
 						
 						boolean resetIp = false;
 						if (machine != null && StringUtils.isNotEmpty(machine.getIpAddress())) {
@@ -247,6 +288,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 							machine.setMachineId(machineId);
 							machine.setHypervisorId(hypervisorId);
 							machine.setDisplayName(displayName);
+							machine.setDescription(description);
 							
 							if (StringUtils.isNotEmpty(displayName)) {
 								if (displayName.toLowerCase().startsWith("hhilws") && !displayName.toLowerCase().startsWith("hhilwsd")) {

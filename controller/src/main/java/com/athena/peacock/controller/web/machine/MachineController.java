@@ -37,6 +37,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -76,6 +77,9 @@ public class MachineController {
 
     protected final Logger logger = LoggerFactory.getLogger(MachineController.class);
 
+    @Value("#{contextProperties['cli.white.list']}")
+    private String cliWhiteList;
+
 	@Inject
 	@Named("machineService")
 	private MachineService machineService;
@@ -87,7 +91,7 @@ public class MachineController {
     @Inject
     @Named("peacockTransmitter")
 	private PeacockTransmitter peacockTransmitter;
-
+    
 	/**
 	 * <pre>
 	 * Instance 목록을 조회힌다.
@@ -128,8 +132,17 @@ public class MachineController {
 			rhevmService.init();
 		}
 		
-		VMDto vm = rhevmService.getVirtualMachine(machine.getHypervisorId(), machine.getMachineId());
-		machine.setDescription(vm.getDescription());
+		VMDto vm = null;
+		try {
+			vm = rhevmService.getVirtualMachine(machine.getHypervisorId(), machine.getMachineId());
+		} catch (Exception e) {
+			logger.error("Unhandle Exception has occurred while call RHEVM API.", e);
+		}
+		
+		if (vm != null && vm.getDescription() != null && !vm.getDescription().equals(machine.getDescription())) {
+			machine.setDescription(vm.getDescription());
+			machineService.updateMachine(machine);
+		}
 		
 		jsonRes.setData(machine);
 		
@@ -270,6 +283,13 @@ public class MachineController {
 	public @ResponseBody DtoJsonResponse cli(DtoJsonResponse jsonRes, CLIDto cli) {
 		Assert.notNull(cli.getMachineId(), "machineId can not be null.");
 		Assert.notNull(cli.getCommand(), "command can not be null.");
+		
+		if (cliWhiteList.indexOf(cli.getCommand()) < 0) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg(cli.getCommand() + "는 실행할 수 없는 명령입니다.");
+			
+			return jsonRes;
+		}
 		
 		try {
 			ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();

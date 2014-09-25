@@ -234,7 +234,7 @@ Ext.define('MyApp.view.dashboardContainer', {
                                         {
                                             type: 'Category',
                                             fields: [
-                                                'instanceName'
+                                                'cate'
                                             ],
                                             label: {
                                                 renderer: function(v) {
@@ -250,8 +250,8 @@ Ext.define('MyApp.view.dashboardContainer', {
                                         {
                                             type: 'Numeric',
                                             fields: [
-                                                'cpuUsed',
-                                                'cpuFree'
+                                                'cpu1',
+                                                'cpu2'
                                             ],
                                             position: 'bottom',
                                             maximum: 100,
@@ -268,8 +268,8 @@ Ext.define('MyApp.view.dashboardContainer', {
                                             axis: 'bottom',
                                             xField: 'instanceName',
                                             yField: [
-                                                'cpuUsed',
-                                                'cpuFree'
+                                                'cpu1',
+                                                'cpu2'
                                             ],
                                             stacked: false
                                         }
@@ -295,7 +295,7 @@ Ext.define('MyApp.view.dashboardContainer', {
                                         {
                                             type: 'Category',
                                             fields: [
-                                                'instanceName'
+                                                'cate'
                                             ],
                                             label: {
                                                 renderer: function(v) {
@@ -311,8 +311,8 @@ Ext.define('MyApp.view.dashboardContainer', {
                                         {
                                             type: 'Numeric',
                                             fields: [
-                                                'memoryUsed',
-                                                'memoryFree'
+                                                'memory1',
+                                                'memory2'
                                             ],
                                             position: 'bottom',
                                             maximum: 100,
@@ -329,8 +329,8 @@ Ext.define('MyApp.view.dashboardContainer', {
                                             axis: 'bottom',
                                             xField: 'instanceName',
                                             yField: [
-                                                'memoryUsed',
-                                                'memoryFree'
+                                                'memory1',
+                                                'memory2'
                                             ],
                                             stacked: false
                                         }
@@ -357,7 +357,7 @@ Ext.define('MyApp.view.dashboardContainer', {
                                         {
                                             type: 'Category',
                                             fields: [
-                                                'instanceName'
+                                                'cate'
                                             ],
                                             label: {
                                                 renderer: function(v) {

@@ -539,10 +539,18 @@ Ext.define('MyApp.view.adminContainer', {
                                             items: [
                                                 {
                                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                                        userConstants.actionRow = record;
 
-                                                        userConstants.me.deleteUserPermission();
+                                                        if(record.get("users") > 0) {
 
+                                                            Ext.Msg.alert('Message', "등록된 User를 먼저 삭제해야 합니다.");
+
+                                                        } else {
+
+                                                            userConstants.actionRow = record;
+
+                                                            userConstants.me.deleteUserPermission();
+
+                                                        }
                                                     },
                                                     icon: 'resources/images/icons/delete.png',
                                                     iconCls: ''

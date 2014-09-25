@@ -6,9 +6,9 @@
 	<insert id="insertMachine" parameterType="com.athena.peacock.controller.web.machine.MachineDto">
 		INSERT INTO machine_tbl 
 			        (MACHINE_ID, HYPERVISOR_ID, DISPLAY_ID, DISPLAY_NAME, CLUSTER, IS_PRD, MACHINE_MAC_ADDR, IS_VM, OS_NAME, OS_VER, OS_ARCH
-			        , CPU_CLOCK, CPU_NUM, MEM_SIZE, IP_ADDR, HOST_NAME, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
+			        , CPU_CLOCK, CPU_NUM, MEM_SIZE, IP_ADDR, HOST_NAME, DESCRIPTION, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
 		     VALUES (#{machineId}, #{hypervisorId}, #{displayId}, #{displayName}, #{cluster}, #{isPrd}, #{machineMacAddr}, #{isVm}, #{osName}, #{osVer}, #{osArch}
-		     		, #{cpuClock}, #{cpuNum}, #{memSize}, #{ipAddr}, #{hostName}, #{regUserId}, NOW(), #{updUserId}, NOW())
+		     		, #{cpuClock}, #{cpuNum}, #{memSize}, #{ipAddr}, #{hostName}, #{description}, #{regUserId}, NOW(), #{updUserId}, NOW())
 	</insert>
 
 	<select id="getMachine" parameterType="String" resultType="com.athena.peacock.controller.web.machine.MachineDto">
@@ -28,6 +28,7 @@
 			   , m.MEM_SIZE AS memSize
 			   , m.IP_ADDR AS ipAddr
 			   , m.HOST_NAME AS hostName
+			   , m.DESCRIPTION AS description
 			   , m.DELETE_YN AS deleteYn
 			   , s.IP_ADDRESS AS ipAddress
 			   , s.NETMASK AS netmask
@@ -70,6 +71,7 @@
 			   , MEM_SIZE = #{memSize}
 			   , IP_ADDR = #{ipAddr}
 			   , HOST_NAME = #{hostName}
+			   , DESCRIPTION = #{description}
 			   , UPD_USER_ID = #{updUserId}
 			   , UPD_DT = NOW()
 		 WHERE MACHINE_ID = #{machineId}
@@ -121,6 +123,7 @@
 			   , MEM_SIZE AS memSize
 			   , IP_ADDR AS ipAddr
 			   , HOST_NAME AS hostName
+			   , DESCRIPTION AS description
 			   , DELETE_YN AS deleteYn
 			   , REG_USER_ID AS regUserId
 			   , REG_DT AS regDt
@@ -151,14 +154,15 @@
 
 	<insert id="insertAdditionalInfo" parameterType="com.athena.peacock.controller.web.machine.MachineDto">
 		INSERT INTO machine_additional_info_tbl 
-			        (MACHINE_ID, IP_ADDRESS, NETMASK, GATEWAY, NAME_SERVER, SSH_PORT, SSH_USERNAME
+			        (MACHINE_ID, HOST_NAME, IP_ADDRESS, NETMASK, GATEWAY, NAME_SERVER, SSH_PORT, SSH_USERNAME
 			        , SSH_PASSWORD, SSH_KEY_FILE, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
-		     VALUES (#{machineId}, #{ipAddress}, #{netmask}, #{gateway}, #{nameServer}, #{sshPort}, #{sshUsername}
+		     VALUES (#{machineId}, #{hostName}, #{ipAddress}, #{netmask}, #{gateway}, #{nameServer}, #{sshPort}, #{sshUsername}
 		     		 , #{sshPassword}, #{sshKeyFile}, #{regUserId}, NOW(), #{updUserId}, NOW())
 	</insert>
 	
 	<select id="getAdditionalInfo" parameterType="String" resultType="com.athena.peacock.controller.web.machine.MachineDto">
 		SELECT MACHINE_ID AS machineId
+			   , HOST_NAME AS hostName
 			   , IP_ADDRESS AS ipAddress
 			   , NETMASK AS netmask
 			   , GATEWAY AS gateway
@@ -178,7 +182,8 @@
 	
 	<update id="updateAdditionalInfo" parameterType="com.athena.peacock.controller.web.machine.MachineDto">
 		UPDATE machine_additional_info_tbl
-		   SET IP_ADDRESS = #{ipAddress}
+		   SET HOST_NAME = #{hostName}
+		       , IP_ADDRESS = #{ipAddress}
 			   , NETMASK = #{netmask}
 			   , GATEWAY = #{gateway}
 			   , NAME_SERVER = #{nameServer}
