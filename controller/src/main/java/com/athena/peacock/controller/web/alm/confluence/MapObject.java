@@ -36,14 +36,14 @@ public class MapObject {
 				new SimpleDateFormat("yyyyMMdd", Locale.US) };
 	}
 
-	protected final Map fields;
+	protected final Map<String, Object> fields;
 
 	protected MapObject() {
-		this(new HashMap());
+		this(new HashMap<String, Object>());
 	}
 
-	protected MapObject(Map data) {
-		fields = new HashMap(data);
+	protected MapObject(Map<String, Object> data) {
+		fields = new HashMap<String, Object>(data);
 	}
 
 	protected String getString(String key) {
@@ -176,6 +176,7 @@ public class MapObject {
 	 * maps in MapObjects, we check that those structured types don't contain
 	 * any not supported types.
 	 */
+	@SuppressWarnings("rawtypes")
 	private void checkXmlRpcTypes(Object object) {
 		boolean checkPassed = false;
 
@@ -220,11 +221,13 @@ public class MapObject {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	protected void setList(String key, List value) {
 		checkXmlRpcTypes(value);
 		fields.put(key, value);
 	}
-
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected List getList(String key) {
 		Object objects = fields.get(key);
 
@@ -246,12 +249,13 @@ public class MapObject {
 		throw new IllegalStateException("Field '" + key
 				+ "' is of unknown type: " + objects.getClass().getName());
 	}
-
+	@SuppressWarnings("rawtypes")
 	protected void setMap(String key, Map value) {
 		checkXmlRpcTypes(value);
 		fields.put(key, value);
 	}
 
+	@SuppressWarnings("rawtypes")
 	protected Map getMap(String key) {
 		Object object = fields.get(key);
 
@@ -265,6 +269,7 @@ public class MapObject {
 				+ "' is of unknown type: " + object.getClass().getName());
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Map toMap() {
 		HashMap map = new HashMap(fields.size());
 		for (Iterator i = fields.keySet().iterator(); i.hasNext();) {
@@ -274,6 +279,7 @@ public class MapObject {
 		return map;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Map toRawMap() {
 		return new HashMap(fields);
 	}
