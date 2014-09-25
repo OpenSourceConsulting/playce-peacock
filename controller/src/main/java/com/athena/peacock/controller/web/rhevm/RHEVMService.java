@@ -271,7 +271,7 @@ public class RHEVMService {
 		Template template = getRHEVMRestTemplate(hypervisorId).submit(templateUrl, HttpMethod.GET, Template.class);
 		
 		String clusterUrl = template.getCluster().getHref();
-		Cluster cluster = getRHEVMRestTemplate(hypervisorId).submit(clusterUrl,  HttpMethod.GET, Cluster.class);
+		Cluster cluster = getRHEVMRestTemplate(hypervisorId).submit(clusterUrl, HttpMethod.GET, Cluster.class);
 		
 		// Make request paramater
 		Cluster requestCluster = new Cluster();
@@ -379,7 +379,7 @@ public class RHEVMService {
 	 */
 	public VMDto getVirtualMachine(int hypervisorId, String vmId) throws Exception {
 		String callUrl = RHEVApi.VMS + "/" + vmId;
-		VM vm = getRHEVMRestTemplate(hypervisorId).submit(callUrl,  HttpMethod.GET, VM.class);
+		VM vm = getRHEVMRestTemplate(hypervisorId).submit(callUrl, HttpMethod.GET, VM.class);
 		return makeDto(hypervisorId, vm, null, null, 1);
 	}
 
@@ -392,7 +392,7 @@ public class RHEVMService {
 	public Action startVirtualMachine(int hypervisorId, String vmId) throws Exception {
 		String callUrl = RHEVApi.VMS + "/" + vmId + "/start";
 		Action action = new Action();
-		action = getRHEVMRestTemplate(hypervisorId).submit(callUrl,  HttpMethod.POST, action, "action", Action.class);
+		action = getRHEVMRestTemplate(hypervisorId).submit(callUrl, HttpMethod.POST, action, "action", Action.class);
 		return action;
 	}
 	
@@ -405,7 +405,7 @@ public class RHEVMService {
 	public Action stopVirtualMachine(int hypervisorId, String vmId) throws Exception {
 		String callUrl = RHEVApi.VMS + "/" + vmId + "/stop";
 		Action action = new Action();
-		action = getRHEVMRestTemplate(hypervisorId).submit(callUrl,  HttpMethod.POST, action, "action", Action.class);
+		action = getRHEVMRestTemplate(hypervisorId).submit(callUrl, HttpMethod.POST, action, "action", Action.class);
 		return action;
 	}
 	
@@ -418,7 +418,7 @@ public class RHEVMService {
 	public Action shutdownVirtualMachine(int hypervisorId, String vmId) throws Exception {
 		String callUrl = RHEVApi.VMS + "/" + vmId + "/shutdown";
 		Action action = new Action();
-		action = getRHEVMRestTemplate(hypervisorId).submit(callUrl,  HttpMethod.POST, action, "action", Action.class);
+		action = getRHEVMRestTemplate(hypervisorId).submit(callUrl, HttpMethod.POST, action, "action", Action.class);
 		return action;
 	}
 	
@@ -434,7 +434,7 @@ public class RHEVMService {
 			String callUrl = RHEVApi.VMS + "/" + vmId;
 			Action action = new Action();
 			action.setForce(true);
-			action = getRHEVMRestTemplate(hypervisorId).submit(callUrl,  HttpMethod.DELETE, action, "action", Action.class);
+			action = getRHEVMRestTemplate(hypervisorId).submit(callUrl, HttpMethod.DELETE, action, "action", Action.class);
 			result = action;
 		} catch (Exception e) {
 			if (e instanceof RestClientException) {
@@ -501,7 +501,7 @@ public class RHEVMService {
 	public Action exportVirtualMachine(Integer hypervisorId, String vmId) throws Exception {
 		String callUrl = RHEVApi.VMS + "/" + vmId + "/export";
 		Action action = new Action();
-		action = getRHEVMRestTemplate(hypervisorId).submit(callUrl,  HttpMethod.POST, action, "action", Action.class);
+		action = getRHEVMRestTemplate(hypervisorId).submit(callUrl, HttpMethod.POST, action, "action", Action.class);
 		return action;
 	}
 
@@ -542,7 +542,7 @@ public class RHEVMService {
 		String callUrl = RHEVApi.TEMPLATES + "/" + templateId;
 		Action action = new Action();
 		action.setForce(true);
-		action = getRHEVMRestTemplate(hypervisorId).submit(callUrl,  HttpMethod.DELETE, action, "action", Action.class);
+		action = getRHEVMRestTemplate(hypervisorId).submit(callUrl, HttpMethod.DELETE, action, "action", Action.class);
 		return action;
 	}
 

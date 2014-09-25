@@ -132,8 +132,17 @@ public class MachineController {
 			rhevmService.init();
 		}
 		
-		VMDto vm = rhevmService.getVirtualMachine(machine.getHypervisorId(), machine.getMachineId());
-		machine.setDescription(vm.getDescription());
+		VMDto vm = null;
+		try {
+			vm = rhevmService.getVirtualMachine(machine.getHypervisorId(), machine.getMachineId());
+		} catch (Exception e) {
+			logger.error("Unhandle Exception has occurred while call RHEVM API.", e);
+		}
+		
+		if (vm != null && vm.getDescription() != null && !vm.getDescription().equals(machine.getDescription())) {
+			machine.setDescription(vm.getDescription());
+			machineService.updateMachine(machine);
+		}
 		
 		jsonRes.setData(machine);
 		
