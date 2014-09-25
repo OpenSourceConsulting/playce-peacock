@@ -245,7 +245,7 @@ public class AlmCrowdService {
 		try {
 			crowdClient.addUser(myuser,
 					new PasswordCredential(userData.getPassword()));
-			response.setMsg("사용자 생성 성공");
+			response.setMsg("사용자가 추가되었습니다.");
 		} catch (InvalidUserException e) {
 			response.setSuccess(false);
 			response.setMsg("InvalidUserException");
@@ -278,7 +278,7 @@ public class AlmCrowdService {
 		try {
 
 			crowdClient.updateUser(myuser);
-			response.setMsg("사용자 수정 성공");
+			response.setMsg("사용자 정보가 수정되었습니다.");
 		} catch (InvalidUserException e) {
 			response.setSuccess(false);
 			response.setMsg("InvalidUserException");
@@ -306,7 +306,7 @@ public class AlmCrowdService {
 
 		try {
 			crowdClient.removeUser(username);
-			response.setMsg("유저  삭제 성공");
+			response.setMsg("사용자가 삭제되었습니다.");
 		} catch (InvalidAuthenticationException e) {
 			response.setSuccess(false);
 			response.setMsg("InvalidAuthenticationException");
@@ -331,7 +331,7 @@ public class AlmCrowdService {
 
 		// try {
 		// crowdClient.removeUser(username);
-		response.setMsg("유저  삭제 성공");
+		response.setMsg("사용자 비밀번호가 변경되었습니다.");
 		// }
 		return response;
 	}
@@ -347,7 +347,7 @@ public class AlmCrowdService {
 
 		try {
 			crowdClient.addGroup(mygroup);
-			response.setMsg("그룹 생성 성공");
+			response.setMsg("그룹이 생성되었습니다");
 		} catch (OperationFailedException e) {
 			response.setSuccess(false);
 			response.setMsg("OperationFailedException");
@@ -384,7 +384,7 @@ public class AlmCrowdService {
 
 		try {
 			crowdClient.removeGroup(groupname);
-			response.setMsg("그룹 삭제 성공");
+			response.setMsg("그룹을 삭제하였습니다.");
 		} catch (GroupNotFoundException e) {
 			response.setSuccess(false);
 			response.setMsg("GroupNotFoundException");
@@ -410,7 +410,7 @@ public class AlmCrowdService {
 		try {
 			List<User> users = crowdClient.getUsersOfGroup(groupname, 0, 10000);
 			response.setList(users);
-			response.setMsg("그룹 유저 리스트");
+			response.setMsg("사용자 그룹이 조회되었습니다.");
 		} catch (GroupNotFoundException e) {
 			response.setSuccess(false);
 			response.setMsg("GroupNotFoundException");
@@ -435,7 +435,7 @@ public class AlmCrowdService {
 
 		try {
 			crowdClient.addUserToGroup(username, groupname);
-			response.setMsg("유저 추가 성공");
+			response.setMsg("사용자가 그룹에 등록되었습니다.");
 		} catch (GroupNotFoundException e) {
 			response.setSuccess(false);
 			response.setMsg("GroupNotFoundException");
@@ -466,22 +466,22 @@ public class AlmCrowdService {
 
 		try {
 			crowdClient.removeUserFromGroup(username, groupname);
-			response.setMsg("유저 삭제 정상적으로 처리되었습니다.");
+			response.setMsg("사용자가 그룹에서 삭제되었습니다");
 		} catch (GroupNotFoundException e) {
 			response.setSuccess(false);
 			response.setMsg("ErrorCode : GroupNotFoundException \n 그룹을 찾을 수 없습니다.");
 		} catch (MembershipNotFoundException e) {
 			response.setSuccess(false);
-			response.setMsg("ErrorCode : MembershipNotFoundException \n 그룹에서 유저를 찾을 수 없습니다.");
+			response.setMsg("ErrorCode : MembershipNotFoundException \n 그룹에서 사용자를 찾을 수 없습니다.");
 		} catch (UserNotFoundException e) {
 			response.setSuccess(false);
-			response.setMsg("ErrorCode : UserNotFoundException \n 유저를 찾을 수 없습니다.");
+			response.setMsg("ErrorCode : UserNotFoundException \n 사용자를 찾을 수 없습니다.");
 		} catch (ApplicationPermissionException e) {
 			response.setSuccess(false);
-			response.setMsg("ErrorCode : ApplicationPermissionException \n 어플리케이션에서 권한이 없습니다.");
+			response.setMsg("ErrorCode : ApplicationPermissionException \n 애플리케이션에서 권한이 없습니다.");
 		} catch (InvalidAuthenticationException e) {
 			response.setSuccess(false);
-			response.setMsg("ErrorCode : InvalidAuthenticationException \n 어플리케이션에서 인증 에러가 발생했습니다.");
+			response.setMsg("ErrorCode : InvalidAuthenticationException \n 애플리케이션에서 인증 에러가 발생했습니다.");
 		} catch (OperationFailedException e) {
 			response.setSuccess(false);
 			response.setMsg("ErrorCode : OperationFailedException \n 작업이 실패했습니다.");
