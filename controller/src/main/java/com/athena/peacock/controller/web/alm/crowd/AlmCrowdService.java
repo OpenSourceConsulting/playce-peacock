@@ -82,6 +82,9 @@ public class AlmCrowdService {
 	@Value("#{contextProperties['alm.crowd.pw']}")
 	private String crowdPw;
 
+	@Value("#{contextProperties['alm.crowd.group']}")
+	private String projectgroup;
+
 	private CrowdClient crowdClient;
 
 	public AlmCrowdService() {
@@ -333,7 +336,6 @@ public class AlmCrowdService {
 		return response;
 	}
 
-	
 	// 그룹 생성
 	public DtoJsonResponse addGroup(AlmGroupDto groupData) {
 
@@ -358,6 +360,18 @@ public class AlmCrowdService {
 		} catch (InvalidGroupException e) {
 			response.setSuccess(false);
 			response.setMsg("InvalidGroupException");
+		}
+
+		try {
+			System.out.println(groupData.getName() + "----" + projectgroup);
+			crowdClient.addGroupToGroup(groupData.getName(), projectgroup);
+		} catch (GroupNotFoundException | UserNotFoundException
+				| MembershipAlreadyExistsException | OperationFailedException
+				| InvalidAuthenticationException
+				| ApplicationPermissionException e) {
+			// TODO Auto-generated catch block
+			response.setSuccess(false);
+			response.setMsg("그룹에 추가하는데 문제가 발생했습니다.");
 		}
 
 		return response;
@@ -452,25 +466,25 @@ public class AlmCrowdService {
 
 		try {
 			crowdClient.removeUserFromGroup(username, groupname);
-			response.setMsg("유저 삭제 성공");
+			response.setMsg("유저 삭제 정상적으로 처리되었습니다.");
 		} catch (GroupNotFoundException e) {
 			response.setSuccess(false);
-			response.setMsg("GroupNotFoundException");
+			response.setMsg("ErrorCode : GroupNotFoundException \n 그룹을 찾을 수 없습니다.");
 		} catch (MembershipNotFoundException e) {
 			response.setSuccess(false);
-			response.setMsg("MembershipNotFoundException");
+			response.setMsg("ErrorCode : MembershipNotFoundException \n 그룹에서 유저를 찾을 수 없습니다.");
 		} catch (UserNotFoundException e) {
 			response.setSuccess(false);
-			response.setMsg("UserNotFoundException");
+			response.setMsg("ErrorCode : UserNotFoundException \n 유저를 찾을 수 없습니다.");
 		} catch (ApplicationPermissionException e) {
 			response.setSuccess(false);
-			response.setMsg("ApplicationPermissionException");
+			response.setMsg("ErrorCode : ApplicationPermissionException \n 어플리케이션에서 권한이 없습니다.");
 		} catch (InvalidAuthenticationException e) {
 			response.setSuccess(false);
-			response.setMsg("InvalidAuthenticationException");
+			response.setMsg("ErrorCode : InvalidAuthenticationException \n 어플리케이션에서 인증 에러가 발생했습니다.");
 		} catch (OperationFailedException e) {
 			response.setSuccess(false);
-			response.setMsg("OperationFailedException");
+			response.setMsg("ErrorCode : OperationFailedException \n 작업이 실패했습니다.");
 		}
 
 		return response;

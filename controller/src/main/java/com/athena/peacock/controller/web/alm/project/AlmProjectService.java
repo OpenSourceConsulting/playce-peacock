@@ -30,6 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tmatesoft.svn.core.SVNException;
 
+import com.athena.peacock.controller.web.alm.confluence.AlmConfluenceService;
 import com.athena.peacock.controller.web.alm.crowd.AlmCrowdService;
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmGroupDto;
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmUserDto;
@@ -64,6 +65,9 @@ public class AlmProjectService {
 
 	@Autowired
 	private AlmSvnService svnService;
+
+	@Autowired
+	private AlmConfluenceService confluenceService;
 
 	public AlmProjectService() {
 		// TODO Auto-generated constructor stub
@@ -146,6 +150,8 @@ public class AlmProjectService {
 				projectDao.insertProjectMapping(confluenceMapping);
 			}
 		}
+
+		addPermissionToSpace(pDto.getProjectCode(), confluences);
 
 		// SVN 프로젝트 생성
 		try {
@@ -301,5 +307,15 @@ public class AlmProjectService {
 		}
 	}
 
+	private void addPermissionToSpace(String groupName,
+			List<ProjectMappingDto> spaces) {
+
+		for (ProjectMappingDto space : spaces) {
+			// USER HISTORY
+			System.out.println("***************************");
+			confluenceService.addPermissions(groupName, space.getMappingCode());
+		}
+
+	}
 }
 // end of UserService.java
