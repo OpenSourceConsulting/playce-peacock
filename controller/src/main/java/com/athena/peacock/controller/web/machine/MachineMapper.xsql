@@ -151,14 +151,15 @@
 
 	<insert id="insertAdditionalInfo" parameterType="com.athena.peacock.controller.web.machine.MachineDto">
 		INSERT INTO machine_additional_info_tbl 
-			        (MACHINE_ID, IP_ADDRESS, NETMASK, GATEWAY, NAME_SERVER, SSH_PORT, SSH_USERNAME
+			        (MACHINE_ID, HOST_NAME, IP_ADDRESS, NETMASK, GATEWAY, NAME_SERVER, SSH_PORT, SSH_USERNAME
 			        , SSH_PASSWORD, SSH_KEY_FILE, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
-		     VALUES (#{machineId}, #{ipAddress}, #{netmask}, #{gateway}, #{nameServer}, #{sshPort}, #{sshUsername}
+		     VALUES (#{machineId}, #{hostName}, #{ipAddress}, #{netmask}, #{gateway}, #{nameServer}, #{sshPort}, #{sshUsername}
 		     		 , #{sshPassword}, #{sshKeyFile}, #{regUserId}, NOW(), #{updUserId}, NOW())
 	</insert>
 	
 	<select id="getAdditionalInfo" parameterType="String" resultType="com.athena.peacock.controller.web.machine.MachineDto">
 		SELECT MACHINE_ID AS machineId
+			   , HOST_NAME AS hostName
 			   , IP_ADDRESS AS ipAddress
 			   , NETMASK AS netmask
 			   , GATEWAY AS gateway
@@ -178,7 +179,8 @@
 	
 	<update id="updateAdditionalInfo" parameterType="com.athena.peacock.controller.web.machine.MachineDto">
 		UPDATE machine_additional_info_tbl
-		   SET IP_ADDRESS = #{ipAddress}
+		   SET HOST_NAME = #{hostName}
+		       , IP_ADDRESS = #{ipAddress}
 			   , NETMASK = #{netmask}
 			   , GATEWAY = #{gateway}
 			   , NAME_SERVER = #{nameServer}

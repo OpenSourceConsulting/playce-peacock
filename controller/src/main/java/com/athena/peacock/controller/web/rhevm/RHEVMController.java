@@ -423,6 +423,10 @@ public class RHEVMController {
                 machine.setSshKeyFile(dto.getSshKeyFile());
             	isExist = true;
             }
+            if (StringUtils.isNotEmpty(dto.getHostName())) {
+            	machine.setHostName(dto.getHostName());
+            	isExist = true;
+            }
             
             if (isExist) {
     			UserDto userDto = (UserDto)request.getSession().getAttribute(UserController.SESSION_USER_KEY);

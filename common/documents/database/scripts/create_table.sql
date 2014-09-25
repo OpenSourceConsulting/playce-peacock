@@ -412,6 +412,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `peacock`.`machine_additional_info_tbl` (
   `MACHINE_ID` VARCHAR(36) NOT NULL,
+  `HOST_NAME` VARCHAR(255) NULL,
   `IP_ADDRESS` VARCHAR(15) NULL,
   `NETMASK` VARCHAR(15) NULL,
   `GATEWAY` VARCHAR(15) NULL,
@@ -467,7 +468,7 @@ CREATE TABLE IF NOT EXISTS `peacock`.`alm_project_mapping_tbl` (
   `MAPPING_TYPE` INT NOT NULL,
   `MAPPING_CODE` VARCHAR(45) NOT NULL,
   INDEX `fk_table1_alm_project_tbl1_idx` (`PROJECT_CODE` ASC),
-  PRIMARY KEY (`PROJECT_CODE`),
+  PRIMARY KEY (`PROJECT_CODE`, `MAPPING_TYPE`, `MAPPING_CODE`),
   CONSTRAINT `fk_table1_alm_project_tbl1`
     FOREIGN KEY (`PROJECT_CODE`)
     REFERENCES `peacock`.`alm_project_tbl` (`PROJECT_CODE`)

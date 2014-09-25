@@ -86,6 +86,45 @@ public class RHEVMRestTemplateManager implements InitializingBean {
 	
 	/**
 	 * <pre>
+	 * 주어진 정보를 이용하여 RHEVMRestTemplate 객체를 초기화한다.
+	 * </pre>
+	 * @param hypervisorList
+	 */
+	public synchronized static void resetRHEVMRestTemplate(List<HypervisorDto> hypervisorList) {
+		Map<Integer, RHEVMRestTemplate> newTemplates = new ConcurrentHashMap<Integer, RHEVMRestTemplate>();
+		
+		for (HypervisorDto hypervisor : hypervisorList) {
+			RHEVMRestTemplate template = new RHEVMRestTemplate(hypervisor.getRhevmProtocol(), hypervisor.getRhevmHost(), hypervisor.getRhevmDomain(), 
+					hypervisor.getRhevmPort(), hypervisor.getRhevmUsername(), hypervisor.getRhevmPassword());
+			
+			template.setHypervisorId(hypervisor.getHypervisorId());
+			template.setRhevmName(hypervisor.getRhevmName());
+			
+			try {
+				API api = template.submit(RHEVApi.API, HttpMethod.GET, API.class);
+				
+				if (api != null) {
+					Version version = api.getProductInfo().getVersion();
+					
+					if (version != null) {
+						template.setMajor(version.getMajor());
+						template.setMinor(version.getMinor());
+					}
+				}
+			} catch (RestClientException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			newTemplates.put(hypervisor.getHypervisorId(), template);
+		}
+		
+		templates = newTemplates;
+	}//end of resetRHEVMRestTemplate()
+	
+	/**
+	 * <pre>
 	 * 주어진 정보를 이용하여 RHEVMRestTemplate 객체를 생성하고 Map에 저장한다.
 	 * </pre>
 	 * @param hypervisor
