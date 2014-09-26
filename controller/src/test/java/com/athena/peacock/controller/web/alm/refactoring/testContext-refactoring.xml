@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+    
+    <!-- 사업부별 코드 & 패키지 매핑정보 -->
+    <bean id="refactoring.DeptPackageMapper" class="com.athena.peacock.controller.web.alm.refactoring.DeptPackageMapper">
+    	<property name="deptPackageMap">
+    		<map>
+    			<entry key="C" value="chosun" />
+    			<entry key="Q" value="ocean" />
+    			<entry key="J" value="plant" />
+    			<entry key="K" value="engine" />
+    			<entry key="W" value="elec" />
+    			<entry key="M" value="hce" />
+    			<entry key="U" value="green" />
+    			<entry key="X" value="manage" />
+    			<entry key="H" value="insa" />
+    		</map>
+    	</property>
+    </bean>
+	
+	<bean id="ProRefactoringProcessor" class="com.athena.peacock.controller.web.alm.refactoring.ProjectRefactoringProcessor">
+		<property name="replaceHandlers">
+			<list>
+				<bean class="com.athena.peacock.controller.web.alm.refactoring.ProjectNameReplaceHandler" />
+				<bean class="com.athena.peacock.controller.web.alm.refactoring.PomFileReplaceHandler" >
+					<property name="deptPackageMapper" ref="refactoring.DeptPackageMapper" />
+				</bean>
+				<bean class="com.athena.peacock.controller.web.alm.refactoring.BuildXmlReplaceHandler" />
+				<bean class="com.athena.peacock.controller.web.alm.refactoring.WstFileReplaceHandler" />
+				<bean class="com.athena.peacock.controller.web.alm.refactoring.TemplateServletRenameHandler" />
+				<bean class="com.athena.peacock.controller.web.alm.refactoring.WebXmlReplaceHandler" />
+				<bean class="com.athena.peacock.controller.web.alm.refactoring.ProjectPackageCreateHandler" >
+					<property name="deptPackageMapper" ref="refactoring.DeptPackageMapper" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+</beans>
