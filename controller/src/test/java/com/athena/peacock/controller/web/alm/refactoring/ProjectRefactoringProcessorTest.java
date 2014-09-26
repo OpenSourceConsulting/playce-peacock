@@ -86,7 +86,7 @@ public class ProjectRefactoringProcessorTest {
 		String SVN_EX_URL = "http://localhost/svn/idkbj/sample";
 		String SVN_IM_URL = "http://localhost/svn/idkbj/XABCD";// aleady exists
 		String SVN_ID = "idkbj";
-		String SVN_PW = "bong0524";
+		String SVN_PW = "1234qwer";
 		String projectCode = "XABCD";
 		String projectRootDir = "D:\\project\\2014_hhi\\eclipse-jee-kepler-SR2-win32-x86_64\\workspace\\"+projectCode;
 		
