@@ -76,6 +76,7 @@ Ext.define('MyApp.view.instancesContainer', {
                             items: [
                                 {
                                     xtype: 'button',
+                                    cls: 'auth-write',
                                     id: 'newProjectWizardBtn',
                                     itemId: 'newProjectWizardBtn',
                                     text: 'New Project Wizard'
@@ -86,12 +87,14 @@ Ext.define('MyApp.view.instancesContainer', {
                                         var regInstanceWindow = Ext.create("widget.RegInstanceWindow");
                                         regInstanceWindow.show();
                                     },
+                                    cls: 'auth-write',
                                     id: 'createInstanceBtn',
                                     itemId: 'createInstanceBtn',
                                     text: 'Create Instance'
                                 },
                                 {
-                                    xtype: 'tbseparator'
+                                    xtype: 'tbseparator',
+                                    cls: 'auth-write'
                                 },
                                 {
                                     xtype: 'tbtext',
@@ -538,6 +541,7 @@ Ext.define('MyApp.view.instancesContainer', {
 
                                                                 }
                                                             },
+                                                            cls: 'auth-write',
                                                             id: 'softwareInstallBtn',
                                                             itemId: 'softwareInstallBtn',
                                                             text: 'Software Install'
@@ -581,6 +585,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     style: 'text-align:left;',
                                                     width: 65,
                                                     align: 'center',
+                                                    hideable: false,
                                                     menuText: '',
                                                     items: [
                                                         {
@@ -612,8 +617,7 @@ Ext.define('MyApp.view.instancesContainer', {
 
                                                                 }
                                                             },
-                                                            icon: 'resources/images/icons/cog.png',
-                                                            iconCls: ''
+                                                            icon: 'resources/images/icons/cog.png'
                                                         }
                                                     ]
                                                 },
@@ -624,6 +628,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     style: 'text-align:left;',
                                                     width: 50,
                                                     align: 'center',
+                                                    hideable: false,
                                                     menuText: '',
                                                     items: [
                                                         {
@@ -640,8 +645,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                     ,waitMsg:'Loading...'
                                                                 });
                                                             },
-                                                            icon: 'resources/images/icons/application_view_list.png',
-                                                            iconCls: ''
+                                                            icon: 'resources/images/icons/application_view_list.png'
                                                         }
                                                     ]
                                                 },
@@ -652,6 +656,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     style: 'text-align:left;',
                                                     width: 60,
                                                     align: 'center',
+                                                    hideable: false,
                                                     menuText: '',
                                                     items: [
                                                         {
@@ -696,8 +701,7 @@ Ext.define('MyApp.view.instancesContainer', {
 
                                                                 }
                                                             },
-                                                            icon: 'resources/images/icons/delete.png',
-                                                            iconCls: ''
+                                                            icon: 'resources/images/icons/delete.png'
                                                         }
                                                     ]
                                                 }

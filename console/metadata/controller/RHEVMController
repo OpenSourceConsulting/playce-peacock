@@ -64,7 +64,7 @@
                     "    Ext.getCmp(\"vmPagingLeftBtn\").setDisabled(false);",
                     "    Ext.getCmp(\"vmPagingLabel\").setText(\"0\");",
                     "    Ext.getCmp(\"vmPagingRightBtn\").setDisabled(false);",
-                    "    ",
+                    "",
                     "    Ext.getCmp(\"rhevmTemplateGrid\").reconfigure(Ext.getCmp(\"rhevmTemplateGrid\").store, Ext.getCmp(\"rhevmTemplateGrid\").initialConfig.columns);",
                     "",
                     "    this.searchRhevmChildGrid(\"rhevmTemplateGrid\");",
@@ -210,8 +210,10 @@
                     "    actionRow : null,",
                     "    childSelectRow : null,",
                     "    childActionRow : null,",
+                    "    writeMenuAuth : false,",
                     "    page : 0",
-                    "});"
+                    "});",
+                    ""
                 ]
             },
             "designerId": "8c90bd08-5bc3-487e-a028-e44d03fb7906"
@@ -230,6 +232,10 @@
                 "implHandler": [
                     "",
                     "//RHEVM VM Grid Right Click Menu 호출",
+                    "",
+                    "if(RHEVMConstants.writeMenuAuth == false) {",
+                    "    return;",
+                    "}",
                     "",
                     "var position = e.getXY();",
                     "e.stopEvent();",
@@ -318,6 +324,8 @@
                     "",
                     "if(init) {",
                     "    Ext.getCmp(\"hypervisorGrid\").reconfigure(Ext.getCmp(\"hypervisorGrid\").store, Ext.getCmp(\"hypervisorGrid\").initialConfig.columns);",
+                    "    ",
+                    "    this.setRhevmMenuAuth();",
                     "}",
                     "",
                     "RHEVMConstants.selectRow = null;",
@@ -554,6 +562,10 @@
                     "",
                     "//RHEVM Right Click Menu 호출",
                     "",
+                    "if(RHEVMConstants.writeMenuAuth == false) {",
+                    "    return;",
+                    "}",
+                    "",
                     "var position = e.getXY();",
                     "e.stopEvent();",
                     "",
@@ -731,6 +743,10 @@
                 "fn": "onRhevmTemplateGridBeforeItemContextMenu",
                 "implHandler": [
                     "//RHEVM Template Right Click Menu 호출",
+                    "",
+                    "if(RHEVMConstants.writeMenuAuth == false) {",
+                    "    return;",
+                    "}",
                     "",
                     "var position = e.getXY();",
                     "e.stopEvent();",
@@ -965,6 +981,32 @@
                 ]
             },
             "designerId": "8a5b8e78-b26b-47d8-9216-f885558e96d9"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "setRhevmMenuAuth",
+                "implHandler": [
+                    "",
+                    "if(RHEVMConstants.writeMenuAuth) {",
+                    "    ",
+                    "    Ext.getCmp(\"hypervisorGrid\").getView().headerCt.getGridColumns()[11].setVisible(true);",
+                    "    Ext.getCmp(\"hypervisorGrid\").getView().headerCt.getGridColumns()[12].setVisible(true);",
+                    "    ",
+                    "} else {",
+                    "    ",
+                    "    Ext.getCmp(\"hypervisorGrid\").getView().headerCt.getGridColumns()[11].setVisible(false);",
+                    "    Ext.getCmp(\"hypervisorGrid\").getView().headerCt.getGridColumns()[12].setVisible(false);",
+                    "    ",
+                    "}"
+                ]
+            },
+            "designerId": "94fe684d-0937-4798-9392-a5f028ee9cc0"
         }
     ]
 }

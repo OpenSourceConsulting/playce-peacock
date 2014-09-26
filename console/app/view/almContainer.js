@@ -61,6 +61,8 @@ Ext.define('MyApp.view.almContainer', {
                     items: [
                         {
                             xtype: 'panel',
+                            id: 'almTabProjectPanel',
+                            itemId: 'almTabProjectPanel',
                             layout: 'border',
                             title: 'Project',
                             items: [
@@ -95,6 +97,7 @@ Ext.define('MyApp.view.almContainer', {
                                                         Ext.getCmp("wizardSelectUserGrid").getStore().removeAll();
 
                                                     },
+                                                    cls: 'auth-write',
                                                     text: 'Project Wizard'
                                                 },
                                                 {
@@ -106,6 +109,7 @@ Ext.define('MyApp.view.almContainer', {
 
                                                         Ext.getCmp('projectDuplBtn').hide();
                                                     },
+                                                    cls: 'auth-write',
                                                     text: 'Create New Project'
                                                 },
                                                 {
@@ -154,6 +158,7 @@ Ext.define('MyApp.view.almContainer', {
                                             width: 60,
                                             defaultWidth: 60,
                                             align: 'center',
+                                            hideable: false,
                                             menuText: '',
                                             items: [
                                                 {
@@ -299,6 +304,7 @@ Ext.define('MyApp.view.almContainer', {
 
                                                                                         almConstants.me.searchPopAlmUser(true);
                                                                                     },
+                                                                                    cls: 'auth-write',
                                                                                     text: 'Add Users to Project'
                                                                                 }
                                                                             ]
@@ -332,6 +338,7 @@ Ext.define('MyApp.view.almContainer', {
                                                                             width: 60,
                                                                             defaultWidth: 60,
                                                                             align: 'center',
+                                                                            hideable: false,
                                                                             menuText: '',
                                                                             items: [
                                                                                 {
@@ -378,6 +385,7 @@ Ext.define('MyApp.view.almContainer', {
                                                                                         var grid = Ext.getCmp("almSpaceGrid").getStore().load();
 
                                                                                     },
+                                                                                    cls: 'auth-write',
                                                                                     text: 'Add Space to Project'
                                                                                 }
                                                                             ]
@@ -399,6 +407,7 @@ Ext.define('MyApp.view.almContainer', {
                                                                             width: 60,
                                                                             defaultWidth: 60,
                                                                             align: 'center',
+                                                                            hideable: false,
                                                                             menuText: '',
                                                                             items: [
                                                                                 {
@@ -467,6 +476,7 @@ Ext.define('MyApp.view.almContainer', {
                                                                                         Ext.getCmp("almJobGrid").getStore().load();
 
                                                                                     },
+                                                                                    cls: 'auth-write',
                                                                                     text: 'Add Job to Project'
                                                                                 }
                                                                             ]
@@ -488,6 +498,7 @@ Ext.define('MyApp.view.almContainer', {
                                                                             width: 60,
                                                                             defaultWidth: 60,
                                                                             align: 'center',
+                                                                            hideable: false,
                                                                             menuText: '',
                                                                             items: [
                                                                                 {
@@ -535,6 +546,8 @@ Ext.define('MyApp.view.almContainer', {
                         },
                         {
                             xtype: 'panel',
+                            id: 'almTabUserPanel',
+                            itemId: 'almTabUserPanel',
                             layout: 'border',
                             title: 'User',
                             items: [
@@ -562,6 +575,7 @@ Ext.define('MyApp.view.almContainer', {
                                                     handler: function(button, e) {
                                                         almConstants.me.showAlmUserWindow();
                                                     },
+                                                    cls: 'auth-write',
                                                     text: 'Create New User'
                                                 },
                                                 {
@@ -646,6 +660,7 @@ Ext.define('MyApp.view.almContainer', {
                                             style: 'text-align:left;',
                                             width: 65,
                                             align: 'center',
+                                            hideable: false,
                                             menuText: '',
                                             items: [
                                                 {
@@ -667,6 +682,7 @@ Ext.define('MyApp.view.almContainer', {
                                             width: 60,
                                             defaultWidth: 60,
                                             align: 'center',
+                                            hideable: false,
                                             menuText: '',
                                             items: [
                                                 {
@@ -773,6 +789,8 @@ Ext.define('MyApp.view.almContainer', {
                         },
                         {
                             xtype: 'panel',
+                            id: 'almTabGroupPanel',
+                            itemId: 'almTabGroupPanel',
                             layout: 'border',
                             title: 'Group',
                             items: [
@@ -800,6 +818,7 @@ Ext.define('MyApp.view.almContainer', {
                                                     handler: function(button, e) {
                                                         almConstants.me.showAlmGroupWindow();
                                                     },
+                                                    cls: 'auth-write',
                                                     id: 'createUserBtn2',
                                                     itemId: 'createUserBtn',
                                                     text: 'Create New Group'
@@ -876,6 +895,7 @@ Ext.define('MyApp.view.almContainer', {
                                             width: 60,
                                             defaultWidth: 60,
                                             align: 'center',
+                                            hideable: false,
                                             menuText: '',
                                             items: [
                                                 {
@@ -1050,6 +1070,7 @@ Ext.define('MyApp.view.almContainer', {
                                                                             width: 60,
                                                                             defaultWidth: 60,
                                                                             align: 'center',
+                                                                            hideable: false,
                                                                             menuText: '',
                                                                             items: [
                                                                                 {
@@ -1104,6 +1125,7 @@ Ext.define('MyApp.view.almContainer', {
 
                                                                                         almConstants.me.searchPopAlmUser(true);
                                                                                     },
+                                                                                    cls: 'auth-write',
                                                                                     width: 150,
                                                                                     text: 'Add Users to Group'
                                                                                 }
@@ -1123,6 +1145,8 @@ Ext.define('MyApp.view.almContainer', {
                         },
                         {
                             xtype: 'panel',
+                            id: 'almTabRepositoryPanel',
+                            itemId: 'almTabRepositoryPanel',
                             layout: 'border',
                             title: 'Repository',
                             items: [
@@ -1150,10 +1174,12 @@ Ext.define('MyApp.view.almContainer', {
                                                         repositoryWindow.show();
 
                                                     },
+                                                    cls: 'auth-write',
                                                     text: 'Add Repository'
                                                 },
                                                 {
-                                                    xtype: 'tbseparator'
+                                                    xtype: 'tbseparator',
+                                                    cls: 'auth-write'
                                                 }
                                             ]
                                         }
@@ -1201,6 +1227,7 @@ Ext.define('MyApp.view.almContainer', {
                                             width: 60,
                                             defaultWidth: 60,
                                             align: 'center',
+                                            hideable: false,
                                             menuText: '',
                                             items: [
                                                 {

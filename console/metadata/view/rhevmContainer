@@ -74,6 +74,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "cls": "auth-write",
                                 "id": "addRHEVMBtn",
                                 "itemId": "addRHEVMBtn",
                                 "layout|flex": null,
@@ -495,6 +496,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "align": "center",
+                        "hideable": false,
                         "maxWidth": 65,
                         "menuText": "",
                         "minWidth": 65,
@@ -567,6 +569,7 @@
                     "userConfig": {
                         "align": "center",
                         "defaultWidth": 60,
+                        "hideable": false,
                         "maxWidth": 60,
                         "menuText": "",
                         "minWidth": 60,

@@ -68,6 +68,8 @@ Ext.define('MyApp.view.adminContainer', {
                     items: [
                         {
                             xtype: 'panel',
+                            id: 'adminTabUserPanel',
+                            itemId: 'adminTabUserPanel',
                             layout: 'border',
                             title: 'User',
                             items: [
@@ -95,6 +97,7 @@ Ext.define('MyApp.view.adminContainer', {
                                                     handler: function(button, e) {
                                                         userConstants.me.showUserWindow('new');
                                                     },
+                                                    cls: 'auth-write',
                                                     id: 'createUserBtn',
                                                     itemId: 'createUserBtn',
                                                     text: 'Create New User'
@@ -210,6 +213,7 @@ Ext.define('MyApp.view.adminContainer', {
                                             style: 'text-align:left;',
                                             width: 65,
                                             align: 'center',
+                                            hideable: false,
                                             menuText: '',
                                             items: [
                                                 {
@@ -231,6 +235,7 @@ Ext.define('MyApp.view.adminContainer', {
                                             width: 60,
                                             defaultWidth: 60,
                                             align: 'center',
+                                            hideable: false,
                                             menuText: '',
                                             items: [
                                                 {
@@ -415,6 +420,8 @@ Ext.define('MyApp.view.adminContainer', {
                         },
                         {
                             xtype: 'panel',
+                            id: 'adminTabPermissionPanel',
+                            itemId: 'adminTabPermissionPanel',
                             layout: 'border',
                             title: 'User Permission',
                             items: [
@@ -449,6 +456,7 @@ Ext.define('MyApp.view.adminContainer', {
                                                             }
                                                         });
                                                     },
+                                                    cls: 'auth-write',
                                                     text: 'Create New Permission'
                                                 },
                                                 {
@@ -511,6 +519,7 @@ Ext.define('MyApp.view.adminContainer', {
                                             style: 'text-align:left;',
                                             width: 65,
                                             align: 'center',
+                                            hideable: false,
                                             menuText: '',
                                             items: [
                                                 {
@@ -535,6 +544,7 @@ Ext.define('MyApp.view.adminContainer', {
                                             width: 60,
                                             defaultWidth: 60,
                                             align: 'center',
+                                            hideable: false,
                                             menuText: '',
                                             items: [
                                                 {
@@ -755,6 +765,7 @@ Ext.define('MyApp.view.adminContainer', {
                                                                                                     }
                                                                                                 });
                                                                                             },
+                                                                                            cls: 'auth-write',
                                                                                             padding: '3 10 3 10',
                                                                                             text: 'Save'
                                                                                         }
@@ -842,6 +853,7 @@ Ext.define('MyApp.view.adminContainer', {
                                                                             width: 60,
                                                                             defaultWidth: 60,
                                                                             align: 'center',
+                                                                            hideable: false,
                                                                             menuText: '',
                                                                             items: [
                                                                                 {
@@ -895,6 +907,7 @@ Ext.define('MyApp.view.adminContainer', {
                                                                                         userConstants.me.searchPopAllUser(true);
 
                                                                                     },
+                                                                                    cls: 'auth-write',
                                                                                     text: 'Add User'
                                                                                 },
                                                                                 {

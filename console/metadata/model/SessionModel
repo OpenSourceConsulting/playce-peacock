@@ -154,6 +154,19 @@
                 "type": "string"
             },
             "designerId": "009b2afd-db44-4151-8896-e2e1f7e84439"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "authorities",
+                "type": "auto"
+            },
+            "designerId": "9acc403b-4353-4ada-b366-693dfecc05c1"
         }
     ]
 }

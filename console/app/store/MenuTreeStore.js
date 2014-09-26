@@ -31,7 +31,7 @@ Ext.define('MyApp.store.MenuTreeStore', {
                 children: [
                     {
                         text: '<b>Dashboard</b>',
-                        id: 'MENU_01',
+                        id: 'ROLD_DASHBOARD',
                         leaf: true,
                         iconCls: 'no-icon',
                         cls: 'parent-node last-children',
@@ -39,7 +39,7 @@ Ext.define('MyApp.store.MenuTreeStore', {
                     },
                     {
                         text: '<b>Instances</b>',
-                        id: 'MENU_02',
+                        id: 'ROLE_B1_READ',
                         leaf: true,
                         iconCls: 'no-icon',
                         cls: 'parent-node last-children',
@@ -47,7 +47,7 @@ Ext.define('MyApp.store.MenuTreeStore', {
                     },
                     {
                         text: '<b>RHEV Management</b>',
-                        id: 'MENU_03',
+                        id: 'ROLE_B2_READ',
                         leaf: true,
                         iconCls: 'no-icon',
                         cls: 'parent-node last-children',
@@ -55,7 +55,7 @@ Ext.define('MyApp.store.MenuTreeStore', {
                     },
                     {
                         text: '<b>ALM Management</b>',
-                        id: 'MENU_04',
+                        id: 'ROLE_B3_READ',
                         leaf: true,
                         iconCls: 'no-icon',
                         cls: 'parent-node last-children',
@@ -63,7 +63,7 @@ Ext.define('MyApp.store.MenuTreeStore', {
                     },
                     {
                         text: '<b>Administration</b>',
-                        id: 'MENU_05',
+                        id: 'ROLE_B4_READ',
                         leaf: true,
                         iconCls: 'no-icon',
                         cls: 'parent-node last-children',

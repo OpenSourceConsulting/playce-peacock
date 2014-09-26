@@ -20,8 +20,7 @@ Ext.define('MyApp.controller.GlobalController', {
         Ext.define('GLOBAL', {
             singleton: true,
             lastSelectedMenuId: null,
-            urlPrefix:""//http://localhost:8080/"
-
+            urlPrefix:"http://localhost:8080/"
         });
 
 
@@ -58,10 +57,38 @@ Ext.define('MyApp.controller.GlobalController', {
             }
         }, Ext.getBody());
 
-        Ext.Ajax.on('requestcomplete', Ext.getBody().unmask, Ext.getBody());
+        Ext.Ajax.on('requestcomplete', function (conn, response) {
+
+            Ext.getBody().unmask();
+
+            var resp = Ext.JSON.decode(response.responseText);
+
+            //Login 체크
+            if(resp.success == false && resp.data == 'notLogin') {
+
+                Ext.Msg.alert('Failure', resp.msg);
+
+                var sessionInfo = Ext.getStore('SessionStore');
+                sessionInfo.removeAll();
+                sessionInfo.sync();
+
+                window.location.reload();
+                /*
+                Ext.getCmp("centerContainer").layout.setActiveItem(0);
+                Ext.getCmp("peacockViewport").layout.setActiveItem(0);
+                */
+            }
+
+        }, Ext.getBody());
 
         Ext.Ajax.on('requestexception', Ext.getBody().unmask, Ext.getBody());
 
+        /*
+         * Login 권한 설정
+         */
+        Ext.Ajax.on('request', function(){
+
+        });
 
         /*
          * Global Validation(VTypes) Config

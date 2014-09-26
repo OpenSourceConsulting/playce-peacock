@@ -41,6 +41,10 @@ Ext.define('MyApp.controller.AdminController', {
     onUserGridBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
         //User Grid Right Click Menu 호출
 
+        if(userConstants.writeMenuAuth01 == false) {
+            return;
+        }
+
         var position = e.getXY();
         e.stopEvent();
 
@@ -95,6 +99,8 @@ Ext.define('MyApp.controller.AdminController', {
 
         } else {
 
+            this.setAdminMenuAuth(1, 1);
+
             Ext.getCmp("searchPermissionUserName").setValue("");
 
             this.searchUserPermissionDetail(1);
@@ -121,9 +127,11 @@ Ext.define('MyApp.controller.AdminController', {
 
         if(init) {
 
+            Ext.getCmp("adminTabPanel").setActiveTab(0);
             Ext.getCmp("searchUserName").setValue("");
             Ext.getCmp("userGrid").reconfigure(Ext.getCmp("userGrid").store, Ext.getCmp("userGrid").initialConfig.columns);
 
+            this.setAdminMenuAuth(0);
         }
 
         userConstants.selectRow = null;
@@ -143,9 +151,11 @@ Ext.define('MyApp.controller.AdminController', {
 
         if(init) {
 
+            Ext.getCmp("adminTabPanel").setActiveTab(1);
             Ext.getCmp("searchUserPermissionName").setValue("");
             Ext.getCmp("userPermissionGrid").reconfigure(Ext.getCmp("userPermissionGrid").store, Ext.getCmp("userPermissionGrid").initialConfig.columns);
 
+            this.setAdminMenuAuth(1);
         }
 
         userConstants.selectRow = null;
@@ -190,7 +200,9 @@ Ext.define('MyApp.controller.AdminController', {
                     me : user,
                     contextMenu: userGridContextMenu,
                     selectRow : null,
-                    actionRow : null
+                    actionRow : null,
+                    writeMenuAuth01 : false,
+                    writeMenuAuth02 : false
                 });
 
 
@@ -473,6 +485,38 @@ Ext.define('MyApp.controller.AdminController', {
         };
 
         userStore.load();
+    },
+
+    setAdminMenuAuth: function(idx, childIdx) {
+        if(idx == 0) {
+
+            if(userConstants.writeMenuAuth01) {
+                Ext.get("adminTabUserPanel").select(".auth-write").show();
+            } else {
+                Ext.get("adminTabUserPanel").select(".auth-write").hide();
+            }
+
+            Ext.getCmp("userGrid").getView().headerCt.getGridColumns()[11].setVisible(userConstants.writeMenuAuth01);
+            Ext.getCmp("userGrid").getView().headerCt.getGridColumns()[12].setVisible(userConstants.writeMenuAuth01);
+
+        } else if(idx == 1) {
+
+            if(userConstants.writeMenuAuth02) {
+                Ext.get("adminTabPermissionPanel").select(".auth-write").show();
+            } else {
+                Ext.get("adminTabPermissionPanel").select(".auth-write").hide();
+            }
+
+            Ext.getCmp("userPermissionGrid").getView().headerCt.getGridColumns()[4].setVisible(userConstants.writeMenuAuth02);
+            Ext.getCmp("userPermissionGrid").getView().headerCt.getGridColumns()[5].setVisible(userConstants.writeMenuAuth02);
+
+            if(childIdx == 1) {
+
+                Ext.getCmp("permissionUsersGrid").getView().headerCt.getGridColumns()[4].setVisible(userConstants.writeMenuAuth02);
+
+            }
+
+        }
     }
 
 });

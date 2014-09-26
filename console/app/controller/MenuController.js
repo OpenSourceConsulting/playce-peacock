@@ -28,26 +28,50 @@ Ext.define('MyApp.controller.MenuController', {
             //Instance Chart Monitoring Stop
             clearInterval(instancesConstants.chartInterval);
 
-            if(record.get('id') == 'MENU_01') {
+            if(record.get('id') == 'ROLE_DASHBOARD') {
 
                 dashboardConstants.me.showDashBoard();
 
-            } else if(record.get('id') == 'MENU_02') {
+            } else if(record.get('id') == 'ROLE_B1_READ') {
 
                 instancesConstants.me.initInstance();
                 instancesConstants.me.searchInstance(true);
 
-            } else if(record.get('id') == 'MENU_03') {
+            } else if(record.get('id') == 'ROLE_B2_READ') {
 
                 RHEVMConstants.me.searchHypervisor(true);
 
-            } else if(record.get('id') == 'MENU_04') {
+            } else if(record.get('id') == 'ROLE_B3_READ') {
 
-                almConstants.me.searchAlmProject(true);
+                if(Ext.getCmp("almTabPanel").items.getAt(0).disabled == false) {
 
-            } else if(record.get('id') == 'MENU_05') {
+                    almConstants.me.searchAlmProject(true);
 
-                userConstants.me.searchUser(true);
+                } else if(Ext.getCmp("almTabPanel").items.getAt(1).disabled == false) {
+
+                    almConstants.me.searchAlmUser(true);
+
+                } else if(Ext.getCmp("almTabPanel").items.getAt(2).disabled == false) {
+
+                    almConstants.me.searchAlmGroup(true);
+
+                } else if(Ext.getCmp("almTabPanel").items.getAt(3).disabled == false) {
+
+                    almConstants.me.searchAlmRepository(true);
+                }
+
+
+            } else if(record.get('id') == 'ROLE_B4_READ') {
+
+                if(Ext.getCmp("adminTabPanel").items.getAt(0).disabled == false) {
+
+                    userConstants.me.searchUser(true);
+
+                } else if(Ext.getCmp("adminTabPanel").items.getAt(1).disabled == false) {
+
+                    userConstants.me.searchUserPermission(true);
+                }
+
            }
 
         }

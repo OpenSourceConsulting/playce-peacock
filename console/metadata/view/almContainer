@@ -50,6 +50,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "id": "almTabProjectPanel",
+                        "itemId": "almTabProjectPanel",
                         "layout": "border",
                         "title": "Project"
                     },
@@ -118,6 +120,7 @@
                                             },
                                             "codeClass": null,
                                             "userConfig": {
+                                                "cls": "auth-write",
                                                 "id": null,
                                                 "itemId": null,
                                                 "layout|flex": null,
@@ -161,6 +164,7 @@
                                             },
                                             "codeClass": null,
                                             "userConfig": {
+                                                "cls": "auth-write",
                                                 "id": null,
                                                 "itemId": null,
                                                 "layout|flex": null,
@@ -291,6 +295,7 @@
                                     "userConfig": {
                                         "align": "center",
                                         "defaultWidth": 60,
+                                        "hideable": false,
                                         "maxWidth": 60,
                                         "menuText": "",
                                         "minWidth": 70,
@@ -634,6 +639,7 @@
                                                                             },
                                                                             "codeClass": null,
                                                                             "userConfig": {
+                                                                                "cls": "auth-write",
                                                                                 "id": null,
                                                                                 "itemId": null,
                                                                                 "layout|flex": null,
@@ -731,6 +737,7 @@
                                                                     "userConfig": {
                                                                         "align": "center",
                                                                         "defaultWidth": 60,
+                                                                        "hideable": false,
                                                                         "maxWidth": 60,
                                                                         "menuText": "",
                                                                         "minWidth": 70,
@@ -865,6 +872,7 @@
                                                                             },
                                                                             "codeClass": null,
                                                                             "userConfig": {
+                                                                                "cls": "auth-write",
                                                                                 "id": null,
                                                                                 "itemId": null,
                                                                                 "layout|flex": null,
@@ -933,6 +941,7 @@
                                                                     "userConfig": {
                                                                         "align": "center",
                                                                         "defaultWidth": 60,
+                                                                        "hideable": false,
                                                                         "maxWidth": 60,
                                                                         "menuText": "",
                                                                         "minWidth": 70,
@@ -1089,6 +1098,7 @@
                                                                             },
                                                                             "codeClass": null,
                                                                             "userConfig": {
+                                                                                "cls": "auth-write",
                                                                                 "id": null,
                                                                                 "itemId": null,
                                                                                 "layout|flex": null,
@@ -1157,6 +1167,7 @@
                                                                     "userConfig": {
                                                                         "align": "center",
                                                                         "defaultWidth": 60,
+                                                                        "hideable": false,
                                                                         "maxWidth": 60,
                                                                         "menuText": "",
                                                                         "minWidth": 70,
@@ -1258,6 +1269,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "id": "almTabUserPanel",
+                        "itemId": "almTabUserPanel",
                         "layout": "border",
                         "title": "User"
                     },
@@ -1326,6 +1339,7 @@
                                             },
                                             "codeClass": null,
                                             "userConfig": {
+                                                "cls": "auth-write",
                                                 "id": null,
                                                 "itemId": null,
                                                 "layout|flex": null,
@@ -1591,6 +1605,7 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "align": "center",
+                                        "hideable": false,
                                         "maxWidth": 65,
                                         "menuText": "",
                                         "minWidth": 65,
@@ -1661,6 +1676,7 @@
                                     "userConfig": {
                                         "align": "center",
                                         "defaultWidth": 60,
+                                        "hideable": false,
                                         "maxWidth": 60,
                                         "menuText": "",
                                         "minWidth": 70,
@@ -1916,6 +1932,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "id": "almTabGroupPanel",
+                        "itemId": "almTabGroupPanel",
                         "layout": "border",
                         "title": "Group"
                     },
@@ -1984,6 +2002,7 @@
                                             },
                                             "codeClass": null,
                                             "userConfig": {
+                                                "cls": "auth-write",
                                                 "id": "createUserBtn2",
                                                 "itemId": "createUserBtn",
                                                 "layout|flex": null,
@@ -2223,6 +2242,7 @@
                                     "userConfig": {
                                         "align": "center",
                                         "defaultWidth": 60,
+                                        "hideable": false,
                                         "maxWidth": 60,
                                         "menuText": "",
                                         "minWidth": 70,
@@ -2600,6 +2620,7 @@
                                                                     "userConfig": {
                                                                         "align": "center",
                                                                         "defaultWidth": 60,
+                                                                        "hideable": false,
                                                                         "maxWidth": 60,
                                                                         "menuText": "",
                                                                         "minWidth": 70,
@@ -2722,6 +2743,7 @@
                                                                             },
                                                                             "codeClass": null,
                                                                             "userConfig": {
+                                                                                "cls": "auth-write",
                                                                                 "iconAlign": null,
                                                                                 "layout|flex": null,
                                                                                 "scale": null,
@@ -2779,6 +2801,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "id": "almTabRepositoryPanel",
+                        "itemId": "almTabRepositoryPanel",
                         "layout": "border",
                         "title": "Repository"
                     },
@@ -2847,6 +2871,7 @@
                                             },
                                             "codeClass": null,
                                             "userConfig": {
+                                                "cls": "auth-write",
                                                 "id": null,
                                                 "itemId": null,
                                                 "layout|flex": null,
@@ -2885,6 +2910,7 @@
                                             },
                                             "codeClass": null,
                                             "userConfig": {
+                                                "cls": "auth-write",
                                                 "layout|flex": null
                                             },
                                             "designerId": "1c9ac2a8-b9f5-4b34-bc1c-ea6860bb7fa1"
@@ -2990,6 +3016,7 @@
                                     "userConfig": {
                                         "align": "center",
                                         "defaultWidth": 60,
+                                        "hideable": false,
                                         "maxWidth": 60,
                                         "menuText": "",
                                         "minWidth": 70,

@@ -64,6 +64,10 @@ Ext.define('MyApp.model.SessionModel', {
         {
             name: 'updDt',
             type: 'string'
+        },
+        {
+            name: 'authorities',
+            type: 'auto'
         }
     ]
 });

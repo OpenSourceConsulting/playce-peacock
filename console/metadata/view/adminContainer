@@ -46,6 +46,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "id": "adminTabUserPanel",
+                        "itemId": "adminTabUserPanel",
                         "layout": "border",
                         "title": "User"
                     },
@@ -114,6 +116,7 @@
                                             },
                                             "codeClass": null,
                                             "userConfig": {
+                                                "cls": "auth-write",
                                                 "id": "createUserBtn",
                                                 "itemId": "createUserBtn",
                                                 "layout|flex": null,
@@ -378,6 +381,7 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "align": "center",
+                                        "hideable": false,
                                         "maxWidth": 65,
                                         "menuText": "",
                                         "minWidth": 65,
@@ -448,6 +452,7 @@
                                     "userConfig": {
                                         "align": "center",
                                         "defaultWidth": 60,
+                                        "hideable": false,
                                         "maxWidth": 60,
                                         "menuText": "",
                                         "minWidth": 70,
@@ -847,6 +852,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "id": "adminTabPermissionPanel",
+                        "itemId": "adminTabPermissionPanel",
                         "layout": "border",
                         "title": "User Permission"
                     },
@@ -906,6 +913,7 @@
                                             },
                                             "codeClass": null,
                                             "userConfig": {
+                                                "cls": "auth-write",
                                                 "id": null,
                                                 "itemId": null,
                                                 "layout|flex": null,
@@ -1082,6 +1090,7 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "align": "center",
+                                        "hideable": false,
                                         "maxWidth": 65,
                                         "menuText": "",
                                         "minWidth": 65,
@@ -1155,6 +1164,7 @@
                                     "userConfig": {
                                         "align": "center",
                                         "defaultWidth": 60,
+                                        "hideable": false,
                                         "maxWidth": 60,
                                         "menuText": "",
                                         "minWidth": 70,
@@ -1543,6 +1553,7 @@
                                                                                     },
                                                                                     "codeClass": null,
                                                                                     "userConfig": {
+                                                                                        "cls": "auth-write",
                                                                                         "layout|flex": null,
                                                                                         "padding": "3 10 3 10",
                                                                                         "text": "Save"
@@ -1640,9 +1651,9 @@
                                                                                     "        current++;",
                                                                                     "        var found = find(nodes[i].childNodes);",
                                                                                     "    }",
-                                                                                    "    ",
+                                                                                    "",
                                                                                     "    return records;",
-                                                                                    "    ",
+                                                                                    "",
                                                                                     "}(this.store.getRootNode().childNodes));",
                                                                                     ""
                                                                                 ]
@@ -1811,6 +1822,7 @@
                                                                     "userConfig": {
                                                                         "align": "center",
                                                                         "defaultWidth": 60,
+                                                                        "hideable": false,
                                                                         "maxWidth": 60,
                                                                         "menuText": "",
                                                                         "minWidth": 70,
@@ -1925,6 +1937,7 @@
                                                                             },
                                                                             "codeClass": null,
                                                                             "userConfig": {
+                                                                                "cls": "auth-write",
                                                                                 "layout|flex": null,
                                                                                 "padding": null,
                                                                                 "text": "Add User"

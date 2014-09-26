@@ -179,8 +179,7 @@ Ext.define('MyApp.controller.LoginController', {
                 sessionInfo.removeAll();
                 sessionInfo.sync();
 
-                Ext.getCmp("centerContainer").layout.setActiveItem(0);
-                Ext.getCmp("peacockViewport").layout.setActiveItem(0);
+                window.location.reload();
 
             }
         });
@@ -221,6 +220,7 @@ Ext.define('MyApp.controller.LoginController', {
         var sessionInfo = Ext.getStore('SessionStore');
         sessionInfo.removeAll();
         sessionInfo.sync();
+
         var newRecord;
         if(ops == 'json') {
 
@@ -230,7 +230,8 @@ Ext.define('MyApp.controller.LoginController', {
                 userName	: this.session.userName,
                 deptName	: this.session.deptName,
                 email		: this.session.email,
-                lastLogon	: this.session.lastLogon
+                lastLogon	: this.session.lastLogon,
+                authorities : this.session.authorities
             });
 
         } else {
@@ -241,7 +242,8 @@ Ext.define('MyApp.controller.LoginController', {
                 userName	: this.session.get("userName"),
                 deptName	: this.session.get("deptName"),
                 email		: this.session.get("email"),
-                lastLogon	: this.session.get("lastLogon")
+                lastLogon	: this.session.get("lastLogon"),
+                authorities : this.session.get("authorities")
             });
 
         }
@@ -260,12 +262,151 @@ Ext.define('MyApp.controller.LoginController', {
         this.getUserSplitBtn().setText(newRecord.get("userName"));
         Ext.getCmp("topLastLogonLabel").setText("(최근 접속시간 : "+newRecord.get("lastLogon")+")");
 
+        //Menu 권한 설정
+        this.initMenuAuthSetting();
+    },
+
+    initMenuAuthSetting: function() {
+
         var menuTreeStore = Ext.getStore("MenuTreeStore");
 
-        // show settings menu when logged in as admin
+        var sessionStore = Ext.getStore('SessionStore');
+        var authorities = sessionStore.getAt(0).get("authorities");
+
+        var adminFlag = false;
+        Ext.each(authorities, function (auth){
+
+            if(auth.authority == "ROLE_ADMIN") {
+                adminFlag = true;
+                return true;
+            }
+
+        });
+
+        if(adminFlag) {
+
+            instancesConstants.writeMenuAuth = true;
+            RHEVMConstants.writeMenuAuth = true;
+            almConstants.writeMenuAuth01 = true;
+            almConstants.writeMenuAuth02 = true;
+            almConstants.writeMenuAuth03 = true;
+            almConstants.writeMenuAuth04 = true;
+            userConstants.writeMenuAuth01 = true;
+            userConstants.writeMenuAuth02 = true;
+
+        } else {
+
+            //Left Menu Read 권한 설정
+            Ext.getCmp("menuTreePanel").getRootNode().cascade(function(n) {
+
+                var displayFlag = false;
+
+                if(n.id.indexOf("DASHBOARD") > -1) {
+
+                    displayFlag = true;
+
+                } else {
+
+                    Ext.each(authorities, function (auth){
+
+                        if(n.id.indexOf(auth.authority) > -1) {
+                            displayFlag = true;
+                            return false;
+                        }
+
+                    });
+
+                    var el = Ext.fly(Ext.getCmp("menuTreePanel").getView().getNodeByRecord(n));
+                    if (el != null) {
+                        el.setDisplayed(displayFlag);
+                    }
+                }
+
+            });
+
+            //그 외 설정
+            Ext.getCmp("almTabPanel").items.each(function(item, idx){
+                Ext.getCmp("almTabPanel").items.getAt(idx).setDisabled(true);
+            });
+
+            Ext.getCmp("adminTabPanel").items.each(function(item, idx){
+                Ext.getCmp("adminTabPanel").items.getAt(idx).setDisabled(true);
+            });
+
+            Ext.get("instancesContainer").select(".auth-write").hide();
+            Ext.get("rhevmContainer").select(".auth-write").hide();
+
+            Ext.each(authorities, function (auth){
+
+                if(auth.authority == "ROLE_B1_WRITE") {
+
+                    instancesConstants.writeMenuAuth = true;
+                    Ext.get("instancesContainer").select(".auth-write").show();
+
+                } else if(auth.authority == "ROLE_B2_WRITE") {
+
+                    RHEVMConstants.writeMenuAuth = true;
+                    Ext.get("rhevmContainer").select(".auth-write").show();
+
+                } else if(auth.authority == "ROLE_B301_READ") {
+
+                    Ext.getCmp("almTabPanel").items.getAt(0).setDisabled(false);
+
+                } else if(auth.authority == "ROLE_B301_WRITE") {
+
+                    almConstants.writeMenuAuth01 = true;
+
+                } else if(auth.authority == "ROLE_B302_READ") {
+
+                    Ext.getCmp("almTabPanel").items.getAt(1).setDisabled(false);
+
+                } else if(auth.authority == "ROLE_B302_WRITE") {
+
+                    almConstants.writeMenuAuth02 = true;
+
+                } else if(auth.authority == "ROLE_B303_READ") {
+
+                    Ext.getCmp("almTabPanel").items.getAt(2).setDisabled(false);
+
+                } else if(auth.authority == "ROLE_B303_WRITE") {
+
+                    almConstants.writeMenuAuth03 = true;
+
+                } else if(auth.authority == "ROLE_B304_READ") {
+
+                    Ext.getCmp("almTabPanel").items.getAt(3).setDisabled(false);
+
+                } else if(auth.authority == "ROLE_B304_WRITE") {
+
+                    almConstants.writeMenuAuth04 = true;
+
+                } else if(auth.authority == "ROLE_B401_READ") {
+
+                    Ext.getCmp("adminTabPanel").items.getAt(0).setDisabled(false);
+
+                } else if(auth.authority == "ROLE_B401_WRITE") {
+
+                    userConstants.writeMenuAuth01 = true;
+
+                } else if(auth.authority == "ROLE_B402_READ") {
+
+                    Ext.getCmp("adminTabPanel").items.getAt(1).setDisabled(false);
+
+                } else if(auth.authority == "ROLE_B402_WRITE") {
+
+                    userConstants.writeMenuAuth02 = true;
+
+                }
+
+
+            });
+
+
+        }
 
         Ext.getCmp("menuTreeView").selModel.select(0);
         Ext.getCmp("menuTreeView").fireEvent('cellclick', Ext.getCmp("menuTreeView"), null, null, menuTreeStore.getRootNode().firstChild);
+
     },
 
     init: function(application) {

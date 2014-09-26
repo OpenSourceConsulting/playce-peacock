@@ -71,6 +71,7 @@ Ext.define('MyApp.view.rhevmContainer', {
                                     handler: function(button, e) {
                                         RHEVMConstants.me.showRhevmWindow('new');
                                     },
+                                    cls: 'auth-write',
                                     id: 'addRHEVMBtn',
                                     itemId: 'addRHEVMBtn',
                                     text: 'Add RHEVM'
@@ -227,6 +228,7 @@ Ext.define('MyApp.view.rhevmContainer', {
                             style: 'text-align:left;',
                             width: 65,
                             align: 'center',
+                            hideable: false,
                             menuText: '',
                             items: [
                                 {
@@ -250,6 +252,7 @@ Ext.define('MyApp.view.rhevmContainer', {
                             width: 60,
                             defaultWidth: 60,
                             align: 'center',
+                            hideable: false,
                             menuText: '',
                             items: [
                                 {

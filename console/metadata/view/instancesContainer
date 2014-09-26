@@ -70,6 +70,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "cls": "auth-write",
                                 "id": "newProjectWizardBtn",
                                 "itemId": "newProjectWizardBtn",
                                 "layout|flex": null,
@@ -85,6 +86,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "cls": "auth-write",
                                 "id": "createInstanceBtn",
                                 "itemId": "createInstanceBtn",
                                 "layout|flex": null,
@@ -122,6 +124,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "cls": "auth-write",
                                 "layout|flex": null
                             },
                             "designerId": "776977f0-0af8-4252-af73-f71152844f21"
@@ -1105,6 +1108,7 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
+                                                        "cls": "auth-write",
                                                         "id": "softwareInstallBtn",
                                                         "itemId": "softwareInstallBtn",
                                                         "layout|flex": null,
@@ -1239,6 +1243,8 @@
                                             "codeClass": null,
                                             "userConfig": {
                                                 "align": "center",
+                                                "cls": null,
+                                                "hideable": false,
                                                 "maxWidth": 100,
                                                 "menuText": "",
                                                 "style": [
@@ -1265,7 +1271,7 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "icon": "resources/images/icons/cog.png",
-                                                        "iconCls": ""
+                                                        "iconCls": null
                                                     },
                                                     "designerId": "3b05b292-411f-480e-81f3-2d2464fb4c65",
                                                     "cn": [
@@ -1331,6 +1337,8 @@
                                             "codeClass": null,
                                             "userConfig": {
                                                 "align": "center",
+                                                "cls": null,
+                                                "hideable": false,
                                                 "maxWidth": 100,
                                                 "menuText": "",
                                                 "style": [
@@ -1357,7 +1365,7 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "icon": "resources/images/icons/application_view_list.png",
-                                                        "iconCls": ""
+                                                        "iconCls": null
                                                     },
                                                     "designerId": "c49de747-f90c-427c-b1e5-09daa27a817d",
                                                     "cn": [
@@ -1408,11 +1416,14 @@
                                             "codeClass": null,
                                             "userConfig": {
                                                 "align": "center",
+                                                "cls": null,
+                                                "hideable": false,
                                                 "maxWidth": 100,
                                                 "menuText": "",
                                                 "style": [
                                                     "\"text-align:left;\""
                                                 ],
+                                                "tdCls": null,
                                                 "text": "Uninstall",
                                                 "width": 60
                                             },
@@ -1434,7 +1445,7 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "icon": "resources/images/icons/delete.png",
-                                                        "iconCls": ""
+                                                        "iconCls": null
                                                     },
                                                     "designerId": "1cc8af0b-896e-463e-a3e2-6e8b04cba80e",
                                                     "cn": [

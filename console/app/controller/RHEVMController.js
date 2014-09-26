@@ -78,6 +78,10 @@ Ext.define('MyApp.controller.RHEVMController', {
 
         //RHEVM VM Grid Right Click Menu 호출
 
+        if(RHEVMConstants.writeMenuAuth == false) {
+            return;
+        }
+
         var position = e.getXY();
         e.stopEvent();
 
@@ -132,6 +136,10 @@ Ext.define('MyApp.controller.RHEVMController', {
 
         //RHEVM Right Click Menu 호출
 
+        if(RHEVMConstants.writeMenuAuth == false) {
+            return;
+        }
+
         var position = e.getXY();
         e.stopEvent();
 
@@ -157,6 +165,10 @@ Ext.define('MyApp.controller.RHEVMController', {
 
     onRhevmTemplateGridBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
         //RHEVM Template Right Click Menu 호출
+
+        if(RHEVMConstants.writeMenuAuth == false) {
+            return;
+        }
 
         var position = e.getXY();
         e.stopEvent();
@@ -266,8 +278,10 @@ Ext.define('MyApp.controller.RHEVMController', {
                     actionRow : null,
                     childSelectRow : null,
                     childActionRow : null,
+                    writeMenuAuth : false,
                     page : 0
                 });
+
 
         this.control({
             "#hypervisorGrid": {
@@ -303,6 +317,8 @@ Ext.define('MyApp.controller.RHEVMController', {
 
         if(init) {
             Ext.getCmp("hypervisorGrid").reconfigure(Ext.getCmp("hypervisorGrid").store, Ext.getCmp("hypervisorGrid").initialConfig.columns);
+
+            this.setRhevmMenuAuth();
         }
 
         RHEVMConstants.selectRow = null;
@@ -692,6 +708,21 @@ Ext.define('MyApp.controller.RHEVMController', {
         form.findField("template").hide();
         form.findField("displayHypervisor").show();
         form.findField("displayTemplate").show();
+    },
+
+    setRhevmMenuAuth: function() {
+
+        if(RHEVMConstants.writeMenuAuth) {
+
+            Ext.getCmp("hypervisorGrid").getView().headerCt.getGridColumns()[11].setVisible(true);
+            Ext.getCmp("hypervisorGrid").getView().headerCt.getGridColumns()[12].setVisible(true);
+
+        } else {
+
+            Ext.getCmp("hypervisorGrid").getView().headerCt.getGridColumns()[11].setVisible(false);
+            Ext.getCmp("hypervisorGrid").getView().headerCt.getGridColumns()[12].setVisible(false);
+
+        }
     }
 
 });

@@ -77,6 +77,10 @@ Ext.define('MyApp.controller.ALMController', {
     onAlmUserGridBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
         //ALM User Grid Right Click Menu 호출
 
+        if(almConstants.writeMenuAuth02 == false) {
+            return;
+        }
+
         var position = e.getXY();
         e.stopEvent();
 
@@ -90,6 +94,10 @@ Ext.define('MyApp.controller.ALMController', {
     onAlmGroupGridBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
         /*ALM Group Grid Right Click Menu 호출
 
+        if(almConstants.writeMenuAuth03 == false) {
+            return;
+        }
+
         var position = e.getXY();
         e.stopEvent();
 
@@ -101,9 +109,10 @@ Ext.define('MyApp.controller.ALMController', {
     },
 
     onAlmTabPanelTabChange: function(tabPanel, newCard, oldCard, eOpts) {
+
         if(newCard.title == "Project"){
 
-            this.searchAlmProject();
+            this.searchAlmProject(true);
 
         } else if(newCard.title == "User"){
 
@@ -115,12 +124,7 @@ Ext.define('MyApp.controller.ALMController', {
 
         } else if(newCard.title == "Repository"){
 
-            almConstants.selectRow = null;
-
-            Ext.getCmp("almRepositoryGrid").getStore().load();
-
-            var detailPanel = Ext.getCmp("almRepositoryDetailPanel");
-            detailPanel.layout.setActiveItem(0);
+            this.searchAlmRepository(true);
 
         }
     },
@@ -132,6 +136,7 @@ Ext.define('MyApp.controller.ALMController', {
 
         } else if(newCard.title == "User"){
 
+            this.setAlmMenuAuth(0, 1);
             var userStore = Ext.getCmp("almProjectUserGrid").getStore();
             userStore.getProxy().url = GLOBAL.urlPrefix + 'alm/groupmanagement/'+almConstants.selectRow.get("projectCode")+'/users';
             userStore.getProxy().extraParams = {
@@ -143,6 +148,7 @@ Ext.define('MyApp.controller.ALMController', {
 
         } else if(newCard.title == "Confluence"){
 
+            this.setAlmMenuAuth(0, 2);
             var confStore = Ext.getCmp("almProjectConfluenceGrid").getStore();
             confStore.getProxy().url = GLOBAL.urlPrefix + 'alm/project/'+almConstants.selectRow.get("projectCode")+'/confluence';
 
@@ -150,6 +156,7 @@ Ext.define('MyApp.controller.ALMController', {
 
         } else {
 
+            this.setAlmMenuAuth(0, 3);
             var jenkinsStore = Ext.getCmp("almProjectJenkinsGrid").getStore();
             jenkinsStore.getProxy().url = GLOBAL.urlPrefix + 'alm/project/'+almConstants.selectRow.get("projectCode")+'/jenkins';
 
@@ -186,6 +193,8 @@ Ext.define('MyApp.controller.ALMController', {
             this.searchAlmGroupDetail(0);
 
         } else {
+
+            this.setAlmMenuAuth(2, true);
 
             Ext.getCmp("almGroupUserGrid").reconfigure(Ext.getCmp("almGroupUserGrid").store, Ext.getCmp("almGroupUserGrid").initialConfig.columns);
 
@@ -273,6 +282,10 @@ Ext.define('MyApp.controller.ALMController', {
                     groupContextMenu: almGroupGridContextMenu,
                     selectRow : null,
                     actionRow : null,
+                    writeMenuAuth01 : false,
+                    writeMenuAuth02 : false,
+                    writeMenuAuth03 : false,
+                    writeMenuAuth04 : false,
                     page : null,
                     popPage : null
                 });
@@ -320,6 +333,8 @@ Ext.define('MyApp.controller.ALMController', {
 
             Ext.getCmp("almTabPanel").setActiveTab(0);
             Ext.getCmp("almProjectGrid").reconfigure(Ext.getCmp("almProjectGrid").store, Ext.getCmp("almProjectGrid").initialConfig.columns);
+
+            this.setAlmMenuAuth(0);
         }
 
         almConstants.selectRow = null;
@@ -333,9 +348,15 @@ Ext.define('MyApp.controller.ALMController', {
     searchAlmUser: function(init, pagingType) {
 
         if(init) {
+
+            Ext.getCmp("almTabPanel").setActiveTab(1);
             Ext.getCmp("almUserGrid").reconfigure(Ext.getCmp("almUserGrid").store, Ext.getCmp("almUserGrid").initialConfig.columns);
-            almConstants.page = 1;
             Ext.getCmp("inputAlmUserName").setValue("");
+
+            almConstants.page = 1;
+
+            this.setAlmMenuAuth(1);
+
         }
 
         if(pagingType == 'left' && almConstants.page > 1) {
@@ -354,6 +375,59 @@ Ext.define('MyApp.controller.ALMController', {
         });
 
         var detailPanel = Ext.getCmp("almUserDetailPanel");
+        detailPanel.layout.setActiveItem(0);
+
+    },
+
+    searchAlmGroup: function(init, pagingType) {
+
+        if(init) {
+
+            Ext.getCmp("almTabPanel").setActiveTab(2);
+            Ext.getCmp("almGroupGrid").reconfigure(Ext.getCmp("almGroupGrid").store, Ext.getCmp("almGroupGrid").initialConfig.columns);
+            Ext.getCmp("inputAlmGroupName").setValue("");
+
+            almConstants.page = 1;
+
+            this.setAlmMenuAuth(2);
+
+        }
+
+        if(pagingType == 'left' && almConstants.page > 1) {
+            almConstants.page-- ;
+        } else if(pagingType == 'right') {
+            almConstants.page++ ;
+        }
+
+        almConstants.selectRow = null;
+
+        Ext.getCmp("almGroupGrid").getStore().load({
+            params:{
+                limit : almConstants.page,
+                search : Ext.getCmp("inputAlmGroupName").getValue()
+            }
+        });
+
+        var detailPanel = Ext.getCmp("almGroupDetailPanel");
+        detailPanel.layout.setActiveItem(0);
+
+    },
+
+    searchAlmRepository: function(init) {
+
+        if(init) {
+
+            Ext.getCmp("almTabPanel").setActiveTab(3);
+            Ext.getCmp("almRepositoryGrid").reconfigure(Ext.getCmp("almRepositoryGrid").store, Ext.getCmp("almRepositoryGrid").initialConfig.columns);
+
+            this.setAlmMenuAuth(3);
+        }
+
+        almConstants.selectRow = null;
+
+        Ext.getCmp("almRepositoryGrid").getStore().load();
+
+        var detailPanel = Ext.getCmp("almRepositoryDetailPanel");
         detailPanel.layout.setActiveItem(0);
 
     },
@@ -399,34 +473,6 @@ Ext.define('MyApp.controller.ALMController', {
                 search : Ext.getCmp("inputWizardUserName").getValue()
             }
         });
-
-    },
-
-    searchAlmGroup: function(init, pagingType) {
-
-        if(init) {
-            Ext.getCmp("almGroupGrid").reconfigure(Ext.getCmp("almGroupGrid").store, Ext.getCmp("almGroupGrid").initialConfig.columns);
-            almConstants.page = 1;
-            Ext.getCmp("inputAlmGroupName").setValue("");
-        }
-
-        if(pagingType == 'left' && almConstants.page > 1) {
-            almConstants.page-- ;
-        } else if(pagingType == 'right') {
-            almConstants.page++ ;
-        }
-
-        almConstants.selectRow = null;
-
-        Ext.getCmp("almGroupGrid").getStore().load({
-            params:{
-                limit : almConstants.page,
-                search : Ext.getCmp("inputAlmGroupName").getValue()
-            }
-        });
-
-        var detailPanel = Ext.getCmp("almGroupDetailPanel");
-        detailPanel.layout.setActiveItem(0);
 
     },
 
@@ -638,6 +684,71 @@ Ext.define('MyApp.controller.ALMController', {
             }
 
         });
+    },
+
+    setAlmMenuAuth: function(idx, childIdx) {
+        if(idx == 0) {
+
+            if(almConstants.writeMenuAuth01) {
+                Ext.get("almTabProjectPanel").select(".auth-write").show();
+            } else {
+                Ext.get("almTabProjectPanel").select(".auth-write").hide();
+            }
+
+            if(childIdx == null) {
+
+                Ext.getCmp("almProjectGrid").getView().headerCt.getGridColumns()[4].setVisible(almConstants.writeMenuAuth01);
+
+            } else if(childIdx == 1) {
+
+                Ext.getCmp("almProjectUserGrid").getView().headerCt.getGridColumns()[3].setVisible(almConstants.writeMenuAuth01);
+
+            } else if(childIdx == 2) {
+
+                Ext.getCmp("almProjectConfluenceGrid").getView().headerCt.getGridColumns()[1].setVisible(almConstants.writeMenuAuth01);
+
+            } else if(childIdx == 3) {
+
+                Ext.getCmp("almProjectJenkinsGrid").getView().headerCt.getGridColumns()[1].setVisible(almConstants.writeMenuAuth01);
+            }
+
+        } else if(idx == 1) {
+
+            if(almConstants.writeMenuAuth02) {
+                Ext.get("almTabUserPanel").select(".auth-write").show();
+            } else {
+                Ext.get("almTabUserPanel").select(".auth-write").hide();
+            }
+
+            Ext.getCmp("almUserGrid").getView().headerCt.getGridColumns()[6].setVisible(almConstants.writeMenuAuth02);
+            Ext.getCmp("almUserGrid").getView().headerCt.getGridColumns()[7].setVisible(almConstants.writeMenuAuth02);
+
+        } else if(idx == 2) {
+
+            if(almConstants.writeMenuAuth03) {
+                Ext.get("almTabGroupPanel").select(".auth-write").show();
+            } else {
+                Ext.get("almTabGroupPanel").select(".auth-write").hide();
+            }
+
+            Ext.getCmp("almGroupGrid").getView().headerCt.getGridColumns()[4].setVisible(almConstants.writeMenuAuth03);
+
+            if(childIdx) {
+
+                Ext.getCmp("almGroupUserGrid").getView().headerCt.getGridColumns()[3].setVisible(almConstants.writeMenuAuth03);
+
+            }
+
+        } else if(idx == 3) {
+
+            if(almConstants.writeMenuAuth04) {
+                Ext.get("almTabRepositoryPanel").select(".auth-write").show();
+            } else {
+                Ext.get("almTabRepositoryPanel").select(".auth-write").hide();
+            }
+
+            Ext.getCmp("almRepositoryGrid").getView().headerCt.getGridColumns()[4].setVisible(almConstants.writeMenuAuth04);
+        }
     }
 
 });

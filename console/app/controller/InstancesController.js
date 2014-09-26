@@ -34,6 +34,10 @@ Ext.define('MyApp.controller.InstancesController', {
     onInstancesGridBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
         //Instaces Grid Right Click Menu 호출
 
+        if(instancesConstants.writeMenuAuth == false) {
+            return;
+        }
+
         var position = e.getXY();
         e.stopEvent();
 
@@ -134,6 +138,7 @@ Ext.define('MyApp.controller.InstancesController', {
 
         } else if(newCard.title == "Software"){
 
+            this.setInstanceMenuAuth();
             this.searchInstanceDetail(1);
 
         } else if(newCard.title == "OS Package"){
@@ -214,7 +219,8 @@ Ext.define('MyApp.controller.InstancesController', {
                     chartInterval : null,
                     contextMenu: instancesGridContextMenu,
                     selectRow : null,
-                    actionRow : null
+                    actionRow : null,
+                    writeMenuAuth : false
                 });
 
 
@@ -863,6 +869,26 @@ Ext.define('MyApp.controller.InstancesController', {
             }
         });
 
+    },
+
+    setInstanceMenuAuth: function() {
+
+        //Tab에 숨겨진 버튼은 disabled 처리가 안되므로 tab change event에 한번 더 적용
+        if(instancesConstants.writeMenuAuth) {
+
+            Ext.get("instancesContainer").select(".auth-write").show();
+            Ext.getCmp("instanceSoftwareGrid").getView().headerCt.getGridColumns()[6].setVisible(true);
+            Ext.getCmp("instanceSoftwareGrid").getView().headerCt.getGridColumns()[7].setVisible(true);
+            Ext.getCmp("instanceSoftwareGrid").getView().headerCt.getGridColumns()[8].setVisible(true);
+
+        } else {
+
+            Ext.get("instancesContainer").select(".auth-write").hide();
+            Ext.getCmp("instanceSoftwareGrid").getView().headerCt.getGridColumns()[6].setVisible(false);
+            Ext.getCmp("instanceSoftwareGrid").getView().headerCt.getGridColumns()[7].setVisible(false);
+            Ext.getCmp("instanceSoftwareGrid").getView().headerCt.getGridColumns()[8].setVisible(false);
+
+        }
     }
 
 });

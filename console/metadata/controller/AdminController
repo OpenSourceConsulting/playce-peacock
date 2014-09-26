@@ -49,9 +49,11 @@
                     "",
                     "if(init) {",
                     "",
+                    "    Ext.getCmp(\"adminTabPanel\").setActiveTab(0);",
                     "    Ext.getCmp(\"searchUserName\").setValue(\"\");",
                     "    Ext.getCmp(\"userGrid\").reconfigure(Ext.getCmp(\"userGrid\").store, Ext.getCmp(\"userGrid\").initialConfig.columns);",
                     "",
+                    "    this.setAdminMenuAuth(0);",
                     "}",
                     "",
                     "userConstants.selectRow = null;",
@@ -85,9 +87,11 @@
                     "",
                     "if(init) {",
                     "",
+                    "    Ext.getCmp(\"adminTabPanel\").setActiveTab(1);",
                     "    Ext.getCmp(\"searchUserPermissionName\").setValue(\"\");",
                     "    Ext.getCmp(\"userPermissionGrid\").reconfigure(Ext.getCmp(\"userPermissionGrid\").store, Ext.getCmp(\"userPermissionGrid\").initialConfig.columns);",
                     "",
+                    "    this.setAdminMenuAuth(1);",
                     "}",
                     "",
                     "userConstants.selectRow = null;",
@@ -176,7 +180,9 @@
                     "    me : user,",
                     "    contextMenu: userGridContextMenu,",
                     "    selectRow : null,",
-                    "    actionRow : null",
+                    "    actionRow : null,",
+                    "    writeMenuAuth01 : false,",
+                    "    writeMenuAuth02 : false",
                     "});",
                     ""
                 ]
@@ -196,6 +202,10 @@
                 "fn": "onUserGridBeforeItemContextMenu",
                 "implHandler": [
                     "//User Grid Right Click Menu 호출",
+                    "",
+                    "if(userConstants.writeMenuAuth01 == false) {",
+                    "    return;",
+                    "}",
                     "",
                     "var position = e.getXY();",
                     "e.stopEvent();",
@@ -573,6 +583,8 @@
                     "",
                     "} else {",
                     "",
+                    "    this.setAdminMenuAuth(1, 1);",
+                    "    ",
                     "    Ext.getCmp(\"searchPermissionUserName\").setValue(\"\");",
                     "",
                     "    this.searchUserPermissionDetail(1);",
@@ -709,6 +721,53 @@
                 "scope": "me"
             },
             "designerId": "21facce6-844c-434f-a23e-57b86cb3d428"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "idx",
+                    "childIdx"
+                ],
+                "fn": "setAdminMenuAuth",
+                "implHandler": [
+                    "if(idx == 0) {",
+                    "    ",
+                    "    if(userConstants.writeMenuAuth01) {",
+                    "        Ext.get(\"adminTabUserPanel\").select(\".auth-write\").show();",
+                    "    } else {",
+                    "        Ext.get(\"adminTabUserPanel\").select(\".auth-write\").hide();",
+                    "    }",
+                    "    ",
+                    "    Ext.getCmp(\"userGrid\").getView().headerCt.getGridColumns()[11].setVisible(userConstants.writeMenuAuth01);",
+                    "    Ext.getCmp(\"userGrid\").getView().headerCt.getGridColumns()[12].setVisible(userConstants.writeMenuAuth01);",
+                    "    ",
+                    "} else if(idx == 1) {",
+                    "    ",
+                    "    if(userConstants.writeMenuAuth02) {",
+                    "        Ext.get(\"adminTabPermissionPanel\").select(\".auth-write\").show();",
+                    "    } else {",
+                    "        Ext.get(\"adminTabPermissionPanel\").select(\".auth-write\").hide();",
+                    "    }",
+                    "    ",
+                    "    Ext.getCmp(\"userPermissionGrid\").getView().headerCt.getGridColumns()[4].setVisible(userConstants.writeMenuAuth02);",
+                    "    Ext.getCmp(\"userPermissionGrid\").getView().headerCt.getGridColumns()[5].setVisible(userConstants.writeMenuAuth02);",
+                    "    ",
+                    "    if(childIdx == 1) {",
+                    "            ",
+                    "        Ext.getCmp(\"permissionUsersGrid\").getView().headerCt.getGridColumns()[4].setVisible(userConstants.writeMenuAuth02);",
+                    "        ",
+                    "    }",
+                    "    ",
+                    "} "
+                ]
+            },
+            "designerId": "58ebfce4-ba5d-4c27-9fdd-a411dc587ce7"
         }
     ]
 }
