@@ -41,6 +41,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClientException;
 
 import com.athena.peacock.common.core.action.FileWriteAction;
+import com.athena.peacock.common.core.action.ShellAction;
 import com.athena.peacock.common.core.action.support.TargetHost;
 import com.athena.peacock.common.core.command.Command;
 import com.athena.peacock.common.core.util.SshExecUtil;
@@ -184,6 +185,47 @@ public class MachineService {
 			}
 			
 			updateAdditionalInfo(machine);
+		}
+		
+		if (StringUtils.isNotEmpty(machine.getHostName()) && !machine.getHostName().equals(m.getHostName())) {
+
+			// Agent가 Running 상태일 경우 ShellAction으로 agent의 chhost.sh 스크립트 실행
+			// Agent가 Down 상태일 경우 machine_additional_info_tbl에 업데이트 되어 Running 상태로 변경 시 HostName이 변경된다.
+			if (StringUtils.isNotEmpty(machine.getIpAddress()) && peacockTransmitter.isActive(machine.getMachineId())) {
+				try {
+					// /etc/hosts 파일에 저장될 ipAddress가 현재 Machine의 IP인지 수정 대상 IP인지 확인한다.
+					String ipAddress = null;
+					
+					if (StringUtils.isNotEmpty(machine.getIpAddress())) {
+						ipAddress = machine.getIpAddress();
+					} else {
+						ipAddress = m.getIpAddr();
+					}
+					
+					
+					ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
+					cmdMsg.setAgentId(machine.getMachineId());
+					cmdMsg.setBlocking(true);
+
+					int sequence = 0;
+					Command command = new Command("SET_HOSTNAME");
+					
+					ShellAction action = new ShellAction(sequence++);
+					action.setCommand("sh");
+					action.addArguments("chhost.sh");
+					action.addArguments(ipAddress);
+					action.addArguments(machine.getHostName());
+					command.addAction(action);
+					
+					cmdMsg.addCommand(command);
+					
+					PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
+					peacockTransmitter.sendMessage(datagram);
+				} catch (Exception e) {
+					// HostName 변경이 실패하더라고 고정 IP 세팅을 할 수 있도록 예외를 무시한다.
+					logger.error("Unhandled exception has occurred while change hostname.", e);
+				}
+			}
 		}
 		
 		// 세팅하려는 고정 IP 값이 있는지, Agent가 Running 상태인지, 기존 IP와 다른지 검사하여 고정 IP 변경 작업을 수행한다.

@@ -158,6 +158,35 @@ public class AlmConfluenceService {
 			return null;
 		}
 
+		// boolean addPermissionsToSpace(String token, Vector permissions,
+		// String remoteEntityName, String spaceKey) - Give the entity named
+		// remoteEntityName (either a group or a user) the permissions
+		// permissions on the space with the key spaceKey.
+
+	}
+
+	public void addPermissions(String groupcode, String spaceKey) {
+		try {
+
+			// Add permission
+			Object[] vector2 = new Object[4];
+			vector2[0] = getLoginToken();
+			vector2[1] = "VIEWSPACE";
+			vector2[2] = groupcode;
+			vector2[3] = spaceKey;
+			Object tmp2 = rpcClient.execute("confluence2.addPermissionToSpace",
+					vector2);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		// boolean addPermissionsToSpace(String token, Vector permissions,
+		// String remoteEntityName, String spaceKey) - Give the entity named
+		// remoteEntityName (either a group or a user) the permissions
+		// permissions on the space with the key spaceKey.
+
 	}
 
 }

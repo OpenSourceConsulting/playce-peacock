@@ -6,9 +6,9 @@
 	<insert id="insertMachine" parameterType="com.athena.peacock.controller.web.machine.MachineDto">
 		INSERT INTO machine_tbl 
 			        (MACHINE_ID, HYPERVISOR_ID, DISPLAY_ID, DISPLAY_NAME, CLUSTER, IS_PRD, MACHINE_MAC_ADDR, IS_VM, OS_NAME, OS_VER, OS_ARCH
-			        , CPU_CLOCK, CPU_NUM, MEM_SIZE, IP_ADDR, HOST_NAME, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
+			        , CPU_CLOCK, CPU_NUM, MEM_SIZE, IP_ADDR, HOST_NAME, DESCRIPTION, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 
 		     VALUES (#{machineId}, #{hypervisorId}, #{displayId}, #{displayName}, #{cluster}, #{isPrd}, #{machineMacAddr}, #{isVm}, #{osName}, #{osVer}, #{osArch}
-		     		, #{cpuClock}, #{cpuNum}, #{memSize}, #{ipAddr}, #{hostName}, #{regUserId}, NOW(), #{updUserId}, NOW())
+		     		, #{cpuClock}, #{cpuNum}, #{memSize}, #{ipAddr}, #{hostName}, #{description}, #{regUserId}, NOW(), #{updUserId}, NOW())
 	</insert>
 
 	<select id="getMachine" parameterType="String" resultType="com.athena.peacock.controller.web.machine.MachineDto">
@@ -28,6 +28,7 @@
 			   , m.MEM_SIZE AS memSize
 			   , m.IP_ADDR AS ipAddr
 			   , m.HOST_NAME AS hostName
+			   , m.DESCRIPTION AS description
 			   , m.DELETE_YN AS deleteYn
 			   , s.IP_ADDRESS AS ipAddress
 			   , s.NETMASK AS netmask
@@ -70,6 +71,7 @@
 			   , MEM_SIZE = #{memSize}
 			   , IP_ADDR = #{ipAddr}
 			   , HOST_NAME = #{hostName}
+			   , DESCRIPTION = #{description}
 			   , UPD_USER_ID = #{updUserId}
 			   , UPD_DT = NOW()
 		 WHERE MACHINE_ID = #{machineId}
@@ -121,6 +123,7 @@
 			   , MEM_SIZE AS memSize
 			   , IP_ADDR AS ipAddr
 			   , HOST_NAME AS hostName
+			   , DESCRIPTION AS description
 			   , DELETE_YN AS deleteYn
 			   , REG_USER_ID AS regUserId
 			   , REG_DT AS regDt

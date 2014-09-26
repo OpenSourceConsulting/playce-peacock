@@ -99,7 +99,7 @@ public class AlmUserController {
 		if (result.hasErrors()) {
 			DtoJsonResponse response = new DtoJsonResponse();
 			response.setSuccess(false);
-			response.setMsg("invalid parameter");
+			response.setMsg("잘못된 파라미터가 입력되었습니다.");
 			response.setData(result.getAllErrors());
 			return response;
 		}
@@ -116,7 +116,7 @@ public class AlmUserController {
 		if (result.hasErrors()) {
 			DtoJsonResponse response = new DtoJsonResponse();
 			response.setSuccess(false);
-			response.setMsg("invalid parameter");
+			response.setMsg("잘못된 파라미터가 입력되었습니다.");
 			response.setData(result.getAllErrors());
 			return response;
 		}

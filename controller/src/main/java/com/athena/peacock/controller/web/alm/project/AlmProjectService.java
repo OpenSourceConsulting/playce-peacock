@@ -30,6 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tmatesoft.svn.core.SVNException;
 
+import com.athena.peacock.controller.web.alm.confluence.AlmConfluenceService;
 import com.athena.peacock.controller.web.alm.crowd.AlmCrowdService;
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmGroupDto;
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmUserDto;
@@ -65,6 +66,9 @@ public class AlmProjectService {
 	@Autowired
 	private AlmSvnService svnService;
 
+	@Autowired
+	private AlmConfluenceService confluenceService;
+
 	public AlmProjectService() {
 		// TODO Auto-generated constructor stub
 
@@ -99,7 +103,7 @@ public class AlmProjectService {
 		// SVN 생성
 		// Group 생성
 		addGroup(project.getProjectCode(), project.getGroupDescription());
-		response.setMsg("프로젝트 생성 성공");
+		response.setMsg("프로젝트가 생성되었습니다");
 		return response;
 		//
 
@@ -109,7 +113,7 @@ public class AlmProjectService {
 	public DtoJsonResponse createProjectWizrd(ProjectWizardDto project) {
 
 		DtoJsonResponse response = new DtoJsonResponse();
-		response.setMsg("프로젝트 Wizard 생성 요청 되었습니다.");
+		response.setMsg("프로젝트 마법사 생성이 요청되었습니다");
 
 		// Project DTO
 		ProjectDto pDto = project.getProject();
@@ -147,6 +151,8 @@ public class AlmProjectService {
 			}
 		}
 
+		addPermissionToSpace(pDto.getProjectCode(), confluences);
+
 		// SVN 프로젝트 생성
 		try {
 			svnService.createSvnProject(pDto.getRepository(),
@@ -171,10 +177,10 @@ public class AlmProjectService {
 		int count = projectDao.getProjectExist(projectCode);
 
 		if (count == 0) {
-			response.setMsg("사용가능한 code 입니다.");
+			response.setMsg("사용가능한 코드입니다");
 		} else {
 			response.setSuccess(false);
-			response.setMsg("이미 사용중인 code 입니다.");
+			response.setMsg("이미 사용중인 코드입니다.");
 		}
 
 		return response;
@@ -201,16 +207,16 @@ public class AlmProjectService {
 
 		if (mappingtype.equals("jenkins")) {
 			mappingDto.setMappingType(20);
-			response.setMsg("Jenkins Job이 추가되었습니다.");
+			response.setMsg("Jenkins Job이 추가되었습니다");
 		} else if (mappingtype.equals("svn")) {
 			mappingDto.setMappingType(30);
-			response.setMsg("SVN Repository가 추가되었습니다.");
+			response.setMsg("SVN Repository가 추가되었습니다");
 		} else if (mappingtype.equals("confluence")) {
 			mappingDto.setMappingType(10);
-			response.setMsg("Confluence Space가 추가되었습니다.");
+			response.setMsg("Confluence Space가 추가되었습니다");
 		} else {
 			response.setSuccess(false);
-			response.setMsg("mapping code가 정확하지 않습니다");
+			response.setMsg("맵핑 코드가 정확하지 않습니다");
 			return response;
 		}
 
@@ -238,7 +244,7 @@ public class AlmProjectService {
 			mappingDto.setMappingType(10);
 		} else {
 			response.setSuccess(false);
-			response.setMsg("mapping code가 정확하지 않습니다");
+			response.setMsg("맵핑 코드가 정확하지 않습니다");
 			return response;
 		}
 
@@ -257,13 +263,13 @@ public class AlmProjectService {
 
 		if (mappingtype.equals("jenkins")) {
 			mappingDto.setMappingType(20);
-			response.setMsg("Jenkins Job이 삭제되었습니다.");
+			response.setMsg("Jenkins Job이 삭제되었습니다");
 		} else if (mappingtype.equals("svn")) {
 			mappingDto.setMappingType(30);
-			response.setMsg("SVN Repository가 삭제되었습니다.");
+			response.setMsg("SVN Repository가 삭제되었습니다");
 		} else if (mappingtype.equals("confluence")) {
 			mappingDto.setMappingType(10);
-			response.setMsg("Confluence Space가 삭제되었습니다.");
+			response.setMsg("Confluence Space가 삭제되었습니다");
 		} else {
 			response.setSuccess(false);
 			response.setMsg("mapping code가 정확하지 않습니다");
@@ -301,5 +307,14 @@ public class AlmProjectService {
 		}
 	}
 
+	private void addPermissionToSpace(String groupName,
+			List<ProjectMappingDto> spaces) {
+
+		for (ProjectMappingDto space : spaces) {
+			// USER HISTORY
+			confluenceService.addPermissions(groupName, space.getMappingCode());
+		}
+
+	}
 }
 // end of UserService.java
