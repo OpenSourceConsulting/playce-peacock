@@ -203,8 +203,6 @@ public class AlmProjectController {
 		return almProjectService.getProjectMapping(projectCode, mappingType);
 	}
 
-	
-
 	/**
 	 * <pre>
 	 * 프로젝트 Wizard 실행
@@ -237,25 +235,25 @@ public class AlmProjectController {
 		return almProjectService.checkProjectCode(projectCode);
 	}
 
-	/*@RequestMapping(value = "/project/test", method = RequestMethod.GET)
+	@RequestMapping(value = "/project/startjob", method = RequestMethod.GET)
 	public @ResponseBody
-	ProjectWizardDto getProjectMappingTest() {
-		return almProjectService.getWizard();
-	}
-	
-	@RequestMapping(value = "/project/svn", method = RequestMethod.GET)
-	public @ResponseBody
-	DtoJsonResponse svnHistory() {
-		try {
-			svnService.getSvn();
-		} catch (SVNException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	DtoJsonResponse startJob() {
+		almProjectService.processProjectMapping();
 		return null;
+	}
 
-		// return almProjectService.createProjectWizrd();
-	}*/
+	/*
+	 * @RequestMapping(value = "/project/test", method = RequestMethod.GET)
+	 * public @ResponseBody ProjectWizardDto getProjectMappingTest() { return
+	 * almProjectService.getWizard(); }
+	 * 
+	 * @RequestMapping(value = "/project/svn", method = RequestMethod.GET)
+	 * public @ResponseBody DtoJsonResponse svnHistory() { try {
+	 * svnService.getSvn(); } catch (SVNException e) { // TODO Auto-generated
+	 * catch block e.printStackTrace(); } return null;
+	 * 
+	 * // return almProjectService.createProjectWizrd(); }
+	 */
 
 }
 // end of AlmUserController.java

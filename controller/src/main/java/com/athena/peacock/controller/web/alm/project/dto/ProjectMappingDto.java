@@ -26,10 +26,10 @@ package com.athena.peacock.controller.web.alm.project.dto;
 
 /**
  * <pre>
- * 
+ * Project Mapping Dto
  * </pre>
  * 
- * @author Bong-Jin Kwon
+ * @author Dave
  * @version 1.0
  */
 public class ProjectMappingDto {
@@ -39,6 +39,13 @@ public class ProjectMappingDto {
 	private String projectCode;
 	private int mappingType;
 	private String mappingCode;
+	private String createTime;
+	private String startTime;
+	private String endTime;
+	private String status;
+	private String exitCode;
+	private String exitMessage;
+	private String lastUpdated;
 
 	public String getProjectCode() {
 		return projectCode;
@@ -62,6 +69,62 @@ public class ProjectMappingDto {
 
 	public void setMappingCode(String mappingCode) {
 		this.mappingCode = mappingCode;
+	}
+
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getExitCode() {
+		return exitCode;
+	}
+
+	public void setExitCode(String exitCode) {
+		this.exitCode = exitCode;
+	}
+
+	public String getExitMessage() {
+		return exitMessage;
+	}
+
+	public void setExitMessage(String exitMessage) {
+		this.exitMessage = exitMessage;
+	}
+
+	public String getLastUpdated() {
+		return lastUpdated;
+	}
+
+	public void setLastUpdated(String lastUpdated) {
+		this.lastUpdated = lastUpdated;
 	}
 
 }

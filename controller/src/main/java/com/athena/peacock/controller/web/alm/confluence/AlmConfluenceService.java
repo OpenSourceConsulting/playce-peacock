@@ -39,6 +39,7 @@ import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.athena.peacock.controller.web.alm.confluence.dto.SpaceErrorDto;
 import com.athena.peacock.controller.web.alm.confluence.dto.SpaceSummaryDto;
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmUserDto;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
@@ -165,7 +166,10 @@ public class AlmConfluenceService {
 
 	}
 
-	public void addPermissions(String groupcode, String spaceKey) {
+	public SpaceErrorDto addPermissions(String groupcode, String spaceKey) {
+
+		SpaceErrorDto response = new SpaceErrorDto();
+
 		try {
 
 			// Add permission
@@ -174,13 +178,14 @@ public class AlmConfluenceService {
 			vector2[1] = "VIEWSPACE";
 			vector2[2] = groupcode;
 			vector2[3] = spaceKey;
-			Object tmp2 = rpcClient.execute("confluence2.addPermissionToSpace",
-					vector2);
-
+			rpcClient.execute("confluence2.addPermissionToSpace", vector2);
+			response.setSuccess(true);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			response.setSuccess(false);
+			response.setErrorMessage(e.getMessage());
 		}
+
+		return response;
 
 		// boolean addPermissionsToSpace(String token, Vector permissions,
 		// String remoteEntityName, String spaceKey) - Give the entity named

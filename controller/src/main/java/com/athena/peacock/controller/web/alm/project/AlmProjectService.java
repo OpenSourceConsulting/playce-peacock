@@ -31,11 +31,13 @@ import org.springframework.stereotype.Service;
 import org.tmatesoft.svn.core.SVNException;
 
 import com.athena.peacock.controller.web.alm.confluence.AlmConfluenceService;
+import com.athena.peacock.controller.web.alm.confluence.dto.SpaceErrorDto;
 import com.athena.peacock.controller.web.alm.crowd.AlmCrowdService;
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmGroupDto;
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmUserDto;
 import com.athena.peacock.controller.web.alm.jenkins.AlmJenkinsService;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
+import com.athena.peacock.controller.web.alm.project.dto.ProjectHistoryDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectWizardDto;
 import com.athena.peacock.controller.web.alm.svn.AlmSvnService;
@@ -74,7 +76,7 @@ public class AlmProjectService {
 
 	}
 
-	// Project List
+	// Project 리스트 정보
 	public GridJsonResponse getProjectList(ExtjsGridParam gridParam) {
 
 		GridJsonResponse response = new GridJsonResponse();
@@ -100,9 +102,15 @@ public class AlmProjectService {
 		DtoJsonResponse response = new DtoJsonResponse();
 		projectDao.insertProject(project);
 
+		createProjectHistor(project.getProjectCode(), project.getProjectCode()
+				+ " 프로젝트가 생성되었습니다.");
+
 		// SVN 생성
 		// Group 생성
 		addGroup(project.getProjectCode(), project.getGroupDescription());
+
+		createProjectHistor(project.getProjectCode(), project.getProjectCode()
+				+ " 프로젝트가 그룹이 생성되었습니다.");
 		response.setMsg("프로젝트가 생성되었습니다");
 		return response;
 		//
@@ -112,17 +120,25 @@ public class AlmProjectService {
 	// Project Wizard 실행
 	public DtoJsonResponse createProjectWizrd(ProjectWizardDto project) {
 
+		// Project 및 맵핑정보를 DB에 저장 후 실제 Process는 Quarz Job에서 처리
+
 		DtoJsonResponse response = new DtoJsonResponse();
 		response.setMsg("프로젝트 마법사 생성이 요청되었습니다");
 
 		// Project DTO
 		ProjectDto pDto = project.getProject();
 
-		// Project Insert
+		// Project 저장
 		projectDao.insertProject(pDto);
+
+		createProjectHistor(pDto.getProjectCode(), pDto.getProjectCode()
+				+ " 프로젝트가 생성되었습니다.");
 
 		// Project Group 생성
 		addGroup(pDto.getProjectCode(), pDto.getGroupDescription());
+
+		createProjectHistor(pDto.getProjectCode(), pDto.getProjectCode()
+				+ " 프로젝트 그룹이 생성되었습니다.");
 
 		// User를 그룹에 추가
 		List<AlmUserDto> userList = project.getUsers();
@@ -138,6 +154,9 @@ public class AlmProjectService {
 		jenkinsMapping.setProjectCode(pDto.getProjectCode());
 		projectDao.insertProjectMapping(jenkinsMapping);
 
+		createProjectHistor(pDto.getProjectCode(), pDto.getProjectCode()
+				+ " 프로젝트에 Jenkins Job 생성 요청 되었습니다.");
+
 		// Confluence 저장
 		List<ProjectMappingDto> confluences = project.getConfluence();
 
@@ -148,23 +167,36 @@ public class AlmProjectService {
 				confluenceMapping.setProjectCode(pDto.getProjectCode());
 				confluenceMapping.setMappingCode(confluence.getMappingCode());
 				projectDao.insertProjectMapping(confluenceMapping);
+
+				createProjectHistor(
+						pDto.getProjectCode(),
+						pDto.getProjectCode() + " 프로젝트에 "
+								+ confluence.getMappingCode()
+								+ " Confluence Space 권한 생성 요청 되었습니다.");
 			}
 		}
 
-		addPermissionToSpace(pDto.getProjectCode(), confluences);
+		// SVN Mapping
+		ProjectMappingDto svnMapping = new ProjectMappingDto();
+		svnMapping.setMappingCode(pDto.getProjectCode());
+		svnMapping.setMappingType(30);
+		svnMapping.setProjectCode(pDto.getProjectCode());
+		projectDao.insertProjectMapping(svnMapping);
+
+		createProjectHistor(pDto.getProjectCode(), pDto.getProjectCode()
+				+ " 프로젝트에 SVN Project 생성 요청 되었습니다.");
+
+		// addPermissionToSpace(pDto.getProjectCode(), confluences);
 
 		// SVN 프로젝트 생성
-		try {
-			svnService.createSvnProject(pDto.getRepository(),
-					pDto.getProjectCode());
-		} catch (SVNException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		/*
+		 * try { svnService.createSvnProject(pDto.getRepository(),
+		 * pDto.getProjectCode()); } catch (SVNException e) { // TODO
+		 * Auto-generated catch block e.printStackTrace(); }
+		 */
 		// Job 생성
 
-		createJob("JobCopy", null, pDto.getProjectCode());
+		// createJob("JobCopy", null, pDto.getProjectCode());
 
 		return response;
 
@@ -304,17 +336,83 @@ public class AlmProjectService {
 		for (AlmUserDto username : userList) {
 			// USER HISTORY
 			crowdService.addUserToGroup(username.getUserId(), groupName);
+			createProjectHistor(groupName,
+					groupName + " 프로젝트 그룹에 " + username.getDisplayName()
+							+ "유저가 추가되었습니다.");
 		}
 	}
 
-	private void addPermissionToSpace(String groupName,
-			List<ProjectMappingDto> spaces) {
+	private SpaceErrorDto addPermissionToSpace(ProjectMappingDto spaces) {
 
-		for (ProjectMappingDto space : spaces) {
-			// USER HISTORY
-			confluenceService.addPermissions(groupName, space.getMappingCode());
+		return confluenceService.addPermissions(spaces.getProjectCode(),
+				spaces.getMappingCode());
+
+	}
+
+	private void createProjectHistor(String projectCode, String message) {
+
+		ProjectHistoryDto history = new ProjectHistoryDto();
+		history.setProjectCode(projectCode);
+		history.setMessage(message);
+		projectDao.insertProjectHistory(history);
+	}
+
+	public void processProjectMapping() {
+
+		List<ProjectMappingDto> lists = projectDao.getProjectMappingStandBy();
+
+		for (ProjectMappingDto list : lists) {
+
+			// History
+			if (list.getMappingType() == 10) {
+
+				projectDao.startProjectMappingJob(list);
+				SpaceErrorDto spaceResponse = addPermissionToSpace(list);
+
+				if (spaceResponse.isSuccess()) {
+					createProjectHistor(
+							list.getProjectCode(),
+							list.getProjectCode() + " 프로젝트에 "
+									+ list.getMappingCode()
+									+ " Confluence Space 권한 생성 되었습니다.");
+					list.setStatus("COMPLETE");
+				} else {
+					list.setStatus("FAIL");
+					list.setExitMessage(spaceResponse.getErrorMessage());
+				}
+
+				projectDao.endProjectMappingJob(list);
+			} else if (list.getMappingType() == 20) {
+
+				// projectDao.startProjectMappingJob(list);
+				// createJob("JobCopy", null, list.getProjectCode());
+				// projectDao.endProjectMappingJob(list);
+			} else if (list.getMappingType() == 30) {
+				projectDao.startProjectMappingJob(list);
+
+				try {
+					svnService.createSvnProject("hiway", list.getProjectCode());
+					createProjectHistor(
+							list.getProjectCode(),
+							list.getProjectCode() + " 프로젝트에 "
+									+ list.getMappingCode()
+									+ " SVN Project 생성 되었습니다.");
+					list.setStatus("COMPLETE");
+				} catch (SVNException e) {
+					list.setStatus("FAIL");
+					list.setExitMessage(e.getMessage());
+					createProjectHistor(
+							list.getProjectCode(),
+							list.getProjectCode() + " 프로젝트에 "
+									+ list.getMappingCode()
+									+ " SVN Project 생성 실패했습니다.");
+				}
+
+				projectDao.endProjectMappingJob(list);
+
+			}
+
 		}
-
 	}
 }
 // end of UserService.java

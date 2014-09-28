@@ -24,6 +24,7 @@
 		    ,PROJECT_NAME
 		    ,PROJECT_DESCRIPTION
 		    ,REPOSITORY_CODE
+		    
 		)
 		VALUES (
 			#{projectCode}
@@ -34,7 +35,18 @@
 	</insert>
 	
 	<select id="getProjectMapping" parameterType="com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto" resultType="com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto">
-		 SELECT PROJECT_CODE as projectCode, MAPPING_TYPE as mappingType, MAPPING_CODE as mappingCode  from alm_project_mapping_tbl
+		 SELECT 
+		 	PROJECT_CODE as projectCode, 
+		 	MAPPING_TYPE as mappingType, 
+		 	MAPPING_CODE as mappingCode, 
+		 	CREATE_TIME as createTime, 
+		 	START_TIME as startTime, 
+		 	END_TIME as endTime, 
+		 	STATUS as status, 
+		 	EXIT_CODE as exitCode, 
+		 	EXIT_MESSAGE as exitMessage, 
+		 	LAST_UPDATED as lastUpdated  
+		 FROM alm_project_mapping_tbl
 		 WHERE PROJECT_CODE = #{projectCode} and MAPPING_TYPE = #{mappingType}
 	</select>
 	
@@ -44,13 +56,61 @@
 			PROJECT_CODE
 		    ,MAPPING_TYPE
 		    ,MAPPING_CODE
+		    ,CREATE_TIME
+		    ,STATUS
 		)
 		VALUES (
 			#{projectCode}
 			,#{mappingType}
 			,#{mappingCode}
+			, now()
+			, 'STANDBY'
 		)
 	</insert>
+	
+	<update id="startProjectMapping" parameterType="com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto">
+		UPDATE 
+			alm_project_mapping_tbl
+		SET
+			START_TIME = NOW()
+			,STATUS = 'CREATING'
+			,LAST_UPDATED = NOW()
+		WHERE
+			PROJECT_CODE = #{projectCode} and
+			MAPPING_TYPE = #{mappingType} and
+			MAPPING_CODE = #{mappingCode}
+	</update>
+	
+	<update id="endProjectMapping" parameterType="com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto">
+		UPDATE 
+			alm_project_mapping_tbl
+		SET
+			END_TIME = NOW()
+			,STATUS = #{status}
+			,LAST_UPDATED = NOW()
+			,EXIT_CODE = #{exitCode}
+			,EXIT_MESSAGE = #{exitMessage}
+		WHERE
+			PROJECT_CODE = #{projectCode} and
+			MAPPING_TYPE = #{mappingType} and
+			MAPPING_CODE = #{mappingCode}
+	</update>
+	
+	<select id="getProjectMappingStandBy"  resultType="com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto">
+		 SELECT 
+		 	PROJECT_CODE as projectCode, 
+		 	MAPPING_TYPE as mappingType, 
+		 	MAPPING_CODE as mappingCode, 
+		 	CREATE_TIME as createTime, 
+		 	START_TIME as startTime, 
+		 	END_TIME as endTime, 
+		 	STATUS as status, 
+		 	EXIT_CODE as exitCode, 
+		 	EXIT_MESSAGE as exitMessage, 
+		 	LAST_UPDATED as lastUpdated  
+		 FROM alm_project_mapping_tbl
+		 WHERE STATUS='STANDBY'
+	</select>
 	
 	<delete id="deleteProjectMapping" parameterType="com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto">
 		DELETE FROM 
@@ -62,5 +122,19 @@
 		AND 
 			MAPPING_CODE =  #{mappingCode}	
 	</delete>
+	
+	<insert id="insertProjectHistory" parameterType="com.athena.peacock.controller.web.alm.project.dto.ProjectHistoryDto">
+		INSERT INTO  alm_project_history_tbl
+		(
+			PROJECT_CODE
+		    ,MESSAGE
+		    ,CREATE_TIME
+		)
+		VALUES (
+			#{projectCode}
+			,#{message}
+			, now()
+		)
+	</insert>
 	
 </mapper>
