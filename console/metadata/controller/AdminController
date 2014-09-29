@@ -492,7 +492,7 @@
                     "            if(field == 'isWrite' && checked == true) {",
                     "                rec.set(\"isRead\", checked);",
                     "            }",
-                    "            ",
+                    "",
                     "            if(field == 'isRead' && checked == false) {",
                     "                rec.set(\"isWrite\", checked);",
                     "            }",

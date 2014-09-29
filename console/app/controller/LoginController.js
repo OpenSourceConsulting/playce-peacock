@@ -297,7 +297,7 @@ Ext.define('MyApp.controller.LoginController', {
         } else {
 
             //Left Menu Read 권한 설정
-            Ext.getCmp("menuTreePanel").getRootNode().cascade(function(n) {
+            Ext.getCmp("menuTreePanel").getRootNode().cascadeBy(function(n) {
 
                 var displayFlag = false;
 
