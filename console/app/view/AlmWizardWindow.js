@@ -27,8 +27,9 @@ Ext.define('MyApp.view.AlmWizardWindow', {
         'Ext.button.Button',
         'Ext.grid.Panel',
         'Ext.grid.View',
-        'Ext.form.field.Text',
+        'Ext.form.field.ComboBox',
         'Ext.grid.column.Action',
+        'Ext.grid.plugin.CellEditing',
         'Ext.grid.RowNumberer',
         'Ext.toolbar.Spacer',
         'Ext.form.field.Display'
@@ -247,7 +248,8 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                                 {
                                                                     xtype: 'textfield',
                                                                     fieldLabel: 'Filtering',
-                                                                    labelWidth: 60
+                                                                    labelWidth: 60,
+                                                                    emptyText: 'Search Space Name'
                                                                 }
                                                             ]
                                                         }
@@ -267,9 +269,30 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
-                                                            minWidth: 80,
+                                                            minWidth: 40,
                                                             dataIndex: 'type',
                                                             text: 'Type'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'authType',
+                                                            emptyCellText: 'Select Auth Type',
+                                                            text: 'Auth Type',
+                                                            editor: {
+                                                                xtype: 'combobox',
+                                                                emptyText: 'Select Auth Type',
+                                                                multiSelect: true,
+                                                                store: [
+                                                                    [
+                                                                        'VIEWSPACE',
+                                                                        'VIEWSPACE'
+                                                                    ],
+                                                                    [
+                                                                        'COMMENT',
+                                                                        'COMMENT'
+                                                                    ]
+                                                                ]
+                                                            }
                                                         },
                                                         {
                                                             xtype: 'actioncolumn',
@@ -298,6 +321,11 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                                 }
                                                             ]
                                                         }
+                                                    ],
+                                                    plugins: [
+                                                        Ext.create('Ext.grid.plugin.CellEditing', {
+
+                                                        })
                                                     ]
                                                 }
                                             ]
@@ -350,9 +378,14 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
-                                                            minWidth: 80,
+                                                            minWidth: 40,
                                                             dataIndex: 'type',
                                                             text: 'Type'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'authType',
+                                                            text: 'Auth Type'
                                                         },
                                                         {
                                                             xtype: 'actioncolumn',
@@ -857,6 +890,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                                     var spaceItem = {};
                                                                     spaceItem.mappingCode = item.key;
                                                                     spaceItem.mappingType = "10";
+                                                                    spaceItem.mappingPermission = item.authType;
 
                                                                     spaceItems.push(spaceItem);
                                                                 });

@@ -40,6 +40,15 @@ Ext.define('MyApp.controller.GlobalController', {
                     icon: Ext.Msg.ERROR
                 });
 
+            }else if(response.status == 403){
+
+                Ext.Msg.show({
+                    title:'Server Error',
+                    msg: Ext.JSON.decode(response.responseText).msg,
+                    buttons: Ext.Msg.OK,
+                    icon: Ext.Msg.ERROR
+                });
+
             }else{
 
                 Ext.Msg.show({

@@ -36,6 +36,10 @@ Ext.define('MyApp.model.SpaceSummaryModel', {
         {
             name: 'url',
             type: 'string'
+        },
+        {
+            name: 'authType',
+            type: 'string'
         }
     ]
 });

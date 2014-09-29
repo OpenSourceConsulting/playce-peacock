@@ -546,6 +546,7 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
+                                                                "emptyText": "Search Space Name",
                                                                 "fieldLabel": "Filtering",
                                                                 "labelWidth": 60,
                                                                 "layout|flex": null
@@ -591,10 +592,48 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "dataIndex": "type",
-                                                        "minWidth": 80,
+                                                        "minWidth": 40,
                                                         "text": "Type"
                                                     },
                                                     "designerId": "521ca81b-9123-49b6-b224-58d08fddb59a"
+                                                },
+                                                {
+                                                    "type": "Ext.grid.column.Column",
+                                                    "reference": {
+                                                        "name": "columns",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "dataIndex": "authType",
+                                                        "emptyCellText": "Select Auth Type",
+                                                        "text": "Auth Type"
+                                                    },
+                                                    "designerId": "2cc92c9a-cce2-4ceb-a4ca-5614c09efc8b",
+                                                    "cn": [
+                                                        {
+                                                            "type": "Ext.form.field.ComboBox",
+                                                            "reference": {
+                                                                "name": "editor",
+                                                                "type": "object"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "emptyText": "Select Auth Type",
+                                                                "multiSelect": true,
+                                                                "store": [
+                                                                    "[",
+                                                                    "    ['VIEWSPACE','VIEWSPACE'],",
+                                                                    "    ['COMMENT','COMMENT']",
+                                                                    "]"
+                                                                ]
+                                                            },
+                                                            "configAlternates": {
+                                                                "store": "array"
+                                                            },
+                                                            "designerId": "1bf0135e-8583-4878-9f6a-d05ad9677430"
+                                                        }
+                                                    ]
                                                 },
                                                 {
                                                     "type": "Ext.grid.column.Action",
@@ -671,6 +710,15 @@
                                                             ]
                                                         }
                                                     ]
+                                                },
+                                                {
+                                                    "type": "Ext.grid.plugin.CellEditing",
+                                                    "reference": {
+                                                        "name": "plugins",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": "Ext.grid.plugin.CellEditing",
+                                                    "designerId": "bdcc4928-59aa-4245-bf5e-5c4dc993025d"
                                                 }
                                             ]
                                         }
@@ -802,10 +850,23 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "dataIndex": "type",
-                                                        "minWidth": 80,
+                                                        "minWidth": 40,
                                                         "text": "Type"
                                                     },
                                                     "designerId": "1fd5aca6-8b75-4ef9-ad1b-1f9567939def"
+                                                },
+                                                {
+                                                    "type": "Ext.grid.column.Column",
+                                                    "reference": {
+                                                        "name": "columns",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "dataIndex": "authType",
+                                                        "text": "Auth Type"
+                                                    },
+                                                    "designerId": "f9c1b513-f292-4cb0-9de1-fb38eb296993"
                                                 },
                                                 {
                                                     "type": "Ext.grid.column.Action",
@@ -2115,6 +2176,7 @@
                                                             "            var spaceItem = {};",
                                                             "            spaceItem.mappingCode = item.key;",
                                                             "            spaceItem.mappingType = \"10\";",
+                                                            "            spaceItem.mappingPermission = item.authType;",
                                                             "",
                                                             "            spaceItems.push(spaceItem);",
                                                             "        });",
