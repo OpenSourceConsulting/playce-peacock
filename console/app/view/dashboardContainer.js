@@ -234,10 +234,13 @@ Ext.define('MyApp.view.dashboardContainer', {
                                         {
                                             type: 'Category',
                                             fields: [
-                                                'cate'
+                                                'instanceName'
                                             ],
                                             label: {
                                                 renderer: function(v) {
+                                                    if(v == null) {
+                                                        return v;
+                                                    }
                                                     if(v.length > 13) {
                                                         return v.substring(0, 13) + "..";
                                                     } else {
@@ -250,8 +253,8 @@ Ext.define('MyApp.view.dashboardContainer', {
                                         {
                                             type: 'Numeric',
                                             fields: [
-                                                'cpu1',
-                                                'cpu2'
+                                                'cpuUsed',
+                                                'cpuFree'
                                             ],
                                             position: 'bottom',
                                             maximum: 100,
@@ -268,8 +271,8 @@ Ext.define('MyApp.view.dashboardContainer', {
                                             axis: 'bottom',
                                             xField: 'instanceName',
                                             yField: [
-                                                'cpu1',
-                                                'cpu2'
+                                                'cpuUsed',
+                                                'cpuFree'
                                             ],
                                             stacked: false
                                         }
@@ -295,10 +298,13 @@ Ext.define('MyApp.view.dashboardContainer', {
                                         {
                                             type: 'Category',
                                             fields: [
-                                                'cate'
+                                                'instanceName'
                                             ],
                                             label: {
                                                 renderer: function(v) {
+                                                    if(v == null) {
+                                                        return v;
+                                                    }
                                                     if(v.length > 13) {
                                                         return v.substring(0, 13) + "..";
                                                     } else {
@@ -311,8 +317,8 @@ Ext.define('MyApp.view.dashboardContainer', {
                                         {
                                             type: 'Numeric',
                                             fields: [
-                                                'memory1',
-                                                'memory2'
+                                                'memoryUsed',
+                                                'memoryFree'
                                             ],
                                             position: 'bottom',
                                             maximum: 100,
@@ -329,8 +335,8 @@ Ext.define('MyApp.view.dashboardContainer', {
                                             axis: 'bottom',
                                             xField: 'instanceName',
                                             yField: [
-                                                'memory1',
-                                                'memory2'
+                                                'memoryUsed',
+                                                'memoryFree'
                                             ],
                                             stacked: false
                                         }
@@ -357,10 +363,13 @@ Ext.define('MyApp.view.dashboardContainer', {
                                         {
                                             type: 'Category',
                                             fields: [
-                                                'cate'
+                                                'instanceName'
                                             ],
                                             label: {
                                                 renderer: function(v) {
+                                                    if(v == null) {
+                                                        return v;
+                                                    }
                                                     if(v.length > 13) {
                                                         return v.substring(0, 13) + "..";
                                                     } else {

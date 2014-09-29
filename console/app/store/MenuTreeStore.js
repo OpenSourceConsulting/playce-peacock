@@ -31,7 +31,7 @@ Ext.define('MyApp.store.MenuTreeStore', {
                 children: [
                     {
                         text: '<b>Dashboard</b>',
-                        id: 'ROLD_DASHBOARD',
+                        id: 'ROLE_DASHBOARD',
                         leaf: true,
                         iconCls: 'no-icon',
                         cls: 'parent-node last-children',

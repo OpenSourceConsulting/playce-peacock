@@ -217,7 +217,8 @@
                                             "combo.up('form').getForm().findField(\"sockets\").setValue(records[0].get(\"sockets\"));",
                                             "combo.up('form').getForm().findField(\"cores\").setValue(\"1\");",
                                             "",
-                                            "//alert(records[0].get(\"clusterMap\"));"
+                                            "//alert(records[0].get(\"clusterMap\"));",
+                                            ""
                                         ],
                                         "name": "select",
                                         "scope": "me"

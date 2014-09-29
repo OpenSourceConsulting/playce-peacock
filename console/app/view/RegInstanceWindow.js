@@ -550,6 +550,7 @@ Ext.define('MyApp.view.RegInstanceWindow', {
         combo.up('form').getForm().findField("cores").setValue("1");
 
         //alert(records[0].get("clusterMap"));
+
     },
 
     onComboboxChange1: function(field, newValue, oldValue, eOpts) {

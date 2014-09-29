@@ -538,11 +538,14 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "fields": [
-                                            "cate"
+                                            "instanceName"
                                         ],
                                         "label": [
                                             "{",
                                             "    renderer: function(v) {",
+                                            "        if(v == null) {",
+                                            "            return v;",
+                                            "        }",
                                             "        if(v.length > 13) {",
                                             "            return v.substring(0, 13) + \"..\";",
                                             "        } else {",
@@ -566,8 +569,8 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "fields": [
-                                            "cpu1",
-                                            "cpu2"
+                                            "cpuUsed",
+                                            "cpuFree"
                                         ],
                                         "maximum": 100,
                                         "minimum": 0,
@@ -595,8 +598,8 @@
                                         ],
                                         "xField": "instanceName",
                                         "yField": [
-                                            "cpu1",
-                                            "cpu2"
+                                            "cpuUsed",
+                                            "cpuFree"
                                         ]
                                     },
                                     "designerId": "6863cb77-c1df-4a97-b216-7c1e2bc236d0"
@@ -652,11 +655,14 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "fields": [
-                                            "cate"
+                                            "instanceName"
                                         ],
                                         "label": [
                                             "{",
                                             "    renderer: function(v) {",
+                                            "        if(v == null) {",
+                                            "            return v;",
+                                            "        }",
                                             "        if(v.length > 13) {",
                                             "            return v.substring(0, 13) + \"..\";",
                                             "        } else {",
@@ -680,8 +686,8 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "fields": [
-                                            "memory1",
-                                            "memory2"
+                                            "memoryUsed",
+                                            "memoryFree"
                                         ],
                                         "maximum": 100,
                                         "minimum": 0,
@@ -709,8 +715,8 @@
                                         ],
                                         "xField": "instanceName",
                                         "yField": [
-                                            "memory1",
-                                            "memory2"
+                                            "memoryUsed",
+                                            "memoryFree"
                                         ]
                                     },
                                     "designerId": "37748436-0f77-46d9-a232-9e0f9da98a52"
@@ -769,11 +775,14 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "fields": [
-                                            "cate"
+                                            "instanceName"
                                         ],
                                         "label": [
                                             "{",
                                             "    renderer: function(v) {",
+                                            "        if(v == null) {",
+                                            "            return v;",
+                                            "        }",
                                             "        if(v.length > 13) {",
                                             "            return v.substring(0, 13) + \"..\";",
                                             "        } else {",
