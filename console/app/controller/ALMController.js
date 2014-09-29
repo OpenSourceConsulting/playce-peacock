@@ -239,6 +239,17 @@ Ext.define('MyApp.controller.ALMController', {
         }
     },
 
+    onInputPopAlmSpaceFilterTextKeydown: function(textfield, e, eOpts) {
+
+        if(e.getKey() == e.ENTER){
+            Ext.getCmp("almSpaceGrid").getStore().load({
+                params:{
+                    search : textfield.getValue()
+                }
+            });
+        }
+    },
+
     init: function(application) {
                 //ALM Menu Config Setting
 
@@ -335,6 +346,9 @@ Ext.define('MyApp.controller.ALMController', {
             },
             "#inputWizardUserName": {
                 keydown: this.onInputWizardUserNameKeydown
+            },
+            "#almAddSpaceFilterText": {
+                keydown: this.onInputPopAlmSpaceFilterTextKeydown
             }
         });
     },

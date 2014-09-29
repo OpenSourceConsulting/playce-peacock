@@ -20,16 +20,16 @@ Ext.define('MyApp.view.AlmProjectSpaceWindow', {
     requires: [
         'Ext.grid.Panel',
         'Ext.toolbar.Toolbar',
-        'Ext.form.field.Text',
+        'Ext.form.field.ComboBox',
         'Ext.grid.column.Action',
-        'Ext.grid.View'
+        'Ext.grid.View',
+        'Ext.grid.plugin.CellEditing'
     ],
 
     height: 300,
     id: 'almProjectSpaceWindow',
     itemId: 'almProjectSpaceWindow',
-    width: 550,
-    resizable: false,
+    width: 700,
     layout: 'border',
     title: 'Add Space',
     modal: true,
@@ -54,7 +54,6 @@ Ext.define('MyApp.view.AlmProjectSpaceWindow', {
                             id: 'almSpaceGrid',
                             itemId: 'almSpaceGrid',
                             autoScroll: true,
-                            bodyBorder: false,
                             columnLines: true,
                             forceFit: true,
                             store: 'AlmSpaceStore',
@@ -62,12 +61,14 @@ Ext.define('MyApp.view.AlmProjectSpaceWindow', {
                                 {
                                     xtype: 'toolbar',
                                     dock: 'top',
-                                    padding: '5 0 20 0',
+                                    itemId: 'almAddSpaceToolbar',
                                     items: [
                                         {
                                             xtype: 'textfield',
+                                            itemId: 'almAddSpaceFilterText',
                                             fieldLabel: 'Filtering',
-                                            labelWidth: 60
+                                            labelWidth: 60,
+                                            enableKeyEvents: true
                                         }
                                     ]
                                 }
@@ -90,6 +91,19 @@ Ext.define('MyApp.view.AlmProjectSpaceWindow', {
                                     minWidth: 100,
                                     dataIndex: 'type',
                                     text: 'Type'
+                                },
+                                {
+                                    xtype: 'gridcolumn',
+                                    minWidth: 150,
+                                    dataIndex: 'authType',
+                                    emptyCellText: 'Select Auth Type',
+                                    text: 'Auth Type',
+                                    editor: {
+                                        xtype: 'combobox',
+                                        multiSelect: true,
+                                        store: 'AuthTypeComboStore',
+                                        valueField: 'value'
+                                    }
                                 },
                                 {
                                     xtype: 'actioncolumn',
@@ -134,6 +148,11 @@ Ext.define('MyApp.view.AlmProjectSpaceWindow', {
                                         }
                                     ]
                                 }
+                            ],
+                            plugins: [
+                                Ext.create('Ext.grid.plugin.CellEditing', {
+
+                                })
                             ]
                         }
                     ]

@@ -13,7 +13,6 @@
         "itemId": "AlmUsersWindow",
         "layout": "border",
         "modal": true,
-        "resizable": false,
         "title": "Add Users",
         "width": 500
     },

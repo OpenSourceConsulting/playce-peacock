@@ -364,7 +364,6 @@ Ext.define('MyApp.view.almContainer', {
                                                                     itemId: 'almProjectConfluenceGrid',
                                                                     autoScroll: true,
                                                                     columnLines: true,
-                                                                    forceFit: true,
                                                                     store: 'AlmProjectConfluencesStore',
                                                                     dockedItems: [
                                                                         {
@@ -394,18 +393,47 @@ Ext.define('MyApp.view.almContainer', {
                                                                     columns: [
                                                                         {
                                                                             xtype: 'gridcolumn',
-                                                                            minWidth: 150,
+                                                                            width: 300,
                                                                             dataIndex: 'mappingCode',
                                                                             text: 'Space'
                                                                         },
                                                                         {
+                                                                            xtype: 'gridcolumn',
+                                                                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                                                                if (value == 'COMPLETE') {
+                                                                                    return '<span style="color:green;">' + value + '</span>';
+                                                                                } else if (value == 'FAIL') {
+                                                                                    return '<span style="color:red;">' + value + '</span>';
+                                                                                }
+                                                                                return value;
+                                                                            },
+                                                                            width: 100,
+                                                                            dataIndex: 'status',
+                                                                            text: 'Status'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'gridcolumn',
+                                                                            width: 120,
+                                                                            dataIndex: 'exitCode',
+                                                                            text: 'ErrorCode'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'gridcolumn',
+                                                                            width: 500,
+                                                                            dataIndex: 'exitMessage',
+                                                                            text: 'ErrorMessage'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'gridcolumn',
+                                                                            width: 180,
+                                                                            dataIndex: 'lastUpdated',
+                                                                            text: 'Last Updated'
+                                                                        },
+                                                                        {
                                                                             xtype: 'actioncolumn',
                                                                             text: 'Delete',
-                                                                            maxWidth: 60,
-                                                                            minWidth: 70,
                                                                             style: 'text-align:left;',
                                                                             width: 60,
-                                                                            defaultWidth: 60,
                                                                             align: 'center',
                                                                             hideable: false,
                                                                             menuText: '',

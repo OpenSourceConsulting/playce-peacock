@@ -43,7 +43,7 @@ Ext.define('MyApp.controller.GlobalController', {
             }else if(response.status == 403){
 
                 Ext.Msg.show({
-                    title:'Server Error',
+                    title:'Access Deny',
                     msg: Ext.JSON.decode(response.responseText).msg,
                     buttons: Ext.Msg.OK,
                     icon: Ext.Msg.ERROR
@@ -75,17 +75,25 @@ Ext.define('MyApp.controller.GlobalController', {
             //Login 체크
             if(resp.success == false && resp.data == 'notLogin') {
 
-                Ext.Msg.alert('Failure', resp.msg);
+                //Ext.Msg.alert('Failure', resp.msg);
+                Ext.Msg.show({
+                    title:'Access Deny',
+                    msg: resp.msg,
+                    buttons: Ext.Msg.OK,
+                    icon: Ext.Msg.ERROR,
+                    fn: function(btn){
+                        var sessionInfo = Ext.getStore('SessionStore');
+                        sessionInfo.removeAll();
+                        sessionInfo.sync();
 
-                var sessionInfo = Ext.getStore('SessionStore');
-                sessionInfo.removeAll();
-                sessionInfo.sync();
+                        window.location.reload();
+                        /*
+                        Ext.getCmp("centerContainer").layout.setActiveItem(0);
+                        Ext.getCmp("peacockViewport").layout.setActiveItem(0);
+                        */
+                    }
+                });
 
-                window.location.reload();
-                /*
-                Ext.getCmp("centerContainer").layout.setActiveItem(0);
-                Ext.getCmp("peacockViewport").layout.setActiveItem(0);
-                */
             }
 
         }, Ext.getBody());

@@ -1116,6 +1116,32 @@
                 ]
             },
             "designerId": "c15272d8-160d-440a-80a5-f754b426157b"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#almAddSpaceFilterText",
+                "designer|targetType": "Ext.form.field.Text",
+                "fn": "onInputPopAlmSpaceFilterTextKeydown",
+                "implHandler": [
+                    "",
+                    "if(e.getKey() == e.ENTER){",
+                    "    Ext.getCmp(\"almSpaceGrid\").getStore().load({",
+                    "        params:{",
+                    "            search : textfield.getValue()",
+                    "        }",
+                    "    });",
+                    "}"
+                ],
+                "name": "keydown",
+                "scope": "me"
+            },
+            "designerId": "216afe0b-c582-416b-bc8a-3dcacf68309e"
         }
     ]
 }

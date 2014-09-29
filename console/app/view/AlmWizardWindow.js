@@ -285,16 +285,8 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                                 xtype: 'combobox',
                                                                 emptyText: 'Select Auth Type',
                                                                 multiSelect: true,
-                                                                store: [
-                                                                    [
-                                                                        'VIEWSPACE',
-                                                                        'VIEWSPACE'
-                                                                    ],
-                                                                    [
-                                                                        'COMMENT',
-                                                                        'COMMENT'
-                                                                    ]
-                                                                ]
+                                                                store: 'AuthTypeComboStore',
+                                                                valueField: 'value'
                                                             }
                                                         },
                                                         {

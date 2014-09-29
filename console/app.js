@@ -107,7 +107,8 @@ Ext.application({
         'DashboardTemplateStore',
         'DashboardAgentStore',
         'DashboardCriticalStore',
-        'DashboardWarningStore'
+        'DashboardWarningStore',
+        'AuthTypeComboStore'
     ],
     views: [
         'peacockViewport',

@@ -624,15 +624,8 @@
                                                             "userConfig": {
                                                                 "emptyText": "Select Auth Type",
                                                                 "multiSelect": true,
-                                                                "store": [
-                                                                    "[",
-                                                                    "    ['VIEWSPACE','VIEWSPACE'],",
-                                                                    "    ['COMMENT','COMMENT']",
-                                                                    "]"
-                                                                ]
-                                                            },
-                                                            "configAlternates": {
-                                                                "store": "array"
+                                                                "store": "AuthTypeComboStore",
+                                                                "valueField": "value"
                                                             },
                                                             "designerId": "1bf0135e-8583-4878-9f6a-d05ad9677430"
                                                         }

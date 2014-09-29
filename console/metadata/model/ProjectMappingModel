@@ -48,6 +48,58 @@
                 "type": "string"
             },
             "designerId": "4b167e92-c4fc-4a0c-828a-e59a54c3c3cd"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "status",
+                "type": "string"
+            },
+            "designerId": "e2cf085d-e91e-420e-b1ca-907d91cf4b57"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "exitCode",
+                "type": "string"
+            },
+            "designerId": "77e8fee9-2f9c-431e-beca-6563bb3180c9"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "exitMessage",
+                "type": "string"
+            },
+            "designerId": "c2da7961-5ef1-4348-b218-5526c834202a"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "lastUpdated",
+                "type": "string"
+            },
+            "designerId": "d37a1c2e-451c-4ae3-bf03-fa0545de8415"
         }
     ]
 }

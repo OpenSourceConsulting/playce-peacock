@@ -32,6 +32,22 @@ Ext.define('MyApp.model.ProjectMappingModel', {
         {
             name: 'mappingCode',
             type: 'string'
+        },
+        {
+            name: 'status',
+            type: 'string'
+        },
+        {
+            name: 'exitCode',
+            type: 'string'
+        },
+        {
+            name: 'exitMessage',
+            type: 'string'
+        },
+        {
+            name: 'lastUpdated',
+            type: 'string'
         }
     ]
 });

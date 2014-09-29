@@ -1,0 +1,48 @@
+{
+    "type": "arraystore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": true,
+        "data": [
+            "[",
+            "    {'value':'VIEWSPACE','text':'VIEWSPACE'},",
+            "    {'value':'COMMENT','text':'COMMENT'}",
+            "]"
+        ],
+        "designer|userClassName": "AuthTypeComboStore",
+        "storeId": "AuthTypeComboStore"
+    },
+    "designerId": "23781f4a-121d-4401-acc2-a65bf5d5ba2e",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "value",
+                "type": "string"
+            },
+            "designerId": "76094d61-48bd-4d11-a4e9-3e3c3dd621de"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "text",
+                "type": "string"
+            },
+            "designerId": "1a35dd5f-c1f4-456e-89f7-2ee13c513c41"
+        }
+    ]
+}

@@ -832,7 +832,7 @@
                                                             "userConfig": {
                                                                 "autoScroll": true,
                                                                 "columnLines": true,
-                                                                "forceFit": true,
+                                                                "forceFit": null,
                                                                 "id": "almProjectConfluenceGrid",
                                                                 "itemId": "almProjectConfluenceGrid",
                                                                 "store": "AlmProjectConfluencesStore",
@@ -926,10 +926,99 @@
                                                                     "codeClass": null,
                                                                     "userConfig": {
                                                                         "dataIndex": "mappingCode",
-                                                                        "minWidth": 150,
-                                                                        "text": "Space"
+                                                                        "minWidth": null,
+                                                                        "text": "Space",
+                                                                        "width": 300
                                                                     },
                                                                     "designerId": "fe189227-8f50-407d-b82e-da96f90e108d"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.grid.column.Column",
+                                                                    "reference": {
+                                                                        "name": "columns",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "dataIndex": "status",
+                                                                        "maxWidth": null,
+                                                                        "text": "Status",
+                                                                        "width": 100
+                                                                    },
+                                                                    "designerId": "f7c7432a-3fed-4f0f-a1ef-12480c3b9c7f",
+                                                                    "cn": [
+                                                                        {
+                                                                            "type": "fixedfunction",
+                                                                            "reference": {
+                                                                                "name": "items",
+                                                                                "type": "array"
+                                                                            },
+                                                                            "codeClass": null,
+                                                                            "userConfig": {
+                                                                                "designer|params": [
+                                                                                    "value",
+                                                                                    "metaData",
+                                                                                    "record",
+                                                                                    "rowIndex",
+                                                                                    "colIndex",
+                                                                                    "store",
+                                                                                    "view"
+                                                                                ],
+                                                                                "fn": "renderer",
+                                                                                "implHandler": [
+                                                                                    "if (value == 'COMPLETE') {",
+                                                                                    "    return '<span style=\"color:green;\">' + value + '</span>';",
+                                                                                    "} else if (value == 'FAIL') {",
+                                                                                    "    return '<span style=\"color:red;\">' + value + '</span>';",
+                                                                                    "}",
+                                                                                    "return value;"
+                                                                                ]
+                                                                            },
+                                                                            "designerId": "cbccea07-3945-4c75-a2d1-017a708d98a5"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "Ext.grid.column.Column",
+                                                                    "reference": {
+                                                                        "name": "columns",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "dataIndex": "exitCode",
+                                                                        "text": "ErrorCode",
+                                                                        "width": 120
+                                                                    },
+                                                                    "designerId": "f57c1fcf-8544-48dc-89b3-961623b07e0b"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.grid.column.Column",
+                                                                    "reference": {
+                                                                        "name": "columns",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "dataIndex": "exitMessage",
+                                                                        "text": "ErrorMessage",
+                                                                        "width": 500
+                                                                    },
+                                                                    "designerId": "ec025437-3cdd-4eb7-829d-186166095b62"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.grid.column.Column",
+                                                                    "reference": {
+                                                                        "name": "columns",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "dataIndex": "lastUpdated",
+                                                                        "text": "Last Updated",
+                                                                        "width": 180
+                                                                    },
+                                                                    "designerId": "0d8df5e5-13b2-4f60-adf7-c00fc5418fc8"
                                                                 },
                                                                 {
                                                                     "type": "Ext.grid.column.Action",
@@ -940,11 +1029,10 @@
                                                                     "codeClass": null,
                                                                     "userConfig": {
                                                                         "align": "center",
-                                                                        "defaultWidth": 60,
                                                                         "hideable": false,
-                                                                        "maxWidth": 60,
+                                                                        "maxWidth": null,
                                                                         "menuText": "",
-                                                                        "minWidth": 70,
+                                                                        "minWidth": null,
                                                                         "style": [
                                                                             "\"text-align:left;\""
                                                                         ],

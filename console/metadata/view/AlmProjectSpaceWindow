@@ -6,6 +6,7 @@
     },
     "codeClass": null,
     "userConfig": {
+        "bodyBorder": null,
         "designer|userAlias": "AlmProjectSpaceWindow",
         "designer|userClassName": "AlmProjectSpaceWindow",
         "height": 300,
@@ -13,9 +14,8 @@
         "itemId": "almProjectSpaceWindow",
         "layout": "border",
         "modal": true,
-        "resizable": false,
         "title": "Add Space",
-        "width": 550
+        "width": 700
     },
     "configAlternates": {
         "resizable": "boolean"
@@ -48,7 +48,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "autoScroll": true,
-                        "bodyBorder": false,
+                        "bodyBorder": null,
                         "columnLines": true,
                         "forceFit": true,
                         "height": 240,
@@ -68,7 +68,8 @@
                             "codeClass": null,
                             "userConfig": {
                                 "dock": "top",
-                                "padding": "5 0 20 0"
+                                "itemId": "almAddSpaceToolbar",
+                                "padding": null
                             },
                             "designerId": "9d16530e-d9fb-4d6e-ac21-5c41070f9ae3",
                             "cn": [
@@ -80,7 +81,9 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
+                                        "enableKeyEvents": true,
                                         "fieldLabel": "Filtering",
+                                        "itemId": "almAddSpaceFilterText",
                                         "labelWidth": 60,
                                         "layout|flex": null
                                     },
@@ -129,6 +132,37 @@
                                 "text": "Type"
                             },
                             "designerId": "520c13c8-ecdb-4b41-a471-a748ddb18fc2"
+                        },
+                        {
+                            "type": "Ext.grid.column.Column",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dataIndex": "authType",
+                                "emptyCellText": "Select Auth Type",
+                                "minWidth": 150,
+                                "text": "Auth Type"
+                            },
+                            "designerId": "9faf7b51-7726-4c45-8c31-3e898b7af24c",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.ComboBox",
+                                    "reference": {
+                                        "name": "editor",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "multiSelect": true,
+                                        "store": "AuthTypeComboStore",
+                                        "valueField": "value"
+                                    },
+                                    "designerId": "81e508b2-56a7-4589-93fb-3f12a135f028"
+                                }
+                            ]
                         },
                         {
                             "type": "Ext.grid.column.Action",
@@ -230,6 +264,15 @@
                             },
                             "codeClass": null,
                             "designerId": "11f9cd62-fb36-4b80-84a1-0f89762355ee"
+                        },
+                        {
+                            "type": "Ext.grid.plugin.CellEditing",
+                            "reference": {
+                                "name": "plugins",
+                                "type": "array"
+                            },
+                            "codeClass": "Ext.grid.plugin.CellEditing",
+                            "designerId": "30de122e-4b22-43a0-92bd-99f2e6138193"
                         }
                     ]
                 }

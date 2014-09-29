@@ -32,7 +32,6 @@ Ext.define('MyApp.view.AlmUsersWindow', {
     id: 'AlmUsersWindow',
     itemId: 'AlmUsersWindow',
     width: 500,
-    resizable: false,
     layout: 'border',
     title: 'Add Users',
     modal: true,
