@@ -560,21 +560,6 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                     Ext.MessageBox.alert('Error', "Instance가 Running 상태일 경우에만 Software Install이 가능합니다.");
 
                                                                 }
-                                                                var softwareInstallWindow = Ext.create("widget.SoftwareInstallWindow");
-
-                                                                softwareInstallWindow.show();
-
-                                                                Ext.getCmp("popComboSoftwareName").getStore().load({
-                                                                    callback : function(records, options, success) {
-                                                                        Ext.getCmp("popComboSoftwareName").select(Ext.getCmp("popComboSoftwareName").getStore().getAt(0));
-                                                                    }
-                                                                });
-
-                                                                var accountStore = Ext.getStore("ComboAccountStore");
-                                                                accountStore.getProxy().extraParams = {
-                                                                    machineId : instancesConstants.selectRow.get("machineId")
-                                                                };
-
                                                             },
                                                             cls: 'auth-write',
                                                             id: 'softwareInstallBtn',
