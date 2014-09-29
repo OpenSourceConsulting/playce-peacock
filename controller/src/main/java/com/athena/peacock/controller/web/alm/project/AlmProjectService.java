@@ -414,5 +414,16 @@ public class AlmProjectService {
 
 		}
 	}
+
+	// Project 리스트 정보
+	public GridJsonResponse getProjectHistory(String projectCode) {
+
+		GridJsonResponse response = new GridJsonResponse();
+		List<ProjectHistoryDto> projects = projectDao
+				.getProjectHistory(projectCode);
+		response.setList(projects);
+		return response;
+
+	}
 }
 // end of UserService.java

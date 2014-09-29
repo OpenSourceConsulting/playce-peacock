@@ -39,6 +39,7 @@ public class ProjectMappingDto {
 	private String projectCode;
 	private int mappingType;
 	private String mappingCode;
+	private String mappingPermission;
 	private String createTime;
 	private String startTime;
 	private String endTime;
@@ -69,6 +70,14 @@ public class ProjectMappingDto {
 
 	public void setMappingCode(String mappingCode) {
 		this.mappingCode = mappingCode;
+	}
+
+	public String getMappingPermission() {
+		return mappingPermission;
+	}
+
+	public void setMappingPermission(String mappingPermission) {
+		this.mappingPermission = mappingPermission;
 	}
 
 	public String getCreateTime() {

@@ -137,4 +137,14 @@
 		)
 	</insert>
 	
+	<select id="getProjectHistory"  parameterType="String" resultType="com.athena.peacock.controller.web.alm.project.dto.ProjectHistoryDto">
+		 SELECT 
+		 	PROJECT_HISTORY_ID as projectHistoryId,
+		 	MESSAGE as message, 
+		 	CREATE_TIME as createTime
+		 FROM alm_project_history_tbl
+		 WHERE PROJECT_CODE=#{projectCode}
+		 ORDER BY CREATE_TIME DESC
+	</select>
+	
 </mapper>

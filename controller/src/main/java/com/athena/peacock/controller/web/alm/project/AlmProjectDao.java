@@ -44,15 +44,14 @@ public class AlmProjectDao extends AbstractBaseDao {
 	public void deleteProjectMapping(ProjectMappingDto mappingDto) {
 		sqlSession.delete("ProjectMapper.deleteProjectMapping", mappingDto);
 	}
-	
-	public void startProjectMappingJob(ProjectMappingDto mappingDto){
+
+	public void startProjectMappingJob(ProjectMappingDto mappingDto) {
 		sqlSession.update("ProjectMapper.startProjectMapping", mappingDto);
 	}
-	
-	public void endProjectMappingJob(ProjectMappingDto mappingDto){
+
+	public void endProjectMappingJob(ProjectMappingDto mappingDto) {
 		sqlSession.update("ProjectMapper.endProjectMapping", mappingDto);
 	}
-	
 
 	public int getProjectExist(String projectCode) {
 		return sqlSession.selectOne("ProjectMapper.getProjectExist",
@@ -61,5 +60,10 @@ public class AlmProjectDao extends AbstractBaseDao {
 
 	public void insertProjectHistory(ProjectHistoryDto projectHistory) {
 		sqlSession.insert("ProjectMapper.insertProjectHistory", projectHistory);
+	}
+
+	public List<ProjectHistoryDto> getProjectHistory(String projectCode) {
+		return sqlSession.selectList("ProjectMapper.getProjectHistory",
+				projectCode);
 	}
 }

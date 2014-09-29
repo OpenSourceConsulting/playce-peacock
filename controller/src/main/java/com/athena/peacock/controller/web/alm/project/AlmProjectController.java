@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.athena.peacock.controller.web.alm.crowd.AlmCrowdService;
+import com.athena.peacock.controller.web.alm.nexus.client.NexusClient;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectWizardDto;
 import com.athena.peacock.controller.web.alm.svn.AlmSvnService;
@@ -62,6 +63,9 @@ public class AlmProjectController {
 
 	@Autowired
 	private AlmSvnService svnService;
+
+	@Autowired
+	private NexusClient nexus;
 
 	/**
 	 * <pre>
@@ -205,6 +209,23 @@ public class AlmProjectController {
 
 	/**
 	 * <pre>
+	 * 프로젝트 작업 히스토리 조회
+	 * </pre>
+	 * 
+	 * @param projectCode
+	 * @param mappingType
+	 * @param mappingCode
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/project/{projectCode}/history", method = RequestMethod.GET)
+	public @ResponseBody
+	GridJsonResponse getProjectHistory(@PathVariable String projectCode) {
+		return almProjectService.getProjectHistory(projectCode);
+	}
+
+	/**
+	 * <pre>
 	 * 프로젝트 Wizard 실행
 	 * </pre>
 	 * 
@@ -242,18 +263,14 @@ public class AlmProjectController {
 		return null;
 	}
 
-	/*
-	 * @RequestMapping(value = "/project/test", method = RequestMethod.GET)
-	 * public @ResponseBody ProjectWizardDto getProjectMappingTest() { return
-	 * almProjectService.getWizard(); }
-	 * 
-	 * @RequestMapping(value = "/project/svn", method = RequestMethod.GET)
-	 * public @ResponseBody DtoJsonResponse svnHistory() { try {
-	 * svnService.getSvn(); } catch (SVNException e) { // TODO Auto-generated
-	 * catch block e.printStackTrace(); } return null;
-	 * 
-	 * // return almProjectService.createProjectWizrd(); }
-	 */
+	@RequestMapping(value = "/project/nexus/archetype", method = RequestMethod.GET)
+	public @ResponseBody
+	DtoJsonResponse getnexus() {
+
+		DtoJsonResponse response = new DtoJsonResponse();
+		response.setData(nexus.getJobs());
+		return response;
+	}
 
 }
 // end of AlmUserController.java

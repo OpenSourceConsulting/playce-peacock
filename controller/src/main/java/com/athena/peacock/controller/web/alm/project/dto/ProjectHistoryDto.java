@@ -10,7 +10,7 @@ public class ProjectHistoryDto {
 	private int projectHistoryId;
 	private String projectCode;
 	private String message;
-	private Date createTime;
+	private String createTime;
 
 	public int getProjectHistoryId() {
 		return projectHistoryId;
@@ -36,11 +36,11 @@ public class ProjectHistoryDto {
 		this.message = message;
 	}
 
-	public Date getCreateTime() {
+	public String getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
 
