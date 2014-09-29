@@ -57,7 +57,6 @@ Ext.define('MyApp.view.AlmUsersWindow', {
                             id: 'popAlmUsersGrid',
                             itemId: 'popAlmUsersGrid',
                             autoScroll: true,
-                            bodyBorder: false,
                             columnLines: true,
                             forceFit: true,
                             store: 'AlmUserStore',
@@ -73,6 +72,11 @@ Ext.define('MyApp.view.AlmUsersWindow', {
                                     minWidth: 150,
                                     dataIndex: 'displayName',
                                     text: 'Display Name'
+                                },
+                                {
+                                    xtype: 'gridcolumn',
+                                    dataIndex: 'emailAddress',
+                                    text: 'Email'
                                 },
                                 {
                                     xtype: 'actioncolumn',
@@ -145,7 +149,6 @@ Ext.define('MyApp.view.AlmUsersWindow', {
                                 {
                                     xtype: 'toolbar',
                                     dock: 'top',
-                                    hidden: true,
                                     id: 'instancesToolbar5',
                                     itemId: 'instancesToolbar1',
                                     width: 150,
@@ -156,7 +159,7 @@ Ext.define('MyApp.view.AlmUsersWindow', {
                                             itemId: 'inputPopAlmUserName',
                                             fieldLabel: 'Filtering',
                                             labelWidth: 60,
-                                            emptyText: 'Search User Name',
+                                            emptyText: 'Search Name',
                                             enableKeyEvents: true
                                         },
                                         {
@@ -188,7 +191,8 @@ Ext.define('MyApp.view.AlmUsersWindow', {
                                 {
                                     xtype: 'toolbar',
                                     dock: 'top',
-                                    height: 10
+                                    height: 10,
+                                    hidden: true
                                 }
                             ]
                         },

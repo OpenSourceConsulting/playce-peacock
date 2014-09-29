@@ -932,6 +932,30 @@
             },
             "codeClass": null,
             "userConfig": {
+                "designer|controlQuery": "#inputPopAlmUserName",
+                "designer|targetType": "Ext.form.field.Text",
+                "fn": "onInputPopAlmUserNameKeydown",
+                "implHandler": [
+                    "//User Name Search",
+                    "if(e.getKey() == e.ENTER){",
+                    "",
+                    "    almConstants.popPage = 1;",
+                    "    this.searchPopAlmUser();",
+                    "}"
+                ],
+                "name": "keydown",
+                "scope": "me"
+            },
+            "designerId": "2fcfd50c-2ae9-498f-a595-1fd7fcca62c6"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
                 "designer|controlQuery": "#inputAlmGroupName",
                 "designer|targetType": "Ext.form.field.Text",
                 "fn": "onInputAlmGroupNameKeydown",

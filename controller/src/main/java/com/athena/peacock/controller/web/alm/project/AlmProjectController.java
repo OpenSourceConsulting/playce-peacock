@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.athena.peacock.controller.web.alm.crowd.AlmCrowdService;
+import com.athena.peacock.controller.web.alm.jenkins.clinet.model.JobNotificationDto;
 import com.athena.peacock.controller.web.alm.nexus.client.NexusClient;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectWizardDto;
@@ -269,6 +270,21 @@ public class AlmProjectController {
 
 		DtoJsonResponse response = new DtoJsonResponse();
 		response.setData(nexus.getJobs());
+		return response;
+	}
+
+	@RequestMapping(value = "/project/jenkins/notification", method = RequestMethod.POST)
+	public @ResponseBody
+	DtoJsonResponse getJenkinsNotification(
+			@RequestBody JobNotificationDto notification) {
+
+		System.out.println("****************************");
+		System.out.println("****************************");
+		System.out.println("****************************");
+		System.out.println("****************************");
+		System.out.println(notification.getName());
+		System.out.println(notification.getUrl());
+		DtoJsonResponse response = new DtoJsonResponse();
 		return response;
 	}
 

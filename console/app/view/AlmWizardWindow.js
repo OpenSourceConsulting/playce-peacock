@@ -269,12 +269,15 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
-                                                            minWidth: 40,
+                                                            minWidth: 60,
+                                                            width: 80,
+                                                            defaultWidth: 80,
                                                             dataIndex: 'type',
                                                             text: 'Type'
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
+                                                            defaultWidth: 120,
                                                             dataIndex: 'authType',
                                                             emptyCellText: 'Select Auth Type',
                                                             text: 'Auth Type',
@@ -378,12 +381,15 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
-                                                            minWidth: 40,
+                                                            minWidth: 60,
+                                                            width: 80,
+                                                            defaultWidth: 80,
                                                             dataIndex: 'type',
                                                             text: 'Type'
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
+                                                            defaultWidth: 120,
                                                             dataIndex: 'authType',
                                                             text: 'Auth Type'
                                                         },
