@@ -382,7 +382,7 @@ public class MachineController {
 					columns = line.split(":");
 					group = new GroupDto();
 					group.setGroup(columns[0]);
-					group.setGid(Integer.parseInt(columns[2]));
+					group.setGid(columns[2]);
 					groupList.add(group);
 				}
 			}
@@ -489,7 +489,7 @@ public class MachineController {
 					account = new AccountDto();
 					account.setMachineId(machineId);
 					account.setAccount(columns[0]);
-					account.setUid(Integer.parseInt(columns[2]));
+					account.setUid(columns[2]);
 					account.setGroup(groupMap.get(columns[3]));
 					account.setComment(columns[4]);
 					account.setHomeDir(columns[5]);
@@ -529,7 +529,7 @@ public class MachineController {
 	public @ResponseBody DtoJsonResponse removeGroup(DtoJsonResponse jsonRes, GroupDto group) {
 		Assert.notNull(group.getMachineId(), "machineId can not be null.");
 		Assert.notNull(group.getGroup(), "group can not be null.");
-		Assert.isTrue(group.getGid() != null && group.getGid() >= 500, "gid can not be null and greater than 499.");
+		//Assert.isTrue(group.getGid() != null && group.getGid() >= 500, "gid can not be null and greater than 499.");
 		
 		try {
 			ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
@@ -581,7 +581,7 @@ public class MachineController {
 	public @ResponseBody DtoJsonResponse removeAccount(DtoJsonResponse jsonRes, AccountDto account) {
 		Assert.notNull(account.getMachineId(), "machineId can not be null.");
 		Assert.notNull(account.getAccount(), "account can not be null.");
-		Assert.isTrue(account.getUid() != null && account.getUid() >= 500, "uid can not be null and greater than 499.");
+		//Assert.isTrue(account.getUid() != null && account.getUid() >= 500, "uid can not be null and greater than 499.");
 		
 		try {
 			ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
@@ -663,7 +663,7 @@ public class MachineController {
 						return jsonRes;
 					}
 					
-					if (group.getGid() != null && line.split(":")[2].equals(Integer.toString(group.getGid()))) {
+					if (group.getGid() != null && line.split(":")[2].equals(group.getGid())) {
 						jsonRes.setSuccess(false);
 						jsonRes.setMsg("\"" + group.getGid() + "\" GID가 이미 있습니다.");
 						
@@ -685,7 +685,7 @@ public class MachineController {
 			
 			String args = "";
 
-			if (group.getGid() != null && group.getGid() >= 0) {
+			if (group.getGid() != null && Integer.parseInt(group.getGid()) >= 0) {
 				args += "-g " + group.getGid() + " ";
 			}
 			
@@ -759,7 +759,7 @@ public class MachineController {
 						return jsonRes;
 					}
 					
-					if (account.getUid() != null && line.split(":")[2].equals(Integer.toString(account.getUid()))) {
+					if (account.getUid() != null && line.split(":")[2].equals(account.getUid())) {
 						jsonRes.setSuccess(false);
 						jsonRes.setMsg("\"" + account.getUid() + "\" UID가 이미 있습니다.");
 						
@@ -823,7 +823,7 @@ public class MachineController {
 				
 				args += " ";
 			}
-			if (account.getUid() != null && account.getUid() >= 0) {
+			if (account.getUid() != null && Integer.parseInt(account.getUid()) >= 0) {
 				args += "-u " + account.getUid() + " ";
 			}
 			

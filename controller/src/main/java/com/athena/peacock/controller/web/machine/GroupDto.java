@@ -37,7 +37,7 @@ public class GroupDto implements Serializable {
 
 	private String machineId;
 	private String group;
-	private Integer gid;
+	private String gid;
 
 	/**
 	 * @return the machineId
@@ -70,14 +70,14 @@ public class GroupDto implements Serializable {
 	/**
 	 * @return the gid
 	 */
-	public Integer getGid() {
+	public String getGid() {
 		return gid;
 	}
 
 	/**
 	 * @param gid the gid to set
 	 */
-	public void setGid(Integer gid) {
+	public void setGid(String gid) {
 		this.gid = gid;
 	}
 }

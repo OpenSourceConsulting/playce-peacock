@@ -43,7 +43,7 @@ public class AccountDto implements Serializable {
 	private String group;
 	private String[] groups;
 	private String comment;
-	private Integer uid;
+	private String uid;
 
 	/**
 	 * @return the machineId
@@ -160,14 +160,14 @@ public class AccountDto implements Serializable {
 	/**
 	 * @return the uid
 	 */
-	public Integer getUid() {
+	public String getUid() {
 		return uid;
 	}
 
 	/**
 	 * @param uid the uid to set
 	 */
-	public void setUid(Integer uid) {
+	public void setUid(String uid) {
 		this.uid = uid;
 	}
 }
