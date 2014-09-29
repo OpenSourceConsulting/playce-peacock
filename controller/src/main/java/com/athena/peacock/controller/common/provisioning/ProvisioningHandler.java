@@ -707,35 +707,21 @@ public class ProvisioningHandler {
 		/**
 		 * DataSource Variables
 		 */
-		String databaseType1 = provisioningDetail.getDatabaseType1();
-		String databaseType2 = provisioningDetail.getDatabaseType2();
-		String jndiName1 = provisioningDetail.getJndiName1();
-		String jndiName2 = provisioningDetail.getJndiName2();
-		String connectionUrl1 = provisioningDetail.getConnectionUrl1();
-		String connectionUrl2 = provisioningDetail.getConnectionUrl2();
-		String userName1 = provisioningDetail.getUserName1();
-		String userName2 = provisioningDetail.getUserName2();
-		String password1 = provisioningDetail.getPassword1();
-		String password2 = provisioningDetail.getPassword2();
-		String maxIdle1 = (StringUtils.isEmpty(provisioningDetail.getMaxIdle1()) ? "1" : provisioningDetail.getMaxIdle1());
-		String maxIdle2 = (StringUtils.isEmpty(provisioningDetail.getMaxIdle2()) ? "1" : provisioningDetail.getMaxIdle2());
-		String maxActive1 = (StringUtils.isEmpty(provisioningDetail.getMaxActive1()) ? "5" : provisioningDetail.getMaxActive1());
-		String maxActive2 = (StringUtils.isEmpty(provisioningDetail.getMaxActive2()) ? "5" : provisioningDetail.getMaxActive2());
+		String[] databaseType = provisioningDetail.getDatabaseType();
+		String[] jndiName = provisioningDetail.getJndiName();
+		String[] connectionUrl = provisioningDetail.getConnectionUrl();
+		String[] userName = provisioningDetail.getUserName();
+		String[] password = provisioningDetail.getPassword();
+		String[] maxIdle = provisioningDetail.getMaxIdle();
+		String[] maxActive = provisioningDetail.getMaxActive();
 		
-		logger.debug("databaseType1 : " + databaseType1);
-		logger.debug("databaseType2 : " + databaseType2);
-		logger.debug("jndiName1 : " + jndiName1);
-		logger.debug("jndiName2 : " + jndiName2);
-		logger.debug("connectionUrl1 : " + connectionUrl1);
-		logger.debug("connectionUrl2 : " + connectionUrl2);
-		logger.debug("userName1 : " + userName1);
-		logger.debug("userName2 : " + userName2);
-		logger.debug("password1 : " + password1);
-		logger.debug("password2 : " + password2);
-		logger.debug("maxIdle1 : " + maxIdle1);
-		logger.debug("maxIdle2 : " + maxIdle2);
-		logger.debug("maxActive1 : " + maxActive1);
-		logger.debug("maxActive2 : " + maxActive2);
+		logger.debug("databaseType : " + databaseType);
+		logger.debug("jndiName : " + jndiName);
+		logger.debug("connectionUrl : " + connectionUrl);
+		logger.debug("userName : " + userName);
+		logger.debug("password : " + password);
+		logger.debug("maxIdle : " + maxIdle);
+		logger.debug("maxActive : " + maxActive);
 		
 		Command command = new Command("Tomcat INSTALL");
 		ShellAction s_action = null;
@@ -916,80 +902,46 @@ public class ProvisioningHandler {
 		String driverClassName = null;
 		String encPasswd = null;
 		String query = null;
-		if (StringUtils.isNotEmpty(databaseType1) && StringUtils.isNotEmpty(jndiName1) && StringUtils.isNotEmpty(connectionUrl1)
-				 && StringUtils.isNotEmpty(userName1) && StringUtils.isNotEmpty(password1)) {
-			
-			if (databaseType1.toLowerCase().equals("oracle")) {
-				driverClassName = "oracle.jdbc.driver.OracleDriver";
-				query = "SELECT 1 FROM DUAL";
-			} else if (databaseType1.toLowerCase().equals("mysql")) {
-				driverClassName = "com.mysql.jdbc.Driver";
-				query = "SELECT 1";
-			} else if (databaseType1.toLowerCase().equals("mssql")) {
-				driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-				query = "SELECT 1";
-			} else if (databaseType1.toLowerCase().equals("db2")) {
-				driverClassName = "com.ibm.db2.jcc.DB2Driver";
-				query = "VALUES 1";
+		if (databaseType != null) {
+			for (int i = 0; i < databaseType.length; i++) {
+				if (StringUtils.isNotEmpty(databaseType[i]) && StringUtils.isNotEmpty(jndiName[i]) && StringUtils.isNotEmpty(connectionUrl[i])
+						 && StringUtils.isNotEmpty(userName[i]) && StringUtils.isNotEmpty(password[i])) {
+					
+					if (databaseType[i].toLowerCase().equals("oracle")) {
+						driverClassName = "oracle.jdbc.driver.OracleDriver";
+						query = "SELECT 1 FROM DUAL";
+					} else if (databaseType[i].toLowerCase().equals("mysql")) {
+						driverClassName = "com.mysql.jdbc.Driver";
+						query = "SELECT 1";
+					} else if (databaseType[i].toLowerCase().equals("mssql")) {
+						driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+						query = "SELECT 1";
+					} else if (databaseType[i].toLowerCase().equals("db2")) {
+						driverClassName = "com.ibm.db2.jcc.DB2Driver";
+						query = "VALUES 1";
+					}
+					
+					encPasswd = ewsPasswordEncrypt(password[i]);
+	
+					datasource.append("	<Resource name=\"" + jndiName[i] + "\" auth=\"Container\"").append("\n");
+					datasource.append("	          type=\"javax.sql.DataSource\" driverClassName=\"" + driverClassName + "\"").append("\n");
+					datasource.append("	          url=\"" + connectionUrl[i] + "\"").append("\n");
+					datasource.append("	          factory=\"org.jboss.ews.dbcp.EncryptDataSourceFactory\"").append("\n");
+					datasource.append("	          username=\"" + userName[i] + "\" password=\"" + encPasswd + "\"").append("\n");
+					datasource.append("	          initialSize=\"2\"").append("\n");
+					datasource.append("	          maxActive=\"" + maxActive[i] + "\"").append("\n");
+					datasource.append("	          maxIdle=\"" + maxIdle[i] + "\"").append("\n");
+					datasource.append("	          maxWait=\"-1\"").append("\n");
+					datasource.append("	          validationQuery=\"" + query + "\"").append("\n");
+					datasource.append("	          testOnBorrow=\"true\"").append("\n");
+					datasource.append("	          poolPreparedStatements=\"true\"").append("\n");
+					datasource.append("	          maxOpenPreparedStatements=\"10\"").append("\n");
+					datasource.append("	          removeAbandoned=\"true\"").append("\n");
+					datasource.append("	          removeAbandonedTimeout=\"60\"").append("\n");
+					datasource.append("	          logAbandoned=\"true\"").append("\n");
+					datasource.append("	/>").append("\n");
+				}
 			}
-			
-			encPasswd = ewsPasswordEncrypt(password1);
-
-			datasource.append("	<Resource name=\"" + jndiName1 + "\" auth=\"Container\"").append("\n");
-			datasource.append("	          type=\"javax.sql.DataSource\" driverClassName=\"" + driverClassName + "\"").append("\n");
-			datasource.append("	          url=\"" + connectionUrl1 + "\"").append("\n");
-			datasource.append("	          factory=\"org.jboss.ews.dbcp.EncryptDataSourceFactory\"").append("\n");
-			datasource.append("	          username=\"" + userName1 + "\" password=\"" + encPasswd + "\"").append("\n");
-			datasource.append("	          initialSize=\"2\"").append("\n");
-			datasource.append("	          maxActive=\"" + maxActive1 + "\"").append("\n");
-			datasource.append("	          maxIdle=\"" + maxIdle1 + "\"").append("\n");
-			datasource.append("	          maxWait=\"-1\"").append("\n");
-			datasource.append("	          validationQuery=\"" + query + "\"").append("\n");
-			datasource.append("	          testOnBorrow=\"true\"").append("\n");
-			datasource.append("	          poolPreparedStatements=\"true\"").append("\n");
-			datasource.append("	          maxOpenPreparedStatements=\"10\"").append("\n");
-			datasource.append("	          removeAbandoned=\"true\"").append("\n");
-			datasource.append("	          removeAbandonedTimeout=\"60\"").append("\n");
-			datasource.append("	          logAbandoned=\"true\"").append("\n");
-			datasource.append("	/>").append("\n");
-		}
-
-		if (StringUtils.isNotEmpty(databaseType2) && StringUtils.isNotEmpty(jndiName2) && StringUtils.isNotEmpty(connectionUrl2)
-				 && StringUtils.isNotEmpty(userName2) && StringUtils.isNotEmpty(password2)) {
-			
-			if (databaseType2.toLowerCase().equals("oracle")) {
-				driverClassName = "oracle.jdbc.driver.OracleDriver";
-				query = "SELECT 1 FROM DUAL";
-			} else if (databaseType2.toLowerCase().equals("mysql")) {
-				driverClassName = "com.mysql.jdbc.Driver";
-				query = "SELECT 1";
-			} else if (databaseType2.toLowerCase().equals("mssql")) {
-				driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-				query = "SELECT 1";
-			} else if (databaseType2.toLowerCase().equals("db2")) {
-				driverClassName = "com.ibm.db2.jcc.DB2Driver";
-				query = "VALUES 1";
-			}
-			
-			encPasswd = ewsPasswordEncrypt(password2);
-
-			datasource.append("	<Resource name=\"" + jndiName2 + "\" auth=\"Container\"").append("\n");
-			datasource.append("	          type=\"javax.sql.DataSource\" driverClassName=\"" + driverClassName + "\"").append("\n");
-			datasource.append("	          url=\"" + connectionUrl2 + "\"").append("\n");
-			datasource.append("	          factory=\"org.jboss.ews.dbcp.EncryptDataSourceFactory\"").append("\n");
-			datasource.append("	          username=\"" + userName2 + "\" password=\"" + encPasswd + "\"").append("\n");
-			datasource.append("	          initialSize=\"2\"").append("\n");
-			datasource.append("	          maxActive=\"" + maxActive2 + "\"").append("\n");
-			datasource.append("	          maxIdle=\"" + maxIdle2 + "\"").append("\n");
-			datasource.append("	          maxWait=\"-1\"").append("\n");
-			datasource.append("	          validationQuery=\"" + query + "\"").append("\n");
-			datasource.append("	          testOnBorrow=\"true\"").append("\n");
-			datasource.append("	          poolPreparedStatements=\"true\"").append("\n");
-			datasource.append("	          maxOpenPreparedStatements=\"10\"").append("\n");
-			datasource.append("	          removeAbandoned=\"true\"").append("\n");
-			datasource.append("	          removeAbandonedTimeout=\"60\"").append("\n");
-			datasource.append("	          logAbandoned=\"true\"").append("\n");
-			datasource.append("	/>").append("\n");
 		}
 
 		String contextXml = IOUtils.toString(new URL(provisioningDetail.getUrlPrefix() + "/repo/tomcat/conf/context.xml"), "UTF-8");
@@ -1003,24 +955,8 @@ public class ProvisioningHandler {
 		// Add Set Configurations Command
 		cmdMsg.addCommand(command);
 		
-		command = new Command("Set IP & Hostname");
+		command = new Command("Set Owner");
 		sequence = 0;
-
-		// Set IP & Hostname
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory(serverHome);
-		s_action.setCommand("sh");
-		s_action.addArguments("ews_init.sh");
-		s_action.addArguments(localIPAddress);
-		s_action.addArguments(hostName);
-		command.addAction(s_action);
-
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory(serverHome);
-		s_action.setCommand("rm");
-		s_action.addArguments("-f");
-		s_action.addArguments("ews_init.sh");
-		command.addAction(s_action);
 		
 		// chonw -R ${user}:${group} /home/${user}
 		s_action = new ShellAction(sequence++);
@@ -1141,6 +1077,7 @@ public class ProvisioningHandler {
 		String jvmRoute = provisioningDetail.getJvmRoute();
 		String heapSize = provisioningDetail.getHeapSize();
 		String permgenSize = provisioningDetail.getPermgenSize();
+		String httpEnable = provisioningDetail.getHttpEnable();
 		String localIPAddress = provisioningDetail.getLocalIPAddress();
 		String hostName = provisioningDetail.getHostName();
 
@@ -1164,6 +1101,7 @@ public class ProvisioningHandler {
 		logger.debug("heapSize : " + heapSize);
 		logger.debug("heapSize : " + heapSize);
 		logger.debug("permgenSize : " + permgenSize);
+		logger.debug("httpEnable : " + httpEnable);
 		logger.debug("localIPAddress : " + localIPAddress);
 		logger.debug("hostName : " + hostName);
 		logger.debug("machineId : " + provisioningDetail.getMachineId());
@@ -1174,35 +1112,21 @@ public class ProvisioningHandler {
 		/**
 		 * DataSource Variables
 		 */
-		String databaseType1 = provisioningDetail.getDatabaseType1();
-		String databaseType2 = provisioningDetail.getDatabaseType2();
-		String jndiName1 = provisioningDetail.getJndiName1();
-		String jndiName2 = provisioningDetail.getJndiName2();
-		String connectionUrl1 = provisioningDetail.getConnectionUrl1();
-		String connectionUrl2 = provisioningDetail.getConnectionUrl2();
-		String userName1 = provisioningDetail.getUserName1();
-		String userName2 = provisioningDetail.getUserName2();
-		String password1 = provisioningDetail.getPassword1();
-		String password2 = provisioningDetail.getPassword2();
-		String minPoolSize1 = (StringUtils.isEmpty(provisioningDetail.getMinPoolSize1()) ? "1" : provisioningDetail.getMinPoolSize1());
-		String minPoolSize2 = (StringUtils.isEmpty(provisioningDetail.getMinPoolSize2()) ? "1" : provisioningDetail.getMinPoolSize2());
-		String maxPoolSize1 = (StringUtils.isEmpty(provisioningDetail.getMaxPoolSize1()) ? "5" : provisioningDetail.getMaxPoolSize1());
-		String maxPoolSize2 = (StringUtils.isEmpty(provisioningDetail.getMaxPoolSize2()) ? "5" : provisioningDetail.getMaxPoolSize2());
+		String[] databaseType = provisioningDetail.getDatabaseType();
+		String[] jndiName = provisioningDetail.getJndiName();
+		String[] connectionUrl = provisioningDetail.getConnectionUrl();
+		String[] userName = provisioningDetail.getUserName();
+		String[] password = provisioningDetail.getPassword();
+		String[] minPoolSize = provisioningDetail.getMinPoolSize();
+		String[] maxPoolSize = provisioningDetail.getMaxPoolSize();
 
-		logger.debug("databaseType1 : " + databaseType1);
-		logger.debug("databaseType2 : " + databaseType2);
-		logger.debug("jndiName1 : " + jndiName1);
-		logger.debug("jndiName2 : " + jndiName2);
-		logger.debug("connectionUrl1 : " + connectionUrl1);
-		logger.debug("connectionUrl2 : " + connectionUrl2);
-		logger.debug("userName1 : " + userName1);
-		logger.debug("userName2 : " + userName2);
-		logger.debug("password1 : " + password1);
-		logger.debug("password2 : " + password2);
-		logger.debug("minPoolSize1 : " + minPoolSize1);
-		logger.debug("minPoolSize2 : " + minPoolSize2);
-		logger.debug("maxPoolSize1 : " + maxPoolSize1);
-		logger.debug("maxPoolSize2 : " + maxPoolSize2);
+		logger.debug("databaseType : " + databaseType);
+		logger.debug("jndiName : " + jndiName);
+		logger.debug("connectionUrl : " + connectionUrl);
+		logger.debug("userName : " + userName);
+		logger.debug("password : " + password);
+		logger.debug("minPoolSize : " + minPoolSize);
+		logger.debug("maxPoolSize : " + maxPoolSize);
 		
 		Command command = new Command("JBoss INSTALL");
 		int sequence = 0;
@@ -1236,13 +1160,10 @@ public class ProvisioningHandler {
 		}
 		
 		// ${server.base}/codeServer11_cs/lib, ${server.base}/codeServer21_cs/lib 에는 ${jboss.home}/server/all/lib에 있는 라이브러리 파일을 복사해 넣는다.
-		// Set IP & Hostname
 		s_action = new ShellAction(sequence++);
 		s_action.setWorkingDiretory(serverHome);
 		s_action.setCommand("sh");
 		s_action.addArguments("eap_init.sh");
-		s_action.addArguments(localIPAddress);
-		s_action.addArguments(hostName);
 		s_action.addArguments(jbossHome + "/server/all/lib");
 		s_action.addArguments(serverBase);
 		command.addAction(s_action);
@@ -1297,65 +1218,38 @@ public class ProvisioningHandler {
 		fw_action.setContents(envSh);
 		fw_action.setFileName(serverBase + "/codeServer21_cs/env.sh");
 		command.addAction(fw_action);
+
+		// Set server.xml
+		String _fileName = "server-http.xml";
+		String serverXml = null;
 		
-		// codeServerXX => ${user}ServerXX
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory(serverBase);
-		s_action.setCommand("mv");
-		s_action.addArguments("codeServer11");
-		s_action.addArguments(user + "Server11");
-		command.addAction(s_action);
-
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory(serverBase);
-		s_action.setCommand("mv");
-		s_action.addArguments("codeServer11_cs");
-		s_action.addArguments(user + "Server11_cs");
-		command.addAction(s_action);
-
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory(serverBase);
-		s_action.setCommand("mv");
-		s_action.addArguments("codeServer21");
-		s_action.addArguments(user + "Server21");
-		command.addAction(s_action);
-
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory(serverBase);
-		s_action.setCommand("mv");
-		s_action.addArguments("codeServer21_cs");
-		s_action.addArguments(user + "Server21_cs");
-		command.addAction(s_action);
-		
-		if (baseTemplate.endsWith("Server11") && !serverName.equals(user + "Server11")) {
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory(serverBase);
-			s_action.setCommand("mv");
-			s_action.addArguments(user + "Server11");
-			s_action.addArguments(serverName);
-			command.addAction(s_action);
-		} else if (baseTemplate.endsWith("Server11_cs") && !serverName.equals(user + "Server11_cs")) {
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory(serverBase);
-			s_action.setCommand("mv");
-			s_action.addArguments(user + "Server11_cs");
-			s_action.addArguments(serverName);
-			command.addAction(s_action);
-		} else if (baseTemplate.endsWith("Server21") && !serverName.equals(user + "Server21")) {
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory(serverBase);
-			s_action.setCommand("mv");
-			s_action.addArguments(user + "Server21");
-			s_action.addArguments(serverName);
-			command.addAction(s_action);
-		} else if (baseTemplate.endsWith("Server21_cs") && !serverName.equals(user + "Server21_cs")) {
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory(serverBase);
-			s_action.setCommand("mv");
-			s_action.addArguments(user + "Server21_cs");
-			s_action.addArguments(serverName);
-			command.addAction(s_action);
+		if (httpEnable != null && httpEnable.toUpperCase().equals("N")) {
+			_fileName = "server-none.xml";
+		} else {
+			_fileName = "server-http.xml";
 		}
+		
+		serverXml = IOUtils.toString(new URL(provisioningDetail.getUrlPrefix() + "/repo/jboss/conf/" + _fileName), "UTF-8");
+		
+		fw_action = new FileWriteAction(sequence++);
+		fw_action.setContents(serverXml);
+		fw_action.setFileName(serverBase + "/codeServer11/deploy/jbossweb.sar/server.xml");
+		command.addAction(fw_action);
+		
+		fw_action = new FileWriteAction(sequence++);
+		fw_action.setContents(serverXml);
+		fw_action.setFileName(serverBase + "/codeServer11_cs/deploy/jbossweb.sar/server.xml");
+		command.addAction(fw_action);
+		
+		fw_action = new FileWriteAction(sequence++);
+		fw_action.setContents(serverXml);
+		fw_action.setFileName(serverBase + "/codeServer21/deploy/jbossweb.sar/server.xml");
+		command.addAction(fw_action);
+		
+		fw_action = new FileWriteAction(sequence++);
+		fw_action.setContents(serverXml);
+		fw_action.setFileName(serverBase + "/codeServer21_cs/deploy/jbossweb.sar/server.xml");
+		command.addAction(fw_action);
 		
 		// jboss_init 변환
 		List<Property> properties = new ArrayList<Property>();
@@ -1413,122 +1307,67 @@ public class ProvisioningHandler {
 		String connectionChecker = null;
 		String encPasswd = null;
 		String query = null;
-		if (StringUtils.isNotEmpty(databaseType1) && StringUtils.isNotEmpty(jndiName1) && StringUtils.isNotEmpty(connectionUrl1)
-				 && StringUtils.isNotEmpty(userName1) && StringUtils.isNotEmpty(password1)) {
-			
-			if (databaseType1.toLowerCase().equals("oracle")) {
-				driverClassName = "oracle.jdbc.driver.OracleDriver";
-				exceptionSorter = "org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter";
-				connectionChecker = "org.jboss.resource.adapter.jdbc.vendor.OracleValidConnectionChecker";
-				query = "SELECT 1 FROM DUAL";
-			} else if (databaseType1.toLowerCase().equals("mysql")) {
-				driverClassName = "com.mysql.jdbc.Driver";
-				exceptionSorter = "org.jboss.resource.adapter.jdbc.vendor.MySQLExceptionSorter";
-				connectionChecker = "org.jboss.resource.adapter.jdbc.vendor.MySQLValidConnectionChecker";
-				query = "SELECT 1";
-			} else if (databaseType1.toLowerCase().equals("mssql")) {
-				driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-				query = "SELECT 1";
-			} else if (databaseType1.toLowerCase().equals("db2")) {
-				driverClassName = "com.ibm.db2.jcc.DB2Driver";
-				query = "VALUES 1";
-			}
-		
-			localTxDatasource.append("	<local-tx-datasource>").append("\n");
-			localTxDatasource.append("		<jndi-name>" + jndiName1 + "</jndi-name>").append("\n");
-			localTxDatasource.append("		<use-java-context>false</use-java-context>").append("\n");
-			localTxDatasource.append("		<connection-url>" + connectionUrl1 + "</connection-url>").append("\n");
-			localTxDatasource.append("		<driver-class>" + driverClassName + "</driver-class>").append("\n");
-			localTxDatasource.append("		<security-domain>" + jndiName1 + "</security-domain>").append("\n");
-			localTxDatasource.append("		<min-pool-size>" + minPoolSize1 + "</min-pool-size>").append("\n");
-			localTxDatasource.append("		<max-pool-size>" + maxPoolSize1 + "</max-pool-size>").append("\n\n");
-			localTxDatasource.append("		<!--").append("\n");
-			if (connectionChecker == null) {
-				localTxDatasource.append("		<valid-connection-checker-class-name/>").append("\n");
-			} else {
-				localTxDatasource.append("		<valid-connection-checker-class-name>" + connectionChecker + "</valid-connection-checker-class-name>").append("\n");
-			}
-			localTxDatasource.append("		-->").append("\n\n");
-			localTxDatasource.append("		<!-- Checks the Oracle error codes and messages for fatal errors -->").append("\n");
-			if (exceptionSorter == null) {
-				localTxDatasource.append("		<exception-sorter-class-name/>").append("\n\n");
-			} else {
-				localTxDatasource.append("		<exception-sorter-class-name>" + exceptionSorter + "</exception-sorter-class-name>").append("\n\n");
-			}
-			localTxDatasource.append("		<new-connection-sql>" + query + "</new-connection-sql>").append("\n");
-			localTxDatasource.append("		<check-valid-connection-sql>" + query + "</check-valid-connection-sql>").append("\n");
-			localTxDatasource.append("	</local-tx-datasource>").append("\n");
-
-			encPasswd = eapPasswordEncrypt(password1);
+		if (databaseType != null) {
+			for (int i = 0; i < databaseType.length; i++) {
+				if (StringUtils.isNotEmpty(databaseType[i]) && StringUtils.isNotEmpty(jndiName[i]) && StringUtils.isNotEmpty(connectionUrl[i])
+						 && StringUtils.isNotEmpty(userName[i]) && StringUtils.isNotEmpty(password[i])) {
+					
+					if (databaseType[i].toLowerCase().equals("oracle")) {
+						driverClassName = "oracle.jdbc.driver.OracleDriver";
+						exceptionSorter = "org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter";
+						connectionChecker = "org.jboss.resource.adapter.jdbc.vendor.OracleValidConnectionChecker";
+						query = "SELECT 1 FROM DUAL";
+					} else if (databaseType[i].toLowerCase().equals("mysql")) {
+						driverClassName = "com.mysql.jdbc.Driver";
+						exceptionSorter = "org.jboss.resource.adapter.jdbc.vendor.MySQLExceptionSorter";
+						connectionChecker = "org.jboss.resource.adapter.jdbc.vendor.MySQLValidConnectionChecker";
+						query = "SELECT 1";
+					} else if (databaseType[i].toLowerCase().equals("mssql")) {
+						driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+						query = "SELECT 1";
+					} else if (databaseType[i].toLowerCase().equals("db2")) {
+						driverClassName = "com.ibm.db2.jcc.DB2Driver";
+						query = "VALUES 1";
+					}
 				
-			applicationPolicy.append("  <application-policy name=\"" + jndiName1 + "\">").append("\n");
-			applicationPolicy.append("    <authentication>").append("\n");
-			applicationPolicy.append("     <login-module code=\"org.jboss.resource.security.SecureIdentityLoginModule\" flag=\"required\">").append("\n");
-			applicationPolicy.append("       <module-option name=\"username\">" + userName1 + "</module-option>").append("\n");
-			applicationPolicy.append("       <module-option name=\"password\">" + encPasswd + "</module-option>").append("\n");
-			applicationPolicy.append("       <module-option name=\"managedConnectionFactoryName\">jboss.jca:name=" + jndiName1 + ",service=LocalTxCM</module-option>").append("\n");
-			applicationPolicy.append("     </login-module>").append("\n");
-			applicationPolicy.append("    </authentication>").append("\n");
-			applicationPolicy.append("  </application-policy>").append("\n");
-		}
-
-		if (StringUtils.isNotEmpty(databaseType2) && StringUtils.isNotEmpty(jndiName2) && StringUtils.isNotEmpty(connectionUrl2)
-				 && StringUtils.isNotEmpty(userName2) && StringUtils.isNotEmpty(password2)) {
-			
-			if (databaseType2.toLowerCase().equals("oracle")) {
-				driverClassName = "oracle.jdbc.driver.OracleDriver";
-				exceptionSorter = "org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter";
-				connectionChecker = "org.jboss.resource.adapter.jdbc.vendor.OracleValidConnectionChecker";
-				query = "SELECT 1 FROM DUAL";
-			} else if (databaseType2.toLowerCase().equals("mysql")) {
-				driverClassName = "com.mysql.jdbc.Driver";
-				exceptionSorter = "org.jboss.resource.adapter.jdbc.vendor.MySQLExceptionSorter";
-				connectionChecker = "org.jboss.resource.adapter.jdbc.vendor.MySQLValidConnectionChecker";
-				query = "SELECT 1";
-			} else if (databaseType1.toLowerCase().equals("mssql")) {
-				driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-				query = "SELECT 1";
-			} else if (databaseType1.toLowerCase().equals("db2")) {
-				driverClassName = "com.ibm.db2.jcc.DB2Driver";
-				query = "VALUES 1";
+					localTxDatasource.append("	<local-tx-datasource>").append("\n");
+					localTxDatasource.append("		<jndi-name>" + jndiName[i] + "</jndi-name>").append("\n");
+					localTxDatasource.append("		<use-java-context>false</use-java-context>").append("\n");
+					localTxDatasource.append("		<connection-url>" + connectionUrl[i] + "</connection-url>").append("\n");
+					localTxDatasource.append("		<driver-class>" + driverClassName + "</driver-class>").append("\n");
+					localTxDatasource.append("		<security-domain>" + jndiName[i] + "</security-domain>").append("\n");
+					localTxDatasource.append("		<min-pool-size>" + minPoolSize[i] + "</min-pool-size>").append("\n");
+					localTxDatasource.append("		<max-pool-size>" + maxPoolSize[i] + "</max-pool-size>").append("\n\n");
+					localTxDatasource.append("		<!--").append("\n");
+					if (connectionChecker == null) {
+						localTxDatasource.append("		<valid-connection-checker-class-name/>").append("\n");
+					} else {
+						localTxDatasource.append("		<valid-connection-checker-class-name>" + connectionChecker + "</valid-connection-checker-class-name>").append("\n");
+					}
+					localTxDatasource.append("		-->").append("\n\n");
+					localTxDatasource.append("		<!-- Checks the Oracle error codes and messages for fatal errors -->").append("\n");
+					if (exceptionSorter == null) {
+						localTxDatasource.append("		<exception-sorter-class-name/>").append("\n\n");
+					} else {
+						localTxDatasource.append("		<exception-sorter-class-name>" + exceptionSorter + "</exception-sorter-class-name>").append("\n\n");
+					}
+					localTxDatasource.append("		<new-connection-sql>" + query + "</new-connection-sql>").append("\n");
+					localTxDatasource.append("		<check-valid-connection-sql>" + query + "</check-valid-connection-sql>").append("\n");
+					localTxDatasource.append("	</local-tx-datasource>").append("\n");
+		
+					encPasswd = eapPasswordEncrypt(password[i]);
+						
+					applicationPolicy.append("  <application-policy name=\"" + jndiName[i] + "\">").append("\n");
+					applicationPolicy.append("    <authentication>").append("\n");
+					applicationPolicy.append("     <login-module code=\"org.jboss.resource.security.SecureIdentityLoginModule\" flag=\"required\">").append("\n");
+					applicationPolicy.append("       <module-option name=\"username\">" + userName[i] + "</module-option>").append("\n");
+					applicationPolicy.append("       <module-option name=\"password\">" + encPasswd + "</module-option>").append("\n");
+					applicationPolicy.append("       <module-option name=\"managedConnectionFactoryName\">jboss.jca:name=" + jndiName[i] + ",service=LocalTxCM</module-option>").append("\n");
+					applicationPolicy.append("     </login-module>").append("\n");
+					applicationPolicy.append("    </authentication>").append("\n");
+					applicationPolicy.append("  </application-policy>").append("\n");
+				}
 			}
-			
-			localTxDatasource.append("	<local-tx-datasource>").append("\n");
-			localTxDatasource.append("		<jndi-name>" + jndiName2 + "</jndi-name>").append("\n");
-			localTxDatasource.append("		<use-java-context>false</use-java-context>").append("\n");
-			localTxDatasource.append("		<connection-url>" + connectionUrl2 + "</connection-url>").append("\n");
-			localTxDatasource.append("		<driver-class>" + driverClassName + "</driver-class>").append("\n");
-			localTxDatasource.append("		<security-domain>" + jndiName2 + "</security-domain>").append("\n");
-			localTxDatasource.append("		<min-pool-size>" + minPoolSize2 + "</min-pool-size>").append("\n");
-			localTxDatasource.append("		<max-pool-size>" + maxPoolSize2 + "</max-pool-size>").append("\n\n");
-			localTxDatasource.append("		<!--").append("\n");
-			if (connectionChecker == null) {
-				localTxDatasource.append("		<valid-connection-checker-class-name/>").append("\n");
-			} else {
-				localTxDatasource.append("		<valid-connection-checker-class-name>" + connectionChecker + "</valid-connection-checker-class-name>").append("\n");
-			}
-			localTxDatasource.append("		-->").append("\n\n");
-			localTxDatasource.append("		<!-- Checks the Oracle error codes and messages for fatal errors -->").append("\n");
-			if (exceptionSorter == null) {
-				localTxDatasource.append("		<exception-sorter-class-name/>").append("\n\n");
-			} else {
-				localTxDatasource.append("		<exception-sorter-class-name>" + exceptionSorter + "</exception-sorter-class-name>").append("\n\n");
-			}
-			localTxDatasource.append("		<new-connection-sql>" + query + "</new-connection-sql>").append("\n");
-			localTxDatasource.append("		<check-valid-connection-sql>" + query + "</check-valid-connection-sql>").append("\n");
-			localTxDatasource.append("	</local-tx-datasource>").append("\n");
-			
-			encPasswd = eapPasswordEncrypt(password2);
-			
-			applicationPolicy.append("  <application-policy name=\"" + jndiName2 + "\">").append("\n");
-			applicationPolicy.append("    <authentication>").append("\n");
-			applicationPolicy.append("     <login-module code=\"org.jboss.resource.security.SecureIdentityLoginModule\" flag=\"required\">").append("\n");
-			applicationPolicy.append("       <module-option name=\"username\">" + userName2 + "</module-option>").append("\n");
-			applicationPolicy.append("       <module-option name=\"password\">" + encPasswd + "</module-option>").append("\n");
-			applicationPolicy.append("       <module-option name=\"managedConnectionFactoryName\">jboss.jca:name=" + jndiName2 + ",service=LocalTxCM</module-option>").append("\n");
-			applicationPolicy.append("     </login-module>").append("\n");
-			applicationPolicy.append("    </authentication>").append("\n");
-			applicationPolicy.append("  </application-policy>").append("\n");
 		}
 
 		String dsXml = null;
@@ -1550,23 +1389,172 @@ public class ProvisioningHandler {
 		
 		fw_action = new FileWriteAction(sequence++);
 		fw_action.setContents(loginConfigXml);
-		fw_action.setFileName(serverBase + "/" + user + "Server11/conf/login-config.xml");
+		fw_action.setFileName(serverBase + "/codeServer11/conf/login-config.xml");
 		command.addAction(fw_action);
 		
 		fw_action = new FileWriteAction(sequence++);
 		fw_action.setContents(loginConfigXml);
-		fw_action.setFileName(serverBase + "/" + user + "Server11_cs/conf/login-config.xml");
+		fw_action.setFileName(serverBase + "/codeServer11_cs/conf/login-config.xml");
 		command.addAction(fw_action);
 		
 		fw_action = new FileWriteAction(sequence++);
 		fw_action.setContents(loginConfigXml);
-		fw_action.setFileName(serverBase + "/" + user + "Server21/conf/login-config.xml");
+		fw_action.setFileName(serverBase + "/codeServer21/conf/login-config.xml");
 		command.addAction(fw_action);
 		
 		fw_action = new FileWriteAction(sequence++);
 		fw_action.setContents(loginConfigXml);
-		fw_action.setFileName(serverBase + "/" + user + "Server21_cs/conf/login-config.xml");
+		fw_action.setFileName(serverBase + "/codeServer21_cs/conf/login-config.xml");
 		command.addAction(fw_action);
+		
+		// Add Set DataSource Configurations
+		cmdMsg.addCommand(command);
+		
+		command = new Command("Server Configurations");
+		sequence = 0;
+		
+		// codeServerXX => ${user}ServerXX
+		s_action = new ShellAction(sequence++);
+		s_action.setWorkingDiretory(serverBase);
+		s_action.setCommand("mv");
+		s_action.addArguments("codeServer11");
+		s_action.addArguments(user + "Server11");
+		command.addAction(s_action);
+
+		s_action = new ShellAction(sequence++);
+		s_action.setWorkingDiretory(serverBase);
+		s_action.setCommand("mv");
+		s_action.addArguments("codeServer11_cs");
+		s_action.addArguments(user + "Server11_cs");
+		command.addAction(s_action);
+
+		s_action = new ShellAction(sequence++);
+		s_action.setWorkingDiretory(serverBase);
+		s_action.setCommand("mv");
+		s_action.addArguments("codeServer21");
+		s_action.addArguments(user + "Server21");
+		command.addAction(s_action);
+
+		s_action = new ShellAction(sequence++);
+		s_action.setWorkingDiretory(serverBase);
+		s_action.setCommand("mv");
+		s_action.addArguments("codeServer21_cs");
+		s_action.addArguments(user + "Server21_cs");
+		command.addAction(s_action);
+		
+		if (baseTemplate.endsWith("Server11") && !serverName.equals(user + "Server11")) {
+			s_action = new ShellAction(sequence++);
+			s_action.setWorkingDiretory(serverBase);
+			s_action.setCommand("mv");
+			s_action.addArguments(user + "Server11");
+			s_action.addArguments(serverName);
+			command.addAction(s_action);
+			
+			s_action = new ShellAction(sequence++);
+			s_action.setWorkingDiretory(serverBase);
+			s_action.setCommand("rm");
+			s_action.addArguments("-rf");
+			s_action.addArguments(user + "Server11_cs");
+			command.addAction(s_action);
+			
+			s_action = new ShellAction(sequence++);
+			s_action.setWorkingDiretory(serverBase);
+			s_action.setCommand("rm");
+			s_action.addArguments("-rf");
+			s_action.addArguments(user + "Server21");
+			command.addAction(s_action);
+
+			s_action = new ShellAction(sequence++);
+			s_action.setWorkingDiretory(serverBase);
+			s_action.setCommand("rm");
+			s_action.addArguments("-rf");
+			s_action.addArguments(user + "Server21_cs");
+			command.addAction(s_action);			
+		} else if (baseTemplate.endsWith("Server11_cs") && !serverName.equals(user + "Server11_cs")) {
+			s_action = new ShellAction(sequence++);
+			s_action.setWorkingDiretory(serverBase);
+			s_action.setCommand("mv");
+			s_action.addArguments(user + "Server11_cs");
+			s_action.addArguments(serverName);
+			command.addAction(s_action);
+			
+			s_action = new ShellAction(sequence++);
+			s_action.setWorkingDiretory(serverBase);
+			s_action.setCommand("rm");
+			s_action.addArguments("-rf");
+			s_action.addArguments(user + "Server11");
+			command.addAction(s_action);
+			
+			s_action = new ShellAction(sequence++);
+			s_action.setWorkingDiretory(serverBase);
+			s_action.setCommand("rm");
+			s_action.addArguments("-rf");
+			s_action.addArguments(user + "Server21");
+			command.addAction(s_action);
+
+			s_action = new ShellAction(sequence++);
+			s_action.setWorkingDiretory(serverBase);
+			s_action.setCommand("rm");
+			s_action.addArguments("-rf");
+			s_action.addArguments(user + "Server21_cs");
+			command.addAction(s_action);			
+		} else if (baseTemplate.endsWith("Server21") && !serverName.equals(user + "Server21")) {
+			s_action = new ShellAction(sequence++);
+			s_action.setWorkingDiretory(serverBase);
+			s_action.setCommand("mv");
+			s_action.addArguments(user + "Server21");
+			s_action.addArguments(serverName);
+			command.addAction(s_action);
+			
+			s_action = new ShellAction(sequence++);
+			s_action.setWorkingDiretory(serverBase);
+			s_action.setCommand("rm");
+			s_action.addArguments("-rf");
+			s_action.addArguments(user + "Server11");
+			command.addAction(s_action);
+			
+			s_action = new ShellAction(sequence++);
+			s_action.setWorkingDiretory(serverBase);
+			s_action.setCommand("rm");
+			s_action.addArguments("-rf");
+			s_action.addArguments(user + "Server11_cs");
+			command.addAction(s_action);
+
+			s_action = new ShellAction(sequence++);
+			s_action.setWorkingDiretory(serverBase);
+			s_action.setCommand("rm");
+			s_action.addArguments("-rf");
+			s_action.addArguments(user + "Server21_cs");
+			command.addAction(s_action);			
+		} else if (baseTemplate.endsWith("Server21_cs") && !serverName.equals(user + "Server21_cs")) {
+			s_action = new ShellAction(sequence++);
+			s_action.setWorkingDiretory(serverBase);
+			s_action.setCommand("mv");
+			s_action.addArguments(user + "Server21_cs");
+			s_action.addArguments(serverName);
+			command.addAction(s_action);
+			
+			s_action = new ShellAction(sequence++);
+			s_action.setWorkingDiretory(serverBase);
+			s_action.setCommand("rm");
+			s_action.addArguments("-rf");
+			s_action.addArguments(user + "Server11");
+			command.addAction(s_action);
+			
+			s_action = new ShellAction(sequence++);
+			s_action.setWorkingDiretory(serverBase);
+			s_action.setCommand("rm");
+			s_action.addArguments("-rf");
+			s_action.addArguments(user + "Server11_cs");
+			command.addAction(s_action);
+
+			s_action = new ShellAction(sequence++);
+			s_action.setWorkingDiretory(serverBase);
+			s_action.setCommand("rm");
+			s_action.addArguments("-rf");
+			s_action.addArguments(user + "Server21");
+			command.addAction(s_action);			
+		}
 
 		// chonw -R ${user}:${group} /home/${user}
 		s_action = new ShellAction(sequence++);
@@ -1589,10 +1577,6 @@ public class ProvisioningHandler {
 			s_action.setWorkingDiretory(serverBase + "/" + serverName);
 			s_action.setCommand("runuser");
 			s_action.addArguments(startArgs);
-			//s_action.addArguments("-l");
-			//s_action.addArguments(user);
-			//s_action.addArguments("-c");
-			//s_action.addArguments("'sh " + serverBase + "/" + serverName + "/startNode.sh notail'");
 			command.addAction(s_action);
 			
 			cmdMsg.addCommand(command);
@@ -1658,7 +1642,7 @@ public class ProvisioningHandler {
 		String dataDir = (StringUtils.isEmpty(provisioningDetail.getDataDir()) ? "/var/lib/mysql" : provisioningDetail.getDataDir());
 		String port = (StringUtils.isEmpty(provisioningDetail.getPort()) ? "3306" : provisioningDetail.getPort());
 		String version = provisioningDetail.getVersion();
-		String password = provisioningDetail.getPassword1();
+		String password = provisioningDetail.getPassword()[0];
 		
 		Command command = new Command("CONFIGURATION");
 		int sequence = 0;

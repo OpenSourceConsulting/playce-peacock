@@ -54,17 +54,13 @@ public class ProvisioningDetail implements Serializable {
 	private String permgenSize;
 	private String bindAddress;
 	private String hostName;
-	private String databaseType1;
-	private String databaseType2;
-	private String jndiName1;
-	private String jndiName2;
-	private String connectionUrl1;
-	private String connectionUrl2;
-	private String userName1;
-	private String userName2;
-	private String password1;
-	private String password2;
+	private String httpEnable = "Y";
 	private String autoStart = "Y";
+	private String[] databaseType;
+	private String[] jndiName;
+	private String[] connectionUrl;
+	private String[] userName;
+	private String[] password;
 	
 	private String fileLocation;
 	private String fileName;
@@ -81,14 +77,11 @@ public class ProvisioningDetail implements Serializable {
 	private String catalinaHome;
 	private String catalinaBase;
 	private String portOffset;
-	private String httpEnable = "Y";
 	private String highAvailability = "Y";
 	private String otherBindAddress;
 	private String localIPAddress;
-	private String maxIdle1;
-	private String maxIdle2;
-	private String maxActive1;
-	private String maxActive2;
+	private String[] maxIdle;
+	private String[] maxActive;
 	
 	/** JBoss Variables */
 	private String jbossHome;
@@ -100,10 +93,8 @@ public class ProvisioningDetail implements Serializable {
 	private String multicastPort;
 	private String serverPeerID;
 	private String jvmRoute;
-	private String minPoolSize1;
-	private String minPoolSize2;
-	private String maxPoolSize1;
-	private String maxPoolSize2;
+	private String[] minPoolSize;
+	private String[] maxPoolSize;
 	
 	/** MySQL Variables */
 	private String dataDir;
@@ -308,143 +299,87 @@ public class ProvisioningDetail implements Serializable {
 	}
 
 	/**
-	 * @return the databaseType1
+	 * @return the httpEnable
 	 */
-	public String getDatabaseType1() {
-		return databaseType1;
+	public String getHttpEnable() {
+		return httpEnable;
 	}
 
 	/**
-	 * @param databaseType1 the databaseType1 to set
+	 * @param httpEnable the httpEnable to set
 	 */
-	public void setDatabaseType1(String databaseType1) {
-		this.databaseType1 = databaseType1;
+	public void setHttpEnable(String httpEnable) {
+		this.httpEnable = httpEnable;
 	}
 
 	/**
-	 * @return the databaseType2
+	 * @return the databaseType
 	 */
-	public String getDatabaseType2() {
-		return databaseType2;
+	public String[] getDatabaseType() {
+		return databaseType;
 	}
 
 	/**
-	 * @param databaseType2 the databaseType2 to set
+	 * @param databaseType the databaseType to set
 	 */
-	public void setDatabaseType2(String databaseType2) {
-		this.databaseType2 = databaseType2;
+	public void setDatabaseType(String[] databaseType) {
+		this.databaseType = databaseType;
 	}
 
 	/**
-	 * @return the jndiName1
+	 * @return the jndiName
 	 */
-	public String getJndiName1() {
-		return jndiName1;
+	public String[] getJndiName() {
+		return jndiName;
 	}
 
 	/**
-	 * @param jndiName1 the jndiName1 to set
+	 * @param jndiName the jndiName to set
 	 */
-	public void setJndiName1(String jndiName1) {
-		this.jndiName1 = jndiName1;
+	public void setJndiName(String[] jndiName) {
+		this.jndiName = jndiName;
 	}
 
 	/**
-	 * @return the jndiName2
+	 * @return the connectionUrl
 	 */
-	public String getJndiName2() {
-		return jndiName2;
+	public String[] getConnectionUrl() {
+		return connectionUrl;
 	}
 
 	/**
-	 * @param jndiName2 the jndiName2 to set
+	 * @param connectionUrl the connectionUrl to set
 	 */
-	public void setJndiName2(String jndiName2) {
-		this.jndiName2 = jndiName2;
+	public void setConnectionUrl(String[] connectionUrl) {
+		this.connectionUrl = connectionUrl;
 	}
 
 	/**
-	 * @return the connectionUrl1
+	 * @return the userName
 	 */
-	public String getConnectionUrl1() {
-		return connectionUrl1;
+	public String[] getUserName() {
+		return userName;
 	}
 
 	/**
-	 * @param connectionUrl1 the connectionUrl1 to set
+	 * @param userName the userName to set
 	 */
-	public void setConnectionUrl1(String connectionUrl1) {
-		this.connectionUrl1 = connectionUrl1;
+	public void setUserName(String[] userName) {
+		this.userName = userName;
 	}
 
 	/**
-	 * @return the connectionUrl2
+	 * @return the password
 	 */
-	public String getConnectionUrl2() {
-		return connectionUrl2;
+	public String[] getPassword() {
+		return password;
 	}
 
 	/**
-	 * @param connectionUrl2 the connectionUrl2 to set
+	 * @param password the password to set
 	 */
-	public void setConnectionUrl2(String connectionUrl2) {
-		this.connectionUrl2 = connectionUrl2;
-	}
-
-	/**
-	 * @return the userName1
-	 */
-	public String getUserName1() {
-		return userName1;
-	}
-
-	/**
-	 * @param userName1 the userName1 to set
-	 */
-	public void setUserName1(String userName1) {
-		this.userName1 = userName1;
-	}
-
-	/**
-	 * @return the userName2
-	 */
-	public String getUserName2() {
-		return userName2;
-	}
-
-	/**
-	 * @param userName2 the userName2 to set
-	 */
-	public void setUserName2(String userName2) {
-		this.userName2 = userName2;
-	}
-
-	/**
-	 * @return the password1
-	 */
-	public String getPassword1() {
-		return password1;
-	}
-
-	/**
-	 * @param password1 the password1 to set
-	 */
-	public void setPassword1(String password1) {
-		this.password1 = password1;
-	}
-
-	/**
-	 * @return the password2
-	 */
-	public String getPassword2() {
-		return password2;
-	}
-
-	/**
-	 * @param password2 the password2 to set
-	 */
-	public void setPassword2(String password2) {
-		this.password2 = password2;
+	public void setPassword(String[] password) {
+		this.password = password;
 	}
 
 	/**
@@ -616,20 +551,6 @@ public class ProvisioningDetail implements Serializable {
 	}
 
 	/**
-	 * @return the httpEnable
-	 */
-	public String getHttpEnable() {
-		return httpEnable;
-	}
-
-	/**
-	 * @param httpEnable the httpEnable to set
-	 */
-	public void setHttpEnable(String httpEnable) {
-		this.httpEnable = httpEnable;
-	}
-
-	/**
 	 * @return the highAvailability
 	 */
 	public String getHighAvailability() {
@@ -672,59 +593,31 @@ public class ProvisioningDetail implements Serializable {
 	}
 
 	/**
-	 * @return the maxIdle1
+	 * @return the maxIdle
 	 */
-	public String getMaxIdle1() {
-		return maxIdle1;
+	public String[] getMaxIdle() {
+		return maxIdle;
 	}
 
 	/**
-	 * @param maxIdle1 the maxIdle1 to set
+	 * @param maxIdle the maxIdle to set
 	 */
-	public void setMaxIdle1(String maxIdle1) {
-		this.maxIdle1 = maxIdle1;
+	public void setMaxIdle(String[] maxIdle) {
+		this.maxIdle = maxIdle;
 	}
 
 	/**
-	 * @return the maxIdle2
+	 * @return the maxActive
 	 */
-	public String getMaxIdle2() {
-		return maxIdle2;
+	public String[] getMaxActive() {
+		return maxActive;
 	}
 
 	/**
-	 * @param maxIdle2 the maxIdle2 to set
+	 * @param maxActive the maxActive to set
 	 */
-	public void setMaxIdle2(String maxIdle2) {
-		this.maxIdle2 = maxIdle2;
-	}
-
-	/**
-	 * @return the maxActive1
-	 */
-	public String getMaxActive1() {
-		return maxActive1;
-	}
-
-	/**
-	 * @param maxActive1 the maxActive1 to set
-	 */
-	public void setMaxActive1(String maxActive1) {
-		this.maxActive1 = maxActive1;
-	}
-
-	/**
-	 * @return the maxActive2
-	 */
-	public String getMaxActive2() {
-		return maxActive2;
-	}
-
-	/**
-	 * @param maxActive2 the maxActive2 to set
-	 */
-	public void setMaxActive2(String maxActive2) {
-		this.maxActive2 = maxActive2;
+	public void setMaxActive(String[] maxActive) {
+		this.maxActive = maxActive;
 	}
 
 	/**
@@ -854,59 +747,31 @@ public class ProvisioningDetail implements Serializable {
 	}
 
 	/**
-	 * @return the minPoolSize1
+	 * @return the minPoolSize
 	 */
-	public String getMinPoolSize1() {
-		return minPoolSize1;
+	public String[] getMinPoolSize() {
+		return minPoolSize;
 	}
 
 	/**
-	 * @param minPoolSize1 the minPoolSize1 to set
+	 * @param minPoolSize the minPoolSize to set
 	 */
-	public void setMinPoolSize1(String minPoolSize1) {
-		this.minPoolSize1 = minPoolSize1;
+	public void setMinPoolSize(String[] minPoolSize) {
+		this.minPoolSize = minPoolSize;
 	}
 
 	/**
-	 * @return the minPoolSize2
+	 * @return the maxPoolSize
 	 */
-	public String getMinPoolSize2() {
-		return minPoolSize2;
+	public String[] getMaxPoolSize() {
+		return maxPoolSize;
 	}
 
 	/**
-	 * @param minPoolSize2 the minPoolSize2 to set
+	 * @param maxPoolSize the maxPoolSize to set
 	 */
-	public void setMinPoolSize2(String minPoolSize2) {
-		this.minPoolSize2 = minPoolSize2;
-	}
-
-	/**
-	 * @return the maxPoolSize1
-	 */
-	public String getMaxPoolSize1() {
-		return maxPoolSize1;
-	}
-
-	/**
-	 * @param maxPoolSize1 the maxPoolSize1 to set
-	 */
-	public void setMaxPoolSize1(String maxPoolSize1) {
-		this.maxPoolSize1 = maxPoolSize1;
-	}
-
-	/**
-	 * @return the maxPoolSize2
-	 */
-	public String getMaxPoolSize2() {
-		return maxPoolSize2;
-	}
-
-	/**
-	 * @param maxPoolSize2 the maxPoolSize2 to set
-	 */
-	public void setMaxPoolSize2(String maxPoolSize2) {
-		this.maxPoolSize2 = maxPoolSize2;
+	public void setMaxPoolSize(String[] maxPoolSize) {
+		this.maxPoolSize = maxPoolSize;
 	}
 
 	/**

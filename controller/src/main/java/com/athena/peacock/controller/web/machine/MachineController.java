@@ -685,7 +685,7 @@ public class MachineController {
 			
 			String args = "";
 
-			if (group.getGid() != null && Integer.parseInt(group.getGid()) >= 0) {
+			if (StringUtils.isNotEmpty(group.getGid()) && Integer.parseInt(group.getGid()) >= 0) {
 				args += "-g " + group.getGid() + " ";
 			}
 			
@@ -823,7 +823,7 @@ public class MachineController {
 				
 				args += " ";
 			}
-			if (account.getUid() != null && Integer.parseInt(account.getUid()) >= 0) {
+			if (StringUtils.isNotEmpty(account.getUid()) && Integer.parseInt(account.getUid()) >= 0) {
 				args += "-u " + account.getUid() + " ";
 			}
 			
