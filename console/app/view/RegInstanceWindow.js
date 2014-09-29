@@ -31,7 +31,7 @@ Ext.define('MyApp.view.RegInstanceWindow', {
         'Ext.button.Button'
     ],
 
-    height: 620,
+    height: 660,
     id: 'regInstanceWindow1',
     width: 480,
     resizable: false,
@@ -100,6 +100,26 @@ Ext.define('MyApp.view.RegInstanceWindow', {
                                 {
                                     xtype: 'combobox',
                                     anchor: '100%',
+                                    padding: '0 0 0 0',
+                                    afterLabelTextTpl: [
+                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                    ],
+                                    fieldLabel: 'Based on Template',
+                                    labelWidth: 130,
+                                    name: 'template',
+                                    allowBlank: false,
+                                    displayField: 'name',
+                                    valueField: 'templateId',
+                                    listeners: {
+                                        select: {
+                                            fn: me.onComboboxSelect,
+                                            scope: me
+                                        }
+                                    }
+                                },
+                                {
+                                    xtype: 'combobox',
+                                    anchor: '100%',
                                     afterLabelTextTpl: [
                                         '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                     ],
@@ -140,7 +160,14 @@ Ext.define('MyApp.view.RegInstanceWindow', {
                                     labelWidth: 130,
                                     name: 'name',
                                     allowBlank: false,
-                                    vtype: 'template'
+                                    enableKeyEvents: true,
+                                    vtype: 'template',
+                                    listeners: {
+                                        keyup: {
+                                            fn: me.onTextfieldKeyup,
+                                            scope: me
+                                        }
+                                    }
                                 },
                                 {
                                     xtype: 'textfield',
@@ -151,6 +178,18 @@ Ext.define('MyApp.view.RegInstanceWindow', {
                                     fieldLabel: 'Description',
                                     labelWidth: 130,
                                     name: 'description',
+                                    allowBlank: false
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    anchor: '100%',
+                                    padding: '0 0 15 0',
+                                    afterLabelTextTpl: [
+                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                    ],
+                                    fieldLabel: 'Host Name',
+                                    labelWidth: 130,
+                                    name: 'hostName',
                                     allowBlank: false
                                 },
                                 {
@@ -165,26 +204,6 @@ Ext.define('MyApp.view.RegInstanceWindow', {
                                     labelWidth: 130,
                                     name: 'displayTemplate',
                                     value: 'Display Field'
-                                },
-                                {
-                                    xtype: 'combobox',
-                                    anchor: '100%',
-                                    padding: '0 0 15 0',
-                                    afterLabelTextTpl: [
-                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-                                    ],
-                                    fieldLabel: 'Based on Template',
-                                    labelWidth: 130,
-                                    name: 'template',
-                                    allowBlank: false,
-                                    displayField: 'name',
-                                    valueField: 'templateId',
-                                    listeners: {
-                                        select: {
-                                            fn: me.onComboboxSelect,
-                                            scope: me
-                                        }
-                                    }
                                 },
                                 {
                                     xtype: 'textfield',
@@ -525,6 +544,14 @@ Ext.define('MyApp.view.RegInstanceWindow', {
         }
     },
 
+    onComboboxSelect: function(combo, records, eOpts) {
+        combo.up('form').getForm().findField("memory").setValue(records[0].get("memory"));
+        combo.up('form').getForm().findField("sockets").setValue(records[0].get("sockets"));
+        combo.up('form').getForm().findField("cores").setValue("1");
+
+        //alert(records[0].get("clusterMap"));
+    },
+
     onComboboxChange1: function(field, newValue, oldValue, eOpts) {
         if(newValue != '') {
 
@@ -544,11 +571,8 @@ Ext.define('MyApp.view.RegInstanceWindow', {
         }
     },
 
-    onComboboxSelect: function(combo, records, eOpts) {
-        combo.up('form').getForm().findField("memory").setValue(records[0].get("memory"));
-        combo.up('form').getForm().findField("sockets").setValue(records[0].get("sockets"));
-        combo.up('form').getForm().findField("cores").setValue("1");
-
+    onTextfieldKeyup: function(textfield, e, eOpts) {
+        textfield.up('form').getForm().findField("hostName").setValue(textfield.getValue());
     },
 
     onRadiofieldChange: function(field, newValue, oldValue, eOpts) {

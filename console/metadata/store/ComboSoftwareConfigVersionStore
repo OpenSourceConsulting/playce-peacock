@@ -58,6 +58,26 @@
                     "designerId": "87e729eb-6048-44ad-a500-45409662421b"
                 }
             ]
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onJsonstoreLoad",
+                "implHandler": [
+                    "Ext.each(records, function(record) {",
+                    "    var displayField = record.get(\"configFileId\") +\" (\"+record.get(\"regDt\")+\")\";",
+                    "    record.set(\"configDisplayFileId\", displayField);",
+                    "});"
+                ],
+                "name": "load",
+                "scope": "me"
+            },
+            "designerId": "bff8b273-f2b4-4f9e-aa4d-0d8d36ee859b"
         }
     ]
 }

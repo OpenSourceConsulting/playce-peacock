@@ -88,6 +88,10 @@ Ext.define('MyApp.model.TemplateModel', {
         {
             name: 'seq',
             type: 'int'
+        },
+        {
+            name: 'clusterMap',
+            type: 'auto'
         }
     ]
 });

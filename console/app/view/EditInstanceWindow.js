@@ -30,7 +30,7 @@ Ext.define('MyApp.view.EditInstanceWindow', {
         'Ext.button.Button'
     ],
 
-    height: 530,
+    height: 560,
     id: 'EditInstanceWindow',
     itemId: 'EditInstanceWindow',
     width: 450,
@@ -67,9 +67,21 @@ Ext.define('MyApp.view.EditInstanceWindow', {
                                     afterLabelTextTpl: [
                                         '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                     ],
-                                    fieldLabel: 'Name',
+                                    fieldLabel: 'Instance Name',
                                     labelWidth: 120,
                                     name: 'displayName',
+                                    allowBlank: false,
+                                    vtype: 'template'
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    anchor: '100%',
+                                    afterLabelTextTpl: [
+                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                    ],
+                                    fieldLabel: 'Host Name',
+                                    labelWidth: 120,
+                                    name: 'hostName',
                                     allowBlank: false,
                                     vtype: 'template'
                                 },

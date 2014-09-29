@@ -994,15 +994,15 @@
                 "implHandler": [
                     "",
                     "if(RHEVMConstants.writeMenuAuth) {",
-                    "    ",
+                    "",
                     "    Ext.getCmp(\"hypervisorGrid\").getView().headerCt.getGridColumns()[11].setVisible(true);",
                     "    Ext.getCmp(\"hypervisorGrid\").getView().headerCt.getGridColumns()[12].setVisible(true);",
-                    "    ",
+                    "",
                     "} else {",
-                    "    ",
+                    "",
                     "    Ext.getCmp(\"hypervisorGrid\").getView().headerCt.getGridColumns()[11].setVisible(false);",
                     "    Ext.getCmp(\"hypervisorGrid\").getView().headerCt.getGridColumns()[12].setVisible(false);",
-                    "    ",
+                    "",
                     "}"
                 ]
             },

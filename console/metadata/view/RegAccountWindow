@@ -8,7 +8,7 @@
     "userConfig": {
         "designer|userAlias": "RegAccountWindow",
         "designer|userClassName": "RegAccountWindow",
-        "height": 340,
+        "height": 360,
         "id": "regAccountWindow",
         "layout": "border",
         "modal": true,
@@ -216,6 +216,20 @@
                                 ]
                             },
                             "designerId": "9b74c6d5-d082-4520-9326-56bd5709e095"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "UID",
+                                "layout|anchor": "100%",
+                                "name": "uid"
+                            },
+                            "designerId": "27aa9232-2fcb-4f9f-9768-4085432139d4"
                         },
                         {
                             "type": "Ext.form.field.Checkbox",

@@ -56,6 +56,10 @@ Ext.define('MyApp.model.ConfigModel', {
         {
             name: 'configDisplayFileId',
             type: 'string'
+        },
+        {
+            name: 'regDt',
+            type: 'string'
         }
     ]
 });

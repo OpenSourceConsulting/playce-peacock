@@ -20,7 +20,7 @@ Ext.define('MyApp.controller.GlobalController', {
         Ext.define('GLOBAL', {
             singleton: true,
             lastSelectedMenuId: null,
-            urlPrefix:"http://localhost:8080/"
+            urlPrefix:""//http://localhost:8080/"
         });
 
 
@@ -82,13 +82,6 @@ Ext.define('MyApp.controller.GlobalController', {
         }, Ext.getBody());
 
         Ext.Ajax.on('requestexception', Ext.getBody().unmask, Ext.getBody());
-
-        /*
-         * Login 권한 설정
-         */
-        Ext.Ajax.on('request', function(){
-
-        });
 
         /*
          * Global Validation(VTypes) Config

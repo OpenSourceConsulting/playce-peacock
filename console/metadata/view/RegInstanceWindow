@@ -8,7 +8,7 @@
     "userConfig": {
         "designer|userAlias": "RegInstanceWindow",
         "designer|userClassName": "RegInstanceWindow",
-        "height": 620,
+        "height": 660,
         "id": "regInstanceWindow1",
         "layout": "border",
         "modal": true,
@@ -194,6 +194,63 @@
                             "userConfig": {
                                 "allowBlank": false,
                                 "displayField": "name",
+                                "fieldLabel": "Based on Template",
+                                "labelWidth": 130,
+                                "layout|anchor": "100%",
+                                "name": "template",
+                                "padding": "0 0 0 0",
+                                "valueField": "templateId"
+                            },
+                            "designerId": "5c7ba828-1976-4f3f-ab81-0408ff77ece4",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onComboboxSelect",
+                                        "implHandler": [
+                                            "combo.up('form').getForm().findField(\"memory\").setValue(records[0].get(\"memory\"));",
+                                            "combo.up('form').getForm().findField(\"sockets\").setValue(records[0].get(\"sockets\"));",
+                                            "combo.up('form').getForm().findField(\"cores\").setValue(\"1\");",
+                                            "",
+                                            "//alert(records[0].get(\"clusterMap\"));"
+                                        ],
+                                        "name": "select",
+                                        "scope": "me"
+                                    },
+                                    "designerId": "804441ef-ab21-4789-9d85-5e65b18679bd"
+                                },
+                                {
+                                    "type": "Ext.XTemplate",
+                                    "reference": {
+                                        "name": "afterLabelTextTpl",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "afterLabelTextTpl",
+                                        "implHandler": [
+                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                        ]
+                                    },
+                                    "designerId": "3975a617-7d8f-4f0d-9adf-9180e2728380"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.form.field.ComboBox",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "displayField": "name",
                                 "fieldLabel": "Data Center",
                                 "labelWidth": 130,
                                 "layout|anchor": "100%",
@@ -297,6 +354,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "allowBlank": false,
+                                "enableKeyEvents": true,
                                 "fieldLabel": "Name",
                                 "labelWidth": 130,
                                 "layout|anchor": "100%",
@@ -319,6 +377,23 @@
                                         ]
                                     },
                                     "designerId": "5da1c745-0f20-46ec-82c3-eb7017ac49a4"
+                                },
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onTextfieldKeyup",
+                                        "implHandler": [
+                                            "textfield.up('form').getForm().findField(\"hostName\").setValue(textfield.getValue());"
+                                        ],
+                                        "name": "keyup",
+                                        "scope": "me"
+                                    },
+                                    "designerId": "3da39d10-23ef-4498-a31f-81b0dbb03631"
                                 }
                             ]
                         },
@@ -356,6 +431,40 @@
                             ]
                         },
                         {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "fieldLabel": "Host Name",
+                                "labelWidth": 130,
+                                "layout|anchor": "100%",
+                                "name": "hostName",
+                                "padding": "0 0 15 0"
+                            },
+                            "designerId": "e1be67da-31fb-4008-ad8a-3dc62379f75a",
+                            "cn": [
+                                {
+                                    "type": "Ext.XTemplate",
+                                    "reference": {
+                                        "name": "afterLabelTextTpl",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "afterLabelTextTpl",
+                                        "implHandler": [
+                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                        ]
+                                    },
+                                    "designerId": "afdb1715-edfc-4d8b-9910-80a2c5d8d9c0"
+                                }
+                            ]
+                        },
+                        {
                             "type": "Ext.form.field.Display",
                             "reference": {
                                 "name": "items",
@@ -389,62 +498,6 @@
                                         ]
                                     },
                                     "designerId": "a82097fd-d42e-412c-b03b-508dc8ef3197"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "Ext.form.field.ComboBox",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "allowBlank": false,
-                                "displayField": "name",
-                                "fieldLabel": "Based on Template",
-                                "labelWidth": 130,
-                                "layout|anchor": "100%",
-                                "name": "template",
-                                "padding": "0 0 15 0",
-                                "valueField": "templateId"
-                            },
-                            "designerId": "5c7ba828-1976-4f3f-ab81-0408ff77ece4",
-                            "cn": [
-                                {
-                                    "type": "basiceventbinding",
-                                    "reference": {
-                                        "name": "listeners",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "fn": "onComboboxSelect",
-                                        "implHandler": [
-                                            "combo.up('form').getForm().findField(\"memory\").setValue(records[0].get(\"memory\"));",
-                                            "combo.up('form').getForm().findField(\"sockets\").setValue(records[0].get(\"sockets\"));",
-                                            "combo.up('form').getForm().findField(\"cores\").setValue(\"1\");",
-                                            ""
-                                        ],
-                                        "name": "select",
-                                        "scope": "me"
-                                    },
-                                    "designerId": "804441ef-ab21-4789-9d85-5e65b18679bd"
-                                },
-                                {
-                                    "type": "Ext.XTemplate",
-                                    "reference": {
-                                        "name": "afterLabelTextTpl",
-                                        "type": "object"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "designer|displayName": "afterLabelTextTpl",
-                                        "implHandler": [
-                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
-                                        ]
-                                    },
-                                    "designerId": "3975a617-7d8f-4f0d-9adf-9180e2728380"
                                 }
                             ]
                         },

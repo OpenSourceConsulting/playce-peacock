@@ -230,6 +230,19 @@
                 "type": "int"
             },
             "designerId": "ca6c26d5-9572-4bc0-9313-0fc19e36876b"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "clusterMap",
+                "type": "auto"
+            },
+            "designerId": "b30117a2-8d44-4ccb-9b63-765b159f3124"
         }
     ]
 }

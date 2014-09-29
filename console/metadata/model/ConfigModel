@@ -126,6 +126,19 @@
                 "type": "string"
             },
             "designerId": "5fdb5ad0-8ca0-4999-a3f2-bb8205cd4bc8"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "regDt",
+                "type": "string"
+            },
+            "designerId": "8bb83e39-eb16-41f6-8de1-4c494c2be32c"
         }
     ]
 }

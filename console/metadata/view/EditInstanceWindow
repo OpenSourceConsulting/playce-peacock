@@ -8,7 +8,7 @@
     "userConfig": {
         "designer|userAlias": "EditInstanceWindow",
         "designer|userClassName": "EditInstanceWindow",
-        "height": 530,
+        "height": 560,
         "id": "EditInstanceWindow",
         "itemId": "EditInstanceWindow",
         "layout": "border",
@@ -68,7 +68,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "allowBlank": false,
-                                "fieldLabel": "Name",
+                                "fieldLabel": "Instance Name",
                                 "labelWidth": 120,
                                 "layout|anchor": "100%",
                                 "name": "displayName",
@@ -90,6 +90,40 @@
                                         ]
                                     },
                                     "designerId": "bdbbf467-ce39-46a2-b422-d794d66673fa"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "fieldLabel": "Host Name",
+                                "labelWidth": 120,
+                                "layout|anchor": "100%",
+                                "name": "hostName",
+                                "vtype": "template"
+                            },
+                            "designerId": "5798908f-af03-435e-bfa5-f1199c1e6874",
+                            "cn": [
+                                {
+                                    "type": "Ext.XTemplate",
+                                    "reference": {
+                                        "name": "afterLabelTextTpl",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "afterLabelTextTpl",
+                                        "implHandler": [
+                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                        ]
+                                    },
+                                    "designerId": "501ccc0b-5409-46ec-80ec-33acc7980283"
                                 }
                             ]
                         },

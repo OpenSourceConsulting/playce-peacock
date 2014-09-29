@@ -153,7 +153,7 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
                                     fieldLabel: 'Config File Version',
                                     labelWidth: 130,
                                     name: 'configFileId',
-                                    displayField: 'configFileId',
+                                    displayField: 'configDisplayFileId',
                                     store: 'ComboSoftwareConfigVersionStore',
                                     typeAhead: true,
                                     valueField: 'configFileId',

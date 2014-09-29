@@ -36,7 +36,13 @@ Ext.define('MyApp.store.ComboSoftwareConfigVersionStore', {
                     type: 'json',
                     root: 'list'
                 }
-            })
+            }),
+            listeners: {
+                load: {
+                    fn: me.onJsonstoreLoad,
+                    scope: me
+                }
+            }
         }, cfg)]);
     },
 
@@ -44,6 +50,13 @@ Ext.define('MyApp.store.ComboSoftwareConfigVersionStore', {
         config.actionMethods = {create: "GET", read: "GET", update: "GET", destroy: "GET"};
 
         return config;
+    },
+
+    onJsonstoreLoad: function(store, records, successful, eOpts) {
+        Ext.each(records, function(record) {
+            var displayField = record.get("configFileId") +" ("+record.get("regDt")+")";
+            record.set("configDisplayFileId", displayField);
+        });
     }
 
 });

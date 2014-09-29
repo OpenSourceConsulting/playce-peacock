@@ -27,7 +27,7 @@ Ext.define('MyApp.view.RegAccountWindow', {
         'Ext.button.Button'
     ],
 
-    height: 340,
+    height: 360,
     id: 'regAccountWindow',
     width: 470,
     resizable: false,
@@ -113,6 +113,12 @@ Ext.define('MyApp.view.RegAccountWindow', {
                                     fieldLabel: 'Shell',
                                     name: 'shell',
                                     value: '/bin/bash'
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    anchor: '100%',
+                                    fieldLabel: 'UID',
+                                    name: 'uid'
                                 },
                                 {
                                     xtype: 'checkboxfield',

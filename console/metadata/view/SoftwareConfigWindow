@@ -247,7 +247,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "displayField": "configFileId",
+                                "displayField": "configDisplayFileId",
                                 "fieldLabel": "Config File Version",
                                 "itemId": "mycombobox4",
                                 "labelWidth": 130,
