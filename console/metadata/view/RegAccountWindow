@@ -8,7 +8,7 @@
     "userConfig": {
         "designer|userAlias": "RegAccountWindow",
         "designer|userClassName": "RegAccountWindow",
-        "height": 360,
+        "height": 425,
         "id": "regAccountWindow",
         "layout": "border",
         "modal": true,
@@ -51,7 +51,7 @@
                             "    labelWidth: 120",
                             "}"
                         ],
-                        "height": 242,
+                        "height": 345,
                         "id": "accountForm",
                         "itemId": "accountForm",
                         "title": null
@@ -227,7 +227,8 @@
                             "userConfig": {
                                 "fieldLabel": "UID",
                                 "layout|anchor": "100%",
-                                "name": "uid"
+                                "name": "uid",
+                                "vtype": "numeric"
                             },
                             "designerId": "27aa9232-2fcb-4f9f-9768-4085432139d4"
                         },
@@ -291,6 +292,68 @@
                                 "valueField": "group"
                             },
                             "designerId": "c71149cb-faee-4c25-a098-e4e9f55ea8d9"
+                        },
+                        {
+                            "type": "Ext.form.field.Checkbox",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "boxLabel": "Use supplementary groups",
+                                "checked": true,
+                                "fieldLabel": "Groups",
+                                "inputValue": "Y",
+                                "name": "checkGroup2",
+                                "uncheckedValue": "N"
+                            },
+                            "designerId": "34672ff1-d657-4bad-b46a-a502555d0dfb",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onCheckboxfieldChange1",
+                                        "implHandler": [
+                                            "if(newValue == true) {",
+                                            "    field.up('form').getForm().findField('groups').setDisabled(true);",
+                                            "} else {",
+                                            "    field.up('form').getForm().findField('groups').setDisabled(false);",
+                                            "}"
+                                        ],
+                                        "name": "change",
+                                        "scope": "me"
+                                    },
+                                    "designerId": "31ed1353-fe20-43ce-afb9-9fc4f63bb2ee"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.form.field.ComboBox",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "disabled": true,
+                                "displayField": "group",
+                                "fieldLabel": "",
+                                "labelSeparator": " ",
+                                "labelWidth": 120,
+                                "layout|anchor": "100%",
+                                "multiSelect": true,
+                                "name": "groups",
+                                "padding": "0 0 0 125",
+                                "store": "ComboGroupStore",
+                                "valueField": "group"
+                            },
+                            "designerId": "55a1f3f1-8ad2-4f34-8de4-da788289ed11"
                         },
                         {
                             "type": "Ext.form.field.Text",

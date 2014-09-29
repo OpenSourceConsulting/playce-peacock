@@ -491,6 +491,26 @@ Ext.define('MyApp.view.instancesContainer', {
                                                             name: 'regDt'
                                                         }
                                                     ]
+                                                },
+                                                {
+                                                    xtype: 'fieldcontainer',
+                                                    height: 34,
+                                                    defaults: {
+                                                        flex: 1
+                                                    },
+                                                    fieldLabel: 'Label',
+                                                    hideLabel: true,
+                                                    layout: {
+                                                        type: 'hbox',
+                                                        align: 'middle'
+                                                    },
+                                                    items: [
+                                                        {
+                                                            xtype: 'displayfield',
+                                                            fieldLabel: 'Description',
+                                                            name: 'discription'
+                                                        }
+                                                    ]
                                                 }
                                             ]
                                         }
@@ -540,6 +560,21 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                     Ext.MessageBox.alert('Error', "Instance가 Running 상태일 경우에만 Software Install이 가능합니다.");
 
                                                                 }
+                                                                var softwareInstallWindow = Ext.create("widget.SoftwareInstallWindow");
+
+                                                                softwareInstallWindow.show();
+
+                                                                Ext.getCmp("popComboSoftwareName").getStore().load({
+                                                                    callback : function(records, options, success) {
+                                                                        Ext.getCmp("popComboSoftwareName").select(Ext.getCmp("popComboSoftwareName").getStore().getAt(0));
+                                                                    }
+                                                                });
+
+                                                                var accountStore = Ext.getStore("ComboAccountStore");
+                                                                accountStore.getProxy().extraParams = {
+                                                                    machineId : instancesConstants.selectRow.get("machineId")
+                                                                };
+
                                                             },
                                                             cls: 'auth-write',
                                                             id: 'softwareInstallBtn',

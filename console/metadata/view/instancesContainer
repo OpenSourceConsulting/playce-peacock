@@ -1031,6 +1031,44 @@
                                                     "designerId": "946bfbfe-e8c5-45c1-8d95-03d3c42c6298"
                                                 }
                                             ]
+                                        },
+                                        {
+                                            "type": "Ext.form.FieldContainer",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "container|align": "middle",
+                                                "defaults": [
+                                                    "{",
+                                                    "    flex: 1",
+                                                    "}"
+                                                ],
+                                                "fieldLabel": "Label",
+                                                "height": 34,
+                                                "hideLabel": true,
+                                                "layout": "hbox",
+                                                "width": null
+                                            },
+                                            "designerId": "bf065dcc-3004-4b0d-b7e3-e22cf1ba3077",
+                                            "cn": [
+                                                {
+                                                    "type": "Ext.form.field.Display",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fieldLabel": "Description",
+                                                        "layout|flex": null,
+                                                        "name": "discription"
+                                                    },
+                                                    "designerId": "911eb935-0e28-449a-8fe3-1bf0b67006d6"
+                                                }
+                                            ]
                                         }
                                     ]
                                 }
@@ -1151,7 +1189,22 @@
                                                                     "",
                                                                     "    Ext.MessageBox.alert('Error', \"Instance가 Running 상태일 경우에만 Software Install이 가능합니다.\");",
                                                                     "",
-                                                                    "}"
+                                                                    "}",
+                                                                    "    var softwareInstallWindow = Ext.create(\"widget.SoftwareInstallWindow\");",
+                                                                    "",
+                                                                    "    softwareInstallWindow.show();",
+                                                                    "",
+                                                                    "    Ext.getCmp(\"popComboSoftwareName\").getStore().load({",
+                                                                    "        callback : function(records, options, success) {",
+                                                                    "            Ext.getCmp(\"popComboSoftwareName\").select(Ext.getCmp(\"popComboSoftwareName\").getStore().getAt(0));",
+                                                                    "        }",
+                                                                    "    });",
+                                                                    "",
+                                                                    "    var accountStore = Ext.getStore(\"ComboAccountStore\");",
+                                                                    "    accountStore.getProxy().extraParams = {",
+                                                                    "        machineId : instancesConstants.selectRow.get(\"machineId\")",
+                                                                    "    };",
+                                                                    ""
                                                                 ]
                                                             },
                                                             "designerId": "9087863d-0373-4d2d-9ad3-cf6923c34960"

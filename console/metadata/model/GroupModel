@@ -32,7 +32,7 @@
             "codeClass": null,
             "userConfig": {
                 "name": "gid",
-                "type": "int"
+                "type": "string"
             },
             "designerId": "a383a388-5da8-43e5-8990-ffbe8993192f"
         },

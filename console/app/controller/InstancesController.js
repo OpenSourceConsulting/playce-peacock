@@ -312,7 +312,23 @@ Ext.define('MyApp.controller.InstancesController', {
             displayName : Ext.getCmp("searchInstanceName").getRawValue()
         };
 
-        instanceStore.load();
+        //Grid Combo Data
+        var comboStore = Ext.getStore("ComboHypervisorStore");
+        if(comboStore.getCount() > 0) {
+
+            instanceStore.load();
+
+        } else {
+
+            comboStore.load({
+                callback : function(records, options, success) {
+
+                    instanceStore.load();
+
+                }
+            });
+
+        }
 
         var detailPanel = Ext.getCmp("instanceDetailPanel");
         detailPanel.layout.setActiveItem(0);

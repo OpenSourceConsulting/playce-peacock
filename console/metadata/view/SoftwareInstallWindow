@@ -1193,39 +1193,6 @@
                                     ]
                                 },
                                 {
-                                    "type": "Ext.form.field.Text",
-                                    "reference": {
-                                        "name": "items",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "allowBlank": false,
-                                        "fieldLabel": "Host Name",
-                                        "labelWidth": null,
-                                        "layout|anchor": "100%",
-                                        "name": "hostName"
-                                    },
-                                    "designerId": "d0567b4f-be4e-4793-9544-343c5ac33532",
-                                    "cn": [
-                                        {
-                                            "type": "Ext.XTemplate",
-                                            "reference": {
-                                                "name": "afterLabelTextTpl",
-                                                "type": "object"
-                                            },
-                                            "codeClass": null,
-                                            "userConfig": {
-                                                "designer|displayName": "afterLabelTextTpl",
-                                                "implHandler": [
-                                                    "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
-                                                ]
-                                            },
-                                            "designerId": "989283d5-783a-469a-9c96-b0f4d3dd178e"
-                                        }
-                                    ]
-                                },
-                                {
                                     "type": "Ext.form.field.Checkbox",
                                     "reference": {
                                         "name": "items",
@@ -1470,7 +1437,27 @@
                                                     "if(newValue != '') {",
                                                     "    form.findField(\"maxIdle1\").setValue(\"1\");",
                                                     "    form.findField(\"maxActive1\").setValue(\"5\");",
+                                                    "    ",
+                                                    "    if(newValue == 'oracle') {",
+                                                    "        ",
+                                                    "        form.findField(\"connectionUrl1\").setValue(\"jdbc:oracle:thin:@//{HOST}{:PORT}/{SERVICE}\");",
+                                                    "        ",
+                                                    "    } else if(newValue == 'mysql') {",
+                                                    "        ",
+                                                    "        form.findField(\"connectionUrl1\").setValue(\"jdbc:mysql://{HOST}{:PORT}/{DB_NAME}\");",
+                                                    "        ",
+                                                    "    } else if(newValue == 'mssql') {",
+                                                    "        ",
+                                                    "        form.findField(\"connectionUrl1\").setValue(\"jdbc:sqlserver://{HOST}{:PORT};databaseName={DB_NAME}\");",
+                                                    "        ",
+                                                    "    } else if(newValue == 'db2') {",
+                                                    "        ",
+                                                    "        form.findField(\"connectionUrl1\").setValue(\"jdbc:db2://{HOST}{:PORT}/{DB_NAME}\");",
+                                                    "        ",
+                                                    "    }",
+                                                    "    ",
                                                     "} else {",
+                                                    "    form.findField(\"connectionUrl1\").setValue(\"\");",
                                                     "    form.findField(\"maxIdle1\").setValue(\"\");",
                                                     "    form.findField(\"maxActive1\").setValue(\"\");",
                                                     "}"
@@ -2900,39 +2887,6 @@
                                     ]
                                 },
                                 {
-                                    "type": "Ext.form.field.Text",
-                                    "reference": {
-                                        "name": "items",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "allowBlank": false,
-                                        "fieldLabel": "Host Name",
-                                        "labelWidth": null,
-                                        "layout|anchor": "100%",
-                                        "name": "hostName"
-                                    },
-                                    "designerId": "599bba46-f033-407b-a9d1-1d57daacf1a9",
-                                    "cn": [
-                                        {
-                                            "type": "Ext.XTemplate",
-                                            "reference": {
-                                                "name": "afterLabelTextTpl",
-                                                "type": "object"
-                                            },
-                                            "codeClass": null,
-                                            "userConfig": {
-                                                "designer|displayName": "afterLabelTextTpl",
-                                                "implHandler": [
-                                                    "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
-                                                ]
-                                            },
-                                            "designerId": "d282a616-3ba3-4ca8-bce4-45d6fb1a185c"
-                                        }
-                                    ]
-                                },
-                                {
                                     "type": "Ext.form.field.Checkbox",
                                     "reference": {
                                         "name": "items",
@@ -3076,6 +3030,25 @@
                                                     "if(newValue != '') {",
                                                     "    form.findField(\"minPoolSize1\").setValue(\"1\");",
                                                     "    form.findField(\"maxPoolSize1\").setValue(\"5\");",
+                                                    "    ",
+                                                    "    if(newValue == 'oracle') {",
+                                                    "        ",
+                                                    "        form.findField(\"connectionUrl1\").setValue(\"jdbc:oracle:thin:@//{HOST}{:PORT}/{SERVICE}\");",
+                                                    "        ",
+                                                    "    } else if(newValue == 'mysql') {",
+                                                    "        ",
+                                                    "        form.findField(\"connectionUrl1\").setValue(\"jdbc:mysql://{HOST}{:PORT}/{DB_NAME}\");",
+                                                    "        ",
+                                                    "    } else if(newValue == 'mssql') {",
+                                                    "        ",
+                                                    "        form.findField(\"connectionUrl1\").setValue(\"jdbc:sqlserver://{HOST}{:PORT};databaseName={DB_NAME}\");",
+                                                    "        ",
+                                                    "    } else if(newValue == 'db2') {",
+                                                    "        ",
+                                                    "        form.findField(\"connectionUrl1\").setValue(\"jdbc:db2://{HOST}{:PORT}/{DB_NAME}\");",
+                                                    "        ",
+                                                    "    }",
+                                                    "    ",
                                                     "} else {",
                                                     "    form.findField(\"minPoolSize1\").setValue(\"\");",
                                                     "    form.findField(\"maxPoolSize1\").setValue(\"\");",

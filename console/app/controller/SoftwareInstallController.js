@@ -37,7 +37,7 @@ Ext.define('MyApp.controller.SoftwareInstallController', {
                 var form = Ext.getCmp("jbossEWSTomcatForm").getForm();
 
                 form.findField('bindAddress').setValue(instancesConstants.selectRow.get("ipAddr"));
-                form.findField('hostName').setValue(instancesConstants.selectRow.get("hostName"));
+        //        form.findField('hostName').setValue(instancesConstants.selectRow.get("hostName"));
                 form.findField('encoding').setValue("UTF-8");
 
             } else if(index == 2) {
@@ -46,7 +46,7 @@ Ext.define('MyApp.controller.SoftwareInstallController', {
 
                 form.findField('encoding').setValue("UTF-8");
                 form.findField('bindPort').setValue("ports-default");
-                form.findField('hostName').setValue(instancesConstants.selectRow.get("hostName"));
+        //        form.findField('hostName').setValue(instancesConstants.selectRow.get("hostName"));
 
             }
 

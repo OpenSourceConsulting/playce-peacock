@@ -51,7 +51,7 @@ Ext.define('MyApp.model.AccountModel', {
         },
         {
             name: 'uid',
-            type: 'int'
+            type: 'string'
         }
     ]
 });

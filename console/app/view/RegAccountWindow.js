@@ -27,7 +27,7 @@ Ext.define('MyApp.view.RegAccountWindow', {
         'Ext.button.Button'
     ],
 
-    height: 360,
+    height: 425,
     id: 'regAccountWindow',
     width: 470,
     resizable: false,
@@ -49,7 +49,7 @@ Ext.define('MyApp.view.RegAccountWindow', {
                     items: [
                         {
                             xtype: 'form',
-                            height: 242,
+                            height: 345,
                             id: 'accountForm',
                             itemId: 'accountForm',
                             bodyPadding: 15,
@@ -118,7 +118,8 @@ Ext.define('MyApp.view.RegAccountWindow', {
                                     xtype: 'textfield',
                                     anchor: '100%',
                                     fieldLabel: 'UID',
-                                    name: 'uid'
+                                    name: 'uid',
+                                    vtype: 'numeric'
                                 },
                                 {
                                     xtype: 'checkboxfield',
@@ -145,6 +146,35 @@ Ext.define('MyApp.view.RegAccountWindow', {
                                     labelWidth: 120,
                                     name: 'group',
                                     displayField: 'group',
+                                    store: 'ComboGroupStore',
+                                    valueField: 'group'
+                                },
+                                {
+                                    xtype: 'checkboxfield',
+                                    fieldLabel: 'Groups',
+                                    name: 'checkGroup2',
+                                    boxLabel: 'Use supplementary groups',
+                                    checked: true,
+                                    inputValue: 'Y',
+                                    uncheckedValue: 'N',
+                                    listeners: {
+                                        change: {
+                                            fn: me.onCheckboxfieldChange1,
+                                            scope: me
+                                        }
+                                    }
+                                },
+                                {
+                                    xtype: 'combobox',
+                                    anchor: '100%',
+                                    disabled: true,
+                                    padding: '0 0 0 125',
+                                    fieldLabel: '',
+                                    labelSeparator: ' ',
+                                    labelWidth: 120,
+                                    name: 'groups',
+                                    displayField: 'group',
+                                    multiSelect: true,
                                     store: 'ComboGroupStore',
                                     valueField: 'group'
                                 },
@@ -252,6 +282,14 @@ Ext.define('MyApp.view.RegAccountWindow', {
             field.up('form').getForm().findField('group').setDisabled(true);
         } else {
             field.up('form').getForm().findField('group').setDisabled(false);
+        }
+    },
+
+    onCheckboxfieldChange1: function(field, newValue, oldValue, eOpts) {
+        if(newValue == true) {
+            field.up('form').getForm().findField('groups').setDisabled(true);
+        } else {
+            field.up('form').getForm().findField('groups').setDisabled(false);
         }
     }
 

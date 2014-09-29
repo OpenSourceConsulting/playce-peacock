@@ -486,16 +486,6 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             vtype: 'numeric'
                                         },
                                         {
-                                            xtype: 'textfield',
-                                            anchor: '100%',
-                                            afterLabelTextTpl: [
-                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-                                            ],
-                                            fieldLabel: 'Host Name',
-                                            name: 'hostName',
-                                            allowBlank: false
-                                        },
-                                        {
                                             xtype: 'checkboxfield',
                                             fieldLabel: 'HTTP Enable',
                                             name: 'httpEnable',
@@ -1140,16 +1130,6 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             vtype: 'numeric'
                                         },
                                         {
-                                            xtype: 'textfield',
-                                            anchor: '100%',
-                                            afterLabelTextTpl: [
-                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-                                            ],
-                                            fieldLabel: 'Host Name',
-                                            name: 'hostName',
-                                            allowBlank: false
-                                        },
-                                        {
                                             xtype: 'checkboxfield',
                                             fieldLabel: 'Start Service',
                                             name: 'autoStart',
@@ -1642,7 +1622,27 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
         if(newValue != '') {
             form.findField("maxIdle1").setValue("1");
             form.findField("maxActive1").setValue("5");
+
+            if(newValue == 'oracle') {
+
+                form.findField("connectionUrl1").setValue("jdbc:oracle:thin:@//{HOST}{:PORT}/{SERVICE}");
+
+            } else if(newValue == 'mysql') {
+
+                form.findField("connectionUrl1").setValue("jdbc:mysql://{HOST}{:PORT}/{DB_NAME}");
+
+            } else if(newValue == 'mssql') {
+
+                form.findField("connectionUrl1").setValue("jdbc:sqlserver://{HOST}{:PORT};databaseName={DB_NAME}");
+
+            } else if(newValue == 'db2') {
+
+                form.findField("connectionUrl1").setValue("jdbc:db2://{HOST}{:PORT}/{DB_NAME}");
+
+            }
+
         } else {
+            form.findField("connectionUrl1").setValue("");
             form.findField("maxIdle1").setValue("");
             form.findField("maxActive1").setValue("");
         }
@@ -1755,6 +1755,25 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
         if(newValue != '') {
             form.findField("minPoolSize1").setValue("1");
             form.findField("maxPoolSize1").setValue("5");
+
+            if(newValue == 'oracle') {
+
+                form.findField("connectionUrl1").setValue("jdbc:oracle:thin:@//{HOST}{:PORT}/{SERVICE}");
+
+            } else if(newValue == 'mysql') {
+
+                form.findField("connectionUrl1").setValue("jdbc:mysql://{HOST}{:PORT}/{DB_NAME}");
+
+            } else if(newValue == 'mssql') {
+
+                form.findField("connectionUrl1").setValue("jdbc:sqlserver://{HOST}{:PORT};databaseName={DB_NAME}");
+
+            } else if(newValue == 'db2') {
+
+                form.findField("connectionUrl1").setValue("jdbc:db2://{HOST}{:PORT}/{DB_NAME}");
+
+            }
+
         } else {
             form.findField("minPoolSize1").setValue("");
             form.findField("maxPoolSize1").setValue("");
