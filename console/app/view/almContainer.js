@@ -587,7 +587,7 @@ Ext.define('MyApp.view.almContainer', {
                                                     itemId: 'inputAlmUserName',
                                                     fieldLabel: 'Filtering',
                                                     labelWidth: 60,
-                                                    emptyText: 'Search User Name',
+                                                    emptyText: 'Search User ID',
                                                     enableKeyEvents: true
                                                 },
                                                 {

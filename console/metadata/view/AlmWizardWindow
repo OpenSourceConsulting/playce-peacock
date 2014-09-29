@@ -592,8 +592,10 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "dataIndex": "type",
-                                                        "minWidth": 40,
-                                                        "text": "Type"
+                                                        "defaultWidth": 80,
+                                                        "minWidth": 60,
+                                                        "text": "Type",
+                                                        "width": 80
                                                     },
                                                     "designerId": "521ca81b-9123-49b6-b224-58d08fddb59a"
                                                 },
@@ -606,6 +608,7 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "dataIndex": "authType",
+                                                        "defaultWidth": 120,
                                                         "emptyCellText": "Select Auth Type",
                                                         "text": "Auth Type"
                                                     },
@@ -850,8 +853,10 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "dataIndex": "type",
-                                                        "minWidth": 40,
-                                                        "text": "Type"
+                                                        "defaultWidth": 80,
+                                                        "minWidth": 60,
+                                                        "text": "Type",
+                                                        "width": 80
                                                     },
                                                     "designerId": "1fd5aca6-8b75-4ef9-ad1b-1f9567939def"
                                                 },
@@ -864,6 +869,7 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "dataIndex": "authType",
+                                                        "defaultWidth": 120,
                                                         "text": "Auth Type"
                                                     },
                                                     "designerId": "f9c1b513-f292-4cb0-9de1-fb38eb296993"

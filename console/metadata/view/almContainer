@@ -1389,7 +1389,7 @@
                                             "codeClass": null,
                                             "userConfig": {
                                                 "cls": null,
-                                                "emptyText": "Search User Name",
+                                                "emptyText": "Search User ID",
                                                 "enableKeyEvents": true,
                                                 "fieldLabel": "Filtering",
                                                 "fieldStyle": null,

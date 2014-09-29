@@ -212,6 +212,15 @@ Ext.define('MyApp.controller.ALMController', {
         }
     },
 
+    onInputPopAlmUserNameKeydown: function(textfield, e, eOpts) {
+        //User Name Search
+        if(e.getKey() == e.ENTER){
+
+            almConstants.popPage = 1;
+            this.searchPopAlmUser();
+        }
+    },
+
     onInputAlmGroupNameKeydown: function(textfield, e, eOpts) {
         //User Name Search
         if(e.getKey() == e.ENTER){
@@ -317,6 +326,9 @@ Ext.define('MyApp.controller.ALMController', {
             },
             "#inputAlmUserName": {
                 keydown: this.onInputAlmUserNameKeydown
+            },
+            "#inputPopAlmUserName": {
+                keydown: this.onInputPopAlmUserNameKeydown
             },
             "#inputAlmGroupName": {
                 keydown: this.onInputAlmGroupNameKeydown

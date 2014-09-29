@@ -49,12 +49,13 @@
                     "codeClass": null,
                     "userConfig": {
                         "autoScroll": true,
-                        "bodyBorder": false,
+                        "bodyBorder": null,
                         "columnLines": true,
                         "forceFit": true,
                         "height": 220,
                         "id": "popAlmUsersGrid",
                         "itemId": "popAlmUsersGrid",
+                        "overlapHeader": null,
                         "store": "AlmUserStore",
                         "title": null
                     },
@@ -87,6 +88,19 @@
                                 "text": "Display Name"
                             },
                             "designerId": "3916b73b-f79f-4298-9b91-ea7e63ace21b"
+                        },
+                        {
+                            "type": "Ext.grid.column.Column",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dataIndex": "emailAddress",
+                                "text": "Email"
+                            },
+                            "designerId": "9de67885-424a-472c-9730-025c799890a2"
                         },
                         {
                             "type": "Ext.grid.column.Action",
@@ -223,7 +237,6 @@
                                 "border": null,
                                 "cls": null,
                                 "dock": "top",
-                                "hidden": true,
                                 "id": "instancesToolbar5",
                                 "itemId": "instancesToolbar1",
                                 "style": null,
@@ -243,7 +256,7 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "cls": null,
-                                        "emptyText": "Search User Name",
+                                        "emptyText": "Search Name",
                                         "enableKeyEvents": true,
                                         "fieldLabel": "Filtering",
                                         "fieldStyle": null,
@@ -377,7 +390,8 @@
                             "codeClass": null,
                             "userConfig": {
                                 "dock": "top",
-                                "height": 10
+                                "height": 10,
+                                "hidden": true
                             },
                             "designerId": "6acdf883-9ec3-467f-94e9-964142ad5731"
                         }
