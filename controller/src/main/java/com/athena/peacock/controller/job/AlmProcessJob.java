@@ -49,7 +49,7 @@ public class AlmProcessJob extends BaseJob {
 
 		try {
 			logger.debug("Alm Job Processing...");
-
+			
 			if (almProjectService == null) {
 				almProjectService = AppContext.getBean(AlmProjectService.class);
 			}

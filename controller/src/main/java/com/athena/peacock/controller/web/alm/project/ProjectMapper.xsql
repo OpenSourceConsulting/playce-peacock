@@ -145,7 +145,7 @@
 		 	CREATE_TIME as createTime
 		 FROM alm_project_history_tbl
 		 WHERE PROJECT_CODE=#{projectCode}
-		 ORDER BY CREATE_TIME DESC
+		 ORDER BY PROJECT_HISTORY_ID DESC
 	</select>
 	
 </mapper>
