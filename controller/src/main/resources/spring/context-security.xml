@@ -102,7 +102,8 @@
 	  <!-- 인증 처리 설정 -->
 	  <!-- ==================================================== -->
 	  <form-login login-page='/user/notLogin' login-processing-url="/user/login" 
-	  	default-target-url="/user/onAfterLogin" username-parameter="loginId" password-parameter="passwd"
+	  	default-target-url="/user/onAfterLogin" always-use-default-target="true"
+	  	username-parameter="loginId" password-parameter="passwd"
 	  	authentication-failure-url="/user/loginFail"/>
 	  	
 	  <access-denied-handler error-page="/user/accessDenied" />
