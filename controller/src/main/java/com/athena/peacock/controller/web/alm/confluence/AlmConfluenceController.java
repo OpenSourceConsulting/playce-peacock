@@ -77,5 +77,12 @@ public class AlmConfluenceController {
 	public @ResponseBody DtoJsonResponse addPermission(@RequestBody  AlmUserAddDto userData, BindingResult result){
 		return null;
 	}
+	
+	/*@RequestMapping(value = "/space/{spaceKey}/{groupname}/test", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody DtoJsonResponse addPermission(@PathVariable String spaceKey, @PathVariable String groupname){
+		
+		service.addPermissions(groupname, spaceKey, "VIEWSPACE");
+		return null;
+	}*/
 }
 // end of AlmUserController.java

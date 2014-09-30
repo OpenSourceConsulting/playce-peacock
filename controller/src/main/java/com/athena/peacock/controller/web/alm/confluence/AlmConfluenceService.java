@@ -39,9 +39,9 @@ import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.athena.peacock.controller.web.alm.confluence.dto.SpaceErrorDto;
 import com.athena.peacock.controller.web.alm.confluence.dto.SpaceSummaryDto;
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmUserDto;
+import com.athena.peacock.controller.web.alm.project.dto.ProjectProcessStatusDto;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 
@@ -166,9 +166,9 @@ public class AlmConfluenceService {
 
 	}
 
-	public SpaceErrorDto addPermissions(String groupcode, String spaceKey) {
+	public ProjectProcessStatusDto addPermissions(String groupcode, String spaceKey) {
 
-		SpaceErrorDto response = new SpaceErrorDto();
+		ProjectProcessStatusDto response = new ProjectProcessStatusDto();
 
 		try {
 
@@ -191,6 +191,31 @@ public class AlmConfluenceService {
 		// String remoteEntityName, String spaceKey) - Give the entity named
 		// remoteEntityName (either a group or a user) the permissions
 		// permissions on the space with the key spaceKey.
+
+	}
+
+	public ProjectProcessStatusDto addPermissions(String groupcode, String spaceKey,
+			String spaceparameter) {
+
+		ProjectProcessStatusDto response = new ProjectProcessStatusDto();
+
+		try {
+			String[] permission = spaceparameter.split(",");
+
+			// Add permission
+			Object[] vector2 = new Object[4];
+			vector2[0] = getLoginToken();
+			vector2[1] = permission;
+			vector2[2] = groupcode;
+			vector2[3] = spaceKey;
+			rpcClient.execute("confluence2.addPermissionsToSpace", vector2);
+			response.setSuccess(true);
+		} catch (Exception e) {
+			response.setSuccess(false);
+			response.setErrorMessage(e.getMessage());
+		}
+
+		return response;
 
 	}
 

@@ -26,6 +26,12 @@
         </property>
         -->
     </bean>
+    
+     <!-- ========================= ALM Processing ========================= -->    
+    <bean name="almProjectProcessing" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="com.athena.peacock.controller.job.AlmProcessJob"/>
+        <property name="jobListenerNames" value="JobLogListener"/>
+    </bean>
 
     <bean id="dashboardInfoCollectTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
         <property name="jobDetail" ref="dashboardInfoCollectJobDetail"/>
@@ -37,5 +43,11 @@
         <property name="jobDetail" ref="inspectMachineStatusJobDetail"/>
         <!-- Every minutes -->
         <property name="cronExpression" value="0 * * * * ?"/>
+    </bean>
+    
+     <bean id="almProjectProcessingTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="almProjectProcessing"/>
+        <!-- Every minutes -->
+        <property name="cronExpression" value="0 0/10 * * * ?"/>
     </bean>
 </beans>

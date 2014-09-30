@@ -33,7 +33,6 @@ public class AlmReposirotyService {
 	public DtoJsonResponse getRepository(String repositoryCode) {
 
 		DtoJsonResponse response = new DtoJsonResponse();
-
 		RepositoryDto dto = repositoryDao.getRepository(repositoryCode);
 		response.setData(dto);
 		return response;

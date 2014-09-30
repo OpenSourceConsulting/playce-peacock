@@ -1,6 +1,6 @@
-package com.athena.peacock.controller.web.alm.confluence.dto;
+package com.athena.peacock.controller.web.alm.project.dto;
 
-public class SpaceErrorDto {
+public class ProjectProcessStatusDto {
 
 	private boolean success = false;
 	private String errorCode;

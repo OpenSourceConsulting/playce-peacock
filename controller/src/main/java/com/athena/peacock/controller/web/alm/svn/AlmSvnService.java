@@ -15,19 +15,21 @@ import org.tmatesoft.svn.core.io.ISVNEditor;
 import org.tmatesoft.svn.core.io.SVNRepository;
 import org.tmatesoft.svn.core.wc.SVNWCUtil;
 
+import com.athena.peacock.controller.web.alm.project.dto.ProjectProcessStatusDto;
+
 @Service
 public class AlmSvnService {
-	
+
 	@Value("#{contextProperties['alm.svn.url']}")
 	private String SVN_URL;
-	
+
 	@Value("#{contextProperties['alm.svn.id']}")
 	private String SVN_ID;
-	
+
 	@Value("#{contextProperties['alm.svn.pw']}")
 	private String SVN_PW;
 
-	//private String SVN_URL = "svn://119.81.162.220/hiway/";
+	// private String SVN_URL = "svn://119.81.162.220/hiway/";
 	private SVNRepository repository = null;
 
 	@PostConstruct
@@ -35,26 +37,37 @@ public class AlmSvnService {
 
 	}
 
-	public void createSvnProject(String repositoryCode, String projectCode) throws SVNException {
+	public ProjectProcessStatusDto createSvnProject(String repositoryCode,
+			String projectCode) {
 
-		String url = SVN_URL +"/"+repositoryCode;
+		ProjectProcessStatusDto statusDto = new ProjectProcessStatusDto();
 
-		// SVNKit Setting
-		SVNRepositoryFactoryImpl.setup();
-		FSRepositoryFactory.setup();
+		try {
+			String url = SVN_URL + "/" + repositoryCode;
 
-		// SVN Connection Setting
-		ISVNAuthenticationManager authManager = SVNWCUtil
-				.createDefaultAuthenticationManager(SVN_ID, SVN_PW);
-		SVNURL svnUrl = SVNURL.parseURIEncoded(url);
-		SVNRepository repository = DAVRepositoryFactory.create(svnUrl);
-		repository.setAuthenticationManager(authManager);
+			// SVNKit Setting
+			SVNRepositoryFactoryImpl.setup();
+			FSRepositoryFactory.setup();
 
-		ISVNEditor editor = repository.getCommitEditor("peacock create project", null);
-		SVNCommitInfo commitInfo = addDir(editor, projectCode);
-/*		System.out.println("The directory was added: " + commitInfo);
-		System.out.println(repository.getLocation());*/
-		// SVNCommitClient svnCommitClient = repository.getCommitClient();
+			// SVN Connection Setting
+			ISVNAuthenticationManager authManager = SVNWCUtil
+					.createDefaultAuthenticationManager(SVN_ID, SVN_PW);
+			SVNURL svnUrl = SVNURL.parseURIEncoded(url);
+			SVNRepository repository = DAVRepositoryFactory.create(svnUrl);
+			repository.setAuthenticationManager(authManager);
+
+			ISVNEditor editor = repository.getCommitEditor(
+					"peacock create project", null);
+			SVNCommitInfo commitInfo = addDir(editor, projectCode);
+
+			statusDto.setSuccess(true);
+
+		} catch (SVNException e) {
+			statusDto.setSuccess(false);
+			statusDto.setErrorMessage(e.getMessage());
+		}
+
+		return statusDto;
 
 	}
 
