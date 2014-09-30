@@ -1,0 +1,66 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "AlmProjectHistoryModel"
+    },
+    "designerId": "16ffbfee-a7b9-4cd1-8c9e-2a1055baf40b",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "projectHistoryId",
+                "type": "int"
+            },
+            "designerId": "7e392536-2845-41ca-95b2-227183bfb264"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "projectCode",
+                "type": "string"
+            },
+            "designerId": "95ecf3de-0214-4c0b-aaaf-dc6607cdfaa7"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "message",
+                "type": "string"
+            },
+            "designerId": "27c75e42-ceb0-4a40-beef-9f3b2e74372e"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "createTime",
+                "type": "string"
+            },
+            "designerId": "934b2731-d55d-4304-ab3c-dd8286ec4c41"
+        }
+    ]
+}
