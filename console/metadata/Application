@@ -48,8 +48,7 @@
             "SoftwareModel",
             "SoftwareRepoModel",
             "ConfigModel",
-            "ProjectMappingModel",
-            "AlmProjectHistoryModel"
+            "ProjectMappingModel"
         ],
         "name": "MyApp",
         "requires": [
@@ -101,7 +100,9 @@
             "DashboardServerStore",
             "DashboardProjectStore",
             "DashboardSwStore",
-            "DashboardChartStore",
+            "DashboardCpuChartStore",
+            "DashboardMemoryChartStore",
+            "DashboardDiskChartStore",
             "DashboardVmStore",
             "DashboardTemplateStore",
             "DashboardAgentStore",

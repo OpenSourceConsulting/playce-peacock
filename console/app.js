@@ -54,8 +54,7 @@ Ext.application({
         'SoftwareModel',
         'SoftwareRepoModel',
         'ConfigModel',
-        'ProjectMappingModel',
-        'AlmProjectHistoryModel'
+        'ProjectMappingModel'
     ],
     stores: [
         'MenuTreeStore',
@@ -103,7 +102,9 @@ Ext.application({
         'DashboardServerStore',
         'DashboardProjectStore',
         'DashboardSwStore',
-        'DashboardChartStore',
+        'DashboardCpuChartStore',
+        'DashboardMemoryChartStore',
+        'DashboardDiskChartStore',
         'DashboardVmStore',
         'DashboardTemplateStore',
         'DashboardAgentStore',

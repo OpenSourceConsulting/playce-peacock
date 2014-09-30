@@ -129,7 +129,7 @@ Ext.define('MyApp.controller.DashBoardController', {
                 Ext.getCmp("swSummaryGrid").getStore().loadData(swDatas, false);
 
                 //Monitoring
-                var monitoringDatas = [];
+                var cpuDatas = [], memoryDatas = [], diskDatas = [];
                 Ext.each(data.cpuTopList, function(cpu){
 
                     var monitoringData = {};
@@ -137,35 +137,37 @@ Ext.define('MyApp.controller.DashBoardController', {
                     monitoringData.cpuUsed = cpu.used;
                     monitoringData.cpuFree = cpu.free;
 
-                    Ext.each(data.memoryTopList, function(memory){
-
-                        if(cpu.instanceName === memory.instanceName) {
-
-                            monitoringData.memoryUsed = memory.used;
-                            monitoringData.memoryFree = memory.free;
-
-                            return false;
-                        }
-
-                    });
-
-
-                    Ext.each(data.diskTopList, function(disk){
-
-                        if(cpu.instanceName === disk.instanceName) {
-
-                            monitoringData.storageUsed = disk.used;
-                            monitoringData.storageFree = disk.free;
-
-                            return false;
-                        }
-
-                    });
-
-                    monitoringDatas.push(monitoringData);
+                    cpuDatas.push(monitoringData);
                 });
 
-                Ext.getStore("DashboardChartStore").loadData(monitoringDatas, false);
+                Ext.getStore("DashboardCpuChartStore").loadData(cpuDatas, false);
+
+
+                Ext.each(data.memoryTopList, function(memory){
+
+                    var monitoringData = {};
+                    monitoringData.instanceName = memory.instanceName;
+                    monitoringData.memoryUsed = memory.used;
+                    monitoringData.memoryFree = memory.free;
+
+                    memoryDatas.push(monitoringData);
+                });
+
+                Ext.getStore("DashboardMemoryChartStore").loadData(memoryDatas, false);
+
+
+                Ext.each(data.diskTopList, function(disk){
+
+                    var monitoringData = {};
+                    monitoringData.instanceName = disk.instanceName;
+                    monitoringData.storageUsed = disk.used;
+                    monitoringData.storageFree = disk.free;
+
+                    diskDatas.push(monitoringData);
+
+                });
+
+                Ext.getStore("DashboardDiskChartStore").loadData(diskDatas, false);
 
             }
         });

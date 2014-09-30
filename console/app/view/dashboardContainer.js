@@ -229,7 +229,7 @@ Ext.define('MyApp.view.dashboardContainer', {
                                     shadow: false,
                                     animate: true,
                                     insetPadding: 20,
-                                    store: 'DashboardChartStore',
+                                    store: 'DashboardCpuChartStore',
                                     axes: [
                                         {
                                             type: 'Category',
@@ -293,7 +293,7 @@ Ext.define('MyApp.view.dashboardContainer', {
                                     width: 356,
                                     shadow: false,
                                     insetPadding: 20,
-                                    store: 'DashboardChartStore',
+                                    store: 'DashboardMemoryChartStore',
                                     axes: [
                                         {
                                             type: 'Category',
@@ -358,7 +358,7 @@ Ext.define('MyApp.view.dashboardContainer', {
                                     shadow: false,
                                     animate: true,
                                     insetPadding: 20,
-                                    store: 'DashboardChartStore',
+                                    store: 'DashboardDiskChartStore',
                                     axes: [
                                         {
                                             type: 'Category',

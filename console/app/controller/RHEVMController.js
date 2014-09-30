@@ -702,6 +702,7 @@ Ext.define('MyApp.controller.RHEVMController', {
         form.findField("displayTemplate").setValue(RHEVMConstants.childActionRow.get("name"));
         form.findField("memory").setValue(RHEVMConstants.childActionRow.get("memory"));
         form.findField("sockets").setValue(RHEVMConstants.childActionRow.get("sockets"));
+        form.findField("dataCenter").setValue(RHEVMConstants.childActionRow.get("dataCenter")+"::"+RHEVMConstants.childActionRow.get("cluster"));
         form.findField("cores").setValue("1");
 
         form.findField("hypervisorId").hide();

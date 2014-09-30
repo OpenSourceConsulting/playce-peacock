@@ -88,11 +88,111 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                     installForm = Ext.getCmp("jbossEWSTomcatForm");
                                     installForm.getForm().findField("localIPAddress").setValue(instancesConstants.selectRow.get("ipAddr"));
 
+                                    var validFlag = false;
+                                    Ext.each(installForm.query('textfield[name="databaseType"]'), function(field, fieldIdx) {
+                                        if(field.getValue()) {
+
+                                            var jndiName =  installForm.query('textfield[name="jndiName"]')[fieldIdx];
+                                            var connectionUrl =  installForm.query('textfield[name="connectionUrl"]')[fieldIdx];
+                                            var userName =  installForm.query('textfield[name="userName"]')[fieldIdx];
+                                            var password =  installForm.query('textfield[name="password"]')[fieldIdx];
+                                            var maxIdle =  installForm.query('textfield[name="maxIdle"]')[fieldIdx];
+                                            var maxActive =  installForm.query('textfield[name="maxActive"]')[fieldIdx];
+
+                                            if(jndiName.getValue() == "") {
+                                                jndiName.markInvalid ( 'This field is required' );
+                                                validFlag = true;
+                                            }
+
+                                            if(connectionUrl.getValue() == "") {
+                                                connectionUrl.markInvalid ( 'This field is required' );
+                                                validFlag = true;
+                                            }
+
+                                            if(userName.getValue() == "") {
+                                                userName.markInvalid ( 'This field is required' );
+                                                validFlag = true;
+                                            }
+
+                                            if(password.getValue() == "") {
+                                                password.markInvalid ( 'This field is required' );
+                                                validFlag = true;
+                                            }
+
+                                            if(maxIdle.getValue() == "") {
+                                                maxIdle.markInvalid ( 'This field is required' );
+                                                validFlag = true;
+                                            }
+
+                                            if(maxActive.getValue() == "") {
+                                                maxActive.markInvalid ( 'This field is required' );
+                                                validFlag = true;
+                                            }
+
+                                        }
+
+                                    });
+
+                                    if(validFlag)
+                                    return;
+
                                 } else if(index == 2) {
 
                                     installForm = Ext.getCmp("jbossEAPForm");
                                     installForm.getForm().findField("localIPAddress").setValue(instancesConstants.selectRow.get("ipAddr"));
+
+                                    var validFlag = false;
+                                    Ext.each(installForm.query('textfield[name="databaseType"]'), function(field, fieldIdx) {
+                                        if(field.getValue()) {
+
+                                            var jndiName =  installForm.query('textfield[name="jndiName"]')[fieldIdx];
+                                            var connectionUrl =  installForm.query('textfield[name="connectionUrl"]')[fieldIdx];
+                                            var userName =  installForm.query('textfield[name="userName"]')[fieldIdx];
+                                            var password =  installForm.query('textfield[name="password"]')[fieldIdx];
+                                            var minPoolSize =  installForm.query('textfield[name="minPoolSize"]')[fieldIdx];
+                                            var maxPoolSize =  installForm.query('textfield[name="maxPoolSize"]')[fieldIdx];
+
+                                            if(jndiName.getValue() == "") {
+                                                jndiName.markInvalid ( 'This field is required' );
+                                                validFlag = true;
+                                            }
+
+                                            if(connectionUrl.getValue() == "") {
+                                                connectionUrl.markInvalid ( 'This field is required' );
+                                                validFlag = true;
+                                            }
+
+                                            if(userName.getValue() == "") {
+                                                userName.markInvalid ( 'This field is required' );
+                                                validFlag = true;
+                                            }
+
+                                            if(password.getValue() == "") {
+                                                password.markInvalid ( 'This field is required' );
+                                                validFlag = true;
+                                            }
+
+                                            if(minPoolSize.getValue() == "") {
+                                                minPoolSize.markInvalid ( 'This field is required' );
+                                                validFlag = true;
+                                            }
+
+                                            if(maxPoolSize.getValue() == "") {
+                                                maxPoolSize.markInvalid ( 'This field is required' );
+                                                validFlag = true;
+                                            }
+
+                                        }
+
+                                    });
+
+                                    if(validFlag)
+                                    return;
+
                                 }
+
+
+
 
                                 installForm.getForm().findField("machineId").setValue(instancesConstants.selectRow.get("machineId"));
 
@@ -566,16 +666,30 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                     ]
                                 },
                                 {
+                                    xtype: 'toolbar',
+                                    padding: '5 0 0 0',
+                                    layout: {
+                                        type: 'hbox',
+                                        pack: 'end'
+                                    },
+                                    items: [
+                                        {
+                                            xtype: 'button',
+                                            itemId: 'addDataSourceBtn',
+                                            text: 'Add DataSource'
+                                        }
+                                    ]
+                                },
+                                {
                                     xtype: 'fieldset',
-                                    collapsed: true,
-                                    collapsible: true,
-                                    title: 'DataSource-1 Setting(Optional)',
+                                    itemId: 'datasourceSet',
+                                    title: 'DataSource Setting(Optional)',
                                     items: [
                                         {
                                             xtype: 'combobox',
                                             anchor: '100%',
                                             fieldLabel: 'Database Type',
-                                            name: 'databaseType1',
+                                            name: 'databaseType',
                                             store: [
                                                 [
                                                     'oracle',
@@ -603,281 +717,60 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                         },
                                         {
                                             xtype: 'textfield',
-                                            validator: function(value) {
-                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType1').getValue();
-
-                                                if(chkValue) {
-                                                    if(value) {
-                                                        return true;
-                                                    } else {
-                                                        return 'This field is required';
-                                                    }
-                                                } else {
-                                                    return true;
-                                                }
-
-                                            },
                                             anchor: '100%',
                                             fieldLabel: 'JNDI Name',
-                                            name: 'jndiName1'
+                                            name: 'jndiName'
                                         },
                                         {
                                             xtype: 'textfield',
-                                            validator: function(value) {
-                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType1').getValue();
-
-                                                if(chkValue) {
-                                                    if(value) {
-                                                        return true;
-                                                    } else {
-                                                        return 'This field is required';
-                                                    }
-                                                } else {
-                                                    return true;
-                                                }
-
-                                            },
                                             anchor: '100%',
                                             fieldLabel: 'JDBC URL',
-                                            name: 'connectionUrl1'
+                                            name: 'connectionUrl'
                                         },
                                         {
                                             xtype: 'textfield',
-                                            validator: function(value) {
-                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType1').getValue();
-
-                                                if(chkValue) {
-                                                    if(value) {
-                                                        return true;
-                                                    } else {
-                                                        return 'This field is required';
-                                                    }
-                                                } else {
-                                                    return true;
-                                                }
-
-                                            },
                                             anchor: '100%',
                                             fieldLabel: 'User Name',
-                                            name: 'userName1'
+                                            name: 'userName'
                                         },
                                         {
                                             xtype: 'textfield',
-                                            validator: function(value) {
-                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType1').getValue();
-
-                                                if(chkValue) {
-                                                    if(value) {
-                                                        return true;
-                                                    } else {
-                                                        return 'This field is required';
-                                                    }
-                                                } else {
-                                                    return true;
-                                                }
-
-                                            },
                                             anchor: '100%',
                                             fieldLabel: 'Password',
-                                            name: 'password1'
+                                            name: 'password'
                                         },
                                         {
                                             xtype: 'textfield',
-                                            validator: function(value) {
-                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType1').getValue();
-
-                                                if(chkValue) {
-                                                    if(value) {
-                                                        return true;
-                                                    } else {
-                                                        return 'This field is required';
-                                                    }
-                                                } else {
-                                                    return true;
-                                                }
-
-                                            },
                                             anchor: '100%',
                                             fieldLabel: 'Max Idle',
-                                            name: 'maxIdle1'
+                                            name: 'maxIdle'
                                         },
                                         {
                                             xtype: 'textfield',
-                                            validator: function(value) {
-                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType1').getValue();
-
-                                                if(chkValue) {
-                                                    if(value) {
-                                                        return true;
-                                                    } else {
-                                                        return 'This field is required';
-                                                    }
-                                                } else {
-                                                    return true;
-                                                }
-
-                                            },
                                             anchor: '100%',
                                             fieldLabel: 'Max Active',
-                                            name: 'maxActive1'
-                                        }
-                                    ]
-                                },
-                                {
-                                    xtype: 'fieldset',
-                                    collapsed: true,
-                                    collapsible: true,
-                                    title: 'DataSource-2 Setting(Optional)',
-                                    items: [
-                                        {
-                                            xtype: 'combobox',
-                                            anchor: '100%',
-                                            fieldLabel: 'Database Type',
-                                            name: 'databaseType2',
-                                            store: [
-                                                [
-                                                    'oracle',
-                                                    'Oracle'
-                                                ],
-                                                [
-                                                    'mysql',
-                                                    'My-SQL'
-                                                ],
-                                                [
-                                                    'mssql',
-                                                    'MS-SQL'
-                                                ],
-                                                [
-                                                    'db2',
-                                                    'DB2'
-                                                ]
-                                            ],
-                                            listeners: {
-                                                change: {
-                                                    fn: me.onComboboxChange21,
-                                                    scope: me
-                                                }
-                                            }
+                                            name: 'maxActive'
                                         },
                                         {
-                                            xtype: 'textfield',
-                                            validator: function(value) {
-                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType2').getValue();
-
-                                                if(chkValue) {
-                                                    if(value) {
-                                                        return true;
-                                                    } else {
-                                                        return 'This field is required';
-                                                    }
-                                                } else {
-                                                    return true;
-                                                }
-
+                                            xtype: 'toolbar',
+                                            itemId: 'datasourceRemoveToolbar',
+                                            layout: {
+                                                type: 'hbox',
+                                                pack: 'center'
                                             },
-                                            anchor: '100%',
-                                            fieldLabel: 'JNDI Name',
-                                            name: 'jndiName2'
-                                        },
-                                        {
-                                            xtype: 'textfield',
-                                            validator: function(value) {
-                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType2').getValue();
+                                            items: [
+                                                {
+                                                    xtype: 'button',
+                                                    handler: function(button, e) {
+                                                        var form = button.up("form"),
+                                                            fieldset = button.up("fieldset");
 
-                                                if(chkValue) {
-                                                    if(value) {
-                                                        return true;
-                                                    } else {
-                                                        return 'This field is required';
-                                                    }
-                                                } else {
-                                                    return true;
+                                                        form.remove(fieldset);
+
+                                                    },
+                                                    text: 'Remove'
                                                 }
-
-                                            },
-                                            anchor: '100%',
-                                            fieldLabel: 'JDBC URL',
-                                            name: 'connectionUrl2'
-                                        },
-                                        {
-                                            xtype: 'textfield',
-                                            validator: function(value) {
-                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType2').getValue();
-
-                                                if(chkValue) {
-                                                    if(value) {
-                                                        return true;
-                                                    } else {
-                                                        return 'This field is required';
-                                                    }
-                                                } else {
-                                                    return true;
-                                                }
-
-                                            },
-                                            anchor: '100%',
-                                            fieldLabel: 'User Name',
-                                            name: 'userName2'
-                                        },
-                                        {
-                                            xtype: 'textfield',
-                                            validator: function(value) {
-                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType2').getValue();
-
-                                                if(chkValue) {
-                                                    if(value) {
-                                                        return true;
-                                                    } else {
-                                                        return 'This field is required';
-                                                    }
-                                                } else {
-                                                    return true;
-                                                }
-
-                                            },
-                                            anchor: '100%',
-                                            fieldLabel: 'Password',
-                                            name: 'password2'
-                                        },
-                                        {
-                                            xtype: 'textfield',
-                                            validator: function(value) {
-                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType2').getValue();
-
-                                                if(chkValue) {
-                                                    if(value) {
-                                                        return true;
-                                                    } else {
-                                                        return 'This field is required';
-                                                    }
-                                                } else {
-                                                    return true;
-                                                }
-
-                                            },
-                                            anchor: '100%',
-                                            fieldLabel: 'Max Idle',
-                                            name: 'maxIdle2'
-                                        },
-                                        {
-                                            xtype: 'textfield',
-                                            validator: function(value) {
-                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType2').getValue();
-
-                                                if(chkValue) {
-                                                    if(value) {
-                                                        return true;
-                                                    } else {
-                                                        return 'This field is required';
-                                                    }
-                                                } else {
-                                                    return true;
-                                                }
-
-                                            },
-                                            anchor: '100%',
-                                            fieldLabel: 'Max Active',
-                                            name: 'maxActive2'
+                                            ]
                                         }
                                     ]
                                 }
@@ -1171,174 +1064,30 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                     ]
                                 },
                                 {
-                                    xtype: 'fieldset',
-                                    collapsed: true,
-                                    collapsible: true,
-                                    title: 'DataSource-1 Setting(Optional)',
+                                    xtype: 'toolbar',
+                                    padding: '5 0 0 0',
+                                    layout: {
+                                        type: 'hbox',
+                                        pack: 'end'
+                                    },
                                     items: [
                                         {
-                                            xtype: 'combobox',
-                                            anchor: '100%',
-                                            fieldLabel: 'Database Type',
-                                            name: 'databaseType1',
-                                            store: [
-                                                [
-                                                    'oracle',
-                                                    'Oracle'
-                                                ],
-                                                [
-                                                    'mysql',
-                                                    'My-SQL'
-                                                ],
-                                                [
-                                                    'mssql',
-                                                    'MS-SQL'
-                                                ],
-                                                [
-                                                    'db2',
-                                                    'DB2'
-                                                ]
-                                            ],
-                                            listeners: {
-                                                change: {
-                                                    fn: me.onComboboxChange22,
-                                                    scope: me
-                                                }
-                                            }
-                                        },
-                                        {
-                                            xtype: 'textfield',
-                                            validator: function(value) {
-                                                var chkValue = Ext.getCmp('jbossEAPForm').getForm().findField('databaseType1').getValue();
-
-                                                if(chkValue) {
-                                                    if(value) {
-                                                        return true;
-                                                    } else {
-                                                        return 'This field is required';
-                                                    }
-                                                } else {
-                                                    return true;
-                                                }
-
-                                            },
-                                            anchor: '100%',
-                                            fieldLabel: 'JNDI Name',
-                                            name: 'jndiName1'
-                                        },
-                                        {
-                                            xtype: 'textfield',
-                                            validator: function(value) {
-                                                var chkValue = Ext.getCmp('jbossEAPForm').getForm().findField('databaseType1').getValue();
-
-                                                if(chkValue) {
-                                                    if(value) {
-                                                        return true;
-                                                    } else {
-                                                        return 'This field is required';
-                                                    }
-                                                } else {
-                                                    return true;
-                                                }
-
-                                            },
-                                            anchor: '100%',
-                                            fieldLabel: 'JDBC URL',
-                                            name: 'connectionUrl1'
-                                        },
-                                        {
-                                            xtype: 'textfield',
-                                            validator: function(value) {
-                                                var chkValue = Ext.getCmp('jbossEAPForm').getForm().findField('databaseType1').getValue();
-
-                                                if(chkValue) {
-                                                    if(value) {
-                                                        return true;
-                                                    } else {
-                                                        return 'This field is required';
-                                                    }
-                                                } else {
-                                                    return true;
-                                                }
-
-                                            },
-                                            anchor: '100%',
-                                            fieldLabel: 'User Name',
-                                            name: 'userName1'
-                                        },
-                                        {
-                                            xtype: 'textfield',
-                                            validator: function(value) {
-                                                var chkValue = Ext.getCmp('jbossEAPForm').getForm().findField('databaseType1').getValue();
-
-                                                if(chkValue) {
-                                                    if(value) {
-                                                        return true;
-                                                    } else {
-                                                        return 'This field is required';
-                                                    }
-                                                } else {
-                                                    return true;
-                                                }
-
-                                            },
-                                            anchor: '100%',
-                                            fieldLabel: 'Password',
-                                            name: 'password1'
-                                        },
-                                        {
-                                            xtype: 'textfield',
-                                            validator: function(value) {
-                                                var chkValue = Ext.getCmp('jbossEAPForm').getForm().findField('databaseType1').getValue();
-
-                                                if(chkValue) {
-                                                    if(value) {
-                                                        return true;
-                                                    } else {
-                                                        return 'This field is required';
-                                                    }
-                                                } else {
-                                                    return true;
-                                                }
-
-                                            },
-                                            anchor: '100%',
-                                            fieldLabel: 'Min Pool Size',
-                                            name: 'minPoolSize1'
-                                        },
-                                        {
-                                            xtype: 'textfield',
-                                            validator: function(value) {
-                                                var chkValue = Ext.getCmp('jbossEAPForm').getForm().findField('databaseType1').getValue();
-
-                                                if(chkValue) {
-                                                    if(value) {
-                                                        return true;
-                                                    } else {
-                                                        return 'This field is required';
-                                                    }
-                                                } else {
-                                                    return true;
-                                                }
-
-                                            },
-                                            anchor: '100%',
-                                            fieldLabel: 'Max Pool Size',
-                                            name: 'maxPoolSize1'
+                                            xtype: 'button',
+                                            itemId: 'addDataSourceBtn',
+                                            text: 'Add DataSource'
                                         }
                                     ]
                                 },
                                 {
                                     xtype: 'fieldset',
-                                    collapsed: true,
-                                    collapsible: true,
-                                    title: 'DataSource-2 Setting(Optional)',
+                                    itemId: 'datasourceSet',
+                                    title: 'DataSource Setting(Optional)',
                                     items: [
                                         {
                                             xtype: 'combobox',
                                             anchor: '100%',
                                             fieldLabel: 'Database Type',
-                                            name: 'databaseType2',
+                                            name: 'databaseType',
                                             store: [
                                                 [
                                                     'oracle',
@@ -1359,130 +1108,67 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             ],
                                             listeners: {
                                                 change: {
-                                                    fn: me.onComboboxChange211,
+                                                    fn: me.onComboboxChange21,
                                                     scope: me
                                                 }
                                             }
                                         },
                                         {
                                             xtype: 'textfield',
-                                            validator: function(value) {
-                                                var chkValue = Ext.getCmp('jbossEAPForm').getForm().findField('databaseType2').getValue();
-
-                                                if(chkValue) {
-                                                    if(value) {
-                                                        return true;
-                                                    } else {
-                                                        return 'This field is required';
-                                                    }
-                                                } else {
-                                                    return true;
-                                                }
-
-                                            },
                                             anchor: '100%',
                                             fieldLabel: 'JNDI Name',
-                                            name: 'jndiName2'
+                                            name: 'jndiName'
                                         },
                                         {
                                             xtype: 'textfield',
-                                            validator: function(value) {
-                                                var chkValue = Ext.getCmp('jbossEAPForm').getForm().findField('databaseType2').getValue();
-
-                                                if(chkValue) {
-                                                    if(value) {
-                                                        return true;
-                                                    } else {
-                                                        return 'This field is required';
-                                                    }
-                                                } else {
-                                                    return true;
-                                                }
-
-                                            },
                                             anchor: '100%',
                                             fieldLabel: 'JDBC URL',
-                                            name: 'connectionUrl2'
+                                            name: 'connectionUrl'
                                         },
                                         {
                                             xtype: 'textfield',
-                                            validator: function(value) {
-                                                var chkValue = Ext.getCmp('jbossEAPForm').getForm().findField('databaseType2').getValue();
-
-                                                if(chkValue) {
-                                                    if(value) {
-                                                        return true;
-                                                    } else {
-                                                        return 'This field is required';
-                                                    }
-                                                } else {
-                                                    return true;
-                                                }
-
-                                            },
                                             anchor: '100%',
                                             fieldLabel: 'User Name',
-                                            name: 'userName2'
+                                            name: 'userName'
                                         },
                                         {
                                             xtype: 'textfield',
-                                            validator: function(value) {
-                                                var chkValue = Ext.getCmp('jbossEAPForm').getForm().findField('databaseType2').getValue();
-
-                                                if(chkValue) {
-                                                    if(value) {
-                                                        return true;
-                                                    } else {
-                                                        return 'This field is required';
-                                                    }
-                                                } else {
-                                                    return true;
-                                                }
-
-                                            },
                                             anchor: '100%',
                                             fieldLabel: 'Password',
-                                            name: 'password2'
+                                            name: 'password'
                                         },
                                         {
                                             xtype: 'textfield',
-                                            validator: function(value) {
-                                                var chkValue = Ext.getCmp('jbossEWSTomcatForm').getForm().findField('databaseType2').getValue();
-
-                                                if(chkValue) {
-                                                    if(value) {
-                                                        return true;
-                                                    } else {
-                                                        return 'This field is required';
-                                                    }
-                                                } else {
-                                                    return true;
-                                                }
-
-                                            },
                                             anchor: '100%',
                                             fieldLabel: 'Min Pool Size',
-                                            name: 'minPoolSize2'
+                                            name: 'minPoolSize'
                                         },
                                         {
                                             xtype: 'textfield',
-                                            validator: function(value) {
-                                                var chkValue = Ext.getCmp('jbossEAPForm').getForm().findField('databaseType2').getValue();
-
-                                                if(chkValue) {
-                                                    if(value) {
-                                                        return true;
-                                                    } else {
-                                                        return 'This field is required';
-                                                    }
-                                                } else {
-                                                    return true;
-                                                }
-
-                                            },
                                             anchor: '100%',
                                             fieldLabel: 'Max Pool Size',
-                                            name: 'maxPoolSize2'
+                                            name: 'maxPoolSize'
+                                        },
+                                        {
+                                            xtype: 'toolbar',
+                                            itemId: 'datasourceRemoveToolbar',
+                                            layout: {
+                                                type: 'hbox',
+                                                pack: 'center'
+                                            },
+                                            items: [
+                                                {
+                                                    xtype: 'button',
+                                                    handler: function(button, e) {
+                                                        var form = button.up("form"),
+                                                            fieldset = button.up("fieldset");
+
+                                                        form.remove(fieldset);
+
+                                                    },
+                                                    text: 'Remove'
+                                                }
+                                            ]
                                         }
                                     ]
                                 }
@@ -1594,6 +1280,8 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
     },
 
     onTextfieldKeyup: function(textfield, e, eOpts) {
+        var form = textfield.up('form').getForm();
+
         form.findField("catalinaBase").setValue(form.findField("serverHome").getValue() + "/Servers/" + textfield.getValue());
 
     },
@@ -1617,46 +1305,34 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
     },
 
     onComboboxChange2: function(field, newValue, oldValue, eOpts) {
-        var form = field.up('form').getForm();
+        var fieldset = field.up('fieldset');
 
         if(newValue != '') {
-            form.findField("maxIdle1").setValue("1");
-            form.findField("maxActive1").setValue("5");
+            fieldset.query('textfield[name="maxIdle"]')[0].setValue("1");
+            fieldset.query('textfield[name="maxActive"]')[0].setValue("5");
 
             if(newValue == 'oracle') {
 
-                form.findField("connectionUrl1").setValue("jdbc:oracle:thin:@//{HOST}{:PORT}/{SERVICE}");
+                fieldset.query('textfield[name="connectionUrl"]')[0].setValue("jdbc:oracle:thin:@//{HOST}{:PORT}/{SERVICE}");
 
             } else if(newValue == 'mysql') {
 
-                form.findField("connectionUrl1").setValue("jdbc:mysql://{HOST}{:PORT}/{DB_NAME}");
+                fieldset.query('textfield[name="connectionUrl"]')[0].setValue("jdbc:mysql://{HOST}{:PORT}/{DB_NAME}");
 
             } else if(newValue == 'mssql') {
 
-                form.findField("connectionUrl1").setValue("jdbc:sqlserver://{HOST}{:PORT};databaseName={DB_NAME}");
+                fieldset.query('textfield[name="connectionUrl"]')[0].setValue("jdbc:sqlserver://{HOST}{:PORT};databaseName={DB_NAME}");
 
             } else if(newValue == 'db2') {
 
-                form.findField("connectionUrl1").setValue("jdbc:db2://{HOST}{:PORT}/{DB_NAME}");
+                fieldset.query('textfield[name="connectionUrl"]')[0].setValue("jdbc:db2://{HOST}{:PORT}/{DB_NAME}");
 
             }
 
         } else {
-            form.findField("connectionUrl1").setValue("");
-            form.findField("maxIdle1").setValue("");
-            form.findField("maxActive1").setValue("");
-        }
-    },
-
-    onComboboxChange21: function(field, newValue, oldValue, eOpts) {
-        var form = field.up('form').getForm();
-
-        if(newValue != '') {
-            form.findField("maxIdle2").setValue("1");
-            form.findField("maxActive2").setValue("5");
-        } else {
-            form.findField("maxIdle2").setValue("");
-            form.findField("maxActive2").setValue("");
+            fieldset.query('textfield[name="connectionUrl"]')[0].setValue("");
+            fieldset.query('textfield[name="maxIdle"]')[0].setValue("");
+            fieldset.query('textfield[name="maxActive"]')[0].setValue("");
         }
     },
 
@@ -1671,10 +1347,10 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
 
         var homeDir = record.get("homeDir");
 
-        form.findField("group").setValue(record.get("group"));
-
         form.findField("serverHome").setValue(homeDir);
         form.findField("serverBase").setValue(homeDir+"/Servers");
+
+        form.findField("group").setValue(record.get("group"));
 
         if(baseTemplate.length > 4) {
             baseTemplate = baseTemplate.substring(4, baseTemplate.length);
@@ -1749,46 +1425,35 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
 
     },
 
-    onComboboxChange22: function(field, newValue, oldValue, eOpts) {
-        var form = field.up('form').getForm();
+    onComboboxChange21: function(field, newValue, oldValue, eOpts) {
+        var fieldset = field.up('fieldset');
 
         if(newValue != '') {
-            form.findField("minPoolSize1").setValue("1");
-            form.findField("maxPoolSize1").setValue("5");
+            fieldset.query('textfield[name="minPoolSize"]')[0].setValue("1");
+            fieldset.query('textfield[name="maxPoolSize"]')[0].setValue("5");
 
             if(newValue == 'oracle') {
 
-                form.findField("connectionUrl1").setValue("jdbc:oracle:thin:@//{HOST}{:PORT}/{SERVICE}");
+                fieldset.query('textfield[name="connectionUrl"]')[0].setValue("jdbc:oracle:thin:@//{HOST}{:PORT}/{SERVICE}");
 
             } else if(newValue == 'mysql') {
 
-                form.findField("connectionUrl1").setValue("jdbc:mysql://{HOST}{:PORT}/{DB_NAME}");
+                fieldset.query('textfield[name="connectionUrl"]')[0].setValue("jdbc:mysql://{HOST}{:PORT}/{DB_NAME}");
 
             } else if(newValue == 'mssql') {
 
-                form.findField("connectionUrl1").setValue("jdbc:sqlserver://{HOST}{:PORT};databaseName={DB_NAME}");
+                fieldset.query('textfield[name="connectionUrl"]')[0].setValue("jdbc:sqlserver://{HOST}{:PORT};databaseName={DB_NAME}");
 
             } else if(newValue == 'db2') {
 
-                form.findField("connectionUrl1").setValue("jdbc:db2://{HOST}{:PORT}/{DB_NAME}");
+                fieldset.query('textfield[name="connectionUrl"]')[0].setValue("jdbc:db2://{HOST}{:PORT}/{DB_NAME}");
 
             }
 
         } else {
-            form.findField("minPoolSize1").setValue("");
-            form.findField("maxPoolSize1").setValue("");
-        }
-    },
-
-    onComboboxChange211: function(field, newValue, oldValue, eOpts) {
-        var form = field.up('form').getForm();
-
-        if(newValue != '') {
-            form.findField("minPoolSize2").setValue("1");
-            form.findField("maxPoolSize2").setValue("5");
-        } else {
-            form.findField("minPoolSize2").setValue("");
-            form.findField("maxPoolSize2").setValue("");
+            fieldset.query('textfield[name="connectionUrl"]')[0].setValue("");
+            fieldset.query('textfield[name="minPoolSize"]')[0].setValue("1");
+            fieldset.query('textfield[name="maxPoolSize"]')[0].setValue("5");
         }
     }
 

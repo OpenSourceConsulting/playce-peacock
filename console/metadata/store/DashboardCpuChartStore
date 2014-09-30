@@ -1,0 +1,52 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "data": null,
+        "designer|userClassName": "DashboardCpuChartStore",
+        "storeId": "DashboardCpuChartStore"
+    },
+    "designerId": "cb3a1c20-2ad4-4196-89b2-ea759bd1db34",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "instanceName"
+            },
+            "designerId": "3bcf6dab-6a47-4b14-a9b5-a52c4f67f249"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "cpuUsed"
+            },
+            "designerId": "1f45dac3-9651-4b65-b4ea-43a3fa47673d"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "cpuFree"
+            },
+            "designerId": "18c2e0fd-5164-466f-a9a7-6fd0f856dc09"
+        }
+    ]
+}

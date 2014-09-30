@@ -91,7 +91,7 @@
                     "                var sessionInfo = Ext.getStore('SessionStore');",
                     "                sessionInfo.removeAll();",
                     "                sessionInfo.sync();",
-                    "        ",
+                    "",
                     "                window.location.reload();",
                     "                /*",
                     "                Ext.getCmp(\"centerContainer\").layout.setActiveItem(0);",

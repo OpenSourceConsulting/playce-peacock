@@ -1,0 +1,52 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "data": null,
+        "designer|userClassName": "DashboardDiskChartStore",
+        "storeId": "DashboardDiskChartStore"
+    },
+    "designerId": "ae6632f7-7ba6-4a19-bb52-c7bf2e34d000",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "instanceName"
+            },
+            "designerId": "00479631-44d2-482a-a60f-6e5cc9aa9d68"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "storageUsed"
+            },
+            "designerId": "219daf2c-ff32-40b3-9c08-5757b94b8603"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "storageFree"
+            },
+            "designerId": "8b654e76-e8b2-470e-901d-7544cc83479b"
+        }
+    ]
+}

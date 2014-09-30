@@ -31,7 +31,7 @@ Ext.define('MyApp.view.RegInstanceWindow', {
         'Ext.button.Button'
     ],
 
-    height: 660,
+    height: 680,
     id: 'regInstanceWindow1',
     width: 480,
     resizable: false,
@@ -547,6 +547,8 @@ Ext.define('MyApp.view.RegInstanceWindow', {
     onComboboxSelect: function(combo, records, eOpts) {
         combo.up('form').getForm().findField("memory").setValue(records[0].get("memory"));
         combo.up('form').getForm().findField("sockets").setValue(records[0].get("sockets"));
+        combo.up('form').getForm().findField("dataCenter").setValue("");
+        combo.up('form').getForm().findField("dataCenter").setValue(records[0].get("dataCenter")+"::"+records[0].get("cluster"));
         combo.up('form').getForm().findField("cores").setValue("1");
 
         //alert(records[0].get("clusterMap"));
@@ -554,7 +556,18 @@ Ext.define('MyApp.view.RegInstanceWindow', {
     },
 
     onComboboxChange1: function(field, newValue, oldValue, eOpts) {
+
         if(newValue != '') {
+
+            var dataCenterValue = newValue;
+            var clusterValue = "";
+
+            if(dataCenterValue.indexOf("::") > -1) {
+                dataCenterValue = newValue.split("::")[0];
+                clusterValue = newValue.split("::")[1];
+
+                field.setRawValue(dataCenterValue);
+            }
 
             var cluster = field.up('form').getForm().findField("cluster");
             var clusterStore = Ext.getStore("ComboClusterStore");
@@ -565,9 +578,11 @@ Ext.define('MyApp.view.RegInstanceWindow', {
                 hypervisorId : field.up('form').getForm().findField("hypervisorId").getValue(),
                 dataCenterId : newValue
             };
-            clusterStore.load();
-
-            cluster.setValue("");
+            clusterStore.load({
+                callback : function(records, options, success) {
+                    cluster.setValue(clusterValue);
+                }
+            });
 
         }
     },

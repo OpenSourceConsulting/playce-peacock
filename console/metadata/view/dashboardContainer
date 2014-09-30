@@ -516,7 +516,7 @@
                                 "minWidth": 300,
                                 "padding": "",
                                 "shadow": false,
-                                "store": "DashboardChartStore",
+                                "store": "DashboardCpuChartStore",
                                 "style": "font-size: 14px;font-weight: bold;text-align: center;",
                                 "width": 356
                             },
@@ -633,7 +633,7 @@
                                 "minWidth": 300,
                                 "padding": "",
                                 "shadow": false,
-                                "store": "DashboardChartStore",
+                                "store": "DashboardMemoryChartStore",
                                 "style": "font-size: 14px;font-weight: bold;text-align: center;",
                                 "width": 356
                             },
@@ -753,7 +753,7 @@
                                 "minWidth": 300,
                                 "padding": "",
                                 "shadow": false,
-                                "store": "DashboardChartStore",
+                                "store": "DashboardDiskChartStore",
                                 "style": "font-size: 14px;font-weight: bold;text-align: center;",
                                 "width": 356
                             },

@@ -1,0 +1,52 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "data": null,
+        "designer|userClassName": "DashboardMemoryChartStore",
+        "storeId": "DashboardMemoryChartStore"
+    },
+    "designerId": "0646ffdc-df08-4b47-9d21-43c70bc1e535",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "instanceName"
+            },
+            "designerId": "da5f466e-0f53-47ab-a0e1-57193d26ae74"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "memoryUsed"
+            },
+            "designerId": "196df9e6-9c25-4e53-8ae6-dd5e55a00138"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "memoryFree"
+            },
+            "designerId": "24e31b30-fa5b-4ccc-8d94-160f23e2be36"
+        }
+    ]
+}
