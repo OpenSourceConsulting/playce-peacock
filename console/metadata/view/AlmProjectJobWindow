@@ -48,7 +48,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "autoScroll": true,
-                        "bodyBorder": false,
+                        "bodyBorder": null,
                         "columnLines": true,
                         "forceFit": true,
                         "height": 240,
@@ -68,7 +68,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "dock": "top",
-                                "padding": "5 0 20 0"
+                                "padding": null
                             },
                             "designerId": "872776e7-01a0-46df-96dd-e185f84b5811",
                             "cn": [

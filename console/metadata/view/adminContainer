@@ -725,6 +725,7 @@
                                                             "codeClass": null,
                                                             "userConfig": {
                                                                 "fieldLabel": "Password",
+                                                                "hidden": true,
                                                                 "layout|flex": null,
                                                                 "name": "passwd"
                                                             },

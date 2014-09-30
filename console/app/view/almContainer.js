@@ -483,7 +483,7 @@ Ext.define('MyApp.view.almContainer', {
                                                                     itemId: 'almProjectJenkinsGrid',
                                                                     autoScroll: true,
                                                                     columnLines: true,
-                                                                    forceFit: true,
+                                                                    forceFit: false,
                                                                     store: 'AlmProjectJenkinsStore',
                                                                     dockedItems: [
                                                                         {
@@ -518,13 +518,42 @@ Ext.define('MyApp.view.almContainer', {
                                                                             text: 'Job'
                                                                         },
                                                                         {
+                                                                            xtype: 'gridcolumn',
+                                                                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                                                                if (value == 'COMPLETE') {
+                                                                                    return '<span style="color:green;">' + value + '</span>';
+                                                                                } else if (value == 'FAIL') {
+                                                                                    return '<span style="color:red;">' + value + '</span>';
+                                                                                }
+                                                                                return value;
+                                                                            },
+                                                                            width: 100,
+                                                                            dataIndex: 'status',
+                                                                            text: 'Status'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'gridcolumn',
+                                                                            width: 120,
+                                                                            dataIndex: 'exitCode',
+                                                                            text: 'Error Code'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'gridcolumn',
+                                                                            width: 500,
+                                                                            dataIndex: 'exitMessage',
+                                                                            text: 'Error Message'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'gridcolumn',
+                                                                            width: 180,
+                                                                            dataIndex: 'lastUpdated',
+                                                                            text: 'Last Updated'
+                                                                        },
+                                                                        {
                                                                             xtype: 'actioncolumn',
                                                                             text: 'Delete',
-                                                                            maxWidth: 60,
-                                                                            minWidth: 70,
                                                                             style: 'text-align:left;',
                                                                             width: 60,
-                                                                            defaultWidth: 60,
                                                                             align: 'center',
                                                                             hideable: false,
                                                                             menuText: '',

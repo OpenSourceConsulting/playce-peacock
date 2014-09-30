@@ -354,6 +354,7 @@ Ext.define('MyApp.view.adminContainer', {
                                                                 },
                                                                 {
                                                                     xtype: 'displayfield',
+                                                                    hidden: true,
                                                                     fieldLabel: 'Password',
                                                                     name: 'passwd'
                                                                 }

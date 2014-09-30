@@ -1146,7 +1146,7 @@
                                                             "userConfig": {
                                                                 "autoScroll": true,
                                                                 "columnLines": true,
-                                                                "forceFit": true,
+                                                                "forceFit": false,
                                                                 "id": "almProjectJenkinsGrid",
                                                                 "itemId": "almProjectJenkinsGrid",
                                                                 "store": "AlmProjectJenkinsStore",
@@ -1246,6 +1246,93 @@
                                                                     "designerId": "35401cbc-364a-4ea6-a6f8-58042471cee1"
                                                                 },
                                                                 {
+                                                                    "type": "Ext.grid.column.Column",
+                                                                    "reference": {
+                                                                        "name": "columns",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "dataIndex": "status",
+                                                                        "text": "Status",
+                                                                        "width": 100
+                                                                    },
+                                                                    "designerId": "38a4e6eb-c111-422a-be7e-51cded423f2e",
+                                                                    "cn": [
+                                                                        {
+                                                                            "type": "fixedfunction",
+                                                                            "reference": {
+                                                                                "name": "items",
+                                                                                "type": "array"
+                                                                            },
+                                                                            "codeClass": null,
+                                                                            "userConfig": {
+                                                                                "designer|params": [
+                                                                                    "value",
+                                                                                    "metaData",
+                                                                                    "record",
+                                                                                    "rowIndex",
+                                                                                    "colIndex",
+                                                                                    "store",
+                                                                                    "view"
+                                                                                ],
+                                                                                "fn": "renderer",
+                                                                                "implHandler": [
+                                                                                    "if (value == 'COMPLETE') {",
+                                                                                    "    return '<span style=\"color:green;\">' + value + '</span>';",
+                                                                                    "} else if (value == 'FAIL') {",
+                                                                                    "    return '<span style=\"color:red;\">' + value + '</span>';",
+                                                                                    "}",
+                                                                                    "return value;"
+                                                                                ]
+                                                                            },
+                                                                            "designerId": "bb90116c-1512-49ce-a12f-29f60b404290"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "Ext.grid.column.Column",
+                                                                    "reference": {
+                                                                        "name": "columns",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "dataIndex": "exitCode",
+                                                                        "text": "Error Code",
+                                                                        "width": 120
+                                                                    },
+                                                                    "designerId": "f8706770-ea29-4407-88ab-216a906cb0bc"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.grid.column.Column",
+                                                                    "reference": {
+                                                                        "name": "columns",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "dataIndex": "exitMessage",
+                                                                        "text": "Error Message",
+                                                                        "width": 500
+                                                                    },
+                                                                    "designerId": "f6a6fcd0-9daa-4017-8239-799b1eb44e12"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.grid.column.Column",
+                                                                    "reference": {
+                                                                        "name": "columns",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "dataIndex": "lastUpdated",
+                                                                        "text": "Last Updated",
+                                                                        "width": 180
+                                                                    },
+                                                                    "designerId": "1242338e-9745-4d4b-b935-0de24b09dbac"
+                                                                },
+                                                                {
                                                                     "type": "Ext.grid.column.Action",
                                                                     "reference": {
                                                                         "name": "columns",
@@ -1254,11 +1341,11 @@
                                                                     "codeClass": null,
                                                                     "userConfig": {
                                                                         "align": "center",
-                                                                        "defaultWidth": 60,
+                                                                        "defaultWidth": null,
                                                                         "hideable": false,
-                                                                        "maxWidth": 60,
+                                                                        "maxWidth": null,
                                                                         "menuText": "",
-                                                                        "minWidth": 70,
+                                                                        "minWidth": null,
                                                                         "style": [
                                                                             "\"text-align:left;\""
                                                                         ],

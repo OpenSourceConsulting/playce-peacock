@@ -54,7 +54,6 @@ Ext.define('MyApp.view.AlmProjectJobWindow', {
                             id: 'almJobGrid',
                             itemId: 'almJobGrid',
                             autoScroll: true,
-                            bodyBorder: false,
                             columnLines: true,
                             forceFit: true,
                             store: 'AlmJobStore',
@@ -62,7 +61,6 @@ Ext.define('MyApp.view.AlmProjectJobWindow', {
                                 {
                                     xtype: 'toolbar',
                                     dock: 'top',
-                                    padding: '5 0 20 0',
                                     items: [
                                         {
                                             xtype: 'textfield',
