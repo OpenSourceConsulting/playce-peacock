@@ -1427,6 +1427,96 @@
                                                             ]
                                                         }
                                                     ]
+                                                },
+                                                {
+                                                    "type": "Ext.panel.Panel",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "title": "History"
+                                                    },
+                                                    "designerId": "932a1980-4acd-481a-b67c-5fee13dfc09a",
+                                                    "cn": [
+                                                        {
+                                                            "type": "Ext.tab.Tab",
+                                                            "reference": {
+                                                                "name": "tabConfig",
+                                                                "type": "object"
+                                                            },
+                                                            "codeClass": null,
+                                                            "designerId": "def8adc3-9cb9-4f38-8098-1088356119fd"
+                                                        },
+                                                        {
+                                                            "type": "Ext.grid.Panel",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "header": false,
+                                                                "id": "almProjectHistoryGrid",
+                                                                "itemId": "almProjectHistoryGrid",
+                                                                "store": "AlmProjectHistoryListStore",
+                                                                "title": "My Grid Panel"
+                                                            },
+                                                            "designerId": "1d7e7b6b-a16f-4745-85e3-4ed98ec5ef67",
+                                                            "cn": [
+                                                                {
+                                                                    "type": "Ext.toolbar.Toolbar",
+                                                                    "reference": {
+                                                                        "name": "dockedItems",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "dock": "top"
+                                                                    },
+                                                                    "designerId": "845ac0cf-9b35-44fa-859c-325283970c0a"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.grid.column.Column",
+                                                                    "reference": {
+                                                                        "name": "columns",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "dataIndex": "message",
+                                                                        "text": "Message",
+                                                                        "width": 600
+                                                                    },
+                                                                    "designerId": "1c534384-5bba-43bd-8e9d-71ef32d48afa"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.grid.column.Column",
+                                                                    "reference": {
+                                                                        "name": "columns",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "dataIndex": "createTime",
+                                                                        "text": "Create Date",
+                                                                        "width": 150
+                                                                    },
+                                                                    "designerId": "110954f3-1e1d-4199-9ab6-72d689e07ef9"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.grid.View",
+                                                                    "reference": {
+                                                                        "name": "viewConfig",
+                                                                        "type": "object"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "designerId": "0fa08605-5440-4fe4-9e5b-4b0e803769fc"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
                                                 }
                                             ]
                                         }

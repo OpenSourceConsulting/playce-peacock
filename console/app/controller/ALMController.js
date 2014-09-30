@@ -154,13 +154,21 @@ Ext.define('MyApp.controller.ALMController', {
 
             confStore.load();
 
-        } else {
+        } else if(newCard.title == "Jenkins"){
 
             this.setAlmMenuAuth(0, 3);
             var jenkinsStore = Ext.getCmp("almProjectJenkinsGrid").getStore();
             jenkinsStore.getProxy().url = GLOBAL.urlPrefix + 'alm/project/'+almConstants.selectRow.get("projectCode")+'/jenkins';
 
             jenkinsStore.load();
+
+        } else {
+
+            this.setAlmMenuAuth(0, 4);
+            var historyStore = Ext.getCmp("almProjectHistoryGrid").getStore();
+            historyStore.getProxy().url = GLOBAL.urlPrefix + 'alm/project/'+almConstants.selectRow.get("projectCode")+'/history';
+
+            historyStore.load();
         }
     },
 

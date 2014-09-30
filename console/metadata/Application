@@ -48,7 +48,8 @@
             "SoftwareModel",
             "SoftwareRepoModel",
             "ConfigModel",
-            "ProjectMappingModel"
+            "ProjectMappingModel",
+            "AlmProjectHistoryModel"
         ],
         "name": "MyApp",
         "requires": [
@@ -106,7 +107,8 @@
             "DashboardAgentStore",
             "DashboardCriticalStore",
             "DashboardWarningStore",
-            "AuthTypeComboStore"
+            "AuthTypeComboStore",
+            "AlmProjectHistoryListStore"
         ],
         "views": [
             "peacockViewport",

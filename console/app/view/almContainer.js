@@ -592,6 +592,40 @@ Ext.define('MyApp.view.almContainer', {
                                                                     ]
                                                                 }
                                                             ]
+                                                        },
+                                                        {
+                                                            xtype: 'panel',
+                                                            title: 'History',
+                                                            items: [
+                                                                {
+                                                                    xtype: 'gridpanel',
+                                                                    id: 'almProjectHistoryGrid',
+                                                                    itemId: 'almProjectHistoryGrid',
+                                                                    header: false,
+                                                                    title: 'My Grid Panel',
+                                                                    store: 'AlmProjectHistoryListStore',
+                                                                    dockedItems: [
+                                                                        {
+                                                                            xtype: 'toolbar',
+                                                                            dock: 'top'
+                                                                        }
+                                                                    ],
+                                                                    columns: [
+                                                                        {
+                                                                            xtype: 'gridcolumn',
+                                                                            width: 600,
+                                                                            dataIndex: 'message',
+                                                                            text: 'Message'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'gridcolumn',
+                                                                            width: 150,
+                                                                            dataIndex: 'createTime',
+                                                                            text: 'Create Date'
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
                                                         }
                                                     ]
                                                 }

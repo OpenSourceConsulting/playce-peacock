@@ -54,7 +54,8 @@ Ext.application({
         'SoftwareModel',
         'SoftwareRepoModel',
         'ConfigModel',
-        'ProjectMappingModel'
+        'ProjectMappingModel',
+        'AlmProjectHistoryModel'
     ],
     stores: [
         'MenuTreeStore',
@@ -108,7 +109,8 @@ Ext.application({
         'DashboardAgentStore',
         'DashboardCriticalStore',
         'DashboardWarningStore',
-        'AuthTypeComboStore'
+        'AuthTypeComboStore',
+        'AlmProjectHistoryListStore'
     ],
     views: [
         'peacockViewport',
