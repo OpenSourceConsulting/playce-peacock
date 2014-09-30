@@ -277,6 +277,13 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
+                                                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                                                if(value === ""){
+                                                                    return "<font color='#999999'><i>Select Auth Type</i></font>";
+                                                                }else{
+                                                                    return value;
+                                                                }
+                                                            },
                                                             defaultWidth: 120,
                                                             dataIndex: 'authType',
                                                             emptyCellText: 'Select Auth Type',
@@ -302,13 +309,19 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                             items: [
                                                                 {
                                                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                                                        var spaceStore = Ext.getCmp("wizardSelectSpaceGrid").getStore();
-                                                                        if(spaceStore.find('key', record.get('key')) > -1) {
-                                                                            Ext.Msg.alert('Message', "이미 선택된 Space 정보입니다.");
-                                                                            return;
-                                                                        }
 
-                                                                        spaceStore.insert(spaceStore.getCount(), view.getStore().getAt(rowIndex));
+                                                                        if(record.get("authType") !== ""){
+                                                                            var spaceStore = Ext.getCmp("wizardSelectSpaceGrid").getStore();
+                                                                            if(spaceStore.find('key', record.get('key')) > -1) {
+                                                                                Ext.Msg.alert('Message', "이미 선택된 Space 정보입니다.");
+                                                                                return;
+                                                                            }
+
+                                                                            spaceStore.insert(spaceStore.getCount(), view.getStore().getAt(rowIndex));
+                                                                        }else{
+                                                                            Ext.MessageBox.alert('알림', 'auth type을 선택해주세요.');
+
+                                                                        }
 
                                                                     },
                                                                     icon: 'resources/images/icons/add.png',

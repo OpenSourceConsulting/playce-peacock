@@ -94,12 +94,21 @@ Ext.define('MyApp.view.AlmProjectSpaceWindow', {
                                 },
                                 {
                                     xtype: 'gridcolumn',
+                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                        if(value === ""){
+                                            return "<font color='#999999'><i>Select Auth Type</i></font>";
+                                        }else{
+                                            return value;
+                                        }
+                                    },
                                     minWidth: 150,
                                     dataIndex: 'authType',
                                     emptyCellText: 'Select Auth Type',
                                     text: 'Auth Type',
                                     editor: {
                                         xtype: 'combobox',
+                                        blankText: 'Select Auth Type',
+                                        emptyText: 'Select Auth Type',
                                         multiSelect: true,
                                         store: 'AuthTypeComboStore',
                                         valueField: 'value'
@@ -119,29 +128,37 @@ Ext.define('MyApp.view.AlmProjectSpaceWindow', {
                                         {
                                             handler: function(view, rowIndex, colIndex, item, e, record, row) {
 
-                                                Ext.MessageBox.confirm('Confirm', 'Space를 등록 하시겠습니까?', function(btn){
 
-                                                    if(btn == "yes"){
+                                                if(record.get("authType") !== ""){
+                                                    Ext.MessageBox.confirm('Confirm', 'Space를 등록 하시겠습니까?', function(btn){
 
-                                                        Ext.Ajax.request({
-                                                            url : GLOBAL.urlPrefix + "alm/project/"
-                                                            + almConstants.selectRow.get("projectCode") + "/confluence/" + record.get("key"),
-                                                            method: 'POST',
-                                                            headers: { 'Content-Type': 'application/json' },
-                                                            disableCaching : true,
-                                                            waitMsg: 'Add Project Space...',
-                                                            success: function(response){
-                                                                var msg = Ext.JSON.decode(response.responseText).msg;
-                                                                Ext.MessageBox.alert('알림', msg);
+                                                        if(btn == "yes"){
 
-                                                                Ext.getCmp("almProjectConfluenceGrid").getStore().reload();
+                                                            Ext.Ajax.request({
+                                                                url : GLOBAL.urlPrefix + "alm/project/"
+                                                                + almConstants.selectRow.get("projectCode") + "/confluence/" + record.get("key"),
+                                                                method: 'POST',
+                                                                headers: { 'Content-Type': 'application/json' },
+                                                                disableCaching : true,
+                                                                waitMsg: 'Add Project Space...',
+                                                                success: function(response){
+                                                                    var msg = Ext.JSON.decode(response.responseText).msg;
+                                                                    Ext.MessageBox.alert('알림', msg);
 
-                                                            }
-                                                        });
+                                                                    Ext.getCmp("almProjectConfluenceGrid").getStore().reload();
 
-                                                    }
+                                                                }
+                                                            });
 
-                                                });
+                                                        }
+
+                                                    });
+                                                }else{
+                                                    Ext.MessageBox.alert('알림', 'auth type을 선택해주세요.');
+
+                                                }
+
+
                                             },
                                             icon: 'resources/images/icons/add.png',
                                             iconCls: ''

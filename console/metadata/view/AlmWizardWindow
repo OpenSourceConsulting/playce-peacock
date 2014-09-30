@@ -628,6 +628,34 @@
                                                                 "valueField": "value"
                                                             },
                                                             "designerId": "1bf0135e-8583-4878-9f6a-d05ad9677430"
+                                                        },
+                                                        {
+                                                            "type": "fixedfunction",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "designer|params": [
+                                                                    "value",
+                                                                    "metaData",
+                                                                    "record",
+                                                                    "rowIndex",
+                                                                    "colIndex",
+                                                                    "store",
+                                                                    "view"
+                                                                ],
+                                                                "fn": "renderer",
+                                                                "implHandler": [
+                                                                    "if(value === \"\"){",
+                                                                    "    return \"<font color='#999999'><i>Select Auth Type</i></font>\";",
+                                                                    "}else{",
+                                                                    "    return value;",
+                                                                    "}"
+                                                                ]
+                                                            },
+                                                            "designerId": "aad30cbe-38f2-4a38-83d2-0fcffa9161d4"
                                                         }
                                                     ]
                                                 },
@@ -691,13 +719,19 @@
                                                                         ],
                                                                         "fn": "handler",
                                                                         "implHandler": [
-                                                                            "var spaceStore = Ext.getCmp(\"wizardSelectSpaceGrid\").getStore();",
-                                                                            "if(spaceStore.find('key', record.get('key')) > -1) {",
-                                                                            "    Ext.Msg.alert('Message', \"이미 선택된 Space 정보입니다.\");",
-                                                                            "    return;",
-                                                                            "}",
                                                                             "",
-                                                                            "spaceStore.insert(spaceStore.getCount(), view.getStore().getAt(rowIndex));",
+                                                                            "if(record.get(\"authType\") !== \"\"){",
+                                                                            "    var spaceStore = Ext.getCmp(\"wizardSelectSpaceGrid\").getStore();",
+                                                                            "    if(spaceStore.find('key', record.get('key')) > -1) {",
+                                                                            "        Ext.Msg.alert('Message', \"이미 선택된 Space 정보입니다.\");",
+                                                                            "        return;",
+                                                                            "    }",
+                                                                            "    ",
+                                                                            "    spaceStore.insert(spaceStore.getCount(), view.getStore().getAt(rowIndex));",
+                                                                            "}else{",
+                                                                            "    Ext.MessageBox.alert('알림', 'auth type을 선택해주세요.');",
+                                                                            "    ",
+                                                                            "}",
                                                                             ""
                                                                         ]
                                                                     },

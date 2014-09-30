@@ -156,11 +156,42 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
+                                        "blankText": "Select Auth Type",
+                                        "emptyText": "Select Auth Type",
+                                        "id": null,
                                         "multiSelect": true,
                                         "store": "AuthTypeComboStore",
                                         "valueField": "value"
                                     },
                                     "designerId": "81e508b2-56a7-4589-93fb-3f12a135f028"
+                                },
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "value",
+                                            "metaData",
+                                            "record",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "store",
+                                            "view"
+                                        ],
+                                        "fn": "renderer",
+                                        "implHandler": [
+                                            "if(value === \"\"){",
+                                            "    return \"<font color='#999999'><i>Select Auth Type</i></font>\";",
+                                            "}else{",
+                                            "    return value;",
+                                            "}"
+                                        ]
+                                    },
+                                    "designerId": "dcdbfe8b-73bc-4faa-94c2-b3faa7c964d4"
                                 }
                             ]
                         },
@@ -225,29 +256,37 @@
                                                 "fn": "handler",
                                                 "implHandler": [
                                                     "",
-                                                    "Ext.MessageBox.confirm('Confirm', 'Space를 등록 하시겠습니까?', function(btn){",
                                                     "",
-                                                    "    if(btn == \"yes\"){",
+                                                    "if(record.get(\"authType\") !== \"\"){",
+                                                    "    Ext.MessageBox.confirm('Confirm', 'Space를 등록 하시겠습니까?', function(btn){",
                                                     "",
-                                                    "        Ext.Ajax.request({",
-                                                    "            url : GLOBAL.urlPrefix + \"alm/project/\"",
-                                                    "            + almConstants.selectRow.get(\"projectCode\") + \"/confluence/\" + record.get(\"key\"),",
-                                                    "            method: 'POST',",
-                                                    "            headers: { 'Content-Type': 'application/json' },",
-                                                    "            disableCaching : true,",
-                                                    "            waitMsg: 'Add Project Space...',",
-                                                    "            success: function(response){",
-                                                    "                var msg = Ext.JSON.decode(response.responseText).msg;",
-                                                    "                Ext.MessageBox.alert('알림', msg);",
+                                                    "        if(btn == \"yes\"){",
+                                                    "    ",
+                                                    "            Ext.Ajax.request({",
+                                                    "                url : GLOBAL.urlPrefix + \"alm/project/\"",
+                                                    "                + almConstants.selectRow.get(\"projectCode\") + \"/confluence/\" + record.get(\"key\"),",
+                                                    "                method: 'POST',",
+                                                    "                headers: { 'Content-Type': 'application/json' },",
+                                                    "                disableCaching : true,",
+                                                    "                waitMsg: 'Add Project Space...',",
+                                                    "                success: function(response){",
+                                                    "                    var msg = Ext.JSON.decode(response.responseText).msg;",
+                                                    "                    Ext.MessageBox.alert('알림', msg);",
+                                                    "    ",
+                                                    "                    Ext.getCmp(\"almProjectConfluenceGrid\").getStore().reload();",
+                                                    "    ",
+                                                    "                }",
+                                                    "            });",
+                                                    "    ",
+                                                    "        }",
+                                                    "    ",
+                                                    "    });",
+                                                    "}else{",
+                                                    "    Ext.MessageBox.alert('알림', 'auth type을 선택해주세요.');",
+                                                    "    ",
+                                                    "}",
                                                     "",
-                                                    "                Ext.getCmp(\"almProjectConfluenceGrid\").getStore().reload();",
-                                                    "",
-                                                    "            }",
-                                                    "        });",
-                                                    "",
-                                                    "    }",
-                                                    "",
-                                                    "});"
+                                                    ""
                                                 ]
                                             },
                                             "designerId": "f2f0f5ca-b327-4990-b711-c68585a1e874"
