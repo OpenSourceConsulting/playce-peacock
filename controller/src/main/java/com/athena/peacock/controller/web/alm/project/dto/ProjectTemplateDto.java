@@ -1,5 +1,8 @@
 package com.athena.peacock.controller.web.alm.project.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ProjectTemplateDto {
 
 	private String repository;

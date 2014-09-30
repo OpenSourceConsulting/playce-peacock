@@ -1,7 +1,5 @@
 package com.athena.peacock.controller.web.alm.project.dto;
 
-import java.sql.Date;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)

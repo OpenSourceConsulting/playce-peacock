@@ -25,6 +25,7 @@
 package com.athena.peacock.controller.web.alm.project;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,7 +43,6 @@ import com.athena.peacock.controller.web.alm.svn.AlmSvnService;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
-import com.google.gson.Gson;
 
 /**
  * <pre>
@@ -237,8 +237,23 @@ public class AlmProjectController {
 	@RequestMapping(value = "/project/wizard", method = RequestMethod.POST)
 	public @ResponseBody
 	DtoJsonResponse createProjectWizard(@RequestBody ProjectWizardDto project) {
-		Gson gson = new Gson();
 		return almProjectService.createProjectWizrd(project);
+	}
+
+	// User 등록
+	@RequestMapping(value = "/project/{projectCode}/usermanagement/{username}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody
+	DtoJsonResponse addProjectUser(@PathVariable String projectCode,
+			@PathVariable String username) {
+		return almProjectService.addProjectUser(projectCode, username);
+	}
+
+	// User 삭제
+	@RequestMapping(value = "/project/{projectCode}/usermanagement/{username}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody
+	DtoJsonResponse removeProejctUser(@PathVariable String projectCode,
+			@PathVariable String username) {
+		return almProjectService.removeProjectUser(projectCode, username);
 	}
 
 	/**
@@ -278,9 +293,6 @@ public class AlmProjectController {
 	DtoJsonResponse getJenkinsNotification(
 			@RequestBody JobNotificationDto notification) {
 
-		System.out.println("****************************");
-		System.out.println("****************************");
-		System.out.println("****************************");
 		System.out.println("****************************");
 		System.out.println(notification.getName());
 		System.out.println(notification.getUrl());

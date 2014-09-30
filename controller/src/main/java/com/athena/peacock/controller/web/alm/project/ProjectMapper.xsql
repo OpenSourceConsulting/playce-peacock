@@ -23,14 +23,11 @@
 			PROJECT_CODE
 		    ,PROJECT_NAME
 		    ,PROJECT_DESCRIPTION
-		    ,REPOSITORY_CODE
-		    
 		)
 		VALUES (
 			#{projectCode}
 			,#{projectName}
 			,#{projectDescription}
-			,#{repository}
 		)
 	</insert>
 	
@@ -39,6 +36,7 @@
 		 	PROJECT_CODE as projectCode, 
 		 	MAPPING_TYPE as mappingType, 
 		 	MAPPING_CODE as mappingCode, 
+		 	MAPPING_PARAMETER as mappingParameter, 
 		 	CREATE_TIME as createTime, 
 		 	START_TIME as startTime, 
 		 	END_TIME as endTime, 
@@ -56,6 +54,7 @@
 			PROJECT_CODE
 		    ,MAPPING_TYPE
 		    ,MAPPING_CODE
+		    ,MAPPING_PARAMETER
 		    ,CREATE_TIME
 		    ,STATUS
 		)
@@ -63,6 +62,7 @@
 			#{projectCode}
 			,#{mappingType}
 			,#{mappingCode}
+			,#{mappingPermission}
 			, now()
 			, 'STANDBY'
 		)
@@ -101,6 +101,7 @@
 		 	PROJECT_CODE as projectCode, 
 		 	MAPPING_TYPE as mappingType, 
 		 	MAPPING_CODE as mappingCode, 
+		 	MAPPING_PARAMETER as mappingPermission,
 		 	CREATE_TIME as createTime, 
 		 	START_TIME as startTime, 
 		 	END_TIME as endTime, 

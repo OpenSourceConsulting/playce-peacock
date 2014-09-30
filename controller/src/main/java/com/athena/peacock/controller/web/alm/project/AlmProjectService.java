@@ -29,6 +29,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.tmatesoft.svn.core.SVNException;
 
 import com.athena.peacock.controller.web.alm.confluence.AlmConfluenceService;
@@ -40,15 +41,21 @@ import com.athena.peacock.controller.web.alm.jenkins.AlmJenkinsService;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectHistoryDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto;
+import com.athena.peacock.controller.web.alm.project.dto.ProjectTamplateInfomationDto;
+import com.athena.peacock.controller.web.alm.project.dto.ProjectTemplateDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectWizardDto;
 import com.athena.peacock.controller.web.alm.svn.AlmSvnService;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
+import com.google.gson.Gson;
 
 /**
  * <pre>
- * 
+ *  10 Confluence
+ * 20 Jenkins
+ *  30 SVN
+ *  40 Template
  * </pre>
  * 
  * @author Dave
@@ -112,7 +119,6 @@ public class AlmProjectService {
 		createProjectHistor(project.getProjectCode(), project.getProjectCode()
 				+ " 프로젝트가 생성되었습니다.");
 
-		// SVN 생성
 		// Group 생성
 		addGroup(project.getProjectCode(), project.getGroupDescription());
 
@@ -125,73 +131,130 @@ public class AlmProjectService {
 	}
 
 	// Project Wizard 실행
+	@Transactional
 	public DtoJsonResponse createProjectWizrd(ProjectWizardDto project) {
+
+		DtoJsonResponse response = new DtoJsonResponse();
 
 		// Project 및 맵핑정보를 DB에 저장 후 실제 Process는 Quarz Job에서 처리
 
-		DtoJsonResponse response = new DtoJsonResponse();
-		response.setMsg("프로젝트 마법사 생성이 요청되었습니다");
+		response.setMsg("프로젝트 마법사 생성이 요청되었습니다.");
+		// PROJECT TABLE 저장
 
 		// Project DTO
 		ProjectDto pDto = project.getProject();
+		String projectCode = pDto.getProjectCode();
 
 		// Project 저장
 		projectDao.insertProject(pDto);
-
-		createProjectHistor(pDto.getProjectCode(), pDto.getProjectCode()
-				+ " 프로젝트가 생성되었습니다.");
+		createProjectHistor(projectCode, projectCode + " 프로젝트가 생성되었습니다.");
 
 		// Project Group 생성
-		addGroup(pDto.getProjectCode(), pDto.getGroupDescription());
-
-		createProjectHistor(pDto.getProjectCode(), pDto.getProjectCode()
-				+ " 프로젝트 그룹이 생성되었습니다.");
+		addGroup(projectCode, pDto.getGroupDescription());
+		createProjectHistor(projectCode, projectCode + " 프로젝트 그룹이 생성되었습니다.");
 
 		// User를 그룹에 추가
 		List<AlmUserDto> userList = project.getUsers();
-
 		if (userList != null) {
-			addUserToGroup(pDto.getProjectCode(), userList);
+			addUserToGroup(projectCode, userList);
 		}
 
-		// Job Mapping
-		ProjectMappingDto jenkinsMapping = new ProjectMappingDto();
-		jenkinsMapping.setMappingCode(pDto.getProjectCode());
-		jenkinsMapping.setMappingType(20);
-		jenkinsMapping.setProjectCode(pDto.getProjectCode());
-		projectDao.insertProjectMapping(jenkinsMapping);
-
-		createProjectHistor(pDto.getProjectCode(), pDto.getProjectCode()
+		createProjectHistor(projectCode, projectCode
 				+ " 프로젝트에 Jenkins Job 생성 요청 되었습니다.");
 
 		// Confluence 저장
 		List<ProjectMappingDto> confluences = project.getConfluence();
 
 		if (confluences != null) {
+
 			for (ProjectMappingDto confluence : confluences) {
 				ProjectMappingDto confluenceMapping = new ProjectMappingDto();
 				confluenceMapping.setMappingType(10);
-				confluenceMapping.setProjectCode(pDto.getProjectCode());
+				confluenceMapping.setProjectCode(projectCode);
 				confluenceMapping.setMappingCode(confluence.getMappingCode());
+				confluenceMapping.setMappingPermission(confluence
+						.getMappingPermission());
 				projectDao.insertProjectMapping(confluenceMapping);
 
-				createProjectHistor(
-						pDto.getProjectCode(),
-						pDto.getProjectCode() + " 프로젝트에 "
-								+ confluence.getMappingCode()
-								+ " Confluence Space 권한 생성 요청 되었습니다.");
+				StringBuffer sb = new StringBuffer();
+				sb.append(projectCode);
+				sb.append(" 프로젝트에");
+				sb.append(confluence.getMappingCode());
+				sb.append(" Confluence Space 권한 생성 요청 되었습니다.");
+				createProjectHistor(projectCode, sb.toString());
 			}
 		}
 
 		// SVN Mapping
 		ProjectMappingDto svnMapping = new ProjectMappingDto();
-		svnMapping.setMappingCode(pDto.getProjectCode());
+		svnMapping.setMappingCode(projectCode);
 		svnMapping.setMappingType(30);
-		svnMapping.setProjectCode(pDto.getProjectCode());
+		svnMapping.setProjectCode(projectCode);
 		projectDao.insertProjectMapping(svnMapping);
 
-		createProjectHistor(pDto.getProjectCode(), pDto.getProjectCode()
+		createProjectHistor(projectCode, projectCode
 				+ " 프로젝트에 SVN Project 생성 요청 되었습니다.");
+
+		// Project Template
+		ProjectTemplateDto template = project.getTemplate();
+
+		Gson gson = new Gson();
+		if (template.getType() != null) {
+			ProjectTamplateInfomationDto templateInfomationServer = new ProjectTamplateInfomationDto(
+					template.getRepository(), template.getServerTemplate(),
+					template.getServerGroupId(),
+					template.getServerArtifactId(), template.getServerPackage());
+
+			ProjectMappingDto projectMapping = new ProjectMappingDto();
+			projectMapping.setProjectCode(projectCode);
+			projectMapping.setMappingCode(projectCode);
+			projectMapping.setMappingType(40);
+			projectMapping.setMappingPermission(gson
+					.toJson(templateInfomationServer));
+			projectDao.insertProjectMapping(projectMapping);
+
+			createProjectHistor(projectCode, projectCode
+					+ " 프로젝트에 템플릿 생성 요청 되었습니다.");
+
+			// Job Mapping
+			ProjectMappingDto jenkinsMapping = new ProjectMappingDto();
+			jenkinsMapping.setMappingCode(projectCode);
+			jenkinsMapping.setMappingType(20);
+			jenkinsMapping.setProjectCode(projectCode);
+			projectDao.insertProjectMapping(jenkinsMapping);
+			createProjectHistor(projectCode, projectCode
+					+ " Jenkins Job 생성 요청 되었습니다.");
+
+			if (template.getType().equals("Mobile Project")) {
+
+				ProjectTamplateInfomationDto templateInfomationMobile = new ProjectTamplateInfomationDto(
+						template.getRepository(), template.getMobileTemplate(),
+						template.getMobileGroupId(),
+						template.getMobileArtifactId(),
+						template.getMobilePackage());
+
+				ProjectMappingDto mobileProjectMapping = new ProjectMappingDto();
+				mobileProjectMapping.setProjectCode(projectCode);
+				mobileProjectMapping.setMappingCode(projectCode + "_mobile");
+				mobileProjectMapping.setMappingType(40);
+				mobileProjectMapping.setMappingPermission(gson
+						.toJson(templateInfomationServer));
+				projectDao.insertProjectMapping(mobileProjectMapping);
+
+				createProjectHistor(projectCode, projectCode
+						+ " 프로젝트에 Mobile 템플릿 생성 요청 되었습니다.");
+
+				// Job Mapping
+				ProjectMappingDto jenkinsMobileMapping = new ProjectMappingDto();
+				jenkinsMobileMapping.setProjectCode(projectCode);
+				jenkinsMobileMapping.setMappingCode(projectCode + "_mobile");
+				jenkinsMobileMapping.setMappingType(20);
+				projectDao.insertProjectMapping(jenkinsMobileMapping);
+				createProjectHistor(projectCode, projectCode
+						+ " Jenkins Mobile Job 생성 요청 되었습니다.");
+
+			}
+		}
 
 		// addPermissionToSpace(pDto.getProjectCode(), confluences);
 
@@ -204,6 +267,30 @@ public class AlmProjectService {
 		// Job 생성
 
 		// createJob("JobCopy", null, pDto.getProjectCode());
+
+		return response;
+
+	}
+
+	public DtoJsonResponse addProjectUser(String projectCode, String username) {
+
+		DtoJsonResponse response = new DtoJsonResponse();
+		response.setMsg(username + " 유저가 프로젝트 그룹에 추가 되었습니다");
+		crowdService.addUserToGroup(username, projectCode);
+		createProjectHistor(projectCode, projectCode + " 프로젝트 그룹에 " + username
+				+ "유저가 추가되었습니다.");
+		return response;
+
+	}
+
+	public DtoJsonResponse removeProjectUser(String projectCode, String username) {
+
+		DtoJsonResponse response = new DtoJsonResponse();
+
+		response.setMsg(username + " 유저가 프로젝트 그룹에서 제거 되었습니다");
+		crowdService.removeUserFromGroup(username, projectCode);
+		createProjectHistor(projectCode, projectCode + " 프로젝트 그룹에 " + username
+				+ "유저가 제거되었습니다.");
 
 		return response;
 
@@ -231,7 +318,6 @@ public class AlmProjectService {
 		DtoJsonResponse response = new DtoJsonResponse();
 		// projectDao.insertProject(projectcode);
 		return response;
-		//
 
 	}
 
@@ -272,9 +358,6 @@ public class AlmProjectService {
 		ProjectMappingDto mappingDto = new ProjectMappingDto();
 		mappingDto.setProjectCode(projectCode);
 
-		// 10 Confluence
-		// 20 Jenkins
-		// 30 SVN
 		if (mappingtype.equals("jenkins")) {
 			mappingDto.setMappingType(20);
 		} else if (mappingtype.equals("svn")) {
@@ -320,6 +403,7 @@ public class AlmProjectService {
 		return response;
 	}
 
+	// 그룹 생성
 	private void addGroup(String name, String description) {
 
 		AlmGroupDto groupData = new AlmGroupDto();

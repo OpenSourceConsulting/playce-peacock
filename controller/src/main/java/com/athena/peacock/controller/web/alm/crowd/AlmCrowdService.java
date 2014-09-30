@@ -363,8 +363,9 @@ public class AlmCrowdService {
 		}
 
 		try {
-			System.out.println(groupData.getName() + "----" + projectgroup);
+
 			crowdClient.addGroupToGroup(groupData.getName(), projectgroup);
+		
 		} catch (GroupNotFoundException | UserNotFoundException
 				| MembershipAlreadyExistsException | OperationFailedException
 				| InvalidAuthenticationException
