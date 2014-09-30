@@ -29,11 +29,10 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
         'Ext.form.field.Checkbox'
     ],
 
-    height: 720,
+    height: 540,
     id: 'softwareConfigWindow',
     itemId: 'softwareConfigWindow',
-    width: 500,
-    resizable: false,
+    width: 610,
     layout: 'border',
     title: 'Edit Config',
     modal: true,
@@ -147,24 +146,6 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
                                     }
                                 },
                                 {
-                                    xtype: 'combobox',
-                                    itemId: 'mycombobox4',
-                                    width: 350,
-                                    fieldLabel: 'Config File Version',
-                                    labelWidth: 130,
-                                    name: 'configFileId',
-                                    displayField: 'configDisplayFileId',
-                                    store: 'ComboSoftwareConfigVersionStore',
-                                    typeAhead: true,
-                                    valueField: 'configFileId',
-                                    listeners: {
-                                        change: {
-                                            fn: me.onMycombobox4Change,
-                                            scope: me
-                                        }
-                                    }
-                                },
-                                {
                                     xtype: 'displayfield',
                                     padding: '20 0 0 0',
                                     fieldLabel: 'Path',
@@ -202,9 +183,27 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
                                     title: 'Configuration in DataBase',
                                     items: [
                                         {
+                                            xtype: 'combobox',
+                                            itemId: 'mycombobox4',
+                                            width: 350,
+                                            fieldLabel: 'Version',
+                                            labelWidth: 120,
+                                            name: 'configFileId',
+                                            displayField: 'configDisplayFileId',
+                                            store: 'ComboSoftwareConfigVersionStore',
+                                            typeAhead: true,
+                                            valueField: 'configFileId',
+                                            listeners: {
+                                                change: {
+                                                    fn: me.onMycombobox4Change,
+                                                    scope: me
+                                                }
+                                            }
+                                        },
+                                        {
                                             xtype: 'textareafield',
                                             anchor: '100%',
-                                            height: 200,
+                                            height: 300,
                                             fieldLabel: 'Label',
                                             hideLabel: true,
                                             name: 'configFileContents'
@@ -212,18 +211,35 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
                                     ]
                                 },
                                 {
-                                    xtype: 'fieldset',
-                                    collapsible: true,
-                                    title: '     Configuration in System',
+                                    xtype: 'container',
+                                    margin: '20 0 20 0',
+                                    layout: {
+                                        type: 'hbox',
+                                        align: 'middle'
+                                    },
                                     items: [
                                         {
-                                            xtype: 'textareafield',
-                                            anchor: '100%',
-                                            height: 200,
-                                            fieldLabel: 'Label',
-                                            hideLabel: true,
-                                            name: 'configSystemContents',
-                                            readOnly: true
+                                            xtype: 'combobox',
+                                            itemId: 'compareVersionCombobox',
+                                            width: 350,
+                                            fieldLabel: 'Compare Version',
+                                            labelWidth: 130,
+                                            name: 'configFileId',
+                                            displayField: 'configDisplayFileId',
+                                            store: 'ComboSoftwareConfigVersionStore',
+                                            typeAhead: true,
+                                            valueField: 'configFileId'
+                                        },
+                                        {
+                                            xtype: 'button',
+                                            margin: '0 0 0 10',
+                                            text: 'Compare',
+                                            listeners: {
+                                                click: {
+                                                    fn: me.onButtonClick,
+                                                    scope: me
+                                                }
+                                            }
                                         }
                                     ]
                                 },
@@ -293,6 +309,7 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
                     form.findField("configFilePath").setValue(fileLocation + "/" + fileName);
                     form.findField("configFileContents").setValue(responseData.data.configFileContents);
 
+                    /*
                     Ext.Ajax.request({
                         url: GLOBAL.urlPrefix + "config/getSystemConfig",
                         params : {
@@ -313,12 +330,18 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
 
                         }
                     });
+                    */
 
                 }
 
             }
         });
 
+    },
+
+    onButtonClick: function(button, e, eOpts) {
+        var compareConfigWindow = Ext.create("widget.CompareConfigWindow");
+            compareConfigWindow.show();
     }
 
 });

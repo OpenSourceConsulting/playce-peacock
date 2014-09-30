@@ -8,14 +8,13 @@
     "userConfig": {
         "designer|userAlias": "SoftwareConfigWindow",
         "designer|userClassName": "SoftwareConfigWindow",
-        "height": 720,
+        "height": 540,
         "id": "softwareConfigWindow",
         "itemId": "softwareConfigWindow",
         "layout": "border",
         "modal": true,
-        "resizable": false,
         "title": "Edit Config",
-        "width": 500
+        "width": 610
     },
     "configAlternates": {
         "resizable": "boolean"
@@ -240,102 +239,6 @@
                             ]
                         },
                         {
-                            "type": "Ext.form.field.ComboBox",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "displayField": "configDisplayFileId",
-                                "fieldLabel": "Config File Version",
-                                "itemId": "mycombobox4",
-                                "labelWidth": 130,
-                                "layout|flex": null,
-                                "name": "configFileId",
-                                "queryMode": null,
-                                "store": "ComboSoftwareConfigVersionStore",
-                                "typeAhead": true,
-                                "valueField": "configFileId",
-                                "width": 350
-                            },
-                            "designerId": "db319e56-393b-451b-9aa1-9e5edc694d87",
-                            "cn": [
-                                {
-                                    "type": "basiceventbinding",
-                                    "reference": {
-                                        "name": "listeners",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "fn": "onMycombobox4Change",
-                                        "implHandler": [
-                                            "",
-                                            "var store = field.getStore();",
-                                            "var record = store.findRecord(\"configFileId\", newValue);",
-                                            "var form = field.up('form').getForm();",
-                                            "",
-                                            "var fileLocation = \"\";",
-                                            "var fileName = \"\";",
-                                            "",
-                                            "Ext.Ajax.request({",
-                                            "    url: GLOBAL.urlPrefix + \"config/getConfigDetail\",",
-                                            "    params : {",
-                                            "        machineId : instancesConstants.selectRow.get(\"machineId\"),",
-                                            "        softwareId : form.findField(\"softwareId\").getValue(),",
-                                            "        configFileId : newValue",
-                                            "    },",
-                                            "    disableCaching : true,",
-                                            "    success: function(response){",
-                                            "",
-                                            "        var responseData = Ext.JSON.decode(response.responseText);",
-                                            "",
-                                            "        if(responseData.success) {",
-                                            "",
-                                            "            fileLocation = responseData.data.configFileLocation;",
-                                            "            fileName = responseData.data.configFileName;",
-                                            "            ",
-                                            "            form.findField(\"configFileLocation\").setValue(fileLocation);",
-                                            "",
-                                            "            form.findField(\"configFilePath\").setValue(fileLocation + \"/\" + fileName);",
-                                            "            form.findField(\"configFileContents\").setValue(responseData.data.configFileContents);",
-                                            "",
-                                            "            Ext.Ajax.request({",
-                                            "                url: GLOBAL.urlPrefix + \"config/getSystemConfig\",",
-                                            "                params : {",
-                                            "                    machineId : instancesConstants.selectRow.get(\"machineId\"),",
-                                            "                    configFileLocation : fileLocation,",
-                                            "                    configFileName : fileName",
-                                            "                },",
-                                            "                disableCaching : true,",
-                                            "                success: function(response2){",
-                                            "",
-                                            "                    var responseData2 = Ext.JSON.decode(response2.responseText);",
-                                            "",
-                                            "                    if(responseData2.success) {",
-                                            "",
-                                            "                        form.findField(\"configSystemContents\").setValue(responseData2.data);",
-                                            "",
-                                            "                    }",
-                                            "",
-                                            "                }",
-                                            "            });",
-                                            "",
-                                            "        }",
-                                            "",
-                                            "    }",
-                                            "});",
-                                            ""
-                                        ],
-                                        "name": "change",
-                                        "scope": "me"
-                                    },
-                                    "designerId": "4b4db491-143a-49f0-a346-4842679f3a8e"
-                                }
-                            ]
-                        },
-                        {
                             "type": "Ext.form.field.Display",
                             "reference": {
                                 "name": "items",
@@ -424,36 +327,102 @@
                             "designerId": "32c3b30b-1d22-4afc-9757-fad88b3a7d95",
                             "cn": [
                                 {
-                                    "type": "Ext.form.field.TextArea",
+                                    "type": "Ext.form.field.ComboBox",
                                     "reference": {
                                         "name": "items",
                                         "type": "array"
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "fieldLabel": "Label",
-                                        "height": 200,
-                                        "hideLabel": true,
-                                        "layout|anchor": "100%",
-                                        "name": "configFileContents"
+                                        "displayField": "configDisplayFileId",
+                                        "fieldLabel": "Version",
+                                        "itemId": "mycombobox4",
+                                        "labelWidth": 120,
+                                        "name": "configFileId",
+                                        "queryMode": null,
+                                        "store": "ComboSoftwareConfigVersionStore",
+                                        "typeAhead": true,
+                                        "valueField": "configFileId",
+                                        "width": 350
                                     },
-                                    "designerId": "3fae729d-d2f3-49a0-826a-f068c69b73cb"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "Ext.form.FieldSet",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "collapsible": true,
-                                "title": "     Configuration in System"
-                            },
-                            "designerId": "4d952d47-5f45-41d5-875b-5e38db2ccb53",
-                            "cn": [
+                                    "designerId": "db319e56-393b-451b-9aa1-9e5edc694d87",
+                                    "cn": [
+                                        {
+                                            "type": "basiceventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onMycombobox4Change",
+                                                "implHandler": [
+                                                    "",
+                                                    "var store = field.getStore();",
+                                                    "var record = store.findRecord(\"configFileId\", newValue);",
+                                                    "var form = field.up('form').getForm();",
+                                                    "",
+                                                    "var fileLocation = \"\";",
+                                                    "var fileName = \"\";",
+                                                    "",
+                                                    "Ext.Ajax.request({",
+                                                    "    url: GLOBAL.urlPrefix + \"config/getConfigDetail\",",
+                                                    "    params : {",
+                                                    "        machineId : instancesConstants.selectRow.get(\"machineId\"),",
+                                                    "        softwareId : form.findField(\"softwareId\").getValue(),",
+                                                    "        configFileId : newValue",
+                                                    "    },",
+                                                    "    disableCaching : true,",
+                                                    "    success: function(response){",
+                                                    "",
+                                                    "        var responseData = Ext.JSON.decode(response.responseText);",
+                                                    "",
+                                                    "        if(responseData.success) {",
+                                                    "",
+                                                    "            fileLocation = responseData.data.configFileLocation;",
+                                                    "            fileName = responseData.data.configFileName;",
+                                                    "",
+                                                    "            form.findField(\"configFileLocation\").setValue(fileLocation);",
+                                                    "",
+                                                    "            form.findField(\"configFilePath\").setValue(fileLocation + \"/\" + fileName);",
+                                                    "            form.findField(\"configFileContents\").setValue(responseData.data.configFileContents);",
+                                                    "",
+                                                    "            /*",
+                                                    "            Ext.Ajax.request({",
+                                                    "                url: GLOBAL.urlPrefix + \"config/getSystemConfig\",",
+                                                    "                params : {",
+                                                    "                    machineId : instancesConstants.selectRow.get(\"machineId\"),",
+                                                    "                    configFileLocation : fileLocation,",
+                                                    "                    configFileName : fileName",
+                                                    "                },",
+                                                    "                disableCaching : true,",
+                                                    "                success: function(response2){",
+                                                    "",
+                                                    "                    var responseData2 = Ext.JSON.decode(response2.responseText);",
+                                                    "",
+                                                    "                    if(responseData2.success) {",
+                                                    "",
+                                                    "                        form.findField(\"configSystemContents\").setValue(responseData2.data);",
+                                                    "",
+                                                    "                    }",
+                                                    "",
+                                                    "                }",
+                                                    "            });",
+                                                    "            */",
+                                                    "",
+                                                    "        }",
+                                                    "",
+                                                    "    }",
+                                                    "});",
+                                                    ""
+                                                ],
+                                                "name": "change",
+                                                "scope": "me"
+                                            },
+                                            "designerId": "4b4db491-143a-49f0-a346-4842679f3a8e"
+                                        }
+                                    ]
+                                },
                                 {
                                     "type": "Ext.form.field.TextArea",
                                     "reference": {
@@ -463,13 +432,85 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "fieldLabel": "Label",
-                                        "height": 200,
+                                        "height": 300,
                                         "hideLabel": true,
                                         "layout|anchor": "100%",
-                                        "name": "configSystemContents",
-                                        "readOnly": true
+                                        "name": "configFileContents"
                                     },
-                                    "designerId": "4316a8c5-f190-45b6-a43e-32a631cd9bef"
+                                    "designerId": "3fae729d-d2f3-49a0-826a-f068c69b73cb"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.container.Container",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "container|align": "middle",
+                                "container|padding": null,
+                                "layout": "hbox",
+                                "margin": "20 0 20 0"
+                            },
+                            "designerId": "26092c8a-fa41-4e5a-b6e6-52889553bc6c",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.ComboBox",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "displayField": "configDisplayFileId",
+                                        "fieldLabel": "Compare Version",
+                                        "itemId": "compareVersionCombobox",
+                                        "labelWidth": 130,
+                                        "layout|flex": null,
+                                        "name": "configFileId",
+                                        "queryMode": null,
+                                        "store": "ComboSoftwareConfigVersionStore",
+                                        "typeAhead": true,
+                                        "valueField": "configFileId",
+                                        "width": 350
+                                    },
+                                    "designerId": "d17caac9-a495-43c0-975a-ef51032f5cfd"
+                                },
+                                {
+                                    "type": "Ext.button.Button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "layout|flex": null,
+                                        "margin": "0 0 0 10",
+                                        "text": "Compare"
+                                    },
+                                    "designerId": "f870ec4d-bdd7-4554-8cfe-3d1d2d75bce9",
+                                    "cn": [
+                                        {
+                                            "type": "basiceventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onButtonClick",
+                                                "implHandler": [
+                                                    "var compareConfigWindow = Ext.create(\"widget.CompareConfigWindow\");",
+                                                    "    compareConfigWindow.show();"
+                                                ],
+                                                "name": "click",
+                                                "scope": "me"
+                                            },
+                                            "designerId": "c8fecc13-1bcc-48c1-9a64-e2b9f14390a0"
+                                        }
+                                    ]
                                 }
                             ]
                         },

@@ -645,7 +645,8 @@ Ext.define('MyApp.controller.ALMController', {
         if(cardNum != 0) {
             var activeItem = cardPanel.getLayout().activeItem;
             var activeIndex = cardPanel.items.indexOf(activeItem);
-            var form = Ext.getCmp("addProjectForm").getForm();
+            var form = Ext.getCmp("addProjectForm1").getForm();
+            var form2 = Ext.getCmp("addProjectForm2").getForm();
 
             if(activeIndex == 0) {
                 if(!form.isValid()) {
@@ -659,27 +660,27 @@ Ext.define('MyApp.controller.ALMController', {
                 }
             }
 
-            if(cardNum == 1) {
+            if(cardNum == 2) {
 
                 Ext.getCmp('wizardAddSpaceGrid').getStore().load();
 
-            } else if(cardNum == 2) {
+            } else if(cardNum == 3) {
 
                 this.searchWizardUser(true);
 
-            } else if(cardNum == 3) {
+            } else if(cardNum == 4) {
                 var reviewForm = Ext.getCmp("reviewProjectForm").getForm();
                 reviewForm.findField("projectName").setValue(form.findField("projectName").getValue());
                 reviewForm.findField("projectDescription").setValue(form.findField("projectDescription").getValue());
                 reviewForm.findField("groupDescription").setValue(form.findField("groupDescription").getValue());
-                reviewForm.findField("repository").setValue(form.findField("repository").getValue());
+                reviewForm.findField("repository").setValue(form2.findField("repository").getValue());
             }
 
         }
 
         cardPanel.layout.setActiveItem(cardNum);
 
-        for(var i=0;i<4;i++) {
+        for(var i=0;i<5;i++) {
 
             if(i == cardNum) {
                 Ext.getCmp("almWizardStepLabel"+i).addCls("wizard-label-on");

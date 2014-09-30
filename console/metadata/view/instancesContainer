@@ -1332,7 +1332,7 @@
                                                                 ],
                                                                 "fn": "handler",
                                                                 "implHandler": [
-                                                                    "if(instancesConstants.selectRow.get(\"status\") == \"Running\" && record.get(\"installStat\") == \"설치 완료\") {",
+                                                                    "//if(instancesConstants.selectRow.get(\"status\") == \"Running\" && record.get(\"installStat\") == \"설치 완료\") {",
                                                                     "",
                                                                     "    var softwareConfigWindow = Ext.create(\"widget.SoftwareConfigWindow\");",
                                                                     "    softwareConfigWindow.show();",
@@ -1345,7 +1345,7 @@
                                                                     "        machineId : instancesConstants.selectRow.get(\"machineId\"),",
                                                                     "        softwareId : record.get(\"softwareId\")",
                                                                     "    };",
-                                                                    "",
+                                                                    "/*",
                                                                     "} else {",
                                                                     "",
                                                                     "    if(instancesConstants.selectRow.get(\"status\") != \"Running\") {",
@@ -1357,7 +1357,8 @@
                                                                     "        Ext.MessageBox.alert('Error', \"Config는 Software 설치 완료시에만 수정 가능합니다.\");",
                                                                     "    }",
                                                                     "",
-                                                                    "}"
+                                                                    "}",
+                                                                    "*/"
                                                                 ]
                                                             },
                                                             "designerId": "6d2725ad-8820-4878-9722-12368b7c2cb9"

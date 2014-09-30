@@ -18,16 +18,18 @@ Ext.define('MyApp.view.AlmWizardWindow', {
     alias: 'widget.AlmWizardWindow',
 
     requires: [
-        'MyApp.view.MyForm33',
         'Ext.toolbar.Toolbar',
         'Ext.toolbar.TextItem',
         'Ext.form.Label',
         'Ext.form.Panel',
-        'Ext.form.field.Hidden',
+        'Ext.form.FieldContainer',
+        'Ext.XTemplate',
         'Ext.button.Button',
+        'Ext.form.field.Hidden',
+        'Ext.form.field.ComboBox',
+        'Ext.form.FieldSet',
         'Ext.grid.Panel',
         'Ext.grid.View',
-        'Ext.form.field.ComboBox',
         'Ext.grid.column.Action',
         'Ext.grid.plugin.CellEditing',
         'Ext.grid.RowNumberer',
@@ -38,8 +40,9 @@ Ext.define('MyApp.view.AlmWizardWindow', {
     height: 600,
     id: 'AlmWizardWindow',
     itemId: 'AlmWizardWindow',
-    width: 750,
+    width: 790,
     resizable: false,
+    layout: 'fit',
     title: 'Project Wizard',
     modal: true,
 
@@ -77,7 +80,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                             itemId: 'almWizardStepLabel0',
                                             margin: '0 10 0 10',
                                             padding: '10 5 5 5',
-                                            text: 'Step 1. Create Project',
+                                            text: 'Step 1-1. Create Project',
                                             listeners: {
                                                 render: {
                                                     fn: me.onAlmWizardStepLabel1Render,
@@ -88,8 +91,24 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                         {
                                             xtype: 'tbtext',
                                             cls: 'wizard-label',
+                                            componentCls: '',
                                             id: 'almWizardStepLabel1',
                                             itemId: 'almWizardStepLabel1',
+                                            margin: '0 10 0 10',
+                                            padding: '10 5 5 5',
+                                            text: 'Step 1-2. Create Project',
+                                            listeners: {
+                                                render: {
+                                                    fn: me.onAlmWizardStepLabel1Render1,
+                                                    scope: me
+                                                }
+                                            }
+                                        },
+                                        {
+                                            xtype: 'tbtext',
+                                            cls: 'wizard-label',
+                                            id: 'almWizardStepLabel2',
+                                            itemId: 'almWizardStepLabel2',
                                             margin: '0 10 0 10',
                                             padding: '10 5 5 5',
                                             text: 'Step 2. Add Space',
@@ -103,8 +122,8 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                         {
                                             xtype: 'tbtext',
                                             cls: 'wizard-label',
-                                            id: 'almWizardStepLabel2',
-                                            itemId: 'almWizardStepLabel2',
+                                            id: 'almWizardStepLabel3',
+                                            itemId: 'almWizardStepLabel3',
                                             margin: '0 10 0 10',
                                             padding: '10 5 5 5',
                                             text: 'Step 3. Add User',
@@ -118,8 +137,8 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                         {
                                             xtype: 'tbtext',
                                             cls: 'wizard-label',
-                                            id: 'almWizardStepLabel3',
-                                            itemId: 'almWizardStepLabel3',
+                                            id: 'almWizardStepLabel4',
+                                            itemId: 'almWizardStepLabel4',
                                             margin: '0 10 0 10',
                                             padding: '10 3 5 3',
                                             text: 'Step 4. Review Project Wizard',
@@ -150,17 +169,130 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                             xtype: 'label',
                                             margin: '0 0 0 20',
                                             style: 'font-size: 25px;',
-                                            text: 'Step 1. Create Project'
+                                            text: 'Step 1-1. Create Project'
                                         },
                                         {
-                                            xtype: 'myform33',
-                                            itemId: 'addProjectForm',
-                                            margin: '50 50 20 20',
+                                            xtype: 'form',
+                                            id: 'addProjectForm1',
+                                            itemId: 'addProjectForm1',
+                                            bodyPadding: 15,
                                             fieldDefaults: {
                                                 msgTarget: 'side',
-                                                labelWidth: 120,
-                                                margin: '0 0 15 0'
-                                            }
+                                                labelWidth: 120
+                                            },
+                                            waitMsgTarget: true,
+                                            items: [
+                                                {
+                                                    xtype: 'fieldcontainer',
+                                                    height: 34,
+                                                    defaults: {
+                                                        flex: 1
+                                                    },
+                                                    fieldLabel: 'Label',
+                                                    hideLabel: true,
+                                                    layout: {
+                                                        type: 'hbox',
+                                                        align: 'middle'
+                                                    },
+                                                    items: [
+                                                        {
+                                                            xtype: 'textfield',
+                                                            flex: 5,
+                                                            afterLabelTextTpl: [
+                                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                                            ],
+                                                            fieldLabel: 'Project Code',
+                                                            name: 'projectCode',
+                                                            allowBlank: false,
+                                                            vtype: 'template',
+                                                            listeners: {
+                                                                change: {
+                                                                    fn: me.onTextfieldChange,
+                                                                    scope: me
+                                                                }
+                                                            }
+                                                        },
+                                                        {
+                                                            xtype: 'button',
+                                                            handler: function(button, e) {
+                                                                var projectCode = Ext.getCmp("addProjectForm1").getForm().findField('projectCode').getValue();
+
+                                                                if(projectCode == '') {
+                                                                    Ext.Msg.alert('Error', 'Project Code를 입력하세요.');
+                                                                }
+
+                                                                Ext.Ajax.request({
+                                                                    url: GLOBAL.urlPrefix + "alm/project/wizard/" + projectCode,
+                                                                    method: 'GET',
+                                                                    headers: { 'Content-Type': 'application/json' },
+                                                                    waitMsg: 'Project Code Checking...',
+                                                                    success: function (response) {
+
+                                                                        var responseData = Ext.JSON.decode(response.responseText);
+
+                                                                        if(responseData.success) {
+
+                                                                            Ext.Msg.alert('Success', responseData.msg);
+                                                                            Ext.getCmp("proejctCodeDuplYnField").setValue('Y');
+                                                                        } else {
+
+                                                                            Ext.Msg.alert('Failure', responseData.msg);
+
+                                                                        }
+
+                                                                    },
+                                                                    failure: function (response) {
+                                                                        var msg = Ext.JSON.decode(response.responseText).msg;
+
+                                                                        Ext.Msg.alert('Failure', msg);
+                                                                    }
+                                                                });
+
+                                                            },
+                                                            flex: 1,
+                                                            id: 'projectDuplBtn1',
+                                                            itemId: 'projectDuplBtn',
+                                                            margin: '0 0 0 10',
+                                                            text: '중복확인'
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    xtype: 'textfield',
+                                                    anchor: '100%',
+                                                    padding: '',
+                                                    afterLabelTextTpl: [
+                                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                                    ],
+                                                    fieldLabel: 'Project Name',
+                                                    name: 'projectName',
+                                                    allowBlank: false
+                                                },
+                                                {
+                                                    xtype: 'textfield',
+                                                    anchor: '100%',
+                                                    margin: '0 0 15 0',
+                                                    padding: '',
+                                                    afterLabelTextTpl: [
+                                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                                    ],
+                                                    fieldLabel: 'Project Description',
+                                                    name: 'projectDescription',
+                                                    allowBlank: false
+                                                },
+                                                {
+                                                    xtype: 'textfield',
+                                                    anchor: '100%',
+                                                    margin: '0 0 15 0',
+                                                    padding: '',
+                                                    afterLabelTextTpl: [
+                                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                                    ],
+                                                    fieldLabel: 'Group Description',
+                                                    name: 'groupDescription',
+                                                    allowBlank: false
+                                                }
+                                            ]
                                         },
                                         {
                                             xtype: 'hiddenfield',
@@ -183,6 +315,178 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                     xtype: 'button',
                                                     handler: function(button, e) {
                                                         almConstants.me.goAlmWizardPanel(1);
+                                                    },
+                                                    margin: '0 15 0 0',
+                                                    padding: '2 10 2 10',
+                                                    text: 'Next'
+                                                },
+                                                {
+                                                    xtype: 'button',
+                                                    handler: function(button, e) {
+                                                        Ext.MessageBox.confirm('Confirm', '작업을 취소하시겠습니까?', function(btn){
+
+                                                            if(btn == "yes"){
+                                                                button.up("window").close();
+                                                            }
+
+                                                        });
+
+                                                    },
+                                                    margin: '0 50 0 0',
+                                                    padding: '2 5 2 5',
+                                                    text: 'Cancel'
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    xtype: 'panel',
+                                    header: false,
+                                    title: 'My Panel',
+                                    items: [
+                                        {
+                                            xtype: 'label',
+                                            margin: '0 0 0 20',
+                                            style: 'font-size: 25px;',
+                                            text: 'Step 1-2. Create Project'
+                                        },
+                                        {
+                                            xtype: 'form',
+                                            id: 'addProjectForm2',
+                                            itemId: 'addProjectForm2',
+                                            bodyPadding: 10,
+                                            header: false,
+                                            title: 'My Form',
+                                            fieldDefaults: {
+                                                msgTarget: 'side',
+                                                labelWidth: 120
+                                            },
+                                            items: [
+                                                {
+                                                    xtype: 'combobox',
+                                                    anchor: '100%',
+                                                    margin: '0 0 15 0',
+                                                    padding: '',
+                                                    afterLabelTextTpl: [
+                                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                                    ],
+                                                    fieldLabel: 'Select Repository',
+                                                    name: 'repository',
+                                                    allowBlank: false,
+                                                    displayField: 'repositoryCode',
+                                                    store: 'ComboAlmRepositoryStore',
+                                                    valueField: 'repositoryCode'
+                                                },
+                                                {
+                                                    xtype: 'combobox',
+                                                    anchor: '100%',
+                                                    afterLabelTextTpl: [
+                                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                                    ],
+                                                    fieldLabel: 'Project Type',
+                                                    name: 'type',
+                                                    allowBlank: false,
+                                                    store: 'ComboProjectTypeStore',
+                                                    valueField: 'value',
+                                                    listeners: {
+                                                        change: {
+                                                            fn: me.onComboboxChange,
+                                                            scope: me
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    xtype: 'fieldset',
+                                                    id: 'templateFieldSet1',
+                                                    title: 'Server',
+                                                    items: [
+                                                        {
+                                                            xtype: 'combobox',
+                                                            anchor: '100%',
+                                                            fieldLabel: 'Template',
+                                                            name: 'serverTemplate',
+                                                            store: 'ComboServerTemplateStore'
+                                                        },
+                                                        {
+                                                            xtype: 'textfield',
+                                                            anchor: '100%',
+                                                            fieldLabel: 'Group ID',
+                                                            name: 'serverGroupId'
+                                                        },
+                                                        {
+                                                            xtype: 'textfield',
+                                                            anchor: '100%',
+                                                            fieldLabel: 'Artifact ID',
+                                                            name: 'serverArtifactId'
+                                                        },
+                                                        {
+                                                            xtype: 'textfield',
+                                                            anchor: '100%',
+                                                            fieldLabel: 'Package',
+                                                            name: 'serverPackage'
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    xtype: 'fieldset',
+                                                    hidden: true,
+                                                    id: 'templateFieldSet2',
+                                                    title: 'Mobile2',
+                                                    items: [
+                                                        {
+                                                            xtype: 'combobox',
+                                                            anchor: '100%',
+                                                            fieldLabel: 'Template',
+                                                            name: 'mobileTemplate',
+                                                            store: 'ComboServerTemplateStore'
+                                                        },
+                                                        {
+                                                            xtype: 'textfield',
+                                                            anchor: '100%',
+                                                            fieldLabel: 'Group ID',
+                                                            name: 'mobileGroupId'
+                                                        },
+                                                        {
+                                                            xtype: 'textfield',
+                                                            anchor: '100%',
+                                                            fieldLabel: 'Artifact ID',
+                                                            name: 'mobileArtifactId'
+                                                        },
+                                                        {
+                                                            xtype: 'textfield',
+                                                            anchor: '100%',
+                                                            fieldLabel: 'Package',
+                                                            name: 'mobilePackage'
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    dockedItems: [
+                                        {
+                                            xtype: 'toolbar',
+                                            dock: 'bottom',
+                                            ui: 'footer',
+                                            layout: {
+                                                type: 'hbox',
+                                                pack: 'end'
+                                            },
+                                            items: [
+                                                {
+                                                    xtype: 'button',
+                                                    handler: function(button, e) {
+                                                        almConstants.me.goAlmWizardPanel(0);
+                                                    },
+                                                    margin: '0 15 0 0',
+                                                    padding: '2 5 2 5',
+                                                    text: 'Preview'
+                                                },
+                                                {
+                                                    xtype: 'button',
+                                                    handler: function(button, e) {
+                                                        almConstants.me.goAlmWizardPanel(2);
                                                     },
                                                     margin: '0 15 0 0',
                                                     padding: '2 10 2 10',
@@ -436,7 +740,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                 {
                                                     xtype: 'button',
                                                     handler: function(button, e) {
-                                                        almConstants.me.goAlmWizardPanel(0);
+                                                        almConstants.me.goAlmWizardPanel(1);
                                                     },
                                                     margin: '0 15 0 0',
                                                     padding: '2 5 2 5',
@@ -445,7 +749,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                 {
                                                     xtype: 'button',
                                                     handler: function(button, e) {
-                                                        almConstants.me.goAlmWizardPanel(2);
+                                                        almConstants.me.goAlmWizardPanel(3);
                                                     },
                                                     margin: '0 15 0 0',
                                                     padding: '2 10 2 10',
@@ -691,7 +995,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                 {
                                                     xtype: 'button',
                                                     handler: function(button, e) {
-                                                        almConstants.me.goAlmWizardPanel(1);
+                                                        almConstants.me.goAlmWizardPanel(2);
                                                     },
                                                     margin: '0 15 0 0',
                                                     padding: '2 5 2 5',
@@ -700,7 +1004,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                 {
                                                     xtype: 'button',
                                                     handler: function(button, e) {
-                                                        almConstants.me.goAlmWizardPanel(3);
+                                                        almConstants.me.goAlmWizardPanel(4);
                                                     },
                                                     margin: '0 15 0 0',
                                                     padding: '2 10 2 10',
@@ -883,7 +1187,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                 {
                                                     xtype: 'button',
                                                     handler: function(button, e) {
-                                                        var projectForm = Ext.getCmp("addProjectForm");
+                                                        var projectForm = Ext.getCmp("addProjectForm1");
 
                                                         if(projectForm.isValid()) {
 
@@ -893,6 +1197,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                             var userStore = Ext.getCmp("wizardSelectUserGrid").getStore();
 
                                                             wizardData.project = projectForm.getForm().getFieldValues();
+                                                            wizardData.template = Ext.getCmp("addProjectForm2").getForm().getFieldValues();
 
                                                             if(spaceStore.getCount() > 0 ) {
 
@@ -991,7 +1296,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
 
     },
 
-    onAlmWizardStepLabel2Render: function(component, eOpts) {
+    onAlmWizardStepLabel1Render1: function(component, eOpts) {
         component.getEl().on({
             click: function(el){
                 almConstants.me.goAlmWizardPanel(1);
@@ -1001,7 +1306,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
 
     },
 
-    onAlmWizardStepLabel3Render: function(component, eOpts) {
+    onAlmWizardStepLabel2Render: function(component, eOpts) {
         component.getEl().on({
             click: function(el){
                 almConstants.me.goAlmWizardPanel(2);
@@ -1011,7 +1316,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
 
     },
 
-    onAlmWizardStepLabel4Render: function(component, eOpts) {
+    onAlmWizardStepLabel3Render: function(component, eOpts) {
         component.getEl().on({
             click: function(el){
                 almConstants.me.goAlmWizardPanel(3);
@@ -1019,6 +1324,33 @@ Ext.define('MyApp.view.AlmWizardWindow', {
             scope: component
         });
 
+    },
+
+    onAlmWizardStepLabel4Render: function(component, eOpts) {
+        component.getEl().on({
+            click: function(el){
+                almConstants.me.goAlmWizardPanel(4);
+            },
+            scope: component
+        });
+
+    },
+
+    onTextfieldChange: function(field, newValue, oldValue, eOpts) {
+        if(Ext.getCmp("proejctCodeDuplYnField") != null){
+            Ext.getCmp("proejctCodeDuplYnField").setValue("");
+        }
+    },
+
+    onComboboxChange: function(field, newValue, oldValue, eOpts) {
+
+        if(newValue ===  "Mobile Project"){
+            Ext.getCmp("templateFieldSet1").setTitle("Mobile1");
+            Ext.getCmp("templateFieldSet2").show();
+        }else{
+            Ext.getCmp("templateFieldSet1").setTitle("Server");
+            Ext.getCmp("templateFieldSet2").hide();
+        }
     }
 
 });

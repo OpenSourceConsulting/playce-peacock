@@ -1,0 +1,48 @@
+{
+    "type": "arraystore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "data": [
+            "[",
+            "    {\"value\":\"HiWAY2_0(웹스퀘어)\",\"text\":\"HiWAY2_0(웹스퀘어)\"},",
+            "    {\"value\":\"HiWAY2_0(일반_EWS)\",\"text\":\"HiWAY2_0(일반_EWS)\"},",
+            "    {\"value\":\"HiWAY2_0(모바일_EWS)\",\"text\":\"HiWAY2_0(모바일_EWS)\"}",
+            "]"
+        ],
+        "designer|userClassName": "ComboServerTemplateStore",
+        "storeId": "ComboServerTemplateStore"
+    },
+    "designerId": "f5a6bbe3-2844-4182-a120-f61af1d92592",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "value",
+                "type": "string"
+            },
+            "designerId": "2a915a1a-8b73-433d-bd0a-48b8ff9c9f8f"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "text",
+                "type": "string"
+            },
+            "designerId": "0403072e-0ab8-4ccc-b879-4883db09ca17"
+        }
+    ]
+}

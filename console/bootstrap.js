@@ -929,6 +929,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.ComboDataCenterStore": [],
   "MyApp.store.ComboGroupStore": [],
   "MyApp.store.ComboHypervisorStore": [],
+  "MyApp.store.ComboProjectTypeStore": [],
+  "MyApp.store.ComboServerTemplateStore": [],
   "MyApp.store.ComboSoftwareConfigFileStore": [],
   "MyApp.store.ComboSoftwareConfigVersionStore": [],
   "MyApp.store.ComboSoftwareStore": [],
@@ -976,6 +978,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.AlmUsersWindow": [],
   "MyApp.view.AlmWizardWindow": [],
   "MyApp.view.CLIWindow": [],
+  "MyApp.view.CompareConfigWindow": [],
   "MyApp.view.CrontabWindow": [],
   "MyApp.view.EditInstanceWindow": [],
   "MyApp.view.EditPermissionWindow": [],
@@ -2078,6 +2081,8 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.store.ComboDataCenterStore": [],
   "MyApp.store.ComboGroupStore": [],
   "MyApp.store.ComboHypervisorStore": [],
+  "MyApp.store.ComboProjectTypeStore": [],
+  "MyApp.store.ComboServerTemplateStore": [],
   "MyApp.store.ComboSoftwareConfigFileStore": [],
   "MyApp.store.ComboSoftwareConfigVersionStore": [],
   "MyApp.store.ComboSoftwareStore": [],
@@ -2148,6 +2153,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.CLIWindow": [
     "widget.CLIWindow"
+  ],
+  "MyApp.view.CompareConfigWindow": [
+    "widget.CompareConfigWindow"
   ],
   "MyApp.view.CrontabWindow": [
     "widget.CrontabWindow"

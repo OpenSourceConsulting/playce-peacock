@@ -54,7 +54,8 @@ Ext.application({
         'SoftwareModel',
         'SoftwareRepoModel',
         'ConfigModel',
-        'ProjectMappingModel'
+        'ProjectMappingModel',
+        'AlmProjectHistoryModel'
     ],
     stores: [
         'MenuTreeStore',
@@ -111,7 +112,9 @@ Ext.application({
         'DashboardCriticalStore',
         'DashboardWarningStore',
         'AuthTypeComboStore',
-        'AlmProjectHistoryListStore'
+        'AlmProjectHistoryListStore',
+        'ComboProjectTypeStore',
+        'ComboServerTemplateStore'
     ],
     views: [
         'peacockViewport',
@@ -154,7 +157,8 @@ Ext.application({
         'NewPermissionWindow',
         'EditPermissionWindow',
         'PermissionUserWindow',
-        'AlmRepositoryWindow'
+        'AlmRepositoryWindow',
+        'CompareConfigWindow'
     ],
     controllers: [
         'LoginController',

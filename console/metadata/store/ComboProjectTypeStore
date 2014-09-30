@@ -1,0 +1,48 @@
+{
+    "type": "arraystore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "data": [
+            "[",
+            "    {\"value\":\"DynamicWeb Project\",\"text\":\"DynamicWeb Project\"},",
+            "    {\"value\":\"Maven Project\",\"text\":\"Maven Project\"},",
+            "    {\"value\":\"Mobile Project\",\"text\":\"Mobile Project\"}",
+            "]"
+        ],
+        "designer|userClassName": "ComboProjectTypeStore",
+        "storeId": "ComboProjectTypeStore"
+    },
+    "designerId": "247000e2-7e1e-4e72-9973-155c880601eb",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "value",
+                "type": "string"
+            },
+            "designerId": "6f1d4e51-b4f5-4744-a1ae-801bff85c2dd"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "text",
+                "type": "string"
+            },
+            "designerId": "41c665d7-bb87-4330-a98c-1a42d8206295"
+        }
+    ]
+}

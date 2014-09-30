@@ -1,0 +1,32 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "CompareConfigWindow",
+        "designer|userClassName": "CompareConfigWindow",
+        "height": 422,
+        "layout": "fit",
+        "title": "My Window",
+        "width": 572
+    },
+    "designerId": "9309532c-130f-4a10-8307-13f4ade815fb",
+    "cn": [
+        {
+            "type": "Ext.Component",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "height": 250,
+                "width": 400
+            },
+            "designerId": "9b8619b7-734e-42c2-919a-4b5db54ef201"
+        }
+    ]
+}

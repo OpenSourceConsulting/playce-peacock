@@ -610,32 +610,33 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     items: [
                                                         {
                                                             handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                                                if(instancesConstants.selectRow.get("status") == "Running" && record.get("installStat") == "설치 완료") {
+                                                                //if(instancesConstants.selectRow.get("status") == "Running" && record.get("installStat") == "설치 완료") {
 
-                                                                    var softwareConfigWindow = Ext.create("widget.SoftwareConfigWindow");
-                                                                    softwareConfigWindow.show();
+                                                                var softwareConfigWindow = Ext.create("widget.SoftwareConfigWindow");
+                                                                softwareConfigWindow.show();
 
-                                                                    softwareConfigWindow.down('form').getForm().findField("machineId").setValue(instancesConstants.selectRow.get("machineId"));
-                                                                    softwareConfigWindow.down('form').getForm().findField("softwareId").setValue(record.get("softwareId"));
+                                                                softwareConfigWindow.down('form').getForm().findField("machineId").setValue(instancesConstants.selectRow.get("machineId"));
+                                                                softwareConfigWindow.down('form').getForm().findField("softwareId").setValue(record.get("softwareId"));
 
-                                                                    var fileStore = Ext.getStore("ComboSoftwareConfigFileStore");
-                                                                    fileStore.getProxy().extraParams = {
-                                                                        machineId : instancesConstants.selectRow.get("machineId"),
-                                                                        softwareId : record.get("softwareId")
-                                                                    };
+                                                                var fileStore = Ext.getStore("ComboSoftwareConfigFileStore");
+                                                                fileStore.getProxy().extraParams = {
+                                                                    machineId : instancesConstants.selectRow.get("machineId"),
+                                                                    softwareId : record.get("softwareId")
+                                                                };
+                                                                /*
+                                                                } else {
+
+                                                                if(instancesConstants.selectRow.get("status") != "Running") {
+
+                                                                Ext.MessageBox.alert('Error', "Agent가 동작하고 있지 않습니다. Agent 상태를 확인하십시오.");
 
                                                                 } else {
 
-                                                                    if(instancesConstants.selectRow.get("status") != "Running") {
-
-                                                                        Ext.MessageBox.alert('Error', "Agent가 동작하고 있지 않습니다. Agent 상태를 확인하십시오.");
-
-                                                                    } else {
-
-                                                                        Ext.MessageBox.alert('Error', "Config는 Software 설치 완료시에만 수정 가능합니다.");
-                                                                    }
+                                                                Ext.MessageBox.alert('Error', "Config는 Software 설치 완료시에만 수정 가능합니다.");
+                                                                }
 
                                                                 }
+                                                                */
                                                             },
                                                             icon: 'resources/images/icons/cog.png'
                                                         }
