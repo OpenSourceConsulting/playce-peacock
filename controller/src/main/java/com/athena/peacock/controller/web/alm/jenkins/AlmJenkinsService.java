@@ -25,6 +25,7 @@
 package com.athena.peacock.controller.web.alm.jenkins;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.athena.peacock.controller.web.alm.jenkins.client.JenkinsClient;
@@ -42,6 +43,12 @@ import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 @Service
 public class AlmJenkinsService {
 
+	@Value("#{contextProperties['alm.jenkins.servertemplate']}")
+	private String JENKINS_SERVERTEMPLATE;
+
+	@Value("#{contextProperties['alm.jenkins.mobiletemplate']}")
+	private String JENKINS_MOBILETEMPLATE;
+
 	@Autowired
 	private JenkinsClient jenkinsClient;
 
@@ -53,8 +60,8 @@ public class AlmJenkinsService {
 		return response;
 	}
 
-	public void createJob(String jobName, String templateName, String newJobName) {
-		jenkinsClient.copyJob(jobName, templateName, newJobName);
+	public void createJob(String templateName, String newJobName) {
+		jenkinsClient.copyJob(templateName, newJobName);
 	}
 
 }

@@ -17,17 +17,28 @@ import com.athena.peacock.controller.web.alm.jenkins.clinet.model.JenkinsRespons
 
 @Component
 public class JenkinsClient {
-	
-	
+
 	@Value("#{contextProperties['alm.jenkins.url']}")
 	private String JENKINS_URL;
+
+	@Value("#{contextProperties['alm.jenkins.id']}")
+	private String JENKINS_ID;
+
+	@Value("#{contextProperties['alm.jenkins.pw']}")
+	private String JENKINS_PW;
+
+	@Value("#{contextProperties['alm.jenkins.copyjob']}")
+	private String JENKINS_COPYJOB;
+
+	@Value("#{contextProperties['alm.jenkins.permissionjob']}")
+	private String JENKINS_PERMISSIONJOB;
 
 	static RestTemplate restTemplate = new RestTemplate();
 
 	public JenkinsResponseDto getJobs() {
 
 		try {
-			String url = JENKINS_URL+"/api/json";
+			String url = JENKINS_URL + "/api/json";
 
 			HttpHeaders requestHeaders = new HttpHeaders();
 
@@ -59,52 +70,20 @@ public class JenkinsClient {
 		return null;
 	}
 
-	public JenkinsResponseDto createJob(String name) {
+	public void copyJob(String templateName, String newJobName) {
 
 		try {
-			
 			StringBuffer sb = new StringBuffer();
+
 			sb.append(JENKINS_URL);
-			
-			final String url = JENKINS_URL+"//createItem?name="
-					+ name;
-			// http://119.81.162.221:8080/jenkins/createItem?name=Test069&mode=copy&from=Test007
+			sb.append("/job/");
+			sb.append(JENKINS_COPYJOB);
+			sb.append("/buildWithParameters?JOB_NAME=");
+			sb.append(newJobName);
 
-			HttpHeaders requestHeaders = new HttpHeaders();
-
-			List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
-			acceptableMediaTypes.add(MediaType.APPLICATION_XML);
-			requestHeaders.setAccept(acceptableMediaTypes);
-			requestHeaders.setContentType(MediaType.APPLICATION_XML);
-
-			// Populate the headers in an HttpEntity object to use for the
-			// request
-			HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
-
-			// Create a new RestTemplate instance
-			RestTemplate restTemplate = new RestTemplate();
-			restTemplate.getMessageConverters().add(
-					new MappingJackson2HttpMessageConverter());
-
-			// Perform the HTTP GET request
-			ResponseEntity<JenkinsResponseDto> responseEntity = restTemplate
-					.exchange(url, HttpMethod.GET, requestEntity,
-							JenkinsResponseDto.class);
-
-			return responseEntity.getBody();
-		} catch (Exception e) {
-			// logger.debug("exception {}", e.getMessage());
-
-		}
-
-		return null;
-	}
-
-	public void copyJob(String jobName, String templateName, String newJobName) {
-
-		try {
-			final String url = JENKINS_URL+"/job/"
-					+ jobName + "/buildWithParameters?JOB_NAME=" + newJobName;
+			String url = sb.toString();
+			// JENKINS_URL + "/job/" + JENKINS_COPYJOB +
+			// "/buildWithParameters?JOB_NAME=" + newJobName;
 			HttpHeaders requestHeaders = new HttpHeaders();
 
 			List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
@@ -131,5 +110,4 @@ public class JenkinsClient {
 		}
 
 	}
-
 }

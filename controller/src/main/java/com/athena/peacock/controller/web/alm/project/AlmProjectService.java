@@ -27,6 +27,7 @@ package com.athena.peacock.controller.web.alm.project;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.tmatesoft.svn.core.SVNException;
 
@@ -55,6 +56,12 @@ import com.athena.peacock.controller.web.common.model.GridJsonResponse;
  */
 @Service
 public class AlmProjectService {
+
+	@Value("#{contextProperties['alm.jenkins.servertemplate']}")
+	private String JENKINS_SERVERTEMPLATE;
+
+	@Value("#{contextProperties['alm.jenkins.mobiletemplate']}")
+	private String JENKINS_MOBILETEMPLATE;
 
 	@Autowired
 	private AlmProjectDao projectDao;
@@ -311,12 +318,6 @@ public class AlmProjectService {
 		projectDao.deleteProjectMapping(mappingDto);
 
 		return response;
-	}
-
-	private void createJob(String jobName, String templateName,
-			String newJobName) {
-
-		jenkinsService.createJob(jobName, templateName, newJobName);
 	}
 
 	private void addGroup(String name, String description) {

@@ -52,9 +52,5 @@ public class AlmNexusService {
 		return response;
 	}
 
-	public void createJob(String jobName, String templateName, String newJobName) {
-		jenkinsClient.copyJob(jobName, templateName, newJobName);
-	}
-
 }
 // end of AlmUserController.java
