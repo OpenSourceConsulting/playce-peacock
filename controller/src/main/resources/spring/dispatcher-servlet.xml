@@ -42,7 +42,10 @@
 	<mvc:resources mapping="/app.js" location="/app.js" />
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<mvc:resources mapping="/repo/**" location="/repo/" />
-	
+	<!-- 
+	<mvc:view-controller path="/user/reset" view-name="ResetPassword"/>
+	 -->
+	 
 	<!-- 
 	405 에러 방지 <mvc:resources mapping="/static/**" location="/static/" /> 대신 아래설정 사용.
 	 -->
@@ -97,7 +100,7 @@
     </bean>
 	
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-		<property name="order" value="1" />
+		<property name="order" value="2" />
 		<property name="defaultContentType" value="application/json" />
 		<property name="ignoreAcceptHeader" value="true" />
 		<property name="mediaTypes">
@@ -117,7 +120,7 @@
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
-		<property name="order" value="2" />
+		<property name="order" value="1" />
 	</bean>
 	
 </beans>
