@@ -90,6 +90,7 @@ public class ConfigController {
 	public @ResponseBody List<ConfigDto> getConfigFileNames(ConfigDto config) {
 		Assert.notNull(config.getMachineId(), "machineId can not be null.");
 		Assert.notNull(config.getSoftwareId(), "softwareId can not be null.");
+		Assert.notNull(config.getInstallSeq(), "installSeq can not be null.");
 		
 		return configService.getConfigFileNames(config);
 	}
@@ -108,6 +109,7 @@ public class ConfigController {
 	public @ResponseBody GridJsonResponse getConfigFileVersions(GridJsonResponse jsonRes, ConfigDto config) throws Exception {
 		Assert.notNull(config.getMachineId(), "machineId can not be null.");
 		Assert.notNull(config.getSoftwareId(), "softwareId can not be null.");
+		Assert.notNull(config.getInstallSeq(), "installSeq can not be null.");
 		Assert.notNull(config.getConfigFileName(), "configFileName can not be null.");
 
 		List<ConfigDto> configList = configService.getConfigFileVersions(config);
@@ -131,6 +133,7 @@ public class ConfigController {
 	public @ResponseBody DtoJsonResponse getConfig(DtoJsonResponse jsonRes, ConfigDto config) throws Exception {
 		Assert.notNull(config.getMachineId(), "machineId can not be null.");
 		Assert.notNull(config.getSoftwareId(), "softwareId can not be null.");
+		Assert.notNull(config.getInstallSeq(), "installSeq can not be null.");
 		Assert.notNull(config.getConfigFileId(), "configFileId can not be null.");
 		
 		jsonRes.setData(configService.getConfig(config));
@@ -194,6 +197,7 @@ public class ConfigController {
 	public @ResponseBody SimpleJsonResponse updateConfig(SimpleJsonResponse jsonRes, ConfigDto config) {
 		Assert.notNull(config.getMachineId(), "machineId can not be null.");
 		Assert.notNull(config.getSoftwareId(), "softwareId can not be null.");
+		Assert.notNull(config.getInstallSeq(), "installSeq can not be null.");
 		Assert.notNull(config.getConfigFileId(), "configFileId can not be null.");
 		
 		try {
@@ -225,6 +229,7 @@ public class ConfigController {
 				SoftwareDto software = new SoftwareDto();
 				software.setMachineId(config.getMachineId());
 				software.setSoftwareId(config.getSoftwareId());
+				software.setInstallSeq(config.getInstallSeq());
 				software = softwareService.getSoftware(software);
 				
 				String stopCmd = software.getServiceStopCmd();

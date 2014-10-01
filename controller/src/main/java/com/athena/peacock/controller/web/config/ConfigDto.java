@@ -39,6 +39,7 @@ public class ConfigDto extends BaseDto {
 
 	private String machineId;
 	private Integer softwareId;
+	private Integer installSeq;
 	private Integer configFileId;
 	private String configFileLocation;
 	private String configFileName;
@@ -72,6 +73,20 @@ public class ConfigDto extends BaseDto {
 	 */
 	public void setSoftwareId(Integer softwareId) {
 		this.softwareId = softwareId;
+	}
+
+	/**
+	 * @return the installSeq
+	 */
+	public Integer getInstallSeq() {
+		return installSeq;
+	}
+
+	/**
+	 * @param installSeq the installSeq to set
+	 */
+	public void setInstallSeq(Integer installSeq) {
+		this.installSeq = installSeq;
 	}
 
 	/**

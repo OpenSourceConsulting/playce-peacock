@@ -192,6 +192,19 @@
                 "type": "string"
             },
             "designerId": "bd9b2b2c-b30d-4c57-a6b5-4796d7258ba8"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "installSeq",
+                "type": "int"
+            },
+            "designerId": "2fde6b2c-b01d-489e-becf-095b00f6956e"
         }
     ]
 }

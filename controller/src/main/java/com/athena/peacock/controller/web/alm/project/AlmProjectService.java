@@ -42,8 +42,10 @@ import com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectProcessStatusDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectTamplateInfomationDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectTemplateDto;
+import com.athena.peacock.controller.web.alm.project.dto.ProjectUserPasswordResetDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectWizardDto;
 import com.athena.peacock.controller.web.alm.svn.AlmSvnService;
+import com.athena.peacock.controller.web.alm.user.AlmUserService;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
@@ -85,6 +87,9 @@ public class AlmProjectService {
 	@Autowired
 	private AlmConfluenceService confluenceService;
 
+	@Autowired
+	private AlmUserService userService;
+
 	public AlmProjectService() {
 		// TODO Auto-generated constructor stub
 
@@ -117,12 +122,14 @@ public class AlmProjectService {
 
 		projectDao.insertProject(project);
 
-		createProjectHistor(project.getProjectCode(), project.getProjectCode() + " 프로젝트가 생성되었습니다.");
+		createProjectHistor(project.getProjectCode(), project.getProjectCode()
+				+ " 프로젝트가 생성되었습니다.");
 
 		// Group 생성
 		addGroup(project.getProjectCode(), project.getGroupDescription());
 
-		createProjectHistor(project.getProjectCode(), project.getProjectCode() + " 프로젝트가 그룹이 생성되었습니다.");
+		createProjectHistor(project.getProjectCode(), project.getProjectCode()
+				+ " 프로젝트가 그룹이 생성되었습니다.");
 		response.setMsg("프로젝트가 생성되었습니다");
 		return response;
 		//
@@ -189,27 +196,31 @@ public class AlmProjectService {
 		svnMapping.setMappingCode(projectCode);
 		svnMapping.setMappingType(30);
 		svnMapping.setProjectCode(projectCode);
-		
+
 		projectDao.insertProjectMapping(svnMapping);
-		createProjectHistor(projectCode, projectCode + " 프로젝트에 SVN Project 생성 요청 되었습니다.");
+		createProjectHistor(projectCode, projectCode
+				+ " 프로젝트에 SVN Project 생성 요청 되었습니다.");
 
 		// Project Template
 		ProjectTemplateDto template = project.getTemplate();
 
 		if (template.getType() != null) {
-			
+
 			ProjectTamplateInfomationDto templateInfomationServer = new ProjectTamplateInfomationDto(
 					template.getRepository(), template.getServerTemplate(),
 					template.getServerGroupId(),
 					template.getServerArtifactId(), template.getServerPackage());
 
 			// Template Mapping
-			projectDao.insertProjectMapping(getTemplate(projectCode, "", templateInfomationServer));
-			createProjectHistor(projectCode, projectCode + " 프로젝트에 템플릿 생성 요청 되었습니다.");
+			projectDao.insertProjectMapping(getTemplate(projectCode, "",
+					templateInfomationServer));
+			createProjectHistor(projectCode, projectCode
+					+ " 프로젝트에 템플릿 생성 요청 되었습니다.");
 
 			// Job Mapping
 			projectDao.insertProjectMapping(getJenkinsMapping(projectCode, ""));
-			createProjectHistor(projectCode, projectCode + " Jenkins Job 생성 요청 되었습니다.");
+			createProjectHistor(projectCode, projectCode
+					+ " Jenkins Job 생성 요청 되었습니다.");
 
 			if (template.getType().equals("Mobile Project")) {
 
@@ -220,12 +231,16 @@ public class AlmProjectService {
 						template.getMobilePackage());
 
 				// Template Mapping
-				projectDao.insertProjectMapping(getTemplate(projectCode, "MOBILE", templateInfomationMobile));
-				createProjectHistor(projectCode, projectCode + " 프로젝트에 Mobile 템플릿 생성 요청 되었습니다.");
+				projectDao.insertProjectMapping(getTemplate(projectCode,
+						"MOBILE", templateInfomationMobile));
+				createProjectHistor(projectCode, projectCode
+						+ " 프로젝트에 Mobile 템플릿 생성 요청 되었습니다.");
 
 				// Job Mapping
-				projectDao.insertProjectMapping(getJenkinsMapping(projectCode, "MOBILE"));
-				createProjectHistor(projectCode, projectCode + " Jenkins Mobile Job 생성 요청 되었습니다.");
+				projectDao.insertProjectMapping(getJenkinsMapping(projectCode,
+						"MOBILE"));
+				createProjectHistor(projectCode, projectCode
+						+ " Jenkins Mobile Job 생성 요청 되었습니다.");
 
 			}
 		}
@@ -239,7 +254,8 @@ public class AlmProjectService {
 		DtoJsonResponse response = new DtoJsonResponse();
 		response.setMsg(username + " 유저가 프로젝트 그룹에 추가 되었습니다");
 		crowdService.addUserToGroup(username, projectCode);
-		createProjectHistor(projectCode, projectCode + " 프로젝트 그룹에 " + username + "유저가 추가되었습니다.");
+		createProjectHistor(projectCode, projectCode + " 프로젝트 그룹에 " + username
+				+ "유저가 추가되었습니다.");
 		return response;
 
 	}
@@ -534,6 +550,12 @@ public class AlmProjectService {
 		}
 
 		return projectMapping;
+	}
+
+	// User password Reset
+	public DtoJsonResponse resetPassword(ProjectUserPasswordResetDto resetDto) {
+
+		return userService.resetPassword(resetDto);
 	}
 }
 // end of AlmProjectService.java

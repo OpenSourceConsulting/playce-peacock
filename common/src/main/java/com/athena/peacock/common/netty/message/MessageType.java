@@ -37,7 +37,8 @@ public enum MessageType {
 	RESPONSE,
 	SYSTEM_STATUS,
 	INITIAL_INFO,
-	PACKAGE_INFO;
+	PACKAGE_INFO,
+	SOFTWARE_INFO;
 
     public String value() {
         return name();

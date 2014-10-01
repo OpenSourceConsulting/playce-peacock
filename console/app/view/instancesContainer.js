@@ -76,13 +76,6 @@ Ext.define('MyApp.view.instancesContainer', {
                             items: [
                                 {
                                     xtype: 'button',
-                                    cls: 'auth-write',
-                                    id: 'newProjectWizardBtn',
-                                    itemId: 'newProjectWizardBtn',
-                                    text: 'New Project Wizard'
-                                },
-                                {
-                                    xtype: 'button',
                                     handler: function(button, e) {
                                         var regInstanceWindow = Ext.create("widget.RegInstanceWindow");
                                         regInstanceWindow.show();
@@ -617,11 +610,13 @@ Ext.define('MyApp.view.instancesContainer', {
 
                                                                 softwareConfigWindow.down('form').getForm().findField("machineId").setValue(instancesConstants.selectRow.get("machineId"));
                                                                 softwareConfigWindow.down('form').getForm().findField("softwareId").setValue(record.get("softwareId"));
+                                                                softwareConfigWindow.down('form').getForm().findField("installSeq").setValue(record.get("installSeq"));
 
                                                                 var fileStore = Ext.getStore("ComboSoftwareConfigFileStore");
                                                                 fileStore.getProxy().extraParams = {
                                                                     machineId : instancesConstants.selectRow.get("machineId"),
-                                                                    softwareId : record.get("softwareId")
+                                                                    softwareId : record.get("softwareId"),
+                                                                    installSeq : record.get("installSeq")
                                                                 };
                                                                 /*
                                                                 } else {
@@ -660,7 +655,8 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                 softwareInstallLogWindow.down('form').getForm().load({
                                                                     params : {
                                                                         softwareId : record.get("softwareId"),
-                                                                        machineId : instancesConstants.selectRow.get("machineId")
+                                                                        machineId : instancesConstants.selectRow.get("machineId"),
+                                                                        installSeq : record.get("installSeq")
                                                                     }
                                                                     ,url : GLOBAL.urlPrefix + "software/getInstallLog"
                                                                     ,waitMsg:'Loading...'
@@ -692,7 +688,8 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                                 url: GLOBAL.urlPrefix + "software/remove",
                                                                                 params : {
                                                                                     softwareId : record.get("softwareId"),
-                                                                                    machineId : instancesConstants.selectRow.get("machineId")
+                                                                                    machineId : instancesConstants.selectRow.get("machineId"),
+                                                                                    installSeq : record.get("installSeq")
                                                                                 },
                                                                                 disableCaching : true,
                                                                                 waitMsg: 'Uninstall Software...',

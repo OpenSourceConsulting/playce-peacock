@@ -213,6 +213,12 @@ public class UserController {
 		
 		return jsonRes;
 	}
+	
+	@RequestMapping("/reset")
+	public String reset(){
+		
+		return "ResetUser";//   /WEB-INF/view/ResetUser.jsp
+	}
 
 }
 //end of UserController.java

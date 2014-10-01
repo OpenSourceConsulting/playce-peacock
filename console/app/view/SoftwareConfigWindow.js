@@ -159,6 +159,11 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
                                 {
                                     xtype: 'hiddenfield',
                                     fieldLabel: 'Label',
+                                    name: 'installSeq'
+                                },
+                                {
+                                    xtype: 'hiddenfield',
+                                    fieldLabel: 'Label',
                                     name: 'softwareId'
                                 },
                                 {
@@ -270,6 +275,7 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
         versionStore.getProxy().extraParams = {
             machineId : instancesConstants.selectRow.get("machineId"),
             softwareId : form.findField("softwareId").getValue(),
+            installSeq : form.findField("installSeq").getValue(),
             configFileName : newValue
         };
         versionStore.load();
@@ -292,6 +298,7 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
             params : {
                 machineId : instancesConstants.selectRow.get("machineId"),
                 softwareId : form.findField("softwareId").getValue(),
+                installSeq : form.findField("installSeq").getValue(),
                 configFileId : newValue
             },
             disableCaching : true,

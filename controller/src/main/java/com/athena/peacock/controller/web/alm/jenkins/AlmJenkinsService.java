@@ -24,17 +24,24 @@
  */
 package com.athena.peacock.controller.web.alm.jenkins;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.athena.peacock.controller.web.alm.jenkins.client.JenkinsClient;
+import com.athena.peacock.controller.web.alm.jenkins.client.JenkinsServer;
 import com.athena.peacock.controller.web.alm.jenkins.clinet.model.JenkinsResponseDto;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 
 /**
  * <pre>
- * 사용자 관리 컨트롤러.
+ * Jenkins 관련 Job Service
  * </pre>
  * 
  * @author Jungsu Han
@@ -42,6 +49,15 @@ import com.athena.peacock.controller.web.common.model.GridJsonResponse;
  */
 @Service
 public class AlmJenkinsService {
+
+	@Value("#{contextProperties['alm.jenkins.url']}")
+	private String JENKINS_URL;
+
+	@Value("#{contextProperties['alm.jenkins.id']}")
+	private String JENKINS_ID;
+
+	@Value("#{contextProperties['alm.jenkins.pw']}")
+	private String JENKINS_PW;
 
 	@Value("#{contextProperties['alm.jenkins.servertemplate']}")
 	private String JENKINS_SERVERTEMPLATE;
@@ -52,11 +68,31 @@ public class AlmJenkinsService {
 	@Autowired
 	private JenkinsClient jenkinsClient;
 
+	private JenkinsServer jenkins;
+
+	@PostConstruct
+	private void init() {
+		try {
+			jenkins = new JenkinsServer(new URI(JENKINS_URL), JENKINS_ID,
+					JENKINS_PW);
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	public GridJsonResponse getJobs() {
 
 		GridJsonResponse response = new GridJsonResponse();
-		JenkinsResponseDto dto = jenkinsClient.getJobs();
-		response.setList(dto.getJobs());
+
+		try {
+			JenkinsResponseDto dto = jenkins.getJobs();
+			response.setList(dto.getJobs());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return response;
 	}
 
