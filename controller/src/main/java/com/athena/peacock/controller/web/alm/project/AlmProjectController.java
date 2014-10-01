@@ -34,12 +34,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.athena.peacock.controller.web.alm.crowd.AlmCrowdService;
 import com.athena.peacock.controller.web.alm.jenkins.clinet.model.JobNotificationDto;
 import com.athena.peacock.controller.web.alm.nexus.client.NexusClient;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
+import com.athena.peacock.controller.web.alm.project.dto.ProjectUserPasswordResetDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectWizardDto;
-import com.athena.peacock.controller.web.alm.svn.AlmSvnService;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
@@ -58,12 +57,6 @@ public class AlmProjectController {
 
 	@Autowired
 	private AlmProjectService almProjectService;
-
-	@Autowired
-	private AlmCrowdService almCrowdService;
-
-	@Autowired
-	private AlmSvnService svnService;
 
 	@Autowired
 	private NexusClient nexus;
@@ -114,8 +107,7 @@ public class AlmProjectController {
 	@RequestMapping(value = "/project", method = RequestMethod.POST)
 	public @ResponseBody
 	DtoJsonResponse createProject(@RequestBody ProjectDto project) {
-		//
-		// almCrowdService.addGroup(groupData);
+
 		return almProjectService.createProject(project);
 	}
 
@@ -298,6 +290,21 @@ public class AlmProjectController {
 		System.out.println(notification.getUrl());
 		DtoJsonResponse response = new DtoJsonResponse();
 		return response;
+	}
+
+	/**
+	 * <pre>
+	 * 사용자 패스워드 변경
+	 * </pre>
+	 * 
+	 * @param projectCode
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/project/user/passwordreset", method = RequestMethod.POST)
+	public @ResponseBody
+	DtoJsonResponse getCrypto(@RequestBody ProjectUserPasswordResetDto resetDto) {
+		return almProjectService.resetPassword(resetDto);
 	}
 
 }
