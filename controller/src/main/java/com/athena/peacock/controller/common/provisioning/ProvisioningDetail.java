@@ -43,6 +43,7 @@ public class ProvisioningDetail implements Serializable {
 	/** Apache, Tomcat, JBoss, MySQL 공통 Variables */
 	private String machineId;
 	private Integer softwareId;
+	private Integer installSeq;
 	private String softwareName;
 	private String user;
 	private String version;
@@ -142,6 +143,20 @@ public class ProvisioningDetail implements Serializable {
 	 */
 	public void setSoftwareId(Integer softwareId) {
 		this.softwareId = softwareId;
+	}
+
+	/**
+	 * @return the installSeq
+	 */
+	public Integer getInstallSeq() {
+		return installSeq;
+	}
+
+	/**
+	 * @param installSeq the installSeq to set
+	 */
+	public void setInstallSeq(Integer installSeq) {
+		this.installSeq = installSeq;
 	}
 
 	/**

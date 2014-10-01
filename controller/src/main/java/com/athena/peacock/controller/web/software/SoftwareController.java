@@ -146,6 +146,7 @@ public class SoftwareController {
 	public @ResponseBody SimpleJsonResponse getInstallLog(SimpleJsonResponse jsonRes,SoftwareDto software) throws Exception {
 		Assert.isTrue(software.getSoftwareId() != null, "softwareId must not be null.");
 		Assert.isTrue(!StringUtils.isEmpty(software.getMachineId()), "machineId must not be null.");
+		Assert.notNull(software.getInstallSeq(), "installSeq can not be null.");
 		
 		jsonRes.setData(softwareService.getSoftware(software));
 		
@@ -234,6 +235,7 @@ public class SoftwareController {
 	public @ResponseBody SimpleJsonResponse remove(HttpServletRequest request, SimpleJsonResponse jsonRes, ProvisioningDetail provisioningDetail) throws Exception {
 		Assert.isTrue(provisioningDetail.getSoftwareId() != null, "softwareId must not be null.");
 		Assert.isTrue(!StringUtils.isEmpty(provisioningDetail.getMachineId()), "machineId must not be null.");
+		Assert.notNull(provisioningDetail.getInstallSeq(), "installSeq can not be null.");
 		
 		try {
 			UserDto userDto = (UserDto)request.getSession().getAttribute(UserController.SESSION_USER_KEY);

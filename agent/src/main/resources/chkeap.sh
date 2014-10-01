@@ -1,9 +1,16 @@
 #!/bin/bash
-ENV_SH=( `find / -regextype egrep -regex ".*/Servers\/\w+(Server(|[0-9]+))\/env.sh" 2> /dev/null | grep -v code | grep -v t6` )
-DS_XML=( `find / -regextype egrep -regex ".*/apps\/\w+-ds.xml" 2> /dev/null` )
-LOGIN_CONFIG_XML=( `find / -regextype egrep -regex ".*/Servers\/\w+(Server(|[0-9]+))\/conf\/login-config.xml" 2> /dev/null | grep -v code` )
+ENV_SHS=( `find /home* -regextype egrep -regex ".*/Servers\/\w+(Server(|[0-9]+))\/env.sh" 2> /dev/null | grep -v code | grep -v t6` )
+DS_XML=( `find /home* -regextype egrep -regex ".*/apps\/([^ ]*)-ds.xml" 2> /dev/null` )
+LOGIN_CONFIG_XML=( `find /home* -regextype egrep -regex ".*/Servers\/\w+(Server(|[0-9]+))\/conf\/login-config.xml" 2> /dev/null | grep -v code | grep -v t6` )
 
-#echo "Array size: ${#ENV_SH[@]}"
+for i in "${ENV_SHS[@]}"
+do
+        JBOSS_HOME=( `cat $i | grep JBOSS_HOME=` )
+        if [ $JBOSS_HOME ] ; then
+        		ENV_SH=$i
+				break
+        fi
+done
 
 if [ $ENV_SH ] ; then
         VERSION=`cat $ENV_SH | grep JBOSS_HOME= | grep -v echo | awk '{ print substr($2, length($2)-12, 13); }'`
@@ -15,7 +22,6 @@ if [ $ENV_SH ] ; then
 
         if [ $JBOSS_DIR ] ; then
                 echo $JBOSS_DIR" "$JBOSS_USER" "$SERVER_NAME" "$JBOSS_HOME" "$SERVER_HOME > tmp.info
-                cat tmp.info
                 SERVER_NAME=`cat tmp.info | awk '{ sub(/JBOSS_USER/, $2, $3); print $3 }' | sed -E 's/([${}])//g'`
                 JBOSS_HOME=`cat tmp.info | awk '{ sub(/JBOSS_DIR/, $1, $4); print $4 }' | sed -E 's/([${}])//g'`
                 SERVER_HOME=`cat tmp.info | awk '{ sub(/JBOSS_DIR/, $1, $5); print $5 }' | sed -E 's/([${}])//g'`

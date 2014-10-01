@@ -2,8 +2,15 @@
 HTTPD=( `find /etc/init.d/ -name "*_httpd"` )
 
 if [ $HTTPD ] ; then
+        JBOSS_USER_NAME=(`cat $HTTPD | grep JBOSS_USER_NAME= | awk '{ print substr($1, 17, length($1)-16); }'` )
         APACHE_HOME=( `cat $HTTPD | grep apachectl= | awk '{ print substr($1, 11, length($1)-25); }'` )
         HTTPD_CONF=( `cat $HTTPD | egrep -o 'httpd.{0,5}(.*\/)([^\/]*)\/conf\/httpd.conf' | awk '{ n = split($0, arr, " "); } END { print $n }'` )
+
+        if [ $JBOSS_USER_NAME ] ; then
+                APACHE_HOME=`echo $JBOSS_USER_NAME" "$APACHE_HOME | awk '{ sub(/JBOSS_USER_NAME/, $1, $2); print $2 }' | sed -E 's/([${}])//g'`
+                HTTPD_CONF=`echo $JBOSS_USER_NAME" "$HTTPD_CONF | awk '{ sub(/JBOSS_USER_NAME/, $1, $2); print $2 }' | sed -E 's/([${}])//g'`
+        fi
+
         SERVICE_NAME=`echo $HTTPD | awk '{ print substr($1, 13, length($1)-12); }'`
 fi
 

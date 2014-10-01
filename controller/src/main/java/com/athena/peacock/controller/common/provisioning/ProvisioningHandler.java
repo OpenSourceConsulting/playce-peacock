@@ -1777,6 +1777,7 @@ public class ProvisioningHandler {
 		SoftwareDto software = new SoftwareDto();
 		software.setSoftwareId(provisioningDetail.getSoftwareId());
 		software.setMachineId(provisioningDetail.getMachineId());
+		software.setInstallSeq(provisioningDetail.getInstallSeq());
 		
 		software = softwareService.getSoftware(software);
 		software.setUpdUserId(provisioningDetail.getUserId());
