@@ -71,22 +71,6 @@
                             "codeClass": null,
                             "userConfig": {
                                 "cls": "auth-write",
-                                "id": "newProjectWizardBtn",
-                                "itemId": "newProjectWizardBtn",
-                                "layout|flex": null,
-                                "text": "New Project Wizard"
-                            },
-                            "designerId": "95221846-1df3-43b7-9c73-661f82ed58d6"
-                        },
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "cls": "auth-write",
                                 "id": "createInstanceBtn",
                                 "itemId": "createInstanceBtn",
                                 "layout|flex": null,

@@ -76,13 +76,6 @@ Ext.define('MyApp.view.instancesContainer', {
                             items: [
                                 {
                                     xtype: 'button',
-                                    cls: 'auth-write',
-                                    id: 'newProjectWizardBtn',
-                                    itemId: 'newProjectWizardBtn',
-                                    text: 'New Project Wizard'
-                                },
-                                {
-                                    xtype: 'button',
                                     handler: function(button, e) {
                                         var regInstanceWindow = Ext.create("widget.RegInstanceWindow");
                                         regInstanceWindow.show();
