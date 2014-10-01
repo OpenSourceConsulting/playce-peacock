@@ -409,6 +409,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                             ],
                                                             fieldLabel: 'Template',
                                                             name: 'serverTemplate',
+                                                            allowBlank: false,
                                                             editable: false,
                                                             store: 'ComboServerTemplateStore'
                                                         },
@@ -419,7 +420,8 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                                 '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                                             ],
                                                             fieldLabel: 'Group ID',
-                                                            name: 'serverGroupId'
+                                                            name: 'serverGroupId',
+                                                            allowBlank: false
                                                         },
                                                         {
                                                             xtype: 'textfield',
@@ -428,7 +430,8 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                                 '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                                             ],
                                                             fieldLabel: 'Artifact ID',
-                                                            name: 'serverArtifactId'
+                                                            name: 'serverArtifactId',
+                                                            allowBlank: false
                                                         },
                                                         {
                                                             xtype: 'textfield',
@@ -437,10 +440,25 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                                 '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                                             ],
                                                             fieldLabel: 'Package',
-                                                            name: 'serverPackage'
+                                                            name: 'serverPackage',
+                                                            allowBlank: false
                                                         }
                                                     ]
-                                                },
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            xtype: 'form',
+                                            id: 'addProjectForm3',
+                                            itemId: 'addProjectForm3',
+                                            bodyPadding: 10,
+                                            header: false,
+                                            title: 'My Form',
+                                            fieldDefaults: {
+                                                msgTarget: 'side',
+                                                labelWidth: 120
+                                            },
+                                            items: [
                                                 {
                                                     xtype: 'fieldset',
                                                     hidden: true,
@@ -455,6 +473,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                             ],
                                                             fieldLabel: 'Template',
                                                             name: 'mobileTemplate',
+                                                            allowBlank: false,
                                                             editable: false,
                                                             store: 'ComboServerTemplateStore'
                                                         },
@@ -465,7 +484,8 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                                 '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                                             ],
                                                             fieldLabel: 'Group ID',
-                                                            name: 'mobileGroupId'
+                                                            name: 'mobileGroupId',
+                                                            allowBlank: false
                                                         },
                                                         {
                                                             xtype: 'textfield',
@@ -474,7 +494,8 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                                 '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                                             ],
                                                             fieldLabel: 'Artifact ID',
-                                                            name: 'mobileArtifactId'
+                                                            name: 'mobileArtifactId',
+                                                            allowBlank: false
                                                         },
                                                         {
                                                             xtype: 'textfield',
@@ -483,7 +504,8 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                                 '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                                             ],
                                                             fieldLabel: 'Package',
-                                                            name: 'mobilePackage'
+                                                            name: 'mobilePackage',
+                                                            allowBlank: false
                                                         }
                                                     ]
                                                 }
@@ -1209,6 +1231,8 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                         },
                                                         {
                                                             xtype: 'fieldset',
+                                                            hidden: true,
+                                                            id: 'reviewMTemplate',
                                                             title: 'Mobile Template',
                                                             items: [
                                                                 {
@@ -1496,7 +1520,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
 
     onComboboxChange: function(field, newValue, oldValue, eOpts) {
 
-        if(newValue ===  "Mobile Project"){
+        if(newValue ===  almConstants.mProject){
             Ext.getCmp("templateFieldSet2").show();
         }else{
             Ext.getCmp("templateFieldSet2").hide();

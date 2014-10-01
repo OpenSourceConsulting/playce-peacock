@@ -181,7 +181,6 @@ Ext.define('MyApp.view.almContainer', {
                                     height: 150,
                                     id: 'almProjectDetailPanel',
                                     itemId: 'almProjectDetailPanel',
-                                    autoScroll: true,
                                     layout: 'card',
                                     items: [
                                         {
@@ -192,474 +191,479 @@ Ext.define('MyApp.view.almContainer', {
                                             width: 1000
                                         },
                                         {
-                                            xtype: 'panel',
-                                            autoScroll: true,
+                                            xtype: 'tabpanel',
+                                            id: 'projectTabPanel',
+                                            itemId: 'projectTabPanel',
+                                            padding: '5 0 0 0',
+                                            style: 'background-color:#ffffff;',
+                                            activeTab: 0,
+                                            plain: true,
                                             items: [
                                                 {
-                                                    xtype: 'tabpanel',
-                                                    id: 'projectTabPanel',
-                                                    itemId: 'projectTabPanel',
-                                                    padding: '5 0 0 0',
-                                                    style: 'background-color:#ffffff;',
-                                                    activeTab: 0,
-                                                    plain: true,
+                                                    xtype: 'panel',
+                                                    autoScroll: true,
+                                                    layout: 'fit',
+                                                    title: 'Summary',
+                                                    dockedItems: [
+                                                        {
+                                                            xtype: 'toolbar',
+                                                            dock: 'top',
+                                                            items: [
+                                                                {
+                                                                    xtype: 'label',
+                                                                    html: '<h2></h2>',
+                                                                    id: 'almProjectTitleLabel',
+                                                                    itemId: 'almProjectTitleLabel',
+                                                                    margin: '',
+                                                                    padding: '10 10 0 10',
+                                                                    text: ''
+                                                                }
+                                                            ]
+                                                        }
+                                                    ],
                                                     items: [
                                                         {
-                                                            xtype: 'panel',
-                                                            title: 'Summary',
+                                                            xtype: 'form',
+                                                            id: 'almProjectForm',
+                                                            itemId: 'almProjectForm',
+                                                            padding: '',
+                                                            defaults: {
+                                                                border: false,
+                                                                xtype: 'panel',
+                                                                flex: 1,
+                                                                layout: 'anchor'
+                                                            },
+                                                            bodyPadding: 10,
+                                                            bodyStyle: 'padding:5px 5px 0',
+                                                            header: false,
+                                                            fieldDefaults: {
+                                                                msgTarget: 'side',
+                                                                margin: '0 10',
+                                                                readOnly: true,
+                                                                labelStyle: 'font-weight: bold;',
+                                                                labelSeparator: ' :'
+                                                            },
+                                                            waitMsgTarget: 'instDescForm',
+                                                            items: [
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    padding: 10,
+                                                                    fieldLabel: 'Project ID',
+                                                                    labelWidth: 140,
+                                                                    name: 'projectCode'
+                                                                },
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    padding: 10,
+                                                                    fieldLabel: 'Project Name',
+                                                                    labelWidth: 140,
+                                                                    name: 'projectName'
+                                                                },
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    padding: 10,
+                                                                    fieldLabel: 'Project Description',
+                                                                    labelWidth: 140,
+                                                                    name: 'projectDescription'
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    xtype: 'panel',
+                                                    autoScroll: true,
+                                                    layout: 'fit',
+                                                    title: 'User',
+                                                    items: [
+                                                        {
+                                                            xtype: 'gridpanel',
+                                                            id: 'almProjectUserGrid',
+                                                            itemId: 'almProjectUserGrid',
+                                                            autoScroll: true,
+                                                            columnLines: true,
+                                                            forceFit: true,
+                                                            store: 'AlmProjectUsersStore',
                                                             dockedItems: [
                                                                 {
                                                                     xtype: 'toolbar',
                                                                     dock: 'top',
                                                                     items: [
                                                                         {
-                                                                            xtype: 'label',
-                                                                            html: '<h2></h2>',
-                                                                            id: 'almProjectTitleLabel',
-                                                                            itemId: 'almProjectTitleLabel',
-                                                                            margin: '',
-                                                                            padding: '10 10 0 10',
-                                                                            text: ''
+                                                                            xtype: 'tbspacer',
+                                                                            flex: 1
+                                                                        },
+                                                                        {
+                                                                            xtype: 'button',
+                                                                            handler: function(button, e) {
+                                                                                var almGroupUsersWindow = Ext.create("widget.AlmUsersWindow");
+
+                                                                                almGroupUsersWindow.show();
+
+                                                                                Ext.getCmp("addAlmUserType").setValue("project");
+
+                                                                                almConstants.me.searchPopAlmUser(true);
+                                                                            },
+                                                                            cls: 'auth-write',
+                                                                            text: 'Add Users to Project'
                                                                         }
                                                                     ]
                                                                 }
                                                             ],
-                                                            items: [
+                                                            columns: [
                                                                 {
-                                                                    xtype: 'form',
-                                                                    id: 'almProjectForm',
-                                                                    itemId: 'almProjectForm',
-                                                                    padding: '',
-                                                                    defaults: {
-                                                                        border: false,
-                                                                        xtype: 'panel',
-                                                                        flex: 1,
-                                                                        layout: 'anchor'
-                                                                    },
-                                                                    bodyPadding: 10,
-                                                                    bodyStyle: 'padding:5px 5px 0',
-                                                                    header: false,
-                                                                    fieldDefaults: {
-                                                                        msgTarget: 'side',
-                                                                        margin: '0 10',
-                                                                        readOnly: true,
-                                                                        labelStyle: 'font-weight: bold;',
-                                                                        labelSeparator: ' :'
-                                                                    },
-                                                                    waitMsgTarget: 'instDescForm',
+                                                                    xtype: 'gridcolumn',
+                                                                    minWidth: 100,
+                                                                    dataIndex: 'name',
+                                                                    text: 'Name'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    minWidth: 150,
+                                                                    dataIndex: 'displayName',
+                                                                    text: 'Display Name'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    minWidth: 300,
+                                                                    dataIndex: 'emailAddress',
+                                                                    text: 'E-mail'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'active',
+                                                                    text: 'Active'
+                                                                },
+                                                                {
+                                                                    xtype: 'actioncolumn',
+                                                                    text: 'Delete',
+                                                                    maxWidth: 60,
+                                                                    minWidth: 70,
+                                                                    style: 'text-align:left;',
+                                                                    width: 60,
+                                                                    defaultWidth: 60,
+                                                                    align: 'center',
+                                                                    hideable: false,
+                                                                    menuText: '',
                                                                     items: [
                                                                         {
-                                                                            xtype: 'displayfield',
-                                                                            padding: 10,
-                                                                            fieldLabel: 'Project ID',
-                                                                            labelWidth: 140,
-                                                                            name: 'projectCode'
-                                                                        },
-                                                                        {
-                                                                            xtype: 'displayfield',
-                                                                            padding: 10,
-                                                                            fieldLabel: 'Project Name',
-                                                                            labelWidth: 140,
-                                                                            name: 'projectName'
-                                                                        },
-                                                                        {
-                                                                            xtype: 'displayfield',
-                                                                            padding: 10,
-                                                                            fieldLabel: 'Project Description',
-                                                                            labelWidth: 140,
-                                                                            name: 'projectDescription'
-                                                                        }
-                                                                    ]
-                                                                }
-                                                            ]
-                                                        },
-                                                        {
-                                                            xtype: 'panel',
-                                                            title: 'User',
-                                                            items: [
-                                                                {
-                                                                    xtype: 'gridpanel',
-                                                                    id: 'almProjectUserGrid',
-                                                                    itemId: 'almProjectUserGrid',
-                                                                    autoScroll: true,
-                                                                    columnLines: true,
-                                                                    forceFit: true,
-                                                                    store: 'AlmProjectUsersStore',
-                                                                    dockedItems: [
-                                                                        {
-                                                                            xtype: 'toolbar',
-                                                                            dock: 'top',
-                                                                            items: [
-                                                                                {
-                                                                                    xtype: 'tbspacer',
-                                                                                    flex: 1
-                                                                                },
-                                                                                {
-                                                                                    xtype: 'button',
-                                                                                    handler: function(button, e) {
-                                                                                        var almGroupUsersWindow = Ext.create("widget.AlmUsersWindow");
+                                                                            handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                                                                Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){
 
-                                                                                        almGroupUsersWindow.show();
+                                                                                    if(btn == "yes"){
 
-                                                                                        Ext.getCmp("addAlmUserType").setValue("project");
+                                                                                        Ext.Ajax.request({
+                                                                                            url : GLOBAL.urlPrefix + "alm/project/"
+                                                                                            + almConstants.selectRow.get("projectCode") + "/usermanagement/" + record.get("name"),
+                                                                                            method: 'DELETE',
+                                                                                            headers: { 'Content-Type': 'application/json' },
+                                                                                            disableCaching : true,
+                                                                                            waitMsg: 'Delete Project user...',
+                                                                                            success: function(response){
+                                                                                                var msg = Ext.JSON.decode(response.responseText).msg;
+                                                                                                Ext.MessageBox.alert('알림', msg);
 
-                                                                                        almConstants.me.searchPopAlmUser(true);
-                                                                                    },
-                                                                                    cls: 'auth-write',
-                                                                                    text: 'Add Users to Project'
-                                                                                }
-                                                                            ]
-                                                                        }
-                                                                    ],
-                                                                    columns: [
-                                                                        {
-                                                                            xtype: 'gridcolumn',
-                                                                            minWidth: 100,
-                                                                            dataIndex: 'name',
-                                                                            text: 'Name'
-                                                                        },
-                                                                        {
-                                                                            xtype: 'gridcolumn',
-                                                                            minWidth: 150,
-                                                                            dataIndex: 'displayName',
-                                                                            text: 'Display Name'
-                                                                        },
-                                                                        {
-                                                                            xtype: 'gridcolumn',
-                                                                            minWidth: 300,
-                                                                            dataIndex: 'emailAddress',
-                                                                            text: 'E-mail'
-                                                                        },
-                                                                        {
-                                                                            xtype: 'gridcolumn',
-                                                                            dataIndex: 'active',
-                                                                            text: 'Active'
-                                                                        },
-                                                                        {
-                                                                            xtype: 'actioncolumn',
-                                                                            text: 'Delete',
-                                                                            maxWidth: 60,
-                                                                            minWidth: 70,
-                                                                            style: 'text-align:left;',
-                                                                            width: 60,
-                                                                            defaultWidth: 60,
-                                                                            align: 'center',
-                                                                            hideable: false,
-                                                                            menuText: '',
-                                                                            items: [
-                                                                                {
-                                                                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                                                                        Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){
+                                                                                                view.getStore().reload();
 
-                                                                                            if(btn == "yes"){
-
-                                                                                                Ext.Ajax.request({
-                                                                                                    url : GLOBAL.urlPrefix + "alm/project/"
-                                                                                                    + almConstants.selectRow.get("projectCode") + "/usermanagement/" + record.get("name"),
-                                                                                                    method: 'DELETE',
-                                                                                                    headers: { 'Content-Type': 'application/json' },
-                                                                                                    disableCaching : true,
-                                                                                                    waitMsg: 'Delete Project user...',
-                                                                                                    success: function(response){
-                                                                                                        var msg = Ext.JSON.decode(response.responseText).msg;
-                                                                                                        Ext.MessageBox.alert('알림', msg);
-
-                                                                                                        view.getStore().reload();
-
-                                                                                                    }
-                                                                                                });
                                                                                             }
-
                                                                                         });
-                                                                                    },
-                                                                                    icon: 'resources/images/icons/delete.png',
-                                                                                    iconCls: ''
-                                                                                }
-                                                                            ]
-                                                                        }
-                                                                    ]
-                                                                }
-                                                            ]
-                                                        },
-                                                        {
-                                                            xtype: 'panel',
-                                                            title: 'Confluence',
-                                                            items: [
-                                                                {
-                                                                    xtype: 'gridpanel',
-                                                                    id: 'almProjectConfluenceGrid',
-                                                                    itemId: 'almProjectConfluenceGrid',
-                                                                    autoScroll: true,
-                                                                    columnLines: true,
-                                                                    store: 'AlmProjectConfluencesStore',
-                                                                    dockedItems: [
-                                                                        {
-                                                                            xtype: 'toolbar',
-                                                                            dock: 'top',
-                                                                            items: [
-                                                                                {
-                                                                                    xtype: 'tbspacer',
-                                                                                    flex: 1
-                                                                                },
-                                                                                {
-                                                                                    xtype: 'button',
-                                                                                    handler: function(button, e) {
-                                                                                        var almProjectSpaceWindow = Ext.create("widget.AlmProjectSpaceWindow");
+                                                                                    }
 
-                                                                                        almProjectSpaceWindow.show();
-
-                                                                                        var grid = Ext.getCmp("almSpaceGrid").getStore().load();
-
-                                                                                    },
-                                                                                    cls: 'auth-write',
-                                                                                    text: 'Add Space to Project'
-                                                                                }
-                                                                            ]
-                                                                        }
-                                                                    ],
-                                                                    columns: [
-                                                                        {
-                                                                            xtype: 'gridcolumn',
-                                                                            width: 200,
-                                                                            dataIndex: 'mappingCode',
-                                                                            text: 'Space'
-                                                                        },
-                                                                        {
-                                                                            xtype: 'gridcolumn',
-                                                                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                                                                if (value == 'COMPLETE') {
-                                                                                    return '<span style="color:green;">' + value + '</span>';
-                                                                                } else if (value == 'FAIL') {
-                                                                                    return '<span style="color:red;">' + value + '</span>';
-                                                                                }
-                                                                                return value;
+                                                                                });
                                                                             },
-                                                                            width: 100,
-                                                                            dataIndex: 'status',
-                                                                            text: 'Status'
-                                                                        },
-                                                                        {
-                                                                            xtype: 'gridcolumn',
-                                                                            width: 120,
-                                                                            dataIndex: 'exitCode',
-                                                                            text: 'ErrorCode'
-                                                                        },
-                                                                        {
-                                                                            xtype: 'gridcolumn',
-                                                                            width: 500,
-                                                                            dataIndex: 'exitMessage',
-                                                                            text: 'ErrorMessage'
-                                                                        },
-                                                                        {
-                                                                            xtype: 'gridcolumn',
-                                                                            width: 180,
-                                                                            dataIndex: 'lastUpdated',
-                                                                            text: 'Last Updated'
-                                                                        },
-                                                                        {
-                                                                            xtype: 'actioncolumn',
-                                                                            text: 'Delete',
-                                                                            style: 'text-align:left;',
-                                                                            width: 60,
-                                                                            align: 'center',
-                                                                            hideable: false,
-                                                                            menuText: '',
-                                                                            items: [
-                                                                                {
-                                                                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                                                                        Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){
-
-                                                                                            if(btn == "yes"){
-
-                                                                                                Ext.Ajax.request({
-                                                                                                    url : GLOBAL.urlPrefix + "alm/project/"
-                                                                                                    + almConstants.selectRow.get("projectCode") + "/confluence/" + record.get("mappingCode"),
-                                                                                                    method: 'DELETE',
-                                                                                                    headers: { 'Content-Type': 'application/json' },
-                                                                                                    disableCaching : true,
-                                                                                                    waitMsg: 'Delete Project confluence...',
-                                                                                                    success: function(response){
-                                                                                                        var msg = Ext.JSON.decode(response.responseText).msg;
-                                                                                                        Ext.MessageBox.alert('알림', msg);
-
-                                                                                                        view.getStore().reload();
-
-                                                                                                    }
-                                                                                                });
-                                                                                            }
-
-                                                                                        });
-
-                                                                                    },
-                                                                                    icon: 'resources/images/icons/delete.png',
-                                                                                    iconCls: ''
-                                                                                }
-                                                                            ]
+                                                                            icon: 'resources/images/icons/delete.png',
+                                                                            iconCls: ''
                                                                         }
                                                                     ]
                                                                 }
                                                             ]
-                                                        },
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    xtype: 'panel',
+                                                    autoScroll: true,
+                                                    layout: 'fit',
+                                                    title: 'Confluence',
+                                                    items: [
                                                         {
-                                                            xtype: 'panel',
-                                                            title: 'Jenkins',
-                                                            items: [
+                                                            xtype: 'gridpanel',
+                                                            id: 'almProjectConfluenceGrid',
+                                                            itemId: 'almProjectConfluenceGrid',
+                                                            autoScroll: true,
+                                                            columnLines: true,
+                                                            store: 'AlmProjectConfluencesStore',
+                                                            dockedItems: [
                                                                 {
-                                                                    xtype: 'gridpanel',
-                                                                    id: 'almProjectJenkinsGrid',
-                                                                    itemId: 'almProjectJenkinsGrid',
-                                                                    autoScroll: true,
-                                                                    columnLines: true,
-                                                                    forceFit: false,
-                                                                    store: 'AlmProjectJenkinsStore',
-                                                                    dockedItems: [
+                                                                    xtype: 'toolbar',
+                                                                    dock: 'top',
+                                                                    items: [
                                                                         {
-                                                                            xtype: 'toolbar',
-                                                                            dock: 'top',
-                                                                            items: [
-                                                                                {
-                                                                                    xtype: 'tbspacer',
-                                                                                    flex: 1
-                                                                                },
-                                                                                {
-                                                                                    xtype: 'button',
-                                                                                    handler: function(button, e) {
-                                                                                        var almProjectJobWindow = Ext.create("widget.AlmProjectJobWindow");
-
-                                                                                        almProjectJobWindow.show();
-
-                                                                                        Ext.getCmp("almJobGrid").getStore().load();
-
-                                                                                    },
-                                                                                    cls: 'auth-write',
-                                                                                    text: 'Add Job to Project'
-                                                                                }
-                                                                            ]
-                                                                        }
-                                                                    ],
-                                                                    columns: [
-                                                                        {
-                                                                            xtype: 'gridcolumn',
-                                                                            width: 200,
-                                                                            dataIndex: 'mappingCode',
-                                                                            text: 'Job'
+                                                                            xtype: 'tbspacer',
+                                                                            flex: 1
                                                                         },
                                                                         {
-                                                                            xtype: 'gridcolumn',
-                                                                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                                                                if (value == 'COMPLETE') {
-                                                                                    return '<span style="color:green;">' + value + '</span>';
-                                                                                } else if (value == 'FAIL') {
-                                                                                    return '<span style="color:red;">' + value + '</span>';
-                                                                                }
-                                                                                return value;
+                                                                            xtype: 'button',
+                                                                            handler: function(button, e) {
+                                                                                var almProjectSpaceWindow = Ext.create("widget.AlmProjectSpaceWindow");
+
+                                                                                almProjectSpaceWindow.show();
+
+                                                                                var grid = Ext.getCmp("almSpaceGrid").getStore().load();
+
                                                                             },
-                                                                            width: 100,
-                                                                            dataIndex: 'status',
-                                                                            text: 'Status'
-                                                                        },
+                                                                            cls: 'auth-write',
+                                                                            text: 'Add Space to Project'
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ],
+                                                            columns: [
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    width: 200,
+                                                                    dataIndex: 'mappingCode',
+                                                                    text: 'Space'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                                                        if (value == 'COMPLETE') {
+                                                                            return '<span style="color:green;">' + value + '</span>';
+                                                                        } else if (value == 'FAIL') {
+                                                                            return '<span style="color:red;">' + value + '</span>';
+                                                                        }
+                                                                        return value;
+                                                                    },
+                                                                    width: 100,
+                                                                    dataIndex: 'status',
+                                                                    text: 'Status'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    width: 120,
+                                                                    dataIndex: 'exitCode',
+                                                                    text: 'ErrorCode'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    width: 500,
+                                                                    dataIndex: 'exitMessage',
+                                                                    text: 'ErrorMessage'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    width: 180,
+                                                                    dataIndex: 'lastUpdated',
+                                                                    text: 'Last Updated'
+                                                                },
+                                                                {
+                                                                    xtype: 'actioncolumn',
+                                                                    text: 'Delete',
+                                                                    style: 'text-align:left;',
+                                                                    width: 60,
+                                                                    align: 'center',
+                                                                    hideable: false,
+                                                                    menuText: '',
+                                                                    items: [
                                                                         {
-                                                                            xtype: 'gridcolumn',
-                                                                            width: 120,
-                                                                            dataIndex: 'exitCode',
-                                                                            text: 'Error Code'
-                                                                        },
-                                                                        {
-                                                                            xtype: 'gridcolumn',
-                                                                            width: 500,
-                                                                            dataIndex: 'exitMessage',
-                                                                            text: 'Error Message'
-                                                                        },
-                                                                        {
-                                                                            xtype: 'gridcolumn',
-                                                                            width: 180,
-                                                                            dataIndex: 'lastUpdated',
-                                                                            text: 'Last Updated'
-                                                                        },
-                                                                        {
-                                                                            xtype: 'actioncolumn',
-                                                                            text: 'Delete',
-                                                                            style: 'text-align:left;',
-                                                                            width: 60,
-                                                                            align: 'center',
-                                                                            hideable: false,
-                                                                            menuText: '',
-                                                                            items: [
-                                                                                {
-                                                                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                                                                        Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){
+                                                                            handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                                                                Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){
 
-                                                                                            if(btn == "yes"){
+                                                                                    if(btn == "yes"){
 
-                                                                                                Ext.Ajax.request({
-                                                                                                    url : GLOBAL.urlPrefix + "alm/project/"
-                                                                                                    + almConstants.selectRow.get("projectCode") + "/jenkins/" + record.get("mappingCode"),
-                                                                                                    method: 'DELETE',
-                                                                                                    headers: { 'Content-Type': 'application/json' },
-                                                                                                    disableCaching : true,
-                                                                                                    waitMsg: 'Delete Project Jenkins...',
-                                                                                                    success: function(response){
-                                                                                                        var msg = Ext.JSON.decode(response.responseText).msg;
-                                                                                                        Ext.MessageBox.alert('알림', msg);
+                                                                                        Ext.Ajax.request({
+                                                                                            url : GLOBAL.urlPrefix + "alm/project/"
+                                                                                            + almConstants.selectRow.get("projectCode") + "/confluence/" + record.get("mappingCode"),
+                                                                                            method: 'DELETE',
+                                                                                            headers: { 'Content-Type': 'application/json' },
+                                                                                            disableCaching : true,
+                                                                                            waitMsg: 'Delete Project confluence...',
+                                                                                            success: function(response){
+                                                                                                var msg = Ext.JSON.decode(response.responseText).msg;
+                                                                                                Ext.MessageBox.alert('알림', msg);
 
-                                                                                                        view.getStore().reload();
+                                                                                                view.getStore().reload();
 
-                                                                                                    }
-                                                                                                });
                                                                                             }
-
                                                                                         });
+                                                                                    }
 
-                                                                                    },
-                                                                                    icon: 'resources/images/icons/delete.png',
-                                                                                    iconCls: ''
-                                                                                }
-                                                                            ]
+                                                                                });
+
+                                                                            },
+                                                                            icon: 'resources/images/icons/delete.png',
+                                                                            iconCls: ''
                                                                         }
                                                                     ]
                                                                 }
                                                             ]
-                                                        },
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    xtype: 'panel',
+                                                    autoScroll: true,
+                                                    layout: 'fit',
+                                                    title: 'Jenkins',
+                                                    items: [
                                                         {
-                                                            xtype: 'panel',
-                                                            title: 'History',
-                                                            items: [
+                                                            xtype: 'gridpanel',
+                                                            id: 'almProjectJenkinsGrid',
+                                                            itemId: 'almProjectJenkinsGrid',
+                                                            autoScroll: true,
+                                                            columnLines: true,
+                                                            forceFit: false,
+                                                            store: 'AlmProjectJenkinsStore',
+                                                            dockedItems: [
                                                                 {
-                                                                    xtype: 'gridpanel',
-                                                                    id: 'almProjectHistoryGrid',
-                                                                    itemId: 'almProjectHistoryGrid',
-                                                                    header: false,
-                                                                    title: 'My Grid Panel',
-                                                                    store: 'AlmProjectHistoryListStore',
-                                                                    dockedItems: [
+                                                                    xtype: 'toolbar',
+                                                                    dock: 'top',
+                                                                    items: [
                                                                         {
-                                                                            xtype: 'toolbar',
-                                                                            dock: 'top'
-                                                                        }
-                                                                    ],
-                                                                    columns: [
-                                                                        {
-                                                                            xtype: 'gridcolumn',
-                                                                            width: 600,
-                                                                            dataIndex: 'message',
-                                                                            text: 'Message',
-                                                                            editor: {
-                                                                                xtype: 'textfield'
-                                                                            }
+                                                                            xtype: 'tbspacer',
+                                                                            flex: 1
                                                                         },
                                                                         {
-                                                                            xtype: 'gridcolumn',
-                                                                            width: 200,
-                                                                            dataIndex: 'createTime',
-                                                                            text: 'Create Date'
-                                                                        }
-                                                                    ],
-                                                                    plugins: [
-                                                                        Ext.create('Ext.grid.plugin.CellEditing', {
+                                                                            xtype: 'button',
+                                                                            handler: function(button, e) {
+                                                                                var almProjectJobWindow = Ext.create("widget.AlmProjectJobWindow");
 
-                                                                        })
+                                                                                almProjectJobWindow.show();
+
+                                                                                Ext.getCmp("almJobGrid").getStore().load();
+
+                                                                            },
+                                                                            cls: 'auth-write',
+                                                                            text: 'Add Job to Project'
+                                                                        }
                                                                     ]
                                                                 }
+                                                            ],
+                                                            columns: [
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    width: 200,
+                                                                    dataIndex: 'mappingCode',
+                                                                    text: 'Job'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                                                        if (value == 'COMPLETE') {
+                                                                            return '<span style="color:green;">' + value + '</span>';
+                                                                        } else if (value == 'FAIL') {
+                                                                            return '<span style="color:red;">' + value + '</span>';
+                                                                        }
+                                                                        return value;
+                                                                    },
+                                                                    width: 100,
+                                                                    dataIndex: 'status',
+                                                                    text: 'Status'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    width: 120,
+                                                                    dataIndex: 'exitCode',
+                                                                    text: 'Error Code'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    width: 500,
+                                                                    dataIndex: 'exitMessage',
+                                                                    text: 'Error Message'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    width: 180,
+                                                                    dataIndex: 'lastUpdated',
+                                                                    text: 'Last Updated'
+                                                                },
+                                                                {
+                                                                    xtype: 'actioncolumn',
+                                                                    text: 'Delete',
+                                                                    style: 'text-align:left;',
+                                                                    width: 60,
+                                                                    align: 'center',
+                                                                    hideable: false,
+                                                                    menuText: '',
+                                                                    items: [
+                                                                        {
+                                                                            handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                                                                Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){
+
+                                                                                    if(btn == "yes"){
+
+                                                                                        Ext.Ajax.request({
+                                                                                            url : GLOBAL.urlPrefix + "alm/project/"
+                                                                                            + almConstants.selectRow.get("projectCode") + "/jenkins/" + record.get("mappingCode"),
+                                                                                            method: 'DELETE',
+                                                                                            headers: { 'Content-Type': 'application/json' },
+                                                                                            disableCaching : true,
+                                                                                            waitMsg: 'Delete Project Jenkins...',
+                                                                                            success: function(response){
+                                                                                                var msg = Ext.JSON.decode(response.responseText).msg;
+                                                                                                Ext.MessageBox.alert('알림', msg);
+
+                                                                                                view.getStore().reload();
+
+                                                                                            }
+                                                                                        });
+                                                                                    }
+
+                                                                                });
+
+                                                                            },
+                                                                            icon: 'resources/images/icons/delete.png',
+                                                                            iconCls: ''
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    xtype: 'panel',
+                                                    autoScroll: true,
+                                                    layout: 'fit',
+                                                    title: 'History',
+                                                    items: [
+                                                        {
+                                                            xtype: 'gridpanel',
+                                                            id: 'almProjectHistoryGrid',
+                                                            itemId: 'almProjectHistoryGrid',
+                                                            autoScroll: true,
+                                                            header: false,
+                                                            title: 'My Grid Panel',
+                                                            store: 'AlmProjectHistoryListStore',
+                                                            dockedItems: [
+                                                                {
+                                                                    xtype: 'toolbar',
+                                                                    dock: 'top'
+                                                                }
+                                                            ],
+                                                            columns: [
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    width: 600,
+                                                                    dataIndex: 'message',
+                                                                    text: 'Message',
+                                                                    editor: {
+                                                                        xtype: 'textfield'
+                                                                    }
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    width: 200,
+                                                                    dataIndex: 'createTime',
+                                                                    text: 'Create Date'
+                                                                }
+                                                            ],
+                                                            plugins: [
+                                                                Ext.create('Ext.grid.plugin.CellEditing', {
+
+                                                                })
                                                             ]
                                                         }
                                                     ]

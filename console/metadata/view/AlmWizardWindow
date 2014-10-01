@@ -861,7 +861,7 @@
                                                         "fn": "onComboboxChange",
                                                         "implHandler": [
                                                             "",
-                                                            "if(newValue ===  \"Mobile Project\"){",
+                                                            "if(newValue ===  almConstants.mProject){",
                                                             "    Ext.getCmp(\"templateFieldSet2\").show();",
                                                             "}else{",
                                                             "    Ext.getCmp(\"templateFieldSet2\").hide();",
@@ -895,6 +895,7 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
+                                                        "allowBlank": false,
                                                         "editable": false,
                                                         "fieldLabel": "Template",
                                                         "layout|anchor": "100%",
@@ -928,6 +929,7 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
+                                                        "allowBlank": false,
                                                         "fieldLabel": "Group ID",
                                                         "layout|anchor": "100%",
                                                         "name": "serverGroupId"
@@ -959,6 +961,7 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
+                                                        "allowBlank": false,
                                                         "fieldLabel": "Artifact ID",
                                                         "layout|anchor": "100%",
                                                         "name": "serverArtifactId"
@@ -990,6 +993,7 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
+                                                        "allowBlank": false,
                                                         "fieldLabel": "Package",
                                                         "layout|anchor": "100%",
                                                         "name": "serverPackage"
@@ -1014,7 +1018,31 @@
                                                     ]
                                                 }
                                             ]
-                                        },
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.form.Panel",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "bodyPadding": 10,
+                                        "fieldDefaults": [
+                                            "{",
+                                            "    msgTarget: 'side',",
+                                            "    labelWidth: 120",
+                                            "}"
+                                        ],
+                                        "header": false,
+                                        "id": "addProjectForm3",
+                                        "itemId": "addProjectForm3",
+                                        "title": "My Form"
+                                    },
+                                    "designerId": "42315413-baa2-4b03-a680-16a6f9dcf811",
+                                    "cn": [
                                         {
                                             "type": "Ext.form.FieldSet",
                                             "reference": {
@@ -1027,7 +1055,7 @@
                                                 "id": "templateFieldSet2",
                                                 "title": "Mobile Template"
                                             },
-                                            "designerId": "2c5f32fc-535c-4d5a-8393-e081bee649ac",
+                                            "designerId": "aba42970-9ab4-4129-9aae-c1211bd1b790",
                                             "cn": [
                                                 {
                                                     "type": "Ext.form.field.ComboBox",
@@ -1037,13 +1065,14 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
+                                                        "allowBlank": false,
                                                         "editable": false,
                                                         "fieldLabel": "Template",
                                                         "layout|anchor": "100%",
                                                         "name": "mobileTemplate",
                                                         "store": "ComboServerTemplateStore"
                                                     },
-                                                    "designerId": "a06950ef-0d4f-4137-aa27-9736a103691a",
+                                                    "designerId": "5f8076b5-58bf-4867-a0ac-e8f42d2a408d",
                                                     "cn": [
                                                         {
                                                             "type": "Ext.XTemplate",
@@ -1058,7 +1087,7 @@
                                                                     "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
                                                                 ]
                                                             },
-                                                            "designerId": "d0025cdb-58a9-4ae7-8ed1-e05056ab61ce"
+                                                            "designerId": "d3d7cbda-dd2a-4ebe-8d8d-a616e6be41a7"
                                                         }
                                                     ]
                                                 },
@@ -1070,11 +1099,12 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
+                                                        "allowBlank": false,
                                                         "fieldLabel": "Group ID",
                                                         "layout|anchor": "100%",
                                                         "name": "mobileGroupId"
                                                     },
-                                                    "designerId": "b6bd09c1-e362-49b5-a850-1869c0fe733e",
+                                                    "designerId": "9d9f3125-748a-4f5b-a545-70f85ba89d82",
                                                     "cn": [
                                                         {
                                                             "type": "Ext.XTemplate",
@@ -1089,7 +1119,7 @@
                                                                     "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
                                                                 ]
                                                             },
-                                                            "designerId": "14bf5afa-6a3c-47d2-b1ca-e0805ed1d137"
+                                                            "designerId": "ce5a4bc3-0ff1-40d1-bcc7-31cc238d7213"
                                                         }
                                                     ]
                                                 },
@@ -1101,11 +1131,12 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
+                                                        "allowBlank": false,
                                                         "fieldLabel": "Artifact ID",
                                                         "layout|anchor": "100%",
                                                         "name": "mobileArtifactId"
                                                     },
-                                                    "designerId": "0405c338-adab-4ced-8260-eac0cbe57dd3",
+                                                    "designerId": "d26bb9d6-4a2b-40ef-b48b-7235f6ecd4fd",
                                                     "cn": [
                                                         {
                                                             "type": "Ext.XTemplate",
@@ -1120,7 +1151,7 @@
                                                                     "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
                                                                 ]
                                                             },
-                                                            "designerId": "62f3025c-8968-472a-8c2e-a3c9d705cea2"
+                                                            "designerId": "805c4f13-ca5c-4143-886d-e5d930e84590"
                                                         }
                                                     ]
                                                 },
@@ -1132,11 +1163,12 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
+                                                        "allowBlank": false,
                                                         "fieldLabel": "Package",
                                                         "layout|anchor": "100%",
                                                         "name": "mobilePackage"
                                                     },
-                                                    "designerId": "605784d6-3c51-45f7-8c75-79bb445ed3f9",
+                                                    "designerId": "e776b13d-8cc2-458b-9d39-2a82b273929f",
                                                     "cn": [
                                                         {
                                                             "type": "Ext.XTemplate",
@@ -1151,7 +1183,7 @@
                                                                     "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
                                                                 ]
                                                             },
-                                                            "designerId": "7d72293e-6f51-499b-9968-0e611a472fba"
+                                                            "designerId": "3f3c25f7-2dc0-4bd2-9520-f420230e3776"
                                                         }
                                                     ]
                                                 }
@@ -3026,6 +3058,8 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
+                                                        "hidden": true,
+                                                        "id": "reviewMTemplate",
                                                         "title": "Mobile Template"
                                                     },
                                                     "designerId": "438addc2-4e4b-48d5-a933-f1d377dfb5cf",

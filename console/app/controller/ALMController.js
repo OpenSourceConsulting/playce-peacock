@@ -315,7 +315,8 @@ Ext.define('MyApp.controller.ALMController', {
                     writeMenuAuth03 : false,
                     writeMenuAuth04 : false,
                     page : null,
-                    popPage : null
+                    popPage : null,
+                    mProject : "Mobile Project"
                 });
 
 
@@ -646,7 +647,8 @@ Ext.define('MyApp.controller.ALMController', {
             var activeItem = cardPanel.getLayout().activeItem;
             var activeIndex = cardPanel.items.indexOf(activeItem);
             var form = Ext.getCmp("addProjectForm1").getForm();
-            var form2 = Ext.getCmp("addProjectForm2").getForm();
+            var form2 = Ext.getCmp("addProjectForm2").getForm();//server template form
+            var form3 = Ext.getCmp("addProjectForm3").getForm();//mobile tempalte form
 
             if(activeIndex == 0) {
                 if(!form.isValid()) {
@@ -657,6 +659,18 @@ Ext.define('MyApp.controller.ALMController', {
                         Ext.Msg.alert('Message', 'Project Code를 중복확인하시기 바랍니다.');
                         return;
                     }
+                }
+            }else if(activeIndex == 1){
+                if(!form2.isValid()){
+                    return;
+                }
+
+                if(form2.findField("type").getValue() == almConstants.mProject){
+
+                    if(!form3.isValid()){
+                        return;
+                    }
+
                 }
             }
 
@@ -670,7 +684,16 @@ Ext.define('MyApp.controller.ALMController', {
 
             } else if(cardNum == 4) {
                 var reviewForm = Ext.getCmp("reviewProjectForm").getForm().setValues(form.getFieldValues());
-                Ext.getCmp("reviewProjectForm2").getForm().setValues(form2.getFieldValues());
+                var reForm2 = Ext.getCmp("reviewProjectForm2");// project template
+
+                reForm2.getForm().setValues(form2.getFieldValues());
+
+                if(form2.findField("type").getValue() == almConstants.mProject){
+                    reForm2.down("#reviewMTemplate").show();
+                    reForm2.getForm().setValues(form3.getFieldValues());
+                }else{
+                    reForm2.down("#reviewMTemplate").hide();
+                }
                 /*
                 reviewForm.findField("projectName").setValue(form.findField("projectName").getValue());
                 reviewForm.findField("projectDescription").setValue(form.findField("projectDescription").getValue());
