@@ -30,7 +30,8 @@ Ext.define('MyApp.view.almContainer', {
         'Ext.form.Label',
         'Ext.form.Panel',
         'Ext.form.field.Display',
-        'Ext.toolbar.Spacer'
+        'Ext.toolbar.Spacer',
+        'Ext.grid.plugin.CellEditing'
     ],
 
     height: 755,
@@ -419,7 +420,7 @@ Ext.define('MyApp.view.almContainer', {
                                                                     columns: [
                                                                         {
                                                                             xtype: 'gridcolumn',
-                                                                            width: 300,
+                                                                            width: 200,
                                                                             dataIndex: 'mappingCode',
                                                                             text: 'Space'
                                                                         },
@@ -539,7 +540,7 @@ Ext.define('MyApp.view.almContainer', {
                                                                     columns: [
                                                                         {
                                                                             xtype: 'gridcolumn',
-                                                                            minWidth: 150,
+                                                                            width: 200,
                                                                             dataIndex: 'mappingCode',
                                                                             text: 'Job'
                                                                         },
@@ -641,14 +642,22 @@ Ext.define('MyApp.view.almContainer', {
                                                                             xtype: 'gridcolumn',
                                                                             width: 600,
                                                                             dataIndex: 'message',
-                                                                            text: 'Message'
+                                                                            text: 'Message',
+                                                                            editor: {
+                                                                                xtype: 'textfield'
+                                                                            }
                                                                         },
                                                                         {
                                                                             xtype: 'gridcolumn',
-                                                                            width: 150,
+                                                                            width: 200,
                                                                             dataIndex: 'createTime',
                                                                             text: 'Create Date'
                                                                         }
+                                                                    ],
+                                                                    plugins: [
+                                                                        Ext.create('Ext.grid.plugin.CellEditing', {
+
+                                                                        })
                                                                     ]
                                                                 }
                                                             ]

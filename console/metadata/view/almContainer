@@ -962,7 +962,7 @@
                                                                         "dataIndex": "mappingCode",
                                                                         "minWidth": null,
                                                                         "text": "Space",
-                                                                        "width": 300
+                                                                        "width": 200
                                                                     },
                                                                     "designerId": "fe189227-8f50-407d-b82e-da96f90e108d"
                                                                 },
@@ -1274,8 +1274,9 @@
                                                                     "codeClass": null,
                                                                     "userConfig": {
                                                                         "dataIndex": "mappingCode",
-                                                                        "minWidth": 150,
-                                                                        "text": "Job"
+                                                                        "minWidth": null,
+                                                                        "text": "Job",
+                                                                        "width": 200
                                                                     },
                                                                     "designerId": "35401cbc-364a-4ea6-a6f8-58042471cee1"
                                                                 },
@@ -1523,7 +1524,18 @@
                                                                         "text": "Message",
                                                                         "width": 600
                                                                     },
-                                                                    "designerId": "1c534384-5bba-43bd-8e9d-71ef32d48afa"
+                                                                    "designerId": "1c534384-5bba-43bd-8e9d-71ef32d48afa",
+                                                                    "cn": [
+                                                                        {
+                                                                            "type": "Ext.form.field.Text",
+                                                                            "reference": {
+                                                                                "name": "editor",
+                                                                                "type": "object"
+                                                                            },
+                                                                            "codeClass": null,
+                                                                            "designerId": "0edd9abf-ee81-424d-bd97-d32706a019fa"
+                                                                        }
+                                                                    ]
                                                                 },
                                                                 {
                                                                     "type": "Ext.grid.column.Column",
@@ -1535,7 +1547,7 @@
                                                                     "userConfig": {
                                                                         "dataIndex": "createTime",
                                                                         "text": "Create Date",
-                                                                        "width": 150
+                                                                        "width": 200
                                                                     },
                                                                     "designerId": "110954f3-1e1d-4199-9ab6-72d689e07ef9"
                                                                 },
@@ -1547,6 +1559,15 @@
                                                                     },
                                                                     "codeClass": null,
                                                                     "designerId": "0fa08605-5440-4fe4-9e5b-4b0e803769fc"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.grid.plugin.CellEditing",
+                                                                    "reference": {
+                                                                        "name": "plugins",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": "Ext.grid.plugin.CellEditing",
+                                                                    "designerId": "47e21978-674e-402b-a838-9c96bf949927"
                                                                 }
                                                             ]
                                                         }
