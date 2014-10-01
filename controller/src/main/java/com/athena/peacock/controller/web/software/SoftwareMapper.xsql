@@ -14,6 +14,7 @@
 	<select id="getSoftware" parameterType="com.athena.peacock.controller.web.software.SoftwareDto" resultType="com.athena.peacock.controller.web.software.SoftwareDto">
 		SELECT MACHINE_ID AS machineId
 		       , SOFTWARE_ID AS softwareId
+		       , INSTALL_SEQ AS installSeq
 		       , INSTALL_LOCATION AS installLocation
 		       , INSTALL_STAT AS installStat
 		       , INSTALL_LOG AS installLog
@@ -28,6 +29,7 @@
 		  FROM software_tbl
 		 WHERE MACHINE_ID = #{machineId}
 		   AND SOFTWARE_ID = #{softwareId}
+		   AND INSTALL_SEQ = #{installSeq}
 	</select>
 	
 	<update id="updateSoftware" parameterType="com.athena.peacock.controller.web.software.SoftwareDto">
@@ -43,6 +45,7 @@
 			   , UPD_DT = NOW()
 		 WHERE MACHINE_ID = #{machineId}
 		   AND SOFTWARE_ID = #{softwareId}
+		   AND INSTALL_SEQ = #{installSeq}
 	</update>
 	
 	<update id="deleteSoftware" parameterType="com.athena.peacock.controller.web.software.SoftwareDto">
@@ -52,6 +55,7 @@
 			   , UPD_DT = NOW()
 		 WHERE MACHINE_ID = #{machineId}
 		   AND SOFTWARE_ID = #{softwareId}
+		   AND INSTALL_SEQ = #{installSeq}
 	</update>
 	
 	<select id="getSoftwareListCnt" parameterType="com.athena.peacock.controller.web.software.SoftwareDto" resultType="int">
@@ -60,6 +64,7 @@
 		 WHERE 1=1
 		<if test="machineId != null">AND MACHINE_ID = #{machineId}</if>
 		<if test="softwareId != null">AND SOFTWARE_ID = #{softwareId}</if>
+		<if test="installSeq != null">AND INSTALL_SEQ = #{installSeq}</if>
 		<if test="installLocation != null">AND INSTALL_LOCATION = #{installLocation}</if>
 		<if test="installStat != null">AND INSTALL_STAT = #{installStat}</if>
 		<if test="description != null">AND DESCRIPTION = #{description}</if>
@@ -69,6 +74,7 @@
 	<select id="getSoftwareList" parameterType="com.athena.peacock.controller.web.software.SoftwareDto" resultType="com.athena.peacock.controller.web.software.SoftwareDto">
 		SELECT MACHINE_ID AS machineId
 		       , SOFTWARE_ID AS softwareId
+		       , INSTALL_SEQ AS installSeq
 		       , INSTALL_LOCATION AS installLocation
 		       , INSTALL_STAT AS installStat
 		       , SERVICE_STOP_CMD AS serviceStopCmd
@@ -83,6 +89,7 @@
 		 WHERE 1=1
 		<if test="machineId != null">AND MACHINE_ID = #{machineId}</if>
 		<if test="softwareId != null">AND SOFTWARE_ID = #{softwareId}</if>
+		<if test="installSeq != null">AND INSTALL_SEQ = #{installSeq}</if>
 		<if test="installLocation != null">AND INSTALL_LOCATION = #{installLocation}</if>
 		<if test="installStat != null">AND INSTALL_STAT = #{installStat}</if>
 		<if test="description != null">AND DESCRIPTION = #{description}</if>

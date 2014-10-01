@@ -39,6 +39,7 @@ public class SoftwareDto extends BaseDto {
 
 	private String machineId;
 	private Integer softwareId;
+	private Integer installSeq;
 	private String installLocation;
 	private String installStat;
 	private String installLog;
@@ -82,6 +83,20 @@ public class SoftwareDto extends BaseDto {
 		this.softwareId = softwareId;
 	}
 	
+	/**
+	 * @return the installSeq
+	 */
+	public Integer getInstallSeq() {
+		return installSeq;
+	}
+
+	/**
+	 * @param installSeq the installSeq to set
+	 */
+	public void setInstallSeq(Integer installSeq) {
+		this.installSeq = installSeq;
+	}
+
 	/**
 	 * @return the installLocation
 	 */

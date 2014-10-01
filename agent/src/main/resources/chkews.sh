@@ -2,11 +2,18 @@
 #ENV_SH=( `locate --regex "Servers\/\w+(Server(|[0-9]+))\/env.sh" | grep -v code | grep -v t6` )
 #SERVER_XML=( `locate --regex "Servers\/\w+(Server(|[0-9]+))\/conf\/server.xml" | grep -v code | grep -v t6` )
 #CONTEXT_XML=( `locate --regex "Servers\/\w+(Server(|[0-9]+))\/conf\/context.xml" | grep -v code | grep -v t6` )
-ENV_SH=( `find / -regextype egrep -regex ".*/Servers\/\w+(Server(|[0-9]+))\/env.sh" 2> /dev/null | grep -v code | grep -v t6` )
-SERVER_XML=( `find / -regextype egrep -regex ".*/Servers\/\w+(Server(|[0-9]+))\/conf\/server.xml" 2> /dev/null | grep -v code | grep -v t6` )
-CONTEXT_XML=( `find / -regextype egrep -regex ".*/Servers\/\w+(Server(|[0-9]+))\/conf\/context.xml" 2> /dev/null | grep -v code | grep -v t6` )
+ENV_SHS=( `find /home* -regextype egrep -regex ".*/Servers\/\w+(Server(|[0-9]+))\/env.sh" 2> /dev/null | grep -v code | grep -v t6` )
+SERVER_XML=( `find /home* -regextype egrep -regex ".*/Servers\/\w+(Server(|[0-9]+))\/conf\/server.xml" 2> /dev/null | grep -v code | grep -v t6` )
+CONTEXT_XML=( `find /home* -regextype egrep -regex ".*/Servers\/\w+(Server(|[0-9]+))\/conf\/context.xml" 2> /dev/null | grep -v code | grep -v t6` )
 
-#echo "Array size: ${#ENV_SH[@]}"
+for i in "${ENV_SHS[@]}"
+do
+        CATALINA_HOME=( `cat $i | grep CATALINA_HOME=` )
+        if [ $CATALINA_HOME ] ; then
+        		ENV_SH=$i
+				break
+        fi
+done
 
 if [ $ENV_SH ] ; then
         VERSION=`cat $ENV_SH | grep CATALINA_HOME= | grep -v echo | awk '{ print substr($2, length($2)-6, 7); }'`
@@ -18,8 +25,8 @@ if [ $ENV_SH ] ; then
         CATALINA_HOME=`cat $ENV_SH | grep CATALINA_HOME= | grep -v echo | awk '{ print substr($2, 15, length($2)-14); }'`
         CATALINA_BASE=`cat $ENV_SH | grep CATALINA_BASE= | grep -v echo | awk '{ print substr($2, 15, length($2)-14); }'`
         echo $SERVER_HOME" "$SERVER_NAME" "$CATALINA_HOME" "$CATALINA_BASE > tmp.info
-        CATALINA_HOME=`cat tmp.info | awk '{ sub(/SERVER_HOME/, $1, $3); print $3 }' | sed -e 's/\$\//\//g'`
-        CATALINA_BASE=`cat tmp.info | awk '{ sub(/SERVER_HOME/, $1, $4); print }' | awk '{ sub(/SERVER_NAME/, $2, $4); print $4 }' | sed -E 's/([$])//g'`
+        CATALINA_HOME=`cat tmp.info | awk '{ sub(/SERVER_HOME/, $1, $3); print $3 }' | sed -E 's/([${}])//g'`
+        CATALINA_BASE=`cat tmp.info | awk '{ sub(/SERVER_HOME/, $1, $4); print }' | awk '{ sub(/SERVER_NAME/, $2, $4); print $4 }' | sed -E 's/([${}])//g'`
         rm -f tmp.info
 
         JBOSSEWS=`chkconfig --list | grep -o jbossews`
