@@ -42,7 +42,6 @@ Ext.define('MyApp.view.AlmWizardWindow', {
     id: 'AlmWizardWindow',
     itemId: 'AlmWizardWindow',
     width: 790,
-    resizable: false,
     layout: 'fit',
     title: 'Project Wizard',
     modal: true,
@@ -372,8 +371,8 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                     ],
                                                     fieldLabel: 'Select Repository',
                                                     name: 'repository',
-                                                    readOnly: true,
                                                     allowBlank: false,
+                                                    editable: false,
                                                     displayField: 'repositoryCode',
                                                     store: 'ComboAlmRepositoryStore',
                                                     valueField: 'repositoryCode'
@@ -386,8 +385,8 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                     ],
                                                     fieldLabel: 'Project Type',
                                                     name: 'type',
-                                                    readOnly: true,
                                                     allowBlank: false,
+                                                    editable: false,
                                                     store: 'ComboProjectTypeStore',
                                                     valueField: 'value',
                                                     listeners: {
@@ -410,7 +409,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                             ],
                                                             fieldLabel: 'Template',
                                                             name: 'serverTemplate',
-                                                            readOnly: true,
+                                                            editable: false,
                                                             store: 'ComboServerTemplateStore'
                                                         },
                                                         {
@@ -456,7 +455,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                             ],
                                                             fieldLabel: 'Template',
                                                             name: 'mobileTemplate',
-                                                            readOnly: true,
+                                                            editable: false,
                                                             store: 'ComboServerTemplateStore'
                                                         },
                                                         {
@@ -648,7 +647,8 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                                                 return;
                                                                             }
 
-                                                                            spaceStore.insert(spaceStore.getCount(), view.getStore().getAt(rowIndex));
+
+                                                                            spaceStore.insert(spaceStore.getCount(), record.copy());
                                                                         }else{
                                                                             Ext.MessageBox.alert('알림', 'auth type을 선택해주세요.');
 
@@ -858,6 +858,11 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                             text: 'Email'
                                                         },
                                                         {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'active',
+                                                            text: 'Active'
+                                                        },
+                                                        {
                                                             xtype: 'actioncolumn',
                                                             text: 'Add',
                                                             maxWidth: 60,
@@ -985,6 +990,11 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                             text: 'Email'
                                                         },
                                                         {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'active',
+                                                            text: 'Active'
+                                                        },
+                                                        {
                                                             xtype: 'actioncolumn',
                                                             text: 'Delete',
                                                             maxWidth: 60,
@@ -1082,9 +1092,8 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                     frame: true,
                                                     id: 'reviewProjectForm',
                                                     itemId: 'reviewProjectForm',
-                                                    margin: 20,
+                                                    margin: 10,
                                                     padding: '',
-                                                    width: 680,
                                                     defaults: {
                                                         border: false,
                                                         xtype: 'panel',
@@ -1123,13 +1132,114 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                             fieldLabel: 'Group Description',
                                                             labelWidth: 140,
                                                             name: 'groupDescription'
-                                                        },
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    xtype: 'form',
+                                                    frame: true,
+                                                    id: 'reviewProjectForm2',
+                                                    itemId: 'reviewProjectForm2',
+                                                    margin: 10,
+                                                    padding: '',
+                                                    defaults: {
+                                                        xtype: 'panel',
+                                                        flex: 1,
+                                                        layout: 'anchor'
+                                                    },
+                                                    bodyPadding: 10,
+                                                    bodyStyle: 'padding:5px 5px 0',
+                                                    title: 'Project Type',
+                                                    fieldDefaults: {
+                                                        msgTarget: 'side',
+                                                        margin: '0 10',
+                                                        readOnly: true,
+                                                        labelStyle: 'font-weight: bold;',
+                                                        labelSeparator: ' :'
+                                                    },
+                                                    waitMsgTarget: 'instDescForm',
+                                                    items: [
                                                         {
                                                             xtype: 'displayfield',
                                                             padding: 10,
                                                             fieldLabel: 'Select Repository',
                                                             labelWidth: 140,
                                                             name: 'repository'
+                                                        },
+                                                        {
+                                                            xtype: 'displayfield',
+                                                            padding: 10,
+                                                            fieldLabel: 'Project Type',
+                                                            labelWidth: 140,
+                                                            name: 'type'
+                                                        },
+                                                        {
+                                                            xtype: 'fieldset',
+                                                            title: 'Server Template',
+                                                            items: [
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    padding: 10,
+                                                                    fieldLabel: 'Template',
+                                                                    labelWidth: 140,
+                                                                    name: 'serverTemplate'
+                                                                },
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    padding: 10,
+                                                                    fieldLabel: 'GroupID',
+                                                                    labelWidth: 140,
+                                                                    name: 'serverGroupId'
+                                                                },
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    padding: 10,
+                                                                    fieldLabel: 'ArtifactID',
+                                                                    labelWidth: 140,
+                                                                    name: 'serverArtifactId'
+                                                                },
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    padding: 10,
+                                                                    fieldLabel: 'Package',
+                                                                    labelWidth: 140,
+                                                                    name: 'serverPackage'
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            xtype: 'fieldset',
+                                                            title: 'Mobile Template',
+                                                            items: [
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    padding: 10,
+                                                                    fieldLabel: 'Template',
+                                                                    labelWidth: 140,
+                                                                    name: 'mobileTemplate'
+                                                                },
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    padding: 10,
+                                                                    fieldLabel: 'GroupID',
+                                                                    labelWidth: 140,
+                                                                    name: 'mobileGroupId'
+                                                                },
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    padding: 10,
+                                                                    fieldLabel: 'ArtifactID',
+                                                                    labelWidth: 140,
+                                                                    name: 'mobileArtifactId'
+                                                                },
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    padding: 10,
+                                                                    fieldLabel: 'Package',
+                                                                    labelWidth: 140,
+                                                                    name: 'mobilePackage'
+                                                                }
+                                                            ]
                                                         }
                                                     ]
                                                 },
@@ -1137,32 +1247,37 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                     xtype: 'gridpanel',
                                                     frame: true,
                                                     height: 180,
-                                                    margin: '0 20 20 20',
-                                                    width: 680,
+                                                    margin: 10,
                                                     autoScroll: true,
                                                     title: 'Space Information',
                                                     columnLines: true,
                                                     emptyText: '<div style=\'text-align:center;\'>No Selected Data</div>',
-                                                    forceFit: true,
+                                                    forceFit: false,
                                                     store: 'TempSpaceStore',
                                                     columns: [
                                                         {
                                                             xtype: 'gridcolumn',
-                                                            minWidth: 100,
+                                                            width: 150,
                                                             dataIndex: 'key',
                                                             text: 'Space'
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
-                                                            minWidth: 150,
+                                                            width: 250,
                                                             dataIndex: 'name',
                                                             text: 'Name'
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
-                                                            minWidth: 80,
+                                                            width: 80,
                                                             dataIndex: 'type',
                                                             text: 'Type'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            width: 220,
+                                                            dataIndex: 'authType',
+                                                            text: 'Auth Type'
                                                         }
                                                     ]
                                                 },
@@ -1170,31 +1285,41 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                     xtype: 'gridpanel',
                                                     frame: true,
                                                     height: 200,
-                                                    margin: '0 20 10 20',
+                                                    margin: 10,
                                                     autoScroll: true,
                                                     title: 'User Information',
                                                     columnLines: true,
                                                     emptyText: '<div style=\'text-align:center;\'>No Selected Data</div>',
-                                                    forceFit: true,
+                                                    forceFit: false,
                                                     store: 'TempUserStore',
                                                     columns: [
                                                         {
+                                                            xtype: 'rownumberer',
+                                                            width: 50,
+                                                            text: 'No'
+                                                        },
+                                                        {
                                                             xtype: 'gridcolumn',
-                                                            minWidth: 100,
+                                                            width: 150,
                                                             dataIndex: 'userId',
                                                             text: 'User Name'
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
-                                                            minWidth: 150,
+                                                            width: 250,
                                                             dataIndex: 'displayName',
                                                             text: 'Display Name'
                                                         },
                                                         {
                                                             xtype: 'gridcolumn',
-                                                            minWidth: 200,
+                                                            width: 250,
                                                             dataIndex: 'emailAddress',
                                                             text: 'Email'
+                                                        },
+                                                        {
+                                                            xtype: 'gridcolumn',
+                                                            dataIndex: 'active',
+                                                            text: 'Active'
                                                         }
                                                     ]
                                                 }

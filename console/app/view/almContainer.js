@@ -330,6 +330,11 @@ Ext.define('MyApp.view.almContainer', {
                                                                             text: 'E-mail'
                                                                         },
                                                                         {
+                                                                            xtype: 'gridcolumn',
+                                                                            dataIndex: 'active',
+                                                                            text: 'Active'
+                                                                        },
+                                                                        {
                                                                             xtype: 'actioncolumn',
                                                                             text: 'Delete',
                                                                             maxWidth: 60,
@@ -343,7 +348,28 @@ Ext.define('MyApp.view.almContainer', {
                                                                             items: [
                                                                                 {
                                                                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                                                                        alert('delete');
+                                                                                        Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){
+
+                                                                                            if(btn == "yes"){
+
+                                                                                                Ext.Ajax.request({
+                                                                                                    url : GLOBAL.urlPrefix + "alm/project/"
+                                                                                                    + almConstants.selectRow.get("projectCode") + "/usermanagement/" + record.get("name"),
+                                                                                                    method: 'DELETE',
+                                                                                                    headers: { 'Content-Type': 'application/json' },
+                                                                                                    disableCaching : true,
+                                                                                                    waitMsg: 'Delete Project user...',
+                                                                                                    success: function(response){
+                                                                                                        var msg = Ext.JSON.decode(response.responseText).msg;
+                                                                                                        Ext.MessageBox.alert('알림', msg);
+
+                                                                                                        view.getStore().reload();
+
+                                                                                                    }
+                                                                                                });
+                                                                                            }
+
+                                                                                        });
                                                                                     },
                                                                                     icon: 'resources/images/icons/delete.png',
                                                                                     iconCls: ''
@@ -455,7 +481,7 @@ Ext.define('MyApp.view.almContainer', {
                                                                                                         var msg = Ext.JSON.decode(response.responseText).msg;
                                                                                                         Ext.MessageBox.alert('알림', msg);
 
-                                                                                                        Ext.getCmp("almProjectConfluenceGrid").getStore().reload();
+                                                                                                        view.getStore().reload();
 
                                                                                                     }
                                                                                                 });
@@ -575,7 +601,7 @@ Ext.define('MyApp.view.almContainer', {
                                                                                                         var msg = Ext.JSON.decode(response.responseText).msg;
                                                                                                         Ext.MessageBox.alert('알림', msg);
 
-                                                                                                        Ext.getCmp("almProjectJenkinsGrid").getStore().reload();
+                                                                                                        view.getStore().reload();
 
                                                                                                     }
                                                                                                 });

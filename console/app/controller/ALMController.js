@@ -669,11 +669,14 @@ Ext.define('MyApp.controller.ALMController', {
                 this.searchWizardUser(true);
 
             } else if(cardNum == 4) {
-                var reviewForm = Ext.getCmp("reviewProjectForm").getForm();
+                var reviewForm = Ext.getCmp("reviewProjectForm").getForm().setValues(form.getFieldValues());
+                Ext.getCmp("reviewProjectForm2").getForm().setValues(form2.getFieldValues());
+                /*
                 reviewForm.findField("projectName").setValue(form.findField("projectName").getValue());
                 reviewForm.findField("projectDescription").setValue(form.findField("projectDescription").getValue());
                 reviewForm.findField("groupDescription").setValue(form.findField("groupDescription").getValue());
                 reviewForm.findField("repository").setValue(form2.findField("repository").getValue());
+                */
             }
 
         }

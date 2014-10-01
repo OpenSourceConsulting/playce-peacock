@@ -728,6 +728,19 @@
                                                                     "designerId": "b367a237-4047-4949-9eb3-3c9c791e9fa8"
                                                                 },
                                                                 {
+                                                                    "type": "Ext.grid.column.Column",
+                                                                    "reference": {
+                                                                        "name": "columns",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "dataIndex": "active",
+                                                                        "text": "Active"
+                                                                    },
+                                                                    "designerId": "9c56a517-7507-48d6-be35-7917edc4d50a"
+                                                                },
+                                                                {
                                                                     "type": "Ext.grid.column.Action",
                                                                     "reference": {
                                                                         "name": "columns",
@@ -788,7 +801,28 @@
                                                                                         ],
                                                                                         "fn": "handler",
                                                                                         "implHandler": [
-                                                                                            "alert('delete');"
+                                                                                            "Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){",
+                                                                                            "",
+                                                                                            "    if(btn == \"yes\"){",
+                                                                                            "",
+                                                                                            "        Ext.Ajax.request({",
+                                                                                            "            url : GLOBAL.urlPrefix + \"alm/project/\"",
+                                                                                            "                    + almConstants.selectRow.get(\"projectCode\") + \"/usermanagement/\" + record.get(\"name\"),",
+                                                                                            "            method: 'DELETE',",
+                                                                                            "            headers: { 'Content-Type': 'application/json' },",
+                                                                                            "            disableCaching : true,",
+                                                                                            "            waitMsg: 'Delete Project user...',",
+                                                                                            "            success: function(response){",
+                                                                                            "                var msg = Ext.JSON.decode(response.responseText).msg;",
+                                                                                            "                Ext.MessageBox.alert('알림', msg);",
+                                                                                            "",
+                                                                                            "                view.getStore().reload();",
+                                                                                            "",
+                                                                                            "            }",
+                                                                                            "        });",
+                                                                                            "    }",
+                                                                                            "",
+                                                                                            "});"
                                                                                         ]
                                                                                     },
                                                                                     "designerId": "57116bae-07c2-4c83-9088-36dc37a9c500"
@@ -1095,7 +1129,7 @@
                                                                                             "                var msg = Ext.JSON.decode(response.responseText).msg;",
                                                                                             "                Ext.MessageBox.alert('알림', msg);",
                                                                                             "",
-                                                                                            "                Ext.getCmp(\"almProjectConfluenceGrid\").getStore().reload();",
+                                                                                            "                view.getStore().reload();",
                                                                                             "",
                                                                                             "            }",
                                                                                             "        });",
@@ -1408,7 +1442,7 @@
                                                                                             "                var msg = Ext.JSON.decode(response.responseText).msg;",
                                                                                             "                Ext.MessageBox.alert('알림', msg);",
                                                                                             "",
-                                                                                            "                Ext.getCmp(\"almProjectJenkinsGrid\").getStore().reload();",
+                                                                                            "                view.getStore().reload();",
                                                                                             "",
                                                                                             "            }",
                                                                                             "        });",

@@ -13,7 +13,6 @@
         "itemId": "AlmWizardWindow",
         "layout": "fit",
         "modal": true,
-        "resizable": false,
         "title": "Project Wizard",
         "width": 790
     },
@@ -789,13 +788,13 @@
                                             "userConfig": {
                                                 "allowBlank": false,
                                                 "displayField": "repositoryCode",
+                                                "editable": false,
                                                 "fieldLabel": "Select Repository",
                                                 "labelWidth": null,
                                                 "layout|anchor": "100%",
                                                 "margin": "0 0 15 0",
                                                 "name": "repository",
                                                 "padding": "",
-                                                "readOnly": true,
                                                 "store": "ComboAlmRepositoryStore",
                                                 "valueField": "repositoryCode"
                                             },
@@ -827,10 +826,10 @@
                                             "codeClass": null,
                                             "userConfig": {
                                                 "allowBlank": false,
+                                                "editable": false,
                                                 "fieldLabel": "Project Type",
                                                 "layout|anchor": "100%",
                                                 "name": "type",
-                                                "readOnly": true,
                                                 "store": "ComboProjectTypeStore",
                                                 "valueField": "value"
                                             },
@@ -896,10 +895,10 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
+                                                        "editable": false,
                                                         "fieldLabel": "Template",
                                                         "layout|anchor": "100%",
                                                         "name": "serverTemplate",
-                                                        "readOnly": true,
                                                         "store": "ComboServerTemplateStore"
                                                     },
                                                     "designerId": "3c2a2276-d027-47d3-9d9c-283ab1856c6a",
@@ -1038,10 +1037,10 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
+                                                        "editable": false,
                                                         "fieldLabel": "Template",
                                                         "layout|anchor": "100%",
                                                         "name": "mobileTemplate",
-                                                        "readOnly": true,
                                                         "store": "ComboServerTemplateStore"
                                                     },
                                                     "designerId": "a06950ef-0d4f-4137-aa27-9736a103691a",
@@ -1600,8 +1599,9 @@
                                                                             "        Ext.Msg.alert('Message', \"이미 선택된 Space 정보입니다.\");",
                                                                             "        return;",
                                                                             "    }",
+                                                                            "    ",
                                                                             "",
-                                                                            "    spaceStore.insert(spaceStore.getCount(), view.getStore().getAt(rowIndex));",
+                                                                            "    spaceStore.insert(spaceStore.getCount(), record.copy());",
                                                                             "}else{",
                                                                             "    Ext.MessageBox.alert('알림', 'auth type을 선택해주세요.');",
                                                                             "",
@@ -2134,6 +2134,19 @@
                                                     "designerId": "e7776741-ae50-457e-b6c9-e4c4218478ce"
                                                 },
                                                 {
+                                                    "type": "Ext.grid.column.Column",
+                                                    "reference": {
+                                                        "name": "columns",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "dataIndex": "active",
+                                                        "text": "Active"
+                                                    },
+                                                    "designerId": "72d169c2-46d3-4175-aec1-89a968b410fc"
+                                                },
+                                                {
                                                     "type": "Ext.grid.column.Action",
                                                     "reference": {
                                                         "name": "columns",
@@ -2497,6 +2510,19 @@
                                                     "designerId": "1ff77a7b-dc4b-444f-9c04-a0626fcfd615"
                                                 },
                                                 {
+                                                    "type": "Ext.grid.column.Column",
+                                                    "reference": {
+                                                        "name": "columns",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "dataIndex": "active",
+                                                        "text": "Active"
+                                                    },
+                                                    "designerId": "08316af9-4863-45e3-981e-97cda950e317"
+                                                },
+                                                {
                                                     "type": "Ext.grid.column.Action",
                                                     "reference": {
                                                         "name": "columns",
@@ -2790,13 +2816,13 @@
                                                 "frame": true,
                                                 "id": "reviewProjectForm",
                                                 "itemId": "reviewProjectForm",
-                                                "margin": 20,
+                                                "margin": 10,
                                                 "padding": "",
                                                 "title": "Project Information",
                                                 "waitMsgTarget": [
                                                     "'instDescForm'"
                                                 ],
-                                                "width": 680
+                                                "width": null
                                             },
                                             "designerId": "00bbe5e3-704b-4f39-a48f-68cd76789872",
                                             "cn": [
@@ -2844,7 +2870,50 @@
                                                         "padding": 10
                                                     },
                                                     "designerId": "42025794-dd3e-4a47-9b4a-949b14e975ca"
-                                                },
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "Ext.form.Panel",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "bodyPadding": 10,
+                                                "bodyStyle": [
+                                                    "'padding:5px 5px 0'"
+                                                ],
+                                                "defaults": [
+                                                    "{",
+                                                    "    xtype: 'panel',",
+                                                    "    flex: 1,",
+                                                    "    layout: 'anchor'",
+                                                    "}"
+                                                ],
+                                                "fieldDefaults": [
+                                                    "{",
+                                                    "    msgTarget: 'side',",
+                                                    "    margin: '0 10',",
+                                                    "    readOnly: true,",
+                                                    "    labelStyle: 'font-weight: bold;',",
+                                                    "    labelSeparator: ' :'",
+                                                    "}"
+                                                ],
+                                                "frame": true,
+                                                "id": "reviewProjectForm2",
+                                                "itemId": "reviewProjectForm2",
+                                                "margin": 10,
+                                                "padding": "",
+                                                "title": "Project Type",
+                                                "waitMsgTarget": [
+                                                    "'instDescForm'"
+                                                ],
+                                                "width": null
+                                            },
+                                            "designerId": "d8533225-cabe-4730-bc6d-64f2c0437f78",
+                                            "cn": [
                                                 {
                                                     "type": "Ext.form.field.Display",
                                                     "reference": {
@@ -2859,6 +2928,169 @@
                                                         "padding": 10
                                                     },
                                                     "designerId": "6b571123-46de-4afe-a271-de255342b2ad"
+                                                },
+                                                {
+                                                    "type": "Ext.form.field.Display",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fieldLabel": "Project Type",
+                                                        "labelWidth": 140,
+                                                        "name": "type",
+                                                        "padding": 10
+                                                    },
+                                                    "designerId": "25983cf8-898a-4ef8-b81f-8be5d478dd8c"
+                                                },
+                                                {
+                                                    "type": "Ext.form.FieldSet",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "title": "Server Template"
+                                                    },
+                                                    "designerId": "08e791f9-c2a4-4968-9df1-10df54b0c06d",
+                                                    "cn": [
+                                                        {
+                                                            "type": "Ext.form.field.Display",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "fieldLabel": "Template",
+                                                                "labelWidth": 140,
+                                                                "name": "serverTemplate",
+                                                                "padding": 10
+                                                            },
+                                                            "designerId": "7fb9c53b-4888-415b-819a-115cdcbe6713"
+                                                        },
+                                                        {
+                                                            "type": "Ext.form.field.Display",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "fieldLabel": "GroupID",
+                                                                "labelWidth": 140,
+                                                                "name": "serverGroupId",
+                                                                "padding": 10
+                                                            },
+                                                            "designerId": "bc47cb81-9a0c-4d19-8528-d53369fe4f7c"
+                                                        },
+                                                        {
+                                                            "type": "Ext.form.field.Display",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "fieldLabel": "ArtifactID",
+                                                                "labelWidth": 140,
+                                                                "name": "serverArtifactId",
+                                                                "padding": 10
+                                                            },
+                                                            "designerId": "49c3a169-1bd7-40c5-9d3a-c88af71a05a6"
+                                                        },
+                                                        {
+                                                            "type": "Ext.form.field.Display",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "fieldLabel": "Package",
+                                                                "labelWidth": 140,
+                                                                "name": "serverPackage",
+                                                                "padding": 10
+                                                            },
+                                                            "designerId": "ef0a21bd-1df5-4b14-ad9a-db6a3f906118"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "Ext.form.FieldSet",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "title": "Mobile Template"
+                                                    },
+                                                    "designerId": "438addc2-4e4b-48d5-a933-f1d377dfb5cf",
+                                                    "cn": [
+                                                        {
+                                                            "type": "Ext.form.field.Display",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "fieldLabel": "Template",
+                                                                "labelWidth": 140,
+                                                                "name": "mobileTemplate",
+                                                                "padding": 10
+                                                            },
+                                                            "designerId": "b4591895-da56-4188-817b-337068fe14e9"
+                                                        },
+                                                        {
+                                                            "type": "Ext.form.field.Display",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "fieldLabel": "GroupID",
+                                                                "labelWidth": 140,
+                                                                "name": "mobileGroupId",
+                                                                "padding": 10
+                                                            },
+                                                            "designerId": "a47df074-a6a5-4742-9f18-6fdf5f22e0f6"
+                                                        },
+                                                        {
+                                                            "type": "Ext.form.field.Display",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "fieldLabel": "ArtifactID",
+                                                                "labelWidth": 140,
+                                                                "name": "mobileArtifactId",
+                                                                "padding": 10
+                                                            },
+                                                            "designerId": "21cc793b-b270-4576-8a55-b1ba53081b86"
+                                                        },
+                                                        {
+                                                            "type": "Ext.form.field.Display",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "fieldLabel": "Package",
+                                                                "labelWidth": 140,
+                                                                "name": "mobilePackage",
+                                                                "padding": 10
+                                                            },
+                                                            "designerId": "3bff6e96-f7d8-4759-8c8b-8da2e8f19847"
+                                                        }
+                                                    ]
                                                 }
                                             ]
                                         },
@@ -2873,16 +3105,16 @@
                                                 "autoScroll": true,
                                                 "columnLines": true,
                                                 "emptyText": "<div style='text-align:center;'>No Selected Data</div>",
-                                                "forceFit": true,
+                                                "forceFit": false,
                                                 "frame": true,
                                                 "height": 180,
                                                 "id": null,
                                                 "itemId": null,
-                                                "margin": "0 20 20 20",
+                                                "margin": 10,
                                                 "store": "TempSpaceStore",
                                                 "style": null,
                                                 "title": "Space Information",
-                                                "width": 680
+                                                "width": null
                                             },
                                             "designerId": "e23bb4d3-3816-43bd-abcf-a91ed13381cd",
                                             "cn": [
@@ -2904,8 +3136,9 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "dataIndex": "key",
-                                                        "minWidth": 100,
-                                                        "text": "Space"
+                                                        "minWidth": null,
+                                                        "text": "Space",
+                                                        "width": 150
                                                     },
                                                     "designerId": "2bd583dc-9387-4c4f-b08c-7c48df9bb92b"
                                                 },
@@ -2918,8 +3151,9 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "dataIndex": "name",
-                                                        "minWidth": 150,
-                                                        "text": "Name"
+                                                        "minWidth": null,
+                                                        "text": "Name",
+                                                        "width": 250
                                                     },
                                                     "designerId": "80012306-e56b-4331-aff6-0180f876f290"
                                                 },
@@ -2932,10 +3166,26 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "dataIndex": "type",
-                                                        "minWidth": 80,
-                                                        "text": "Type"
+                                                        "minWidth": null,
+                                                        "text": "Type",
+                                                        "width": 80
                                                     },
                                                     "designerId": "4b1ef020-b4ff-449f-984a-cc20a0c5b320"
+                                                },
+                                                {
+                                                    "type": "Ext.grid.column.Column",
+                                                    "reference": {
+                                                        "name": "columns",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "dataIndex": "authType",
+                                                        "minWidth": null,
+                                                        "text": "Auth Type",
+                                                        "width": 220
+                                                    },
+                                                    "designerId": "5871d176-4e15-44a3-86b9-7b253e52cd10"
                                                 }
                                             ]
                                         },
@@ -2952,17 +3202,30 @@
                                                 "border": null,
                                                 "columnLines": true,
                                                 "emptyText": "<div style='text-align:center;'>No Selected Data</div>",
-                                                "forceFit": true,
+                                                "forceFit": false,
                                                 "frame": true,
                                                 "height": 200,
                                                 "id": null,
                                                 "itemId": null,
-                                                "margin": "0 20 10 20",
+                                                "margin": 10,
                                                 "store": "TempUserStore",
                                                 "title": "User Information"
                                             },
                                             "designerId": "831deefe-55e1-4239-b889-80d6d8a40883",
                                             "cn": [
+                                                {
+                                                    "type": "Ext.grid.RowNumberer",
+                                                    "reference": {
+                                                        "name": "columns",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "text": "No",
+                                                        "width": 50
+                                                    },
+                                                    "designerId": "1889dab7-55c9-47ec-bcd2-dedd4fbe722d"
+                                                },
                                                 {
                                                     "type": "Ext.grid.View",
                                                     "reference": {
@@ -2984,8 +3247,9 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "dataIndex": "userId",
-                                                        "minWidth": 100,
-                                                        "text": "User Name"
+                                                        "minWidth": null,
+                                                        "text": "User Name",
+                                                        "width": 150
                                                     },
                                                     "designerId": "e508e9ab-3448-4823-8da9-6d4400e52243"
                                                 },
@@ -2998,8 +3262,9 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "dataIndex": "displayName",
-                                                        "minWidth": 150,
-                                                        "text": "Display Name"
+                                                        "minWidth": null,
+                                                        "text": "Display Name",
+                                                        "width": 250
                                                     },
                                                     "designerId": "3a10d008-3fb9-4236-ae9b-eb4831da86ce"
                                                 },
@@ -3012,10 +3277,24 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "dataIndex": "emailAddress",
-                                                        "minWidth": 200,
-                                                        "text": "Email"
+                                                        "minWidth": null,
+                                                        "text": "Email",
+                                                        "width": 250
                                                     },
                                                     "designerId": "55dc51b6-9965-46c2-a05f-044d474bff87"
+                                                },
+                                                {
+                                                    "type": "Ext.grid.column.Column",
+                                                    "reference": {
+                                                        "name": "columns",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "dataIndex": "active",
+                                                        "text": "Active"
+                                                    },
+                                                    "designerId": "437b4d35-e932-4df3-b1c6-5a9527b540ea"
                                                 }
                                             ]
                                         }

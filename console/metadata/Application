@@ -49,8 +49,7 @@
             "SoftwareRepoModel",
             "ConfigModel",
             "ProjectMappingModel",
-            "AlmProjectHistoryModel",
-            "MyModel"
+            "AlmProjectHistoryModel"
         ],
         "name": "MyApp",
         "requires": [

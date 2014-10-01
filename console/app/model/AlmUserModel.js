@@ -44,6 +44,10 @@ Ext.define('MyApp.model.AlmUserModel', {
         {
             name: 'name',
             type: 'string'
+        },
+        {
+            name: 'active',
+            type: 'boolean'
         }
     ]
 });
