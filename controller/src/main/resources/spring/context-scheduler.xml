@@ -13,7 +13,7 @@
         <property name="triggers">
             <list>
                 <ref bean="dashboardInfoCollectTrigger"/>
-                <ref bean="almProjectProcessingTrigger"/>
+                <!-- <ref bean="almProjectProcessingTrigger"/> -->
                 <!-- <ref bean="inspectMachineStatusTrigger"/> -->
             </list>
         </property>
