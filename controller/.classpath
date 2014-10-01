@@ -39,5 +39,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/devtool/tool/jaxb-ri-2.2.7/jaxb-ri-2.2.7/lib/jaxb-xjc.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
