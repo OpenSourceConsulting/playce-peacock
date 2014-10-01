@@ -21,6 +21,7 @@
 	<http pattern="/user/accessDenied*" 	security="none"/>
 	<http pattern="/user/onAfterLogout*" 	security="none"/>
 	<http pattern="/user/loginFail*" 		security="none"/>
+	<http pattern="/user/reset*" 			security="none"/>
 	
     <http pattern="/repo/**" 	security="none"/>
     <http pattern="/alm/**" 	security="none"/>
