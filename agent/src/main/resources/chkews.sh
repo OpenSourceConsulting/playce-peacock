@@ -1,7 +1,12 @@
 #!/bin/bash
-ENV_SH=`locate --regex "Servers\/\w+(Server(|[0-9]+))\/env.sh" | grep -v code | grep -v t6`
-SERVER_XML=`locate --regex "Servers\/\w+(Server(|[0-9]+))\/conf\/server.xml" | grep -v code | grep -v t6`
-CONTEXT_XML=`locate --regex "Servers\/\w+(Server(|[0-9]+))\/conf\/context.xml" | grep -v code | grep -v t6`
+#ENV_SH=( `locate --regex "Servers\/\w+(Server(|[0-9]+))\/env.sh" | grep -v code | grep -v t6` )
+#SERVER_XML=( `locate --regex "Servers\/\w+(Server(|[0-9]+))\/conf\/server.xml" | grep -v code | grep -v t6` )
+#CONTEXT_XML=( `locate --regex "Servers\/\w+(Server(|[0-9]+))\/conf\/context.xml" | grep -v code | grep -v t6` )
+ENV_SH=( `find / -regextype egrep -regex ".*/Servers\/\w+(Server(|[0-9]+))\/env.sh" 2> /dev/null | grep -v code | grep -v t6` )
+SERVER_XML=( `find / -regextype egrep -regex ".*/Servers\/\w+(Server(|[0-9]+))\/conf\/server.xml" 2> /dev/null | grep -v code | grep -v t6` )
+CONTEXT_XML=( `find / -regextype egrep -regex ".*/Servers\/\w+(Server(|[0-9]+))\/conf\/context.xml" 2> /dev/null | grep -v code | grep -v t6` )
+
+#echo "Array size: ${#ENV_SH[@]}"
 
 if [ $ENV_SH ] ; then
         VERSION=`cat $ENV_SH | grep CATALINA_HOME= | grep -v echo | awk '{ print substr($2, length($2)-6, 7); }'`
@@ -28,16 +33,14 @@ if [ $ENV_SH ] ; then
         fi
 fi
 
-echo "[env.sh] : "$ENV_SH
-echo "[server.xml] : "$SERVER_XML
-echo "[context.xml] : "$CONTEXT_XML
-echo ""
-echo "[version] : "$VERSION
-echo "[SERVER_USER] : "$SERVER_USER
-echo "[SERVER_NAME] : "$SERVER_NAME
-echo "[SERVER_HOME] : "$SERVER_HOME
-echo "[CATALINA_HOME] : "$CATALINA_HOME
-echo "[CATALINA_BASE] : "$CATALINA_BASE
-echo ""
-echo "[START_CMD] : "$START_CMD
-echo "[STOP_CMD] : "$STOP_CMD
+echo "SERVER_USER="$SERVER_USER
+echo "SERVER_NAME="$SERVER_NAME
+echo "SERVER_HOME="$SERVER_HOME
+echo "CATALINA_HOME="$CATALINA_HOME
+echo "CATALINA_BASE="$CATALINA_BASE
+echo "VERSION="$VERSION
+echo "ENV_SH="$ENV_SH
+echo "SERVER_XML="$SERVER_XML
+echo "CONTEXT_XML="$CONTEXT_XML
+echo "START_CMD="$START_CMD
+echo "STOP_CMD="$STOP_CMD

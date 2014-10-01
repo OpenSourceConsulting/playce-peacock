@@ -1,7 +1,5 @@
 /* 
- * Athena Peacock Project - Server Provisioning Engine for IDC or Cloud
- * 
- * Copyright (C) 2013 Open Source Consulting, Inc. All rights reserved by Open Source Consulting, Inc.
+ * Copyright (C) 2012-2014 Open Source Consulting, Inc. All rights reserved by Open Source Consulting, Inc.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -20,9 +18,12 @@
  * Revision History
  * Author			Date				Description
  * ---------------	----------------	------------
- * Sang-cheon Park	2013. 7. 18.		First Draft.
+ * Sang-cheon Park	2014. 9. 30.		First Draft.
  */
 package com.athena.peacock.common.netty.message;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <pre>
@@ -31,21 +32,32 @@ package com.athena.peacock.common.netty.message;
  * @author Sang-cheon Park
  * @version 1.0
  */
-public enum MessageType {
+public class SoftwareInfoMessage extends AbstractMessage {
 
-	COMMAND,
-	RESPONSE,
-	SYSTEM_STATUS,
-	INITIAL_INFO,
-	PACKAGE_INFO,
-	SOFTWARE_INFO;
+	private static final long serialVersionUID = 1L;
+	
+	private List<SoftwareInfo> softwareInfoList;
 
-    public String value() {
-        return name();
-    }
+	public SoftwareInfoMessage(MessageType messageType) {
+		super(MessageType.SOFTWARE_INFO);
+	}
 
-    public static MessageType fromValue(String value) {
-        return valueOf(value);
-    }
+	/**
+	 * @return the softwareInfoList
+	 */
+	public List<SoftwareInfo> getSoftwareInfoList() {
+		if (softwareInfoList == null) {
+			softwareInfoList = new ArrayList<SoftwareInfo>();
+		}
+		return softwareInfoList;
+	}
+
+	/**
+	 * @param softwareInfoList the softwareInfoList to set
+	 */
+	public void setSoftwareInfoList(List<SoftwareInfo> softwareInfoList) {
+		this.softwareInfoList = softwareInfoList;
+	}
+
 }
-//end of MessageType.java
+//end of SoftwareInfoMessage.java

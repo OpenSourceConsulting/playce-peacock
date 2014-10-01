@@ -33,6 +33,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -62,11 +64,14 @@ import com.athena.peacock.agent.util.SigarUtil;
 import com.athena.peacock.common.constant.PeacockConstant;
 import com.athena.peacock.common.netty.PeacockDatagram;
 import com.athena.peacock.common.netty.message.AgentInitialInfoMessage;
+import com.athena.peacock.common.netty.message.ConfigInfo;
 import com.athena.peacock.common.netty.message.MessageType;
 import com.athena.peacock.common.netty.message.OSPackageInfoMessage;
 import com.athena.peacock.common.netty.message.PackageInfo;
 import com.athena.peacock.common.netty.message.ProvisioningCommandMessage;
 import com.athena.peacock.common.netty.message.ProvisioningResponseMessage;
+import com.athena.peacock.common.netty.message.SoftwareInfo;
+import com.athena.peacock.common.netty.message.SoftwareInfoMessage;
 import com.athena.peacock.common.provider.AppContext;
 
 /**
@@ -141,6 +146,7 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 				new PackageGatherThread(ctx, packageFile).start();
 			} else if (messageType.equals(MessageType.INITIAL_INFO)) {
 				String machineId = ((PeacockDatagram<AgentInitialInfoMessage>)msg).getMessage().getAgentId();
+				String softwareInstalled = ((PeacockDatagram<AgentInitialInfoMessage>)msg).getMessage().getSoftwareInstalled();
 				
 				String agentFile = null;
 				String agentId = null;
@@ -206,6 +212,10 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 					if(!file.exists()) {
 						new PackageGatherThread(ctx, packageFile).start();
 					}
+				}
+				
+				if (softwareInstalled.equals("N")) {
+					new SoftwareGatherThread(ctx).start();
 				}
 				
 				Scheduler scheduler = (Scheduler)AppContext.getBean("quartzJobScheduler");
@@ -566,3 +576,284 @@ class PackageGatherThread extends Thread {
 		}
 	}
 }
+//end of PackageGatherThread.java
+
+/**
+ * <pre>
+ * Agent의 소프트웨어 정보를 수집하는 스레드
+ * </pre>
+ * @author Sang-cheon Park
+ * @version 1.0
+ */
+class SoftwareGatherThread extends Thread {
+
+    private static final Logger logger = LoggerFactory.getLogger(SoftwareGatherThread.class);
+	
+	private ChannelHandlerContext ctx;
+	
+	public SoftwareGatherThread(ChannelHandlerContext ctx) {
+		this.ctx = ctx;
+	}
+	
+	@Override
+	public void run() {
+		try {
+			StringStreamConsumer consumer = null;
+			Commandline commandLine = null;
+			int returnCode = 0;
+			Properties properties = null;
+			
+			SoftwareInfoMessage msg = new SoftwareInfoMessage(MessageType.SOFTWARE_INFO);
+			msg.setAgentId(IOUtils.toString(new File(PropertyUtil.getProperty(PeacockConstant.AGENT_ID_FILE_KEY)).toURI()));
+			SoftwareInfo softwareInfo = null;
+
+			// =======================
+			// 1. JBOSS EWS(HTTPD)
+			// =======================
+			try {
+				commandLine = new Commandline();
+				commandLine.setExecutable("sh");
+				commandLine.createArg().setLine("chkhttpd.sh");
+				
+				logger.debug("Start Software(httpd) info gathering...");
+				logger.debug("~]$ {}\n", commandLine.toString());
+
+				consumer = new CommandLineUtils.StringStreamConsumer();
+
+				returnCode = CommandLineUtils.executeCommandLine(commandLine, consumer, consumer, Integer.MAX_VALUE);
+				
+				if (returnCode == 0) {
+					properties = new Properties();
+				    properties.load(new StringReader(consumer.getOutput()));
+				    
+					softwareInfo = new SoftwareInfo();
+					softwareInfo.setName("httpd");
+					
+				    String apacheHome = (String) properties.get("APACHE_HOME");
+				    String serverHome = (String) properties.get("SERVER_HOME");
+				    String startCmd =  (String) properties.get("START_CMD");
+				    String stopCmd =  (String) properties.get("STOP_CMD");
+				    
+				    if (apacheHome != null && apacheHome.indexOf("2.1") >= 0) {
+						softwareInfo.setVersion("2.2.26");
+				    } else {
+						softwareInfo.setVersion("2.2.22");
+				    }
+				    
+					softwareInfo.getInstallLocations().add(apacheHome);
+					softwareInfo.getInstallLocations().add(serverHome + "/bin");
+					softwareInfo.getInstallLocations().add(serverHome + "/conf");
+					softwareInfo.getInstallLocations().add(serverHome + "/log");
+					softwareInfo.getInstallLocations().add(serverHome + "/run");
+					softwareInfo.getInstallLocations().add(serverHome + "/www");
+					softwareInfo.setStartWorkingDir("");
+					softwareInfo.setStartCommand(startCmd.substring(0, startCmd.indexOf(" ")));
+					softwareInfo.setStartArgs(startCmd.substring(startCmd.indexOf(" ") + 1));
+					softwareInfo.setStopWorkingDir("");
+					softwareInfo.setStopCommand(stopCmd.substring(0, stopCmd.indexOf(" ")));
+					softwareInfo.setStopArgs(stopCmd.substring(stopCmd.indexOf(" ") + 1));
+				}
+				
+				if (softwareInfo != null) {
+					String configFile = null;
+					ConfigInfo configInfo = null;
+					
+					String[] configKeys = new String[]{"HTTPD_CONF", "HTTPD_INFO_CONF", "SSL_CONF", "URIWORKERMAP", "WORKERS"};
+					
+					for (String configKey : configKeys) {
+						if ((configFile = (String) properties.get(configKey)) != null) {
+							commandLine = new Commandline();
+							commandLine.setExecutable("cat");
+							commandLine.createArg().setLine(configFile);
+							
+							consumer = new CommandLineUtils.StringStreamConsumer();
+	
+							returnCode = CommandLineUtils.executeCommandLine(commandLine, consumer, consumer, Integer.MAX_VALUE);
+							
+							if (returnCode == 0) {
+								configInfo = new ConfigInfo();
+								configInfo.setConfigFileLocation(configFile.substring(0, configFile.lastIndexOf("/")));
+								configInfo.setConfigFileName(configFile.substring(configFile.lastIndexOf("/") + 1));
+								configInfo.setConfigFileContents(consumer.getOutput());
+								softwareInfo.getConfigInfoList().add(configInfo);
+							}
+						}
+					}
+
+					msg.getSoftwareInfoList().add(softwareInfo);
+				}
+			} catch (Exception e1) {
+				// ignore after logging
+				logger.error("Unhandled Exception has occurred. ", e1);
+			}
+			
+			// =======================
+			// 2. JBOSS EWS(TOMCAT)
+			// =======================
+			try {
+				commandLine = new Commandline();
+				commandLine.setExecutable("sh");
+				commandLine.createArg().setLine("chkews.sh");
+				
+				logger.debug("Start Software(tomcat) info gathering...");
+				logger.debug("~]$ {}\n", commandLine.toString());
+
+				consumer = new CommandLineUtils.StringStreamConsumer();
+
+				returnCode = CommandLineUtils.executeCommandLine(commandLine, consumer, consumer, Integer.MAX_VALUE);
+				
+				if (returnCode == 0) {
+					properties = new Properties();
+				    properties.load(new StringReader(consumer.getOutput()));
+				    
+					softwareInfo = new SoftwareInfo();
+					softwareInfo.setName("tomcat");
+					
+					String version = (String) properties.get("VERSION");
+				    String catalinaHome = (String) properties.get("CATALINA_HOME");
+				    String serverHome = (String) properties.get("SERVER_HOME");
+				    String startCmd =  (String) properties.get("START_CMD");
+				    String stopCmd =  (String) properties.get("STOP_CMD");
+				    
+				    if (version != null && version.indexOf("7") >= 0) {
+						softwareInfo.setVersion("7.0.54");
+				    } else {
+						softwareInfo.setVersion("6.0.41");
+				    }
+				    
+					softwareInfo.getInstallLocations().add(catalinaHome.substring(0, catalinaHome.lastIndexOf("/")));
+					softwareInfo.getInstallLocations().add(serverHome + "/apps");
+					softwareInfo.getInstallLocations().add(serverHome + "/bin");
+					softwareInfo.getInstallLocations().add(serverHome + "/Servers");
+					softwareInfo.getInstallLocations().add(serverHome + "/svrlogs");
+					softwareInfo.getInstallLocations().add(serverHome + "/wily");
+					softwareInfo.setStartWorkingDir("");
+					softwareInfo.setStartCommand(startCmd.substring(0, startCmd.indexOf(" ")));
+					softwareInfo.setStartArgs(startCmd.substring(startCmd.indexOf(" ") + 1));
+					softwareInfo.setStopWorkingDir("");
+					softwareInfo.setStopCommand(stopCmd.substring(0, stopCmd.indexOf(" ")));
+					softwareInfo.setStopArgs(stopCmd.substring(stopCmd.indexOf(" ") + 1));
+				}
+				
+				if (softwareInfo != null) {
+					String configFile = null;
+					ConfigInfo configInfo = null;
+					
+					String[] configKeys = new String[]{"ENV_SH", "SERVER_XML", "CONTEXT_XML"};
+					
+					for (String configKey : configKeys) {
+						if ((configFile = (String) properties.get(configKey)) != null) {
+							commandLine = new Commandline();
+							commandLine.setExecutable("cat");
+							commandLine.createArg().setLine(configFile);
+							
+							consumer = new CommandLineUtils.StringStreamConsumer();
+	
+							returnCode = CommandLineUtils.executeCommandLine(commandLine, consumer, consumer, Integer.MAX_VALUE);
+							
+							if (returnCode == 0) {
+								configInfo = new ConfigInfo();
+								configInfo.setConfigFileLocation(configFile.substring(0, configFile.lastIndexOf("/")));
+								configInfo.setConfigFileName(configFile.substring(configFile.lastIndexOf("/") + 1));
+								configInfo.setConfigFileContents(consumer.getOutput());
+								softwareInfo.getConfigInfoList().add(configInfo);
+							}
+						}
+					}
+
+					msg.getSoftwareInfoList().add(softwareInfo);
+				}
+			} catch (Exception e1) {
+				// ignore after logging
+				logger.error("Unhandled Exception has occurred. ", e1);
+			}			
+
+			// =======================
+			// 3. JBOSS EAP
+			// =======================
+			try {
+				commandLine = new Commandline();
+				commandLine.setExecutable("sh");
+				commandLine.createArg().setLine("chkeap.sh");
+				
+				logger.debug("Start Software(eap) info gathering...");
+				logger.debug("~]$ {}\n", commandLine.toString());
+
+				consumer = new CommandLineUtils.StringStreamConsumer();
+
+				returnCode = CommandLineUtils.executeCommandLine(commandLine, consumer, consumer, Integer.MAX_VALUE);
+				
+				if (returnCode == 0) {
+					properties = new Properties();
+				    properties.load(new StringReader(consumer.getOutput()));
+				    
+					softwareInfo = new SoftwareInfo();
+					softwareInfo.setName("eap");
+					
+					String version = (String) properties.get("VERSION");
+				    String jbossHome = (String) properties.get("JBOSS_HOME");
+				    String serverHome = (String) properties.get("SERVER_HOME");
+				    String startCmd =  (String) properties.get("START_CMD");
+				    String stopCmd =  (String) properties.get("STOP_CMD");
+				    
+				    if (version != null && version.indexOf("5.2") >= 0) {
+						softwareInfo.setVersion("5.2.0");
+				    } else {
+						softwareInfo.setVersion("5.1.2");
+				    }
+				    
+					softwareInfo.getInstallLocations().add(jbossHome);
+					softwareInfo.getInstallLocations().add(serverHome + "/apps");
+					softwareInfo.getInstallLocations().add(serverHome + "/Servers");
+					softwareInfo.getInstallLocations().add(serverHome + "/svrlogs");
+					softwareInfo.getInstallLocations().add(serverHome + "/wily");
+					softwareInfo.setStartWorkingDir("");
+					softwareInfo.setStartCommand(startCmd.substring(0, startCmd.indexOf(" ")));
+					softwareInfo.setStartArgs(startCmd.substring(startCmd.indexOf(" ") + 1));
+					softwareInfo.setStopWorkingDir("");
+					softwareInfo.setStopCommand(stopCmd.substring(0, stopCmd.indexOf(" ")));
+					softwareInfo.setStopArgs(stopCmd.substring(stopCmd.indexOf(" ") + 1));
+				}
+				
+				if (softwareInfo != null) {
+					String configFile = null;
+					ConfigInfo configInfo = null;
+					
+					String[] configKeys = new String[]{"ENV_SH", "DS_XML", "LOGIN_CONFIG_XML"};
+					
+					for (String configKey : configKeys) {
+						if ((configFile = (String) properties.get(configKey)) != null) {
+							commandLine = new Commandline();
+							commandLine.setExecutable("cat");
+							commandLine.createArg().setLine(configFile);
+							
+							consumer = new CommandLineUtils.StringStreamConsumer();
+	
+							returnCode = CommandLineUtils.executeCommandLine(commandLine, consumer, consumer, Integer.MAX_VALUE);
+							
+							if (returnCode == 0) {
+								configInfo = new ConfigInfo();
+								configInfo.setConfigFileLocation(configFile.substring(0, configFile.lastIndexOf("/")));
+								configInfo.setConfigFileName(configFile.substring(configFile.lastIndexOf("/") + 1));
+								configInfo.setConfigFileContents(consumer.getOutput());
+								softwareInfo.getConfigInfoList().add(configInfo);
+							}
+						}
+					}
+
+					msg.getSoftwareInfoList().add(softwareInfo);
+				}
+			} catch (Exception e1) {
+				// ignore after logging
+				logger.error("Unhandled Exception has occurred. ", e1);
+			}
+
+			if (msg.getSoftwareInfoList().size() > 0) {
+				ctx.writeAndFlush(new PeacockDatagram<SoftwareInfoMessage>(msg));
+			}			
+		} catch (Exception e) {
+			logger.error("Unhandled Exception has occurred. ", e);
+		}
+	}
+}
+//end of SoftwareGatherThread.java

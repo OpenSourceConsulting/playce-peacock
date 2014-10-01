@@ -59,15 +59,19 @@ import com.athena.peacock.common.netty.PeacockDatagram;
 import com.athena.peacock.common.netty.message.AbstractMessage;
 import com.athena.peacock.common.netty.message.AgentInitialInfoMessage;
 import com.athena.peacock.common.netty.message.AgentSystemStatusMessage;
+import com.athena.peacock.common.netty.message.ConfigInfo;
 import com.athena.peacock.common.netty.message.MessageType;
 import com.athena.peacock.common.netty.message.OSPackageInfoMessage;
 import com.athena.peacock.common.netty.message.PackageInfo;
 import com.athena.peacock.common.netty.message.ProvisioningCommandMessage;
 import com.athena.peacock.common.netty.message.ProvisioningResponseMessage;
+import com.athena.peacock.common.netty.message.SoftwareInfo;
+import com.athena.peacock.common.netty.message.SoftwareInfoMessage;
 import com.athena.peacock.common.provider.AppContext;
 import com.athena.peacock.controller.common.component.RHEVMRestTemplate;
 import com.athena.peacock.controller.common.component.RHEVMRestTemplateManager;
 import com.athena.peacock.controller.common.core.handler.MonFactorHandler;
+import com.athena.peacock.controller.web.config.ConfigDto;
 import com.athena.peacock.controller.web.machine.MachineDto;
 import com.athena.peacock.controller.web.machine.MachineService;
 import com.athena.peacock.controller.web.monitor.MonDataDto;
@@ -75,6 +79,10 @@ import com.athena.peacock.controller.web.monitor.MonFactorDto;
 import com.athena.peacock.controller.web.monitor.MonitorService;
 import com.athena.peacock.controller.web.ospackage.PackageDto;
 import com.athena.peacock.controller.web.ospackage.PackageService;
+import com.athena.peacock.controller.web.software.SoftwareDto;
+import com.athena.peacock.controller.web.software.SoftwareRepoDto;
+import com.athena.peacock.controller.web.software.SoftwareRepoService;
+import com.athena.peacock.controller.web.software.SoftwareService;
 import com.redhat.rhevm.api.model.Cluster;
 import com.redhat.rhevm.api.model.IP;
 import com.redhat.rhevm.api.model.VM;
@@ -106,6 +114,14 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 	@Inject
 	@Named("packageService")
 	private PackageService packageService;
+	
+	@Inject
+	@Named("softwareRepoService")
+	private SoftwareRepoService softwareRepoService;
+	
+	@Inject
+	@Named("softwareService")
+	private SoftwareService softwareService;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -225,8 +241,16 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 						ChannelManagement.registerChannel(machineId, ctx.channel());
 						
 						// Agent에 RHEV Manager에 등록된 ID로 세팅되도록 AgentID를 전달
+						// 해당 Agent에 Software 설치 이력이 없을 경우 Software 정보 수집을 함꼐 요청
+						List<SoftwareDto> softwareList = softwareService.getSoftwareInstallListAll(machineId);
+						
 						AgentInitialInfoMessage returnMsg = new AgentInitialInfoMessage();
 						returnMsg.setAgentId(machineId);
+						if (softwareList != null && softwareList.size() > 0) {
+							returnMsg.setSoftwareInstalled("Y");
+						} else {
+							returnMsg.setSoftwareInstalled("N");
+						}
 						PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(returnMsg);
 						ctx.channel().writeAndFlush(datagram);
 						
@@ -349,6 +373,94 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 							}
 							
 							packageService.insertPackageList(packageList);
+						}
+						
+						break;
+					case SOFTWARE_INFO :
+						SoftwareInfoMessage softwareMsg = ((PeacockDatagram<SoftwareInfoMessage>)msg).getMessage();
+						List<SoftwareInfo> softwareInfoList = softwareMsg.getSoftwareInfoList();
+						SoftwareInfo softwareInfo = null;
+						
+						if (softwareRepoService == null) {
+							softwareRepoService = AppContext.getBean(SoftwareRepoService.class);
+						}
+						
+						SoftwareRepoDto softwareRepo = new SoftwareRepoDto();
+						softwareRepo.setStart(0);
+						softwareRepo.setLimit(100);
+						List<SoftwareRepoDto> softwareRepoList = softwareRepoService.getSoftwareRepoList(softwareRepo);						
+						
+						List<ConfigDto> configList = null;
+						List<ConfigInfo> configInfoList = null;
+						SoftwareDto software = null;
+						ConfigDto config = null;
+						int softwareId = 0;
+
+						StringBuilder stopCmd = null;
+						StringBuilder startCmd = null;
+						
+						for (int i = 0; i < softwareInfoList.size(); i++) {
+							softwareInfo = softwareInfoList.get(i);
+							
+							for (SoftwareRepoDto repo : softwareRepoList) {
+								softwareId = 0;
+								
+								if (repo.getSoftwareName().toLowerCase().indexOf(softwareInfo.getName().toLowerCase()) > 0) {
+									// 일치하지 않는 버전이 포함될 경우를 대비하기 위해 일단 softwareId를 저장한다.
+									softwareId = repo.getSoftwareId();
+									if (repo.getSoftwareVersion().startsWith(softwareInfo.getVersion())) {
+										softwareId = repo.getSoftwareId();
+										break;
+									}
+								}
+							}
+							
+							//software.setInstallLocation(apacheHome + "," + serverHome + "/bin," + serverHome + "/conf," + serverHome + "/log," + serverHome + "/run," + serverHome + "/www");
+							//software.setInstallLocation(serverHome + "/apps," + serverHome + "/bin," + serverHome + "/Servers," + serverHome + "/svrlogs," + serverHome + "/wily," + serverHome + "/jboss-ews-2.1");
+							//software.setInstallLocation(jbossHome + "," + serverBase + ", " + serverHome + "/apps," + serverHome + "/svrlogs," + serverHome + "/wily");
+							
+							stopCmd = new StringBuilder();
+							startCmd = new StringBuilder();
+							
+							stopCmd.append("WORKING_DIR:").append(softwareInfo.getStopWorkingDir()).append(",")
+									.append("CMD:").append(softwareInfo.getStopCommand()).append(",")
+									.append("ARGS:").append(softwareInfo.getStopArgs());
+
+							startCmd.append("WORKING_DIR:").append(softwareInfo.getStartWorkingDir()).append(",")
+									.append("CMD:").append(softwareInfo.getStartCommand()).append(",")
+									.append("ARGS:").append(softwareInfo.getStartArgs());
+							
+							software = new SoftwareDto();
+							software.setMachineId(softwareMsg.getAgentId());
+							software.setSoftwareId(softwareId);
+							software.setInstallLocation(StringUtils.join(softwareInfo.getInstallLocations(), ","));
+							software.setInstallStat("COMPLETED");
+							software.setInstallLog("Software installed manually.");
+							software.setServiceStopCmd(stopCmd.toString());
+							software.setServiceStartCmd(startCmd.toString());
+							software.setDescription("");
+							software.setDeleteYn("N");
+							
+							configInfoList = softwareInfo.getConfigInfoList();
+							configList = new ArrayList<ConfigDto>();
+							
+							for (ConfigInfo configInfo : configInfoList) {
+								config = new ConfigDto();
+								config.setMachineId(softwareMsg.getAgentId());
+								config.setSoftwareId(softwareId);
+								config.setConfigFileLocation(configInfo.getConfigFileLocation());
+								config.setConfigFileName(configInfo.getConfigFileName());
+								config.setConfigFileContents(configInfo.getConfigFileContents());
+								config.setDeleteYn("N");
+								
+								configList.add(config);
+							}
+							
+							if (softwareService == null) {
+								softwareService = AppContext.getBean(SoftwareService.class);
+							}
+
+							softwareService.insertSoftware(software, configList);
 						}
 						
 						break;

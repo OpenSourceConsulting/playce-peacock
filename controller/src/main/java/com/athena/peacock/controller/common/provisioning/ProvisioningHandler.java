@@ -1003,7 +1003,7 @@ public class ProvisioningHandler {
 		SoftwareDto software = new SoftwareDto();
 		software.setSoftwareId(provisioningDetail.getSoftwareId());
 		software.setMachineId(provisioningDetail.getMachineId());
-		software.setInstallLocation(serverHome + "/apps," + serverHome + "/bin," + serverHome + "/Servers," + serverHome + "/svrlogs," + serverHome + "/wily," + serverHome + "/jboss-ews-2.1,");
+		software.setInstallLocation(serverHome + "/apps," + serverHome + "/bin," + serverHome + "/Servers," + serverHome + "/svrlogs," + serverHome + "/wily," + serverHome + "/jboss-ews-2.1");
 		software.setInstallStat("INSTALLING");
 		software.setServiceStopCmd("WORKING_DIR:,CMD:service,ARGS:jbossews stop");
 		software.setServiceStartCmd("WORKING_DIR:,CMD:service,ARGS:jbossews start");
@@ -1442,13 +1442,15 @@ public class ProvisioningHandler {
 		s_action.addArguments(user + "Server21_cs");
 		command.addAction(s_action);
 		
-		if (baseTemplate.endsWith("Server11") && !serverName.equals(user + "Server11")) {
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory(serverBase);
-			s_action.setCommand("mv");
-			s_action.addArguments(user + "Server11");
-			s_action.addArguments(serverName);
-			command.addAction(s_action);
+		if (baseTemplate.endsWith("Server11")) {
+			if (!serverName.equals(user + "Server11")) {
+				s_action = new ShellAction(sequence++);
+				s_action.setWorkingDiretory(serverBase);
+				s_action.setCommand("mv");
+				s_action.addArguments(user + "Server11");
+				s_action.addArguments(serverName);
+				command.addAction(s_action);
+			}
 			
 			s_action = new ShellAction(sequence++);
 			s_action.setWorkingDiretory(serverBase);
@@ -1470,13 +1472,15 @@ public class ProvisioningHandler {
 			s_action.addArguments("-rf");
 			s_action.addArguments(user + "Server21_cs");
 			command.addAction(s_action);			
-		} else if (baseTemplate.endsWith("Server11_cs") && !serverName.equals(user + "Server11_cs")) {
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory(serverBase);
-			s_action.setCommand("mv");
-			s_action.addArguments(user + "Server11_cs");
-			s_action.addArguments(serverName);
-			command.addAction(s_action);
+		} else if (baseTemplate.endsWith("Server11_cs")) {
+			if (!serverName.equals(user + "Server11_cs")) {
+				s_action = new ShellAction(sequence++);
+				s_action.setWorkingDiretory(serverBase);
+				s_action.setCommand("mv");
+				s_action.addArguments(user + "Server11_cs");
+				s_action.addArguments(serverName);
+				command.addAction(s_action);
+			}
 			
 			s_action = new ShellAction(sequence++);
 			s_action.setWorkingDiretory(serverBase);
@@ -1498,13 +1502,15 @@ public class ProvisioningHandler {
 			s_action.addArguments("-rf");
 			s_action.addArguments(user + "Server21_cs");
 			command.addAction(s_action);			
-		} else if (baseTemplate.endsWith("Server21") && !serverName.equals(user + "Server21")) {
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory(serverBase);
-			s_action.setCommand("mv");
-			s_action.addArguments(user + "Server21");
-			s_action.addArguments(serverName);
-			command.addAction(s_action);
+		} else if (baseTemplate.endsWith("Server21")) {
+			if (!serverName.equals(user + "Server21")) {
+				s_action = new ShellAction(sequence++);
+				s_action.setWorkingDiretory(serverBase);
+				s_action.setCommand("mv");
+				s_action.addArguments(user + "Server21");
+				s_action.addArguments(serverName);
+				command.addAction(s_action);
+			}
 			
 			s_action = new ShellAction(sequence++);
 			s_action.setWorkingDiretory(serverBase);
@@ -1526,13 +1532,15 @@ public class ProvisioningHandler {
 			s_action.addArguments("-rf");
 			s_action.addArguments(user + "Server21_cs");
 			command.addAction(s_action);			
-		} else if (baseTemplate.endsWith("Server21_cs") && !serverName.equals(user + "Server21_cs")) {
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory(serverBase);
-			s_action.setCommand("mv");
-			s_action.addArguments(user + "Server21_cs");
-			s_action.addArguments(serverName);
-			command.addAction(s_action);
+		} else if (baseTemplate.endsWith("Server21_cs")) {
+			if (!serverName.equals(user + "Server11_cs")) {
+				s_action = new ShellAction(sequence++);
+				s_action.setWorkingDiretory(serverBase);
+				s_action.setCommand("mv");
+				s_action.addArguments(user + "Server21_cs");
+				s_action.addArguments(serverName);
+				command.addAction(s_action);
+			}
 			
 			s_action = new ShellAction(sequence++);
 			s_action.setWorkingDiretory(serverBase);
