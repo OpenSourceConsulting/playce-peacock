@@ -1,49 +1,77 @@
 #!/bin/bash
 ENV_SHS=( `find /home* -regextype egrep -regex ".*/Servers\/\w+(Server(|[0-9]+))\/env.sh" 2> /dev/null | grep -v code | grep -v t6` )
-DS_XML=( `find /home* -regextype egrep -regex ".*/apps\/([^ ]*)-ds.xml" 2> /dev/null` )
-LOGIN_CONFIG_XML=( `find /home* -regextype egrep -regex ".*/Servers\/\w+(Server(|[0-9]+))\/conf\/login-config.xml" 2> /dev/null | grep -v code | grep -v t6` )
+#DS_XML=( `find /home* -regextype egrep -regex ".*/apps\/([^ ]*)-ds.xml" 2> /dev/null` )
+#LOGIN_CONFIG_XML=( `find /home* -regextype egrep -regex ".*/Servers\/\w+(Server(|[0-9]+))\/conf\/login-config.xml" 2> /dev/null | grep -v code | grep -v t6` )
 
+COUNT=0
 for i in "${ENV_SHS[@]}"
 do
-        JBOSS_HOME=( `cat $i | grep JBOSS_HOME=` )
-        if [ $JBOSS_HOME ] ; then
-        		ENV_SH=$i
-				break
-        fi
-done
+    TMP=( `cat $i | grep JBOSS_HOME=` )
+    if [ ! $TMP ] ; then
+    	continue
+    else
+    	USER_HOME=''
+    	VER=''
+    	JD=''
+    	JH=''
+    	JU=''
+    	SH=''
+    	SN=''
+    	STAC=''
+    	STOC=''
+    	
+        VER=`cat $i | grep JBOSS_HOME= | grep -v echo | awk '{ print substr($2, length($2)-12, 13); }'`
+        JD=`cat $i | grep JBOSS_DIR= | grep -v echo | awk '{ print substr($2, 11, length($2)-10); }'`
+        JH=`cat $i | grep JBOSS_HOME= | grep -v echo | awk '{ print substr($2, 12, length($2)-11); }'`
+        JU=`cat $i | grep JBOSS_USER= | grep -v echo | awk '{ print substr($2, 12, length($2)-11); }'`
+        SH=`cat $i | grep SERVER_HOME= | grep -v echo | awk '{ print substr($2, 13, length($2)-12); }'`
+        SN=`cat $i | grep SERVER_NAME= | grep -v echo | awk '{ print substr($2, 13, length($2)-12); }'`
 
-if [ $ENV_SH ] ; then
-        VERSION=`cat $ENV_SH | grep JBOSS_HOME= | grep -v echo | awk '{ print substr($2, length($2)-12, 13); }'`
-        JBOSS_DIR=`cat $ENV_SH | grep JBOSS_DIR= | grep -v echo | awk '{ print substr($2, 11, length($2)-10); }'`
-        JBOSS_HOME=`cat $ENV_SH | grep JBOSS_HOME= | grep -v echo | awk '{ print substr($2, 12, length($2)-11); }'`
-        JBOSS_USER=`cat $ENV_SH | grep JBOSS_USER= | grep -v echo | awk '{ print substr($2, 12, length($2)-11); }'`
-        SERVER_HOME=`cat $ENV_SH | grep SERVER_HOME= | grep -v echo | awk '{ print substr($2, 13, length($2)-12); }'`
-        SERVER_NAME=`cat $ENV_SH | grep SERVER_NAME= | grep -v echo | awk '{ print substr($2, 13, length($2)-12); }'`
-
-        if [ $JBOSS_DIR ] ; then
-                echo $JBOSS_DIR" "$JBOSS_USER" "$SERVER_NAME" "$JBOSS_HOME" "$SERVER_HOME > tmp.info
-                SERVER_NAME=`cat tmp.info | awk '{ sub(/JBOSS_USER/, $2, $3); print $3 }' | sed -E 's/([${}])//g'`
-                JBOSS_HOME=`cat tmp.info | awk '{ sub(/JBOSS_DIR/, $1, $4); print $4 }' | sed -E 's/([${}])//g'`
-                SERVER_HOME=`cat tmp.info | awk '{ sub(/JBOSS_DIR/, $1, $5); print $5 }' | sed -E 's/([${}])//g'`
-                SERVER_BASE=$SERVER_HOME
+        if [ $JD ] ; then
+            echo $JD" "$JU" "$SN" "$JH" "$SH > tmp.info
+            SN=`cat tmp.info | awk '{ sub(/JBOSS_USER/, $2, $3); print $3 }' | sed -E 's/([${}])//g'`
+            JH=`cat tmp.info | awk '{ sub(/JBOSS_DIR/, $1, $4); print $4 }' | sed -E 's/([${}])//g'`
+            SH=`cat tmp.info | awk '{ sub(/JBOSS_DIR/, $1, $5); print $5 }' | sed -E 's/([${}])//g'`
+            SB=$SH
+            USER_HOME=$JD
         else
-                echo $JBOSS_USER" "$SERVER_NAME > tmp.info
-                SERVER_NAME=`cat tmp.info | awk '{ sub(/JBOSS_USER/, $1, $2); print $2 }' | sed -E 's/([${}])//g'`
-                SERVER_BASE=`cat $ENV_SH | grep SERVER_BASE= | grep -v echo | awk '{ print substr($2, 13, length($2)-12); }'`
+            echo $JU" "$SN > tmp.info
+            SN=`cat tmp.info | awk '{ sub(/JBOSS_USER/, $1, $2); print $2 }' | sed -E 's/([${}])//g'`
+            SB=`cat $i | grep SERVER_BASE= | grep -v echo | awk '{ print substr($2, 13, length($2)-12); }'`
+            USER_HOME=$SH
         fi
 
         rm -f tmp.info
+        
+        DX=( `find $USER_HOME -regextype egrep -regex ".*/apps\/([^ ]*)-ds.xml" 2> /dev/null` )
+        LCX=( `find $SB -regextype egrep -regex ".*/\w+(Server(|[0-9]+))\/conf\/login-config.xml" 2> /dev/null` )
 
         JBOSS_INIT=`chkconfig --list | grep -o jboss_init`
 
         if [ $JBOSS_INIT ] ; then
-                START_CMD="service jboss_init start"
-                STOP_CMD="service jboss_init stop"
+            STAC="service jboss_init start"
+            STOC"service jboss_init stop"
         else
-                START_CMD="runuser -l "${JBOSS_USER}" -c 'cd ${SERVER_BASE}/${SERVER_NAME} && sh startNode.sh notail'"
-                STOP_CMD="runuser -l ${JBOSS_USER} -c ‘cd ${SERVER_BASE}/${SERVER_NAME} && sh kill.sh'"
+            STAC="runuser -l "${JU}" -c 'cd ${SB}/${SN} && sh startNode.sh notail'"
+            STOC="runuser -l ${JU} -c ‘cd ${SB}/${SN} && sh kill.sh'"
         fi
-fi
+    
+	    COUNT=$(($COUNT+1))
+	    ENV_SH=$ENV_SH","$i
+        DS_XML=$DS_XML","$DX
+        LOGIN_CONFIG_XML=$LOGIN_CONFIG_XML","$LCX
+        VERSION=$VERSION","$VER
+        JBOSS_DIR=$JBOSS_DIR","$JD
+        JBOSS_HOME=$JBOSS_HOME","$JH
+        JBOSS_USER=$JBOSS_USER","$JU
+        SERVER_HOME=$SERVER_HOME","$SH
+        SERVER_NAME=$SERVER_NAME","$SN
+        SERVER_BASE=$SERVER_BASE","$SB
+        START_CMD=$START_CMD","$STAC
+        STOP_CMD=$STOP_CMD","$STOC
+	    
+    fi
+done
 
 echo "JBOSS_DIR="$JBOSS_DIR
 echo "JBOSS_HOME="$JBOSS_HOME

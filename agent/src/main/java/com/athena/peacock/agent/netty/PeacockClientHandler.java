@@ -626,61 +626,62 @@ class SoftwareGatherThread extends Thread {
 					properties = new Properties();
 				    properties.load(new StringReader(consumer.getOutput()));
 				    
-					softwareInfo = new SoftwareInfo();
-					softwareInfo.setName("httpd");
-					
+				    int count = (Integer) properties.get("COUNT");
 				    String apacheHome = (String) properties.get("APACHE_HOME");
 				    String serverHome = (String) properties.get("SERVER_HOME");
 				    String startCmd =  (String) properties.get("START_CMD");
 				    String stopCmd =  (String) properties.get("STOP_CMD");
 				    
-				    if (apacheHome != null && apacheHome.indexOf("2.1") >= 0) {
-						softwareInfo.setVersion("2.2.26");
-				    } else {
-						softwareInfo.setVersion("2.2.22");
-				    }
-				    
-					softwareInfo.getInstallLocations().add(apacheHome);
-					softwareInfo.getInstallLocations().add(serverHome + "/bin");
-					softwareInfo.getInstallLocations().add(serverHome + "/conf");
-					softwareInfo.getInstallLocations().add(serverHome + "/log");
-					softwareInfo.getInstallLocations().add(serverHome + "/run");
-					softwareInfo.getInstallLocations().add(serverHome + "/www");
-					softwareInfo.setStartWorkingDir("");
-					softwareInfo.setStartCommand(startCmd.substring(0, startCmd.indexOf(" ")));
-					softwareInfo.setStartArgs(startCmd.substring(startCmd.indexOf(" ") + 1));
-					softwareInfo.setStopWorkingDir("");
-					softwareInfo.setStopCommand(stopCmd.substring(0, stopCmd.indexOf(" ")));
-					softwareInfo.setStopArgs(stopCmd.substring(stopCmd.indexOf(" ") + 1));
-				}
-				
-				if (softwareInfo != null) {
-					String configFile = null;
-					ConfigInfo configInfo = null;
-					
-					String[] configKeys = new String[]{"HTTPD_CONF", "HTTPD_INFO_CONF", "SSL_CONF", "URIWORKERMAP", "WORKERS"};
-					
-					for (String configKey : configKeys) {
-						if ((configFile = (String) properties.get(configKey)) != null) {
-							commandLine = new Commandline();
-							commandLine.setExecutable("cat");
-							commandLine.createArg().setLine(configFile);
-							
-							consumer = new CommandLineUtils.StringStreamConsumer();
-	
-							returnCode = CommandLineUtils.executeCommandLine(commandLine, consumer, consumer, Integer.MAX_VALUE);
-							
-							if (returnCode == 0) {
-								configInfo = new ConfigInfo();
-								configInfo.setConfigFileLocation(configFile.substring(0, configFile.lastIndexOf("/")));
-								configInfo.setConfigFileName(configFile.substring(configFile.lastIndexOf("/") + 1));
-								configInfo.setConfigFileContents(consumer.getOutput());
-								softwareInfo.getConfigInfoList().add(configInfo);
+				    for (int i = 1; i <= count; i++) {
+						softwareInfo = new SoftwareInfo();
+						softwareInfo.setName("httpd");
+
+					    if (apacheHome != null && apacheHome.split(",")[i].indexOf("2.1") >= 0) {
+							softwareInfo.setVersion("2.2.26");
+					    } else {
+							softwareInfo.setVersion("2.2.22");
+					    }
+					    
+						softwareInfo.getInstallLocations().add(apacheHome.split(",")[i]);
+						softwareInfo.getInstallLocations().add(serverHome.split(",")[i] + "/bin");
+						softwareInfo.getInstallLocations().add(serverHome.split(",")[i] + "/conf");
+						softwareInfo.getInstallLocations().add(serverHome.split(",")[i] + "/log");
+						softwareInfo.getInstallLocations().add(serverHome.split(",")[i] + "/run");
+						softwareInfo.getInstallLocations().add(serverHome.split(",")[i] + "/www");
+						softwareInfo.setStartWorkingDir("");
+						softwareInfo.setStartCommand(startCmd.split(",")[i].substring(0, startCmd.split(",")[i].indexOf(" ")));
+						softwareInfo.setStartArgs(startCmd.split(",")[i].substring(startCmd.split(",")[i].indexOf(" ") + 1));
+						softwareInfo.setStopWorkingDir("");
+						softwareInfo.setStopCommand(stopCmd.split(",")[i].substring(0, stopCmd.split(",")[i].indexOf(" ")));
+						softwareInfo.setStopArgs(stopCmd.split(",")[i].substring(stopCmd.split(",")[i].indexOf(" ") + 1));
+				    	
+						String configFile = null;
+						ConfigInfo configInfo = null;
+						
+						String[] configKeys = new String[]{"HTTPD_CONF", "HTTPD_INFO_CONF", "SSL_CONF", "URIWORKERMAP", "WORKERS"};
+						
+						for (String configKey : configKeys) {
+							if ((configFile = (String) properties.get(configKey)) != null) {
+								commandLine = new Commandline();
+								commandLine.setExecutable("cat");
+								commandLine.createArg().setLine(configFile.split(",")[i]);
+								
+								consumer = new CommandLineUtils.StringStreamConsumer();
+		
+								returnCode = CommandLineUtils.executeCommandLine(commandLine, consumer, consumer, Integer.MAX_VALUE);
+								
+								if (returnCode == 0) {
+									configInfo = new ConfigInfo();
+									configInfo.setConfigFileLocation(configFile.split(",")[i].substring(0, configFile.split(",")[i].lastIndexOf("/")));
+									configInfo.setConfigFileName(configFile.split(",")[i].substring(configFile.split(",")[i].lastIndexOf("/") + 1));
+									configInfo.setConfigFileContents(consumer.getOutput());
+									softwareInfo.getConfigInfoList().add(configInfo);
+								}
 							}
 						}
-					}
 
-					msg.getSoftwareInfoList().add(softwareInfo);
+						msg.getSoftwareInfoList().add(softwareInfo);
+				    }
 				}
 			} catch (Exception e1) {
 				// ignore after logging
@@ -706,62 +707,63 @@ class SoftwareGatherThread extends Thread {
 					properties = new Properties();
 				    properties.load(new StringReader(consumer.getOutput()));
 				    
-					softwareInfo = new SoftwareInfo();
-					softwareInfo.setName("tomcat");
-					
+				    int count = (Integer) properties.get("COUNT");
 					String version = (String) properties.get("VERSION");
 				    String catalinaHome = (String) properties.get("CATALINA_HOME");
 				    String serverHome = (String) properties.get("SERVER_HOME");
 				    String startCmd =  (String) properties.get("START_CMD");
 				    String stopCmd =  (String) properties.get("STOP_CMD");
 				    
-				    if (version != null && version.indexOf("7") >= 0) {
-						softwareInfo.setVersion("7.0.54");
-				    } else {
-						softwareInfo.setVersion("6.0.41");
-				    }
-				    
-					softwareInfo.getInstallLocations().add(catalinaHome.substring(0, catalinaHome.lastIndexOf("/")));
-					softwareInfo.getInstallLocations().add(serverHome + "/apps");
-					softwareInfo.getInstallLocations().add(serverHome + "/bin");
-					softwareInfo.getInstallLocations().add(serverHome + "/Servers");
-					softwareInfo.getInstallLocations().add(serverHome + "/svrlogs");
-					softwareInfo.getInstallLocations().add(serverHome + "/wily");
-					softwareInfo.setStartWorkingDir("");
-					softwareInfo.setStartCommand(startCmd.substring(0, startCmd.indexOf(" ")));
-					softwareInfo.setStartArgs(startCmd.substring(startCmd.indexOf(" ") + 1));
-					softwareInfo.setStopWorkingDir("");
-					softwareInfo.setStopCommand(stopCmd.substring(0, stopCmd.indexOf(" ")));
-					softwareInfo.setStopArgs(stopCmd.substring(stopCmd.indexOf(" ") + 1));
-				}
-				
-				if (softwareInfo != null) {
-					String configFile = null;
-					ConfigInfo configInfo = null;
-					
-					String[] configKeys = new String[]{"ENV_SH", "SERVER_XML", "CONTEXT_XML"};
-					
-					for (String configKey : configKeys) {
-						if ((configFile = (String) properties.get(configKey)) != null) {
-							commandLine = new Commandline();
-							commandLine.setExecutable("cat");
-							commandLine.createArg().setLine(configFile);
-							
-							consumer = new CommandLineUtils.StringStreamConsumer();
-	
-							returnCode = CommandLineUtils.executeCommandLine(commandLine, consumer, consumer, Integer.MAX_VALUE);
-							
-							if (returnCode == 0) {
-								configInfo = new ConfigInfo();
-								configInfo.setConfigFileLocation(configFile.substring(0, configFile.lastIndexOf("/")));
-								configInfo.setConfigFileName(configFile.substring(configFile.lastIndexOf("/") + 1));
-								configInfo.setConfigFileContents(consumer.getOutput());
-								softwareInfo.getConfigInfoList().add(configInfo);
+				    for (int i = 1; i <= count; i++) {
+						softwareInfo = new SoftwareInfo();
+						softwareInfo.setName("tomcat");
+					    
+					    if (version != null && version.split(",")[i].indexOf("7") >= 0) {
+							softwareInfo.setVersion("7.0.54");
+					    } else {
+							softwareInfo.setVersion("6.0.41");
+					    }
+					    
+						softwareInfo.getInstallLocations().add(catalinaHome.split(",")[i].substring(0, catalinaHome.split(",")[i].lastIndexOf("/")));
+						softwareInfo.getInstallLocations().add(serverHome.split(",")[i] + "/apps");
+						softwareInfo.getInstallLocations().add(serverHome.split(",")[i] + "/bin");
+						softwareInfo.getInstallLocations().add(serverHome.split(",")[i] + "/Servers");
+						softwareInfo.getInstallLocations().add(serverHome.split(",")[i] + "/svrlogs");
+						softwareInfo.getInstallLocations().add(serverHome.split(",")[i] + "/wily");
+						softwareInfo.setStartWorkingDir("");
+						softwareInfo.setStartCommand(startCmd.split(",")[i].substring(0, startCmd.split(",")[i].indexOf(" ")));
+						softwareInfo.setStartArgs(startCmd.split(",")[i].substring(startCmd.split(",")[i].indexOf(" ") + 1));
+						softwareInfo.setStopWorkingDir("");
+						softwareInfo.setStopCommand(stopCmd.split(",")[i].substring(0, stopCmd.split(",")[i].indexOf(" ")));
+						softwareInfo.setStopArgs(stopCmd.split(",")[i].substring(stopCmd.split(",")[i].indexOf(" ") + 1));
+
+						String configFile = null;
+						ConfigInfo configInfo = null;
+						
+						String[] configKeys = new String[]{"ENV_SH", "SERVER_XML", "CONTEXT_XML"};
+						
+						for (String configKey : configKeys) {
+							if ((configFile = (String) properties.get(configKey)) != null) {
+								commandLine = new Commandline();
+								commandLine.setExecutable("cat");
+								commandLine.createArg().setLine(configFile.split(",")[i]);
+								
+								consumer = new CommandLineUtils.StringStreamConsumer();
+		
+								returnCode = CommandLineUtils.executeCommandLine(commandLine, consumer, consumer, Integer.MAX_VALUE);
+								
+								if (returnCode == 0) {
+									configInfo = new ConfigInfo();
+									configInfo.setConfigFileLocation(configFile.split(",")[i].substring(0, configFile.split(",")[i].lastIndexOf("/")));
+									configInfo.setConfigFileName(configFile.split(",")[i].substring(configFile.split(",")[i].lastIndexOf("/") + 1));
+									configInfo.setConfigFileContents(consumer.getOutput());
+									softwareInfo.getConfigInfoList().add(configInfo);
+								}
 							}
 						}
-					}
 
-					msg.getSoftwareInfoList().add(softwareInfo);
+						msg.getSoftwareInfoList().add(softwareInfo);
+				    }
 				}
 			} catch (Exception e1) {
 				// ignore after logging
@@ -787,61 +789,62 @@ class SoftwareGatherThread extends Thread {
 					properties = new Properties();
 				    properties.load(new StringReader(consumer.getOutput()));
 				    
-					softwareInfo = new SoftwareInfo();
-					softwareInfo.setName("eap");
-					
+				    int count = (Integer) properties.get("COUNT");
 					String version = (String) properties.get("VERSION");
 				    String jbossHome = (String) properties.get("JBOSS_HOME");
 				    String serverHome = (String) properties.get("SERVER_HOME");
 				    String startCmd =  (String) properties.get("START_CMD");
 				    String stopCmd =  (String) properties.get("STOP_CMD");
 				    
-				    if (version != null && version.indexOf("5.2") >= 0) {
-						softwareInfo.setVersion("5.2.0");
-				    } else {
-						softwareInfo.setVersion("5.1.2");
-				    }
-				    
-					softwareInfo.getInstallLocations().add(jbossHome);
-					softwareInfo.getInstallLocations().add(serverHome + "/apps");
-					softwareInfo.getInstallLocations().add(serverHome + "/Servers");
-					softwareInfo.getInstallLocations().add(serverHome + "/svrlogs");
-					softwareInfo.getInstallLocations().add(serverHome + "/wily");
-					softwareInfo.setStartWorkingDir("");
-					softwareInfo.setStartCommand(startCmd.substring(0, startCmd.indexOf(" ")));
-					softwareInfo.setStartArgs(startCmd.substring(startCmd.indexOf(" ") + 1));
-					softwareInfo.setStopWorkingDir("");
-					softwareInfo.setStopCommand(stopCmd.substring(0, stopCmd.indexOf(" ")));
-					softwareInfo.setStopArgs(stopCmd.substring(stopCmd.indexOf(" ") + 1));
-				}
-				
-				if (softwareInfo != null) {
-					String configFile = null;
-					ConfigInfo configInfo = null;
-					
-					String[] configKeys = new String[]{"ENV_SH", "DS_XML", "LOGIN_CONFIG_XML"};
-					
-					for (String configKey : configKeys) {
-						if ((configFile = (String) properties.get(configKey)) != null) {
-							commandLine = new Commandline();
-							commandLine.setExecutable("cat");
-							commandLine.createArg().setLine(configFile);
-							
-							consumer = new CommandLineUtils.StringStreamConsumer();
-	
-							returnCode = CommandLineUtils.executeCommandLine(commandLine, consumer, consumer, Integer.MAX_VALUE);
-							
-							if (returnCode == 0) {
-								configInfo = new ConfigInfo();
-								configInfo.setConfigFileLocation(configFile.substring(0, configFile.lastIndexOf("/")));
-								configInfo.setConfigFileName(configFile.substring(configFile.lastIndexOf("/") + 1));
-								configInfo.setConfigFileContents(consumer.getOutput());
-								softwareInfo.getConfigInfoList().add(configInfo);
+				    for (int i = 1; i <= count; i++) {
+						softwareInfo = new SoftwareInfo();
+						softwareInfo.setName("eap");
+					    
+					    if (version != null && version.split(",")[i].indexOf("5.2") >= 0) {
+							softwareInfo.setVersion("5.2.0");
+					    } else {
+							softwareInfo.setVersion("5.1.2");
+					    }
+					    
+						softwareInfo.getInstallLocations().add(jbossHome.split(",")[i]);
+						softwareInfo.getInstallLocations().add(serverHome.split(",")[i] + "/apps");
+						softwareInfo.getInstallLocations().add(serverHome.split(",")[i] + "/Servers");
+						softwareInfo.getInstallLocations().add(serverHome.split(",")[i] + "/svrlogs");
+						softwareInfo.getInstallLocations().add(serverHome.split(",")[i] + "/wily");
+						softwareInfo.setStartWorkingDir("");
+						softwareInfo.setStartCommand(startCmd.split(",")[i].substring(0, startCmd.split(",")[i].indexOf(" ")));
+						softwareInfo.setStartArgs(startCmd.split(",")[i].substring(startCmd.split(",")[i].indexOf(" ") + 1));
+						softwareInfo.setStopWorkingDir("");
+						softwareInfo.setStopCommand(stopCmd.split(",")[i].substring(0, stopCmd.split(",")[i].indexOf(" ")));
+						softwareInfo.setStopArgs(stopCmd.split(",")[i].substring(stopCmd.split(",")[i].indexOf(" ") + 1));
+
+						String configFile = null;
+						ConfigInfo configInfo = null;
+						
+						String[] configKeys = new String[]{"ENV_SH", "DS_XML", "LOGIN_CONFIG_XML"};
+						
+						for (String configKey : configKeys) {
+							if ((configFile = (String) properties.get(configKey)) != null) {
+								commandLine = new Commandline();
+								commandLine.setExecutable("cat");
+								commandLine.createArg().setLine(configFile.split(",")[i]);
+								
+								consumer = new CommandLineUtils.StringStreamConsumer();
+		
+								returnCode = CommandLineUtils.executeCommandLine(commandLine, consumer, consumer, Integer.MAX_VALUE);
+								
+								if (returnCode == 0) {
+									configInfo = new ConfigInfo();
+									configInfo.setConfigFileLocation(configFile.split(",")[i].substring(0, configFile.split(",")[i].lastIndexOf("/")));
+									configInfo.setConfigFileName(configFile.split(",")[i].substring(configFile.split(",")[i].lastIndexOf("/") + 1));
+									configInfo.setConfigFileContents(consumer.getOutput());
+									softwareInfo.getConfigInfoList().add(configInfo);
+								}
 							}
 						}
-					}
 
-					msg.getSoftwareInfoList().add(softwareInfo);
+						msg.getSoftwareInfoList().add(softwareInfo);
+				    }
 				}
 			} catch (Exception e1) {
 				// ignore after logging
