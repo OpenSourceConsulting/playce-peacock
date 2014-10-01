@@ -120,7 +120,8 @@
 					WHEN 'INST_ERROR' THEN '설치 에러'
 					WHEN 'UNINST_ERROR' THEN '삭제 에러'
 				 END AS installStat
-		       , B.SERVICE_STOP_CMD AS serviceStopCmd
+		       , B.INSTALL_SEQ AS installSeq
+			   , B.SERVICE_STOP_CMD AS serviceStopCmd
 		       , B.SERVICE_START_CMD AS serviceStartCmd
 			   , B.REG_USER_ID AS regUserId
 			   , B.REG_DT AS regDt

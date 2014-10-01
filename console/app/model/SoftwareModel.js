@@ -76,6 +76,10 @@ Ext.define('MyApp.model.SoftwareModel', {
         {
             name: 'regDt',
             type: 'string'
+        },
+        {
+            name: 'installSeq',
+            type: 'int'
         }
     ]
 });

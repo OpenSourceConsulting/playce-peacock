@@ -224,6 +224,7 @@
                                             "versionStore.getProxy().extraParams = {",
                                             "    machineId : instancesConstants.selectRow.get(\"machineId\"),",
                                             "    softwareId : form.findField(\"softwareId\").getValue(),",
+                                            "    installSeq : form.findField(\"installSeq\").getValue(),",
                                             "    configFileName : newValue",
                                             "};",
                                             "versionStore.load();",
@@ -267,6 +268,20 @@
                                 "name": "machineId"
                             },
                             "designerId": "db806965-6965-4fd2-b288-59fde96f6f53"
+                        },
+                        {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Label",
+                                "layout|flex": null,
+                                "name": "installSeq"
+                            },
+                            "designerId": "8e769198-cd29-4453-9aef-b5ebf4fba2b6"
                         },
                         {
                             "type": "Ext.form.field.Hidden",
@@ -370,6 +385,7 @@
                                                     "    params : {",
                                                     "        machineId : instancesConstants.selectRow.get(\"machineId\"),",
                                                     "        softwareId : form.findField(\"softwareId\").getValue(),",
+                                                    "        installSeq : form.findField(\"installSeq\").getValue(),",
                                                     "        configFileId : newValue",
                                                     "    },",
                                                     "    disableCaching : true,",
