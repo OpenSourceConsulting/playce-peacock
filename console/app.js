@@ -55,7 +55,8 @@ Ext.application({
         'SoftwareRepoModel',
         'ConfigModel',
         'ProjectMappingModel',
-        'AlmProjectHistoryModel'
+        'AlmProjectHistoryModel',
+        'MyModel'
     ],
     stores: [
         'MenuTreeStore',

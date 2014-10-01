@@ -542,7 +542,7 @@
                                             ]
                                         },
                                         {
-                                            "type": "Ext.form.field.Text",
+                                            "type": "Ext.form.field.TextArea",
                                             "reference": {
                                                 "name": "items",
                                                 "type": "array"
@@ -551,13 +551,10 @@
                                             "userConfig": {
                                                 "allowBlank": false,
                                                 "fieldLabel": "Project Description",
-                                                "labelWidth": null,
                                                 "layout|anchor": "100%",
-                                                "margin": "0 0 15 0",
-                                                "name": "projectDescription",
-                                                "padding": ""
+                                                "name": "projectDescription"
                                             },
-                                            "designerId": "eab6edca-a4f7-41b6-b4bb-f1bf76bb585d",
+                                            "designerId": "6aa3ebb5-e188-439c-b32d-afb089ad74a6",
                                             "cn": [
                                                 {
                                                     "type": "Ext.XTemplate",
@@ -572,7 +569,7 @@
                                                             "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
                                                         ]
                                                     },
-                                                    "designerId": "f26a8368-5b9b-41c6-908b-92c036bf1a4b"
+                                                    "designerId": "687d57b3-f3bc-498a-baef-acc28aaa10f0"
                                                 }
                                             ]
                                         },
@@ -798,6 +795,7 @@
                                                 "margin": "0 0 15 0",
                                                 "name": "repository",
                                                 "padding": "",
+                                                "readOnly": true,
                                                 "store": "ComboAlmRepositoryStore",
                                                 "valueField": "repositoryCode"
                                             },
@@ -832,6 +830,7 @@
                                                 "fieldLabel": "Project Type",
                                                 "layout|anchor": "100%",
                                                 "name": "type",
+                                                "readOnly": true,
                                                 "store": "ComboProjectTypeStore",
                                                 "valueField": "value"
                                             },
@@ -850,7 +849,7 @@
                                                             "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
                                                         ]
                                                     },
-                                                    "designerId": "95b4035c-6d3e-4d11-84c9-1f3399cd277d"
+                                                    "designerId": "5d2b7bfa-a8a2-45a4-ba6d-208ab3c705c4"
                                                 },
                                                 {
                                                     "type": "basiceventbinding",
@@ -864,10 +863,8 @@
                                                         "implHandler": [
                                                             "",
                                                             "if(newValue ===  \"Mobile Project\"){",
-                                                            "    Ext.getCmp(\"templateFieldSet1\").setTitle(\"Mobile1\");",
                                                             "    Ext.getCmp(\"templateFieldSet2\").show();",
                                                             "}else{",
-                                                            "    Ext.getCmp(\"templateFieldSet1\").setTitle(\"Server\");",
                                                             "    Ext.getCmp(\"templateFieldSet2\").hide();",
                                                             "}"
                                                         ],
@@ -887,7 +884,7 @@
                                             "codeClass": null,
                                             "userConfig": {
                                                 "id": "templateFieldSet1",
-                                                "title": "Server"
+                                                "title": "Server Template"
                                             },
                                             "designerId": "ef8ceb58-2923-4aec-9d09-edf325720a3c",
                                             "cn": [
@@ -902,9 +899,27 @@
                                                         "fieldLabel": "Template",
                                                         "layout|anchor": "100%",
                                                         "name": "serverTemplate",
+                                                        "readOnly": true,
                                                         "store": "ComboServerTemplateStore"
                                                     },
-                                                    "designerId": "3c2a2276-d027-47d3-9d9c-283ab1856c6a"
+                                                    "designerId": "3c2a2276-d027-47d3-9d9c-283ab1856c6a",
+                                                    "cn": [
+                                                        {
+                                                            "type": "Ext.XTemplate",
+                                                            "reference": {
+                                                                "name": "afterLabelTextTpl",
+                                                                "type": "object"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "designer|displayName": "afterLabelTextTpl",
+                                                                "implHandler": [
+                                                                    "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                                                ]
+                                                            },
+                                                            "designerId": "95b4035c-6d3e-4d11-84c9-1f3399cd277d"
+                                                        }
+                                                    ]
                                                 },
                                                 {
                                                     "type": "Ext.form.field.Text",
@@ -918,7 +933,24 @@
                                                         "layout|anchor": "100%",
                                                         "name": "serverGroupId"
                                                     },
-                                                    "designerId": "6d344f54-cd11-488c-8c85-fdf6deac193a"
+                                                    "designerId": "6d344f54-cd11-488c-8c85-fdf6deac193a",
+                                                    "cn": [
+                                                        {
+                                                            "type": "Ext.XTemplate",
+                                                            "reference": {
+                                                                "name": "afterLabelTextTpl",
+                                                                "type": "object"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "designer|displayName": "afterLabelTextTpl",
+                                                                "implHandler": [
+                                                                    "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                                                ]
+                                                            },
+                                                            "designerId": "dedddd72-e00f-455b-a085-5beef8154676"
+                                                        }
+                                                    ]
                                                 },
                                                 {
                                                     "type": "Ext.form.field.Text",
@@ -932,7 +964,24 @@
                                                         "layout|anchor": "100%",
                                                         "name": "serverArtifactId"
                                                     },
-                                                    "designerId": "c424272e-6665-4f2e-a8f5-66628e2e02ed"
+                                                    "designerId": "c424272e-6665-4f2e-a8f5-66628e2e02ed",
+                                                    "cn": [
+                                                        {
+                                                            "type": "Ext.XTemplate",
+                                                            "reference": {
+                                                                "name": "afterLabelTextTpl",
+                                                                "type": "object"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "designer|displayName": "afterLabelTextTpl",
+                                                                "implHandler": [
+                                                                    "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                                                ]
+                                                            },
+                                                            "designerId": "e4839964-be86-4d17-aaf1-27192b561754"
+                                                        }
+                                                    ]
                                                 },
                                                 {
                                                     "type": "Ext.form.field.Text",
@@ -946,7 +995,24 @@
                                                         "layout|anchor": "100%",
                                                         "name": "serverPackage"
                                                     },
-                                                    "designerId": "af1effb4-1e10-49e1-83d8-5215f3de7ebd"
+                                                    "designerId": "af1effb4-1e10-49e1-83d8-5215f3de7ebd",
+                                                    "cn": [
+                                                        {
+                                                            "type": "Ext.XTemplate",
+                                                            "reference": {
+                                                                "name": "afterLabelTextTpl",
+                                                                "type": "object"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "designer|displayName": "afterLabelTextTpl",
+                                                                "implHandler": [
+                                                                    "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                                                ]
+                                                            },
+                                                            "designerId": "753c7dde-8136-458d-b003-c0fd26e553d2"
+                                                        }
+                                                    ]
                                                 }
                                             ]
                                         },
@@ -960,7 +1026,7 @@
                                             "userConfig": {
                                                 "hidden": true,
                                                 "id": "templateFieldSet2",
-                                                "title": "Mobile2"
+                                                "title": "Mobile Template"
                                             },
                                             "designerId": "2c5f32fc-535c-4d5a-8393-e081bee649ac",
                                             "cn": [
@@ -975,9 +1041,27 @@
                                                         "fieldLabel": "Template",
                                                         "layout|anchor": "100%",
                                                         "name": "mobileTemplate",
+                                                        "readOnly": true,
                                                         "store": "ComboServerTemplateStore"
                                                     },
-                                                    "designerId": "a06950ef-0d4f-4137-aa27-9736a103691a"
+                                                    "designerId": "a06950ef-0d4f-4137-aa27-9736a103691a",
+                                                    "cn": [
+                                                        {
+                                                            "type": "Ext.XTemplate",
+                                                            "reference": {
+                                                                "name": "afterLabelTextTpl",
+                                                                "type": "object"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "designer|displayName": "afterLabelTextTpl",
+                                                                "implHandler": [
+                                                                    "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                                                ]
+                                                            },
+                                                            "designerId": "d0025cdb-58a9-4ae7-8ed1-e05056ab61ce"
+                                                        }
+                                                    ]
                                                 },
                                                 {
                                                     "type": "Ext.form.field.Text",
@@ -991,7 +1075,24 @@
                                                         "layout|anchor": "100%",
                                                         "name": "mobileGroupId"
                                                     },
-                                                    "designerId": "b6bd09c1-e362-49b5-a850-1869c0fe733e"
+                                                    "designerId": "b6bd09c1-e362-49b5-a850-1869c0fe733e",
+                                                    "cn": [
+                                                        {
+                                                            "type": "Ext.XTemplate",
+                                                            "reference": {
+                                                                "name": "afterLabelTextTpl",
+                                                                "type": "object"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "designer|displayName": "afterLabelTextTpl",
+                                                                "implHandler": [
+                                                                    "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                                                ]
+                                                            },
+                                                            "designerId": "14bf5afa-6a3c-47d2-b1ca-e0805ed1d137"
+                                                        }
+                                                    ]
                                                 },
                                                 {
                                                     "type": "Ext.form.field.Text",
@@ -1005,7 +1106,24 @@
                                                         "layout|anchor": "100%",
                                                         "name": "mobileArtifactId"
                                                     },
-                                                    "designerId": "0405c338-adab-4ced-8260-eac0cbe57dd3"
+                                                    "designerId": "0405c338-adab-4ced-8260-eac0cbe57dd3",
+                                                    "cn": [
+                                                        {
+                                                            "type": "Ext.XTemplate",
+                                                            "reference": {
+                                                                "name": "afterLabelTextTpl",
+                                                                "type": "object"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "designer|displayName": "afterLabelTextTpl",
+                                                                "implHandler": [
+                                                                    "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                                                ]
+                                                            },
+                                                            "designerId": "62f3025c-8968-472a-8c2e-a3c9d705cea2"
+                                                        }
+                                                    ]
                                                 },
                                                 {
                                                     "type": "Ext.form.field.Text",
@@ -1019,7 +1137,24 @@
                                                         "layout|anchor": "100%",
                                                         "name": "mobilePackage"
                                                     },
-                                                    "designerId": "605784d6-3c51-45f7-8c75-79bb445ed3f9"
+                                                    "designerId": "605784d6-3c51-45f7-8c75-79bb445ed3f9",
+                                                    "cn": [
+                                                        {
+                                                            "type": "Ext.XTemplate",
+                                                            "reference": {
+                                                                "name": "afterLabelTextTpl",
+                                                                "type": "object"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "designer|displayName": "afterLabelTextTpl",
+                                                                "implHandler": [
+                                                                    "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                                                ]
+                                                            },
+                                                            "designerId": "7d72293e-6f51-499b-9968-0e611a472fba"
+                                                        }
+                                                    ]
                                                 }
                                             ]
                                         }
@@ -1053,7 +1188,7 @@
                                                 "layout|flex": null,
                                                 "margin": "0 15 0 0",
                                                 "padding": "2 5 2 5",
-                                                "text": "Preview"
+                                                "text": "Prev"
                                             },
                                             "designerId": "34b5e110-25f1-401d-88f6-e30f9a1f1eb6",
                                             "cn": [
@@ -1465,11 +1600,11 @@
                                                                             "        Ext.Msg.alert('Message', \"이미 선택된 Space 정보입니다.\");",
                                                                             "        return;",
                                                                             "    }",
-                                                                            "    ",
+                                                                            "",
                                                                             "    spaceStore.insert(spaceStore.getCount(), view.getStore().getAt(rowIndex));",
                                                                             "}else{",
                                                                             "    Ext.MessageBox.alert('알림', 'auth type을 선택해주세요.');",
-                                                                            "    ",
+                                                                            "",
                                                                             "}",
                                                                             ""
                                                                         ]
@@ -1741,7 +1876,7 @@
                                                 "layout|flex": null,
                                                 "margin": "0 15 0 0",
                                                 "padding": "2 5 2 5",
-                                                "text": "Preview"
+                                                "text": "Prev"
                                             },
                                             "designerId": "fef7f20d-62f0-4e10-b1fc-8fe647ceccd3",
                                             "cn": [
@@ -2462,7 +2597,7 @@
                                                 "layout|flex": null,
                                                 "margin": "0 15 0 0",
                                                 "padding": "2 5 2 5",
-                                                "text": "Preview"
+                                                "text": "Prev"
                                             },
                                             "designerId": "daae33f8-ef8a-43df-8efd-d38bb89abb9a",
                                             "cn": [

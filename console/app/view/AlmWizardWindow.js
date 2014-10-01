@@ -25,6 +25,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
         'Ext.form.FieldContainer',
         'Ext.XTemplate',
         'Ext.button.Button',
+        'Ext.form.field.TextArea',
         'Ext.form.field.Hidden',
         'Ext.form.field.ComboBox',
         'Ext.form.FieldSet',
@@ -269,10 +270,8 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                     allowBlank: false
                                                 },
                                                 {
-                                                    xtype: 'textfield',
+                                                    xtype: 'textareafield',
                                                     anchor: '100%',
-                                                    margin: '0 0 15 0',
-                                                    padding: '',
                                                     afterLabelTextTpl: [
                                                         '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                                     ],
@@ -373,6 +372,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                     ],
                                                     fieldLabel: 'Select Repository',
                                                     name: 'repository',
+                                                    readOnly: true,
                                                     allowBlank: false,
                                                     displayField: 'repositoryCode',
                                                     store: 'ComboAlmRepositoryStore',
@@ -386,6 +386,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                     ],
                                                     fieldLabel: 'Project Type',
                                                     name: 'type',
+                                                    readOnly: true,
                                                     allowBlank: false,
                                                     store: 'ComboProjectTypeStore',
                                                     valueField: 'value',
@@ -399,30 +400,43 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                 {
                                                     xtype: 'fieldset',
                                                     id: 'templateFieldSet1',
-                                                    title: 'Server',
+                                                    title: 'Server Template',
                                                     items: [
                                                         {
                                                             xtype: 'combobox',
                                                             anchor: '100%',
+                                                            afterLabelTextTpl: [
+                                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                                            ],
                                                             fieldLabel: 'Template',
                                                             name: 'serverTemplate',
+                                                            readOnly: true,
                                                             store: 'ComboServerTemplateStore'
                                                         },
                                                         {
                                                             xtype: 'textfield',
                                                             anchor: '100%',
+                                                            afterLabelTextTpl: [
+                                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                                            ],
                                                             fieldLabel: 'Group ID',
                                                             name: 'serverGroupId'
                                                         },
                                                         {
                                                             xtype: 'textfield',
                                                             anchor: '100%',
+                                                            afterLabelTextTpl: [
+                                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                                            ],
                                                             fieldLabel: 'Artifact ID',
                                                             name: 'serverArtifactId'
                                                         },
                                                         {
                                                             xtype: 'textfield',
                                                             anchor: '100%',
+                                                            afterLabelTextTpl: [
+                                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                                            ],
                                                             fieldLabel: 'Package',
                                                             name: 'serverPackage'
                                                         }
@@ -432,30 +446,43 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                     xtype: 'fieldset',
                                                     hidden: true,
                                                     id: 'templateFieldSet2',
-                                                    title: 'Mobile2',
+                                                    title: 'Mobile Template',
                                                     items: [
                                                         {
                                                             xtype: 'combobox',
                                                             anchor: '100%',
+                                                            afterLabelTextTpl: [
+                                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                                            ],
                                                             fieldLabel: 'Template',
                                                             name: 'mobileTemplate',
+                                                            readOnly: true,
                                                             store: 'ComboServerTemplateStore'
                                                         },
                                                         {
                                                             xtype: 'textfield',
                                                             anchor: '100%',
+                                                            afterLabelTextTpl: [
+                                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                                            ],
                                                             fieldLabel: 'Group ID',
                                                             name: 'mobileGroupId'
                                                         },
                                                         {
                                                             xtype: 'textfield',
                                                             anchor: '100%',
+                                                            afterLabelTextTpl: [
+                                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                                            ],
                                                             fieldLabel: 'Artifact ID',
                                                             name: 'mobileArtifactId'
                                                         },
                                                         {
                                                             xtype: 'textfield',
                                                             anchor: '100%',
+                                                            afterLabelTextTpl: [
+                                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                                            ],
                                                             fieldLabel: 'Package',
                                                             name: 'mobilePackage'
                                                         }
@@ -481,7 +508,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                     },
                                                     margin: '0 15 0 0',
                                                     padding: '2 5 2 5',
-                                                    text: 'Preview'
+                                                    text: 'Prev'
                                                 },
                                                 {
                                                     xtype: 'button',
@@ -744,7 +771,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                     },
                                                     margin: '0 15 0 0',
                                                     padding: '2 5 2 5',
-                                                    text: 'Preview'
+                                                    text: 'Prev'
                                                 },
                                                 {
                                                     xtype: 'button',
@@ -999,7 +1026,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                     },
                                                     margin: '0 15 0 0',
                                                     padding: '2 5 2 5',
-                                                    text: 'Preview'
+                                                    text: 'Prev'
                                                 },
                                                 {
                                                     xtype: 'button',
@@ -1345,10 +1372,8 @@ Ext.define('MyApp.view.AlmWizardWindow', {
     onComboboxChange: function(field, newValue, oldValue, eOpts) {
 
         if(newValue ===  "Mobile Project"){
-            Ext.getCmp("templateFieldSet1").setTitle("Mobile1");
             Ext.getCmp("templateFieldSet2").show();
         }else{
-            Ext.getCmp("templateFieldSet1").setTitle("Server");
             Ext.getCmp("templateFieldSet2").hide();
         }
     }

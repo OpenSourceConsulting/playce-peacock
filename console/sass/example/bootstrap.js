@@ -434,6 +434,7 @@ Ext.ClassManager.addNameAlternateMappings({
   ],
   "Ext.grid.RowEditor": [],
   "Ext.grid.RowEditorButtons": [],
+  "Ext.grid.Scroller": [],
   "Ext.grid.View": [],
   "Ext.grid.ViewDropZone": [],
   "Ext.grid.column.Action": [
@@ -893,6 +894,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.model.InstanceMonitoringModel": [],
   "MyApp.model.MachineModel": [],
   "MyApp.model.MenuModel": [],
+  "MyApp.model.MyModel": [],
   "MyApp.model.NetworkModel": [],
   "MyApp.model.PackageModel": [],
   "MyApp.model.PermissionModel": [],
@@ -1452,6 +1454,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.grid.RowEditorButtons": [
     "widget.roweditorbuttons"
   ],
+  "Ext.grid.Scroller": [],
   "Ext.grid.View": [
     "widget.gridview"
   ],
@@ -2045,6 +2048,7 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.model.InstanceMonitoringModel": [],
   "MyApp.model.MachineModel": [],
   "MyApp.model.MenuModel": [],
+  "MyApp.model.MyModel": [],
   "MyApp.model.NetworkModel": [],
   "MyApp.model.PackageModel": [],
   "MyApp.model.PermissionModel": [],

@@ -20,6 +20,7 @@ Ext.define('MyApp.controller.GlobalController', {
         Ext.define('GLOBAL', {
             singleton: true,
             lastSelectedMenuId: null,
+            required: '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>',
             urlPrefix:""//http://localhost:8080/"
         });
 
