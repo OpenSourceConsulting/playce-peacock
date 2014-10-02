@@ -114,7 +114,8 @@ Ext.application({
         'AuthTypeComboStore',
         'AlmProjectHistoryListStore',
         'ComboProjectTypeStore',
-        'ComboServerTemplateStore'
+        'ComboServerTemplateStore',
+        'ComboSoftwareCompareVersionStore'
     ],
     views: [
         'peacockViewport',

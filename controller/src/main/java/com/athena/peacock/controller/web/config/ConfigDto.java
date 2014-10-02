@@ -36,6 +36,8 @@ import com.athena.peacock.controller.web.common.dto.BaseDto;
 public class ConfigDto extends BaseDto {
 
 	private static final long serialVersionUID = 1L;
+	
+	public static final int SYS_CONFIG = -1;
 
 	private Integer rowNum;
 	private String machineId;
@@ -48,7 +50,19 @@ public class ConfigDto extends BaseDto {
 	private String configFileContents;
 	private String deleteYn;
 	private String autoRestart = "Y";
+	
+	private int compareVersion;
 
+
+	
+	public int getCompareVersion() {
+		return compareVersion;
+	}
+
+	public void setCompareVersion(int compareVersion) {
+		this.compareVersion = compareVersion;
+	}
+	
 	/**
 	 * @return the rowNum
 	 */

@@ -35,7 +35,6 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
     width: 610,
     layout: 'border',
     title: 'Edit Config',
-    modal: true,
 
     initComponent: function() {
         var me = this;
@@ -134,6 +133,7 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
                                     fieldLabel: 'Config File Name',
                                     labelWidth: 130,
                                     name: 'configFileName',
+                                    allowBlank: false,
                                     displayField: 'confifFgfn',
                                     store: 'ComboSoftwareConfigFileStore',
                                     typeAhead: true,
@@ -196,6 +196,7 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
                                             fieldLabel: 'Version',
                                             labelWidth: 120,
                                             name: 'configFileId',
+                                            allowBlank: false,
                                             displayField: 'configDisplayFileId',
                                             store: 'ComboSoftwareConfigVersionStore',
                                             typeAhead: true,
@@ -231,9 +232,10 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
                                             width: 350,
                                             fieldLabel: 'Compare Version',
                                             labelWidth: 130,
-                                            name: 'configFileId',
+                                            name: 'compareVersion',
+                                            allowBlank: false,
                                             displayField: 'configDisplayFileId',
-                                            store: 'ComboSoftwareConfigVersionStore',
+                                            store: 'ComboSoftwareCompareVersionStore',
                                             typeAhead: true,
                                             valueField: 'configFileId'
                                         },
@@ -273,6 +275,7 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
         var form = field.up('form').getForm();
 
         var versionStore = Ext.getStore("ComboSoftwareConfigVersionStore");
+        var versionStore2 = Ext.getStore("ComboSoftwareCompareVersionStore");
 
         versionStore.getProxy().extraParams = {
             machineId : instancesConstants.selectRow.get("machineId"),
@@ -281,6 +284,9 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
             configFileName : newValue
         };
         versionStore.load();
+
+        versionStore2.getProxy().extraParams = versionStore.getProxy().extraParams;
+        versionStore2.load();
 
         form.findField("configFileContents").setValue("");
         form.findField("configSystemContents").setValue("");
@@ -349,8 +355,37 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
     },
 
     onButtonClick: function(button, e, eOpts) {
-        var compareConfigWindow = Ext.create("widget.CompareConfigWindow");
-            compareConfigWindow.show();
+
+        var form = button.up('form').getForm();
+
+        if(form.isValid()){
+
+            var machineId = instancesConstants.selectRow.get("machineId");
+            var softwareId = form.findField("softwareId").getValue();
+            var installSeq = form.findField("installSeq").getValue();
+            var configFileId = form.findField("configFileId").getValue(); //dbConfigVersion
+            var configFileLocation = form.findField("configFileLocation").getValue();
+            var configFileName = form.findField("configFileName").getValue();
+            var compareVersion = form.findField("compareVersion").getValue();
+
+            if(configFileId == compareVersion){
+
+                Ext.Msg.show({
+                    title:'알림',
+                    msg: "다른 버전을 선택해주세요.",
+                    buttons: Ext.Msg.OK,
+                    icon: Ext.Msg.WARNING
+                });
+
+                return;
+            }
+
+            var compareConfigWindow = Ext.create("widget.CompareConfigWindow");
+                compareConfigWindow.show();
+
+                compareConfigWindow.down("uxiframe").load("config/diff?machineId="+machineId+"&softwareId="+softwareId+"&installSeq="+installSeq+"&configFileId="+configFileId+"&compareVersion="+compareVersion+"&configFileLocation="+configFileLocation+"&configFileName="+configFileName);
+
+        }
     }
 
 });

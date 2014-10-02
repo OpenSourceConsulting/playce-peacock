@@ -21,10 +21,10 @@ Ext.define('MyApp.view.CompareConfigWindow', {
         'Ext.Component'
     ],
 
-    height: 422,
-    width: 572,
+    height: 600,
+    width: 610,
     layout: 'fit',
-    title: 'My Window',
+    title: 'Compare Config',
 
     initComponent: function() {
         var me = this;
@@ -32,9 +32,7 @@ Ext.define('MyApp.view.CompareConfigWindow', {
         Ext.applyIf(me, {
             items: [
                 {
-                    xtype: 'component',
-                    height: 250,
-                    width: 400
+                    xtype: 'uxiframe'
                 }
             ]
         });

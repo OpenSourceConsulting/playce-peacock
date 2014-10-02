@@ -1,0 +1,92 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": false,
+        "designer|userClassName": "ComboSoftwareCompareVersionStore",
+        "model": "ConfigModel",
+        "storeId": "ComboSoftwareCompareVersionStore"
+    },
+    "designerId": "756f80c8-3d91-4f3b-92f4-279a44028481",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "url": "config/getConfigFileVersions?compare=true"
+            },
+            "designerId": "fb5b2068-97bf-47b8-95c6-29768e0372a4",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "list"
+                    },
+                    "designerId": "233aca49-9e34-4068-91ed-4f66358453f0"
+                },
+                {
+                    "type": "processcfgfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|params": [
+                            "config"
+                        ],
+                        "fn": "processMyAjaxProxy",
+                        "implHandler": [
+                            "config.actionMethods = {create: \"GET\", read: \"GET\", update: \"GET\", destroy: \"GET\"};",
+                            "",
+                            "return config;"
+                        ]
+                    },
+                    "designerId": "e0b4d5c1-064e-4fdd-8224-5790f5747ed1"
+                }
+            ]
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onJsonstoreLoad",
+                "implHandler": [
+                    "Ext.each(records, function(record, index) {",
+                    "    ",
+                    "    var displayField = \"\";",
+                    "    ",
+                    "    if(index === 0 && record.get(\"configFileId\") === -1){",
+                    "        displayField = record.get(\"configFileName\");",
+                    "    }else{",
+                    "        displayField = record.get(\"rowNum\") +\" (\"+record.get(\"regDt\")+\")\";",
+                    "    }",
+                    "    ",
+                    "    ",
+                    "    record.set(\"configDisplayFileId\", displayField);",
+                    "});"
+                ],
+                "name": "load",
+                "scope": "me"
+            },
+            "designerId": "45d19c7f-4141-4015-9a85-2366d2a1bcc8"
+        }
+    ]
+}

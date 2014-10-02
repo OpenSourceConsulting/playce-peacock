@@ -8,10 +8,10 @@
     "userConfig": {
         "designer|userAlias": "CompareConfigWindow",
         "designer|userClassName": "CompareConfigWindow",
-        "height": 422,
+        "height": 600,
         "layout": "fit",
-        "title": "My Window",
-        "width": 572
+        "title": "Compare Config",
+        "width": 610
     },
     "designerId": "9309532c-130f-4a10-8307-13f4ade815fb",
     "cn": [
@@ -23,10 +23,9 @@
             },
             "codeClass": null,
             "userConfig": {
-                "height": 250,
-                "width": 400
+                "designer|createAlias": "uxiframe"
             },
-            "designerId": "9b8619b7-734e-42c2-919a-4b5db54ef201"
+            "designerId": "0a405d90-b039-41f5-92bb-565a37032e96"
         }
     ]
 }

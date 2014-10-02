@@ -32,8 +32,10 @@ import javax.inject.Named;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.athena.peacock.common.core.action.FileWriteAction;
@@ -106,13 +108,20 @@ public class ConfigController {
 	 * @throws Exception 
 	 */
 	@RequestMapping("/getConfigFileVersions")
-	public @ResponseBody GridJsonResponse getConfigFileVersions(GridJsonResponse jsonRes, ConfigDto config) throws Exception {
+	public @ResponseBody GridJsonResponse getConfigFileVersions(GridJsonResponse jsonRes, @RequestParam(required=false, value="compare") String compare, ConfigDto config) throws Exception {
 		Assert.notNull(config.getMachineId(), "machineId can not be null.");
 		Assert.notNull(config.getSoftwareId(), "softwareId can not be null.");
 		Assert.notNull(config.getInstallSeq(), "installSeq can not be null.");
 		Assert.notNull(config.getConfigFileName(), "configFileName can not be null.");
 
 		List<ConfigDto> configList = configService.getConfigFileVersions(config);
+		
+		if(compare != null){
+			ConfigDto version = new ConfigDto();
+			version.setConfigFileId(ConfigDto.SYS_CONFIG);
+			version.setConfigFileName("System Config");
+			configList.add(0, version);
+		}
 		
 		jsonRes.setTotal(configList.size());
 		jsonRes.setList(configList);
@@ -326,6 +335,33 @@ public class ConfigController {
 		}
 		
 		return jsonRes;
+	}
+	
+	@RequestMapping("/diff")
+	public String diff(Model model, ConfigDto config) throws Exception {
+		
+		Assert.notNull(config.getMachineId(), "machineId can not be null.");
+		Assert.notNull(config.getSoftwareId(), "softwareId can not be null.");
+		Assert.notNull(config.getInstallSeq(), "installSeq can not be null.");
+		Assert.notNull(config.getConfigFileId(), "configFileId can not be null.");
+		
+		Assert.notNull(config.getCompareVersion(), "compareVersion can not be null.");
+		
+		model.addAttribute("config1", configService.getConfig(config).getConfigFileContents());
+		
+		
+		if(ConfigDto.SYS_CONFIG == config.getCompareVersion()){
+			
+			DtoJsonResponse res = getSystemConfig(new DtoJsonResponse(), config);
+			model.addAttribute("config2", res.getData());
+		}else{
+			
+			config.setConfigFileId(Integer.valueOf(config.getCompareVersion()));
+			model.addAttribute("config2", configService.getConfig(config).getConfigFileContents());
+		}
+		
+		
+		return "SoftwareConfigDiff";
 	}
 
 }
