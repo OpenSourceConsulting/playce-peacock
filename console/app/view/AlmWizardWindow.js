@@ -525,7 +525,12 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                 {
                                                     xtype: 'button',
                                                     handler: function(button, e) {
+                                                        //var activeItem = Ext.getCmp("almWizardCardPanel").getLayout().activeItem;
+
                                                         almConstants.me.goAlmWizardPanel(0);
+
+
+
                                                     },
                                                     margin: '0 15 0 0',
                                                     padding: '2 5 2 5',

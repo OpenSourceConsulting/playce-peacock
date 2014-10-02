@@ -233,14 +233,21 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
                                             fieldLabel: 'Compare Version',
                                             labelWidth: 130,
                                             name: 'compareVersion',
-                                            allowBlank: false,
                                             displayField: 'configDisplayFileId',
                                             store: 'ComboSoftwareCompareVersionStore',
                                             typeAhead: true,
-                                            valueField: 'configFileId'
+                                            valueField: 'configFileId',
+                                            listeners: {
+                                                change: {
+                                                    fn: me.onCompareVersionComboboxChange,
+                                                    scope: me
+                                                }
+                                            }
                                         },
                                         {
                                             xtype: 'button',
+                                            disabled: true,
+                                            id: 'configCompareBtn',
                                             margin: '0 0 0 10',
                                             text: 'Compare',
                                             listeners: {
@@ -354,6 +361,14 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
 
             }
         });
+
+    },
+
+    onCompareVersionComboboxChange: function(field, newValue, oldValue, eOpts) {
+
+        if(newValue != 0){
+            Ext.getCmp("configCompareBtn").setDisabled(false);
+        }
 
     },
 

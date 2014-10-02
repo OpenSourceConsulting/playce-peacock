@@ -490,7 +490,6 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "allowBlank": false,
                                         "displayField": "configDisplayFileId",
                                         "fieldLabel": "Compare Version",
                                         "itemId": "compareVersionCombobox",
@@ -503,7 +502,30 @@
                                         "valueField": "configFileId",
                                         "width": 350
                                     },
-                                    "designerId": "d17caac9-a495-43c0-975a-ef51032f5cfd"
+                                    "designerId": "d17caac9-a495-43c0-975a-ef51032f5cfd",
+                                    "cn": [
+                                        {
+                                            "type": "basiceventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onCompareVersionComboboxChange",
+                                                "implHandler": [
+                                                    "",
+                                                    "if(newValue != 0){",
+                                                    "    Ext.getCmp(\"configCompareBtn\").setDisabled(false);",
+                                                    "}",
+                                                    ""
+                                                ],
+                                                "name": "change",
+                                                "scope": "me"
+                                            },
+                                            "designerId": "667027ac-5a24-41ff-adec-1f575b72ee39"
+                                        }
+                                    ]
                                 },
                                 {
                                     "type": "Ext.button.Button",
@@ -513,6 +535,8 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
+                                        "disabled": true,
+                                        "id": "configCompareBtn",
                                         "layout|flex": null,
                                         "margin": "0 0 0 10",
                                         "text": "Compare"
@@ -541,24 +565,24 @@
                                                     "    var configFileLocation = form.findField(\"configFileLocation\").getValue();",
                                                     "    var configFileName = form.findField(\"configFileName\").getValue();",
                                                     "    var compareVersion = form.findField(\"compareVersion\").getValue();",
-                                                    "    ",
+                                                    "",
                                                     "    if(configFileId == compareVersion){",
-                                                    "        ",
+                                                    "",
                                                     "        Ext.Msg.show({",
                                                     "            title:'알림',",
                                                     "            msg: \"다른 버전을 선택해주세요.\",",
                                                     "            buttons: Ext.Msg.OK,",
                                                     "            icon: Ext.Msg.WARNING",
                                                     "        });",
-                                                    "        ",
+                                                    "",
                                                     "        return;",
                                                     "    }",
-                                                    "    ",
+                                                    "",
                                                     "    var compareConfigWindow = Ext.create(\"widget.CompareConfigWindow\");",
                                                     "        compareConfigWindow.show();",
-                                                    "    ",
+                                                    "",
                                                     "        compareConfigWindow.down(\"uxiframe\").load(\"config/diff?machineId=\"+machineId+\"&softwareId=\"+softwareId+\"&installSeq=\"+installSeq+\"&configFileId=\"+configFileId+\"&compareVersion=\"+compareVersion+\"&configFileLocation=\"+configFileLocation+\"&configFileName=\"+configFileName);",
-                                                    "    ",
+                                                    "",
                                                     "}"
                                                 ],
                                                 "name": "click",

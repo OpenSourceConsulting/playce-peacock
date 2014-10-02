@@ -1237,7 +1237,12 @@
                                                         ],
                                                         "fn": "handler",
                                                         "implHandler": [
-                                                            "almConstants.me.goAlmWizardPanel(0);"
+                                                            "//var activeItem = Ext.getCmp(\"almWizardCardPanel\").getLayout().activeItem;",
+                                                            "",
+                                                            "almConstants.me.goAlmWizardPanel(0);",
+                                                            "",
+                                                            "",
+                                                            ""
                                                         ]
                                                     },
                                                     "designerId": "fa9005d3-c6cf-4814-a293-a133043c8f07"
