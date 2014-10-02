@@ -85,9 +85,9 @@
                                 "itemId": "logoImg",
                                 "layout|flex": null,
                                 "layout|margins": "3 3 3 8",
-                                "src": "resources/images/logos/osc-logo.png",
-                                "title": "Open Source Consulting Co. ltd.",
-                                "width": 120
+                                "src": "resources/images/logos/peacock-logo.png",
+                                "title": null,
+                                "width": null
                             },
                             "designerId": "b02f2772-8b6b-4a8d-9506-c984e189e31e"
                         },

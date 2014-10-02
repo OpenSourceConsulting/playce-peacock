@@ -79,9 +79,7 @@ Ext.define('MyApp.view.peacockViewport', {
                                     height: 45,
                                     id: 'logoImg',
                                     itemId: 'logoImg',
-                                    width: 120,
-                                    src: 'resources/images/logos/osc-logo.png',
-                                    title: 'Open Source Consulting Co. ltd.'
+                                    src: 'resources/images/logos/peacock-logo.png'
                                 },
                                 {
                                     xtype: 'tbspacer',
