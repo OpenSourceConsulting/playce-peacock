@@ -58,6 +58,28 @@
                     "designerId": "3cd87eb6-b762-4828-a3d7-dac31897d643"
                 }
             ]
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onJsonstoreLoad",
+                "implHandler": [
+                    "Ext.each(records, function(record) {",
+                    "    var displayField = record.get(\"configFileLocation\") +\"/\"+record.get(\"configFileName\");",
+                    "    ",
+                    "    record.set(\"confifFgfn\", displayField);",
+                    "});",
+                    ""
+                ],
+                "name": "load",
+                "scope": "me"
+            },
+            "designerId": "e1d65212-f1e4-4564-9887-1dd983dcbf83"
         }
     ]
 }

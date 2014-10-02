@@ -130,11 +130,11 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
                                 {
                                     xtype: 'combobox',
                                     itemId: 'mycombobox3',
-                                    width: 350,
+                                    width: 500,
                                     fieldLabel: 'Config File Name',
                                     labelWidth: 130,
                                     name: 'configFileName',
-                                    displayField: 'configFileName',
+                                    displayField: 'confifFgfn',
                                     store: 'ComboSoftwareConfigFileStore',
                                     typeAhead: true,
                                     valueField: 'configFileName',
@@ -147,6 +147,7 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
                                 },
                                 {
                                     xtype: 'displayfield',
+                                    hidden: true,
                                     padding: '20 0 0 0',
                                     fieldLabel: 'Path',
                                     name: 'configFilePath'
@@ -179,6 +180,7 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
                             xtype: 'panel',
                             id: 'softwareInstallPanel1',
                             itemId: 'softwareInstallPanel',
+                            margin: '15 0 0 0',
                             padding: '0 10 10 10',
                             header: false,
                             title: 'sofrwareInstallPanel',

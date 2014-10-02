@@ -54,7 +54,7 @@ Ext.define('MyApp.store.ComboSoftwareConfigVersionStore', {
 
     onJsonstoreLoad: function(store, records, successful, eOpts) {
         Ext.each(records, function(record) {
-            var displayField = record.get("configFileId") +" ("+record.get("regDt")+")";
+            var displayField = record.get("rowNum") +" ("+record.get("regDt")+")";
             record.set("configDisplayFileId", displayField);
         });
     }

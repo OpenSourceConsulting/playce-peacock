@@ -60,6 +60,14 @@ Ext.define('MyApp.model.ConfigModel', {
         {
             name: 'regDt',
             type: 'string'
+        },
+        {
+            name: 'confifFgfn',
+            type: 'string'
+        },
+        {
+            name: 'rowNum',
+            type: 'int'
         }
     ]
 });

@@ -193,7 +193,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "displayField": "configFileName",
+                                "displayField": "confifFgfn",
                                 "fieldLabel": "Config File Name",
                                 "itemId": "mycombobox3",
                                 "labelWidth": 130,
@@ -203,7 +203,7 @@
                                 "store": "ComboSoftwareConfigFileStore",
                                 "typeAhead": true,
                                 "valueField": "configFileName",
-                                "width": 350
+                                "width": 500
                             },
                             "designerId": "c8e29697-3228-43a6-acb8-9721fcbc42de",
                             "cn": [
@@ -248,6 +248,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "fieldLabel": "Path",
+                                "hidden": true,
                                 "layout|flex": null,
                                 "name": "configFilePath",
                                 "padding": "20 0 0 0",
@@ -324,6 +325,7 @@
                         "header": false,
                         "id": "softwareInstallPanel1",
                         "itemId": "softwareInstallPanel",
+                        "margin": "15 0 0 0",
                         "padding": "0 10 10 10",
                         "title": "sofrwareInstallPanel"
                     },

@@ -139,6 +139,32 @@
                 "type": "string"
             },
             "designerId": "8bb83e39-eb16-41f6-8de1-4c494c2be32c"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "confifFgfn",
+                "type": "string"
+            },
+            "designerId": "956fd2e8-bac1-4061-9965-1960aea637b7"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "rowNum",
+                "type": "int"
+            },
+            "designerId": "6ad21801-bf09-47c8-897f-e25ba23ce3c1"
         }
     ]
 }
