@@ -420,14 +420,12 @@ public class ProvisioningHandler {
 		command.addAction(s_action);
 
 		/** chown -R ${USERID}:${GROUPID} /home2/${USER}/www */
-		/*
 		s_action = new ShellAction(sequence++);
 		s_action.setCommand("chown");
 		s_action.addArguments("-R");
 		s_action.addArguments(user + ":" + group);
 		s_action.addArguments(serverHome + "/www");
 		command.addAction(s_action);
-		*/
 
 		/** chmod 700 /home2/${USER}/www */
 		s_action = new ShellAction(sequence++);
@@ -1633,7 +1631,7 @@ public class ProvisioningHandler {
 		config.setSoftwareId(provisioningDetail.getSoftwareId());
 		config.setConfigFileLocation(serverBase + "/" + serverName + "/conf");
 		config.setConfigFileName("login-config.xml");
-		config.setConfigFileContents(dsXml);
+		config.setConfigFileContents(loginConfigXml);
 		config.setDeleteYn("N");
 		config.setRegUserId(provisioningDetail.getUserId());
 		config.setUpdUserId(provisioningDetail.getUserId());
