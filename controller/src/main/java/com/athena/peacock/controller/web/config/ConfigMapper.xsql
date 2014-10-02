@@ -4,7 +4,13 @@
 <mapper namespace="ConfigMapper">
 
 	<select id="getConfigFileNames" parameterType="com.athena.peacock.controller.web.config.ConfigDto" resultType="com.athena.peacock.controller.web.config.ConfigDto">
-		SELECT DISTINCT(CONFIG_FILE_NAME) AS configFileName
+		SELECT MACHINE_ID AS machineId
+		       , SOFTWARE_ID AS softwareId
+		       , INSTALL_SEQ AS installSeq
+		       , CONFIG_FILE_ID AS configFileId
+		       , CONCAT(CONFIG_FILE_LOCATION, '/', CONFIG_FILE_NAME) AS configFqfn
+			   , CONFIG_FILE_LOCATION AS configFileLocation
+			   , CONFIG_FILE_NAME AS configFileName
 		  FROM config_tbl
 		 WHERE MACHINE_ID = #{machineId}
 		   AND SOFTWARE_ID = #{softwareId}
@@ -12,14 +18,22 @@
 	</select>
 	
 	<select id="getConfigFileVersions" parameterType="com.athena.peacock.controller.web.config.ConfigDto" resultType="com.athena.peacock.controller.web.config.ConfigDto">
-		SELECT CONFIG_FILE_ID AS configFileId
-			   , REG_DT AS regDt
-		  FROM config_tbl
-		 WHERE MACHINE_ID = #{machineId}
-		   AND SOFTWARE_ID = #{softwareId}
-		   AND CONFIG_FILE_NAME = #{configFileName}
-		   AND INSTALL_SEQ = #{installSeq}
-		 ORDER BY CONFIG_FILE_ID DESC
+		SELECT *
+		  FROM (SELECT @num:=@num+1 rowNum
+				       , MACHINE_ID AS machineId
+				       , SOFTWARE_ID AS softwareId
+				       , INSTALL_SEQ AS installSeq
+					   , CONFIG_FILE_ID AS configFileId
+					   , CONFIG_FILE_LOCATION AS configFileLocation
+					   , CONFIG_FILE_NAME AS configFileName
+					   , REG_DT AS regDt
+				  FROM (SELECT @num:=0) a, config_tbl
+				 WHERE MACHINE_ID = #{machineId}
+				   AND SOFTWARE_ID = #{softwareId}
+				   AND INSTALL_SEQ = #{installSeq}
+				   AND CONFIG_FILE_NAME = #{configFileName}
+				 ORDER BY CONFIG_FILE_ID) A
+		 ORDER BY A.rowNum DESC
 	</select>
 	
 	<insert id="insertConfig" parameterType="com.athena.peacock.controller.web.config.ConfigDto">

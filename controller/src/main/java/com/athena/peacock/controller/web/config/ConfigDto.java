@@ -37,15 +37,31 @@ public class ConfigDto extends BaseDto {
 
 	private static final long serialVersionUID = 1L;
 
+	private Integer rowNum;
 	private String machineId;
 	private Integer softwareId;
 	private Integer installSeq;
 	private Integer configFileId;
+	private String confifFgfn;
 	private String configFileLocation;
 	private String configFileName;
 	private String configFileContents;
 	private String deleteYn;
 	private String autoRestart = "Y";
+
+	/**
+	 * @return the rowNum
+	 */
+	public Integer getRowNum() {
+		return rowNum;
+	}
+
+	/**
+	 * @param rowNum the rowNum to set
+	 */
+	public void setRowNum(Integer rowNum) {
+		this.rowNum = rowNum;
+	}
 
 	/**
 	 * @return the machineId
@@ -101,6 +117,20 @@ public class ConfigDto extends BaseDto {
 	 */
 	public void setConfigFileId(Integer configFileId) {
 		this.configFileId = configFileId;
+	}
+
+	/**
+	 * @return the confifFgfn
+	 */
+	public String getConfifFgfn() {
+		return confifFgfn;
+	}
+
+	/**
+	 * @param confifFgfn the confifFgfn to set
+	 */
+	public void setConfifFgfn(String confifFgfn) {
+		this.confifFgfn = confifFgfn;
 	}
 
 	/**
