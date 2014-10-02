@@ -2560,6 +2560,24 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
+                                        "boxLabel": "Check when using HTTP Connector",
+                                        "checked": true,
+                                        "fieldLabel": "HTTP Enable",
+                                        "inputValue": "Y",
+                                        "labelWidth": null,
+                                        "name": "httpEnable",
+                                        "uncheckedValue": "N"
+                                    },
+                                    "designerId": "6f733679-0323-43f1-bc6c-2b9406d6f143"
+                                },
+                                {
+                                    "type": "Ext.form.field.Checkbox",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
                                         "boxLabel": "Start Service after Installation",
                                         "checked": true,
                                         "fieldLabel": "Start Service",

@@ -240,7 +240,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "boxLabel": "Create a group with the same name as the user",
+                                "boxLabel": "Use initial login group",
                                 "checked": true,
                                 "fieldLabel": "Group",
                                 "inputValue": "Y",
@@ -260,9 +260,9 @@
                                         "fn": "onCheckboxfieldChange",
                                         "implHandler": [
                                             "if(newValue == true) {",
-                                            "    field.up('form').getForm().findField('group').setDisabled(true);",
-                                            "} else {",
                                             "    field.up('form').getForm().findField('group').setDisabled(false);",
+                                            "} else {",
+                                            "    field.up('form').getForm().findField('group').setDisabled(true);",
                                             "}"
                                         ],
                                         "name": "change",
@@ -321,9 +321,9 @@
                                         "fn": "onCheckboxfieldChange1",
                                         "implHandler": [
                                             "if(newValue == true) {",
-                                            "    field.up('form').getForm().findField('groups').setDisabled(true);",
-                                            "} else {",
                                             "    field.up('form').getForm().findField('groups').setDisabled(false);",
+                                            "} else {",
+                                            "    field.up('form').getForm().findField('groups').setDisabled(true);",
                                             "}"
                                         ],
                                         "name": "change",

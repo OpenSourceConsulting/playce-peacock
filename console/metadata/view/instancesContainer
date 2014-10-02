@@ -1048,7 +1048,7 @@
                                                     "userConfig": {
                                                         "fieldLabel": "Description",
                                                         "layout|flex": null,
-                                                        "name": "discription"
+                                                        "name": "description"
                                                     },
                                                     "designerId": "911eb935-0e28-449a-8fe3-1bf0b67006d6"
                                                 }

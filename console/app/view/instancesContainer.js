@@ -501,7 +501,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                         {
                                                             xtype: 'displayfield',
                                                             fieldLabel: 'Description',
-                                                            name: 'discription'
+                                                            name: 'description'
                                                         }
                                                     ]
                                                 }

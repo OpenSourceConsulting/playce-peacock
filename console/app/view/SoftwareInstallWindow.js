@@ -1024,6 +1024,15 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                         },
                                         {
                                             xtype: 'checkboxfield',
+                                            fieldLabel: 'HTTP Enable',
+                                            name: 'httpEnable',
+                                            boxLabel: 'Check when using HTTP Connector',
+                                            checked: true,
+                                            inputValue: 'Y',
+                                            uncheckedValue: 'N'
+                                        },
+                                        {
+                                            xtype: 'checkboxfield',
                                             fieldLabel: 'Start Service',
                                             name: 'autoStart',
                                             boxLabel: 'Start Service after Installation',

@@ -125,7 +125,7 @@ Ext.define('MyApp.view.RegAccountWindow', {
                                     xtype: 'checkboxfield',
                                     fieldLabel: 'Group',
                                     name: 'checkGroup',
-                                    boxLabel: 'Create a group with the same name as the user',
+                                    boxLabel: 'Use initial login group',
                                     checked: true,
                                     inputValue: 'Y',
                                     uncheckedValue: 'N',
@@ -279,17 +279,17 @@ Ext.define('MyApp.view.RegAccountWindow', {
 
     onCheckboxfieldChange: function(field, newValue, oldValue, eOpts) {
         if(newValue == true) {
-            field.up('form').getForm().findField('group').setDisabled(true);
-        } else {
             field.up('form').getForm().findField('group').setDisabled(false);
+        } else {
+            field.up('form').getForm().findField('group').setDisabled(true);
         }
     },
 
     onCheckboxfieldChange1: function(field, newValue, oldValue, eOpts) {
         if(newValue == true) {
-            field.up('form').getForm().findField('groups').setDisabled(true);
-        } else {
             field.up('form').getForm().findField('groups').setDisabled(false);
+        } else {
+            field.up('form').getForm().findField('groups').setDisabled(true);
         }
     }
 
