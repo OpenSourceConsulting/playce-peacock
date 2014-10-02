@@ -288,7 +288,9 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
         versionStore2.getProxy().extraParams = versionStore.getProxy().extraParams;
         versionStore2.load();
 
+
         form.findField("configFileId").setValue("");
+        form.findField("compareVersion").setValue("");
         form.findField("configFileContents").setValue("");
         form.findField("configSystemContents").setValue("");
     },

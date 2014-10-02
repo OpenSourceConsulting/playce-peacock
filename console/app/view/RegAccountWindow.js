@@ -126,7 +126,6 @@ Ext.define('MyApp.view.RegAccountWindow', {
                                     fieldLabel: 'Group',
                                     name: 'checkGroup',
                                     boxLabel: 'Use initial login group',
-                                    checked: true,
                                     inputValue: 'Y',
                                     uncheckedValue: 'N',
                                     listeners: {
@@ -154,7 +153,6 @@ Ext.define('MyApp.view.RegAccountWindow', {
                                     fieldLabel: 'Groups',
                                     name: 'checkGroup2',
                                     boxLabel: 'Use supplementary groups',
-                                    checked: true,
                                     inputValue: 'Y',
                                     uncheckedValue: 'N',
                                     listeners: {

@@ -241,7 +241,6 @@
                             "codeClass": null,
                             "userConfig": {
                                 "boxLabel": "Use initial login group",
-                                "checked": true,
                                 "fieldLabel": "Group",
                                 "inputValue": "Y",
                                 "name": "checkGroup",
@@ -302,7 +301,6 @@
                             "codeClass": null,
                             "userConfig": {
                                 "boxLabel": "Use supplementary groups",
-                                "checked": true,
                                 "fieldLabel": "Groups",
                                 "inputValue": "Y",
                                 "name": "checkGroup2",
