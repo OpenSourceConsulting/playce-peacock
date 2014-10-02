@@ -4,3 +4,6 @@
 # Package Files #
 *.war
 *.ear
+
+# 
+rebel.xml
