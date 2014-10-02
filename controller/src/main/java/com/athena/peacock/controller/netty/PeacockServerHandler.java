@@ -72,6 +72,8 @@ import com.athena.peacock.controller.common.component.RHEVMRestTemplate;
 import com.athena.peacock.controller.common.component.RHEVMRestTemplateManager;
 import com.athena.peacock.controller.common.core.handler.MonFactorHandler;
 import com.athena.peacock.controller.web.config.ConfigDto;
+import com.athena.peacock.controller.web.hypervisor.HypervisorDto;
+import com.athena.peacock.controller.web.hypervisor.HypervisorService;
 import com.athena.peacock.controller.web.machine.MachineDto;
 import com.athena.peacock.controller.web.machine.MachineService;
 import com.athena.peacock.controller.web.monitor.MonDataDto;
@@ -195,6 +197,14 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 						boolean isMatch = false;
 						try {
 							List<RHEVMRestTemplate> templates = RHEVMRestTemplateManager.getAllTemplates();
+							
+							if (templates == null || templates.size() == 0) {
+								List<HypervisorDto> hypervisorList = AppContext.getBean(HypervisorService.class).getHypervisorList();
+								RHEVMRestTemplateManager.resetRHEVMRestTemplate(hypervisorList);
+								templates = RHEVMRestTemplateManager.getAllTemplates();
+							}
+							
+							logger.debug("[PeacockServerHandler] templates.size() : {}", templates.size());
 							
 							for (RHEVMRestTemplate restTemplate : templates) {
 								VMs vms = restTemplate.submit("/api/vms?search=" + ipAddr, HttpMethod.GET, VMs.class);

@@ -161,11 +161,14 @@ public class RHEVMRestTemplate {
 	    HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
 			@Override
 			public boolean verify(String hostname, SSLSession session) {
+				/*
 				if (hostname.equals(host)) {
                     return true;
 				}
 				
 				return false;
+				*/
+				return true;
 			}
 	    });
 	    
@@ -321,13 +324,13 @@ public class RHEVMRestTemplate {
 	 * @throws RestClientException
 	 * @throws Exception
 	 */
-	public <T> T submit(String api, HttpMethod method, Object body, String rootElementName, Class<T> clazz) throws RestClientException, Exception {
+	public synchronized <T> T submit(String api, HttpMethod method, Object body, String rootElementName, Class<T> clazz) throws RestClientException, Exception {
 		Assert.isTrue(StringUtils.isNotEmpty(api), "api must not be null");
 		Assert.notNull(clazz, "clazz must not be null.");
 		
 		// Multi RHEV Manager 사용 시 호스트가 서로 다를 경우 가장 최근에 등록된 HostnameVerifier만 인식하며,
 		// 이전의 호스트로 호출 시 에러가 발생한다.(java.io.IOException: HTTPS hostname wrong:  should be <{host}>)
-		init();
+		//init();
 		
 		try {
 			RestTemplate rt = new RestTemplate();
