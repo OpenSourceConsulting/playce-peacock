@@ -131,6 +131,8 @@ public class MachineService {
 	public void updateMachine(MachineDto machine) throws RestClientException, Exception {
 		MachineDto m = machineDao.getMachine(machine.getMachineId());
 		
+		boolean hostnameChanged = false;
+		
 		// Instance 이름이 변경되었을 경우 DB, RHEV-M 업데이트
 		if (!machine.getDisplayName().equals(m.getDisplayName())) {
 			if (m.getHypervisorId() != null && m.getHypervisorId() > 0) {
@@ -188,7 +190,6 @@ public class MachineService {
 		}
 		
 		if (StringUtils.isNotEmpty(machine.getHostName()) && !machine.getHostName().equals(m.getHostName())) {
-
 			// Agent가 Running 상태일 경우 ShellAction으로 agent의 chhost.sh 스크립트 실행
 			// Agent가 Down 상태일 경우 machine_additional_info_tbl에 업데이트 되어 Running 상태로 변경 시 HostName이 변경된다.
 			if (StringUtils.isNotEmpty(machine.getIpAddress()) && peacockTransmitter.isActive(machine.getMachineId())) {
@@ -221,8 +222,10 @@ public class MachineService {
 					
 					PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
 					peacockTransmitter.sendMessage(datagram);
+					
+					hostnameChanged = true;
 				} catch (Exception e) {
-					// HostName 변경이 실패하더라고 고정 IP 세팅을 할 수 있도록 예외를 무시한다.
+					// HostName 변경이 실패하더라도 고정 IP 세팅을 할 수 있도록 예외를 무시한다.
 					logger.error("Unhandled exception has occurred while change hostname.", e);
 				}
 			}
@@ -237,6 +240,12 @@ public class MachineService {
 							|| !machine.getNameServer().equals(add.getNameServer()))) {
         	machine.setIpAddr(m.getIpAddr());
         	applyStaticIp(machine);
+        } else {
+        	if (hostnameChanged) {
+        		// IP 변경 없이 hostname만 변경된 경우 peacock-agent를 restart 한다.
+				sendCommand(getMachine(machine.getMachineId()), "service peacock-agent restart");
+				Thread.sleep(3000);
+        	}
         }
 	}
 	
