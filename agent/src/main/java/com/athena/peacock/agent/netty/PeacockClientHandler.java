@@ -91,6 +91,7 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 
     private boolean connected = false;
     private static boolean packageCollected = false;
+    private static boolean softwareCollected = false;
     
     private PeacockClient client = null;
     
@@ -215,7 +216,10 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 				}
 				
 				if (softwareInstalled.equals("N")) {
-					new SoftwareGatherThread(ctx).start();
+					if (!softwareCollected) {
+						softwareCollected = true;
+						new SoftwareGatherThread(ctx).start();
+					}
 				}
 				
 				Scheduler scheduler = (Scheduler)AppContext.getBean("quartzJobScheduler");
@@ -626,7 +630,7 @@ class SoftwareGatherThread extends Thread {
 					properties = new Properties();
 				    properties.load(new StringReader(consumer.getOutput()));
 				    
-				    int count = (Integer) properties.get("COUNT");
+				    int count = Integer.parseInt((String) properties.get("COUNT"));
 				    String apacheHome = (String) properties.get("APACHE_HOME");
 				    String serverHome = (String) properties.get("SERVER_HOME");
 				    String startCmd =  (String) properties.get("START_CMD");
@@ -662,26 +666,32 @@ class SoftwareGatherThread extends Thread {
 						
 						for (String configKey : configKeys) {
 							if ((configFile = (String) properties.get(configKey)) != null) {
-								commandLine = new Commandline();
-								commandLine.setExecutable("cat");
-								commandLine.createArg().setLine(configFile.split(",")[i]);
-								
-								consumer = new CommandLineUtils.StringStreamConsumer();
-		
-								returnCode = CommandLineUtils.executeCommandLine(commandLine, consumer, consumer, Integer.MAX_VALUE);
-								
-								if (returnCode == 0) {
-									configInfo = new ConfigInfo();
-									configInfo.setConfigFileLocation(configFile.split(",")[i].substring(0, configFile.split(",")[i].lastIndexOf("/")));
-									configInfo.setConfigFileName(configFile.split(",")[i].substring(configFile.split(",")[i].lastIndexOf("/") + 1));
-									configInfo.setConfigFileContents(consumer.getOutput());
-									softwareInfo.getConfigInfoList().add(configInfo);
+								// ,,,,, 일 경우 split size가 0으로 반환되는 것을 방지하기 위해 공백을 넣어준다.
+								configFile = configFile + " ";
+								if (configFile.split(",").length > 0 && configFile.split(",")[i].indexOf("/") >= 0) {
+									commandLine = new Commandline();
+									commandLine.setExecutable("cat");
+									commandLine.createArg().setLine(configFile.split(",")[i]);
+									
+									consumer = new CommandLineUtils.StringStreamConsumer();
+			
+									returnCode = CommandLineUtils.executeCommandLine(commandLine, consumer, consumer, Integer.MAX_VALUE);
+									
+									if (returnCode == 0) {
+										configInfo = new ConfigInfo();
+										configInfo.setConfigFileLocation(configFile.split(",")[i].substring(0, configFile.split(",")[i].lastIndexOf("/")));
+										configInfo.setConfigFileName(configFile.split(",")[i].substring(configFile.split(",")[i].lastIndexOf("/") + 1, configFile.split(",")[i].length() - 1));
+										configInfo.setConfigFileContents(consumer.getOutput());
+										softwareInfo.getConfigInfoList().add(configInfo);
+									}
 								}
 							}
 						}
 
 						msg.getSoftwareInfoList().add(softwareInfo);
 				    }
+				    
+					logger.debug("End Software(httpd) info gathering...");
 				}
 			} catch (Exception e1) {
 				// ignore after logging
@@ -707,7 +717,7 @@ class SoftwareGatherThread extends Thread {
 					properties = new Properties();
 				    properties.load(new StringReader(consumer.getOutput()));
 				    
-				    int count = (Integer) properties.get("COUNT");
+				    int count = Integer.parseInt((String) properties.get("COUNT"));
 					String version = (String) properties.get("VERSION");
 				    String catalinaHome = (String) properties.get("CATALINA_HOME");
 				    String serverHome = (String) properties.get("SERVER_HOME");
@@ -744,26 +754,32 @@ class SoftwareGatherThread extends Thread {
 						
 						for (String configKey : configKeys) {
 							if ((configFile = (String) properties.get(configKey)) != null) {
-								commandLine = new Commandline();
-								commandLine.setExecutable("cat");
-								commandLine.createArg().setLine(configFile.split(",")[i]);
-								
-								consumer = new CommandLineUtils.StringStreamConsumer();
-		
-								returnCode = CommandLineUtils.executeCommandLine(commandLine, consumer, consumer, Integer.MAX_VALUE);
-								
-								if (returnCode == 0) {
-									configInfo = new ConfigInfo();
-									configInfo.setConfigFileLocation(configFile.split(",")[i].substring(0, configFile.split(",")[i].lastIndexOf("/")));
-									configInfo.setConfigFileName(configFile.split(",")[i].substring(configFile.split(",")[i].lastIndexOf("/") + 1));
-									configInfo.setConfigFileContents(consumer.getOutput());
-									softwareInfo.getConfigInfoList().add(configInfo);
+								// ,,,,, 일 경우 split size가 0으로 반환되는 것을 방지하기 위해 공백을 넣어준다.
+								configFile = configFile + " ";
+								if (configFile.split(",").length > 0 && configFile.split(",")[i].indexOf("/") >= 0) {
+									commandLine = new Commandline();
+									commandLine.setExecutable("cat");
+									commandLine.createArg().setLine(configFile.split(",")[i]);
+									
+									consumer = new CommandLineUtils.StringStreamConsumer();
+			
+									returnCode = CommandLineUtils.executeCommandLine(commandLine, consumer, consumer, Integer.MAX_VALUE);
+									
+									if (returnCode == 0) {
+										configInfo = new ConfigInfo();
+										configInfo.setConfigFileLocation(configFile.split(",")[i].substring(0, configFile.split(",")[i].lastIndexOf("/")));
+										configInfo.setConfigFileName(configFile.split(",")[i].substring(configFile.split(",")[i].lastIndexOf("/") + 1, configFile.split(",")[i].length() - 1));
+										configInfo.setConfigFileContents(consumer.getOutput());
+										softwareInfo.getConfigInfoList().add(configInfo);
+									}
 								}
 							}
 						}
 
 						msg.getSoftwareInfoList().add(softwareInfo);
 				    }
+				    
+					logger.debug("End Software(tomcat) info gathering...");
 				}
 			} catch (Exception e1) {
 				// ignore after logging
@@ -789,7 +805,7 @@ class SoftwareGatherThread extends Thread {
 					properties = new Properties();
 				    properties.load(new StringReader(consumer.getOutput()));
 				    
-				    int count = (Integer) properties.get("COUNT");
+				    int count = Integer.parseInt((String) properties.get("COUNT"));
 					String version = (String) properties.get("VERSION");
 				    String jbossHome = (String) properties.get("JBOSS_HOME");
 				    String serverHome = (String) properties.get("SERVER_HOME");
@@ -825,26 +841,32 @@ class SoftwareGatherThread extends Thread {
 						
 						for (String configKey : configKeys) {
 							if ((configFile = (String) properties.get(configKey)) != null) {
-								commandLine = new Commandline();
-								commandLine.setExecutable("cat");
-								commandLine.createArg().setLine(configFile.split(",")[i]);
-								
-								consumer = new CommandLineUtils.StringStreamConsumer();
-		
-								returnCode = CommandLineUtils.executeCommandLine(commandLine, consumer, consumer, Integer.MAX_VALUE);
-								
-								if (returnCode == 0) {
-									configInfo = new ConfigInfo();
-									configInfo.setConfigFileLocation(configFile.split(",")[i].substring(0, configFile.split(",")[i].lastIndexOf("/")));
-									configInfo.setConfigFileName(configFile.split(",")[i].substring(configFile.split(",")[i].lastIndexOf("/") + 1));
-									configInfo.setConfigFileContents(consumer.getOutput());
-									softwareInfo.getConfigInfoList().add(configInfo);
+								// ,,,,, 일 경우 split size가 0으로 반환되는 것을 방지하기 위해 공백을 넣어준다.
+								configFile = configFile + " ";
+								if (configFile.split(",").length > 0 && configFile.split(",")[i].indexOf("/") >= 0) {
+									commandLine = new Commandline();
+									commandLine.setExecutable("cat");
+									commandLine.createArg().setLine(configFile.split(",")[i]);
+									
+									consumer = new CommandLineUtils.StringStreamConsumer();
+			
+									returnCode = CommandLineUtils.executeCommandLine(commandLine, consumer, consumer, Integer.MAX_VALUE);
+									
+									if (returnCode == 0) {
+										configInfo = new ConfigInfo();
+										configInfo.setConfigFileLocation(configFile.split(",")[i].substring(0, configFile.split(",")[i].lastIndexOf("/")));
+										configInfo.setConfigFileName(configFile.split(",")[i].substring(configFile.split(",")[i].lastIndexOf("/") + 1, configFile.split(",")[i].length() - 1));
+										configInfo.setConfigFileContents(consumer.getOutput());
+										softwareInfo.getConfigInfoList().add(configInfo);
+									}
 								}
 							}
 						}
 
 						msg.getSoftwareInfoList().add(softwareInfo);
 				    }
+				    
+					logger.debug("End Software(eap) info gathering...");
 				}
 			} catch (Exception e1) {
 				// ignore after logging

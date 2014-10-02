@@ -1785,6 +1785,7 @@ public class ProvisioningHandler {
 		ConfigDto config = new ConfigDto();
 		config.setSoftwareId(provisioningDetail.getSoftwareId());
 		config.setMachineId(provisioningDetail.getMachineId());
+		config.setInstallSeq(software.getInstallSeq());
 		config.setDeleteYn("N");
 		config.setStart(0);
 		config.setLimit(100);
@@ -1873,6 +1874,7 @@ public class ProvisioningHandler {
 		ConfigDto config = new ConfigDto();
 		config.setSoftwareId(provisioningDetail.getSoftwareId());
 		config.setMachineId(provisioningDetail.getMachineId());
+		config.setInstallSeq(software.getInstallSeq());
 		config.setDeleteYn("N");
 		config.setStart(0);
 		config.setLimit(100);
@@ -1932,6 +1934,7 @@ public class ProvisioningHandler {
 		ConfigDto config = new ConfigDto();
 		config.setSoftwareId(provisioningDetail.getSoftwareId());
 		config.setMachineId(provisioningDetail.getMachineId());
+		config.setInstallSeq(software.getInstallSeq());
 		config.setDeleteYn("N");
 		config.setStart(0);
 		config.setLimit(100);
@@ -1991,6 +1994,7 @@ public class ProvisioningHandler {
 		ConfigDto config = new ConfigDto();
 		config.setSoftwareId(provisioningDetail.getSoftwareId());
 		config.setMachineId(provisioningDetail.getMachineId());
+		config.setInstallSeq(software.getInstallSeq());
 		config.setDeleteYn("N");
 		config.setStart(0);
 		config.setLimit(100);

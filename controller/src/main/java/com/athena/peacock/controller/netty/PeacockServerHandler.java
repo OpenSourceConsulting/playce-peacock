@@ -242,6 +242,9 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 						
 						// Agent에 RHEV Manager에 등록된 ID로 세팅되도록 AgentID를 전달
 						// 해당 Agent에 Software 설치 이력이 없을 경우 Software 정보 수집을 함꼐 요청
+						if (this.softwareService == null) {
+							softwareService = AppContext.getBean(SoftwareService.class);
+						}
 						List<SoftwareDto> softwareList = softwareService.getSoftwareInstallListAll(machineId);
 						
 						AgentInitialInfoMessage returnMsg = new AgentInitialInfoMessage();

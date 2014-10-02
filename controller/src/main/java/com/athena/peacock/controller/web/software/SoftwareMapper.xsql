@@ -3,7 +3,7 @@
 
 <mapper namespace="SoftwareMapper">
 
-	<insert id="insertSoftware" parameterType="com.athena.peacock.controller.web.software.SoftwareDto">
+	<insert id="insertSoftware" parameterType="com.athena.peacock.controller.web.software.SoftwareDto" useGeneratedKeys="true" keyProperty="installSeq">
 		INSERT INTO software_tbl 
 			        (MACHINE_ID, SOFTWARE_ID, INSTALL_LOCATION, INSTALL_STAT, INSTALL_LOG, SERVICE_STOP_CMD, SERVICE_START_CMD
 			        , DESCRIPTION, DELETE_YN, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT) 

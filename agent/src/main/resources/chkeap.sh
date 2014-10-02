@@ -73,6 +73,7 @@ do
     fi
 done
 
+echo "COUNT="$COUNT
 echo "JBOSS_DIR="$JBOSS_DIR
 echo "JBOSS_HOME="$JBOSS_HOME
 echo "JBOSS_USER="$JBOSS_USER

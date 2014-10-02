@@ -73,11 +73,12 @@ public class SoftwareService {
 		}
 		
 		// 기존에 존재하는 config 파일 정보를 삭제 처리한다.
-		if (configList.size() > 0) {
-			configDao.deleteConfig(configList.get(0));
-		}
+		//if (configList.size() > 0) {
+		//	configDao.deleteConfig(configList.get(0));
+		//}
 		
 		for (ConfigDto config : configList) {
+			config.setInstallSeq(software.getInstallSeq());
 			configDao.insertConfig(config);
 		}
 	}

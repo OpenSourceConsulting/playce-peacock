@@ -39,6 +39,8 @@ import com.athena.peacock.controller.common.component.RHEVMRestTemplate;
 import com.athena.peacock.controller.common.component.RHEVMRestTemplateManager;
 import com.athena.peacock.controller.netty.PeacockTransmitter;
 import com.athena.peacock.controller.web.alm.AlmDashboardComponent;
+import com.athena.peacock.controller.web.hypervisor.HypervisorDto;
+import com.athena.peacock.controller.web.hypervisor.HypervisorService;
 import com.athena.peacock.controller.web.machine.MachineDao;
 import com.athena.peacock.controller.web.machine.MachineDto;
 import com.athena.peacock.controller.web.monitor.MonDataDao;
@@ -91,6 +93,10 @@ public class DashboardService {
     @Named("peacockTransmitter")
 	private PeacockTransmitter peacockTransmitter;
 
+	@Inject
+	@Named("hypervisorService")
+	private HypervisorService hypervisorService;
+
 	private DashboardDto dashboardDto;
 	private String status = "INIT";
     
@@ -105,8 +111,16 @@ public class DashboardService {
     	status = "GATHERING";
     	
 		DashboardDto dto = new DashboardDto();
-		
+
 		List<RHEVMRestTemplate> rhevmTemplateList = RHEVMRestTemplateManager.getAllTemplates();
+		
+		if (rhevmTemplateList == null || rhevmTemplateList.size() == 0) {
+			List<HypervisorDto> hypervisorList = hypervisorService.getHypervisorList();
+			RHEVMRestTemplateManager.resetRHEVMRestTemplate(hypervisorList);
+			rhevmTemplateList = RHEVMRestTemplateManager.getAllTemplates();
+		}
+		
+		logger.debug("[DASHBOARD] rhevmTemplateList.size() : {}", rhevmTemplateList.size());
 		
 		for (RHEVMRestTemplate restTemplate : rhevmTemplateList) {
 			dto.addRhevmNames(restTemplate.getRhevmName());
@@ -141,6 +155,8 @@ public class DashboardService {
 				}
 			}
 			
+			logger.debug("[DASHBOARD] {}'s Virtual Machine 전체 목록 조회 완료 : {}", restTemplate.getRhevmName(), instanceList.size());
+			
 			// Template 전체 목록 조회
 			Templates templates = restTemplate.submit(RHEVApi.TEMPLATES, HttpMethod.GET, Templates.class);
 			List<TemplateDto> templateList = new ArrayList<TemplateDto>();
@@ -153,6 +169,8 @@ public class DashboardService {
 			}
 			
 			int templateTotalCnt = templateList.size();
+			
+			logger.debug("[DASHBOARD] {}'s Template 전체 목록 조회 완료 : {}", restTemplate.getRhevmName(), templateList.size());
 			
 			// Agent 목록 조회
 			MachineDto machine = new MachineDto();
@@ -180,6 +198,8 @@ public class DashboardService {
 				agentList.add(instanceDto);
 			}
 			
+			logger.debug("[DASHBOARD] {}'s Agent 전체 목록 조회 완료 : {}", restTemplate.getRhevmName(), agentList.size());
+			
 			dto.getVmTotalCnt().put(restTemplate.getRhevmName(), total);
 			dto.getVmUpCnt().put(restTemplate.getRhevmName(), active);
 			dto.getVmList().put(restTemplate.getRhevmName(), instanceList);
@@ -188,9 +208,13 @@ public class DashboardService {
 			dto.getAgentList().put(restTemplate.getRhevmName(), agentList);
 			dto.getAgentTotalCnt().put(restTemplate.getRhevmName(), agentTotalCnt);
 			dto.getAgentRunningCnt().put(restTemplate.getRhevmName(), agentRunningCnt);
+
+			logger.debug("[DASHBOARD] {}'s critical / alarm list, cpu / memory / disk top 5 list 조회 시작", restTemplate.getRhevmName());
 			
 			// critical / alarm list, cpu / memory / disk top 5 list
 			monDataDao.getAlarmList(restTemplate.getHypervisorId(), restTemplate.getRhevmName(), dto);
+			
+			logger.debug("[DASHBOARD] {}'s critical / alarm list, cpu / memory / disk top 5 list 조회 완료", restTemplate.getRhevmName());
 		}
 		
 		// project cnt

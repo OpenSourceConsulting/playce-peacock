@@ -92,8 +92,8 @@
 			   , UPD_DT = NOW()
 		 WHERE MACHINE_ID = #{machineId}
 		   AND SOFTWARE_ID = #{softwareId}
-		   AND INSTALL_SEQ = #{installSeq}
 		   AND DELETE_YN = 'N'
+		<if test="installSeq != null">AND INSTALL_SEQ = #{installSeq}</if>
 		<if test="configFileId != null">AND CONFIG_FILE_ID = #{configFileId}</if>
 	</update>
 	
