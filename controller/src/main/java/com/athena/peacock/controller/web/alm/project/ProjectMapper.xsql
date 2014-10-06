@@ -64,7 +64,7 @@
 			,#{mappingCode}
 			,#{mappingPermission}
 			, now()
-			, 'STANDBY'
+			,#{status}
 		)
 	</insert>
 	

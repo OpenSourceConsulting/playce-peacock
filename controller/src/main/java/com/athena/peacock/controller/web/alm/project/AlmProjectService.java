@@ -180,6 +180,7 @@ public class AlmProjectService {
 				confluenceMapping.setMappingCode(confluence.getMappingCode());
 				confluenceMapping.setMappingPermission(confluence
 						.getMappingPermission());
+				confluenceMapping.setStatus("STANDBY");
 				projectDao.insertProjectMapping(confluenceMapping);
 
 				StringBuffer sb = new StringBuffer();
@@ -196,6 +197,7 @@ public class AlmProjectService {
 		svnMapping.setMappingCode(projectCode);
 		svnMapping.setMappingType(30);
 		svnMapping.setProjectCode(projectCode);
+		svnMapping.setStatus("STANDBY");
 
 		projectDao.insertProjectMapping(svnMapping);
 		createProjectHistor(projectCode, projectCode
@@ -306,16 +308,29 @@ public class AlmProjectService {
 		ProjectMappingDto mappingDto = new ProjectMappingDto();
 		mappingDto.setProjectCode(projectCode);
 		mappingDto.setMappingCode(mappingCode);
+		mappingDto.setStatus("MANUAL");
 
 		if (mappingtype.equals("jenkins")) {
 			mappingDto.setMappingType(20);
 			response.setMsg("Jenkins Job이 추가되었습니다");
+			StringBuffer sb = new StringBuffer();
+			sb.append(projectCode);
+			sb.append(" 프로젝트에");
+			sb.append(mappingCode);
+			sb.append(" Jenkins Job 권한 생성 요청 되었습니다.");
+			createProjectHistor(projectCode, sb.toString());
 		} else if (mappingtype.equals("svn")) {
 			mappingDto.setMappingType(30);
 			response.setMsg("SVN Repository가 추가되었습니다");
 		} else if (mappingtype.equals("confluence")) {
 			mappingDto.setMappingType(10);
 			response.setMsg("Confluence Space가 추가되었습니다");
+			StringBuffer sb = new StringBuffer();
+			sb.append(projectCode);
+			sb.append(" 프로젝트에");
+			sb.append(mappingCode);
+			sb.append(" Confluence Space 권한 생성 요청 되었습니다.");
+			createProjectHistor(projectCode, sb.toString());
 		} else {
 			response.setSuccess(false);
 			response.setMsg("맵핑 코드가 정확하지 않습니다");
@@ -542,6 +557,7 @@ public class AlmProjectService {
 		projectMapping.setProjectCode(projectCode);
 		projectMapping.setMappingType(40);
 		projectMapping.setMappingPermission(gson.toJson(templateInfomation));
+		projectMapping.setStatus("STANDBY");
 
 		if (type.equals("MOBILE")) {
 			projectMapping.setMappingCode(projectCode + "_mobile");
@@ -554,7 +570,6 @@ public class AlmProjectService {
 
 	// User password Reset
 	public DtoJsonResponse resetPassword(ProjectUserPasswordResetDto resetDto) {
-
 		return userService.resetPassword(resetDto);
 	}
 }

@@ -107,7 +107,6 @@ public class AlmProjectController {
 	@RequestMapping(value = "/project", method = RequestMethod.POST)
 	public @ResponseBody
 	DtoJsonResponse createProject(@RequestBody ProjectDto project) {
-
 		return almProjectService.createProject(project);
 	}
 
