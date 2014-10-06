@@ -91,11 +91,9 @@ public class AlmSvnService {
 
 	public boolean checkSvnProject(String repositoryCode) {
 
-System.out.println("#################");
 		try {
 			String url = SVN_URL + "/" + repositoryCode;
-			System.out.println("#################");
-			System.out.println(url);
+
 			// SVNKit Setting
 			SVNRepositoryFactoryImpl.setup();
 			FSRepositoryFactory.setup();
@@ -106,18 +104,18 @@ System.out.println("#################");
 			SVNURL svnUrl = SVNURL.parseURIEncoded(url);
 			SVNRepository repository = DAVRepositoryFactory.create(svnUrl);
 			repository.setAuthenticationManager(authManager);
-
+			repository.getLatestRevision();
+			return true;
 
 		} catch (SVNException e) {
-			System.out.println("11#######################");
-			System.out.println("22#######################");
-			System.out.println("33#######################");
-			System.out.println("44#######################");
+			return false;
 		}
 
-		//return statusDto;
-		return false;
+	}
 
+	public String getSvnUrl() {
+
+		return SVN_URL;
 	}
 
 }

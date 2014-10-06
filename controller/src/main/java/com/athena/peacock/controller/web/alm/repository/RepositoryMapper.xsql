@@ -28,11 +28,13 @@
         	,REPOSIROTY_TYPE
         	,REPOSIROTY_DESCRIPTION
         	,REPOSIROTY_URL
+        	,REPOSITORY_STATUS
         ) VALUES (
         	#{repositoryCode}
         	,#{repositoryType}
         	,#{repositoryDescription}
         	,#{repositoryUrl}
+        	,#{repositoryStatus}
         )
     </insert>
     

@@ -274,9 +274,8 @@ public class AlmProjectController {
 	@RequestMapping(value = "/project/nexus/archetype", method = RequestMethod.GET)
 	public @ResponseBody
 	DtoJsonResponse getnexus() {
-
 		DtoJsonResponse response = new DtoJsonResponse();
-		response.setData(nexus.getJobs());
+		response.setData(nexus.getArchetype());
 		return response;
 	}
 
@@ -284,7 +283,6 @@ public class AlmProjectController {
 	public @ResponseBody
 	DtoJsonResponse getJenkinsNotification(
 			@RequestBody JobNotificationDto notification) {
-
 		System.out.println("****************************");
 		System.out.println(notification.getName());
 		System.out.println(notification.getUrl());

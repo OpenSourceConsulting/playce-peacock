@@ -45,10 +45,16 @@ public class AlmReposirotyService {
 	public DtoJsonResponse insertAlmProjectRepository(RepositoryDto param) {
 
 		DtoJsonResponse response = new DtoJsonResponse();
-		response.setMsg("리포지토리가 등록되었습니다.");
-		param.setRepositoryStatus("FAIL");
-		svnService.checkSvnProject(param.getRepositoryCode());
-		repositoryDao.insertAlmProjectRepository(param);
+		if (svnService.checkSvnProject(param.getRepositoryCode())) {
+			param.setRepositoryStatus("OK");
+			param.setRepositoryUrl(svnService.getSvnUrl() + "/"
+					+ param.getRepositoryCode());
+			repositoryDao.insertAlmProjectRepository(param);
+			response.setMsg("리포지토리가 등록되었습니다.");
+		} else {
+			response.setSuccess(false);
+			response.setMsg("SVN Repository가 존재하지 않습니다");
+		}
 
 		return response;
 	}

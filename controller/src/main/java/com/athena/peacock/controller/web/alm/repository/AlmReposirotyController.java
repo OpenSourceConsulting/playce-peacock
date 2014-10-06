@@ -52,7 +52,6 @@ public class AlmReposirotyController {
 	@RequestMapping(value = "/repository", method = RequestMethod.POST)
 	public @ResponseBody
 	DtoJsonResponse createRepositoryList(@RequestBody RepositoryDto param) {
-		System.out.println("!!!!!!!!!!!!");
 		return almRepositoryService.insertAlmProjectRepository(param);
 	}
 
