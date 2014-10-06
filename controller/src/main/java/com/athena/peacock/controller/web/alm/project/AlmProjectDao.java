@@ -8,7 +8,6 @@ import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectHistoryDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto;
 import com.athena.peacock.controller.web.common.dao.AbstractBaseDao;
-import com.athena.peacock.controller.web.user.UserDto;
 
 @Repository("almProjectDao")
 public class AlmProjectDao extends AbstractBaseDao {

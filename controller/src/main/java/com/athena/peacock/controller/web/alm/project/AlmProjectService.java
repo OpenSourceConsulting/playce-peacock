@@ -31,7 +31,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.athena.peacock.controller.web.alm.confluence.AlmConfluenceService;
 import com.athena.peacock.controller.web.alm.crowd.AlmCrowdService;
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmGroupDto;
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmUserDto;
@@ -39,17 +38,14 @@ import com.athena.peacock.controller.web.alm.jenkins.AlmJenkinsService;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectHistoryDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto;
-import com.athena.peacock.controller.web.alm.project.dto.ProjectProcessStatusDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectTamplateInfomationDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectTemplateDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectUserPasswordResetDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectWizardDto;
-import com.athena.peacock.controller.web.alm.svn.AlmSvnService;
 import com.athena.peacock.controller.web.alm.user.AlmUserService;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
-import com.google.gson.Gson;
 
 /**
  * <pre>
@@ -82,12 +78,6 @@ public class AlmProjectService {
 	private AlmJenkinsService jenkinsService;
 
 	@Autowired
-	private AlmSvnService svnService;
-
-	@Autowired
-	private AlmConfluenceService confluenceService;
-
-	@Autowired
 	private AlmUserService userService;
 
 	@Autowired
@@ -95,6 +85,17 @@ public class AlmProjectService {
 
 	public AlmProjectService() {
 		// TODO Auto-generated constructor stub
+
+	}
+
+	// Project History 정보
+	public GridJsonResponse getProjectHistory(String projectCode) {
+
+		GridJsonResponse response = new GridJsonResponse();
+		List<ProjectHistoryDto> projects = projectDao
+				.getProjectHistory(projectCode);
+		response.setList(projects);
+		return response;
 
 	}
 
@@ -123,15 +124,15 @@ public class AlmProjectService {
 
 		DtoJsonResponse response = new DtoJsonResponse();
 
-		projectDao.insertProject(project);
-		historyService.createProject(project);
+		// Project 정보 저장
+		addProject(project);
 
-		// Group 생성
-		addGroup(project.getProjectCode(), project.getGroupDescription());
-		historyService.createProjectGroup(project);
+		// Project Group 생성
+		addGroup(project);
+
+		// Make response Data
 		response.setMsg("프로젝트가 생성되었습니다");
 		return response;
-		//
 
 	}
 
@@ -151,12 +152,10 @@ public class AlmProjectService {
 		String projectCode = pDto.getProjectCode();
 
 		// Project 저장
-		projectDao.insertProject(pDto);
-		historyService.createProjectWizard(pDto);
+		addProject(pDto);
 
 		// Project Group 생성
-		addGroup(projectCode, pDto.getGroupDescription());
-		historyService.createProjectGroup(pDto);
+		addGroup(pDto);
 
 		// User를 그룹에 추가
 		List<AlmUserDto> userList = project.getUsers();
@@ -207,15 +206,15 @@ public class AlmProjectService {
 					template.getServerArtifactId(), template.getServerPackage());
 
 			// Template Mapping
-			projectDao.insertProjectMapping(getTemplate(projectCode, "",
-					templateInfomationServer));
+			projectDao.insertProjectMapping(AlmProjectUtil.getTemplateMapping(
+					projectCode, "", templateInfomationServer));
 
 			createProjectHistor(projectCode, projectCode
 					+ " 프로젝트에 템플릿 생성 요청 되었습니다.");
 
 			// Job Mapping
-			projectDao.insertProjectMapping(getJenkinsMapping(projectCode, "",
-					"CREATE"));
+			projectDao.insertProjectMapping(AlmProjectUtil.getJenkinsMapping(
+					projectCode, "", "CREATE"));
 			createProjectHistor(projectCode, projectCode
 					+ " Jenkins Job 생성 요청 되었습니다.");
 
@@ -228,14 +227,15 @@ public class AlmProjectService {
 						template.getMobilePackage());
 
 				// Template Mapping
-				projectDao.insertProjectMapping(getTemplate(projectCode,
-						"MOBILE", templateInfomationMobile));
+				projectDao.insertProjectMapping(AlmProjectUtil
+						.getTemplateMapping(projectCode, "MOBILE",
+								templateInfomationMobile));
 				createProjectHistor(projectCode, projectCode
 						+ " 프로젝트에 Mobile 템플릿 생성 요청 되었습니다.");
 
 				// Job Mapping
-				projectDao.insertProjectMapping(getJenkinsMapping(projectCode,
-						"MOBILE", "CREATE"));
+				projectDao.insertProjectMapping(AlmProjectUtil
+						.getJenkinsMapping(projectCode, "MOBILE", "CREATE"));
 				createProjectHistor(projectCode, projectCode
 						+ " Jenkins Mobile Job 생성 요청 되었습니다.");
 
@@ -246,6 +246,7 @@ public class AlmProjectService {
 
 	}
 
+	// 유저를 그룹에 추가
 	public DtoJsonResponse addProjectUser(String projectCode, String username) {
 
 		DtoJsonResponse response = new DtoJsonResponse();
@@ -257,6 +258,7 @@ public class AlmProjectService {
 
 	}
 
+	// 유저를 그룹에서 제거
 	public DtoJsonResponse removeProjectUser(String projectCode, String username) {
 
 		DtoJsonResponse response = new DtoJsonResponse();
@@ -270,6 +272,7 @@ public class AlmProjectService {
 
 	}
 
+	// 프로젝트 코드 중복여부 확인
 	public DtoJsonResponse checkProjectCode(String projectCode) {
 
 		DtoJsonResponse response = new DtoJsonResponse();
@@ -287,16 +290,9 @@ public class AlmProjectService {
 
 	}
 
-	public DtoJsonResponse getJenkinsJob(String projectcode) {
-
-		DtoJsonResponse response = new DtoJsonResponse();
-		// projectDao.insertProject(projectcode);
-		return response;
-
-	}
-
+	// Project Mapping 추가
 	public DtoJsonResponse createProjectMapping(String projectCode,
-			String mappingtype, String mappingCode) {
+			String mappingtype, String mappingCode, String permission) {
 
 		DtoJsonResponse response = new DtoJsonResponse();
 
@@ -307,33 +303,18 @@ public class AlmProjectService {
 		mappingDto.setMappingExecution("PERMISSION");
 
 		if (mappingtype.equals("jenkins")) {
-			mappingDto.setMappingType(20);
+			addJenkinsMapping(projectCode, mappingCode, "PERMISSION");
 			response.setMsg("Jenkins Job이 추가되었습니다");
-			StringBuffer sb = new StringBuffer();
-			sb.append(projectCode);
-			sb.append(" 프로젝트에");
-			sb.append(mappingCode);
-			sb.append(" Jenkins Job 권한 생성 요청 되었습니다.");
-			createProjectHistor(projectCode, sb.toString());
-		} else if (mappingtype.equals("svn")) {
-			mappingDto.setMappingType(30);
-			response.setMsg("SVN Repository가 추가되었습니다");
 		} else if (mappingtype.equals("confluence")) {
 			mappingDto.setMappingType(10);
-			response.setMsg("Confluence Space가 추가되었습니다");
-			StringBuffer sb = new StringBuffer();
-			sb.append(projectCode);
-			sb.append(" 프로젝트에");
-			sb.append(mappingCode);
-			sb.append(" Confluence Space 권한 생성 요청 되었습니다.");
-			createProjectHistor(projectCode, sb.toString());
+			mappingDto.setMappingPermission(permission);
+			response.setMsg("Confluence Space에 권한 추가 요청되었습니다.");
+			historyService.addPermissionConfluenceSpace(mappingDto);
 		} else {
 			response.setSuccess(false);
 			response.setMsg("맵핑 코드가 정확하지 않습니다");
 			return response;
 		}
-
-		projectDao.insertProjectMapping(mappingDto);
 
 		return response;
 	}
@@ -392,15 +373,16 @@ public class AlmProjectService {
 	}
 
 	// 그룹 생성
-	private void addGroup(String name, String description) {
+	private void addGroup(ProjectDto project) {
 
 		AlmGroupDto groupData = new AlmGroupDto();
 		groupData.setActive(true);
-		groupData.setDescription(description);
-		groupData.setName(name);
+		groupData.setDescription(project.getGroupDescription());
+		groupData.setName(project.getProjectCode());
 
 		// Group 생성
 		crowdService.addGroup(groupData);
+		historyService.createProjectGroup(project);
 	}
 
 	// User를 그룹에 추가
@@ -415,157 +397,40 @@ public class AlmProjectService {
 		}
 	}
 
-	// Confluence 권한 생성
-	private ProjectProcessStatusDto addPermissionToSpace(
-			ProjectMappingDto spaces) {
-
-		ProjectProcessStatusDto statusDto = confluenceService.addPermissions(
-				spaces.getProjectCode(), spaces.getMappingCode(),
-				spaces.getMappingPermission());
-
-		if (statusDto.isSuccess()) {
-			createProjectHistor(
-					spaces.getProjectCode(),
-					spaces.getProjectCode() + " 프로젝트에 "
-							+ spaces.getMappingCode()
-							+ " Confluence Space 권한 생성 되었습니다.");
-		} else {
-			createProjectHistor(
-					spaces.getProjectCode(),
-					spaces.getProjectCode() + " 프로젝트에 "
-							+ spaces.getMappingCode()
-							+ " Confluence Space 권한 생성이 샐패했습니다."
-							+ statusDto.getErrorMessage());
-		}
-
-		return statusDto;
-
-	}
-
-	// SVN 생성
-	private ProjectProcessStatusDto createSvnProject(ProjectMappingDto svn) {
-
-		ProjectProcessStatusDto statusDto = svnService.createSvnProject(
-				"hiway", svn.getProjectCode());
-
-		if (statusDto.isSuccess()) {
-			createProjectHistor(svn.getProjectCode(), svn.getProjectCode()
-					+ " 프로젝트에 " + svn.getMappingCode()
-					+ " SVN Project 생성 되었습니다.");
-		} else {
-			createProjectHistor(svn.getProjectCode(), svn.getProjectCode()
-					+ " 프로젝트에 " + svn.getMappingCode()
-					+ " SVN Project 생성이 실패되었습니다." + statusDto.getErrorMessage());
-		}
-
-		return statusDto;
-
-	}
-
-	// Processing
-	public void processProjectMapping() {
-
-		List<ProjectMappingDto> lists = projectDao.getProjectMappingStandBy();
-
-		for (ProjectMappingDto list : lists) {
-
-			ProjectProcessStatusDto statusDto = null;
-
-			// Check Start Time
-			if (list.getMappingType() == 10 || list.getMappingType() == 30) {
-				projectDao.startProjectMappingJob(list);
-			}
-
-			// Process
-			if (list.getMappingType() == 10) { // SPACE 권한 생성
-
-				statusDto = addPermissionToSpace(list);
-				projectDao.endProjectMappingJob(list);
-
-			} else if (list.getMappingType() == 20) {
-
-				// projectDao.startProjectMappingJob(list);
-				// createJob("JobCopy", null, list.getProjectCode());
-				// projectDao.endProjectMappingJob(list);
-			} else if (list.getMappingType() == 30) { // SVN Project 생성
-
-				projectDao.startProjectMappingJob(list);
-				statusDto = createSvnProject(list);
-
-			}
-
-			if (statusDto != null) {
-				if (statusDto.isSuccess()) {
-					list.setStatus("COMPLETE");
-				} else {
-					list.setStatus("FAIL");
-					list.setExitMessage(statusDto.getErrorMessage());
-				}
-
-				// Check End Time
-				projectDao.endProjectMappingJob(list);
-			}
-		}
-	}
-
-	// Project 리스트 정보
-	public GridJsonResponse getProjectHistory(String projectCode) {
-
-		GridJsonResponse response = new GridJsonResponse();
-		List<ProjectHistoryDto> projects = projectDao
-				.getProjectHistory(projectCode);
-		response.setList(projects);
-		return response;
-
+	// Project 저장
+	private void addProject(ProjectDto pDto) {
+		// DB에 저장 
+		projectDao.insertProject(pDto);
+		// 하스토리 정보 기록
+		historyService.createProjectWizard(pDto);
 	}
 
 	// 작업 History 저장
 	private void createProjectHistor(String projectCode, String message) {
-
 		ProjectHistoryDto history = new ProjectHistoryDto();
 		history.setProjectCode(projectCode);
 		history.setMessage(message);
 		projectDao.insertProjectHistory(history);
-
 	}
 
-	private ProjectMappingDto getJenkinsMapping(String projectCode,
-			String type, String execution) {
+	// Jenkins Mapping 저장
+	private void addJenkinsMapping(String projectCode, String mappingCode,
+			String execution) {
 
-		ProjectMappingDto jenkinsMapping = new ProjectMappingDto();
-		jenkinsMapping.setProjectCode(projectCode);
-		jenkinsMapping.setMappingType(20);
-		jenkinsMapping.setStatus("STANDBY");
-		jenkinsMapping.setMappingExecution(execution);
+		ProjectMappingDto mappingDto = new ProjectMappingDto();
+		mappingDto.setProjectCode(projectCode);
+		mappingDto.setMappingCode(mappingCode);
+		mappingDto.setStatus("STANDBY");
+		mappingDto.setMappingExecution(execution);
+		mappingDto.setMappingType(20);
+		projectDao.insertProjectMapping(mappingDto);
 
-		if (type.equals("MOBILE")) {
-			jenkinsMapping.setMappingCode(projectCode + "_mobile");
-		} else {
-			jenkinsMapping.setMappingCode(projectCode);
-		}
-
-		return jenkinsMapping;
-	}
-
-	private ProjectMappingDto getTemplate(String projectCode, String type,
-			ProjectTamplateInfomationDto templateInfomation) {
-
-		Gson gson = new Gson();
-
-		ProjectMappingDto projectMapping = new ProjectMappingDto();
-		projectMapping.setProjectCode(projectCode);
-		projectMapping.setMappingType(40);
-		projectMapping.setMappingPermission(gson.toJson(templateInfomation));
-		projectMapping.setStatus("STANDBY");
-		projectMapping.setMappingExecution("CREATE");
-
-		if (type.equals("MOBILE")) {
-			projectMapping.setMappingCode(projectCode + "_mobile");
-		} else {
-			projectMapping.setMappingCode(projectCode);
-		}
-
-		return projectMapping;
+		StringBuffer sb = new StringBuffer();
+		sb.append(projectCode);
+		sb.append(" 프로젝트에");
+		sb.append(mappingCode);
+		sb.append(" Jenkins Job 권한 생성 요청 되었습니다.");
+		createProjectHistor(projectCode, sb.toString());
 	}
 
 	// User password Reset

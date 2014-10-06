@@ -59,6 +59,9 @@ public class AlmProjectController {
 	private AlmProjectService almProjectService;
 
 	@Autowired
+	private AlmProjectProcess processService;
+
+	@Autowired
 	private NexusClient nexus;
 
 	/**
@@ -153,11 +156,14 @@ public class AlmProjectController {
 	 */
 	@RequestMapping(value = "/project/{projectCode}/{mappingType}/{mappingCode}", method = RequestMethod.POST)
 	public @ResponseBody
-	DtoJsonResponse createProjectMapping(@PathVariable String projectCode,
-			@PathVariable String mappingType, @PathVariable String mappingCode) {
+	DtoJsonResponse createProjectMapping(
+			@PathVariable String projectCode,
+			@PathVariable String mappingType,
+			@PathVariable String mappingCode,
+			@RequestParam(value = "permission", required = false) String permission) {
 
 		return almProjectService.createProjectMapping(projectCode, mappingType,
-				mappingCode);
+				mappingCode, permission);
 	}
 
 	/**
@@ -266,7 +272,7 @@ public class AlmProjectController {
 	@RequestMapping(value = "/project/startjob", method = RequestMethod.GET)
 	public @ResponseBody
 	DtoJsonResponse startJob() {
-		almProjectService.processProjectMapping();
+		processService.processProjectMapping();
 		return null;
 	}
 

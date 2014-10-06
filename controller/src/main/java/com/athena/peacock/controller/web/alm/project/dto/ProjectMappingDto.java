@@ -37,8 +37,6 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProjectMappingDto {
 
-	private static final long serialVersionUID = -1083153050593982734L;
-
 	private String projectCode;
 	private int mappingType;
 	private String mappingCode;

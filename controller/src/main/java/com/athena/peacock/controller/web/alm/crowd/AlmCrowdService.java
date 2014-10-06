@@ -365,7 +365,7 @@ public class AlmCrowdService {
 		try {
 
 			crowdClient.addGroupToGroup(groupData.getName(), projectgroup);
-		
+
 		} catch (GroupNotFoundException | UserNotFoundException
 				| MembershipAlreadyExistsException | OperationFailedException
 				| InvalidAuthenticationException
@@ -489,6 +489,24 @@ public class AlmCrowdService {
 		}
 
 		return response;
+	}
+
+	public List<String> getProjectUser() {
+
+		List<String> users;
+
+		try {
+			users = crowdClient.getNamesOfNestedUsersOfGroup("project", 0,
+					10000);
+			return users;
+		} catch (GroupNotFoundException | OperationFailedException
+				| InvalidAuthenticationException
+				| ApplicationPermissionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+
 	}
 
 	private int getCrowdPage(ExtjsGridParam gridParam) {
