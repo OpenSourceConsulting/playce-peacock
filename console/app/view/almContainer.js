@@ -1349,6 +1349,12 @@ Ext.define('MyApp.view.almContainer', {
                                             text: 'Url'
                                         },
                                         {
+                                            xtype: 'gridcolumn',
+                                            minWidth: 100,
+                                            dataIndex: 'repositoryStatus',
+                                            text: 'Status'
+                                        },
+                                        {
                                             xtype: 'actioncolumn',
                                             text: 'Delete',
                                             maxWidth: 60,
@@ -1362,31 +1368,29 @@ Ext.define('MyApp.view.almContainer', {
                                             items: [
                                                 {
                                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                                        alert('delete');
-                                                        /*
                                                         Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){
 
-                                                        if(btn == "yes"){
+                                                            if(btn == "yes"){
 
-                                                        Ext.Ajax.request({
-                                                        url : GLOBAL.urlPrefix + "alm/groupmanagement/" + record.get("name"),
-                                                        method: 'DELETE',
-                                                        headers: { 'Content-Type': 'application/json' },
-                                                        disableCaching : true,
-                                                        waitMsg: 'Delete ALM Group...',
-                                                        success: function(response){
-                                                        var msg = Ext.JSON.decode(response.responseText).msg;
-                                                        Ext.MessageBox.alert('알림', msg);
+                                                                Ext.Ajax.request({
+                                                                    url : GLOBAL.urlPrefix + "alm/repository/" + record.get("repositoryCode"),
+                                                                    method: 'DELETE',
+                                                                    headers: { 'Content-Type': 'application/json' },
+                                                                    disableCaching : true,
+                                                                    waitMsg: 'Delete ALM Repository...',
+                                                                    success: function(response){
+                                                                        var msg = Ext.JSON.decode(response.responseText).msg;
+                                                                        Ext.MessageBox.alert('알림', msg);
 
-                                                        Ext.getCmp("almGroupGrid").getStore().reload();
-                                                        Ext.getCmp("almGroupDetailPanel").layout.setActiveItem(0);
+                                                                        Ext.getCmp("almRepositoryGrid").getStore().reload();
+                                                                        Ext.getCmp("almRepositoryDetailPanel").layout.setActiveItem(0);
 
-                                                        }
+                                                                    }
+                                                                });
+                                                            }
+
                                                         });
-                                                        }
 
-                                                        });
-                                                        */
                                                     },
                                                     icon: 'resources/images/icons/delete.png',
                                                     iconCls: ''
@@ -1480,6 +1484,12 @@ Ext.define('MyApp.view.almContainer', {
                                                             padding: 10,
                                                             fieldLabel: 'Repository URL',
                                                             name: 'repositoryUrl'
+                                                        },
+                                                        {
+                                                            xtype: 'displayfield',
+                                                            padding: 10,
+                                                            fieldLabel: 'Repository Status',
+                                                            name: 'repositoryStatus'
                                                         }
                                                     ]
                                                 }

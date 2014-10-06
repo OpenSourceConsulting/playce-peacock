@@ -3321,6 +3321,20 @@
                                     "designerId": "94b1e946-fca0-431a-a481-acb1673f9a1d"
                                 },
                                 {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "repositoryStatus",
+                                        "minWidth": 100,
+                                        "text": "Status"
+                                    },
+                                    "designerId": "58e7d887-ef5e-478f-9996-0b77508d6e03"
+                                },
+                                {
                                     "type": "Ext.grid.column.Action",
                                     "reference": {
                                         "name": "columns",
@@ -3381,31 +3395,29 @@
                                                         ],
                                                         "fn": "handler",
                                                         "implHandler": [
-                                                            "alert('delete');",
-                                                            "/*",
                                                             "Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){",
                                                             "",
                                                             "    if(btn == \"yes\"){",
                                                             "",
                                                             "        Ext.Ajax.request({",
-                                                            "            url : GLOBAL.urlPrefix + \"alm/groupmanagement/\" + record.get(\"name\"),",
+                                                            "            url : GLOBAL.urlPrefix + \"alm/repository/\" + record.get(\"repositoryCode\"),",
                                                             "            method: 'DELETE',",
                                                             "            headers: { 'Content-Type': 'application/json' },",
                                                             "            disableCaching : true,",
-                                                            "            waitMsg: 'Delete ALM Group...',",
+                                                            "            waitMsg: 'Delete ALM Repository...',",
                                                             "            success: function(response){",
                                                             "                var msg = Ext.JSON.decode(response.responseText).msg;",
                                                             "                Ext.MessageBox.alert('알림', msg);",
                                                             "",
-                                                            "                Ext.getCmp(\"almGroupGrid\").getStore().reload();",
-                                                            "                Ext.getCmp(\"almGroupDetailPanel\").layout.setActiveItem(0);",
+                                                            "                Ext.getCmp(\"almRepositoryGrid\").getStore().reload();",
+                                                            "                Ext.getCmp(\"almRepositoryDetailPanel\").layout.setActiveItem(0);",
                                                             "",
                                                             "            }",
                                                             "        });",
                                                             "    }",
                                                             "",
                                                             "});",
-                                                            "*/"
+                                                            ""
                                                         ]
                                                     },
                                                     "designerId": "f777f6a8-f9ac-42c7-abe6-5dc07bd11c38"
@@ -3607,6 +3619,20 @@
                                                         "padding": 10
                                                     },
                                                     "designerId": "d101ee0d-024c-413a-8d30-9da253252782"
+                                                },
+                                                {
+                                                    "type": "Ext.form.field.Display",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fieldLabel": "Repository Status",
+                                                        "name": "repositoryStatus",
+                                                        "padding": 10
+                                                    },
+                                                    "designerId": "3de1cecd-233c-47ea-a7b3-1f817870623f"
                                                 }
                                             ]
                                         }

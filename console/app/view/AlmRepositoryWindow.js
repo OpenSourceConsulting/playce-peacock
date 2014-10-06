@@ -25,7 +25,7 @@ Ext.define('MyApp.view.AlmRepositoryWindow', {
         'Ext.button.Button'
     ],
 
-    height: 220,
+    height: 190,
     width: 470,
     resizable: false,
     title: 'Add Repository',
@@ -83,16 +83,6 @@ Ext.define('MyApp.view.AlmRepositoryWindow', {
                             ],
                             fieldLabel: 'Repository Description',
                             name: 'repositoryDescription',
-                            allowBlank: false
-                        },
-                        {
-                            xtype: 'textfield',
-                            anchor: '100%',
-                            afterLabelTextTpl: [
-                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-                            ],
-                            fieldLabel: 'Repository Url',
-                            name: 'repositoryUrl',
                             allowBlank: false
                         }
                     ]

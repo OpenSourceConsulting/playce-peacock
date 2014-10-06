@@ -8,7 +8,7 @@
     "userConfig": {
         "designer|userAlias": "AlmRepositoryWindow",
         "designer|userClassName": "AlmRepositoryWindow",
-        "height": 220,
+        "height": 190,
         "modal": true,
         "resizable": false,
         "title": "Add Repository",
@@ -126,38 +126,6 @@
                                 ]
                             },
                             "designerId": "2fbd0511-21d1-43e7-bd99-62ea147c436c"
-                        }
-                    ]
-                },
-                {
-                    "type": "Ext.form.field.Text",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "allowBlank": false,
-                        "fieldLabel": "Repository Url",
-                        "layout|anchor": "100%",
-                        "name": "repositoryUrl"
-                    },
-                    "designerId": "65eb4f76-de54-4155-aa3b-6d6c5b0803d2",
-                    "cn": [
-                        {
-                            "type": "Ext.XTemplate",
-                            "reference": {
-                                "name": "afterLabelTextTpl",
-                                "type": "object"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "designer|displayName": "afterLabelTextTpl",
-                                "implHandler": [
-                                    "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
-                                ]
-                            },
-                            "designerId": "9e5627a5-54dc-44cc-b0d7-b286f0da24bb"
                         }
                     ]
                 }

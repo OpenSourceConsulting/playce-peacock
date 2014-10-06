@@ -36,6 +36,10 @@ Ext.define('MyApp.model.AlmRepositoryModel', {
         {
             name: 'repositoryUrl',
             type: 'string'
+        },
+        {
+            name: 'repositoryStatus',
+            type: 'string'
         }
     ]
 });

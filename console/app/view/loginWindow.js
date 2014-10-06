@@ -30,7 +30,7 @@ Ext.define('MyApp.view.loginWindow', {
     width: 420,
     resizable: false,
     closable: false,
-    title: 'HiWay Automation System',
+    title: 'HiWAY Automation System',
     modal: true,
 
     layout: {
