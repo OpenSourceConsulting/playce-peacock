@@ -316,14 +316,14 @@ Ext.define('MyApp.controller.InstancesController', {
         var comboStore = Ext.getStore("ComboHypervisorStore");
         if(comboStore.getCount() > 0) {
 
-            instanceStore.load();
+            instanceStore.loadPage(1);
 
         } else {
 
             comboStore.load({
                 callback : function(records, options, success) {
 
-                    instanceStore.load();
+                    instanceStore.loadPage(1);
 
                 }
             });
@@ -421,7 +421,7 @@ Ext.define('MyApp.controller.InstancesController', {
             name : Ext.getCmp("searchPackageName").getRawValue()
         };
 
-        packageStore.load();
+        packageStore.loadPage(1);
 
     },
 

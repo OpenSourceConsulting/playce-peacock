@@ -136,11 +136,13 @@ Ext.define('MyApp.controller.AdminController', {
 
         userConstants.selectRow = null;
 
-        Ext.getCmp("userGrid").getStore().load({
-            params:{
-                search : Ext.getCmp("searchUserName").getRawValue()
-            }
-        });
+        var userStore = Ext.getCmp('userGrid').getStore();
+
+        userStore.getProxy().extraParams = {
+            search : Ext.getCmp("searchUserName").getRawValue()
+        };
+
+        userStore.loadPage(1);
 
         var detailPanel = Ext.getCmp("userDetailPanel");
         detailPanel.layout.setActiveItem(0);
@@ -166,7 +168,7 @@ Ext.define('MyApp.controller.AdminController', {
             search : Ext.getCmp("searchUserPermissionName").getRawValue()
         };
 
-        permissionStore.load();
+        permissionStore.loadPage(1);
 
         var detailPanel = Ext.getCmp("userPermissionDetailPanel");
         detailPanel.layout.setActiveItem(0);
