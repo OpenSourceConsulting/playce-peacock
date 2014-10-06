@@ -90,6 +90,9 @@ public class AlmProjectService {
 	@Autowired
 	private AlmUserService userService;
 
+	@Autowired
+	private AlmProjectHistoryMessageService historyService;
+
 	public AlmProjectService() {
 		// TODO Auto-generated constructor stub
 
@@ -121,15 +124,11 @@ public class AlmProjectService {
 		DtoJsonResponse response = new DtoJsonResponse();
 
 		projectDao.insertProject(project);
-
-		createProjectHistor(project.getProjectCode(), project.getProjectCode()
-				+ " 프로젝트가 생성되었습니다.");
+		historyService.createProject(project);
 
 		// Group 생성
 		addGroup(project.getProjectCode(), project.getGroupDescription());
-
-		createProjectHistor(project.getProjectCode(), project.getProjectCode()
-				+ " 프로젝트가 그룹이 생성되었습니다.");
+		historyService.createProjectGroup(project);
 		response.setMsg("프로젝트가 생성되었습니다");
 		return response;
 		//
@@ -153,20 +152,17 @@ public class AlmProjectService {
 
 		// Project 저장
 		projectDao.insertProject(pDto);
-		createProjectHistor(projectCode, projectCode + " 프로젝트가 생성되었습니다.");
+		historyService.createProjectWizard(pDto);
 
 		// Project Group 생성
 		addGroup(projectCode, pDto.getGroupDescription());
-		createProjectHistor(projectCode, projectCode + " 프로젝트 그룹이 생성되었습니다.");
+		historyService.createProjectGroup(pDto);
 
 		// User를 그룹에 추가
 		List<AlmUserDto> userList = project.getUsers();
 		if (userList != null) {
 			addUserToGroup(projectCode, userList);
 		}
-
-		createProjectHistor(projectCode, projectCode
-				+ " 프로젝트에 Jenkins Job 생성 요청 되었습니다.");
 
 		// Confluence 저장
 		List<ProjectMappingDto> confluences = project.getConfluence();
@@ -181,14 +177,11 @@ public class AlmProjectService {
 				confluenceMapping.setMappingPermission(confluence
 						.getMappingPermission());
 				confluenceMapping.setStatus("STANDBY");
+				confluenceMapping.setMappingExecution("PERMISSION");
 				projectDao.insertProjectMapping(confluenceMapping);
 
-				StringBuffer sb = new StringBuffer();
-				sb.append(projectCode);
-				sb.append(" 프로젝트에");
-				sb.append(confluence.getMappingCode());
-				sb.append(" Confluence Space 권한 생성 요청 되었습니다.");
-				createProjectHistor(projectCode, sb.toString());
+				historyService.addPermissionConfluenceSpace(confluenceMapping);
+
 			}
 		}
 
@@ -198,10 +191,10 @@ public class AlmProjectService {
 		svnMapping.setMappingType(30);
 		svnMapping.setProjectCode(projectCode);
 		svnMapping.setStatus("STANDBY");
+		svnMapping.setMappingExecution("CREATE");
 
 		projectDao.insertProjectMapping(svnMapping);
-		createProjectHistor(projectCode, projectCode
-				+ " 프로젝트에 SVN Project 생성 요청 되었습니다.");
+		historyService.createSvnProject(svnMapping);
 
 		// Project Template
 		ProjectTemplateDto template = project.getTemplate();
@@ -216,11 +209,13 @@ public class AlmProjectService {
 			// Template Mapping
 			projectDao.insertProjectMapping(getTemplate(projectCode, "",
 					templateInfomationServer));
+						
 			createProjectHistor(projectCode, projectCode
 					+ " 프로젝트에 템플릿 생성 요청 되었습니다.");
 
 			// Job Mapping
-			projectDao.insertProjectMapping(getJenkinsMapping(projectCode, ""));
+			projectDao.insertProjectMapping(getJenkinsMapping(projectCode, "",
+					"CREATE"));
 			createProjectHistor(projectCode, projectCode
 					+ " Jenkins Job 생성 요청 되었습니다.");
 
@@ -240,7 +235,7 @@ public class AlmProjectService {
 
 				// Job Mapping
 				projectDao.insertProjectMapping(getJenkinsMapping(projectCode,
-						"MOBILE"));
+						"MOBILE", "CREATE"));
 				createProjectHistor(projectCode, projectCode
 						+ " Jenkins Mobile Job 생성 요청 되었습니다.");
 
@@ -308,7 +303,8 @@ public class AlmProjectService {
 		ProjectMappingDto mappingDto = new ProjectMappingDto();
 		mappingDto.setProjectCode(projectCode);
 		mappingDto.setMappingCode(mappingCode);
-		mappingDto.setStatus("MANUAL");
+		mappingDto.setStatus("STANDBY");
+		mappingDto.setMappingExecution("PERMISSION");
 
 		if (mappingtype.equals("jenkins")) {
 			mappingDto.setMappingType(20);
@@ -533,11 +529,14 @@ public class AlmProjectService {
 
 	}
 
-	private ProjectMappingDto getJenkinsMapping(String projectCode, String type) {
+	private ProjectMappingDto getJenkinsMapping(String projectCode,
+			String type, String execution) {
 
 		ProjectMappingDto jenkinsMapping = new ProjectMappingDto();
 		jenkinsMapping.setProjectCode(projectCode);
 		jenkinsMapping.setMappingType(20);
+		jenkinsMapping.setStatus("STANDBY");
+		jenkinsMapping.setMappingExecution(execution);
 
 		if (type.equals("MOBILE")) {
 			jenkinsMapping.setMappingCode(projectCode + "_mobile");
@@ -558,6 +557,7 @@ public class AlmProjectService {
 		projectMapping.setMappingType(40);
 		projectMapping.setMappingPermission(gson.toJson(templateInfomation));
 		projectMapping.setStatus("STANDBY");
+		projectMapping.setMappingExecution("CREATE");
 
 		if (type.equals("MOBILE")) {
 			projectMapping.setMappingCode(projectCode + "_mobile");

@@ -3,6 +3,23 @@
 
 <mapper namespace="ProjectMapper">
 
+	<resultMap id="mappingMap" type="com.athena.peacock.controller.web.alm.repository.dto.ProjectMappingDto">
+		<result property="projectCode" column="PROJECT_CODE" />
+		<result property="mappingType" column="MAPPING_TYPE" />
+		<result property="mappingCode" column="MAPPING_CODE" />
+		<result property="mappingExecution" column="MAPPING_EXECUTION" />
+		<result property="mappingPermission" column="MAPPING_PARAMETER" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="startTime" column="START_TIME" />
+		<result property="endTime" column="END_TIME" />
+		<result property="status" column="STATUS" />
+		<result property="exitCode" column="EXIT_CODE" />
+		<result property="exitMessage" column="EXIT_MESSAGE" />
+		<result property="lastUpdated" column="LAST_UPDATED" />
+	</resultMap>
+
+		 
+		 
 	<select id="getProject" parameterType="String" resultType="com.athena.peacock.controller.web.alm.project.dto.ProjectDto">
 		 SELECT PROJECT_CODE as projectCode, PROJECT_NAME as projectName, PROJECT_DESCRIPTION as projectDescription  from alm_project_tbl
 		 WHERE PROJECT_CODE = #{projectCode}
@@ -31,29 +48,31 @@
 		)
 	</insert>
 	
-	<select id="getProjectMapping" parameterType="com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto" resultType="com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto">
+	<select id="getProjectMapping" parameterType="mappingMap" resultType="mappingMap">
 		 SELECT 
-		 	PROJECT_CODE as projectCode, 
-		 	MAPPING_TYPE as mappingType, 
-		 	MAPPING_CODE as mappingCode, 
-		 	MAPPING_PARAMETER as mappingParameter, 
-		 	CREATE_TIME as createTime, 
-		 	START_TIME as startTime, 
-		 	END_TIME as endTime, 
-		 	STATUS as status, 
-		 	EXIT_CODE as exitCode, 
-		 	EXIT_MESSAGE as exitMessage, 
-		 	LAST_UPDATED as lastUpdated  
+		 	PROJECT_CODE, 
+		 	MAPPING_TYPE, 
+		 	MAPPING_CODE, 
+		 	MAPPING_EXECUTION, 
+		 	MAPPING_PARAMETER, 
+		 	CREATE_TIME, 
+		 	START_TIME, 
+		 	END_TIME, 
+		 	STATUS, 
+		 	EXIT_CODE, 
+		 	EXIT_MESSAGE, 
+		 	LAST_UPDATED  
 		 FROM alm_project_mapping_tbl
 		 WHERE PROJECT_CODE = #{projectCode} and MAPPING_TYPE = #{mappingType}
 	</select>
 	
-	<insert id="insertProjectMapping" parameterType="com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto">
+	<insert id="insertProjectMapping" parameterType="mappingMap">
 		INSERT INTO  alm_project_mapping_tbl
 		(
 			PROJECT_CODE
 		    ,MAPPING_TYPE
 		    ,MAPPING_CODE
+		    ,MAPPING_EXECUTION
 		    ,MAPPING_PARAMETER
 		    ,CREATE_TIME
 		    ,STATUS
@@ -62,6 +81,7 @@
 			#{projectCode}
 			,#{mappingType}
 			,#{mappingCode}
+			,#{mappingExecution}
 			,#{mappingPermission}
 			, now()
 			,#{status}
