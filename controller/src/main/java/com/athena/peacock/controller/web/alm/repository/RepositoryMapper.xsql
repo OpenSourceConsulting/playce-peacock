@@ -8,6 +8,7 @@
 		<result property="repositoryType" column="REPOSIROTY_TYPE" />
 		<result property="repositoryDescription" column="REPOSIROTY_DESCRIPTION" />
 		<result property="repositoryUrl" column="REPOSIROTY_URL" />
+		<result property="repositoryStatus" column="REPOSITORY_STATUS" />
 	</resultMap>
 
 
@@ -45,5 +46,12 @@
         WHERE
         	REPOSITORY_CODE = #{repositoryCode}
     </update>
+    
+    <delete id="deleteRepository" parameterType="String">
+		DELETE FROM 
+			alm_project_repository_tbl
+		WHERE
+			REPOSITORY_CODE = #{repositoryCode}
+	</delete>
 	
 </mapper>

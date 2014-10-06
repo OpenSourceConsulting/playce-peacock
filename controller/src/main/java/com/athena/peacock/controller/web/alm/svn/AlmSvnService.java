@@ -89,4 +89,35 @@ public class AlmSvnService {
 		return latestRevision;
 	}
 
+	public boolean checkSvnProject(String repositoryCode) {
+
+System.out.println("#################");
+		try {
+			String url = SVN_URL + "/" + repositoryCode;
+			System.out.println("#################");
+			System.out.println(url);
+			// SVNKit Setting
+			SVNRepositoryFactoryImpl.setup();
+			FSRepositoryFactory.setup();
+
+			// SVN Connection Setting
+			ISVNAuthenticationManager authManager = SVNWCUtil
+					.createDefaultAuthenticationManager(SVN_ID, SVN_PW);
+			SVNURL svnUrl = SVNURL.parseURIEncoded(url);
+			SVNRepository repository = DAVRepositoryFactory.create(svnUrl);
+			repository.setAuthenticationManager(authManager);
+
+
+		} catch (SVNException e) {
+			System.out.println("11#######################");
+			System.out.println("22#######################");
+			System.out.println("33#######################");
+			System.out.println("44#######################");
+		}
+
+		//return statusDto;
+		return false;
+
+	}
+
 }

@@ -11,19 +11,24 @@ import com.athena.peacock.controller.web.common.dao.AbstractBaseDao;
 public class AlmReposirotyDao extends AbstractBaseDao {
 
 	public RepositoryDto getRepository(String repositoryCode) {
-		return sqlSession.selectOne("RepositoryMapper.getRepository", repositoryCode);
+		return sqlSession.selectOne("RepositoryMapper.getRepository",
+				repositoryCode);
 	}
-	
+
 	public List<RepositoryDto> getRepositoryList() {
 		return sqlSession.selectList("RepositoryMapper.getRepositoryList");
 	}
-	
-	public void insertAlmProjectRepository(RepositoryDto param){
+
+	public void insertAlmProjectRepository(RepositoryDto param) {
 		sqlSession.insert("RepositoryMapper.insertRepository", param);
 	}
-	
-	public void updateAlmProjectRepository(RepositoryDto param){
+
+	public void updateAlmProjectRepository(RepositoryDto param) {
 		sqlSession.update("RepositoryMapper.updateRepository", param);
+	}
+
+	public void deleteAlmProjectRepository(String repositoryCode) {
+		sqlSession.delete("RepositoryMapper.deleteRepository", repositoryCode);
 	}
 
 }

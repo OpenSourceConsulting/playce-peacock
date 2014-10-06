@@ -1,11 +1,15 @@
 package com.athena.peacock.controller.web.alm.repository.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties
 public class RepositoryDto {
 
 	private String repositoryCode;
 	private int repositoryType;
 	private String repositoryDescription;
 	private String repositoryUrl;
+	private String repositoryStatus;
 
 	public String getRepositoryCode() {
 		return repositoryCode;
@@ -37,6 +41,14 @@ public class RepositoryDto {
 
 	public void setRepositoryUrl(String repositoryUrl) {
 		this.repositoryUrl = repositoryUrl;
+	}
+
+	public String getRepositoryStatus() {
+		return repositoryStatus;
+	}
+
+	public void setRepositoryStatus(String repositoryStatus) {
+		this.repositoryStatus = repositoryStatus;
 	}
 
 }

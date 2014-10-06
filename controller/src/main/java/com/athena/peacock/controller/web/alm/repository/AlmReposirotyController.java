@@ -52,7 +52,14 @@ public class AlmReposirotyController {
 	@RequestMapping(value = "/repository", method = RequestMethod.POST)
 	public @ResponseBody
 	DtoJsonResponse createRepositoryList(@RequestBody RepositoryDto param) {
+		System.out.println("!!!!!!!!!!!!");
 		return almRepositoryService.insertAlmProjectRepository(param);
+	}
+
+	@RequestMapping(value = "/repository/{repositoryCode}", method = RequestMethod.DELETE)
+	public @ResponseBody
+	DtoJsonResponse deleteRepositoryList(@PathVariable String repositoryCode) {
+		return almRepositoryService.deleteAlmProjectRepository(repositoryCode);
 	}
 
 	@RequestMapping(value = "/repository/{repositoryCode}", method = RequestMethod.GET)

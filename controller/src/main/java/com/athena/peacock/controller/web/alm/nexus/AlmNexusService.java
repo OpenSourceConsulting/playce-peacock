@@ -27,8 +27,8 @@ package com.athena.peacock.controller.web.alm.nexus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.athena.peacock.controller.web.alm.jenkins.client.JenkinsClient;
-import com.athena.peacock.controller.web.alm.jenkins.clinet.model.JenkinsResponseDto;
+import com.athena.peacock.controller.web.alm.nexus.client.NexusClient;
+import com.athena.peacock.controller.web.alm.nexus.client.model.ArchetypeCatalog;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 
 /**
@@ -43,12 +43,12 @@ import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 public class AlmNexusService {
 
 	@Autowired
-	private JenkinsClient jenkinsClient;
+	private NexusClient nexusClient;
 
-	public GridJsonResponse getJobs() {
+	public GridJsonResponse getArchetype() {
 		GridJsonResponse response = new GridJsonResponse();
-		JenkinsResponseDto dto = jenkinsClient.getJobs();
-		response.setList(dto.getJobs());
+		ArchetypeCatalog dto = nexusClient.getArchetype();
+		response.setList(dto.getArchetypes().getArchetype());
 		return response;
 	}
 
