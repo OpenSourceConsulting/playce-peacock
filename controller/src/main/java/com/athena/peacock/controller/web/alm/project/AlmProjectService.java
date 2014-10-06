@@ -209,7 +209,7 @@ public class AlmProjectService {
 			// Template Mapping
 			projectDao.insertProjectMapping(getTemplate(projectCode, "",
 					templateInfomationServer));
-						
+
 			createProjectHistor(projectCode, projectCode
 					+ " 프로젝트에 템플릿 생성 요청 되었습니다.");
 

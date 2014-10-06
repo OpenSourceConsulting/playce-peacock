@@ -24,7 +24,7 @@
  */
 package com.athena.peacock.controller.web.alm.project.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  * <pre>

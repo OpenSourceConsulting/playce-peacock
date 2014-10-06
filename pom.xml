@@ -464,11 +464,5 @@
 			<version>1.0-rc1.21</version>
 		</dependency>   
 		
-		<!-- Amazon SDK for Java -->      
-		<dependency>
-			<groupId>com.amazonaws</groupId>
-			<artifactId>aws-java-sdk</artifactId>
-			<version>1.6.7</version>
-		</dependency>   
 	</dependencies>
 </project>

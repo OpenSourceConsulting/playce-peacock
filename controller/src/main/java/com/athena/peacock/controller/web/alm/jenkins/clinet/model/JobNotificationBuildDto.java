@@ -1,6 +1,6 @@
 package com.athena.peacock.controller.web.alm.jenkins.clinet.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @JsonIgnoreProperties
 public class JobNotificationBuildDto {

@@ -24,6 +24,7 @@
  */
 package com.athena.peacock.controller.web.alm.crowd.dto;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  * <pre>
@@ -33,6 +34,7 @@ package com.athena.peacock.controller.web.alm.crowd.dto;
  * @author Bong-Jin Kwon
  * @version 1.0
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AlmUserDto {
 
 	private static final long serialVersionUID = -1083153050593982734L;
@@ -91,8 +93,7 @@ public class AlmUserDto {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
+
 
 }
 // end of User.java

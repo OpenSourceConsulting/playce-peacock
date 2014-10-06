@@ -3,7 +3,7 @@
 
 <mapper namespace="ProjectMapper">
 
-	<resultMap id="mappingMap" type="com.athena.peacock.controller.web.alm.repository.dto.ProjectMappingDto">
+	<resultMap id="resultMappingMap" type="com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto">
 		<result property="projectCode" column="PROJECT_CODE" />
 		<result property="mappingType" column="MAPPING_TYPE" />
 		<result property="mappingCode" column="MAPPING_CODE" />
@@ -18,7 +18,6 @@
 		<result property="lastUpdated" column="LAST_UPDATED" />
 	</resultMap>
 
-		 
 		 
 	<select id="getProject" parameterType="String" resultType="com.athena.peacock.controller.web.alm.project.dto.ProjectDto">
 		 SELECT PROJECT_CODE as projectCode, PROJECT_NAME as projectName, PROJECT_DESCRIPTION as projectDescription  from alm_project_tbl
@@ -48,7 +47,7 @@
 		)
 	</insert>
 	
-	<select id="getProjectMapping" parameterType="mappingMap" resultType="mappingMap">
+	<select id="getProjectMapping" parameterType="com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto" resultMap="resultMappingMap">
 		 SELECT 
 		 	PROJECT_CODE, 
 		 	MAPPING_TYPE, 
@@ -66,7 +65,7 @@
 		 WHERE PROJECT_CODE = #{projectCode} and MAPPING_TYPE = #{mappingType}
 	</select>
 	
-	<insert id="insertProjectMapping" parameterType="mappingMap">
+	<insert id="insertProjectMapping" parameterType="com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto">
 		INSERT INTO  alm_project_mapping_tbl
 		(
 			PROJECT_CODE

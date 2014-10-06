@@ -26,7 +26,7 @@ package com.athena.peacock.controller.web.alm.crowd.dto;
 
 import javax.validation.constraints.Pattern;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  * <pre>

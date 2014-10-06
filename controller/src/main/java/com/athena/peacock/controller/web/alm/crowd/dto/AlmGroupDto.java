@@ -26,6 +26,8 @@ package com.athena.peacock.controller.web.alm.crowd.dto;
 
 import java.io.Serializable;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  * <pre>
  * 
@@ -34,6 +36,7 @@ import java.io.Serializable;
  * @author Bong-Jin Kwon
  * @version 1.0
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AlmGroupDto implements Serializable {
 
 	private static final long serialVersionUID = -1L;
