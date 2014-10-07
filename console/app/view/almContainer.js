@@ -534,6 +534,12 @@ Ext.define('MyApp.view.almContainer', {
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
+                                                                    width: 120,
+                                                                    dataIndex: 'mappingExecution',
+                                                                    text: 'Execution'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
                                                                     renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                                                                         if (value == 'COMPLETE') {
                                                                             return '<span style="color:green;">' + value + '</span>';

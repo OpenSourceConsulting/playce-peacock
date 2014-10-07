@@ -1226,6 +1226,21 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
+                                                                "dataIndex": "mappingExecution",
+                                                                "minWidth": null,
+                                                                "text": "Execution",
+                                                                "width": 120
+                                                            },
+                                                            "designerId": "1d1c75a7-ff6e-48af-8201-ff627251ec07"
+                                                        },
+                                                        {
+                                                            "type": "Ext.grid.column.Column",
+                                                            "reference": {
+                                                                "name": "columns",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
                                                                 "dataIndex": "status",
                                                                 "text": "Status",
                                                                 "width": 100
