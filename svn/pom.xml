@@ -12,7 +12,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<skipTests>true</skipTests>
 		<cobertura.skip>true</cobertura.skip>
-		<lib.dir>lib</lib.dir>
 	</properties>
 
 	<build>
@@ -54,7 +53,7 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>com.atehna.peacock.svn.svn</mainClass>
+							<mainClass>com.athena.peacock.svn.svn</mainClass>
 							<classpathPrefix>lib/</classpathPrefix>
 						</manifest>
 					</archive>
@@ -72,9 +71,6 @@
 						<goals>
 							<goal>shade</goal>
 						</goals>
-						<configuration>
-							<minimizeJar>true</minimizeJar>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>
