@@ -49,25 +49,23 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.3.2</version>
-
+				<version>2.4</version>
 				<configuration>
-					<finalName>${jar.name}</finalName>
-					<!-- jar 파일이 생성될 폴더 -->
-					<outputDirectory>${deploy.target.dir}</outputDirectory>
 					<archive>
 						<manifest>
-							<mainClass>com.atehna.peacock.svn.svn</mainClass>
 							<addClasspath>true</addClasspath>
-							<classpathPrefix>${lib.dir}/</classpathPrefix>
+							<mainClass>com.atehna.peacock.svn.svn</mainClass>
+							<classpathPrefix>lib/</classpathPrefix>
 						</manifest>
 					</archive>
 				</configuration>
 			</plugin>
 
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.5.1</version>
 				<executions>
 					<execution>
 						<id>copy-dependencies</id>
@@ -76,13 +74,12 @@
 							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/lib</outputDirectory>
-							<overWriteIfNewer>true</overWriteIfNewer>
+							<includeGroupIds>log4j</includeGroupIds>
+							<outputDirectory>${project.build.directory}/lib/</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
