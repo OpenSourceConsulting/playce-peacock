@@ -64,6 +64,8 @@ public class AgentInitialInfoMessage extends AbstractMessage {
 	private String packageCollected = "Y";
 	/** software installed Y/N*/
 	private String softwareInstalled = "Y";
+	/** machine id */
+	private String machineId = null;
 	
 	public AgentInitialInfoMessage() {
 		super(MessageType.INITIAL_INFO);
@@ -261,6 +263,20 @@ public class AgentInitialInfoMessage extends AbstractMessage {
 	 */
 	public void setSoftwareInstalled(String softwareInstalled) {
 		this.softwareInstalled = softwareInstalled;
+	}
+
+	/**
+	 * @return the machineId
+	 */
+	public String getMachineId() {
+		return machineId;
+	}
+
+	/**
+	 * @param machineId the machineId to set
+	 */
+	public void setMachineId(String machineId) {
+		this.machineId = machineId;
 	}
 	
 }

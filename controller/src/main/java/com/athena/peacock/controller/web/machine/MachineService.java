@@ -372,7 +372,7 @@ public class MachineService {
 		
 		String output1 = null, output2 = null;
 		int retryCnt1 = 0, retryCnt2 = 0;
-		while (retryCnt1++ < 3) {
+		while (retryCnt1++ < 10) {
 			output1 = SshExecUtil.executeCommand(targetHost, "cat /etc/sysconfig/network-scripts/ifcfg-eth0");
 			
 			if (output1.indexOf("IPADDR=" + machine.getIpAddress()) >= 0) {				

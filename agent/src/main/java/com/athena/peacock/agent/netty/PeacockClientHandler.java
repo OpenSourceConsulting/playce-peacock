@@ -92,6 +92,7 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
     private boolean connected = false;
     private static boolean _packageCollected = false;
     private static boolean _softwareCollected = false;
+    private String machineId = null;
     
     private PeacockClient client = null;
     
@@ -105,9 +106,23 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 		ipAddr = ipAddr.substring(1, ipAddr.indexOf(":"));
 
 		// register a new channel
-		ChannelManagement.registerChannel(ipAddr, ctx.channel());
-		
-		ctx.writeAndFlush(getAgentInitialInfo());
+		if (ChannelManagement.registerChannel(ipAddr, ctx.channel()) == 1) {
+			// 제일 처음 등록되는 채널일 경우에만 System 정보를 전달한다.
+			ctx.writeAndFlush(getAgentInitialInfo());
+		} else {
+			while (true) {
+				if (this.machineId == null) {
+					Thread.sleep(100);
+				} else {
+					break;
+				}
+			}
+
+			AgentInitialInfoMessage message = new AgentInitialInfoMessage();
+			message.setMachineId(this.machineId);
+			
+			ctx.writeAndFlush(new PeacockDatagram<AgentInitialInfoMessage>(message));
+		}
     }
 
 	@SuppressWarnings("unchecked")
@@ -146,7 +161,7 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 				
 				new PackageGatherThread(ctx, packageFile).start();
 			} else if (messageType.equals(MessageType.INITIAL_INFO)) {
-				String machineId = ((PeacockDatagram<AgentInitialInfoMessage>)msg).getMessage().getAgentId();
+				machineId = ((PeacockDatagram<AgentInitialInfoMessage>)msg).getMessage().getAgentId();
 				String packageCollected = ((PeacockDatagram<AgentInitialInfoMessage>)msg).getMessage().getPackageCollected();
 				String softwareInstalled = ((PeacockDatagram<AgentInitialInfoMessage>)msg).getMessage().getSoftwareInstalled();
 				
@@ -367,9 +382,11 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
          * @param ipAddr
          * @param channel
          */
-        synchronized static void registerChannel(String ipAddr, Channel channel) {
+        synchronized static int registerChannel(String ipAddr, Channel channel) {
         	logger.debug("ipAddr({}) and channel({}) will be added to channelMap.", ipAddr, channel);
         	channelMap.put(ipAddr, channel);
+        	
+        	return channelMap.size();
         }//end of registerChannel()
 
 		/**
@@ -433,7 +450,7 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
          * </pre>
          * @return
          */
-        static int getChannelSize() {
+        static synchronized int getChannelSize() {
 			return channelMap.size();
 		}//end of getChannelSize()
         

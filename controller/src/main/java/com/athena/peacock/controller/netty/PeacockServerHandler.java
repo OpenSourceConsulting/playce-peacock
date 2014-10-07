@@ -182,6 +182,12 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 						break;
 					case INITIAL_INFO : 
 						AgentInitialInfoMessage infoMsg = ((PeacockDatagram<AgentInitialInfoMessage>)msg).getMessage();
+						
+						if (infoMsg.getMachineId() != null) {
+							// register a new channel
+							ChannelManagement.registerChannel(infoMsg.getMachineId(), ctx.channel());
+							break;
+						}
 
 						String ipAddr = ctx.channel().remoteAddress().toString();
 						ipAddr = ipAddr.substring(1, ipAddr.indexOf(":"));
@@ -651,6 +657,13 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
          */
     	synchronized static void registerChannel(String agentId, Channel channel) {
         	logger.debug("agentId({}) and channel({}) will be added to channelMap.", agentId, channel);
+
+        	// 기존에 등록된 채널이 있을 경우 close한다.
+        	Channel c = channelMap.get(agentId);
+        	if (c != null) {
+        		c.close();
+        	}
+        	
         	channelMap.put(agentId, channel);
         }//end of registerChannel()
         
