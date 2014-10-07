@@ -27,16 +27,17 @@ package com.athena.peacock.controller.web.alm.jenkins;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.athena.peacock.controller.web.alm.jenkins.client.JenkinsClient;
 import com.athena.peacock.controller.web.alm.jenkins.client.JenkinsServer;
 import com.athena.peacock.controller.web.alm.jenkins.clinet.model.JenkinsResponseDto;
+import com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 
 /**
@@ -65,15 +66,12 @@ public class AlmJenkinsService {
 	@Value("#{contextProperties['alm.jenkins.mobiletemplate']}")
 	private String JENKINS_MOBILETEMPLATE;
 
-	@Autowired
-	private JenkinsClient jenkinsClient;
-
-	private JenkinsServer jenkins;
+	private JenkinsServer jenkinsServer;
 
 	@PostConstruct
 	private void init() {
 		try {
-			jenkins = new JenkinsServer(new URI(JENKINS_URL), JENKINS_ID,
+			jenkinsServer = new JenkinsServer(new URI(JENKINS_URL), JENKINS_ID,
 					JENKINS_PW);
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
@@ -86,7 +84,7 @@ public class AlmJenkinsService {
 		GridJsonResponse response = new GridJsonResponse();
 
 		try {
-			JenkinsResponseDto dto = jenkins.getJobs();
+			JenkinsResponseDto dto = jenkinsServer.getJobs();
 			response.setList(dto.getJobs());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -96,8 +94,44 @@ public class AlmJenkinsService {
 		return response;
 	}
 
-	public void createJob(String templateName, String newJobName) {
-		jenkinsClient.copyJob(templateName, newJobName);
+	public String copyJob(ProjectMappingDto jenkins) {
+
+		String url = JENKINS_URL + "/job/JobCopy/buildWithParameters";
+
+		Map<String, String> parameter = new HashMap<String, String>();
+		parameter.put("TEMPLATE_NAME", "HHI-TEMPLATE");
+		parameter.put("JOB_NAME", jenkins.getMappingCode());
+		parameter.put("REPOSITORY_NAME", "svn://..../hiway");
+		parameter.put("JOBTYPE", "");
+
+		try {
+			jenkinsServer.copyJob(url, parameter);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "OK";
+
+	}
+
+	public String copyPermission(String jobName, String userName) {
+
+		String url = JENKINS_URL + "/job/JobPermission/buildWithParameters";
+
+		Map<String, String> parameter = new HashMap<String, String>();
+		parameter.put("JOB_NAME", jobName);
+		parameter.put("USER_NAME", userName);
+
+		try {
+			jenkinsServer.copyJob(url, parameter);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "OK";
+
 	}
 
 }

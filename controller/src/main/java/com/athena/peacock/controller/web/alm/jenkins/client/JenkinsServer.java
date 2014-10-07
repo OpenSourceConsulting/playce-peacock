@@ -2,6 +2,7 @@ package com.athena.peacock.controller.web.alm.jenkins.client;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.Map;
 
 import com.athena.peacock.controller.web.alm.jenkins.clinet.model.JenkinsResponseDto;
 
@@ -36,4 +37,8 @@ public class JenkinsServer {
 
 	}
 
+	public void copyJob(String url, Map<String, String> parameter)
+			throws IOException {
+		client.post(url, parameter);
+	}
 }

@@ -5,12 +5,15 @@ import static org.apache.commons.lang.StringUtils.isNotBlank;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Iterator;
+import java.util.Map;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -87,6 +90,25 @@ public class JenkinsHttpClient {
 		}
 	}
 
+	public void post(String path, Map<String, String> parameter)
+			throws IOException {
+
+		path = path + "?" + getParameter(parameter);
+		System.out.println(path);
+
+		HttpPost request = new HttpPost(path);
+		HttpResponse response = client.execute(request, localContext);
+
+		try {
+
+			httpResponseValidator.validateResponse(response);
+
+		} finally {
+			EntityUtils.consume(response.getEntity());
+			releaseConnection(request);
+		}
+	}
+
 	private String urlJoin(String path1, String path2) {
 		if (!path1.endsWith("/")) {
 			path1 += "/";
@@ -131,4 +153,27 @@ public class JenkinsHttpClient {
 		httpRequestBase.releaseConnection();
 	}
 
+	private String getParameter(Map<String, String> parameter) {
+
+		StringBuffer sb = new StringBuffer();
+
+		Iterator<String> keys = parameter.keySet().iterator();
+
+		while (keys.hasNext()) {
+			String key = keys.next();
+
+			String value = parameter.get(key);
+			sb.append(key);
+			sb.append("=");
+			sb.append(value);
+
+			if (keys.hasNext()) {
+				sb.append("&");
+			}
+
+		}
+
+		return sb.toString();
+
+	}
 }

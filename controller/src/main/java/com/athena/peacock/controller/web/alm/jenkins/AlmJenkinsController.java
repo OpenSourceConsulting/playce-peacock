@@ -37,16 +37,17 @@ import com.athena.peacock.controller.web.common.model.GridJsonResponse;
  * <pre>
  * 사용자 관리 컨트롤러.
  * </pre>
+ * 
  * @author Jungsu Han
  * @version 1.0
  */
 @Controller
 @RequestMapping("/alm")
 public class AlmJenkinsController {
-	
-	
-	@Autowired 
+
+	@Autowired
 	private AlmJenkinsService service;
+
 	/**
 	 * <pre>
 	 * 
@@ -55,12 +56,18 @@ public class AlmJenkinsController {
 	public AlmJenkinsController() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@RequestMapping(value = "/jenkins/job", method = RequestMethod.GET)
-	public @ResponseBody GridJsonResponse list(ExtjsGridParam gridParam){
+	public @ResponseBody
+	GridJsonResponse list(ExtjsGridParam gridParam) {
 		return service.getJobs();
 	}
-	
-	
+
+	@RequestMapping(value = "/jenkins/test", method = RequestMethod.GET)
+	public @ResponseBody
+	String test() {
+		return service.copyJob(null);
+	}
+
 }
-//end of AlmUserController.java
+// end of AlmUserController.java

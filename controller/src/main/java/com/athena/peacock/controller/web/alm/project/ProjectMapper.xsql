@@ -115,19 +115,20 @@
 			MAPPING_CODE = #{mappingCode}
 	</update>
 	
-	<select id="getProjectMappingStandBy"  resultType="com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto">
+	<select id="getProjectMappingStandBy"  resultMap="resultMappingMap">
 		 SELECT 
-		 	PROJECT_CODE as projectCode, 
-		 	MAPPING_TYPE as mappingType, 
-		 	MAPPING_CODE as mappingCode, 
-		 	MAPPING_PARAMETER as mappingPermission,
-		 	CREATE_TIME as createTime, 
-		 	START_TIME as startTime, 
-		 	END_TIME as endTime, 
-		 	STATUS as status, 
-		 	EXIT_CODE as exitCode, 
-		 	EXIT_MESSAGE as exitMessage, 
-		 	LAST_UPDATED as lastUpdated  
+		 	PROJECT_CODE, 
+		 	MAPPING_TYPE, 
+		 	MAPPING_CODE, 
+		 	MAPPING_EXECUTION, 
+		 	MAPPING_PARAMETER,
+		 	CREATE_TIME, 
+		 	START_TIME, 
+		 	END_TIME, 
+		 	STATUS, 
+		 	EXIT_CODE, 
+		 	EXIT_MESSAGE, 
+		 	LAST_UPDATED  
 		 FROM alm_project_mapping_tbl
 		 WHERE STATUS='STANDBY'
 	</select>

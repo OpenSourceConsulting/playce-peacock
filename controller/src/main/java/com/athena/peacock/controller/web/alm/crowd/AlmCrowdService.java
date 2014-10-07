@@ -491,6 +491,20 @@ public class AlmCrowdService {
 		return response;
 	}
 
+	public List<User> getGroupUserList(String groupname) {
+
+		List<User> users = null;
+		try {
+			users = crowdClient.getUsersOfGroup(groupname, 0, 10000);
+		} catch (GroupNotFoundException | ApplicationPermissionException
+				| InvalidAuthenticationException | OperationFailedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return users;
+
+	}
+
 	public List<String> getProjectUser() {
 
 		List<String> users;

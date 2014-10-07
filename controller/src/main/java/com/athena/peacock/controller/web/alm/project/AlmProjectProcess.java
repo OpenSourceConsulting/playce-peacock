@@ -6,10 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.athena.peacock.controller.web.alm.confluence.AlmConfluenceService;
+import com.athena.peacock.controller.web.alm.crowd.AlmCrowdService;
+import com.athena.peacock.controller.web.alm.jenkins.AlmJenkinsService;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectHistoryDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectProcessStatusDto;
 import com.athena.peacock.controller.web.alm.svn.AlmSvnService;
+import com.athena.peacock.controller.web.common.model.GridJsonResponse;
+import com.atlassian.crowd.model.user.User;
 
 /**
  * <pre>
@@ -31,6 +35,12 @@ public class AlmProjectProcess {
 	@Autowired
 	private AlmConfluenceService confluenceService;
 
+	@Autowired
+	private AlmJenkinsService jenkinsService;
+
+	@Autowired
+	private AlmCrowdService crowdService;
+
 	public void processProjectMapping() {
 
 		List<ProjectMappingDto> lists = projectDao.getProjectMappingStandBy();
@@ -40,21 +50,24 @@ public class AlmProjectProcess {
 			ProjectProcessStatusDto statusDto = null;
 
 			// Check Start Time
-			if (list.getMappingType() == 10 || list.getMappingType() == 30) {
-				projectDao.startProjectMappingJob(list);
-			}
+
+			projectDao.startProjectMappingJob(list);
 
 			// Process
 			if (list.getMappingType() == 10) { // SPACE 권한 생성
 
 				statusDto = addPermissionToSpace(list);
-				projectDao.endProjectMappingJob(list);
 
 			} else if (list.getMappingType() == 20) {
 
-				// projectDao.startProjectMappingJob(list);
-				// createJob("JobCopy", null, list.getProjectCode());
-				// projectDao.endProjectMappingJob(list);
+				if (list.getMappingExecution() != null
+						&& list.getMappingExecution().equals("CREATE")) {
+					createJenkinsJob(list);
+				}
+
+				// 퍼미션 추가
+				createJenkinsPermission(list);
+
 			} else if (list.getMappingType() == 30) { // SVN Project 생성
 
 				projectDao.startProjectMappingJob(list);
@@ -133,4 +146,19 @@ public class AlmProjectProcess {
 
 	}
 
+	// SVN 생성
+	private void createJenkinsJob(ProjectMappingDto jenkins) {
+		jenkinsService.copyJob(jenkins);
+	}
+
+	private void createJenkinsPermission(ProjectMappingDto jenkins) {
+
+		List<User> users = crowdService.getGroupUserList(jenkins
+				.getProjectCode());
+
+		for (User user : users) {
+			jenkinsService.copyPermission(jenkins.getProjectCode(),
+					user.getName());
+		}
+	}
 }
