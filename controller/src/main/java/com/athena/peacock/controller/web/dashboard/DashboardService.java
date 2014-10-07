@@ -272,7 +272,8 @@ public class DashboardService {
     	if (status.equals("INIT")) {
     		refreshDashboardInfo();
     	} else if (status.equals("GATHERING")) {
-    		while (true) {
+    		int cnt = 0;
+    		while (cnt++ < 10) {
     			Thread.sleep(500);
     			
     			if (status.equals("GATHERING")) {
