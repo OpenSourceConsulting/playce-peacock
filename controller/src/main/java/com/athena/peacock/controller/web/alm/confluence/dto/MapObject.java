@@ -1,4 +1,4 @@
-package com.athena.peacock.controller.web.alm.confluence;
+package com.athena.peacock.controller.web.alm.confluence.dto;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

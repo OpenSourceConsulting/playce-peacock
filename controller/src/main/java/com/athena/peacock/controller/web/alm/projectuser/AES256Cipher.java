@@ -1,4 +1,4 @@
-package com.athena.peacock.controller.web.alm.user;
+package com.athena.peacock.controller.web.alm.projectuser;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;

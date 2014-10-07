@@ -102,8 +102,9 @@ public class AlmCrowdService {
 				crowdId, crowdPw);
 	}
 
-	public void insertUser(AlmUserDto user) {
+	public Object processCrowdService() {
 
+		return null;
 	}
 
 	public GridJsonResponse getList(String type, ExtjsGridParam gridParam) {
@@ -171,12 +172,23 @@ public class AlmCrowdService {
 			ApplicationPermissionException {
 
 		List<AlmGroupDto> groupLists = new ArrayList<AlmGroupDto>();
+		
+		int page = getCrowdPage(gridParam);
 
-		PropertyRestriction<Boolean> groupRestriction = Restriction.on(
-				GroupTermKeys.ACTIVE).containing(true);
+		Iterable<Group> groupnames;
 
-		Iterable<Group> groupnames = crowdClient.searchGroups(groupRestriction,
-				0, 50);
+		// Search Text가 있을 경우
+		if (gridParam.getSearch() != null) {
+
+			PropertyRestriction<String> groupRestriction = Restriction.on(
+					GroupTermKeys.NAME).startingWith(gridParam.getSearch());
+			groupnames = crowdClient.searchGroups(groupRestriction, page, 50);
+
+		} else { // Search Text가 없을경우
+			PropertyRestriction<Boolean> groupRestriction = Restriction.on(
+					GroupTermKeys.ACTIVE).containing(true);
+			groupnames = crowdClient.searchGroups(groupRestriction, page, 50);
+		}
 
 		for (Group profile : groupnames) {
 			AlmGroupDto tmp = new AlmGroupDto();

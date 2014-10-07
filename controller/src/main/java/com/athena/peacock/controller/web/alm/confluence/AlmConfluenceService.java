@@ -166,7 +166,8 @@ public class AlmConfluenceService {
 
 	}
 
-	public ProjectProcessStatusDto addPermissions(String groupcode, String spaceKey) {
+	public ProjectProcessStatusDto addPermissions(String groupcode,
+			String spaceKey) {
 
 		ProjectProcessStatusDto response = new ProjectProcessStatusDto();
 
@@ -194,8 +195,8 @@ public class AlmConfluenceService {
 
 	}
 
-	public ProjectProcessStatusDto addPermissions(String groupcode, String spaceKey,
-			String spaceparameter) {
+	public ProjectProcessStatusDto addPermissions(String groupcode,
+			String spaceKey, String spaceparameter) {
 
 		ProjectProcessStatusDto response = new ProjectProcessStatusDto();
 

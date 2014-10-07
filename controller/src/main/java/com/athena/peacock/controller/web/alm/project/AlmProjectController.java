@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.athena.peacock.controller.web.alm.jenkins.AlmJenkinsService;
 import com.athena.peacock.controller.web.alm.jenkins.clinet.model.JobNotificationDto;
 import com.athena.peacock.controller.web.alm.nexus.client.NexusClient;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
@@ -64,6 +65,9 @@ public class AlmProjectController {
 	@Autowired
 	private NexusClient nexus;
 
+	@Autowired
+	private AlmJenkinsService jenkinsService;
+
 	/**
 	 * <pre>
 	 * 
@@ -71,6 +75,37 @@ public class AlmProjectController {
 	 */
 	public AlmProjectController() {
 		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * <pre>
+	 * Project 리스트
+	 * </pre>
+	 * 
+	 * @param gridParam
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/jenkins/job", method = RequestMethod.GET)
+	public @ResponseBody
+	GridJsonResponse jenkinsJobList(
+			@RequestParam(value = "offset", defaultValue = "0") int offset,
+			@RequestParam(value = "search", required = false) String search) {
+
+		ExtjsGridParam gridParam = new ExtjsGridParam();
+		gridParam.setPage(offset);
+
+		if (search != null) {
+			gridParam.setSearch(search);
+		}
+
+		return jenkinsService.getJobs(gridParam);
+	}
+
+	@RequestMapping(value = "/jenkins/test", method = RequestMethod.GET)
+	public @ResponseBody
+	String test() {
+		return jenkinsService.copyJob(null);
 	}
 
 	/**

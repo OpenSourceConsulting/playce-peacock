@@ -32,6 +32,7 @@ import com.athena.peacock.controller.web.alm.jenkins.AlmJenkinsService;
  * <pre>
  * Dashboard 데이터 조회용 컴포넌트
  * </pre>
+ * 
  * @author Sang-cheon Park
  * @version 1.0
  */
@@ -40,21 +41,21 @@ public class AlmDashboardComponent {
 
 	@Autowired
 	private AlmJenkinsService jenkinsService;
-	
+
 	public int getProjectCnt() {
 		return 0;
 	}
-	
+
 	public int getSvnCnt() {
 		return 0;
 	}
-	
+
 	public int getJenkinsCnt() {
 		if (jenkinsService == null) {
 			jenkinsService = AppContext.getBean(AlmJenkinsService.class);
 		}
-		
-		return jenkinsService.getJobs().getList().size();
+
+		return jenkinsService.getJobs(null).getList().size();
 	}
 }
-//end of AlmDashboardComponent.java
+// end of AlmDashboardComponent.java

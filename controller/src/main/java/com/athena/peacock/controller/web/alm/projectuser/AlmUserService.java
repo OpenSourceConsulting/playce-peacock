@@ -1,4 +1,4 @@
-package com.athena.peacock.controller.web.alm.user;
+package com.athena.peacock.controller.web.alm.projectuser;
 
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;

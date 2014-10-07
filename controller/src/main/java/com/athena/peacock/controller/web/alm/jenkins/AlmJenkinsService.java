@@ -27,7 +27,11 @@ package com.athena.peacock.controller.web.alm.jenkins;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -37,7 +41,9 @@ import org.springframework.stereotype.Service;
 
 import com.athena.peacock.controller.web.alm.jenkins.client.JenkinsServer;
 import com.athena.peacock.controller.web.alm.jenkins.clinet.model.JenkinsResponseDto;
+import com.athena.peacock.controller.web.alm.jenkins.clinet.model.JobDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto;
+import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 
 /**
@@ -79,13 +85,24 @@ public class AlmJenkinsService {
 		}
 	}
 
-	public GridJsonResponse getJobs() {
+	public GridJsonResponse getJobs(ExtjsGridParam gridParam) {
 
 		GridJsonResponse response = new GridJsonResponse();
 
+		List<JobDto> jobs = null;
+
 		try {
 			JenkinsResponseDto dto = jenkinsServer.getJobs();
-			response.setList(dto.getJobs());
+
+			if (gridParam != null && gridParam.getSearch() != null) {
+				jobs = getJobSearch(dto.getJobs(), gridParam.getSearch());
+			} else {
+				jobs = dto.getJobs();
+			}
+
+			Collections.sort(jobs, new JobNameComparator());
+			response.setList(jobs);
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -132,6 +149,29 @@ public class AlmJenkinsService {
 
 		return "OK";
 
+	}
+
+	public class JobNameComparator implements Comparator<JobDto> {
+
+		@Override
+		public int compare(JobDto arg0, JobDto arg1) {
+			// TODO Auto-generated method stub
+			return arg0.getName().compareTo(arg1.getName());
+		}
+	}
+
+	private List<JobDto> getJobSearch(List<JobDto> jobs, String search) {
+
+		List<JobDto> searchJobs = new ArrayList<JobDto>();
+
+		for (JobDto job : jobs) {
+
+			if (job.getName().contains(search)) {
+				searchJobs.add(job);
+			}
+		}
+
+		return searchJobs;
 	}
 
 }

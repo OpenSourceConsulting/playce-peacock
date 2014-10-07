@@ -42,7 +42,7 @@ import com.athena.peacock.controller.web.alm.project.dto.ProjectTamplateInfomati
 import com.athena.peacock.controller.web.alm.project.dto.ProjectTemplateDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectUserPasswordResetDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectWizardDto;
-import com.athena.peacock.controller.web.alm.user.AlmUserService;
+import com.athena.peacock.controller.web.alm.projectuser.AlmUserService;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
