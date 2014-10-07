@@ -1,7 +1,11 @@
 package com.athena.peacock.controller.web.alm.svn;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.tmatesoft.svn.core.SVNCommitInfo;
@@ -15,7 +19,18 @@ import org.tmatesoft.svn.core.io.ISVNEditor;
 import org.tmatesoft.svn.core.io.SVNRepository;
 import org.tmatesoft.svn.core.wc.SVNWCUtil;
 
+import com.athena.peacock.controller.web.alm.crowd.AlmCrowdService;
+import com.athena.peacock.controller.web.alm.crowd.dto.ProjectUserDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectProcessStatusDto;
+import com.athena.peacock.controller.web.alm.svn.dto.SvnGroupUserDto;
+import com.athena.peacock.controller.web.alm.svn.dto.SvnSyncDto;
+import com.athena.peacock.controller.web.alm.svn.dto.SvnUserDto;
+import com.atlassian.crowd.exception.ApplicationPermissionException;
+import com.atlassian.crowd.exception.GroupNotFoundException;
+import com.atlassian.crowd.exception.InvalidAuthenticationException;
+import com.atlassian.crowd.exception.OperationFailedException;
+import com.atlassian.crowd.model.group.Group;
+import com.atlassian.crowd.model.user.User;
 
 @Service
 public class AlmSvnService {
@@ -28,6 +43,9 @@ public class AlmSvnService {
 
 	@Value("#{contextProperties['alm.svn.pw']}")
 	private String SVN_PW;
+
+	@Autowired
+	private AlmCrowdService crowdService;
 
 	// private String SVN_URL = "svn://119.81.162.220/hiway/";
 	private SVNRepository repository = null;
@@ -118,4 +136,60 @@ public class AlmSvnService {
 		return SVN_URL;
 	}
 
+	public SvnSyncDto getSvnSyncInfomation() {
+
+		SvnSyncDto sync = new SvnSyncDto();
+
+		// User List 생성
+		List<ProjectUserDto> users = crowdService.getProjectAllUser();
+		List<SvnUserDto> svnUser = new ArrayList<SvnUserDto>();
+
+		for (ProjectUserDto user : users) {
+			SvnUserDto tmpUser = new SvnUserDto();
+			tmpUser.setUsername(user.getUSERNAME());
+			tmpUser.setPassword(user.getPASSWORD());
+			svnUser.add(tmpUser);
+		}
+
+		sync.setUsers(svnUser);
+
+		// Group User 생성
+		List<SvnGroupUserDto> groupUsers = new ArrayList<SvnGroupUserDto>();
+
+		List<Group> groups = crowdService.getNestedChildGroupsOfGroup();
+
+		if (groups != null) {
+
+			for (Group group : groups) {
+
+				try {
+					List<User> groupusers = crowdService.getGroupUsers(group
+							.getName());
+
+					SvnGroupUserDto tmpGroup = new SvnGroupUserDto();
+					tmpGroup.setGroupName(group.getName());
+
+					StringBuffer sb = new StringBuffer();
+
+					for (User groupuser : groupusers) {
+						sb.append(groupuser.getName());
+						sb.append(",");
+					}
+
+					tmpGroup.setUserList(sb.toString());
+					groupUsers.add(tmpGroup);
+				} catch (GroupNotFoundException
+						| ApplicationPermissionException
+						| InvalidAuthenticationException
+						| OperationFailedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+
+		sync.setGroups(groupUsers);
+		return sync;
+
+	}
 }

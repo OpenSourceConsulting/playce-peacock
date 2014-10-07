@@ -172,7 +172,7 @@ public class AlmCrowdService {
 			ApplicationPermissionException {
 
 		List<AlmGroupDto> groupLists = new ArrayList<AlmGroupDto>();
-		
+
 		int page = getCrowdPage(gridParam);
 
 		Iterable<Group> groupnames;
@@ -456,24 +456,24 @@ public class AlmCrowdService {
 		GridJsonResponse response = new GridJsonResponse();
 
 		try {
-			List<User> users = crowdClient.getUsersOfGroup(groupname, 0, 10000);
-			response.setList(users);
+			response.setList(getGroupUsers(groupname));
 			response.setMsg("사용자 그룹이 조회되었습니다.");
-		} catch (GroupNotFoundException e) {
+		} catch (GroupNotFoundException | ApplicationPermissionException
+				| InvalidAuthenticationException | OperationFailedException e) {
+			// TODO Auto-generated catch block
 			response.setSuccess(false);
-			response.setMsg("GroupNotFoundException");
-		} catch (OperationFailedException e) {
-			response.setSuccess(false);
-			response.setMsg("OperationFailedException");
-		} catch (ApplicationPermissionException e) {
-			response.setSuccess(false);
-			response.setMsg("ApplicationPermissionException");
-		} catch (InvalidAuthenticationException e) {
-			response.setSuccess(false);
-			response.setMsg("InvalidAuthenticationException");
+			response.setMsg("사용자 그룹이 조회에 실패했습니다.");
 		}
 
 		return response;
+	}
+
+	public List<User> getGroupUsers(String groupname)
+			throws GroupNotFoundException, ApplicationPermissionException,
+			InvalidAuthenticationException, OperationFailedException {
+
+		List<User> users = crowdClient.getUsersOfGroup(groupname, 0, 10000);
+		return users;
 	}
 
 	// 그룹에 유저 추가
@@ -552,21 +552,26 @@ public class AlmCrowdService {
 
 	}
 
-	public List<String> getProjectUser() {
-
-		List<String> users;
+	public List<Group> getNestedChildGroupsOfGroup() {
 
 		try {
-			users = crowdClient.getNamesOfNestedUsersOfGroup("project", 0,
-					10000);
-			return users;
+			List<Group> groups = crowdClient.getNestedChildGroupsOfGroup(
+					"project", 0, 100000);
+
+			return groups;
 		} catch (GroupNotFoundException | OperationFailedException
 				| InvalidAuthenticationException
 				| ApplicationPermissionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return null;
 		}
+		return null;
+
+	}
+
+	public List<ProjectUserDto> getProjectAllUser() {
+
+		return userDao.getUserList();
 
 	}
 

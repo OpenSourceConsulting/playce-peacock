@@ -11,34 +11,33 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.athena.peacock.svn.dto.SvnDto;
 import com.athena.peacock.svn.dto.SvnGroupUserDto;
-import com.athena.peacock.svn.dto.SvnProject;
+import com.athena.peacock.svn.dto.SvnProjectDto;
 import com.athena.peacock.svn.dto.SvnUserDto;
 
 @Service
 public class SvnService {
 
 	public void test() {
-		System.out.println("##111##########");
-		getArchetype();
-		writePasswdFile();
-		writeAuthzFile();
+		SvnDto syncDto = getArchetype();
+		writePasswdFile(syncDto);
+		writeAuthzFile(syncDto);
 	}
 
-	public void getArchetype() {
+	public SvnDto getArchetype() {
 
 		try {
-			String url = "http://localhost:8080/controller/alm/jenkins/job";
+			String url = "http://localhost:8080/controller/alm/project/svn/sync";
 
 			HttpHeaders requestHeaders = new HttpHeaders();
 
 			List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
-			acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
 			requestHeaders.setAccept(acceptableMediaTypes);
-			requestHeaders.setContentType(MediaType.APPLICATION_JSON);
 
 			// Populate the headers in an HttpEntity object to use for the
 			// request
@@ -46,37 +45,25 @@ public class SvnService {
 
 			// Create a new RestTemplate instance
 			RestTemplate restTemplate = new RestTemplate();
-			// restTemplate.getMessageConverters().add(new
-			// Jaxb2RootElementHttpMessageConverter());
+			restTemplate.getMessageConverters().add(
+					new MappingJackson2HttpMessageConverter());
 
 			// Perform the HTTP GET request
-			ResponseEntity<String> responseEntity = restTemplate.exchange(url,
-					HttpMethod.GET, requestEntity, String.class);
+			ResponseEntity<SvnDto> responseEntity = restTemplate.exchange(url,
+					HttpMethod.GET, requestEntity, SvnDto.class);
 
-			System.out.println(responseEntity);
-			// return ArchetypeCatalog.class.cast(responseEntity.getBody());
+			return responseEntity.getBody();
 		} catch (Exception e) {
 			// logger.debug("exception {}", e.getMessage());
 			e.printStackTrace();
 		}
 
-		// return null;
+		return null;
 	}
 
-	private void writePasswdFile() {
+	private void writePasswdFile(SvnDto syncDto) {
 
-		List<SvnUserDto> users = new ArrayList<SvnUserDto>();
-
-		SvnUserDto u1 = new SvnUserDto();
-		u1.setPassword("osc09");
-		u1.setUsername("osc09");
-
-		SvnUserDto u2 = new SvnUserDto();
-		u2.setPassword("osc08");
-		u2.setUsername("osc08");
-
-		users.add(u1);
-		users.add(u2);
+		List<SvnUserDto> users = syncDto.getUsers();
 
 		try {
 			// //////////////////////////////////////////////////////////////
@@ -94,22 +81,17 @@ public class SvnService {
 
 			out.close();
 		} catch (IOException e) {
-			System.err.println(e); // 에러가 있다면 메시지 출력
+			System.err.println(e);
 		}
 
 	}
 
-	private void writeAuthzFile() {
+	private void writeAuthzFile(SvnDto syncDto) {
 
-		List<SvnGroupUserDto> groupList = new ArrayList<SvnGroupUserDto>();
-		SvnGroupUserDto group = new SvnGroupUserDto();
-		group.setGroupName("xt001");
-		group.setUserList("osc09,osc08");
+		List<SvnGroupUserDto> groupList = syncDto.getGroups();
 
-		groupList.add(group);
-
-		List<SvnProject> svnlists = new ArrayList<SvnProject>();
-		SvnProject svn = new SvnProject();
+		List<SvnProjectDto> svnlists = new ArrayList<SvnProjectDto>();
+		SvnProjectDto svn = new SvnProjectDto();
 		svn.setProject("hiway");
 		svn.setRepository("hiway");
 		svn.setProjectCode("xt001");
@@ -138,7 +120,7 @@ public class SvnService {
 			}
 
 			out.newLine();
-			
+
 			// project
 			String project = "[/]";
 			out.write(project);
@@ -148,8 +130,8 @@ public class SvnService {
 			out.write(projectMain);
 			out.newLine();
 			out.newLine();
-			
-			for (SvnProject svnProject : svnlists) {
+
+			for (SvnProjectDto svnProject : svnlists) {
 
 				String tmp = String
 						.format("[%s:/%s]", svnProject.getRepository(),
@@ -166,7 +148,7 @@ public class SvnService {
 
 			out.close();
 		} catch (IOException e) {
-			System.err.println(e); // 에러가 있다면 메시지 출력
+			System.err.println(e);
 		}
 
 	}

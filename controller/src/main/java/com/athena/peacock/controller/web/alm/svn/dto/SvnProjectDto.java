@@ -1,6 +1,6 @@
-package com.athena.peacock.svn.dto;
+package com.athena.peacock.controller.web.alm.svn.dto;
 
-public class SvnProject {
+public class SvnProjectDto {
 
 	private String repository;
 	private String project;

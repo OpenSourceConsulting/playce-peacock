@@ -3,6 +3,9 @@
 
 <mapper namespace="ProjectUserMapper">
 
+	<select id="getAllUser"  resultType="com.athena.peacock.controller.web.alm.crowd.dto.ProjectUserDto">
+		 SELECT  USERNAME, PASSWORD  from alm_project_user_tbl
+	</select>
 	
 	<insert id="insertProjectUser" parameterType="com.athena.peacock.controller.web.alm.crowd.dto.ProjectUserDto">
 		INSERT INTO  alm_project_user_tbl

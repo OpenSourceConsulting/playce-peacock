@@ -1,5 +1,7 @@
 package com.athena.peacock.controller.web.alm.crowd;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.athena.peacock.controller.web.alm.crowd.dto.ProjectUserDto;
@@ -14,6 +16,10 @@ public class AlmProjectUserDao extends AbstractBaseDao {
 
 	public void updateProjectUser(ProjectUserDto user) {
 		sqlSession.update("ProjectUserMapper.updateProjectUser", user);
+	}
+
+	public List<ProjectUserDto> getUserList() {
+		return sqlSession.selectList("ProjectUserMapper.getAllUser");
 	}
 
 }

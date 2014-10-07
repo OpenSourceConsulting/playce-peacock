@@ -40,6 +40,8 @@ import com.athena.peacock.controller.web.alm.nexus.client.NexusClient;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectUserPasswordResetDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectWizardDto;
+import com.athena.peacock.controller.web.alm.svn.AlmSvnService;
+import com.athena.peacock.controller.web.alm.svn.dto.SvnSyncDto;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
@@ -67,6 +69,9 @@ public class AlmProjectController {
 
 	@Autowired
 	private AlmJenkinsService jenkinsService;
+
+	@Autowired
+	private AlmSvnService svnService;
 
 	/**
 	 * <pre>
@@ -358,6 +363,21 @@ public class AlmProjectController {
 	public @ResponseBody
 	DtoJsonResponse sendTest() {
 		return almProjectService.resetPasswordEmail(null);
+	}
+
+	/**
+	 * <pre>
+	 * 사용자 패스워드 변경
+	 * </pre>
+	 * 
+	 * @param projectCode
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/project/svn/sync", method = RequestMethod.GET)
+	public @ResponseBody
+	SvnSyncDto svnSync() {
+		return svnService.getSvnSyncInfomation();
 	}
 
 }

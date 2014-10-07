@@ -1,8 +1,8 @@
-package com.athena.peacock.svn.dto;
+package com.athena.peacock.controller.web.alm.svn.dto;
 
 import java.util.List;
 
-public class SvnDto {
+public class SvnSyncDto {
 
 	private List<SvnGroupUserDto> groups;
 	private List<SvnUserDto> users;

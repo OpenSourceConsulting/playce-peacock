@@ -1,7 +1,31 @@
 [aliases]
 
 [groups]
-xt001 = osc09,osc08
+aa0001 = admin,hclee,kwlee,
+b001 = admin,hclee,test111,
+b002 = admin,hclee,
+b003 = admin,hclee,jshan,kwlee,
+b004 = admin,hclee,jshan,
+c0001 = admin,hclee,jshan,kwlee,
+c001 = admin,hclee,jshan,kwlee,
+d001 = admin,hclee,jshan,kwlee,
+d002 = 
+d003 = admin,hclee,jshan,kwlee,
+d005 = admin,hclee,jshan,kwlee,test111,
+d006 = admin,hclee,jshan,kwlee,
+d007 = 
+dave001 = admin,hclee,jshan,kwlee,
+m001 = admin,hclee,jshan,kwlee,
+m002 = admin,hclee,jshan,kwlee,
+m003 = admin,hclee,jshan,
+m004 = admin,hclee,jshan,
+m005 = admin,
+m006 = hclee,
+m007 = 
+osc999 = admin,hclee,
+test = 
+w002 = 
+w003 = 
 
 [/]
 osc09 =  rw
