@@ -61,16 +61,8 @@ Ext.define('MyApp.view.AlmProjectSpaceWindow', {
                                 {
                                     xtype: 'toolbar',
                                     dock: 'top',
-                                    itemId: 'almAddSpaceToolbar',
-                                    items: [
-                                        {
-                                            xtype: 'textfield',
-                                            itemId: 'almAddSpaceFilterText',
-                                            fieldLabel: 'Filtering',
-                                            labelWidth: 60,
-                                            enableKeyEvents: true
-                                        }
-                                    ]
+                                    height: 5,
+                                    itemId: 'almAddSpaceToolbar'
                                 }
                             ],
                             columns: [

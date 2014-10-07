@@ -1411,7 +1411,7 @@
                                                 "columnLines": true,
                                                 "forceFit": true,
                                                 "header": false,
-                                                "height": 200,
+                                                "height": 215,
                                                 "id": "wizardAddSpaceGrid",
                                                 "itemId": "wizardAddSpaceGrid",
                                                 "margin": "10 0 0 0",
@@ -1431,39 +1431,6 @@
                                                         "border": null
                                                     },
                                                     "designerId": "758d1cb2-fbc6-4ddc-aae2-68fcd71c3be2"
-                                                },
-                                                {
-                                                    "type": "Ext.toolbar.Toolbar",
-                                                    "reference": {
-                                                        "name": "dockedItems",
-                                                        "type": "array"
-                                                    },
-                                                    "codeClass": null,
-                                                    "userConfig": {
-                                                        "border": null,
-                                                        "dock": "top",
-                                                        "style": [
-                                                            "\"border-top-width: 1px !important;\""
-                                                        ]
-                                                    },
-                                                    "designerId": "15108a02-638b-46e4-897c-48f2f03cb4db",
-                                                    "cn": [
-                                                        {
-                                                            "type": "Ext.form.field.Text",
-                                                            "reference": {
-                                                                "name": "items",
-                                                                "type": "array"
-                                                            },
-                                                            "codeClass": null,
-                                                            "userConfig": {
-                                                                "emptyText": "Search Space Name",
-                                                                "fieldLabel": "Filtering",
-                                                                "labelWidth": 60,
-                                                                "layout|flex": null
-                                                            },
-                                                            "designerId": "ddee0bef-2ad6-41ca-8546-72e71bfc57f5"
-                                                        }
-                                                    ]
                                                 },
                                                 {
                                                     "type": "Ext.grid.column.Column",
@@ -1660,6 +1627,19 @@
                                                     },
                                                     "codeClass": "Ext.grid.plugin.CellEditing",
                                                     "designerId": "bdcc4928-59aa-4245-bf5e-5c4dc993025d"
+                                                },
+                                                {
+                                                    "type": "Ext.toolbar.Toolbar",
+                                                    "reference": {
+                                                        "name": "dockedItems",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "dock": "top",
+                                                        "height": 2
+                                                    },
+                                                    "designerId": "0a58dee9-e795-4112-ba60-769c5e13e553"
                                                 }
                                             ]
                                         }

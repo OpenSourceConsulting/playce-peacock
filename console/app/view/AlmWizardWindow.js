@@ -586,7 +586,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                             items: [
                                                 {
                                                     xtype: 'gridpanel',
-                                                    height: 200,
+                                                    height: 215,
                                                     id: 'wizardAddSpaceGrid',
                                                     itemId: 'wizardAddSpaceGrid',
                                                     margin: '10 0 0 0',
@@ -596,21 +596,6 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                     columnLines: true,
                                                     forceFit: true,
                                                     store: 'AlmSpaceStore',
-                                                    dockedItems: [
-                                                        {
-                                                            xtype: 'toolbar',
-                                                            dock: 'top',
-                                                            style: 'border-top-width: 1px !important;',
-                                                            items: [
-                                                                {
-                                                                    xtype: 'textfield',
-                                                                    fieldLabel: 'Filtering',
-                                                                    labelWidth: 60,
-                                                                    emptyText: 'Search Space Name'
-                                                                }
-                                                            ]
-                                                        }
-                                                    ],
                                                     columns: [
                                                         {
                                                             xtype: 'gridcolumn',
@@ -692,6 +677,13 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                         Ext.create('Ext.grid.plugin.CellEditing', {
 
                                                         })
+                                                    ],
+                                                    dockedItems: [
+                                                        {
+                                                            xtype: 'toolbar',
+                                                            dock: 'top',
+                                                            height: 2
+                                                        }
                                                     ]
                                                 }
                                             ]

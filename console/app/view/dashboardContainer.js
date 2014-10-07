@@ -47,7 +47,7 @@ Ext.define('MyApp.view.dashboardContainer', {
             items: [
                 {
                     xtype: 'gridpanel',
-                    flex: 1,
+                    flex: 2,
                     frame: true,
                     id: 'serverSummaryGrid',
                     itemId: 'serverSummaryGrid',
@@ -194,7 +194,7 @@ Ext.define('MyApp.view.dashboardContainer', {
                 },
                 {
                     xtype: 'panel',
-                    flex: 2,
+                    flex: 5,
                     frame: true,
                     margin: '5 10 10 10',
                     minHeight: 300,
@@ -241,6 +241,7 @@ Ext.define('MyApp.view.dashboardContainer', {
                                                     if(v == null) {
                                                         return v;
                                                     }
+                                                    
                                                     if(v.length > 13) {
                                                         return v.substring(0, 13) + "..";
                                                     } else {
@@ -305,6 +306,7 @@ Ext.define('MyApp.view.dashboardContainer', {
                                                     if(v == null) {
                                                         return v;
                                                     }
+                                                    
                                                     if(v.length > 13) {
                                                         return v.substring(0, 13) + "..";
                                                     } else {
@@ -370,6 +372,7 @@ Ext.define('MyApp.view.dashboardContainer', {
                                                     if(v == null) {
                                                         return v;
                                                     }
+                                                    
                                                     if(v.length > 13) {
                                                         return v.substring(0, 13) + "..";
                                                     } else {

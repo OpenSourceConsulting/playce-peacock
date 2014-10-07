@@ -68,28 +68,11 @@
                             "codeClass": null,
                             "userConfig": {
                                 "dock": "top",
+                                "height": 5,
                                 "itemId": "almAddSpaceToolbar",
                                 "padding": null
                             },
-                            "designerId": "9d16530e-d9fb-4d6e-ac21-5c41070f9ae3",
-                            "cn": [
-                                {
-                                    "type": "Ext.form.field.Text",
-                                    "reference": {
-                                        "name": "items",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "enableKeyEvents": true,
-                                        "fieldLabel": "Filtering",
-                                        "itemId": "almAddSpaceFilterText",
-                                        "labelWidth": 60,
-                                        "layout|flex": null
-                                    },
-                                    "designerId": "013c5ba7-3aaf-4309-a97d-5b6a68d9a85a"
-                                }
-                            ]
+                            "designerId": "9d16530e-d9fb-4d6e-ac21-5c41070f9ae3"
                         },
                         {
                             "type": "Ext.grid.column.Column",
