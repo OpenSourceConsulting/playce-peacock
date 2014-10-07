@@ -29,12 +29,14 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmGroupDto;
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmUserAddDto;
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmUserDto;
+import com.athena.peacock.controller.web.alm.crowd.dto.ProjectUserDto;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
@@ -84,6 +86,9 @@ public class AlmCrowdService {
 
 	@Value("#{contextProperties['alm.crowd.group']}")
 	private String projectgroup;
+
+	@Autowired
+	private AlmProjectUserDao userDao;
 
 	private CrowdClient crowdClient;
 
@@ -243,6 +248,13 @@ public class AlmCrowdService {
 				userData.getDisplayName(), userData.getEmail(),
 				new PasswordEntity(userData.getPassword()), true);
 		try {
+			// SVN 사용자를 위한 유저 정보 등록
+			ProjectUserDto userDto = new ProjectUserDto();
+			userDto.setPASSWORD(userData.getPassword());
+			userDto.setUSERNAME(userData.getName());
+			userDao.insertProjectUser(userDto);
+
+			// Confluence에 저장
 			crowdClient.addUser(myuser,
 					new PasswordCredential(userData.getPassword()));
 			response.setMsg("사용자가 추가되었습니다.");
@@ -324,16 +336,39 @@ public class AlmCrowdService {
 		return response;
 	}
 
-	// 유저 삭제
-	public DtoJsonResponse changePasswordUser(String username) {
+	// 유저 비밀번호 변경
+	public DtoJsonResponse changePasswordUser(String username, String password) {
 
 		DtoJsonResponse response = new DtoJsonResponse();
 
-		// try {
-		// crowdClient.removeUser(username);
-		response.setMsg("사용자 비밀번호가 변경되었습니다.");
-		// }
+		try {
+			crowdClient.updateUserCredential(username, password);
+			ProjectUserDto userDto = new ProjectUserDto();
+			userDto.setUSERNAME(username);
+			userDto.setPASSWORD(password);
+			userDao.updateProjectUser(userDto);
+			// ALM User 에도 변경처리하기
+
+			response.setMsg("사용자 비밀번호가 변경되었습니다.");
+		} catch (OperationFailedException e) {
+			response.setSuccess(false);
+			response.setMsg("OperationFailedException");
+		} catch (InvalidAuthenticationException e) {
+			response.setSuccess(false);
+			response.setMsg("InvalidAuthenticationException");
+		} catch (ApplicationPermissionException e) {
+			response.setSuccess(false);
+			response.setMsg("ApplicationPermissionException");
+		} catch (UserNotFoundException e) {
+			response.setSuccess(false);
+			response.setMsg("UserNotFoundException");
+		} catch (InvalidCredentialException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return response;
+
 	}
 
 	// 그룹 생성

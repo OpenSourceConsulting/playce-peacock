@@ -308,6 +308,7 @@ public class AlmProjectService {
 		} else if (mappingtype.equals("confluence")) {
 			mappingDto.setMappingType(10);
 			mappingDto.setMappingPermission(permission);
+			projectDao.insertProjectMapping(mappingDto);
 			response.setMsg("Confluence Space에 권한 추가 요청되었습니다.");
 			historyService.addPermissionConfluenceSpace(mappingDto);
 		} else {
@@ -399,7 +400,7 @@ public class AlmProjectService {
 
 	// Project 저장
 	private void addProject(ProjectDto pDto) {
-		// DB에 저장 
+		// DB에 저장
 		projectDao.insertProject(pDto);
 		// 하스토리 정보 기록
 		historyService.createProjectWizard(pDto);
@@ -436,6 +437,12 @@ public class AlmProjectService {
 	// User password Reset
 	public DtoJsonResponse resetPassword(ProjectUserPasswordResetDto resetDto) {
 		return userService.resetPassword(resetDto);
+	}
+
+	public DtoJsonResponse resetPasswordEmail(
+			ProjectUserPasswordResetDto resetDto) {
+		userService.sendResetPassword("aaa");
+		return null;
 	}
 }
 // end of AlmProjectService.java

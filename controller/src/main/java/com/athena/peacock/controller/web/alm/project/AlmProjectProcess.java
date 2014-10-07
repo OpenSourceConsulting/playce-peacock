@@ -66,7 +66,7 @@ public class AlmProjectProcess {
 				}
 
 				// 퍼미션 추가
-				createJenkinsPermission(list);
+				statusDto = createJenkinsPermission(list);
 
 			} else if (list.getMappingType() == 30) { // SVN Project 생성
 
@@ -147,11 +147,18 @@ public class AlmProjectProcess {
 	}
 
 	// SVN 생성
-	private void createJenkinsJob(ProjectMappingDto jenkins) {
+	private ProjectProcessStatusDto createJenkinsJob(ProjectMappingDto jenkins) {
+		ProjectProcessStatusDto statusDto = new ProjectProcessStatusDto();
+		statusDto.setSuccess(true);
 		jenkinsService.copyJob(jenkins);
+		return statusDto;
 	}
 
-	private void createJenkinsPermission(ProjectMappingDto jenkins) {
+	private ProjectProcessStatusDto createJenkinsPermission(
+			ProjectMappingDto jenkins) {
+
+		ProjectProcessStatusDto statusDto = new ProjectProcessStatusDto();
+		statusDto.setSuccess(true);
 
 		List<User> users = crowdService.getGroupUserList(jenkins
 				.getProjectCode());
@@ -160,5 +167,7 @@ public class AlmProjectProcess {
 			jenkinsService.copyPermission(jenkins.getProjectCode(),
 					user.getName());
 		}
+
+		return statusDto;
 	}
 }
