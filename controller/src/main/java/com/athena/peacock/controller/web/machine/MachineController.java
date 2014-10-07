@@ -143,7 +143,7 @@ public class MachineController {
 		
 		if (vm != null && vm.getDescription() != null && !vm.getDescription().equals(machine.getDescription())) {
 			machine.setDescription(vm.getDescription());
-			machineService.updateMachine(machine);
+			machineService.updateMachineOnly(machine);
 		}
 		
 		jsonRes.setData(machine);
@@ -203,7 +203,9 @@ public class MachineController {
 			}
 			
 			if (machineService.updateMachine(machine)) {
+				logger.debug("[UPDATE_MACHINE] 5. finish updateMachine() and start Thread.sleep(3000).");
 				Thread.sleep(3000);
+				logger.debug("[UPDATE_MACHINE] 6. finish Thread.sleep(3000).");
 			}
 			
 			jsonRes.setMsg("Instance 정보가 정상적으로 변경되었습니다.");
@@ -218,6 +220,8 @@ public class MachineController {
 			
 			logger.error("Unhandled Expeption has occurred. ", e);
 		}
+
+		logger.debug("[UPDATE_MACHINE] 7. finish /machine/updateMachine");
 		
 		return jsonRes;
 	}

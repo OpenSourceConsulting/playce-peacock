@@ -14,6 +14,10 @@
         <property name="url" value="#{contextProperties.url}"/>
         <property name="username" value="#{contextProperties.username}"/>
         <property name="password" value="#{contextProperties.password}"/>
+        <property name="minIdle" value="10"/>
+        <property name="maxActive" value="20"/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="validationQuery" value="SELECT 1"/>
         <!-- property name="minIdle" value="#{jdbc.minIdle}"/>
         <property name="maxIdle" value="#{jdbc.maxIdle}"/>
         <property name="maxActive" value="#{jdbc.maxActive}"/>

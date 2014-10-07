@@ -127,11 +127,17 @@ public class MachineService {
 	public void deleteMachine(String machineId) throws Exception {
 		machineDao.deleteMachine(machineId);
 	}
+	
+	public void updateMachineOnly(MachineDto machine) throws Exception {
+		machineDao.updateMachine(machine);
+	}
 
 	public boolean updateMachine(MachineDto machine) throws RestClientException, Exception {
 		MachineDto m = machineDao.getMachine(machine.getMachineId());
 		
 		boolean hostnameChanged = false;
+
+		logger.debug("[UPDATE_MACHINE] 0. start updateMachine()");
 		
 		// Instance 이름이 변경되었을 경우 DB, RHEV-M 업데이트
 		if (!machine.getDisplayName().equals(m.getDisplayName())) {
@@ -171,6 +177,8 @@ public class MachineService {
 			
 			machineDao.updateMachine(m);
 		}
+
+		logger.debug("[UPDATE_MACHINE] 1. update machine info.");
 		
 		MachineDto add = getAdditionalInfo(machine.getMachineId());
 		if (add == null) {
@@ -188,6 +196,8 @@ public class MachineService {
 			
 			updateAdditionalInfo(machine);
 		}
+		
+		logger.debug("[UPDATE_MACHINE] 2. update machine additional info.");
 		
 		if (StringUtils.isNotEmpty(machine.getHostName()) && !machine.getHostName().equals(m.getHostName())) {
 			// Agent가 Running 상태일 경우 ShellAction으로 agent의 chhost.sh 스크립트 실행
@@ -231,6 +241,8 @@ public class MachineService {
 			}
 		}
 		
+		logger.debug("[UPDATE_MACHINE] 3. execute command to change hostname.");
+		
 		// 세팅하려는 고정 IP 값이 있는지, Agent가 Running 상태인지, 기존 IP와 다른지 검사하여 고정 IP 변경 작업을 수행한다.
         if (StringUtils.isNotEmpty(machine.getIpAddress()) 
         		&& peacockTransmitter.isActive(machine.getMachineId())
@@ -249,6 +261,8 @@ public class MachineService {
 				//Thread.sleep(3000);
         	}
         }
+
+		logger.debug("[UPDATE_MACHINE] 4. finish updateMachine()");
         
         return hostnameChanged;
 	}
