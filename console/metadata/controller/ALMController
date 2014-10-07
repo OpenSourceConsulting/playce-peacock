@@ -272,13 +272,18 @@
                     "",
                     "    Ext.getCmp(\"almTabPanel\").setActiveTab(0);",
                     "    Ext.getCmp(\"almProjectGrid\").reconfigure(Ext.getCmp(\"almProjectGrid\").store, Ext.getCmp(\"almProjectGrid\").initialConfig.columns);",
+                    "    Ext.getCmp(\"searchProjectName\").setValue(\"\");",
                     "",
                     "    this.setAlmMenuAuth(0);",
                     "}",
                     "",
                     "almConstants.selectRow = null;",
                     "",
-                    "Ext.getCmp(\"almProjectGrid\").getStore().load();",
+                    "Ext.getCmp(\"almProjectGrid\").getStore().load({",
+                    "    params:{",
+                    "        search : Ext.getCmp(\"searchProjectName\").getValue()",
+                    "    }",
+                    "});",
                     "",
                     "var detailPanel = Ext.getCmp(\"almProjectDetailPanel\");",
                     "detailPanel.layout.setActiveItem(0);"
@@ -1177,6 +1182,28 @@
                 "scope": "me"
             },
             "designerId": "216afe0b-c582-416b-bc8a-3dcacf68309e"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#searchProjectName",
+                "designer|targetType": "Ext.form.field.Text",
+                "fn": "onSearchProjectNameKeydown",
+                "implHandler": [
+                    "//Project Name Search",
+                    "if(e.getKey() == e.ENTER){",
+                    "    this.searchAlmProject();",
+                    "}"
+                ],
+                "name": "keydown",
+                "scope": "me"
+            },
+            "designerId": "277db9cf-15f8-411e-9f5e-4572fb808fb8"
         }
     ]
 }

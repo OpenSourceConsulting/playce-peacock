@@ -122,7 +122,8 @@ Ext.define('MyApp.view.almContainer', {
                                                     itemId: 'searchProjectName',
                                                     fieldLabel: 'Filtering',
                                                     labelWidth: 60,
-                                                    emptyText: 'Search Project Name'
+                                                    emptyText: 'Search Project Name',
+                                                    enableKeyEvents: true
                                                 }
                                             ]
                                         }

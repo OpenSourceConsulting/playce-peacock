@@ -258,6 +258,13 @@ Ext.define('MyApp.controller.ALMController', {
         }
     },
 
+    onSearchProjectNameKeydown: function(textfield, e, eOpts) {
+        //Project Name Search
+        if(e.getKey() == e.ENTER){
+            this.searchAlmProject();
+        }
+    },
+
     init: function(application) {
                 //ALM Menu Config Setting
 
@@ -358,6 +365,9 @@ Ext.define('MyApp.controller.ALMController', {
             },
             "#almAddSpaceFilterText": {
                 keydown: this.onInputPopAlmSpaceFilterTextKeydown
+            },
+            "#searchProjectName": {
+                keydown: this.onSearchProjectNameKeydown
             }
         });
     },
@@ -368,13 +378,18 @@ Ext.define('MyApp.controller.ALMController', {
 
             Ext.getCmp("almTabPanel").setActiveTab(0);
             Ext.getCmp("almProjectGrid").reconfigure(Ext.getCmp("almProjectGrid").store, Ext.getCmp("almProjectGrid").initialConfig.columns);
+            Ext.getCmp("searchProjectName").setValue("");
 
             this.setAlmMenuAuth(0);
         }
 
         almConstants.selectRow = null;
 
-        Ext.getCmp("almProjectGrid").getStore().load();
+        Ext.getCmp("almProjectGrid").getStore().load({
+            params:{
+                search : Ext.getCmp("searchProjectName").getValue()
+            }
+        });
 
         var detailPanel = Ext.getCmp("almProjectDetailPanel");
         detailPanel.layout.setActiveItem(0);

@@ -219,6 +219,7 @@
                                             "userConfig": {
                                                 "cls": null,
                                                 "emptyText": "Search Project Name",
+                                                "enableKeyEvents": true,
                                                 "fieldLabel": "Filtering",
                                                 "fieldStyle": null,
                                                 "id": "searchProjectName",
