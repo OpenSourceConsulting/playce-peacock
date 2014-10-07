@@ -57,19 +57,32 @@
 					<outputDirectory>${deploy.target.dir}</outputDirectory>
 					<archive>
 						<manifest>
-							<!-- public static void main() 함수가 있는 클래스 지정 -->
 							<mainClass>com.atehna.peacock.svn.svn</mainClass>
-
-							<!-- jar 파일 META-INF/MANIFEST.MF 에 클래스패스 정보 추가 -->
 							<addClasspath>true</addClasspath>
-
-							<!-- 클래스패스에 추가시 prefix 설정 ex) log4j-1.2.16.jar -> lib/log4j-1.2.16.jar 
-								로 추가됨 -->
 							<classpathPrefix>${lib.dir}/</classpathPrefix>
 						</manifest>
 					</archive>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+							<overWriteIfNewer>true</overWriteIfNewer>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
