@@ -124,6 +124,14 @@ Ext.define('MyApp.view.almContainer', {
                                                     labelWidth: 60,
                                                     emptyText: 'Search Project Name',
                                                     enableKeyEvents: true
+                                                },
+                                                {
+                                                    xtype: 'button',
+                                                    handler: function(button, e) {
+                                                        almConstants.me.searchAlmProject();
+                                                    },
+                                                    iconMask: false,
+                                                    iconCls: 'x-tbar-loading'
                                                 }
                                             ]
                                         }
@@ -713,6 +721,14 @@ Ext.define('MyApp.view.almContainer', {
                                                     enableKeyEvents: true
                                                 },
                                                 {
+                                                    xtype: 'button',
+                                                    handler: function(button, e) {
+                                                        almConstants.me.searchAlmUser(false, null, 1);
+                                                    },
+                                                    iconMask: false,
+                                                    iconCls: 'x-tbar-loading'
+                                                },
+                                                {
                                                     xtype: 'tbspacer',
                                                     flex: 1
                                                 },
@@ -956,6 +972,14 @@ Ext.define('MyApp.view.almContainer', {
                                                     labelWidth: 60,
                                                     emptyText: 'Search Group Name',
                                                     enableKeyEvents: true
+                                                },
+                                                {
+                                                    xtype: 'button',
+                                                    handler: function(button, e) {
+                                                        almConstants.me.searchAlmGroup(false, null, 1);
+                                                    },
+                                                    iconMask: false,
+                                                    iconCls: 'x-tbar-loading'
                                                 },
                                                 {
                                                     xtype: 'tbspacer',
@@ -1300,8 +1324,12 @@ Ext.define('MyApp.view.almContainer', {
                                                     text: 'Add Repository'
                                                 },
                                                 {
-                                                    xtype: 'tbseparator',
-                                                    cls: 'auth-write'
+                                                    xtype: 'button',
+                                                    handler: function(button, e) {
+                                                        almConstants.me.searchAlmRepository();
+                                                    },
+                                                    iconMask: false,
+                                                    iconCls: 'x-tbar-loading'
                                                 }
                                             ]
                                         }

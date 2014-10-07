@@ -228,6 +228,53 @@
                                                 "layout|flex": null
                                             },
                                             "designerId": "e6be731d-71c4-47a9-83fe-d4c1aeadc7cf"
+                                        },
+                                        {
+                                            "type": "Ext.button.Button",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "iconCls": "x-tbar-loading",
+                                                "iconMask": false,
+                                                "layout|flex": null,
+                                                "text": null,
+                                                "tooltipType": null
+                                            },
+                                            "configAlternates": {
+                                                "iconMask": "boolean"
+                                            },
+                                            "designerId": "fc34864a-5ff0-4b6d-8812-d1cb72f5fa0f",
+                                            "customConfigs": [
+                                                {
+                                                    "group": "(Custom Properties)",
+                                                    "name": "iconMask",
+                                                    "type": "string"
+                                                }
+                                            ],
+                                            "cn": [
+                                                {
+                                                    "type": "fixedfunction",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "designer|params": [
+                                                            "button",
+                                                            "e"
+                                                        ],
+                                                        "fn": "handler",
+                                                        "implHandler": [
+                                                            "almConstants.me.searchAlmProject();"
+                                                        ]
+                                                    },
+                                                    "designerId": "e0ad76aa-0e5b-429c-9533-fe7a4dea28e3"
+                                                }
+                                            ]
                                         }
                                     ]
                                 },
@@ -1676,6 +1723,53 @@
                                             "designerId": "b65d6a7f-e7ee-4be5-b795-f646408ca6c8"
                                         },
                                         {
+                                            "type": "Ext.button.Button",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "iconCls": "x-tbar-loading",
+                                                "iconMask": false,
+                                                "layout|flex": null,
+                                                "text": null,
+                                                "tooltipType": null
+                                            },
+                                            "configAlternates": {
+                                                "iconMask": "boolean"
+                                            },
+                                            "designerId": "a790f32a-09c2-4c5d-984b-6ce4bbc171b2",
+                                            "customConfigs": [
+                                                {
+                                                    "group": "(Custom Properties)",
+                                                    "name": "iconMask",
+                                                    "type": "string"
+                                                }
+                                            ],
+                                            "cn": [
+                                                {
+                                                    "type": "fixedfunction",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "designer|params": [
+                                                            "button",
+                                                            "e"
+                                                        ],
+                                                        "fn": "handler",
+                                                        "implHandler": [
+                                                            "almConstants.me.searchAlmUser(false, null, 1);"
+                                                        ]
+                                                    },
+                                                    "designerId": "3bffc2fd-e9ec-461a-8fa4-f45d6d67d91a"
+                                                }
+                                            ]
+                                        },
+                                        {
                                             "type": "Ext.toolbar.Spacer",
                                             "reference": {
                                                 "name": "items",
@@ -2337,6 +2431,53 @@
                                                 "layout|flex": null
                                             },
                                             "designerId": "0167b12d-5cd0-4869-93d4-219f743335ba"
+                                        },
+                                        {
+                                            "type": "Ext.button.Button",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "iconCls": "x-tbar-loading",
+                                                "iconMask": false,
+                                                "layout|flex": null,
+                                                "text": null,
+                                                "tooltipType": null
+                                            },
+                                            "configAlternates": {
+                                                "iconMask": "boolean"
+                                            },
+                                            "designerId": "f8e08454-e137-48ff-8f73-e6751a3f7dcc",
+                                            "customConfigs": [
+                                                {
+                                                    "group": "(Custom Properties)",
+                                                    "name": "iconMask",
+                                                    "type": "string"
+                                                }
+                                            ],
+                                            "cn": [
+                                                {
+                                                    "type": "fixedfunction",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "designer|params": [
+                                                            "button",
+                                                            "e"
+                                                        ],
+                                                        "fn": "handler",
+                                                        "implHandler": [
+                                                            "almConstants.me.searchAlmGroup(false, null, 1);"
+                                                        ]
+                                                    },
+                                                    "designerId": "a580d54b-4a14-4f94-a4c7-cd5983b5c315"
+                                                }
+                                            ]
                                         },
                                         {
                                             "type": "Ext.toolbar.Spacer",
@@ -3178,17 +3319,51 @@
                                             ]
                                         },
                                         {
-                                            "type": "Ext.toolbar.Separator",
+                                            "type": "Ext.button.Button",
                                             "reference": {
                                                 "name": "items",
                                                 "type": "array"
                                             },
                                             "codeClass": null,
                                             "userConfig": {
-                                                "cls": "auth-write",
-                                                "layout|flex": null
+                                                "iconCls": "x-tbar-loading",
+                                                "iconMask": false,
+                                                "layout|flex": null,
+                                                "text": null,
+                                                "tooltipType": null
                                             },
-                                            "designerId": "1c9ac2a8-b9f5-4b34-bc1c-ea6860bb7fa1"
+                                            "configAlternates": {
+                                                "iconMask": "boolean"
+                                            },
+                                            "designerId": "5959a6a6-6654-4864-b765-a138bc762a6c",
+                                            "customConfigs": [
+                                                {
+                                                    "group": "(Custom Properties)",
+                                                    "name": "iconMask",
+                                                    "type": "string"
+                                                }
+                                            ],
+                                            "cn": [
+                                                {
+                                                    "type": "fixedfunction",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "designer|params": [
+                                                            "button",
+                                                            "e"
+                                                        ],
+                                                        "fn": "handler",
+                                                        "implHandler": [
+                                                            "almConstants.me.searchAlmRepository();"
+                                                        ]
+                                                    },
+                                                    "designerId": "30b61484-3534-4f36-9a89-976ab3e965e0"
+                                                }
+                                            ]
                                         }
                                     ]
                                 },

@@ -395,7 +395,7 @@ Ext.define('MyApp.controller.ALMController', {
         detailPanel.layout.setActiveItem(0);
     },
 
-    searchAlmUser: function(init, pagingType) {
+    searchAlmUser: function(init, pagingType, pageNum) {
 
         if(init) {
 
@@ -415,6 +415,10 @@ Ext.define('MyApp.controller.ALMController', {
             almConstants.page++ ;
         }
 
+        if(pagingType == null && pageNum != null) {
+            almConstants.page = pageNum;
+        }
+
         almConstants.selectRow = null;
 
         Ext.getCmp("almUserGrid").getStore().load({
@@ -429,7 +433,7 @@ Ext.define('MyApp.controller.ALMController', {
 
     },
 
-    searchAlmGroup: function(init, pagingType) {
+    searchAlmGroup: function(init, pagingType, pageNum) {
 
         if(init) {
 
@@ -447,6 +451,10 @@ Ext.define('MyApp.controller.ALMController', {
             almConstants.page-- ;
         } else if(pagingType == 'right') {
             almConstants.page++ ;
+        }
+
+        if(pagingType == null && pageNum != null) {
+            almConstants.page = pageNum;
         }
 
         almConstants.selectRow = null;

@@ -301,7 +301,8 @@
             "userConfig": {
                 "designer|params": [
                     "init",
-                    "pagingType"
+                    "pagingType",
+                    "pageNum"
                 ],
                 "fn": "searchAlmUser",
                 "implHandler": [
@@ -322,6 +323,10 @@
                     "    almConstants.page-- ;",
                     "} else if(pagingType == 'right') {",
                     "    almConstants.page++ ;",
+                    "}",
+                    "",
+                    "if(pagingType == null && pageNum != null) {",
+                    "    almConstants.page = pageNum;",
                     "}",
                     "",
                     "almConstants.selectRow = null;",
@@ -350,7 +355,8 @@
             "userConfig": {
                 "designer|params": [
                     "init",
-                    "pagingType"
+                    "pagingType",
+                    "pageNum"
                 ],
                 "fn": "searchAlmGroup",
                 "implHandler": [
@@ -371,6 +377,10 @@
                     "    almConstants.page-- ;",
                     "} else if(pagingType == 'right') {",
                     "    almConstants.page++ ;",
+                    "}",
+                    "",
+                    "if(pagingType == null && pageNum != null) {",
+                    "    almConstants.page = pageNum;",
                     "}",
                     "",
                     "almConstants.selectRow = null;",
