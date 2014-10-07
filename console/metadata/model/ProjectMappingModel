@@ -100,6 +100,19 @@
                 "type": "string"
             },
             "designerId": "d37a1c2e-451c-4ae3-bf03-fa0545de8415"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "mappingExecution",
+                "type": "string"
+            },
+            "designerId": "9d705d17-aaff-47c3-ad7d-926dd6183b6c"
         }
     ]
 }

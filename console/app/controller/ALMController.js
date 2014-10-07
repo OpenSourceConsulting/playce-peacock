@@ -758,7 +758,7 @@ Ext.define('MyApp.controller.ALMController', {
 
             if(childIdx == null) {
 
-                Ext.getCmp("almProjectGrid").getView().headerCt.getGridColumns()[4].setVisible(almConstants.writeMenuAuth01);
+                //Ext.getCmp("almProjectGrid").getView().headerCt.getGridColumns()[4].setVisible(almConstants.writeMenuAuth01);
 
             } else if(childIdx == 1) {
 

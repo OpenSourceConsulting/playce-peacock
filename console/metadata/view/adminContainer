@@ -1218,15 +1218,15 @@
                                                         "implHandler": [
                                                             "",
                                                             "if(record.get(\"users\") > 0) {",
-                                                            "    ",
+                                                            "",
                                                             "    Ext.Msg.alert('Message', \"등록된 User를 먼저 삭제해야 합니다.\");",
-                                                            "    ",
+                                                            "",
                                                             "} else {",
-                                                            " ",
+                                                            "",
                                                             "    userConstants.actionRow = record;",
-                                                            "    ",
+                                                            "",
                                                             "    userConstants.me.deleteUserPermission();",
-                                                            "   ",
+                                                            "",
                                                             "}"
                                                         ]
                                                     },

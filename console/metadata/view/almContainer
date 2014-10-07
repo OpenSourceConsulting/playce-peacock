@@ -284,76 +284,6 @@
                                         "text": "Project Description"
                                     },
                                     "designerId": "d40f8ce1-abd0-417e-a76d-7b0ddffc0b2f"
-                                },
-                                {
-                                    "type": "Ext.grid.column.Action",
-                                    "reference": {
-                                        "name": "columns",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "align": "center",
-                                        "defaultWidth": 60,
-                                        "hideable": false,
-                                        "maxWidth": 60,
-                                        "menuText": "",
-                                        "minWidth": 70,
-                                        "style": [
-                                            "\"text-align:left;\""
-                                        ],
-                                        "text": "Delete",
-                                        "width": 60
-                                    },
-                                    "designerId": "37ae91cd-c750-4cb7-be2a-a789f7cc6ec4",
-                                    "customConfigs": [
-                                        {
-                                            "group": "(Custom Properties)",
-                                            "name": "text",
-                                            "type": "string"
-                                        }
-                                    ],
-                                    "cn": [
-                                        {
-                                            "type": "actioncolumnitem",
-                                            "reference": {
-                                                "name": "items",
-                                                "type": "array"
-                                            },
-                                            "codeClass": null,
-                                            "userConfig": {
-                                                "icon": "resources/images/icons/delete.png",
-                                                "iconCls": ""
-                                            },
-                                            "designerId": "e5e9e3f2-80e8-4978-9b19-08c1ce5fd492",
-                                            "cn": [
-                                                {
-                                                    "type": "fixedfunction",
-                                                    "reference": {
-                                                        "name": "items",
-                                                        "type": "array"
-                                                    },
-                                                    "codeClass": null,
-                                                    "userConfig": {
-                                                        "designer|params": [
-                                                            "view",
-                                                            "rowIndex",
-                                                            "colIndex",
-                                                            "item",
-                                                            "e",
-                                                            "record",
-                                                            "row"
-                                                        ],
-                                                        "fn": "handler",
-                                                        "implHandler": [
-                                                            "alert('delete');"
-                                                        ]
-                                                    },
-                                                    "designerId": "56c87411-bbf4-43ce-8d78-10eb80e854db"
-                                                }
-                                            ]
-                                        }
-                                    ]
                                 }
                             ]
                         },
@@ -956,6 +886,21 @@
                                                                 "width": 200
                                                             },
                                                             "designerId": "fe189227-8f50-407d-b82e-da96f90e108d"
+                                                        },
+                                                        {
+                                                            "type": "Ext.grid.column.Column",
+                                                            "reference": {
+                                                                "name": "columns",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "dataIndex": "mappingExecution",
+                                                                "minWidth": null,
+                                                                "text": "Execution",
+                                                                "width": 120
+                                                            },
+                                                            "designerId": "82927e90-9081-435b-b3aa-518631faa0fb"
                                                         },
                                                         {
                                                             "type": "Ext.grid.column.Column",

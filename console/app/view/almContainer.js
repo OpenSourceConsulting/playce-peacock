@@ -26,11 +26,11 @@ Ext.define('MyApp.view.almContainer', {
         'Ext.toolbar.Separator',
         'Ext.form.field.Text',
         'Ext.grid.RowNumberer',
-        'Ext.grid.column.Action',
         'Ext.form.Label',
         'Ext.form.Panel',
         'Ext.form.field.Display',
         'Ext.toolbar.Spacer',
+        'Ext.grid.column.Action',
         'Ext.grid.plugin.CellEditing'
     ],
 
@@ -149,27 +149,6 @@ Ext.define('MyApp.view.almContainer', {
                                             minWidth: 300,
                                             dataIndex: 'projectDescription',
                                             text: 'Project Description'
-                                        },
-                                        {
-                                            xtype: 'actioncolumn',
-                                            text: 'Delete',
-                                            maxWidth: 60,
-                                            minWidth: 70,
-                                            style: 'text-align:left;',
-                                            width: 60,
-                                            defaultWidth: 60,
-                                            align: 'center',
-                                            hideable: false,
-                                            menuText: '',
-                                            items: [
-                                                {
-                                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                                        alert('delete');
-                                                    },
-                                                    icon: 'resources/images/icons/delete.png',
-                                                    iconCls: ''
-                                                }
-                                            ]
                                         }
                                     ]
                                 },
@@ -424,6 +403,12 @@ Ext.define('MyApp.view.almContainer', {
                                                                     width: 200,
                                                                     dataIndex: 'mappingCode',
                                                                     text: 'Space'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    width: 120,
+                                                                    dataIndex: 'mappingExecution',
+                                                                    text: 'Execution'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',

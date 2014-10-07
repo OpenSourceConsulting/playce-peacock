@@ -48,6 +48,10 @@ Ext.define('MyApp.model.ProjectMappingModel', {
         {
             name: 'lastUpdated',
             type: 'string'
+        },
+        {
+            name: 'mappingExecution',
+            type: 'string'
         }
     ]
 });

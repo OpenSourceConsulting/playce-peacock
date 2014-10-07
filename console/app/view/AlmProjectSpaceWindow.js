@@ -130,13 +130,14 @@ Ext.define('MyApp.view.AlmProjectSpaceWindow', {
 
 
                                                 if(record.get("authType") !== ""){
+
                                                     Ext.MessageBox.confirm('Confirm', 'Space를 등록 하시겠습니까?', function(btn){
 
                                                         if(btn == "yes"){
 
                                                             Ext.Ajax.request({
                                                                 url : GLOBAL.urlPrefix + "alm/project/"
-                                                                + almConstants.selectRow.get("projectCode") + "/confluence/" + record.get("key"),
+                                                                + almConstants.selectRow.get("projectCode") + "/confluence/" + record.get("key") + "?permission="+ record.get("authType"),
                                                                 method: 'POST',
                                                                 headers: { 'Content-Type': 'application/json' },
                                                                 disableCaching : true,
