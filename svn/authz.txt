@@ -1,0 +1,11 @@
+[aliases]
+
+[groups]
+xt001 = osc09,osc08
+
+[/]
+osc09 =  rw
+
+[hiway:/xt001]
+@xt001 = rw
+
