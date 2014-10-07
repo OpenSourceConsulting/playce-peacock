@@ -131,12 +131,12 @@ public class AlmUserController {
 		return service.removeUser(username);
 	}
 
-	// User 패스워드 변경
+	/*// User 패스워드 변경
 	@RequestMapping(value = "/usermanagement/{username}/password", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody
 	DtoJsonResponse passwodReset(@PathVariable String username) {
 		return service.changePasswordUser(username);
-	}
+	}*/
 
 }
 // end of AlmUserController.java

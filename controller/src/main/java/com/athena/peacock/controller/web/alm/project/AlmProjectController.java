@@ -310,5 +310,20 @@ public class AlmProjectController {
 		return almProjectService.resetPassword(resetDto);
 	}
 
+	/**
+	 * <pre>
+	 * 사용자 패스워드 변경
+	 * </pre>
+	 * 
+	 * @param projectCode
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/project/user/sendtest", method = RequestMethod.GET)
+	public @ResponseBody
+	DtoJsonResponse sendTest() {
+		return almProjectService.resetPasswordEmail(null);
+	}
+
 }
 // end of AlmUserController.java
