@@ -27,16 +27,20 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import com.athena.peacock.agent.util.AgentConfigUtil;
 import com.athena.peacock.common.constant.PeacockConstant;
+import com.athena.peacock.common.provider.AppContext;
 
 /**
  * <pre>
@@ -48,7 +52,7 @@ import com.athena.peacock.common.constant.PeacockConstant;
  */
 @Component
 @Qualifier("peacockClient")
-public class PeacockClient {
+public class PeacockClient implements InitializingBean, ApplicationContextAware {
 
     private final String[] hosts = AgentConfigUtil.getConfig(PeacockConstant.SERVER_IP).split(",");
     private final int port = Integer.parseInt(AgentConfigUtil.getConfig(PeacockConstant.SERVER_PORT));
@@ -93,10 +97,18 @@ public class PeacockClient {
      * </pre>
      * @throws Exception
      */
-    @PostConstruct
+    //@PostConstruct
 	public void start() {
     	for (String host : hosts) {
     		createBootstrap(new Bootstrap(), group, host);
+    		
+    		try {
+    			// 두개 이상의 서버가 존재할 경우 시간차를 두고 채널 연결을 시도한다.
+    			// 필요할 경우 sleep 시간 동안 IP 변경 및 hostname 변경이 이루어진다.
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				// ignore
+			}
     	}
 	}//end of start()
 
@@ -111,6 +123,27 @@ public class PeacockClient {
 			handler.close();
 		}
 	}//end of stop()
-	
+
+	@Override
+	public void setApplicationContext(ApplicationContext ctx) throws BeansException {
+		if (AppContext.getApplicationContext() == null) {
+			AppContext.setApplicationContext(ctx);
+		}
+	}
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+    	for (String host : hosts) {
+    		createBootstrap(new Bootstrap(), group, host);
+    		
+    		try {
+    			// 두개 이상의 서버가 존재할 경우 시간차를 두고 채널 연결을 시도한다.
+    			// 필요할 경우 sleep 시간 동안 IP 변경 및 hostname 변경이 이루어진다.
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				// ignore
+			}
+    	}
+	}
 }
 //end of PeacockClient.java

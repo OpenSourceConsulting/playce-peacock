@@ -182,18 +182,19 @@
 	</select>
 	
 	<select id="getTop5CpuList" resultType="com.athena.peacock.controller.web.dashboard.TopMonitorDto">
-		SELECT (SELECT t.DISPLAY_NAME FROM machine_tbl t WHERE t.MACHINE_ID = a.MACHINE_ID) AS instanceName
-			   , FORMAT(FLOOR(AVG(a.MON_DATA_VALUE)), 0) AS free
-			   , FORMAT(FLOOR(AVG(b.MON_DATA_VALUE)), 0) AS used
-		  FROM mon_data_tbl a JOIN mon_data_tbl b
-			ON a.MACHINE_ID = b.MACHINE_ID
-		   AND a.REG_DT = b.REG_DT
-		   AND a.MON_FACTOR_ID = 'FACTOR_001'
-		   AND b.MON_FACTOR_ID = 'FACTOR_002'
-		 WHERE a.REG_DT &lt;= NOW()
-		   AND a.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 1 HOUR)
-		 GROUP BY a.MACHINE_ID
-		 ORDER BY b.MON_DATA_VALUE DESC
+		SELECT * 
+		  FROM (SELECT (SELECT t.DISPLAY_NAME FROM machine_tbl t WHERE t.MACHINE_ID = a.MACHINE_ID) AS instanceName
+					   , FORMAT(FLOOR(AVG(a.MON_DATA_VALUE)), 0) AS free
+					   , FORMAT(FLOOR(AVG(b.MON_DATA_VALUE)), 0) AS used
+				  FROM mon_data_tbl a JOIN mon_data_tbl b
+					ON a.MACHINE_ID = b.MACHINE_ID
+				   AND a.REG_DT = b.REG_DT
+				   AND a.MON_FACTOR_ID = 'FACTOR_001'
+				   AND b.MON_FACTOR_ID = 'FACTOR_002'
+				 WHERE a.REG_DT &lt;= NOW()
+				   AND a.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 1 HOUR)
+				 GROUP BY a.MACHINE_ID) A
+		 ORDER BY used DESC
 		 LIMIT 5
 	</select>
 	
@@ -210,8 +211,8 @@
 				   AND b.MON_FACTOR_ID = 'FACTOR_003'
 				 WHERE a.REG_DT &lt;= NOW()
 				   AND a.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 1 HOUR)
-				 GROUP BY a.MACHINE_ID
-				 ORDER BY a.MON_DATA_VALUE DESC) A
+				 GROUP BY a.MACHINE_ID) A
+		 ORDER BY free
 		 LIMIT 5
 	</select>
 	
@@ -228,8 +229,8 @@
 				   AND b.MON_FACTOR_ID = 'FACTOR_007'
 				 WHERE a.REG_DT &lt;= NOW()
 				   AND a.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 1 HOUR)
-				 GROUP BY a.MACHINE_ID
-				 ORDER BY a.MON_DATA_VALUE DESC) A
+				 GROUP BY a.MACHINE_ID) A
+	     ORDER BY used DESC
 		 LIMIT 5
 	</select>
 
