@@ -20,7 +20,6 @@ Ext.define('MyApp.view.AlmProjectJobWindow', {
     requires: [
         'Ext.grid.Panel',
         'Ext.toolbar.Toolbar',
-        'Ext.form.field.Text',
         'Ext.grid.column.Action',
         'Ext.grid.View'
     ],
@@ -61,13 +60,7 @@ Ext.define('MyApp.view.AlmProjectJobWindow', {
                                 {
                                     xtype: 'toolbar',
                                     dock: 'top',
-                                    items: [
-                                        {
-                                            xtype: 'textfield',
-                                            fieldLabel: 'Filtering',
-                                            labelWidth: 60
-                                        }
-                                    ]
+                                    height: 5
                                 }
                             ],
                             columns: [

@@ -68,25 +68,10 @@
                             "codeClass": null,
                             "userConfig": {
                                 "dock": "top",
+                                "height": 5,
                                 "padding": null
                             },
-                            "designerId": "872776e7-01a0-46df-96dd-e185f84b5811",
-                            "cn": [
-                                {
-                                    "type": "Ext.form.field.Text",
-                                    "reference": {
-                                        "name": "items",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "fieldLabel": "Filtering",
-                                        "labelWidth": 60,
-                                        "layout|flex": null
-                                    },
-                                    "designerId": "112036c3-0482-44f3-a897-2ea2b6910b9d"
-                                }
-                            ]
+                            "designerId": "872776e7-01a0-46df-96dd-e185f84b5811"
                         },
                         {
                             "type": "Ext.grid.column.Column",
