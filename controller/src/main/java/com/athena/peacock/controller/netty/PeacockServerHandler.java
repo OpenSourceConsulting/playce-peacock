@@ -252,18 +252,8 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 						
 						// Agent에 RHEV Manager에 등록된 ID로 세팅되도록 AgentID를 전달
 						// 해당 Agent에 Software 설치 이력이 없을 경우 Software 정보 수집을 함꼐 요청
-						if (this.softwareService == null) {
-							softwareService = AppContext.getBean(SoftwareService.class);
-						}
-						List<SoftwareDto> softwareList = softwareService.getSoftwareInstallListAll(machineId);
-						
 						AgentInitialInfoMessage returnMsg = new AgentInitialInfoMessage();
 						returnMsg.setAgentId(machineId);
-						if (softwareList != null && softwareList.size() > 0) {
-							returnMsg.setSoftwareInstalled("Y");
-						} else {
-							returnMsg.setSoftwareInstalled("N");
-						}
 						PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(returnMsg);
 						ctx.channel().writeAndFlush(datagram);
 						
@@ -271,9 +261,40 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 							machineService = AppContext.getBean(MachineService.class);
 						}
 						
-						// machine_additional_info_tbl에 hostname 및 고정 IP 등 변경해야 할 내용이 있는지 조회한다.(현재 연결된 IP와 applyYn 정보를 이용)
-						MachineDto machine = machineService.getAdditionalInfo(machineId);
+						// Instance 정보를 DB에 저장한다.
+						MachineDto machine = new MachineDto();
+						machine.setMachineId(machineId);
+						machine.setHypervisorId(hypervisorId);
+						machine.setDisplayName(displayName);
+						machine.setDescription(description);
 						
+						if (StringUtils.isNotEmpty(displayName)) {
+							if (displayName.toLowerCase().startsWith("hhilws") && !displayName.toLowerCase().startsWith("hhilwsd")) {
+								isPrd = "Y";
+							}
+						}
+						machine.setIsPrd(isPrd);
+						
+						machine.setMachineMacAddr(infoMsg.getMacAddrMap().get(ipAddr));
+						machine.setIsVm(isVm);
+						machine.setCluster(clusterName);
+						machine.setOsName(infoMsg.getOsName());
+						machine.setOsVer(infoMsg.getOsVersion());
+						machine.setOsArch(infoMsg.getOsArch());
+						machine.setCpuClock(Integer.toString(infoMsg.getCpuClock()));
+						machine.setCpuNum(Integer.toString(infoMsg.getCpuNum()));
+						machine.setMemSize(Long.toString(infoMsg.getMemSize()));
+						machine.setIpAddr(ipAddr);
+						machine.setHostName(infoMsg.getHostName());
+						machine.setRegUserId(1);
+						machine.setUpdUserId(1);
+						
+						machineService.insertMachine(machine);
+						
+						// machine_additional_info_tbl에 hostname 및 고정 IP 등 변경해야 할 내용이 있는지 조회한다.(현재 연결된 IP와 applyYn 정보를 이용)
+						machine = machineService.getAdditionalInfo(machineId);
+
+						boolean hostnameChanged = false;
 						// 변경해야 할 hostname 정보가 있으면 chhost.sh를 실행하여 변경한다.
 						if (machine != null && StringUtils.isNotEmpty(machine.getHostName()) && !machine.getHostName().equals(infoMsg.getHostName())) {
 							try {
@@ -288,7 +309,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 								
 								ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
 								cmdMsg.setAgentId(machine.getMachineId());
-								cmdMsg.setBlocking(true);
+								//cmdMsg.setBlocking(true);
 
 								int sequence = 0;
 								Command command = new Command("SET_HOSTNAME");
@@ -304,6 +325,8 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 								
 								datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
 								ctx.channel().writeAndFlush(datagram);
+								
+								hostnameChanged = true;
 							} catch (Exception e) {
 								// HostName 변경이 실패하더라고 고정 IP 세팅을 할 수 있도록 예외를 무시한다.
 								logger.error("Unhandled exception has occurred while change hostname.", e);
@@ -321,38 +344,36 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 						}
 						
 						if (!resetIp) {
-							machine = new MachineDto();
-							machine.setMachineId(machineId);
-							machine.setHypervisorId(hypervisorId);
-							machine.setDisplayName(displayName);
-							machine.setDescription(description);
-							
-							if (StringUtils.isNotEmpty(displayName)) {
-								if (displayName.toLowerCase().startsWith("hhilws") && !displayName.toLowerCase().startsWith("hhilwsd")) {
-									isPrd = "Y";
+							if (hostnameChanged) {
+				        		// IP 변경 없이 hostname만 변경된 경우 peacock-agent를 restart 한다.
+								machineService.agentRestart(machineId);
+							} else {
+								// Package 정보 수집 및 Software 설치 정보 수집 등 필요한 작업을 수행하도록 전달한다.
+								if (this.softwareService == null) {
+									softwareService = AppContext.getBean(SoftwareService.class);
 								}
+								List<SoftwareDto> softwareList = softwareService.getSoftwareInstallListAll(machineId);
+								
+								PackageService packageService = AppContext.getBean(PackageService.class);
+								PackageDto ospackage = new PackageDto();
+								ospackage.setMachineId(machineId);
+								int packageCnt = packageService.getPackageListCnt(ospackage);
+								
+								returnMsg = new AgentInitialInfoMessage();
+								returnMsg.setAgentId(machineId);
+								if (softwareList != null && softwareList.size() > 0) {
+									returnMsg.setSoftwareInstalled("Y");
+								} else {
+									returnMsg.setSoftwareInstalled("N");
+								}
+								if (packageCnt > 0) {
+									returnMsg.setPackageCollected("Y");
+								} else {
+									returnMsg.setPackageCollected("N");
+								}
+								datagram = new PeacockDatagram<AbstractMessage>(returnMsg);
+								ctx.channel().writeAndFlush(datagram);
 							}
-							machine.setIsPrd(isPrd);
-							
-							machine.setMachineMacAddr(infoMsg.getMacAddrMap().get(ipAddr));
-							machine.setIsVm(isVm);
-							machine.setCluster(clusterName);
-							machine.setOsName(infoMsg.getOsName());
-							machine.setOsVer(infoMsg.getOsVersion());
-							machine.setOsArch(infoMsg.getOsArch());
-							machine.setCpuClock(Integer.toString(infoMsg.getCpuClock()));
-							machine.setCpuNum(Integer.toString(infoMsg.getCpuNum()));
-							machine.setMemSize(Long.toString(infoMsg.getMemSize()));
-							machine.setIpAddr(ipAddr);
-							machine.setHostName(infoMsg.getHostName());
-							machine.setRegUserId(1);
-							machine.setUpdUserId(1);
-							
-							if (this.machineService == null) {
-								machineService = AppContext.getBean(MachineService.class);
-							}
-							
-							machineService.insertMachine(machine);
 						}
 						
 						break;

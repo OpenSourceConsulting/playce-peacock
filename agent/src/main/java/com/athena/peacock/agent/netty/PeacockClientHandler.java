@@ -90,8 +90,8 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
     private static final Logger logger = LoggerFactory.getLogger(PeacockClientHandler.class);
 
     private boolean connected = false;
-    private static boolean packageCollected = false;
-    private static boolean softwareCollected = false;
+    private static boolean _packageCollected = false;
+    private static boolean _softwareCollected = false;
     
     private PeacockClient client = null;
     
@@ -147,6 +147,7 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 				new PackageGatherThread(ctx, packageFile).start();
 			} else if (messageType.equals(MessageType.INITIAL_INFO)) {
 				String machineId = ((PeacockDatagram<AgentInitialInfoMessage>)msg).getMessage().getAgentId();
+				String packageCollected = ((PeacockDatagram<AgentInitialInfoMessage>)msg).getMessage().getPackageCollected();
 				String softwareInstalled = ((PeacockDatagram<AgentInitialInfoMessage>)msg).getMessage().getSoftwareInstalled();
 				
 				String agentFile = null;
@@ -194,30 +195,32 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 				}
 				
 				// 패키지 정보 수집을 수행하지 않았고 패키지 정보 수집 이력이 없는 경우 수행
-				if (!packageCollected) {
-					packageCollected = true;
-					String packageFile = null;
-					
-					try {
-						packageFile = PropertyUtil.getProperty(PeacockConstant.PACKAGE_FILE_KEY);
-					} catch (Exception e) {
-						// nothing to do.
-					} finally {
-						if (StringUtils.isEmpty(packageFile)) {
-							packageFile = "/peacock/agent/config/package.log";
+				if (packageCollected != null && packageCollected.equals("N")) {
+					if (!_packageCollected) {
+						_packageCollected = true;
+						String packageFile = null;
+						
+						try {
+							packageFile = PropertyUtil.getProperty(PeacockConstant.PACKAGE_FILE_KEY);
+						} catch (Exception e) {
+							// nothing to do.
+						} finally {
+							if (StringUtils.isEmpty(packageFile)) {
+								packageFile = "/peacock/agent/config/package.log";
+							}
 						}
-					}
-					
-					file = new File(packageFile);
-					
-					if(!file.exists()) {
-						new PackageGatherThread(ctx, packageFile).start();
+						
+						file = new File(packageFile);
+						
+						if(!file.exists()) {
+							new PackageGatherThread(ctx, packageFile).start();
+						}
 					}
 				}
 				
-				if (softwareInstalled.equals("N")) {
-					if (!softwareCollected) {
-						softwareCollected = true;
+				if (softwareInstalled != null && softwareInstalled.equals("N")) {
+					if (!_softwareCollected) {
+						_softwareCollected = true;
 						new SoftwareGatherThread(ctx).start();
 					}
 				}

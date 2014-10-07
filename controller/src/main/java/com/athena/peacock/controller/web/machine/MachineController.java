@@ -128,13 +128,15 @@ public class MachineController {
 	public @ResponseBody DtoJsonResponse getMachine(DtoJsonResponse jsonRes, String machineId) throws Exception {
 		MachineDto machine = machineService.getMachine(machineId);
 		
-		if (rhevmService.getRHEVMRestTemplate(machine.getHypervisorId()) == null) {
+		if (machine.getHypervisorId() != null && rhevmService.getRHEVMRestTemplate(machine.getHypervisorId()) == null) {
 			rhevmService.init();
 		}
 		
 		VMDto vm = null;
 		try {
-			vm = rhevmService.getVirtualMachine(machine.getHypervisorId(), machine.getMachineId());
+			if (machine.getHypervisorId() != null) {
+				vm = rhevmService.getVirtualMachine(machine.getHypervisorId(), machine.getMachineId());
+			}
 		} catch (Exception e) {
 			logger.error("Unhandle Exception has occurred while call RHEVM API.", e);
 		}
@@ -200,7 +202,9 @@ public class MachineController {
 				machine.setUpdUserId(userDto.getUserId());
 			}
 			
-			machineService.updateMachine(machine);
+			if (machineService.updateMachine(machine)) {
+				Thread.sleep(3000);
+			}
 			
 			jsonRes.setMsg("Instance 정보가 정상적으로 변경되었습니다.");
 		} catch (Exception e) {

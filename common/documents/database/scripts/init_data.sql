@@ -118,9 +118,9 @@ INSERT INTO permission_user_map_tbl VALUES(1, 2, 1, NOW(), 1, NOW());
 
 set global event_scheduler = 'ON';
 
-DROP EVENT IF EXISTS event_name `add_time_table` ;
-DROP EVENT IF EXISTS event_name `remove_old_monitoring_data` ;
-DROP EVENT IF EXISTS event_name `remove_old_time_data` ;
+DROP EVENT IF EXISTS `add_time_table` ;
+DROP EVENT IF EXISTS `remove_old_monitoring_data` ;
+DROP EVENT IF EXISTS `remove_old_time_data` ;
 
 CREATE EVENT `add_time_table` 
 	ON SCHEDULE EVERY 1 MINUTE STARTS DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i')
