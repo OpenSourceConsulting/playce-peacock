@@ -128,7 +128,7 @@ public class MachineService {
 		machineDao.deleteMachine(machineId);
 	}
 
-	public void updateMachine(MachineDto machine) throws RestClientException, Exception {
+	public boolean updateMachine(MachineDto machine) throws RestClientException, Exception {
 		MachineDto m = machineDao.getMachine(machine.getMachineId());
 		
 		boolean hostnameChanged = false;
@@ -192,7 +192,7 @@ public class MachineService {
 		if (StringUtils.isNotEmpty(machine.getHostName()) && !machine.getHostName().equals(m.getHostName())) {
 			// Agent가 Running 상태일 경우 ShellAction으로 agent의 chhost.sh 스크립트 실행
 			// Agent가 Down 상태일 경우 machine_additional_info_tbl에 업데이트 되어 Running 상태로 변경 시 HostName이 변경된다.
-			if (StringUtils.isNotEmpty(machine.getIpAddress()) && peacockTransmitter.isActive(machine.getMachineId())) {
+			if (StringUtils.isNotEmpty(m.getIpAddr()) && peacockTransmitter.isActive(machine.getMachineId())) {
 				try {
 					// /etc/hosts 파일에 저장될 ipAddress가 현재 Machine의 IP인지 수정 대상 IP인지 확인한다.
 					String ipAddress = null;
@@ -244,9 +244,13 @@ public class MachineService {
         	if (hostnameChanged) {
         		// IP 변경 없이 hostname만 변경된 경우 peacock-agent를 restart 한다.
 				sendCommand(getMachine(machine.getMachineId()), "service peacock-agent restart");
-				Thread.sleep(3000);
+				// Thread Sleep 하게 되면 DB Commit에 지연이 생기고 따라서 Agent restart 후 예전 hostname으로 재 변경한다.
+				// 따라서 hostname이 변경된 경우 controller에서 Thread.sleep(3000)을 수행하여 화면에서 Agent의 상태가 자동으로 변경되도록 한다.
+				//Thread.sleep(3000);
         	}
         }
+        
+        return hostnameChanged;
 	}
 	
 	public MachineDto getAdditionalInfo(String machineId) {
@@ -259,6 +263,10 @@ public class MachineService {
 	
 	public void updateAdditionalInfo(MachineDto machine) {
 		machineDao.updateAdditionalInfo(machine);
+	}
+	
+	public void agentRestart(String machineId) throws Exception {
+		sendCommand(getMachine(machineId), "service peacock-agent restart");
 	}
 	
 	public void agentStart(String machineId) throws Exception {

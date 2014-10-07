@@ -60,8 +60,10 @@ public class AgentInitialInfoMessage extends AbstractMessage {
 	private String ipAddr;
 	/** host name */
 	private String hostName;
+	/** package installed Y/N*/
+	private String packageCollected = "Y";
 	/** software installed Y/N*/
-	private String softwareInstalled = "N";
+	private String softwareInstalled = "Y";
 	
 	public AgentInitialInfoMessage() {
 		super(MessageType.INITIAL_INFO);
@@ -231,6 +233,20 @@ public class AgentInitialInfoMessage extends AbstractMessage {
 	 */
 	public void setHostName(String hostName) {
 		this.hostName = hostName;
+	}
+
+	/**
+	 * @return the packageCollected
+	 */
+	public String getPackageCollected() {
+		return packageCollected;
+	}
+
+	/**
+	 * @param packageCollected the packageCollected to set
+	 */
+	public void setPackageCollected(String packageCollected) {
+		this.packageCollected = packageCollected;
 	}
 
 	/**
