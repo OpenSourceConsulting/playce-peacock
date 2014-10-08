@@ -294,7 +294,7 @@ public class MachineController {
 		
 		if (cliWhiteList.indexOf(cli.getCommand()) < 0) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg(cli.getCommand() + "는 실행할 수 없는 명령입니다.");
+			jsonRes.setMsg("\"" + cli.getCommand() + "\"은(는) 실행할 수 없는 명령입니다.");
 			
 			return jsonRes;
 		}

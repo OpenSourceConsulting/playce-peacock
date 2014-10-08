@@ -118,6 +118,23 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `peacock`.`mon_data_tbl`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `peacock`.`mon_data_tbl` (
+  `MON_DATA_ID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '과다 적재 시 인덱스 용량이 비대해 짐에 따라 MON_DATA_ID를 키로 하고 나머지 FK는 제거',
+  `MACHINE_ID` VARCHAR(36) NOT NULL,
+  `MON_FACTOR_ID` VARCHAR(10) NOT NULL,
+  `MON_DATA_VALUE` VARCHAR(255) NOT NULL,
+  `REG_USER_ID` INT(11) NULL,
+  `REG_DT` DATETIME NULL,
+  `UPD_USER_ID` INT(11) NULL,
+  `UPD_DT` DATETIME NULL,
+  PRIMARY KEY (`MON_DATA_ID`),
+  INDEX `RED_DT_idx` (`MACHINE_ID` ASC, `REG_DT` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `peacock`.`mon_factor_tbl`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `peacock`.`mon_factor_tbl` (
@@ -132,35 +149,6 @@ CREATE TABLE IF NOT EXISTS `peacock`.`mon_factor_tbl` (
   `UPD_USER_ID` INT(11) NULL,
   `UPD_DT` DATETIME NULL,
   PRIMARY KEY (`MON_FACTOR_ID`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `peacock`.`mon_data_tbl`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `peacock`.`mon_data_tbl` (
-  `MACHINE_ID` VARCHAR(36) NOT NULL,
-  `MON_FACTOR_ID` VARCHAR(10) NOT NULL,
-  `MON_DATA_ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `MON_DATA_VALUE` VARCHAR(255) NOT NULL,
-  `REG_USER_ID` INT(11) NULL,
-  `REG_DT` DATETIME NULL,
-  `UPD_USER_ID` INT(11) NULL,
-  `UPD_DT` DATETIME NULL,
-  PRIMARY KEY (`MON_DATA_ID`, `MACHINE_ID`, `MON_FACTOR_ID`),
-  INDEX `fk_MON_DATA_TBL_MON_FACTOR_TBL1_idx` (`MON_FACTOR_ID` ASC),
-  INDEX `fk_MON_DATA_TBL_MACHINE_TBL1_idx` (`MACHINE_ID` ASC),
-  INDEX `RED_DT_idx` (`MACHINE_ID` ASC, `REG_DT` ASC),
-  CONSTRAINT `fk_MON_DATA_TBL_MON_FACTOR_TBL1`
-    FOREIGN KEY (`MON_FACTOR_ID`)
-    REFERENCES `peacock`.`mon_factor_tbl` (`MON_FACTOR_ID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_MON_DATA_TBL_MACHINE_TBL1`
-    FOREIGN KEY (`MACHINE_ID`)
-    REFERENCES `peacock`.`machine_tbl` (`MACHINE_ID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
