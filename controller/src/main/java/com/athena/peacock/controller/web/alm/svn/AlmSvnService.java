@@ -21,8 +21,11 @@ import org.tmatesoft.svn.core.wc.SVNWCUtil;
 
 import com.athena.peacock.controller.web.alm.crowd.AlmCrowdService;
 import com.athena.peacock.controller.web.alm.crowd.dto.ProjectUserDto;
+import com.athena.peacock.controller.web.alm.project.AlmProjectDao;
+import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectProcessStatusDto;
 import com.athena.peacock.controller.web.alm.svn.dto.SvnGroupUserDto;
+import com.athena.peacock.controller.web.alm.svn.dto.SvnProjectDto;
 import com.athena.peacock.controller.web.alm.svn.dto.SvnSyncDto;
 import com.athena.peacock.controller.web.alm.svn.dto.SvnUserDto;
 import com.atlassian.crowd.exception.ApplicationPermissionException;
@@ -46,6 +49,9 @@ public class AlmSvnService {
 
 	@Autowired
 	private AlmCrowdService crowdService;
+
+	@Autowired
+	private AlmProjectDao projectDao;
 
 	// private String SVN_URL = "svn://119.81.162.220/hiway/";
 	private SVNRepository repository = null;
@@ -189,6 +195,21 @@ public class AlmSvnService {
 		}
 
 		sync.setGroups(groupUsers);
+
+		// Project Permission 생성
+		List<SvnProjectDto> projects = new ArrayList<SvnProjectDto>();
+
+		List<ProjectDto> projectList = projectDao.getProjectList();
+
+		for (ProjectDto project : projectList) {
+			SvnProjectDto tmp = new SvnProjectDto();
+			tmp.setProjectCode(project.getProjectCode());
+			tmp.setRepository(project.getRepositoryCode());
+			projects.add(tmp);
+		}
+
+		sync.setProjects(projects);
+
 		return sync;
 
 	}

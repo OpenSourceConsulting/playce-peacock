@@ -367,7 +367,7 @@ public class AlmProjectController {
 
 	/**
 	 * <pre>
-	 * 사용자 패스워드 변경
+	 * SVN Sync 
 	 * </pre>
 	 * 
 	 * @param projectCode

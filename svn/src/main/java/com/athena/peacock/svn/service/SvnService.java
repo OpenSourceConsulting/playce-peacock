@@ -23,7 +23,7 @@ import com.athena.peacock.svn.dto.SvnUserDto;
 @Service
 public class SvnService {
 
-	public void test() {
+	public void sync() {
 		SvnDto syncDto = getArchetype();
 		writePasswdFile(syncDto);
 		writeAuthzFile(syncDto);
@@ -90,17 +90,17 @@ public class SvnService {
 
 		List<SvnGroupUserDto> groupList = syncDto.getGroups();
 
-		List<SvnProjectDto> svnlists = new ArrayList<SvnProjectDto>();
-		SvnProjectDto svn = new SvnProjectDto();
-		svn.setProject("hiway");
-		svn.setRepository("hiway");
-		svn.setProjectCode("xt001");
-		svnlists.add(svn);
+		List<SvnProjectDto> svnlists = syncDto.getProjects();
 
 		try {
 			// //////////////////////////////////////////////////////////////
 			BufferedWriter out = new BufferedWriter(new FileWriter("authz.txt"));
 
+			String noti = "#DO not modify manually";
+			out.write(noti);
+			out.newLine();
+			
+			
 			// aliases
 			String header = "[aliases]";
 			out.write(header);

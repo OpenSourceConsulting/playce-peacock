@@ -1,3 +1,4 @@
+#DO not modify manually
 [aliases]
 
 [groups]
@@ -30,6 +31,96 @@ w003 =
 [/]
 osc09 =  rw
 
-[hiway:/xt001]
-@xt001 = rw
+[hiway:/aa0001]
+@aa0001 = rw
+
+[hiway:/b001]
+@b001 = rw
+
+[hiway:/b002]
+@b002 = rw
+
+[hiway:/b003]
+@b003 = rw
+
+[hiway:/b004]
+@b004 = rw
+
+[hiway:/c0001]
+@c0001 = rw
+
+[hiway:/c001]
+@c001 = rw
+
+[hiway:/d001]
+@d001 = rw
+
+[hiway:/d002]
+@d002 = rw
+
+[hiway:/d003]
+@d003 = rw
+
+[hiway:/d005]
+@d005 = rw
+
+[hiway:/d006]
+@d006 = rw
+
+[hiway:/d007]
+@d007 = rw
+
+[hiway:/dave001]
+@dave001 = rw
+
+[hiway:/m001]
+@m001 = rw
+
+[hiway:/m002]
+@m002 = rw
+
+[hiway:/m003]
+@m003 = rw
+
+[hiway:/m004]
+@m004 = rw
+
+[hiway:/m005]
+@m005 = rw
+
+[hiway:/m006]
+@m006 = rw
+
+[hiway:/osc001]
+@osc001 = rw
+
+[hiway:/osc999]
+@osc999 = rw
+
+[hiway:/test]
+@test = rw
+
+[hiway:/test001]
+@test001 = rw
+
+[hiway:/test002]
+@test002 = rw
+
+[hiway:/test003]
+@test003 = rw
+
+[hiway:/test004]
+@test004 = rw
+
+[hiway:/test005]
+@test005 = rw
+
+[hiway:/test006]
+@test006 = rw
+
+[hiway:/w002]
+@w002 = rw
+
+[hiway:/w003]
+@w003 = rw
 

@@ -17,15 +17,22 @@
 		<result property="exitMessage" column="EXIT_MESSAGE" />
 		<result property="lastUpdated" column="LAST_UPDATED" />
 	</resultMap>
+	
+	<resultMap id="projectMap" type="com.athena.peacock.controller.web.alm.project.dto.ProjectDto">
+		<result property="projectCode" column="PROJECT_CODE" />
+		<result property="projectName" column="PROJECT_NAME" />
+		<result property="projectDescription" column="PROJECT_DESCRIPTION" />
+		<result property="repositoryCode" column="REPOSITORY_CODE" />
+	</resultMap>
 
 		 
-	<select id="getProject" parameterType="String" resultType="com.athena.peacock.controller.web.alm.project.dto.ProjectDto">
-		 SELECT PROJECT_CODE as projectCode, PROJECT_NAME as projectName, PROJECT_DESCRIPTION as projectDescription  from alm_project_tbl
+	<select id="getProject" parameterType="String" resultMap="projectMap">
+		 SELECT PROJECT_CODE, PROJECT_NAME, PROJECT_DESCRIPTION, REPOSITORY_CODE from alm_project_tbl
 		 WHERE PROJECT_CODE = #{projectCode}
 	</select>
 	
-	<select id="getProjectList" resultType="com.athena.peacock.controller.web.alm.project.dto.ProjectDto">
-		 SELECT PROJECT_CODE as projectCode, PROJECT_NAME as projectName, PROJECT_DESCRIPTION as projectDescription  from alm_project_tbl
+	<select id="getProjectList" resultMap="projectMap">
+		 SELECT PROJECT_CODE, PROJECT_NAME, PROJECT_DESCRIPTION, REPOSITORY_CODE  from alm_project_tbl
 	</select>
 	
 	

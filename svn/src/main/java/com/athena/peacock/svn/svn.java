@@ -25,9 +25,7 @@ public class svn {
 	}
 
 	private void start() {
-
-		svnService.test();
-		//getArchetype();
+		svnService.sync();
 	}
 
 }

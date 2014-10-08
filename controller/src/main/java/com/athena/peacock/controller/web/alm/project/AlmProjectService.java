@@ -149,6 +149,10 @@ public class AlmProjectService {
 
 		// Project DTO
 		ProjectDto pDto = project.getProject();
+		
+		// Repository 추가
+		pDto.setRepositoryCode(project.getTemplate().getRepository());
+		
 		String projectCode = pDto.getProjectCode();
 
 		// Project 저장

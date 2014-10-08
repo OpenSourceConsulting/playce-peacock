@@ -31,20 +31,17 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
  * 
  * </pre>
  * 
- * @author Bong-Jin Kwon
+ * @author Dave
  * @version 1.0
  */
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ProjectDto {
-
-	private static final long serialVersionUID = -1083153050593982734L;
 
 	private String projectCode;
 	private String projectName;
 	private String projectDescription;
 	private String groupDescription;
-	
-	private String repository;
+	private String repositoryCode;
 
 	public String getProjectCode() {
 		return projectCode;
@@ -78,14 +75,13 @@ public class ProjectDto {
 		this.groupDescription = groupDescription;
 	}
 
-	public String getRepository() {
-		return repository;
+	public String getRepositoryCode() {
+		return repositoryCode;
 	}
 
-	public void setRepository(String repository) {
-		this.repository = repository;
+	public void setRepositoryCode(String repositoryCode) {
+		this.repositoryCode = repositoryCode;
 	}
 
-	
 }
 // end of User.java
