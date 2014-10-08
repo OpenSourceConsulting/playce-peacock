@@ -36,6 +36,8 @@ import javax.annotation.PostConstruct;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -55,6 +57,9 @@ import com.athena.peacock.controller.web.common.model.GridJsonResponse;
  */
 @Service
 public class AlmConfluenceService {
+
+	protected final Logger logger = LoggerFactory
+			.getLogger(AlmConfluenceService.class);
 
 	@Value("#{contextProperties['alm.confluence.url']}")
 	private String JIRA_URI;
@@ -97,7 +102,7 @@ public class AlmConfluenceService {
 		} catch (XmlRpcException e) {
 			response.setSuccess(false);
 			response.setMsg("XmlRpcException");
-			e.printStackTrace();
+			logger.info("XmlRpcException");
 		}
 		return response;
 	}
@@ -144,25 +149,12 @@ public class AlmConfluenceService {
 			Object tmp = rpcClient.execute(
 					"confluence2.getSpacePermissionSets", vector);
 
-			// Add permission
-			Object[] vector2 = new Object[3];
-			vector2[0] = getLoginToken();
-			vector2[1] = "COMMENT";
-			vector2[2] = spaceKey;
-			// Object tmp2 =
-			// rpcClient.execute("confluence2.addAnonymousPermissionToSpace",
-			// vector2);
-
 			return tmp;
 
 		} catch (Exception e) {
+			logger.info(e.getMessage());
 			return null;
 		}
-
-		// boolean addPermissionsToSpace(String token, Vector permissions,
-		// String remoteEntityName, String spaceKey) - Give the entity named
-		// remoteEntityName (either a group or a user) the permissions
-		// permissions on the space with the key spaceKey.
 
 	}
 
@@ -184,14 +176,11 @@ public class AlmConfluenceService {
 		} catch (Exception e) {
 			response.setSuccess(false);
 			response.setErrorMessage(e.getMessage());
+			logger.info(e.getMessage());
 		}
 
 		return response;
 
-		// boolean addPermissionsToSpace(String token, Vector permissions,
-		// String remoteEntityName, String spaceKey) - Give the entity named
-		// remoteEntityName (either a group or a user) the permissions
-		// permissions on the space with the key spaceKey.
 
 	}
 
@@ -214,6 +203,7 @@ public class AlmConfluenceService {
 		} catch (Exception e) {
 			response.setSuccess(false);
 			response.setErrorMessage(e.getMessage());
+			logger.info(e.getMessage());
 		}
 
 		return response;

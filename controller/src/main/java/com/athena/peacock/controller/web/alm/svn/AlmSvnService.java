@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -37,6 +39,9 @@ import com.atlassian.crowd.model.user.User;
 
 @Service
 public class AlmSvnService {
+
+	protected final Logger logger = LoggerFactory
+			.getLogger(AlmSvnService.class);
 
 	@Value("#{contextProperties['alm.svn.url']}")
 	private String SVN_URL;
@@ -83,12 +88,12 @@ public class AlmSvnService {
 			ISVNEditor editor = repository.getCommitEditor(
 					"peacock create project", null);
 			SVNCommitInfo commitInfo = addDir(editor, projectCode);
-
 			statusDto.setSuccess(true);
 
 		} catch (SVNException e) {
 			statusDto.setSuccess(false);
 			statusDto.setErrorMessage(e.getMessage());
+			logger.info(e.getMessage());
 		}
 
 		return statusDto;
@@ -106,10 +111,9 @@ public class AlmSvnService {
 	}
 
 	private long getLastesRevision() throws SVNException {
-		int historyCount = 3;
 
+		int historyCount = 3;
 		long latestRevision = repository.getLatestRevision();
-		System.out.println(latestRevision);
 		return latestRevision;
 	}
 
@@ -132,6 +136,7 @@ public class AlmSvnService {
 			return true;
 
 		} catch (SVNException e) {
+			logger.info(e.getMessage());
 			return false;
 		}
 
@@ -189,7 +194,7 @@ public class AlmSvnService {
 						| InvalidAuthenticationException
 						| OperationFailedException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.info(e.getMessage());
 				}
 			}
 		}
