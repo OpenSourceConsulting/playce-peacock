@@ -214,32 +214,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `peacock`.`user_machine_map_tbl`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `peacock`.`user_machine_map_tbl` (
-  `USER_ID` INT(11) NOT NULL,
-  `MACHINE_ID` VARCHAR(36) NOT NULL,
-  `REG_USER_ID` INT(11) NULL,
-  `REG_DT` DATETIME NULL,
-  `UPD_USER_ID` INT(11) NULL,
-  `UPD_DT` DATETIME NULL,
-  INDEX `fk_USER_MACHINE_MAP_TBL_USERS_TBL1_idx` (`USER_ID` ASC),
-  INDEX `fk_USER_MACHINE_MAP_TBL_MACHINE_TBL1_idx` (`MACHINE_ID` ASC),
-  PRIMARY KEY (`USER_ID`, `MACHINE_ID`),
-  CONSTRAINT `fk_USER_MACHINE_MAP_TBL_USERS_TBL1`
-    FOREIGN KEY (`USER_ID`)
-    REFERENCES `peacock`.`users_tbl` (`USER_ID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_USER_MACHINE_MAP_TBL_MACHINE_TBL1`
-    FOREIGN KEY (`MACHINE_ID`)
-    REFERENCES `peacock`.`machine_tbl` (`MACHINE_ID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `peacock`.`auto_scaling_tbl`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `peacock`.`auto_scaling_tbl` (
@@ -442,6 +416,7 @@ CREATE TABLE IF NOT EXISTS `peacock`.`alm_project_repository_tbl` (
   `REPOSIROTY_TYPE` INT NOT NULL,
   `REPOSIROTY_DESCRIPTION` VARCHAR(255) NULL,
   `REPOSIROTY_URL` VARCHAR(255) NOT NULL,
+  `REPOSITORY_STATUS` VARCHAR(20) NULL,
   PRIMARY KEY (`REPOSITORY_CODE`))
 ENGINE = InnoDB;
 
@@ -471,6 +446,8 @@ CREATE TABLE IF NOT EXISTS `peacock`.`alm_project_mapping_tbl` (
   `PROJECT_CODE` VARCHAR(20) NOT NULL,
   `MAPPING_TYPE` INT NOT NULL,
   `MAPPING_CODE` VARCHAR(45) NOT NULL,
+  `MAPPING_EXECUTION` VARCHAR(20) NULL,
+  `MAPPING_PARAMETER` VARCHAR(255) NULL,
   `CREATE_TIME` DATETIME NULL,
   `START_TIME` DATETIME NULL,
   `END_TIME` DATETIME NULL,
@@ -489,11 +466,12 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `peacock`.`time_tbl`
+-- Table `peacock`.`alm_project_user_tbl`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `peacock`.`time_tbl` (
-  `REG_DT` DATETIME NOT NULL,
-  PRIMARY KEY (`REG_DT`))
+CREATE TABLE IF NOT EXISTS `peacock`.`alm_project_user_tbl` (
+  `USERNAME` VARCHAR(100) NOT NULL,
+  `PASSWORD` VARCHAR(100) NULL,
+  PRIMARY KEY (`USERNAME`))
 ENGINE = InnoDB;
 
 
@@ -577,6 +555,33 @@ CREATE TABLE IF NOT EXISTS `peacock`.`permission_user_map_tbl` (
     REFERENCES `peacock`.`users_tbl` (`USER_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `peacock`.`alm_project_history_tbl`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `peacock`.`alm_project_history_tbl` (
+  `PROJECT_HISTORY_ID` INT NOT NULL AUTO_INCREMENT,
+  `PROJECT_CODE` VARCHAR(20) NULL,
+  `MESSAGE` VARCHAR(1000) NULL,
+  `CREATE_TIME` DATETIME NULL,
+  PRIMARY KEY (`PROJECT_HISTORY_ID`),
+  INDEX `PROJECT_CODE_idx` (`PROJECT_CODE` ASC),
+  CONSTRAINT `PROJECT_CODE`
+    FOREIGN KEY (`PROJECT_CODE`)
+    REFERENCES `peacock`.`alm_project_tbl` (`REPOSITORY_CODE`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `peacock`.`time_tbl`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `peacock`.`time_tbl` (
+  `REG_DT` DATETIME NOT NULL,
+  PRIMARY KEY (`REG_DT`))
 ENGINE = InnoDB;
 
 

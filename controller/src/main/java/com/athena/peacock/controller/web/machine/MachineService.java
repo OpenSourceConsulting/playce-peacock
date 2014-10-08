@@ -83,6 +83,7 @@ public class MachineService {
 			}
 			if (StringUtils.isEmpty(machine.getDisplayName())) {
 				machine.setDisplayName(m.getDisplayName());
+				machine.setIsPrd(m.getIsPrd());
 			}
 			// Edit Instance 메뉴에서 고정 IP를 세팅하면 RHEV Manager가 즉각 반영되지 않아 
 			// hypervisorId 및 cluster를 조회하지 못하는 경우가 있다.
@@ -319,9 +320,12 @@ public class MachineService {
 		
 		// 2. /etc/resolv.conf 파일에 저장될 내용을 구성한다.
 		StringBuilder nameserver = new StringBuilder();
-		String[] servers = machine.getNameServer().split(",");
-		for (String server : servers) {
-			nameserver.append("nameserver ").append(server).append("\n");
+		
+		if (machine.getNameServer() != null) {
+			String[] servers = machine.getNameServer().split(",");
+			for (String server : servers) {
+				nameserver.append("nameserver ").append(server).append("\n");
+			}
 		}
 		
 		logger.debug("ifcfg-etho : [{}], resolv.conf : [{}]", ifcfg.toString(), nameserver.toString());
