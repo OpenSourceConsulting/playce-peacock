@@ -4,17 +4,20 @@
 <mapper namespace="ConfigMapper">
 
 	<select id="getConfigFileNames" parameterType="com.athena.peacock.controller.web.config.ConfigDto" resultType="com.athena.peacock.controller.web.config.ConfigDto">
-		SELECT MACHINE_ID AS machineId
-		       , SOFTWARE_ID AS softwareId
-		       , INSTALL_SEQ AS installSeq
-		       , CONFIG_FILE_ID AS configFileId
-		       , CONCAT(CONFIG_FILE_LOCATION, '/', CONFIG_FILE_NAME) AS configFqfn
-			   , CONFIG_FILE_LOCATION AS configFileLocation
-			   , CONFIG_FILE_NAME AS configFileName
-		  FROM config_tbl
-		 WHERE MACHINE_ID = #{machineId}
-		   AND SOFTWARE_ID = #{softwareId}
-		   AND INSTALL_SEQ = #{installSeq}
+		SELECT *
+		  FROM (SELECT MACHINE_ID AS machineId
+					   , SOFTWARE_ID AS softwareId
+					   , INSTALL_SEQ AS installSeq
+					   , CONFIG_FILE_ID AS configFileId
+					   , CONCAT(CONFIG_FILE_LOCATION, '/', CONFIG_FILE_NAME) AS configFqfn
+					   , CONFIG_FILE_LOCATION AS configFileLocation
+					   , CONFIG_FILE_NAME AS configFileName
+				  FROM config_tbl
+				 WHERE MACHINE_ID = #{machineId}
+				   AND SOFTWARE_ID = #{softwareId}
+				   AND INSTALL_SEQ = #{installSeq}) A
+		 GROUP BY configFqfn
+		 ORDER BY configFileId
 	</select>
 	
 	<select id="getConfigFileVersions" parameterType="com.athena.peacock.controller.web.config.ConfigDto" resultType="com.athena.peacock.controller.web.config.ConfigDto">
