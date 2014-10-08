@@ -8,19 +8,18 @@ import org.springframework.stereotype.Component;
 import com.athena.peacock.svn.service.SvnService;
 
 @Component
-public class svn {
+public class PeacockSvnSyncClient {
 
 	@Autowired
 	private SvnService svnService;
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 		AbstractApplicationContext applicationContext = new ClassPathXmlApplicationContext(
 				"classpath:spring/context-*.xml");
 		applicationContext.registerShutdownHook();
 
-		svn p = applicationContext.getBean(svn.class);
+		PeacockSvnSyncClient p = applicationContext.getBean(PeacockSvnSyncClient.class);
 		p.start();
 	}
 

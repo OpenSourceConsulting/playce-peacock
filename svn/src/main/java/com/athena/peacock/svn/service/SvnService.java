@@ -55,7 +55,6 @@ public class SvnService {
 			return responseEntity.getBody();
 		} catch (Exception e) {
 			// logger.debug("exception {}", e.getMessage());
-			e.printStackTrace();
 		}
 
 		return null;
@@ -81,7 +80,6 @@ public class SvnService {
 
 			out.close();
 		} catch (IOException e) {
-			System.err.println(e);
 		}
 
 	}
@@ -148,7 +146,7 @@ public class SvnService {
 
 			out.close();
 		} catch (IOException e) {
-			System.err.println(e);
+
 		}
 
 	}
