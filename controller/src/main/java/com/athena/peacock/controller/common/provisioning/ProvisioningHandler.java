@@ -1001,7 +1001,7 @@ public class ProvisioningHandler {
 		SoftwareDto software = new SoftwareDto();
 		software.setSoftwareId(provisioningDetail.getSoftwareId());
 		software.setMachineId(provisioningDetail.getMachineId());
-		software.setInstallLocation(serverHome + "/apps," + serverHome + "/bin," + serverHome + "/Servers," + serverHome + "/svrlogs," + serverHome + "/wily," + serverHome + "/jboss-ews-2.1");
+		software.setInstallLocation(serverHome + "/jboss-ews-2.1," + serverHome + "/apps," + serverHome + "/bin," + serverHome + "/Servers," + serverHome + "/svrlogs," + serverHome + "/wily");
 		software.setInstallStat("INSTALLING");
 		software.setServiceStopCmd("WORKING_DIR:,CMD:service,ARGS:jbossews stop");
 		software.setServiceStartCmd("WORKING_DIR:,CMD:service,ARGS:jbossews start");

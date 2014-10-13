@@ -700,7 +700,7 @@ class SoftwareGatherThread extends Thread {
 									if (returnCode == 0) {
 										configInfo = new ConfigInfo();
 										configInfo.setConfigFileLocation(configFile.split(",")[i].substring(0, configFile.split(",")[i].lastIndexOf("/")));
-										configInfo.setConfigFileName(configFile.split(",")[i].substring(configFile.split(",")[i].lastIndexOf("/") + 1, configFile.split(",")[i].length() - 1));
+										configInfo.setConfigFileName(configFile.split(",")[i].substring(configFile.split(",")[i].lastIndexOf("/") + 1, configFile.split(",")[i].length()).trim());
 										configInfo.setConfigFileContents(consumer.getOutput());
 										softwareInfo.getConfigInfoList().add(configInfo);
 									}
@@ -788,7 +788,7 @@ class SoftwareGatherThread extends Thread {
 									if (returnCode == 0) {
 										configInfo = new ConfigInfo();
 										configInfo.setConfigFileLocation(configFile.split(",")[i].substring(0, configFile.split(",")[i].lastIndexOf("/")));
-										configInfo.setConfigFileName(configFile.split(",")[i].substring(configFile.split(",")[i].lastIndexOf("/") + 1, configFile.split(",")[i].length() - 1));
+										configInfo.setConfigFileName(configFile.split(",")[i].substring(configFile.split(",")[i].lastIndexOf("/") + 1, configFile.split(",")[i].length()).trim());
 										configInfo.setConfigFileContents(consumer.getOutput());
 										softwareInfo.getConfigInfoList().add(configInfo);
 									}
@@ -875,7 +875,7 @@ class SoftwareGatherThread extends Thread {
 									if (returnCode == 0) {
 										configInfo = new ConfigInfo();
 										configInfo.setConfigFileLocation(configFile.split(",")[i].substring(0, configFile.split(",")[i].lastIndexOf("/")));
-										configInfo.setConfigFileName(configFile.split(",")[i].substring(configFile.split(",")[i].lastIndexOf("/") + 1, configFile.split(",")[i].length() - 1));
+										configInfo.setConfigFileName(configFile.split(",")[i].substring(configFile.split(",")[i].lastIndexOf("/") + 1, configFile.split(",")[i].length()).trim());
 										configInfo.setConfigFileContents(consumer.getOutput());
 										softwareInfo.getConfigInfoList().add(configInfo);
 									}

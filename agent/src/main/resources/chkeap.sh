@@ -31,8 +31,8 @@ do
             echo $JD" "$JU" "$SN" "$JH" "$SH > tmp.info
             SN=`cat tmp.info | awk '{ sub(/JBOSS_USER/, $2, $3); print $3 }' | sed -E 's/([${}])//g'`
             JH=`cat tmp.info | awk '{ sub(/JBOSS_DIR/, $1, $4); print $4 }' | sed -E 's/([${}])//g'`
-            SH=`cat tmp.info | awk '{ sub(/JBOSS_DIR/, $1, $5); print $5 }' | sed -E 's/([${}])//g'`
-            SB=$SH
+            SB=`cat tmp.info | awk '{ sub(/JBOSS_DIR/, $1, $5); print $5 }' | sed -E 's/([${}])//g'`
+            SH=$JD
             USER_HOME=$JD
         else
             echo $JU" "$SN > tmp.info

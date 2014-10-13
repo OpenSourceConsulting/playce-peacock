@@ -578,6 +578,26 @@ Ext.define('MyApp.view.instancesContainer', {
                                                 },
                                                 {
                                                     xtype: 'gridcolumn',
+                                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                                        var returnVal = "";
+
+                                                        if(value) {
+
+                                                            var vals = value.split(",");
+
+                                                            if(vals.length >= 2) {
+                                                                returnVal = vals[2].substring(0, vals[2].lastIndexOf("/"));
+                                                            }
+
+                                                        }
+
+                                                        return returnVal;
+                                                    },
+                                                    dataIndex: 'installLocation',
+                                                    text: 'Location'
+                                                },
+                                                {
+                                                    xtype: 'gridcolumn',
                                                     dataIndex: 'regDt',
                                                     text: 'Install Date'
                                                 },
@@ -596,7 +616,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     text: 'Edit Config',
                                                     maxWidth: 100,
                                                     style: 'text-align:left;',
-                                                    width: 65,
+                                                    width: 70,
                                                     align: 'center',
                                                     hideable: false,
                                                     menuText: '',
