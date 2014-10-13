@@ -1225,6 +1225,57 @@
                                             },
                                             "codeClass": null,
                                             "userConfig": {
+                                                "dataIndex": "installLocation",
+                                                "text": "Location"
+                                            },
+                                            "designerId": "e66e5d9b-89bf-439e-a493-b85b8c7a62af",
+                                            "cn": [
+                                                {
+                                                    "type": "fixedfunction",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "designer|params": [
+                                                            "value",
+                                                            "metaData",
+                                                            "record",
+                                                            "rowIndex",
+                                                            "colIndex",
+                                                            "store",
+                                                            "view"
+                                                        ],
+                                                        "fn": "renderer",
+                                                        "implHandler": [
+                                                            "var returnVal = \"\";",
+                                                            "",
+                                                            "if(value) {",
+                                                            "    ",
+                                                            "    var vals = value.split(\",\");",
+                                                            "    ",
+                                                            "    if(vals.length >= 2) {",
+                                                            "        returnVal = vals[2].substring(0, vals[2].lastIndexOf(\"/\"));",
+                                                            "    }",
+                                                            "    ",
+                                                            "}",
+                                                            "",
+                                                            "return returnVal;"
+                                                        ]
+                                                    },
+                                                    "designerId": "023c85c7-0f8d-483e-81b3-0c531df1ad2d"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "Ext.grid.column.Column",
+                                            "reference": {
+                                                "name": "columns",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
                                                 "dataIndex": "regDt",
                                                 "text": "Install Date"
                                             },
@@ -1273,7 +1324,7 @@
                                                     "\"text-align:left;\""
                                                 ],
                                                 "text": "Edit Config",
-                                                "width": 65
+                                                "width": 70
                                             },
                                             "designerId": "08243f34-fab1-45bc-9981-52602195bae1",
                                             "customConfigs": [
