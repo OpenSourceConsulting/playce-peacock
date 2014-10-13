@@ -32,7 +32,7 @@ public class SvnService {
 	public SvnDto getArchetype() {
 
 		try {
-			String url = "http://localhost:8080/controller/alm/project/svn/sync";
+			String url = "http://prov.hiway.hhi.co.kr/controller/alm/project/svn/sync";
 
 			HttpHeaders requestHeaders = new HttpHeaders();
 
@@ -69,6 +69,10 @@ public class SvnService {
 			BufferedWriter out = new BufferedWriter(new FileWriter("out.txt"));
 			String header = "[users]";
 			out.write(header);
+			out.newLine();
+			
+			String peacock  = "peacock = peacock";
+			out.write(peacock);
 			out.newLine();
 
 			for (SvnUserDto user : users) {
@@ -124,7 +128,7 @@ public class SvnService {
 			out.write(project);
 			out.newLine();
 
-			String projectMain = "osc09 =  rw";
+			String projectMain = "peacock =  rw";
 			out.write(projectMain);
 			out.newLine();
 			out.newLine();

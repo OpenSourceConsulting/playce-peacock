@@ -9,7 +9,7 @@ import com.athena.peacock.controller.web.alm.project.dto.ProjectHistoryDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto;
 import com.athena.peacock.controller.web.common.dao.AbstractBaseDao;
 
-@Repository("almProjectDao")
+@Repository
 public class AlmProjectDao extends AbstractBaseDao {
 
 	public ProjectDto getProject(String projectCode) {

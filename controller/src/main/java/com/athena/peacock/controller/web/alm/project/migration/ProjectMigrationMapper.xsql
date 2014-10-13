@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ProjectMigrationMapper">
+
+	<select id="getAllUser"  resultType="com.athena.peacock.controller.web.alm.project.migration.ProjectMigrationUserDto">
+		 SELECT  USERNAME, PASSWORD, CHECKFLAG  from temp_alm_project_user_tbl
+	</select>
+		
+	<update id="updateProjectUserCheck" parameterType="com.athena.peacock.controller.web.alm.project.migration.ProjectMigrationUserDto">
+		UPDATE 
+			temp_alm_project_user_tbl
+		SET
+			CHECKFLAG = #{CHECKFLAG}
+		WHERE
+			USERNAME = #{USERNAME}
+	</update>
+
+	
+	
+</mapper>
