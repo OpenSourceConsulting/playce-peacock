@@ -2,13 +2,22 @@
 [aliases]
 
 [groups]
-aa0001 = admin,hclee,kwlee,
-b001 = admin,hclee,test111,
-b002 = admin,hclee,
-b003 = admin,hclee,jshan,kwlee,
-b004 = admin,hclee,jshan,
 c0001 = admin,hclee,jshan,kwlee,
 c001 = admin,hclee,jshan,kwlee,
+cfx01 = 
+ch01 = 
+ch02 = 
+ci03 = 
+ci04 = 
+cl02 = 
+cm01 = 
+csx01 = 
+cux01 = 
+cux02 = 
+cux03 = 
+cux04 = 
+cux05 = 
+cux06 = 
 d001 = admin,hclee,jshan,kwlee,
 d002 = 
 d003 = admin,hclee,jshan,kwlee,
@@ -16,6 +25,67 @@ d005 = admin,hclee,jshan,kwlee,test111,
 d006 = admin,hclee,jshan,kwlee,
 d007 = 
 dave001 = admin,hclee,jshan,kwlee,
+GPLM = 
+jcx01 = 
+jf01 = 
+jf03 = 
+jf04 = 
+jh01 = 
+jv01 = 
+jz01 = 
+ka02 = 
+ka03 = 
+kax04 = 
+kb01 = 
+kc01 = 
+kc02 = 
+kc03 = 
+kcx02 = 
+ke02 = 
+ke03 = 
+kf02 = 
+kf03 = 
+kf05 = 
+kf06 = 
+kf90 = 
+kf91 = 
+kh03 = 
+kh06 = 
+kh07 = 
+kh08 = 
+kh08hdtres = 
+kh09 = 
+kh11 = 
+kh12 = 
+kh13 = 
+kh14 = 
+kh15 = 
+kh16 = 
+kh17 = 
+kh19 = 
+khx02 = 
+khx09 = 
+khx10 = 
+khx11 = 
+kl03 = 
+kl04 = 
+kl05 = 
+kl06 = 
+kl07 = 
+kl08 = 
+kl09 = 
+kl10 = 
+kl11 = 
+kl12 = 
+kl13 = 
+kl14 = 
+kl15 = 
+kl16 = 
+kl17 = 
+kl18 = 
+kl19 = 
+ku02 = 
+kux03 = 
 m001 = admin,hclee,jshan,kwlee,
 m002 = admin,hclee,jshan,kwlee,
 m003 = admin,hclee,jshan,
@@ -24,103 +94,371 @@ m005 = admin,
 m006 = hclee,
 m007 = 
 osc999 = admin,hclee,
+qa01 = 
+qc01 = 
+qcx02 = 
+qf01 = 
+qfx02 = 
+qh01 = 
+qh02 = 
+qhx03 = 
+qn01 = 
 test = 
 w002 = 
 w003 = 
+wa02 = 
+wa06 = 
+wa07 = 
+wax06 = 
+wc01 = 
+wc02 = 
+wf01 = 
+wh03 = 
+wh04 = 
+wh05 = 
+wj01 = 
+wj02 = 
+wj03 = 
+wj04 = 
+wl01 = 
+wl02 = 
+wl03 = 
+wl04 = 
+wl05 = 
+wl07 = 
+wl08 = 
+wl09 = 
+wu03 = 
+wu04 = 
+wu05 = 
 
 [/]
-osc09 =  rw
+peacock =  rw
 
-[hiway:/aa0001]
-@aa0001 = rw
+[chosun:/cfx01]
+@cfx01 = rw
 
-[hiway:/b001]
-@b001 = rw
+[chosun:/ch01]
+@ch01 = rw
 
-[hiway:/b002]
-@b002 = rw
+[chosun:/ch02]
+@ch02 = rw
 
-[hiway:/b003]
-@b003 = rw
+[chosun:/ci03]
+@ci03 = rw
 
-[hiway:/b004]
-@b004 = rw
+[chosun:/ci04]
+@ci04 = rw
 
-[hiway:/c0001]
-@c0001 = rw
+[chosun:/cl02]
+@cl02 = rw
 
-[hiway:/c001]
-@c001 = rw
+[chosun:/cm01]
+@cm01 = rw
 
-[hiway:/d001]
-@d001 = rw
+[chosun:/csx01]
+@csx01 = rw
 
-[hiway:/d002]
-@d002 = rw
+[chosun:/cux01]
+@cux01 = rw
 
-[hiway:/d003]
-@d003 = rw
+[chosun:/cux02]
+@cux02 = rw
 
-[hiway:/d005]
-@d005 = rw
+[chosun:/cux03]
+@cux03 = rw
 
-[hiway:/d006]
-@d006 = rw
+[chosun:/cux04]
+@cux04 = rw
 
-[hiway:/d007]
-@d007 = rw
+[chosun:/cux05]
+@cux05 = rw
 
-[hiway:/dave001]
-@dave001 = rw
+[chosun:/cux06]
+@cux06 = rw
 
-[hiway:/m001]
-@m001 = rw
+[elec:/GPLM]
+@GPLM = rw
 
-[hiway:/m002]
-@m002 = rw
+[plant:/jcx01]
+@jcx01 = rw
 
-[hiway:/m003]
-@m003 = rw
+[plant:/jf01]
+@jf01 = rw
 
-[hiway:/m004]
-@m004 = rw
+[plant:/jf03]
+@jf03 = rw
 
-[hiway:/m005]
-@m005 = rw
+[plant:/jf04]
+@jf04 = rw
 
-[hiway:/m006]
-@m006 = rw
+[plant:/jh01]
+@jh01 = rw
 
-[hiway:/osc001]
-@osc001 = rw
+[plant:/jv01]
+@jv01 = rw
 
-[hiway:/osc999]
-@osc999 = rw
+[plant:/jz01]
+@jz01 = rw
 
-[hiway:/test]
-@test = rw
+[engine:/ka02]
+@ka02 = rw
 
-[hiway:/test001]
-@test001 = rw
+[engine:/ka03]
+@ka03 = rw
 
-[hiway:/test002]
-@test002 = rw
+[engine:/kax04]
+@kax04 = rw
 
-[hiway:/test003]
-@test003 = rw
+[engine:/kb01]
+@kb01 = rw
 
-[hiway:/test004]
-@test004 = rw
+[engine:/kc01]
+@kc01 = rw
 
-[hiway:/test005]
-@test005 = rw
+[engine:/kc02]
+@kc02 = rw
 
-[hiway:/test006]
-@test006 = rw
+[engine:/kc03]
+@kc03 = rw
 
-[hiway:/w002]
-@w002 = rw
+[engine:/kcx02]
+@kcx02 = rw
 
-[hiway:/w003]
-@w003 = rw
+[engine:/ke02]
+@ke02 = rw
+
+[engine:/ke03]
+@ke03 = rw
+
+[engine:/kf02]
+@kf02 = rw
+
+[engine:/kf03]
+@kf03 = rw
+
+[engine:/kf05]
+@kf05 = rw
+
+[engine:/kf06]
+@kf06 = rw
+
+[engine:/kf90]
+@kf90 = rw
+
+[engine:/kf91]
+@kf91 = rw
+
+[engine:/kh03]
+@kh03 = rw
+
+[engine:/kh06]
+@kh06 = rw
+
+[engine:/kh07]
+@kh07 = rw
+
+[engine:/kh08]
+@kh08 = rw
+
+[engine:/kh08hdtres]
+@kh08hdtres = rw
+
+[engine:/kh09]
+@kh09 = rw
+
+[engine:/kh11]
+@kh11 = rw
+
+[engine:/kh12]
+@kh12 = rw
+
+[engine:/kh13]
+@kh13 = rw
+
+[engine:/kh14]
+@kh14 = rw
+
+[engine:/kh15]
+@kh15 = rw
+
+[engine:/kh16]
+@kh16 = rw
+
+[engine:/kh17]
+@kh17 = rw
+
+[engine:/kh19]
+@kh19 = rw
+
+[engine:/khx02]
+@khx02 = rw
+
+[engine:/khx09]
+@khx09 = rw
+
+[engine:/khx10]
+@khx10 = rw
+
+[engine:/khx11]
+@khx11 = rw
+
+[engine:/kl03]
+@kl03 = rw
+
+[engine:/kl04]
+@kl04 = rw
+
+[engine:/kl05]
+@kl05 = rw
+
+[engine:/kl06]
+@kl06 = rw
+
+[engine:/kl07]
+@kl07 = rw
+
+[engine:/kl08]
+@kl08 = rw
+
+[engine:/kl09]
+@kl09 = rw
+
+[engine:/kl10]
+@kl10 = rw
+
+[engine:/kl11]
+@kl11 = rw
+
+[engine:/kl12]
+@kl12 = rw
+
+[engine:/kl13]
+@kl13 = rw
+
+[engine:/kl14]
+@kl14 = rw
+
+[engine:/kl15]
+@kl15 = rw
+
+[engine:/kl16]
+@kl16 = rw
+
+[engine:/kl17]
+@kl17 = rw
+
+[engine:/kl18]
+@kl18 = rw
+
+[engine:/kl19]
+@kl19 = rw
+
+[engine:/ku02]
+@ku02 = rw
+
+[engine:/kux03]
+@kux03 = rw
+
+[ocean:/qa01]
+@qa01 = rw
+
+[ocean:/qc01]
+@qc01 = rw
+
+[ocean:/qcx02]
+@qcx02 = rw
+
+[ocean:/qf01]
+@qf01 = rw
+
+[ocean:/qfx02]
+@qfx02 = rw
+
+[ocean:/qh01]
+@qh01 = rw
+
+[ocean:/qh02]
+@qh02 = rw
+
+[ocean:/qhx03]
+@qhx03 = rw
+
+[null:/qn01]
+@qn01 = rw
+
+[elec:/wa02]
+@wa02 = rw
+
+[elec:/wa06]
+@wa06 = rw
+
+[elec:/wa07]
+@wa07 = rw
+
+[elec:/wax06]
+@wax06 = rw
+
+[elec:/wc01]
+@wc01 = rw
+
+[elec:/wc02]
+@wc02 = rw
+
+[elec:/wf01]
+@wf01 = rw
+
+[elec:/wh03]
+@wh03 = rw
+
+[elec:/wh04]
+@wh04 = rw
+
+[elec:/wh05]
+@wh05 = rw
+
+[elec:/wj01]
+@wj01 = rw
+
+[elec:/wj02]
+@wj02 = rw
+
+[elec:/wj03]
+@wj03 = rw
+
+[elec:/wj04]
+@wj04 = rw
+
+[elec:/wl01]
+@wl01 = rw
+
+[elec:/wl02]
+@wl02 = rw
+
+[elec:/wl03]
+@wl03 = rw
+
+[elec:/wl04]
+@wl04 = rw
+
+[elec:/wl05]
+@wl05 = rw
+
+[elec:/wl07]
+@wl07 = rw
+
+[elec:/wl08]
+@wl08 = rw
+
+[elec:/wl09]
+@wl09 = rw
+
+[elec:/wu03]
+@wu03 = rw
+
+[elec:/wu04]
+@wu04 = rw
+
+[elec:/wu05]
+@wu05 = rw
 

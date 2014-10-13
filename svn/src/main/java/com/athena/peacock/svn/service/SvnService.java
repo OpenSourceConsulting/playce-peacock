@@ -32,7 +32,7 @@ public class SvnService {
 	public SvnDto getArchetype() {
 
 		try {
-			String url = "http://prov.hiway.hhi.co.kr/controller/alm/project/svn/sync";
+			String url = "http://prov.hiway.hhi.co.kr/alm/project/svn/sync";
 
 			HttpHeaders requestHeaders = new HttpHeaders();
 
