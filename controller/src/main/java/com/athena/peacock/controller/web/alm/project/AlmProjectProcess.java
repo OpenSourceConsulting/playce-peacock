@@ -12,7 +12,6 @@ import com.athena.peacock.controller.web.alm.project.dto.ProjectHistoryDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectProcessStatusDto;
 import com.athena.peacock.controller.web.alm.svn.AlmSvnService;
-import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 import com.atlassian.crowd.model.user.User;
 
 /**
@@ -154,6 +153,7 @@ public class AlmProjectProcess {
 		return statusDto;
 	}
 
+	// Jenkins Permission 생성
 	private ProjectProcessStatusDto createJenkinsPermission(
 			ProjectMappingDto jenkins) {
 
@@ -163,10 +163,18 @@ public class AlmProjectProcess {
 		List<User> users = crowdService.getGroupUserList(jenkins
 				.getProjectCode());
 
-		for (User user : users) {
-			jenkinsService.copyPermission(jenkins.getProjectCode(),
-					user.getName());
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < users.size(); i++) {
+
+			User user = users.get(i);
+			sb.append(user.getName());
+
+			if (i != users.size()) {
+				sb.append(",");
+			}
 		}
+
+		jenkinsService.copyPermission(jenkins.getProjectCode(), sb.toString());
 
 		return statusDto;
 	}
