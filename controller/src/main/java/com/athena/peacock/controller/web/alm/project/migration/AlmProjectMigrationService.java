@@ -91,12 +91,33 @@ public class AlmProjectMigrationService {
 			} else {
 				user.setCHECKFLAG("FALSE");
 			}
-			
+
 			migrationUserDao.checkUser(user);
 
 		}
 		return "OK";
 	}
 
+	public String addGroupUser() {
+
+		List<ProjectMigrationGroupUserDto> users = migrationUserDao
+				.getGroupUserList();
+
+		for (ProjectMigrationGroupUserDto user : users) {
+
+			DtoJsonResponse response = crowdService.addUserToGroup(
+					user.getUsername(), user.getGroupname());
+
+			if (response.isSuccess()) {
+				user.setCHECKFLAG("TRUE");
+			} else {
+				user.setCHECKFLAG("FALSE");
+			}
+
+			migrationUserDao.checkGroupUser(user);
+
+		}
+		return "OK";
+	}
 }
 // end of AlmProjectService.java

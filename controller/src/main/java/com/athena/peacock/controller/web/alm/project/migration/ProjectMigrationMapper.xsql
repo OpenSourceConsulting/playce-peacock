@@ -15,7 +15,20 @@
 		WHERE
 			USERNAME = #{USERNAME}
 	</update>
-
 	
+	<select id="getGroupUser"  resultType="com.athena.peacock.controller.web.alm.project.migration.ProjectMigrationGroupUserDto">
+		 SELECT  groupname, username, CHECKFLAG  from temp_alm_project_user_mapping_tbl
+	</select>
+	
+	<update id="updateProjectGroupUserCheck" parameterType="com.athena.peacock.controller.web.alm.project.migration.ProjectMigrationGroupUserDto">
+		UPDATE 
+			temp_alm_project_user_mapping_tbl
+		SET
+			CHECKFLAG = #{CHECKFLAG}
+		WHERE
+			groupname = #{groupname}
+			and 
+			username = #{username}
+	</update>	
 	
 </mapper>

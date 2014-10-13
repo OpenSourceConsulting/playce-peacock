@@ -56,5 +56,13 @@ public class AlmProjectMigrationController {
 	String checkUser() {
 		return service.checkUser();
 	}
+	
+	@RequestMapping(value = "/project/migration/addGroupUser", method = RequestMethod.GET)
+	public @ResponseBody
+	String addGroupUser() {
+		return service.addGroupUser();
+	}
+	
+	
 }
 // end of AlmUserController.java

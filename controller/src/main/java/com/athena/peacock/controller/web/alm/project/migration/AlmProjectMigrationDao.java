@@ -18,4 +18,13 @@ public class AlmProjectMigrationDao extends AbstractBaseDao {
 				migrationUser);
 	}
 
+	public List<ProjectMigrationGroupUserDto> getGroupUserList() {
+		return sqlSession.selectList("ProjectMigrationMapper.getGroupUser");
+	}
+
+	public void checkGroupUser(ProjectMigrationGroupUserDto migrationUser) {
+		sqlSession.update("ProjectMigrationMapper.updateProjectGroupUserCheck",
+				migrationUser);
+	}
+
 }
