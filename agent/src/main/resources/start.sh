@@ -38,6 +38,7 @@ if [ $JAVA_HOME ]
 then
 	:
 else
+#	updatedb
 	for JAVA_EXE in `locate bin/java | grep java$ | grep -v /usr/bin | xargs echo`
 	do
 		if [ $JAVA_HOME ] 
@@ -57,6 +58,17 @@ else
 			fi
 		fi
 	done
+fi
+
+if [ $JAVA_HOME ]
+then
+	:
+else
+	echo "JDK 1.7 is required."
+	echo "Start JDK 1.7 installing..."
+	wget "http://prov.hiway.hhi.co.kr/jdk1.7.0_09.zip" -O /tmp/jdk1.7.0_09.zip
+	unzip /tmp/jdk1.7.0_09.zip -d /usr/java/
+	JAVA_HOME=/usr/java/jdk1.7.0_09
 fi
 
 PID=`ps -ef | grep java | grep "com.athena.peacock.agent.Starter" | awk '{print $2}'`
