@@ -74,6 +74,10 @@ public class SvnService {
 			String peacock  = "peacock = peacock";
 			out.write(peacock);
 			out.newLine();
+			
+			String admin  = "admin = hhi9200";
+			out.write(admin);
+			out.newLine();
 
 			for (SvnUserDto user : users) {
 				String tmp = String.format("%s = %s", user.getUsername(),
@@ -82,6 +86,7 @@ public class SvnService {
 				out.newLine();
 			}
 
+			out.write("###SUCESS###");			
 			out.close();
 		} catch (IOException e) {
 		}
@@ -148,6 +153,7 @@ public class SvnService {
 				out.newLine();
 			}
 
+			out.write("###SUCESS###");
 			out.close();
 		} catch (IOException e) {
 
