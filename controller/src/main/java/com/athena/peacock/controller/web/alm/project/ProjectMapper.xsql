@@ -56,7 +56,7 @@
 			#{projectCode}
 			,#{projectName}
 			,#{projectDescription}
-			,#{REPOSITORY_CODE}
+			,#{repositoryCode}
 		)
 	</insert>
 	
