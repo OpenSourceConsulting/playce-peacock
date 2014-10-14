@@ -50,11 +50,13 @@
 			PROJECT_CODE
 		    ,PROJECT_NAME
 		    ,PROJECT_DESCRIPTION
+		    ,REPOSITORY_CODE
 		)
 		VALUES (
 			#{projectCode}
 			,#{projectName}
 			,#{projectDescription}
+			,#{REPOSITORY_CODE}
 		)
 	</insert>
 	
