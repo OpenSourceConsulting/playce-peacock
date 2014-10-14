@@ -169,12 +169,12 @@ public class AlmProjectProcess {
 			User user = users.get(i);
 			sb.append(user.getName());
 
-			if (i != users.size()) {
+			if (i != (users.size() - 1)) {
 				sb.append(",");
 			}
 		}
 
-		jenkinsService.copyPermission(jenkins.getProjectCode(), sb.toString());
+		jenkinsService.copyPermission(jenkins.getMappingCode(), sb.toString());
 
 		return statusDto;
 	}
