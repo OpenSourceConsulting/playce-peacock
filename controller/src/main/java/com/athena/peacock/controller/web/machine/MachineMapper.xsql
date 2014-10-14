@@ -148,7 +148,7 @@
 		<if test="memSize != null">AND MEM_SIZE = #{memSize}</if>
 		<if test="ipAddr != null">AND IP_ADDR = #{ipAddr}</if>
 		<if test="hostName != null">AND HOST_NAME = #{hostName}</if>
-		 ORDER BY REG_DT
+		 ORDER BY REG_DT DESC
 		 LIMIT #{start}, #{limit}
 	</select>
 

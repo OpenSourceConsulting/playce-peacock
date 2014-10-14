@@ -23,6 +23,7 @@
 package com.athena.peacock.controller.web.dashboard;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -72,7 +73,10 @@ public class DashboardDto {
 	public List<String> getRhevmNames() {
 		if (this.rhevmNames == null) {
 			this.rhevmNames = new ArrayList<String>();
+		} else {
+			Collections.sort(rhevmNames);
 		}
+		
 		return rhevmNames;
 	}
 
@@ -81,6 +85,7 @@ public class DashboardDto {
 	 */
 	public void setRhevmNames(List<String> rhevmNames) {
 		this.rhevmNames = rhevmNames;
+		Collections.sort(this.rhevmNames);
 	}
 
 	/**
@@ -88,6 +93,7 @@ public class DashboardDto {
 	 */
 	public void addRhevmNames(String rhevmName) {
 		this.rhevmNames.add(rhevmName);
+		Collections.sort(this.rhevmNames);
 	}
 
 	/**
