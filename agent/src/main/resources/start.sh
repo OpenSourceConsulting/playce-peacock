@@ -64,10 +64,8 @@ if [ $JAVA_HOME ]
 then
 	:
 else
-	echo "JDK 1.7 is required."
-	echo "Start JDK 1.7 installing..."
-	wget "http://prov.hiway.hhi.co.kr/jdk1.7.0_09.zip" -O /tmp/jdk1.7.0_09.zip
-	unzip /tmp/jdk1.7.0_09.zip -d /usr/java/
+	nohup wget "http://prov.hiway.hhi.co.kr/jdk1.7.0_09.zip" -O /tmp/jdk1.7.0_09.zip > /dev/null 2>&1
+	nohup unzip -o /tmp/jdk1.7.0_09.zip -d /usr/java/ > /dev/null 2>&1
 	JAVA_HOME=/usr/java/jdk1.7.0_09
 fi
 

@@ -152,6 +152,32 @@
 				</plugins>
 			</build>
 		</profile>
+		
+		<!-- Development Environment -->
+		<profile>
+			<id>dev</id>
+			<activation>
+				<property>
+					<name>mode</name>
+					<value>dev</value>
+				</property>
+			</activation>
+			<build>
+				<filters>
+					<filter>${basedir}/src/main/filters/dev.properties</filter>
+				</filters>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<version>2.0.2</version>
+						<configuration>
+							<webxml>WEB-INF/web.xml</webxml>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 
 		<!-- Local Development Environment(Default) -->
 		<profile>

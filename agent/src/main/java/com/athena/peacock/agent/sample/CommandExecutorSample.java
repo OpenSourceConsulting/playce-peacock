@@ -109,7 +109,7 @@ public class CommandExecutorSample {
 		if (returnCode == 0) {
 			// success
 			System.out.println("==============[SUCCEED]==============");
-            System.out.println(consumer.getOutput());
+            System.out.println("[" + consumer.getOutput().substring(0, consumer.getOutput().length() - 1) + "]");
             
             if (osType.equals(OSType.WINDOWS)) {
 	            List<Product> productList = parse(consumer.getOutput());

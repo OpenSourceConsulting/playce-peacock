@@ -701,7 +701,7 @@ class SoftwareGatherThread extends Thread {
 										configInfo = new ConfigInfo();
 										configInfo.setConfigFileLocation(configFile.split(",")[i].substring(0, configFile.split(",")[i].lastIndexOf("/")));
 										configInfo.setConfigFileName(configFile.split(",")[i].substring(configFile.split(",")[i].lastIndexOf("/") + 1, configFile.split(",")[i].length()).trim());
-										configInfo.setConfigFileContents(consumer.getOutput());
+										configInfo.setConfigFileContents(consumer.getOutput().substring(0, consumer.getOutput().length() - 1));
 										softwareInfo.getConfigInfoList().add(configInfo);
 									}
 								}
@@ -789,7 +789,7 @@ class SoftwareGatherThread extends Thread {
 										configInfo = new ConfigInfo();
 										configInfo.setConfigFileLocation(configFile.split(",")[i].substring(0, configFile.split(",")[i].lastIndexOf("/")));
 										configInfo.setConfigFileName(configFile.split(",")[i].substring(configFile.split(",")[i].lastIndexOf("/") + 1, configFile.split(",")[i].length()).trim());
-										configInfo.setConfigFileContents(consumer.getOutput());
+										configInfo.setConfigFileContents(consumer.getOutput().substring(0, consumer.getOutput().length() - 1));
 										softwareInfo.getConfigInfoList().add(configInfo);
 									}
 								}
@@ -876,7 +876,7 @@ class SoftwareGatherThread extends Thread {
 										configInfo = new ConfigInfo();
 										configInfo.setConfigFileLocation(configFile.split(",")[i].substring(0, configFile.split(",")[i].lastIndexOf("/")));
 										configInfo.setConfigFileName(configFile.split(",")[i].substring(configFile.split(",")[i].lastIndexOf("/") + 1, configFile.split(",")[i].length()).trim());
-										configInfo.setConfigFileContents(consumer.getOutput());
+										configInfo.setConfigFileContents(consumer.getOutput().substring(0, consumer.getOutput().length() - 1));
 										softwareInfo.getConfigInfoList().add(configInfo);
 									}
 								}

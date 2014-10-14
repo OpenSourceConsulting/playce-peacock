@@ -157,6 +157,12 @@ public class RHEVMRestTemplate {
 	 * @throws Exception
 	 */
 	public void init() throws Exception {
+		// http://javaresolutions.blogspot.kr/2014/07/javaxnetsslsslprotocolexception.html
+		// -Djsse.enableSNIExtension=false
+		// System.setProperty("jsse.enableSNIExtension", "false");
+		
+		System.setProperty("jsse.enableSNIExtension", "false");
+		
 		// Create a hostname verifier that does not validate hostname
 	    HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
 			@Override
