@@ -44,6 +44,7 @@
 	<!-- Setup the Root category -->
 	<!-- ======================= -->
 	<root>
+		<level value="INFO" />
 		<appender-ref ref="ATHENA_PEACOCK_FILE"/>
 		<appender-ref ref="ATHENA_PEACOCK_CONSOLE"/>
 	</root>
