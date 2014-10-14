@@ -8,7 +8,7 @@
     "userConfig": {
         "designer|userAlias": "SoftwareConfigWindow",
         "designer|userClassName": "SoftwareConfigWindow",
-        "height": 540,
+        "height": 585,
         "id": "softwareConfigWindow",
         "itemId": "softwareConfigWindow",
         "layout": "border",

@@ -29,7 +29,7 @@ Ext.define('MyApp.view.SoftwareConfigWindow', {
         'Ext.form.field.Checkbox'
     ],
 
-    height: 540,
+    height: 585,
     id: 'softwareConfigWindow',
     itemId: 'softwareConfigWindow',
     width: 610,
