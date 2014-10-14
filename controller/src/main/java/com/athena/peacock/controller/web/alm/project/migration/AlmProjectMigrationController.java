@@ -75,6 +75,14 @@ public class AlmProjectMigrationController {
 	String addJenkins() {
 		return service.addJenkinsMapping();
 	}
+	
+	@RequestMapping(value = "/project/migration/passwordReset", method = RequestMethod.GET)
+	public @ResponseBody
+	String passwordReset() {
+		return service.passwordReset();
+	}
 
+	
+	
 }
 // end of AlmUserController.java

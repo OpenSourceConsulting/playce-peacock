@@ -94,7 +94,8 @@ public class AlmProjectMigrationService {
 			tmpDto.setConfirmPassword(crowdUser.getUSERPASSWORD());
 			tmpDto.setFirstName(crowdUser.getFIRSTNAME());
 			tmpDto.setLastName(crowdUser.getLASTNAME());
-			tmpDto.setDisplayName(crowdUser.getLASTNAME()+crowdUser.getFIRSTNAME());
+			tmpDto.setDisplayName(crowdUser.getLASTNAME()
+					+ crowdUser.getFIRSTNAME());
 			tmpDto.setEmail(crowdUser.getEMAIL());
 			crowdService.addUser(tmpDto);
 		}
@@ -161,6 +162,27 @@ public class AlmProjectMigrationService {
 			}
 
 			migrationUserDao.checkJenkins(jenkinsDto);
+
+		}
+		return "OK";
+	}
+
+	public String passwordReset() {
+
+		List<ProjectMigrationUserDto> users = migrationUserDao.getUserList();
+
+		for (ProjectMigrationUserDto user : users) {
+
+			DtoJsonResponse response = crowdService.changePasswordUser(
+					user.getUSERNAME(), user.getPASSWORD());
+
+			if (response.isSuccess()) {
+				user.setCHECKFLAG("TRUE");
+			} else {
+				user.setCHECKFLAG("FALSE");
+			}
+
+			migrationUserDao.checkUser(user);
 
 		}
 		return "OK";
