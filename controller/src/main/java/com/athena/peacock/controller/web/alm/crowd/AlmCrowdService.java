@@ -556,7 +556,7 @@ public class AlmCrowdService {
 
 		try {
 			List<Group> groups = crowdClient.getNestedChildGroupsOfGroup(
-					"project", 0, 100000);
+					projectgroup, 0, 100000);
 
 			return groups;
 		} catch (GroupNotFoundException | OperationFailedException
