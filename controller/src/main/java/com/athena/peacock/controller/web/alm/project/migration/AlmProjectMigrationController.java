@@ -44,7 +44,14 @@ public class AlmProjectMigrationController {
 
 	@Autowired
 	private AlmProjectMigrationService service;
-
+	
+	
+	@RequestMapping(value = "/project/migration/createCrowdUser", method = RequestMethod.GET)
+	public @ResponseBody
+	String createCrowdUser() {
+		return service.createCrowdUser();
+	}
+	
 	@RequestMapping(value = "/project/migration/checkuser", method = RequestMethod.GET)
 	public @ResponseBody
 	String checkUser() {

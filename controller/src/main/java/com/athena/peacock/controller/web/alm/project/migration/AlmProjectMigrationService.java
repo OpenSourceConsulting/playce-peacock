@@ -26,11 +26,14 @@ package com.athena.peacock.controller.web.alm.project.migration;
 
 import java.util.List;
 
+import javax.validation.constraints.Pattern;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.athena.peacock.controller.web.alm.crowd.AlmCrowdService;
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmGroupDto;
+import com.athena.peacock.controller.web.alm.crowd.dto.AlmUserAddDto;
 import com.athena.peacock.controller.web.alm.project.AlmProjectDao;
 import com.athena.peacock.controller.web.alm.project.AlmProjectService;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
@@ -70,10 +73,31 @@ public class AlmProjectMigrationService {
 		List<ProjectDto> projects = migrationUserDao.getProject();
 
 		for (ProjectDto project : projects) {
-			project.setGroupDescription(project.getProjectDescription()+" Group");
+			project.setGroupDescription(project.getProjectDescription()
+					+ " Group");
 			projectService.createProject(project);
 		}
 
+		return "OK";
+	}
+
+	public String createCrowdUser() {
+
+		List<ProjectMigrationCrowdUserDto> crowdUsers = migrationUserDao
+				.getCrowdUser();
+
+		for (ProjectMigrationCrowdUserDto crowdUser : crowdUsers) {
+
+			AlmUserAddDto tmpDto = new AlmUserAddDto();
+			tmpDto.setName(crowdUser.getUSERNAME());
+			tmpDto.setPassword(crowdUser.getUSERPASSWORD());
+			tmpDto.setConfirmPassword(crowdUser.getUSERPASSWORD());
+			tmpDto.setFirstName(crowdUser.getFIRSTNAME());
+			tmpDto.setLastName(crowdUser.getLASTNAME());
+			tmpDto.setDisplayName(crowdUser.getLASTNAME()+crowdUser.getFIRSTNAME());
+			tmpDto.setEmail(crowdUser.getEMAIL());
+			crowdService.addUser(tmpDto);
+		}
 		return "OK";
 	}
 

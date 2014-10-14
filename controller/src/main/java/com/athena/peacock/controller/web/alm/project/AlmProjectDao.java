@@ -15,6 +15,11 @@ public class AlmProjectDao extends AbstractBaseDao {
 	public ProjectDto getProject(String projectCode) {
 		return sqlSession.selectOne("ProjectMapper.getProject", projectCode);
 	}
+	
+	public int getProjectCount() {
+		return sqlSession.selectOne("ProjectMapper.getProjectCount");
+	}
+	
 
 	public List<ProjectDto> getProjectList() {
 		return sqlSession.selectList("ProjectMapper.getProjectList");

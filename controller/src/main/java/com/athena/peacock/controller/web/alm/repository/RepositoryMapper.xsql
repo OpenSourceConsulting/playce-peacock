@@ -11,6 +11,9 @@
 		<result property="repositoryStatus" column="REPOSITORY_STATUS" />
 	</resultMap>
 
+	<select id="getRepositoryCount" resultType="int">
+		 SELECT count(*) from alm_project_repository_tbl
+	</select>
 
 	<select id="getRepository" parameterType="String" resultMap="resultMap">
 		 SELECT * from alm_project_repository_tbl

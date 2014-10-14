@@ -109,6 +109,12 @@ public class AlmProjectService {
 
 	}
 
+	public int getProjectCount() {
+
+		return projectDao.getProjectCount();
+
+	}
+
 	// Project 상세정보
 	public DtoJsonResponse getProject(String projectCode) {
 
@@ -149,10 +155,10 @@ public class AlmProjectService {
 
 		// Project DTO
 		ProjectDto pDto = project.getProject();
-		
+
 		// Repository 추가
 		pDto.setRepositoryCode(project.getTemplate().getRepository());
-		
+
 		String projectCode = pDto.getProjectCode();
 
 		// Project 저장

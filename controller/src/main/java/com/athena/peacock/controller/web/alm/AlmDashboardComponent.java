@@ -27,6 +27,8 @@ import org.springframework.stereotype.Component;
 
 import com.athena.peacock.common.provider.AppContext;
 import com.athena.peacock.controller.web.alm.jenkins.AlmJenkinsService;
+import com.athena.peacock.controller.web.alm.project.AlmProjectService;
+import com.athena.peacock.controller.web.alm.repository.AlmReposirotyService;
 
 /**
  * <pre>
@@ -42,12 +44,28 @@ public class AlmDashboardComponent {
 	@Autowired
 	private AlmJenkinsService jenkinsService;
 
+	@Autowired
+	private AlmReposirotyService repositoryService;
+
+	@Autowired
+	private AlmProjectService projectService;
+
 	public int getProjectCnt() {
-		return 0;
+
+		if (projectService == null) {
+			projectService = AppContext.getBean(AlmProjectService.class);
+		}
+
+		return projectService.getProjectCount();
 	}
 
 	public int getSvnCnt() {
-		return 0;
+
+		if (repositoryService == null) {
+			repositoryService = AppContext.getBean(AlmReposirotyService.class);
+		}
+
+		return repositoryService.getRepositoryCount();
 	}
 
 	public int getJenkinsCnt() {

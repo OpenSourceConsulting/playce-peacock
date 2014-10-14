@@ -14,6 +14,10 @@ public class AlmProjectMigrationDao extends AbstractBaseDao {
 		return sqlSession.selectList("ProjectMigrationMapper.getProject");
 	}
 	
+	public List<ProjectMigrationCrowdUserDto> getCrowdUser() {
+		return sqlSession.selectList("ProjectMigrationMapper.getCrowdUser");
+	}
+	
 	public List<ProjectMigrationUserDto> getUserList() {
 		return sqlSession.selectList("ProjectMigrationMapper.getAllUser");
 	}

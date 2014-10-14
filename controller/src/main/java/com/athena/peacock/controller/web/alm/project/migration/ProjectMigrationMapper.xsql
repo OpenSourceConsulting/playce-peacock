@@ -8,6 +8,14 @@
 
 	</select>
 	
+	<select id="getCrowdUser"  resultType="com.athena.peacock.controller.web.alm.project.migration.ProjectMigrationCrowdUserDto">
+		 SELECT USERNAME, EMAIL, FIRSTNAME, LASTNAME, USERPASSWORD, CHECKFLAG FROM peacock.temp_alm_project_crowd_user_tbl
+
+	</select>
+	
+	
+	
+	
 	<select id="getAllUser"  resultType="com.athena.peacock.controller.web.alm.project.migration.ProjectMigrationUserDto">
 		 SELECT  USERNAME, PASSWORD, CHECKFLAG  from temp_alm_project_user_tbl
 	</select>

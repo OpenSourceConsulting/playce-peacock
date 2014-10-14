@@ -33,6 +33,11 @@ public class AlmReposirotyService {
 
 		return response;
 	}
+	
+	public int getRepositoryCount(){
+		
+		return repositoryDao.getRepositoryCount();
+	}
 
 	public DtoJsonResponse getRepository(String repositoryCode) {
 

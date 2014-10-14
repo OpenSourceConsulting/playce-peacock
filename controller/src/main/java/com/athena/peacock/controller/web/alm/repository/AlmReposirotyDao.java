@@ -14,6 +14,11 @@ public class AlmReposirotyDao extends AbstractBaseDao {
 		return sqlSession.selectOne("RepositoryMapper.getRepository",
 				repositoryCode);
 	}
+	
+	
+	public int getRepositoryCount(){
+		return sqlSession.selectOne("RepositoryMapper.getRepositoryCount"); 
+	}
 
 	public List<RepositoryDto> getRepositoryList() {
 		return sqlSession.selectList("RepositoryMapper.getRepositoryList");

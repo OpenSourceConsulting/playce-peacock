@@ -31,6 +31,10 @@
 		 WHERE PROJECT_CODE = #{projectCode}
 	</select>
 	
+	<select id="getProjectCount"  resultType="int">
+		 SELECT count(*) from alm_project_tbl
+	</select>
+	
 	<select id="getProjectList" resultMap="projectMap">
 		 SELECT PROJECT_CODE, PROJECT_NAME, PROJECT_DESCRIPTION, REPOSITORY_CODE  from alm_project_tbl
 	</select>
