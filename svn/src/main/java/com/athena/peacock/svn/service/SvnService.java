@@ -136,7 +136,11 @@ public class SvnService {
 			String projectMain = "peacock =  rw";
 			out.write(projectMain);
 			out.newLine();
+			
+			String projectAdmin = "admin =  rw";
+			out.write(projectAdmin);
 			out.newLine();
+
 
 			for (SvnProjectDto svnProject : svnlists) {
 
@@ -149,7 +153,6 @@ public class SvnService {
 				String auth = String.format("@%s = rw",
 						svnProject.getProjectCode());
 				out.write(auth);
-				out.newLine();
 				out.newLine();
 			}
 
