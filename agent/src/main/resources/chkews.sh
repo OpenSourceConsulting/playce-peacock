@@ -51,8 +51,8 @@ do
             STAC="service jbossews start"
             STOC="service jbossews stop"
         else
-            STAC="runuser -l "${SERVER_USER}" -c 'cd ${CATALINA_BASE} && sh startNode.sh notail'"
-            STOC="runuser -l ${SERVER_USER} -c ‘cd ${CATALINA_BASE} && sh kill.sh'"
+            STAC="runuser -l ${SERVER_USER} -c 'cd ${CATALINA_BASE} && sh startNode.sh notail'"
+            STOC="runuser -l ${SERVER_USER} -c 'cd ${CATALINA_BASE} && sh kill.sh'"
         fi
 
         COUNT=$(($COUNT+1))

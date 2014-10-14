@@ -52,8 +52,8 @@ do
             STAC="service jboss_init start"
             STOC"service jboss_init stop"
         else
-            STAC="runuser -l "${JU}" -c 'cd ${SB}/${SN} && sh startNode.sh notail'"
-            STOC="runuser -l ${JU} -c ‘cd ${SB}/${SN} && sh kill.sh'"
+            STAC="runuser -l ${JU} -c 'cd ${SB}/${SN} && sh startNode.sh notail'"
+            STOC="runuser -l ${JU} -c 'cd ${SB}/${SN} && sh kill.sh'"
         fi
     
 	    COUNT=$(($COUNT+1))
