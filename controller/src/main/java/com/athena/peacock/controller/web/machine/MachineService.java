@@ -90,11 +90,11 @@ public class MachineService {
 			// 따라서 기존 값을 그대로 활용한다.
 			if (StringUtils.isEmpty(machine.getCluster())) {
 				machine.setCluster(m.getCluster());
-				machine.setIsVm("Y");
+				machine.setIsVm(m.getIsVm());
 			}
 			if (machine.getHypervisorId() == null) {
 				machine.setHypervisorId(m.getHypervisorId());
-				machine.setIsVm("Y");
+				machine.setIsVm(m.getIsVm());
 			}
 			machineDao.updateMachine(machine);
 		} else {
@@ -323,8 +323,10 @@ public class MachineService {
 		
 		if (machine.getNameServer() != null) {
 			String[] servers = machine.getNameServer().split(",");
+			int seq = 1;
 			for (String server : servers) {
 				nameserver.append("nameserver ").append(server).append("\n");
+				ifcfg.append("DNS").append(seq++).append("=").append(server).append("\n");
 			}
 		}
 		
@@ -353,7 +355,10 @@ public class MachineService {
 			cmdMsg.setAgentId(machine.getMachineId());
 			//cmdMsg.setBlocking(true);
 			
+			sequence = 0;
 			command = new Command("SET_STATIC_IP_resolv.conf");
+			
+			logger.debug("[{}] will be saved to /etc/resolv.conf", nameserver.toString());
 			
 			fwAction = new FileWriteAction(sequence++);
 			fwAction.setContents(nameserver.toString());

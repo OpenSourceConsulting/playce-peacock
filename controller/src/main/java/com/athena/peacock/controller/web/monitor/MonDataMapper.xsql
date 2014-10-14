@@ -194,7 +194,7 @@
 				 WHERE a.REG_DT &lt;= NOW()
 				   AND a.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 1 HOUR)
 				 GROUP BY a.MACHINE_ID) A
-		 ORDER BY used
+		 ORDER BY used DESC
 		 LIMIT 5
 	</select>
 	
@@ -212,7 +212,7 @@
 				 WHERE a.REG_DT &lt;= NOW()
 				   AND a.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 1 HOUR)
 				 GROUP BY a.MACHINE_ID) A
-		 ORDER BY free DESC
+		 ORDER BY used DESC
 		 LIMIT 5
 	</select>
 	
@@ -230,7 +230,7 @@
 				 WHERE a.REG_DT &lt;= NOW()
 				   AND a.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 1 HOUR)
 				 GROUP BY a.MACHINE_ID) A
-	     ORDER BY used
+	     ORDER BY used DESC
 		 LIMIT 5
 	</select>
 

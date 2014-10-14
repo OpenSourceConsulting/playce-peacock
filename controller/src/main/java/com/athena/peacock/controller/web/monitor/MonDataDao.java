@@ -25,6 +25,7 @@
 package com.athena.peacock.controller.web.monitor;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -196,18 +197,21 @@ public class MonDataDao extends AbstractBaseDao {
 		List<TopMonitorDto> topList = null;
 		if (dto.getCpuTopList() == null) {
 			topList = sqlSession.selectList("MonDataMapper.getTop5CpuList");
+			Collections.reverse(topList);
 			dto.setCpuTopList(topList);
 		}
 		
 		// top 5 - memory
 		if (dto.getMemoryTopList() == null) {
 			topList = sqlSession.selectList("MonDataMapper.getTop5MemoryList");
+			Collections.reverse(topList);
 			dto.setMemoryTopList(topList);
 		}
 		
 		// top 5 - disk
 		if (dto.getDiskTopList() == null) {
 			topList = sqlSession.selectList("MonDataMapper.getTop5DiskList");
+			Collections.reverse(topList);
 			dto.setDiskTopList(topList);
 		}
 		
