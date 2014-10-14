@@ -57,7 +57,7 @@ td.valid { color: blue; }
 				  
 				  $(el).removeClass("ing");
 				  
-				  return i < 10;// until loop.
+				  //return i < 10;// until loop.
 			});
 			
 		});
