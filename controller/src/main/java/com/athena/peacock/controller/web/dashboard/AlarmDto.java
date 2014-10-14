@@ -31,11 +31,24 @@ package com.athena.peacock.controller.web.dashboard;
  */
 public class AlarmDto {
 
+	private String machineId;
 	private String instanceName;
 	private Boolean cpu;
 	private Boolean memory;
 	private Boolean disk;
 	
+	/**
+	 * @return the machineId
+	 */
+	public String getMachineId() {
+		return machineId;
+	}
+	/**
+	 * @param machineId the machineId to set
+	 */
+	public void setMachineId(String machineId) {
+		this.machineId = machineId;
+	}
 	/**
 	 * @return the instanceName
 	 */

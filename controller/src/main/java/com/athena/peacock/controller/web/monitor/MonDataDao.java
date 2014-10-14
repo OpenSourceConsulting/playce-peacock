@@ -167,6 +167,7 @@ public class MonDataDao extends AbstractBaseDao {
 						warningAlarmMap.get(md.getInstanceName()).setDisk(true);
 					} else {
 						alarm = new AlarmDto();
+						alarm.setMachineId(md.getMachineId());
 						alarm.setInstanceName(md.getInstanceName());
 						alarm.setDisk(true);
 						warningAlarmMap.put(alarm.getInstanceName(), alarm);
@@ -183,6 +184,7 @@ public class MonDataDao extends AbstractBaseDao {
 						criticalAlarmMap.get(md.getInstanceName()).setDisk(true);
 					} else {
 						alarm = new AlarmDto();
+						alarm.setMachineId(md.getMachineId());
 						alarm.setInstanceName(md.getInstanceName());
 						alarm.setDisk(true);
 						criticalAlarmMap.put(alarm.getInstanceName(), alarm);

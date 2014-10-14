@@ -123,6 +123,7 @@
 	
 	<select id="getCpuCritalList" parameterType="map" resultType="com.athena.peacock.controller.web.dashboard.AlarmDto">
 		SELECT DISTINCT(T.DISPLAY_NAME) AS instanceName
+		       , M.MACHINE_ID AS machineId
 			   , 'true' AS cpu
 		  FROM mon_data_tbl M JOIN machine_tbl T
 		    ON M.MACHINE_ID = T.MACHINE_ID
@@ -135,6 +136,7 @@
 	
 	<select id="getCpuWarningList" parameterType="map" resultType="com.athena.peacock.controller.web.dashboard.AlarmDto">
 		SELECT DISTINCT(T.DISPLAY_NAME) AS instanceName
+		       , M.MACHINE_ID AS machineId
 			   , 'true' AS cpu
 		  FROM mon_data_tbl M JOIN machine_tbl T
 		    ON M.MACHINE_ID = T.MACHINE_ID
@@ -148,6 +150,7 @@
 	
 	<select id="getMemoryCritalList" parameterType="map" resultType="com.athena.peacock.controller.web.dashboard.AlarmDto">
 		SELECT DISTINCT(T.DISPLAY_NAME) AS instanceName
+		       , M.MACHINE_ID AS machineId
 			   , 'true' AS memory
 		  FROM (SELECT a.MACHINE_ID
 					   , (a.MON_DATA_VALUE / b.MON_DATA_VALUE * 100) AS MON_DATA_VALUE
@@ -165,6 +168,7 @@
 	
 	<select id="getMemoryWarningList" parameterType="map" resultType="com.athena.peacock.controller.web.dashboard.AlarmDto">
 		SELECT DISTINCT(T.DISPLAY_NAME) AS instanceName
+		       , M.MACHINE_ID AS machineId
 			   , 'true' AS memory
 		  FROM (SELECT a.MACHINE_ID
 					   , (a.MON_DATA_VALUE / b.MON_DATA_VALUE * 100) AS MON_DATA_VALUE
