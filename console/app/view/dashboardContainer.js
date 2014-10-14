@@ -90,9 +90,10 @@ Ext.define('MyApp.view.dashboardContainer', {
                                 metaData.tdAttr = 'style="cursor: pointer;color:#157fcc;font-weight: bold;"';
                                 return value;
                             },
-                            minWidth: 100,
+                            minWidth: 110,
+                            defaultWidth: 110,
                             dataIndex: 'agentCnt',
-                            text: 'Agent (Running)'
+                            text: 'Agents (Running)'
                         },
                         {
                             xtype: 'gridcolumn',

@@ -108,6 +108,7 @@ Ext.define('MyApp.controller.InstancesController', {
 
         if(Ext.getCmp("searchRhevm").getRawValue() != item.code) {
 
+            Ext.getCmp("rhevmCycle").setText(item.text);
             Ext.getCmp("searchRhevm").setRawValue(item.code);
 
             this.searchInstance();

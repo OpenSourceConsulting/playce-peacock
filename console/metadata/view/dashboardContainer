@@ -154,8 +154,9 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "agentCnt",
-                        "minWidth": 100,
-                        "text": "Agent (Running)"
+                        "defaultWidth": 110,
+                        "minWidth": 110,
+                        "text": "Agents (Running)"
                     },
                     "designerId": "5c1db55b-76a1-4f27-951a-52451257d303",
                     "cn": [
