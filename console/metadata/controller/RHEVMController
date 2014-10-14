@@ -506,7 +506,7 @@
                     "    } else if(pagingType == 'right') {",
                     "        RHEVMConstants.page++;",
                     "    }",
-                    "",
+                    "    ",
                     "    var grid = Ext.getCmp(grid_id);",
                     "    grid.getStore().removeAll();",
                     "",
@@ -593,6 +593,7 @@
                     "",
                     "//RHEVM VM Name Search",
                     "if(e.getKey() == e.ENTER){",
+                    "    RHEVMConstants.page = 1;",
                     "    this.searchRhevmChildGrid('rhevmVMGrid');",
                     "}"
                 ],
@@ -615,6 +616,7 @@
                 "implHandler": [
                     "//RHEVM Template Name Search",
                     "if(e.getKey() == e.ENTER){",
+                    "    RHEVMConstants.page = 1;",
                     "    this.searchRhevmChildGrid('rhevmTemplateGrid');",
                     "}"
                 ],

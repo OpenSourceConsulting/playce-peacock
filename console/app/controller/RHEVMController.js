@@ -152,6 +152,7 @@ Ext.define('MyApp.controller.RHEVMController', {
 
         //RHEVM VM Name Search
         if(e.getKey() == e.ENTER){
+            RHEVMConstants.page = 1;
             this.searchRhevmChildGrid('rhevmVMGrid');
         }
     },
@@ -159,6 +160,7 @@ Ext.define('MyApp.controller.RHEVMController', {
     onSearchRhevmTemplateNameKeydown: function(textfield, e, eOpts) {
         //RHEVM Template Name Search
         if(e.getKey() == e.ENTER){
+            RHEVMConstants.page = 1;
             this.searchRhevmChildGrid('rhevmTemplateGrid');
         }
     },
