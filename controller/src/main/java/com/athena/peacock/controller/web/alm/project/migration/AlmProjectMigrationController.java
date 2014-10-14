@@ -45,24 +45,29 @@ public class AlmProjectMigrationController {
 	@Autowired
 	private AlmProjectMigrationService service;
 
-	@RequestMapping(value = "/project/migration/creategroup", method = RequestMethod.GET)
-	public @ResponseBody
-	String svnSync() {
-		return service.createGroup();
-	}
-
 	@RequestMapping(value = "/project/migration/checkuser", method = RequestMethod.GET)
 	public @ResponseBody
 	String checkUser() {
 		return service.checkUser();
 	}
 	
+	@RequestMapping(value = "/project/migration/createProject", method = RequestMethod.GET)
+	public @ResponseBody
+	String createProject() {
+		return service.createProject();
+	}
+
 	@RequestMapping(value = "/project/migration/addGroupUser", method = RequestMethod.GET)
 	public @ResponseBody
 	String addGroupUser() {
 		return service.addGroupUser();
 	}
-	
-	
+
+	@RequestMapping(value = "/project/migration/addJenkins", method = RequestMethod.GET)
+	public @ResponseBody
+	String addJenkins() {
+		return service.addJenkinsMapping();
+	}
+
 }
 // end of AlmUserController.java

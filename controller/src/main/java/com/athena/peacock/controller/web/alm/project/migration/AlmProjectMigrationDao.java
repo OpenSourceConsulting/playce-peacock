@@ -4,11 +4,16 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
 import com.athena.peacock.controller.web.common.dao.AbstractBaseDao;
 
 @Repository
 public class AlmProjectMigrationDao extends AbstractBaseDao {
 
+	public List<ProjectDto> getProject() {
+		return sqlSession.selectList("ProjectMigrationMapper.getProject");
+	}
+	
 	public List<ProjectMigrationUserDto> getUserList() {
 		return sqlSession.selectList("ProjectMigrationMapper.getAllUser");
 	}
@@ -25,6 +30,15 @@ public class AlmProjectMigrationDao extends AbstractBaseDao {
 	public void checkGroupUser(ProjectMigrationGroupUserDto migrationUser) {
 		sqlSession.update("ProjectMigrationMapper.updateProjectGroupUserCheck",
 				migrationUser);
+	}
+
+	public List<ProjectMigrationJenkinsDto> getJenkins() {
+		return sqlSession.selectList("ProjectMigrationMapper.getJenkins");
+	}
+
+	public void checkJenkins(ProjectMigrationJenkinsDto migrationUser) {
+		sqlSession
+				.update("ProjectMigrationMapper.updateJenkins", migrationUser);
 	}
 
 }

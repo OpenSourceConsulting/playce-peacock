@@ -32,6 +32,7 @@ import org.springframework.stereotype.Service;
 import com.athena.peacock.controller.web.alm.crowd.AlmCrowdService;
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmGroupDto;
 import com.athena.peacock.controller.web.alm.project.AlmProjectDao;
+import com.athena.peacock.controller.web.alm.project.AlmProjectService;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 
@@ -51,30 +52,28 @@ import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 public class AlmProjectMigrationService {
 
 	@Autowired
-	private AlmProjectDao projectDao;
-
-	@Autowired
 	private AlmProjectMigrationDao migrationUserDao;
 
 	@Autowired
 	private AlmCrowdService crowdService;
+
+	@Autowired
+	private AlmProjectService projectService;
 
 	public AlmProjectMigrationService() {
 		// TODO Auto-generated constructor stub
 
 	}
 
-	public String createGroup() {
+	public String createProject() {
 
-		List<ProjectDto> projects = projectDao.getProjectList();
+		List<ProjectDto> projects = migrationUserDao.getProject();
 
 		for (ProjectDto project : projects) {
-			AlmGroupDto tmpData = new AlmGroupDto();
-			tmpData.setName(project.getProjectCode());
-			tmpData.setDescription(project.getProjectCode() + " 프로젝트 그룹");
-			tmpData.setActive(true);
-			crowdService.addGroup(tmpData);
+			project.setGroupDescription(project.getProjectDescription()+" Group");
+			projectService.createProject(project);
 		}
+
 		return "OK";
 	}
 
@@ -105,8 +104,8 @@ public class AlmProjectMigrationService {
 
 		for (ProjectMigrationGroupUserDto user : users) {
 
-			DtoJsonResponse response = crowdService.addUserToGroup(
-					user.getUsername(), user.getGroupname());
+			DtoJsonResponse response = projectService.addProjectUser(
+					user.getGroupname(), user.getUsername());
 
 			if (response.isSuccess()) {
 				user.setCHECKFLAG("TRUE");
@@ -115,6 +114,29 @@ public class AlmProjectMigrationService {
 			}
 
 			migrationUserDao.checkGroupUser(user);
+
+		}
+		return "OK";
+	}
+
+	public String addJenkinsMapping() {
+
+		List<ProjectMigrationJenkinsDto> jenkins = migrationUserDao
+				.getJenkins();
+
+		for (ProjectMigrationJenkinsDto jenkinsDto : jenkins) {
+
+			DtoJsonResponse response = projectService.createProjectMapping(
+					jenkinsDto.getPROJECT_CODE(), "jenkins",
+					jenkinsDto.getMAPPING_CODE(), "");
+
+			if (response.isSuccess()) {
+				jenkinsDto.setCHECKFLAG("TRUE");
+			} else {
+				jenkinsDto.setCHECKFLAG("FALSE");
+			}
+
+			migrationUserDao.checkJenkins(jenkinsDto);
 
 		}
 		return "OK";
