@@ -1139,7 +1139,7 @@
                                     ]
                                 },
                                 {
-                                    "type": "Ext.form.field.ComboBox",
+                                    "type": "Ext.form.field.Text",
                                     "reference": {
                                         "name": "items",
                                         "type": "array"
@@ -1151,14 +1151,8 @@
                                         "labelWidth": null,
                                         "layout|anchor": "100%",
                                         "name": "encoding",
-                                        "store": [
-                                            "[",
-                                            "    \"UTF-8\",",
-                                            "    \"EUC-KR\"",
-                                            "]"
-                                        ],
                                         "value": [
-                                            "UTF-8"
+                                            "\"UTF-8\""
                                         ]
                                     },
                                     "configAlternates": {
@@ -2253,7 +2247,7 @@
                                     ]
                                 },
                                 {
-                                    "type": "Ext.form.field.ComboBox",
+                                    "type": "Ext.form.field.Text",
                                     "reference": {
                                         "name": "items",
                                         "type": "array"
@@ -2265,11 +2259,8 @@
                                         "labelWidth": null,
                                         "layout|anchor": "100%",
                                         "name": "encoding",
-                                        "store": [
-                                            "[",
-                                            "    \"UTF-8\",",
-                                            "    \"EUC-KR\"",
-                                            "]"
+                                        "value": [
+                                            "\"UTF-8\""
                                         ]
                                     },
                                     "configAlternates": {

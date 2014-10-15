@@ -104,9 +104,10 @@ public class SystemMonitoringJob extends BaseJob {
 				
 				if (cnt++ > 0) {
 					usage.append(",");
+					
 				}
 				usage.append(fs.getDirName()).append(":");
-				usage.append(fsu.getUsePercent() * 100);
+				usage.append(CpuPerc.format(fsu.getUsePercent()).replaceAll("%", ""));
 
 				total += fsu.getTotal();
 				used += fsu.getUsed();
@@ -128,6 +129,5 @@ public class SystemMonitoringJob extends BaseJob {
 			throw new InternalJobExecutionException(e);
 		}
 	}//end of executeInternal()
-
 }
 //end of SystemMonitoringJob.java

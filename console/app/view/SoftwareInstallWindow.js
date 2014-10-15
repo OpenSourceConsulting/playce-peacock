@@ -535,7 +535,7 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             allowBlank: false
                                         },
                                         {
-                                            xtype: 'combobox',
+                                            xtype: 'textfield',
                                             anchor: '100%',
                                             afterLabelTextTpl: [
                                                 '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
@@ -543,11 +543,7 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             fieldLabel: 'Encoding',
                                             name: 'encoding',
                                             value: 'UTF-8',
-                                            allowBlank: false,
-                                            store: [
-                                                'UTF-8',
-                                                'EUC-KR'
-                                            ]
+                                            allowBlank: false
                                         },
                                         {
                                             xtype: 'textfield',
@@ -925,18 +921,15 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             allowBlank: false
                                         },
                                         {
-                                            xtype: 'combobox',
+                                            xtype: 'textfield',
                                             anchor: '100%',
                                             afterLabelTextTpl: [
                                                 '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                             ],
                                             fieldLabel: 'Encoding',
                                             name: 'encoding',
-                                            allowBlank: false,
-                                            store: [
-                                                'UTF-8',
-                                                'EUC-KR'
-                                            ]
+                                            value: 'UTF-8',
+                                            allowBlank: false
                                         },
                                         {
                                             xtype: 'combobox',
