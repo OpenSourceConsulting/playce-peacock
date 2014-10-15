@@ -71,12 +71,11 @@ public class SvnService {
 			out.write(header);
 			out.newLine();
 			
-			String peacock  = "peacock = peacock";
-			out.write(peacock);
+			out.write("peacock = peacock");
 			out.newLine();
-			
-			String admin  = "admin = hhi9200";
-			out.write(admin);
+			out.write("admin = manage");
+			out.newLine();
+			out.write("jenkins = hhi9200");
 			out.newLine();
 
 			for (SvnUserDto user : users) {
@@ -120,8 +119,11 @@ public class SvnService {
 			out.newLine();
 
 			for (SvnGroupUserDto groupDto : groupList) {
+				
+				String userList = groupDto.getUserList();
+				userList = userList.toUpperCase();
 				String tmp = String.format("%s = %s", groupDto.getGroupName(),
-						groupDto.getUserList());
+						userList);
 				out.write(tmp);
 				out.newLine();
 			}
@@ -133,12 +135,13 @@ public class SvnService {
 			out.write(project);
 			out.newLine();
 
-			String projectMain = "peacock =  rw";
-			out.write(projectMain);
+			out.write("peacock =  rw");
 			out.newLine();
 			
-			String projectAdmin = "admin =  rw";
-			out.write(projectAdmin);
+			out.write("admin =  rw");
+			out.newLine();
+
+			out.write("jenkins =  rw");
 			out.newLine();
 
 
