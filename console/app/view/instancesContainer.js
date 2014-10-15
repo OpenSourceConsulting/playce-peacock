@@ -946,10 +946,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                             series: [
                                                                 {
                                                                     type: 'line',
-                                                                    highlight: {
-                                                                        size: 7,
-                                                                        radius: 7
-                                                                    },
+                                                                    highlight: true,
                                                                     label: {
                                                                         display: 'none',
                                                                         field: 'visits',
@@ -982,10 +979,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                 },
                                                                 {
                                                                     type: 'line',
-                                                                    highlight: {
-                                                                        size: 7,
-                                                                        radius: 7
-                                                                    },
+                                                                    highlight: true,
                                                                     label: {
                                                                         display: 'none',
                                                                         field: 'visits',
@@ -1095,10 +1089,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                             series: [
                                                                 {
                                                                     type: 'line',
-                                                                    highlight: {
-                                                                        size: 7,
-                                                                        radius: 7
-                                                                    },
+                                                                    highlight: true,
                                                                     label: {
                                                                         display: 'none',
                                                                         field: 'visits',
@@ -1131,10 +1122,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                 },
                                                                 {
                                                                     type: 'line',
-                                                                    highlight: {
-                                                                        size: 7,
-                                                                        radius: 7
-                                                                    },
+                                                                    highlight: true,
                                                                     label: {
                                                                         display: 'none',
                                                                         field: 'visits',
@@ -1254,10 +1242,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                             series: [
                                                                 {
                                                                     type: 'line',
-                                                                    highlight: {
-                                                                        size: 7,
-                                                                        radius: 7
-                                                                    },
+                                                                    highlight: true,
                                                                     label: {
                                                                         display: 'none',
                                                                         field: 'visits',
@@ -1286,10 +1271,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                 },
                                                                 {
                                                                     type: 'line',
-                                                                    highlight: {
-                                                                        size: 7,
-                                                                        radius: 7
-                                                                    },
+                                                                    highlight: true,
                                                                     label: {
                                                                         display: 'none',
                                                                         field: 'visits',
@@ -1315,10 +1297,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                 },
                                                                 {
                                                                     type: 'line',
-                                                                    highlight: {
-                                                                        size: 7,
-                                                                        radius: 7
-                                                                    },
+                                                                    highlight: true,
                                                                     label: {
                                                                         display: 'none',
                                                                         field: 'visits',
@@ -1344,10 +1323,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                 },
                                                                 {
                                                                     type: 'line',
-                                                                    highlight: {
-                                                                        size: 7,
-                                                                        radius: 7
-                                                                    },
+                                                                    highlight: true,
                                                                     label: {
                                                                         display: 'none',
                                                                         field: 'visits',
@@ -1373,10 +1349,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                 },
                                                                 {
                                                                     type: 'line',
-                                                                    highlight: {
-                                                                        size: 7,
-                                                                        radius: 7
-                                                                    },
+                                                                    highlight: true,
                                                                     label: {
                                                                         display: 'none',
                                                                         field: 'visits',
@@ -1402,10 +1375,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                 },
                                                                 {
                                                                     type: 'line',
-                                                                    highlight: {
-                                                                        size: 7,
-                                                                        radius: 7
-                                                                    },
+                                                                    highlight: true,
                                                                     label: {
                                                                         display: 'none',
                                                                         field: 'visits',
@@ -1431,10 +1401,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                 },
                                                                 {
                                                                     type: 'line',
-                                                                    highlight: {
-                                                                        size: 7,
-                                                                        radius: 7
-                                                                    },
+                                                                    highlight: true,
                                                                     label: {
                                                                         display: 'none',
                                                                         field: 'visits',
@@ -1460,10 +1427,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                 },
                                                                 {
                                                                     type: 'line',
-                                                                    highlight: {
-                                                                        size: 7,
-                                                                        radius: 7
-                                                                    },
+                                                                    highlight: true,
                                                                     label: {
                                                                         display: 'none',
                                                                         field: 'visits',
@@ -1489,10 +1453,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                 },
                                                                 {
                                                                     type: 'line',
-                                                                    highlight: {
-                                                                        size: 7,
-                                                                        radius: 7
-                                                                    },
+                                                                    highlight: true,
                                                                     label: {
                                                                         display: 'none',
                                                                         field: 'visits',
@@ -1518,10 +1479,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                 },
                                                                 {
                                                                     type: 'line',
-                                                                    highlight: {
-                                                                        size: 7,
-                                                                        radius: 7
-                                                                    },
+                                                                    highlight: true,
                                                                     label: {
                                                                         display: 'none',
                                                                         field: 'visits',

@@ -345,12 +345,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "highlight": [
-                                            "{",
-                                            "    size: 7,",
-                                            "    radius: 7",
-                                            "}"
-                                        ],
+                                        "highlight": true,
                                         "label": [
                                             "{",
                                             "    display: 'none',",
@@ -394,7 +389,8 @@
                                         ]
                                     },
                                     "configAlternates": {
-                                        "smooth": "boolean"
+                                        "smooth": "boolean",
+                                        "highlight": "boolean"
                                     },
                                     "designerId": "332af6fa-0ba5-48d9-b0b6-43a443517c69"
                                 },
@@ -406,12 +402,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "highlight": [
-                                            "{",
-                                            "    size: 7,",
-                                            "    radius: 7",
-                                            "}"
-                                        ],
+                                        "highlight": true,
                                         "label": [
                                             "{",
                                             "    display: 'none',",
@@ -455,7 +446,8 @@
                                         ]
                                     },
                                     "configAlternates": {
-                                        "smooth": "boolean"
+                                        "smooth": "boolean",
+                                        "highlight": "boolean"
                                     },
                                     "designerId": "de2934c4-fcba-4d28-b164-9b8c8614db1a"
                                 },
@@ -605,12 +597,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "highlight": [
-                                            "{",
-                                            "    size: 7,",
-                                            "    radius: 7",
-                                            "}"
-                                        ],
+                                        "highlight": true,
                                         "label": [
                                             "{",
                                             "    display: 'none',",
@@ -654,7 +641,8 @@
                                         ]
                                     },
                                     "configAlternates": {
-                                        "smooth": "boolean"
+                                        "smooth": "boolean",
+                                        "highlight": "boolean"
                                     },
                                     "designerId": "2407f95c-e6a4-435e-b24f-ea1e3b6d4004"
                                 },
@@ -666,12 +654,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "highlight": [
-                                            "{",
-                                            "    size: 7,",
-                                            "    radius: 7",
-                                            "}"
-                                        ],
+                                        "highlight": true,
                                         "label": [
                                             "{",
                                             "    display: 'none',",
@@ -715,7 +698,8 @@
                                         ]
                                     },
                                     "configAlternates": {
-                                        "smooth": "boolean"
+                                        "smooth": "boolean",
+                                        "highlight": "boolean"
                                     },
                                     "designerId": "dd48161a-86b1-469e-964c-7e27b75c1c46"
                                 },
@@ -875,12 +859,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "highlight": [
-                                            "{",
-                                            "    size: 7,",
-                                            "    radius: 7",
-                                            "}"
-                                        ],
+                                        "highlight": true,
                                         "label": [
                                             "{",
                                             "    display: 'none',",
@@ -918,7 +897,8 @@
                                         ]
                                     },
                                     "configAlternates": {
-                                        "smooth": "boolean"
+                                        "smooth": "boolean",
+                                        "highlight": "boolean"
                                     },
                                     "designerId": "8a0044e9-b37b-4825-8071-d20df48d6b40"
                                 },
@@ -930,12 +910,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "highlight": [
-                                            "{",
-                                            "    size: 7,",
-                                            "    radius: 7",
-                                            "}"
-                                        ],
+                                        "highlight": true,
                                         "label": [
                                             "{",
                                             "    display: 'none',",
@@ -968,7 +943,8 @@
                                         ]
                                     },
                                     "configAlternates": {
-                                        "smooth": "boolean"
+                                        "smooth": "boolean",
+                                        "highlight": "boolean"
                                     },
                                     "designerId": "a2126150-f604-4b0e-908b-928541c083f3"
                                 },
@@ -980,12 +956,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "highlight": [
-                                            "{",
-                                            "    size: 7,",
-                                            "    radius: 7",
-                                            "}"
-                                        ],
+                                        "highlight": true,
                                         "label": [
                                             "{",
                                             "    display: 'none',",
@@ -1018,7 +989,8 @@
                                         ]
                                     },
                                     "configAlternates": {
-                                        "smooth": "boolean"
+                                        "smooth": "boolean",
+                                        "highlight": "boolean"
                                     },
                                     "designerId": "151b92ec-0ea0-49d8-a100-ff2e522801a0"
                                 },
@@ -1030,12 +1002,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "highlight": [
-                                            "{",
-                                            "    size: 7,",
-                                            "    radius: 7",
-                                            "}"
-                                        ],
+                                        "highlight": true,
                                         "label": [
                                             "{",
                                             "    display: 'none',",
@@ -1068,7 +1035,8 @@
                                         ]
                                     },
                                     "configAlternates": {
-                                        "smooth": "boolean"
+                                        "smooth": "boolean",
+                                        "highlight": "boolean"
                                     },
                                     "designerId": "fa47ad97-635f-4c0b-8909-1a1e7c7b8137"
                                 },
@@ -1080,12 +1048,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "highlight": [
-                                            "{",
-                                            "    size: 7,",
-                                            "    radius: 7",
-                                            "}"
-                                        ],
+                                        "highlight": true,
                                         "label": [
                                             "{",
                                             "    display: 'none',",
@@ -1118,7 +1081,8 @@
                                         ]
                                     },
                                     "configAlternates": {
-                                        "smooth": "boolean"
+                                        "smooth": "boolean",
+                                        "highlight": "boolean"
                                     },
                                     "designerId": "378fd766-6272-4801-ae2f-443c0519a321"
                                 },
@@ -1130,12 +1094,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "highlight": [
-                                            "{",
-                                            "    size: 7,",
-                                            "    radius: 7",
-                                            "}"
-                                        ],
+                                        "highlight": true,
                                         "label": [
                                             "{",
                                             "    display: 'none',",
@@ -1168,7 +1127,8 @@
                                         ]
                                     },
                                     "configAlternates": {
-                                        "smooth": "boolean"
+                                        "smooth": "boolean",
+                                        "highlight": "boolean"
                                     },
                                     "designerId": "84cce9f5-2341-4c18-b7bd-bee0286bbb06"
                                 },
@@ -1180,12 +1140,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "highlight": [
-                                            "{",
-                                            "    size: 7,",
-                                            "    radius: 7",
-                                            "}"
-                                        ],
+                                        "highlight": true,
                                         "label": [
                                             "{",
                                             "    display: 'none',",
@@ -1218,7 +1173,8 @@
                                         ]
                                     },
                                     "configAlternates": {
-                                        "smooth": "boolean"
+                                        "smooth": "boolean",
+                                        "highlight": "boolean"
                                     },
                                     "designerId": "86eb8c8e-4566-42dd-a139-1d9d812fb755"
                                 },
@@ -1230,12 +1186,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "highlight": [
-                                            "{",
-                                            "    size: 7,",
-                                            "    radius: 7",
-                                            "}"
-                                        ],
+                                        "highlight": true,
                                         "label": [
                                             "{",
                                             "    display: 'none',",
@@ -1268,7 +1219,8 @@
                                         ]
                                     },
                                     "configAlternates": {
-                                        "smooth": "boolean"
+                                        "smooth": "boolean",
+                                        "highlight": "boolean"
                                     },
                                     "designerId": "e9ff4155-972d-465b-aee1-aefa1e652181"
                                 },
@@ -1280,12 +1232,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "highlight": [
-                                            "{",
-                                            "    size: 7,",
-                                            "    radius: 7",
-                                            "}"
-                                        ],
+                                        "highlight": true,
                                         "label": [
                                             "{",
                                             "    display: 'none',",
@@ -1318,7 +1265,8 @@
                                         ]
                                     },
                                     "configAlternates": {
-                                        "smooth": "boolean"
+                                        "smooth": "boolean",
+                                        "highlight": "boolean"
                                     },
                                     "designerId": "50c7abe8-8ee5-434d-9946-096cb1cdb848"
                                 },
@@ -1330,12 +1278,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "highlight": [
-                                            "{",
-                                            "    size: 7,",
-                                            "    radius: 7",
-                                            "}"
-                                        ],
+                                        "highlight": true,
                                         "label": [
                                             "{",
                                             "    display: 'none',",
@@ -1368,7 +1311,8 @@
                                         ]
                                     },
                                     "configAlternates": {
-                                        "smooth": "boolean"
+                                        "smooth": "boolean",
+                                        "highlight": "boolean"
                                     },
                                     "designerId": "8c9a6db4-3f7e-4bfe-b230-ee3972c31510"
                                 },

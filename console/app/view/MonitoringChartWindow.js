@@ -230,10 +230,7 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                     series: [
                                         {
                                             type: 'line',
-                                            highlight: {
-                                                size: 7,
-                                                radius: 7
-                                            },
+                                            highlight: true,
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
@@ -266,10 +263,7 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                         },
                                         {
                                             type: 'line',
-                                            highlight: {
-                                                size: 7,
-                                                radius: 7
-                                            },
+                                            highlight: true,
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
@@ -361,10 +355,7 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                     series: [
                                         {
                                             type: 'line',
-                                            highlight: {
-                                                size: 7,
-                                                radius: 7
-                                            },
+                                            highlight: true,
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
@@ -397,10 +388,7 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                         },
                                         {
                                             type: 'line',
-                                            highlight: {
-                                                size: 7,
-                                                radius: 7
-                                            },
+                                            highlight: true,
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
@@ -502,10 +490,7 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                     series: [
                                         {
                                             type: 'line',
-                                            highlight: {
-                                                size: 7,
-                                                radius: 7
-                                            },
+                                            highlight: true,
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
@@ -534,10 +519,7 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                         },
                                         {
                                             type: 'line',
-                                            highlight: {
-                                                size: 7,
-                                                radius: 7
-                                            },
+                                            highlight: true,
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
@@ -563,10 +545,7 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                         },
                                         {
                                             type: 'line',
-                                            highlight: {
-                                                size: 7,
-                                                radius: 7
-                                            },
+                                            highlight: true,
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
@@ -592,10 +571,7 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                         },
                                         {
                                             type: 'line',
-                                            highlight: {
-                                                size: 7,
-                                                radius: 7
-                                            },
+                                            highlight: true,
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
@@ -621,10 +597,7 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                         },
                                         {
                                             type: 'line',
-                                            highlight: {
-                                                size: 7,
-                                                radius: 7
-                                            },
+                                            highlight: true,
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
@@ -650,10 +623,7 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                         },
                                         {
                                             type: 'line',
-                                            highlight: {
-                                                size: 7,
-                                                radius: 7
-                                            },
+                                            highlight: true,
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
@@ -679,10 +649,7 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                         },
                                         {
                                             type: 'line',
-                                            highlight: {
-                                                size: 7,
-                                                radius: 7
-                                            },
+                                            highlight: true,
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
@@ -708,10 +675,7 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                         },
                                         {
                                             type: 'line',
-                                            highlight: {
-                                                size: 7,
-                                                radius: 7
-                                            },
+                                            highlight: true,
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
@@ -737,10 +701,7 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                         },
                                         {
                                             type: 'line',
-                                            highlight: {
-                                                size: 7,
-                                                radius: 7
-                                            },
+                                            highlight: true,
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
@@ -766,10 +727,7 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                         },
                                         {
                                             type: 'line',
-                                            highlight: {
-                                                size: 7,
-                                                radius: 7
-                                            },
+                                            highlight: true,
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
