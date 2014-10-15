@@ -38,6 +38,7 @@ import com.athena.peacock.controller.web.alm.jenkins.AlmJenkinsService;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectHistoryDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto;
+import com.athena.peacock.controller.web.alm.project.dto.ProjectProcessStatusDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectTamplateInfomationDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectTemplateDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectUserPasswordResetDto;
@@ -46,6 +47,7 @@ import com.athena.peacock.controller.web.alm.projectuser.AlmUserService;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
+import com.atlassian.crowd.model.user.User;
 
 /**
  * <pre>
@@ -453,6 +455,40 @@ public class AlmProjectService {
 			ProjectUserPasswordResetDto resetDto) {
 		userService.sendResetPassword("aaa");
 		return null;
+	}
+
+	public DtoJsonResponse syncJenkins(String projectCode) {
+
+		DtoJsonResponse response = new DtoJsonResponse();
+		
+
+		List<User> users = crowdService.getGroupUserList(projectCode);
+
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < users.size(); i++) {
+
+			User user = users.get(i);
+			sb.append(user.getName());
+
+			if (i != (users.size() - 1)) {
+				sb.append(",");
+			}
+		}
+
+		// Jenkins Job 확인
+		ProjectMappingDto mappingDto = new ProjectMappingDto();
+		mappingDto.setProjectCode(projectCode);
+		mappingDto.setMappingType(20);
+		List<ProjectMappingDto> mappingList = projectDao
+				.getProjectMapping(mappingDto);
+
+		for (ProjectMappingDto mapping : mappingList) {
+			jenkinsService.copyPermission(mapping.getMappingCode(),
+					sb.toString());
+		}
+
+		response.setMsg("Jenkins Sync 작업이 요청되었습니다");
+		return response;
 	}
 }
 // end of AlmProjectService.java

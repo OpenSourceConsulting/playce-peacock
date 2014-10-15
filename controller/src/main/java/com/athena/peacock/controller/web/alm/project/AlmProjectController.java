@@ -367,7 +367,7 @@ public class AlmProjectController {
 
 	/**
 	 * <pre>
-	 * SVN Sync 
+	 * SVN Sync
 	 * </pre>
 	 * 
 	 * @param projectCode
@@ -378,6 +378,12 @@ public class AlmProjectController {
 	public @ResponseBody
 	SvnSyncDto svnSync() {
 		return svnService.getSvnSyncInfomation();
+	}
+
+	@RequestMapping(value = "/project/jenkins/sync/{projectCode}", method = RequestMethod.GET)
+	public @ResponseBody
+	DtoJsonResponse syncJenkins(@PathVariable String projectCode) {
+		return almProjectService.syncJenkins(projectCode);
 	}
 
 }

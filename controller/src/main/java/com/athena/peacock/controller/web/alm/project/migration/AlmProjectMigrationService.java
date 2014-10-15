@@ -26,15 +26,11 @@ package com.athena.peacock.controller.web.alm.project.migration;
 
 import java.util.List;
 
-import javax.validation.constraints.Pattern;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.athena.peacock.controller.web.alm.crowd.AlmCrowdService;
-import com.athena.peacock.controller.web.alm.crowd.dto.AlmGroupDto;
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmUserAddDto;
-import com.athena.peacock.controller.web.alm.project.AlmProjectDao;
 import com.athena.peacock.controller.web.alm.project.AlmProjectService;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
