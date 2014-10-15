@@ -2125,12 +2125,7 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
-                                                                "highlight": [
-                                                                    "{",
-                                                                    "    size: 7,",
-                                                                    "    radius: 7",
-                                                                    "}"
-                                                                ],
+                                                                "highlight": true,
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -2174,7 +2169,8 @@
                                                                 ]
                                                             },
                                                             "configAlternates": {
-                                                                "smooth": "boolean"
+                                                                "smooth": "boolean",
+                                                                "highlight": "boolean"
                                                             },
                                                             "designerId": "055c7355-3f4d-47f5-87d1-61189a94c008"
                                                         },
@@ -2186,12 +2182,7 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
-                                                                "highlight": [
-                                                                    "{",
-                                                                    "    size: 7,",
-                                                                    "    radius: 7",
-                                                                    "}"
-                                                                ],
+                                                                "highlight": true,
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -2235,7 +2226,8 @@
                                                                 ]
                                                             },
                                                             "configAlternates": {
-                                                                "smooth": "boolean"
+                                                                "smooth": "boolean",
+                                                                "highlight": "boolean"
                                                             },
                                                             "designerId": "eb4f3d58-0e76-4d70-a985-cc361c753294"
                                                         },
@@ -2421,12 +2413,7 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
-                                                                "highlight": [
-                                                                    "{",
-                                                                    "    size: 7,",
-                                                                    "    radius: 7",
-                                                                    "}"
-                                                                ],
+                                                                "highlight": true,
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -2470,7 +2457,8 @@
                                                                 ]
                                                             },
                                                             "configAlternates": {
-                                                                "smooth": "boolean"
+                                                                "smooth": "boolean",
+                                                                "highlight": "boolean"
                                                             },
                                                             "designerId": "d21d32e7-e6a8-4427-99e9-21e7327643c3"
                                                         },
@@ -2482,12 +2470,7 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
-                                                                "highlight": [
-                                                                    "{",
-                                                                    "    size: 7,",
-                                                                    "    radius: 7",
-                                                                    "}"
-                                                                ],
+                                                                "highlight": true,
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -2531,7 +2514,8 @@
                                                                 ]
                                                             },
                                                             "configAlternates": {
-                                                                "smooth": "boolean"
+                                                                "smooth": "boolean",
+                                                                "highlight": "boolean"
                                                             },
                                                             "designerId": "2cc4003e-8bdd-465a-b951-bf63baa0fe5c"
                                                         },
@@ -2727,12 +2711,7 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
-                                                                "highlight": [
-                                                                    "{",
-                                                                    "    size: 7,",
-                                                                    "    radius: 7",
-                                                                    "}"
-                                                                ],
+                                                                "highlight": true,
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -2770,7 +2749,8 @@
                                                                 ]
                                                             },
                                                             "configAlternates": {
-                                                                "smooth": "boolean"
+                                                                "smooth": "boolean",
+                                                                "highlight": "boolean"
                                                             },
                                                             "designerId": "4d7dc164-766d-4fc9-80d6-d5bab4a68f50"
                                                         },
@@ -2782,12 +2762,7 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
-                                                                "highlight": [
-                                                                    "{",
-                                                                    "    size: 7,",
-                                                                    "    radius: 7",
-                                                                    "}"
-                                                                ],
+                                                                "highlight": true,
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -2820,7 +2795,8 @@
                                                                 ]
                                                             },
                                                             "configAlternates": {
-                                                                "smooth": "boolean"
+                                                                "smooth": "boolean",
+                                                                "highlight": "boolean"
                                                             },
                                                             "designerId": "11c1c659-8b52-4faf-89e1-64562538f676"
                                                         },
@@ -2832,12 +2808,7 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
-                                                                "highlight": [
-                                                                    "{",
-                                                                    "    size: 7,",
-                                                                    "    radius: 7",
-                                                                    "}"
-                                                                ],
+                                                                "highlight": true,
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -2870,7 +2841,8 @@
                                                                 ]
                                                             },
                                                             "configAlternates": {
-                                                                "smooth": "boolean"
+                                                                "smooth": "boolean",
+                                                                "highlight": "boolean"
                                                             },
                                                             "designerId": "55d76970-f8f5-4bcd-ad4e-c8dd8511d12e"
                                                         },
@@ -2882,12 +2854,7 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
-                                                                "highlight": [
-                                                                    "{",
-                                                                    "    size: 7,",
-                                                                    "    radius: 7",
-                                                                    "}"
-                                                                ],
+                                                                "highlight": true,
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -2920,7 +2887,8 @@
                                                                 ]
                                                             },
                                                             "configAlternates": {
-                                                                "smooth": "boolean"
+                                                                "smooth": "boolean",
+                                                                "highlight": "boolean"
                                                             },
                                                             "designerId": "245379f1-3961-4a36-a9c7-195615feaeaf"
                                                         },
@@ -2932,12 +2900,7 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
-                                                                "highlight": [
-                                                                    "{",
-                                                                    "    size: 7,",
-                                                                    "    radius: 7",
-                                                                    "}"
-                                                                ],
+                                                                "highlight": true,
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -2970,7 +2933,8 @@
                                                                 ]
                                                             },
                                                             "configAlternates": {
-                                                                "smooth": "boolean"
+                                                                "smooth": "boolean",
+                                                                "highlight": "boolean"
                                                             },
                                                             "designerId": "6176681b-d925-4e5c-b150-345de1f417e8"
                                                         },
@@ -2982,12 +2946,7 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
-                                                                "highlight": [
-                                                                    "{",
-                                                                    "    size: 7,",
-                                                                    "    radius: 7",
-                                                                    "}"
-                                                                ],
+                                                                "highlight": true,
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -3020,7 +2979,8 @@
                                                                 ]
                                                             },
                                                             "configAlternates": {
-                                                                "smooth": "boolean"
+                                                                "smooth": "boolean",
+                                                                "highlight": "boolean"
                                                             },
                                                             "designerId": "8411c136-8bbc-45cb-bb8d-36fd758777c8"
                                                         },
@@ -3032,12 +2992,7 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
-                                                                "highlight": [
-                                                                    "{",
-                                                                    "    size: 7,",
-                                                                    "    radius: 7",
-                                                                    "}"
-                                                                ],
+                                                                "highlight": true,
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -3070,7 +3025,8 @@
                                                                 ]
                                                             },
                                                             "configAlternates": {
-                                                                "smooth": "boolean"
+                                                                "smooth": "boolean",
+                                                                "highlight": "boolean"
                                                             },
                                                             "designerId": "095f8348-3494-463c-8a4f-1ef02e847734"
                                                         },
@@ -3082,12 +3038,7 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
-                                                                "highlight": [
-                                                                    "{",
-                                                                    "    size: 7,",
-                                                                    "    radius: 7",
-                                                                    "}"
-                                                                ],
+                                                                "highlight": true,
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -3120,7 +3071,8 @@
                                                                 ]
                                                             },
                                                             "configAlternates": {
-                                                                "smooth": "boolean"
+                                                                "smooth": "boolean",
+                                                                "highlight": "boolean"
                                                             },
                                                             "designerId": "fb7ad398-ede5-400a-ba64-59610adb5a06"
                                                         },
@@ -3132,12 +3084,7 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
-                                                                "highlight": [
-                                                                    "{",
-                                                                    "    size: 7,",
-                                                                    "    radius: 7",
-                                                                    "}"
-                                                                ],
+                                                                "highlight": true,
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -3170,7 +3117,8 @@
                                                                 ]
                                                             },
                                                             "configAlternates": {
-                                                                "smooth": "boolean"
+                                                                "smooth": "boolean",
+                                                                "highlight": "boolean"
                                                             },
                                                             "designerId": "1f03d28f-55b4-4784-8ca4-c65bb43156e0"
                                                         },
@@ -3182,12 +3130,7 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
-                                                                "highlight": [
-                                                                    "{",
-                                                                    "    size: 7,",
-                                                                    "    radius: 7",
-                                                                    "}"
-                                                                ],
+                                                                "highlight": true,
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -3220,7 +3163,8 @@
                                                                 ]
                                                             },
                                                             "configAlternates": {
-                                                                "smooth": "boolean"
+                                                                "smooth": "boolean",
+                                                                "highlight": "boolean"
                                                             },
                                                             "designerId": "b14aec8b-3bf2-4abd-8d37-2c29be1b148b"
                                                         },

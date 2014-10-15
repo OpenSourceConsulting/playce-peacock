@@ -127,7 +127,7 @@ public class RHEVMService {
 		String url = RHEVApi.VMS;
 		
 		if (!StringUtils.isEmpty(name)) {
-			url =  url + "?search=" + name + "+page+" + page;
+			url =  url + "?search=" + name.trim() + "+page+" + page;
 		} else {
 			url = url + "?search=page+" + page;
 		}
@@ -158,7 +158,7 @@ public class RHEVMService {
 		String url = RHEVApi.TEMPLATES;
 		
 		if (!StringUtils.isEmpty(name)) {
-			url =  url + "?search=" + name + "+page+" + page;
+			url =  url + "?search=" + name.trim() + "+page+" + page;
 		} else {
 			url = url + "?search=page+" + page;
 		}

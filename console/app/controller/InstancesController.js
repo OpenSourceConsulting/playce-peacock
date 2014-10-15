@@ -719,7 +719,7 @@ Ext.define('MyApp.controller.InstancesController', {
 
                                        if(disk == diskData[0])  {
 
-                                           record.set("DISK_"+(diskIdx+1), diskData[1]);
+                                           record.set("DISK_"+(diskIdx+1), Ext.util.Format.number(diskData[1], '0,000.0'));
 
                                            flag = false;
                                            return false;
@@ -731,7 +731,7 @@ Ext.define('MyApp.controller.InstancesController', {
                                     if(flag) {
                                         diskColumns.push(diskData[0]);
 
-                                        record.set("DISK_"+(diskColumns.length), diskData[1]);
+                                        record.set("DISK_"+(diskColumns.length), Ext.util.Format.number(diskData[1], '0,000.0'));
                                     }
                                 });
 
@@ -845,7 +845,7 @@ Ext.define('MyApp.controller.InstancesController', {
 
                                     if(disk == diskData[0])  {
 
-                                        record.set("DISK_"+(diskIdx+1), diskData[1]);
+                                        record.set("DISK_"+(diskIdx+1), Ext.util.Format.number(diskData[1], '0,000.0'));
 
                                         flag = false;
                                         return false;
@@ -857,7 +857,7 @@ Ext.define('MyApp.controller.InstancesController', {
                                 if(flag) {
                                     diskColumns.push(diskData[0]);
 
-                                    record.set("DISK_"+(diskColumns.length), diskData[1]);
+                                    record.set("DISK_"+(diskColumns.length), Ext.util.Format.number(diskData[1], '0,000.0'));
                                 }
                             });
 
