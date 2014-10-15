@@ -66,7 +66,7 @@ public class SvnService {
 
 		try {
 			// //////////////////////////////////////////////////////////////
-			BufferedWriter out = new BufferedWriter(new FileWriter("passwd.peacock"));
+			BufferedWriter out = new BufferedWriter(new FileWriter("/home/svn/conf/passwd.peacock"));
 			String header = "[users]";
 			out.write(header);
 			out.newLine();
@@ -100,7 +100,7 @@ public class SvnService {
 
 		try {
 			// //////////////////////////////////////////////////////////////
-			BufferedWriter out = new BufferedWriter(new FileWriter("authz.peacock"));
+			BufferedWriter out = new BufferedWriter(new FileWriter("/home/svn/conf/authz.peacock"));
 
 			String noti = "#DO not modify manually";
 			out.write(noti);
