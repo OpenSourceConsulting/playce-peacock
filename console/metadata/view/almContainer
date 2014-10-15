@@ -610,9 +610,64 @@
                                                                         "id": null,
                                                                         "itemId": null,
                                                                         "layout|flex": null,
-                                                                        "text": "Add Users to Project"
+                                                                        "text": "Sync Jenkins"
                                                                     },
                                                                     "designerId": "792e0349-3a54-4cac-8f3b-83deda036b96",
+                                                                    "cn": [
+                                                                        {
+                                                                            "type": "fixedfunction",
+                                                                            "reference": {
+                                                                                "name": "items",
+                                                                                "type": "array"
+                                                                            },
+                                                                            "codeClass": null,
+                                                                            "userConfig": {
+                                                                                "designer|params": [
+                                                                                    "button",
+                                                                                    "e"
+                                                                                ],
+                                                                                "fn": "handler",
+                                                                                "implHandler": [
+                                                                                    "Ext.MessageBox.confirm('Confirm', 'Jenkins를 Sync 하시겠습니까?', function(btn){",
+                                                                                    "",
+                                                                                    "    if(btn == \"yes\"){",
+                                                                                    "",
+                                                                                    "        Ext.Ajax.request({",
+                                                                                    "            url: GLOBAL.urlPrefix + \"alm/project/jenkins/sync/\" + almConstants.selectRow.get(\"projectCode\"),",
+                                                                                    "            method : \"GET\",",
+                                                                                    "            disableCaching : true,",
+                                                                                    "            waitMsg: 'Package Reload...',",
+                                                                                    "            timeout: 300000,",
+                                                                                    "            success: function(response){",
+                                                                                    "                var msg = Ext.JSON.decode(response.responseText).msg;",
+                                                                                    "                Ext.MessageBox.alert('알림', msg);",
+                                                                                    "            }",
+                                                                                    "        });",
+                                                                                    "    }",
+                                                                                    "",
+                                                                                    "});",
+                                                                                    ""
+                                                                                ]
+                                                                            },
+                                                                            "designerId": "69e76283-1e18-47e2-b8c4-6f70d74ebe14"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "Ext.button.Button",
+                                                                    "reference": {
+                                                                        "name": "items",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "cls": "auth-write",
+                                                                        "id": null,
+                                                                        "itemId": null,
+                                                                        "layout|flex": null,
+                                                                        "text": "Add Users to Project"
+                                                                    },
+                                                                    "designerId": "68f4eb05-02be-4e6a-bb98-fa09a0d95bfa",
                                                                     "cn": [
                                                                         {
                                                                             "type": "fixedfunction",
@@ -637,7 +692,7 @@
                                                                                     "almConstants.me.searchPopAlmUser(true);"
                                                                                 ]
                                                                             },
-                                                                            "designerId": "69e76283-1e18-47e2-b8c4-6f70d74ebe14"
+                                                                            "designerId": "df703a90-e70a-4c52-a513-c368418248f1"
                                                                         }
                                                                     ]
                                                                 }

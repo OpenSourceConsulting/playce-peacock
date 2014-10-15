@@ -30,10 +30,12 @@ Ext.define('MyApp.store.DashboardCpuChartStore', {
                     name: 'instanceName'
                 },
                 {
-                    name: 'cpuUsed'
+                    name: 'cpuUsed',
+                    type: 'float'
                 },
                 {
-                    name: 'cpuFree'
+                    name: 'cpuFree',
+                    type: 'float'
                 }
             ]
         }, cfg)]);

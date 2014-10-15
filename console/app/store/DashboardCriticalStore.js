@@ -41,6 +41,9 @@ Ext.define('MyApp.store.DashboardCriticalStore', {
                 {
                     name: 'disk',
                     type: 'boolean'
+                },
+                {
+                    name: 'machineId'
                 }
             ]
         }, cfg)]);

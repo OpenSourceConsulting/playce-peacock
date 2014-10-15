@@ -62,6 +62,18 @@
                 "type": "boolean"
             },
             "designerId": "65640aae-db8e-44cb-a006-4a3b716bbe22"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "machineId"
+            },
+            "designerId": "d934f321-5b7f-4cdf-a15e-3208d32ff1a5"
         }
     ]
 }

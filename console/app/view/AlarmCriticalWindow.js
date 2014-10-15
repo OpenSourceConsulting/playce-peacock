@@ -62,6 +62,7 @@ Ext.define('MyApp.view.AlarmCriticalWindow', {
                             xtype: 'gridcolumn',
                             renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                                 if(value == true) {
+                                    metaData.tdAttr = 'style="cursor: pointer;color:#157fcc;font-weight: bold;"';
                                     return "O";
                                 } else {
                                     return "";
@@ -75,6 +76,7 @@ Ext.define('MyApp.view.AlarmCriticalWindow', {
                             xtype: 'gridcolumn',
                             renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                                 if(value == true) {
+                                    metaData.tdAttr = 'style="cursor: pointer;color:#157fcc;font-weight: bold;"';
                                     return "O";
                                 } else {
                                     return "";
@@ -88,6 +90,7 @@ Ext.define('MyApp.view.AlarmCriticalWindow', {
                             xtype: 'gridcolumn',
                             renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                                 if(value == true) {
+                                    metaData.tdAttr = 'style="cursor: pointer;color:#157fcc;font-weight: bold;"';
                                     return "O";
                                 } else {
                                     return "";
@@ -96,6 +99,14 @@ Ext.define('MyApp.view.AlarmCriticalWindow', {
                             minWidth: 60,
                             dataIndex: 'disk',
                             text: 'Disk'
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            hidden: true,
+                            minWidth: 150,
+                            dataIndex: 'machineId',
+                            hideable: false,
+                            text: 'machineId'
                         }
                     ]
                 }

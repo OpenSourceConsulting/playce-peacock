@@ -154,6 +154,12 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                             id: 'instanceMonitoringType',
                             itemId: 'instanceMonitoringType',
                             fieldLabel: 'Label'
+                        },
+                        {
+                            xtype: 'hiddenfield',
+                            id: 'instanceMonitoringMarchineId',
+                            itemId: 'instanceMonitoringMarchineId',
+                            fieldLabel: 'Label'
                         }
                     ]
                 }
@@ -224,11 +230,27 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                     series: [
                                         {
                                             type: 'line',
+                                            highlight: {
+                                                size: 7,
+                                                radius: 7
+                                            },
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
                                                 renderer: function(v) { return v >> 0; },
                                                 'text-anchor': 'middle'
+                                            },
+                                            tips: {
+                                                trackMouse: true,
+                                                width: 50,
+                                                height: 25,
+                                                renderer: function(storeItem, item) {
+                                                    if(storeItem.get('FACTOR_002') == null) {
+                                                        this.setTitle('0%');
+                                                    } else {
+                                                        this.setTitle(storeItem.get('FACTOR_002') + '%');
+                                                    }
+                                                }
                                             },
                                             title: 'Used',
                                             xField: 'regDt',
@@ -244,11 +266,27 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                         },
                                         {
                                             type: 'line',
+                                            highlight: {
+                                                size: 7,
+                                                radius: 7
+                                            },
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
                                                 renderer: function(v) { return v >> 0; },
                                                 'text-anchor': 'middle'
+                                            },
+                                            tips: {
+                                                trackMouse: true,
+                                                width: 50,
+                                                height: 25,
+                                                renderer: function(storeItem, item) {
+                                                    if(storeItem.get('FACTOR_001') == null) {
+                                                        this.setTitle('0%');
+                                                    } else {
+                                                        this.setTitle(storeItem.get('FACTOR_001') + '%');
+                                                    }
+                                                }
                                             },
                                             title: 'Free',
                                             xField: 'regDt',
@@ -323,11 +361,27 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                     series: [
                                         {
                                             type: 'line',
+                                            highlight: {
+                                                size: 7,
+                                                radius: 7
+                                            },
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
                                                 renderer: function(v) { return v >> 0; },
                                                 'text-anchor': 'middle'
+                                            },
+                                            tips: {
+                                                trackMouse: true,
+                                                width: 100,
+                                                height: 25,
+                                                renderer: function(storeItem, item) {
+                                                    if(storeItem.get('FACTOR_005') == null) {
+                                                        this.setTitle('0KB');
+                                                    } else {
+                                                        this.setTitle(storeItem.get('FACTOR_005') + 'KB');
+                                                    }
+                                                }
                                             },
                                             title: 'Used',
                                             xField: 'regDt',
@@ -343,11 +397,27 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                         },
                                         {
                                             type: 'line',
+                                            highlight: {
+                                                size: 7,
+                                                radius: 7
+                                            },
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
                                                 renderer: function(v) { return v >> 0; },
                                                 'text-anchor': 'middle'
+                                            },
+                                            tips: {
+                                                trackMouse: true,
+                                                width: 100,
+                                                height: 25,
+                                                renderer: function(storeItem, item) {
+                                                    if(storeItem.get('FACTOR_004') == null) {
+                                                        this.setTitle('0KB');
+                                                    } else {
+                                                        this.setTitle(storeItem.get('FACTOR_004') + 'KB');
+                                                    }
+                                                }
                                             },
                                             title: 'Free',
                                             xField: 'regDt',
@@ -432,11 +502,27 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                     series: [
                                         {
                                             type: 'line',
+                                            highlight: {
+                                                size: 7,
+                                                radius: 7
+                                            },
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
                                                 renderer: function(v) { return v >> 0; },
                                                 'text-anchor': 'middle'
+                                            },
+                                            tips: {
+                                                trackMouse: true,
+                                                width: 50,
+                                                height: 25,
+                                                renderer: function(storeItem, item) {
+                                                    if(storeItem.get('DISK_1') == null) {
+                                                        this.setTitle('0%');
+                                                    } else {
+                                                        this.setTitle(storeItem.get('DISK_1') + '%');
+                                                    }
+                                                }
                                             },
                                             title: 'DISK_1',
                                             xField: 'regDt',
@@ -448,6 +534,10 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                         },
                                         {
                                             type: 'line',
+                                            highlight: {
+                                                size: 7,
+                                                radius: 7
+                                            },
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
@@ -455,12 +545,28 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                                 'text-anchor': 'middle'
                                             },
                                             showInLegend: false,
+                                            tips: {
+                                                trackMouse: true,
+                                                width: 50,
+                                                height: 25,
+                                                renderer: function(storeItem, item) {
+                                                    if(storeItem.get('DISK_2') == null) {
+                                                        this.setTitle('0%');
+                                                    } else {
+                                                        this.setTitle(storeItem.get('DISK_2') + '%');
+                                                    }
+                                                }
+                                            },
                                             title: 'DISK_2',
                                             xField: 'regDt',
                                             yField: 'DISK_2'
                                         },
                                         {
                                             type: 'line',
+                                            highlight: {
+                                                size: 7,
+                                                radius: 7
+                                            },
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
@@ -468,12 +574,28 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                                 'text-anchor': 'middle'
                                             },
                                             showInLegend: false,
+                                            tips: {
+                                                trackMouse: true,
+                                                width: 50,
+                                                height: 25,
+                                                renderer: function(storeItem, item) {
+                                                    if(storeItem.get('DISK_3') == null) {
+                                                        this.setTitle('0%');
+                                                    } else {
+                                                        this.setTitle(storeItem.get('DISK_3') + '%');
+                                                    }
+                                                }
+                                            },
                                             title: 'DISK_3',
                                             xField: 'regDt',
                                             yField: 'DISK_3'
                                         },
                                         {
                                             type: 'line',
+                                            highlight: {
+                                                size: 7,
+                                                radius: 7
+                                            },
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
@@ -481,12 +603,28 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                                 'text-anchor': 'middle'
                                             },
                                             showInLegend: false,
+                                            tips: {
+                                                trackMouse: true,
+                                                width: 50,
+                                                height: 25,
+                                                renderer: function(storeItem, item) {
+                                                    if(storeItem.get('DISK_4') == null) {
+                                                        this.setTitle('0%');
+                                                    } else {
+                                                        this.setTitle(storeItem.get('DISK_4') + '%');
+                                                    }
+                                                }
+                                            },
                                             title: 'DISK_4',
                                             xField: 'regDt',
                                             yField: 'DISK_4'
                                         },
                                         {
                                             type: 'line',
+                                            highlight: {
+                                                size: 7,
+                                                radius: 7
+                                            },
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
@@ -494,12 +632,28 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                                 'text-anchor': 'middle'
                                             },
                                             showInLegend: false,
+                                            tips: {
+                                                trackMouse: true,
+                                                width: 50,
+                                                height: 25,
+                                                renderer: function(storeItem, item) {
+                                                    if(storeItem.get('DISK_5') == null) {
+                                                        this.setTitle('0%');
+                                                    } else {
+                                                        this.setTitle(storeItem.get('DISK_5') + '%');
+                                                    }
+                                                }
+                                            },
                                             title: 'DISK_5',
                                             xField: 'regDt',
                                             yField: 'DISK_5'
                                         },
                                         {
                                             type: 'line',
+                                            highlight: {
+                                                size: 7,
+                                                radius: 7
+                                            },
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
@@ -507,12 +661,28 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                                 'text-anchor': 'middle'
                                             },
                                             showInLegend: false,
+                                            tips: {
+                                                trackMouse: true,
+                                                width: 50,
+                                                height: 25,
+                                                renderer: function(storeItem, item) {
+                                                    if(storeItem.get('DISK_6') == null) {
+                                                        this.setTitle('0%');
+                                                    } else {
+                                                        this.setTitle(storeItem.get('DISK_6') + '%');
+                                                    }
+                                                }
+                                            },
                                             title: 'DISK_6',
                                             xField: 'regDt',
                                             yField: 'DISK_6'
                                         },
                                         {
                                             type: 'line',
+                                            highlight: {
+                                                size: 7,
+                                                radius: 7
+                                            },
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
@@ -520,12 +690,28 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                                 'text-anchor': 'middle'
                                             },
                                             showInLegend: false,
+                                            tips: {
+                                                trackMouse: true,
+                                                width: 50,
+                                                height: 25,
+                                                renderer: function(storeItem, item) {
+                                                    if(storeItem.get('DISK_7') == null) {
+                                                        this.setTitle('0%');
+                                                    } else {
+                                                        this.setTitle(storeItem.get('DISK_7') + '%');
+                                                    }
+                                                }
+                                            },
                                             title: 'DISK_7',
                                             xField: 'regDt',
                                             yField: 'DISK_7'
                                         },
                                         {
                                             type: 'line',
+                                            highlight: {
+                                                size: 7,
+                                                radius: 7
+                                            },
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
@@ -533,12 +719,28 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                                 'text-anchor': 'middle'
                                             },
                                             showInLegend: false,
+                                            tips: {
+                                                trackMouse: true,
+                                                width: 50,
+                                                height: 25,
+                                                renderer: function(storeItem, item) {
+                                                    if(storeItem.get('DISK_8') == null) {
+                                                        this.setTitle('0%');
+                                                    } else {
+                                                        this.setTitle(storeItem.get('DISK_8') + '%');
+                                                    }
+                                                }
+                                            },
                                             title: 'DISK_8',
                                             xField: 'regDt',
                                             yField: 'DISK_8'
                                         },
                                         {
                                             type: 'line',
+                                            highlight: {
+                                                size: 7,
+                                                radius: 7
+                                            },
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
@@ -546,12 +748,28 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                                 'text-anchor': 'middle'
                                             },
                                             showInLegend: false,
+                                            tips: {
+                                                trackMouse: true,
+                                                width: 50,
+                                                height: 25,
+                                                renderer: function(storeItem, item) {
+                                                    if(storeItem.get('DISK_9') == null) {
+                                                        this.setTitle('0%');
+                                                    } else {
+                                                        this.setTitle(storeItem.get('DISK_9') + '%');
+                                                    }
+                                                }
+                                            },
                                             title: 'DISK_9',
                                             xField: 'regDt',
                                             yField: 'DISK_9'
                                         },
                                         {
                                             type: 'line',
+                                            highlight: {
+                                                size: 7,
+                                                radius: 7
+                                            },
                                             label: {
                                                 display: 'none',
                                                 field: 'visits',
@@ -559,6 +777,18 @@ Ext.define('MyApp.view.MonitoringChartWindow', {
                                                 'text-anchor': 'middle'
                                             },
                                             showInLegend: false,
+                                            tips: {
+                                                trackMouse: true,
+                                                width: 50,
+                                                height: 25,
+                                                renderer: function(storeItem, item) {
+                                                    if(storeItem.get('DISK_10') == null) {
+                                                        this.setTitle('0%');
+                                                    } else {
+                                                        this.setTitle(storeItem.get('DISK_10') + '%');
+                                                    }
+                                                }
+                                            },
                                             title: 'DISK_10',
                                             xField: 'regDt',
                                             yField: 'DISK_10'

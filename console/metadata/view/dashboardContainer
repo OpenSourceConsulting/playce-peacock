@@ -548,7 +548,7 @@
                                             "            return v;",
                                             "        }",
                                             "        ",
-                                            "        if(v.length > 13) {",
+                                            "        if(v.legnth > 13) {",
                                             "            return v.substring(0, 13) + \"..\";",
                                             "        } else {",
                                             "            return v;",
@@ -592,7 +592,18 @@
                                         "axis": [
                                             "bottom"
                                         ],
-                                        "label": null,
+                                        "label": [
+                                            "{",
+                                            "    display : \"outside\",",
+                                            "    color : '#333',",
+                                            "    'text-anchor' : 'middle',",
+                                            "    field : [",
+                                            "        'cpuUsed',",
+                                            "        'cpuFree'",
+                                            "    ]",
+                                            "    ",
+                                            "}"
+                                        ],
                                         "stacked": false,
                                         "title": [
                                             "Used CPU",
@@ -666,7 +677,7 @@
                                             "            return v;",
                                             "        }",
                                             "        ",
-                                            "        if(v.length > 13) {",
+                                            "        if(v.legnth > 13) {",
                                             "            return v.substring(0, 13) + \"..\";",
                                             "        } else {",
                                             "            return v;",
@@ -692,6 +703,14 @@
                                             "memoryUsed",
                                             "memoryFree"
                                         ],
+                                        "label": [
+                                            "{",
+                                            "    renderer: function(v) {",
+                                            "        return String(v);",
+                                            "    }",
+                                            "}",
+                                            ""
+                                        ],
                                         "maximum": 100,
                                         "minimum": 0,
                                         "position": "bottom",
@@ -710,7 +729,18 @@
                                         "axis": [
                                             "bottom"
                                         ],
-                                        "label": null,
+                                        "label": [
+                                            "{",
+                                            "    display : \"outside\",",
+                                            "    color : '#333',",
+                                            "    'text-anchor' : 'middle',",
+                                            "    field : [",
+                                            "        'memoryUsed',",
+                                            "        'memoryFree'",
+                                            "    ]",
+                                            "    ",
+                                            "}"
+                                        ],
                                         "stacked": false,
                                         "title": [
                                             "Used Memory",
@@ -787,7 +817,7 @@
                                             "            return v;",
                                             "        }",
                                             "        ",
-                                            "        if(v.length > 13) {",
+                                            "        if(v.legnth > 13) {",
                                             "            return v.substring(0, 13) + \"..\";",
                                             "        } else {",
                                             "            return v;",
@@ -813,6 +843,14 @@
                                             "storageUsed",
                                             "storageFree"
                                         ],
+                                        "label": [
+                                            "{",
+                                            "    renderer: function(v) {",
+                                            "        return String(v);",
+                                            "    }",
+                                            "}",
+                                            ""
+                                        ],
                                         "maximum": 100,
                                         "minimum": 0,
                                         "position": "bottom",
@@ -831,7 +869,18 @@
                                         "axis": [
                                             "bottom"
                                         ],
-                                        "label": null,
+                                        "label": [
+                                            "{",
+                                            "    display : \"outside\",",
+                                            "    color : '#333',",
+                                            "    'text-anchor' : 'middle',",
+                                            "    field : [",
+                                            "        'storageUsed',",
+                                            "        'storageFree'",
+                                            "    ]",
+                                            "    ",
+                                            "}"
+                                        ],
                                         "stacked": false,
                                         "title": [
                                             "Used Storage",

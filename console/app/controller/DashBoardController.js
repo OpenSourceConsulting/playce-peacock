@@ -58,6 +58,50 @@ Ext.define('MyApp.controller.DashBoardController', {
         }
     },
 
+    onAlarmCriticalGridCellClick: function(tableview, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+        if(cellIndex == 2) {
+
+            if(record.get("cpu") == true) {
+                instancesConstants.me.viewInstanceMonitoringPopup('cpu', record.get("machineId"), '1h');
+            }
+
+        } else if(cellIndex == 3) {
+
+            if(record.get("memory") == true) {
+                instancesConstants.me.viewInstanceMonitoringPopup('memory', record.get("machineId"), '1h');
+            }
+
+        } else if(cellIndex == 4) {
+
+            if(record.get("disk") == true) {
+                instancesConstants.me.viewInstanceMonitoringPopup('disk', record.get("machineId"), '1h');
+            }
+
+        }
+    },
+
+    onAlarmWarningGridCellClick: function(tableview, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+        if(cellIndex == 2) {
+
+            if(record.get("cpu") == true) {
+                instancesConstants.me.viewInstanceMonitoringPopup('cpu', record.get("machineId"), '1h');
+            }
+
+        } else if(cellIndex == 3) {
+
+            if(record.get("memory") == true) {
+                instancesConstants.me.viewInstanceMonitoringPopup('memory', record.get("machineId"), '1h');
+            }
+
+        } else if(cellIndex == 4) {
+
+            if(record.get("disk") == true) {
+                instancesConstants.me.viewInstanceMonitoringPopup('disk', record.get("machineId"), '1h');
+            }
+
+        }
+    },
+
     init: function(application) {
                 //DashBoard Menu Config Setting
 
@@ -73,6 +117,12 @@ Ext.define('MyApp.controller.DashBoardController', {
         this.control({
             "#serverSummaryGrid": {
                 cellclick: this.onServerSummaryGridCellClick
+            },
+            "#alarmCriticalGrid": {
+                cellclick: this.onAlarmCriticalGridCellClick
+            },
+            "#alarmWarningGrid": {
+                cellclick: this.onAlarmWarningGridCellClick
             }
         });
     },

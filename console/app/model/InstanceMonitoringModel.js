@@ -23,19 +23,19 @@ Ext.define('MyApp.model.InstanceMonitoringModel', {
     fields: [
         {
             name: 'FACTOR_001',
-            type: 'int'
+            type: 'float'
         },
         {
             name: 'FACTOR_002',
-            type: 'int'
+            type: 'float'
         },
         {
             name: 'FACTOR_004',
-            type: 'int'
+            type: 'float'
         },
         {
             name: 'FACTOR_005',
-            type: 'int'
+            type: 'float'
         },
         {
             name: 'FACTOR_006',
@@ -47,43 +47,43 @@ Ext.define('MyApp.model.InstanceMonitoringModel', {
         },
         {
             name: 'DISK_1',
-            type: 'int'
+            type: 'float'
         },
         {
             name: 'DISK_2',
-            type: 'int'
+            type: 'float'
         },
         {
             name: 'DISK_3',
-            type: 'int'
+            type: 'float'
         },
         {
             name: 'DISK_4',
-            type: 'int'
+            type: 'float'
         },
         {
             name: 'DISK_5',
-            type: 'int'
+            type: 'float'
         },
         {
             name: 'DISK_6',
-            type: 'int'
+            type: 'float'
         },
         {
             name: 'DISK_7',
-            type: 'int'
+            type: 'float'
         },
         {
             name: 'DISK_8',
-            type: 'int'
+            type: 'float'
         },
         {
             name: 'DISK_9',
-            type: 'int'
+            type: 'float'
         },
         {
             name: 'DISK_10',
-            type: 'int'
+            type: 'float'
         }
     ]
 });

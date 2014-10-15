@@ -19,7 +19,7 @@
             "codeClass": null,
             "userConfig": {
                 "name": "FACTOR_001",
-                "type": "int"
+                "type": "float"
             },
             "designerId": "c2087235-acd0-47d2-b605-dc4c863b4f56"
         },
@@ -32,7 +32,7 @@
             "codeClass": null,
             "userConfig": {
                 "name": "FACTOR_002",
-                "type": "int"
+                "type": "float"
             },
             "designerId": "65256dc5-0a88-47ca-8372-56c384b2ca05"
         },
@@ -45,7 +45,7 @@
             "codeClass": null,
             "userConfig": {
                 "name": "FACTOR_004",
-                "type": "int"
+                "type": "float"
             },
             "designerId": "37a6555c-e59d-4b41-9bb6-6ed55899d571"
         },
@@ -58,7 +58,7 @@
             "codeClass": null,
             "userConfig": {
                 "name": "FACTOR_005",
-                "type": "int"
+                "type": "float"
             },
             "designerId": "68320376-eda8-4344-b460-5e363b59c2fb"
         },
@@ -97,7 +97,7 @@
             "codeClass": null,
             "userConfig": {
                 "name": "DISK_1",
-                "type": "int"
+                "type": "float"
             },
             "designerId": "f04dadd9-66dc-49f2-94f8-6fec304f83ac"
         },
@@ -110,7 +110,7 @@
             "codeClass": null,
             "userConfig": {
                 "name": "DISK_2",
-                "type": "int"
+                "type": "float"
             },
             "designerId": "930fba8b-8444-4019-81ad-bba51aa2a17a"
         },
@@ -123,7 +123,7 @@
             "codeClass": null,
             "userConfig": {
                 "name": "DISK_3",
-                "type": "int"
+                "type": "float"
             },
             "designerId": "7f3eb8ef-f0ea-4baa-99d5-a848cacffb81"
         },
@@ -136,7 +136,7 @@
             "codeClass": null,
             "userConfig": {
                 "name": "DISK_4",
-                "type": "int"
+                "type": "float"
             },
             "designerId": "2042295f-4da0-42a3-bbc8-c710f8550074"
         },
@@ -149,7 +149,7 @@
             "codeClass": null,
             "userConfig": {
                 "name": "DISK_5",
-                "type": "int"
+                "type": "float"
             },
             "designerId": "c4e525bc-1076-44be-ae6a-6a4e3faaf27f"
         },
@@ -162,7 +162,7 @@
             "codeClass": null,
             "userConfig": {
                 "name": "DISK_6",
-                "type": "int"
+                "type": "float"
             },
             "designerId": "4fcd8420-34b7-405e-ad41-1ab0337ef8d8"
         },
@@ -175,7 +175,7 @@
             "codeClass": null,
             "userConfig": {
                 "name": "DISK_7",
-                "type": "int"
+                "type": "float"
             },
             "designerId": "12e46b5f-3d80-44ad-9b30-dd0ad75e6e79"
         },
@@ -188,7 +188,7 @@
             "codeClass": null,
             "userConfig": {
                 "name": "DISK_8",
-                "type": "int"
+                "type": "float"
             },
             "designerId": "a467284f-b3f0-4a78-98f4-816d1f97d3f1"
         },
@@ -201,7 +201,7 @@
             "codeClass": null,
             "userConfig": {
                 "name": "DISK_9",
-                "type": "int"
+                "type": "float"
             },
             "designerId": "aa46cea6-4aea-4b9b-8ee2-afb6e50077e8"
         },
@@ -214,7 +214,7 @@
             "codeClass": null,
             "userConfig": {
                 "name": "DISK_10",
-                "type": "int"
+                "type": "float"
             },
             "designerId": "6b200217-cfef-4047-86ef-31215acb76e7"
         }

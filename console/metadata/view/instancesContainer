@@ -2125,6 +2125,12 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
+                                                                "highlight": [
+                                                                    "{",
+                                                                    "    size: 7,",
+                                                                    "    radius: 7",
+                                                                    "}"
+                                                                ],
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -2143,6 +2149,20 @@
                                                                     "{",
                                                                     "     stroke: '#ff0000',",
                                                                     "     fill: '#ff0000'",
+                                                                    "}"
+                                                                ],
+                                                                "tips": [
+                                                                    "{",
+                                                                    "    trackMouse: true,",
+                                                                    "    width: 50,",
+                                                                    "    height: 25,",
+                                                                    "    renderer: function(storeItem, item) {",
+                                                                    "        if(storeItem.get('FACTOR_002') == null) {",
+                                                                    "            this.setTitle('0%');",
+                                                                    "        } else {",
+                                                                    "            this.setTitle(storeItem.get('FACTOR_002') + '%');",
+                                                                    "        }",
+                                                                    "    }",
                                                                     "}"
                                                                 ],
                                                                 "title": [
@@ -2166,6 +2186,12 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
+                                                                "highlight": [
+                                                                    "{",
+                                                                    "    size: 7,",
+                                                                    "    radius: 7",
+                                                                    "}"
+                                                                ],
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -2184,6 +2210,20 @@
                                                                     "{",
                                                                     "     stroke: '#0000ff',",
                                                                     "     fill: '#0000ff'",
+                                                                    "}"
+                                                                ],
+                                                                "tips": [
+                                                                    "{",
+                                                                    "    trackMouse: true,",
+                                                                    "    width: 50,",
+                                                                    "    height: 25,",
+                                                                    "    renderer: function(storeItem, item) {",
+                                                                    "        if(storeItem.get('FACTOR_001') == null) {",
+                                                                    "            this.setTitle('0%');",
+                                                                    "        } else {",
+                                                                    "            this.setTitle(storeItem.get('FACTOR_001') + '%');",
+                                                                    "        }",
+                                                                    "    }",
                                                                     "}"
                                                                 ],
                                                                 "title": [
@@ -2221,7 +2261,7 @@
                                                             "userConfig": {
                                                                 "fn": "onCpuChartClick",
                                                                 "implHandler": [
-                                                                    "instancesConstants.me.viewInstanceMonitoringPopup('cpu');"
+                                                                    "instancesConstants.me.viewInstanceMonitoringPopup('cpu', instancesConstants.selectRow.get(\"machineId\"));"
                                                                 ],
                                                                 "name": "click",
                                                                 "scope": "me"
@@ -2381,6 +2421,12 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
+                                                                "highlight": [
+                                                                    "{",
+                                                                    "    size: 7,",
+                                                                    "    radius: 7",
+                                                                    "}"
+                                                                ],
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -2399,6 +2445,20 @@
                                                                     "{",
                                                                     "     stroke: '#ff0000',",
                                                                     "     fill: '#ff0000'",
+                                                                    "}"
+                                                                ],
+                                                                "tips": [
+                                                                    "{",
+                                                                    "    trackMouse: true,",
+                                                                    "    width: 100,",
+                                                                    "    height: 25,",
+                                                                    "    renderer: function(storeItem, item) {",
+                                                                    "        if(storeItem.get('FACTOR_005') == null) {",
+                                                                    "            this.setTitle('0KB');",
+                                                                    "        } else {",
+                                                                    "            this.setTitle(storeItem.get('FACTOR_005') + 'KB');",
+                                                                    "        }",
+                                                                    "    }",
                                                                     "}"
                                                                 ],
                                                                 "title": [
@@ -2422,6 +2482,12 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
+                                                                "highlight": [
+                                                                    "{",
+                                                                    "    size: 7,",
+                                                                    "    radius: 7",
+                                                                    "}"
+                                                                ],
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -2440,6 +2506,20 @@
                                                                     "{",
                                                                     "     stroke: '#0000ff',",
                                                                     "     fill: '#0000ff'",
+                                                                    "}"
+                                                                ],
+                                                                "tips": [
+                                                                    "{",
+                                                                    "    trackMouse: true,",
+                                                                    "    width: 100,",
+                                                                    "    height: 25,",
+                                                                    "    renderer: function(storeItem, item) {",
+                                                                    "        if(storeItem.get('FACTOR_004') == null) {",
+                                                                    "            this.setTitle('0KB');",
+                                                                    "        } else {",
+                                                                    "            this.setTitle(storeItem.get('FACTOR_004') + 'KB');",
+                                                                    "        }",
+                                                                    "    }",
                                                                     "}"
                                                                 ],
                                                                 "title": [
@@ -2477,7 +2557,7 @@
                                                             "userConfig": {
                                                                 "fn": "onCpuChartClick1",
                                                                 "implHandler": [
-                                                                    "instancesConstants.me.viewInstanceMonitoringPopup('memory');"
+                                                                    "instancesConstants.me.viewInstanceMonitoringPopup('memory', instancesConstants.selectRow.get(\"machineId\"));"
                                                                 ],
                                                                 "name": "click",
                                                                 "scope": "me"
@@ -2647,6 +2727,12 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
+                                                                "highlight": [
+                                                                    "{",
+                                                                    "    size: 7,",
+                                                                    "    radius: 7",
+                                                                    "}"
+                                                                ],
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -2659,6 +2745,20 @@
                                                                     "{",
                                                                     "    radius: 3,",
                                                                     "    size: 3",
+                                                                    "}"
+                                                                ],
+                                                                "tips": [
+                                                                    "{",
+                                                                    "    trackMouse: true,",
+                                                                    "    width: 50,",
+                                                                    "    height: 25,",
+                                                                    "    renderer: function(storeItem, item) {",
+                                                                    "        if(storeItem.get('DISK_1') == null) {",
+                                                                    "            this.setTitle('0%');",
+                                                                    "        } else {",
+                                                                    "            this.setTitle(storeItem.get('DISK_1') + '%');",
+                                                                    "        }",
+                                                                    "    }",
                                                                     "}"
                                                                 ],
                                                                 "title": [
@@ -2682,6 +2782,12 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
+                                                                "highlight": [
+                                                                    "{",
+                                                                    "    size: 7,",
+                                                                    "    radius: 7",
+                                                                    "}"
+                                                                ],
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -2691,6 +2797,20 @@
                                                                     "}"
                                                                 ],
                                                                 "showInLegend": false,
+                                                                "tips": [
+                                                                    "{",
+                                                                    "    trackMouse: true,",
+                                                                    "    width: 50,",
+                                                                    "    height: 25,",
+                                                                    "    renderer: function(storeItem, item) {",
+                                                                    "        if(storeItem.get('DISK_2') == null) {",
+                                                                    "            this.setTitle('0%');",
+                                                                    "        } else {",
+                                                                    "            this.setTitle(storeItem.get('DISK_2') + '%');",
+                                                                    "        }",
+                                                                    "    }",
+                                                                    "}"
+                                                                ],
                                                                 "title": [
                                                                     "DISK_2"
                                                                 ],
@@ -2712,6 +2832,12 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
+                                                                "highlight": [
+                                                                    "{",
+                                                                    "    size: 7,",
+                                                                    "    radius: 7",
+                                                                    "}"
+                                                                ],
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -2721,6 +2847,20 @@
                                                                     "}"
                                                                 ],
                                                                 "showInLegend": false,
+                                                                "tips": [
+                                                                    "{",
+                                                                    "    trackMouse: true,",
+                                                                    "    width: 50,",
+                                                                    "    height: 25,",
+                                                                    "    renderer: function(storeItem, item) {",
+                                                                    "        if(storeItem.get('DISK_3') == null) {",
+                                                                    "            this.setTitle('0%');",
+                                                                    "        } else {",
+                                                                    "            this.setTitle(storeItem.get('DISK_3') + '%');",
+                                                                    "        }",
+                                                                    "    }",
+                                                                    "}"
+                                                                ],
                                                                 "title": [
                                                                     "DISK_3"
                                                                 ],
@@ -2742,6 +2882,12 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
+                                                                "highlight": [
+                                                                    "{",
+                                                                    "    size: 7,",
+                                                                    "    radius: 7",
+                                                                    "}"
+                                                                ],
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -2751,6 +2897,20 @@
                                                                     "}"
                                                                 ],
                                                                 "showInLegend": false,
+                                                                "tips": [
+                                                                    "{",
+                                                                    "    trackMouse: true,",
+                                                                    "    width: 50,",
+                                                                    "    height: 25,",
+                                                                    "    renderer: function(storeItem, item) {",
+                                                                    "        if(storeItem.get('DISK_4') == null) {",
+                                                                    "            this.setTitle('0%');",
+                                                                    "        } else {",
+                                                                    "            this.setTitle(storeItem.get('DISK_4') + '%');",
+                                                                    "        }",
+                                                                    "    }",
+                                                                    "}"
+                                                                ],
                                                                 "title": [
                                                                     "DISK_4"
                                                                 ],
@@ -2772,6 +2932,12 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
+                                                                "highlight": [
+                                                                    "{",
+                                                                    "    size: 7,",
+                                                                    "    radius: 7",
+                                                                    "}"
+                                                                ],
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -2781,6 +2947,20 @@
                                                                     "}"
                                                                 ],
                                                                 "showInLegend": false,
+                                                                "tips": [
+                                                                    "{",
+                                                                    "    trackMouse: true,",
+                                                                    "    width: 50,",
+                                                                    "    height: 25,",
+                                                                    "    renderer: function(storeItem, item) {",
+                                                                    "        if(storeItem.get('DISK_5') == null) {",
+                                                                    "            this.setTitle('0%');",
+                                                                    "        } else {",
+                                                                    "            this.setTitle(storeItem.get('DISK_5') + '%');",
+                                                                    "        }",
+                                                                    "    }",
+                                                                    "}"
+                                                                ],
                                                                 "title": [
                                                                     "DISK_5"
                                                                 ],
@@ -2802,6 +2982,12 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
+                                                                "highlight": [
+                                                                    "{",
+                                                                    "    size: 7,",
+                                                                    "    radius: 7",
+                                                                    "}"
+                                                                ],
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -2811,6 +2997,20 @@
                                                                     "}"
                                                                 ],
                                                                 "showInLegend": false,
+                                                                "tips": [
+                                                                    "{",
+                                                                    "    trackMouse: true,",
+                                                                    "    width: 50,",
+                                                                    "    height: 25,",
+                                                                    "    renderer: function(storeItem, item) {",
+                                                                    "        if(storeItem.get('DISK_6') == null) {",
+                                                                    "            this.setTitle('0%');",
+                                                                    "        } else {",
+                                                                    "            this.setTitle(storeItem.get('DISK_6') + '%');",
+                                                                    "        }",
+                                                                    "    }",
+                                                                    "}"
+                                                                ],
                                                                 "title": [
                                                                     "DISK_6"
                                                                 ],
@@ -2832,6 +3032,12 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
+                                                                "highlight": [
+                                                                    "{",
+                                                                    "    size: 7,",
+                                                                    "    radius: 7",
+                                                                    "}"
+                                                                ],
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -2841,6 +3047,20 @@
                                                                     "}"
                                                                 ],
                                                                 "showInLegend": false,
+                                                                "tips": [
+                                                                    "{",
+                                                                    "    trackMouse: true,",
+                                                                    "    width: 50,",
+                                                                    "    height: 25,",
+                                                                    "    renderer: function(storeItem, item) {",
+                                                                    "        if(storeItem.get('DISK_7') == null) {",
+                                                                    "            this.setTitle('0%');",
+                                                                    "        } else {",
+                                                                    "            this.setTitle(storeItem.get('DISK_7') + '%');",
+                                                                    "        }",
+                                                                    "    }",
+                                                                    "}"
+                                                                ],
                                                                 "title": [
                                                                     "DISK_7"
                                                                 ],
@@ -2862,6 +3082,12 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
+                                                                "highlight": [
+                                                                    "{",
+                                                                    "    size: 7,",
+                                                                    "    radius: 7",
+                                                                    "}"
+                                                                ],
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -2871,6 +3097,20 @@
                                                                     "}"
                                                                 ],
                                                                 "showInLegend": false,
+                                                                "tips": [
+                                                                    "{",
+                                                                    "    trackMouse: true,",
+                                                                    "    width: 50,",
+                                                                    "    height: 25,",
+                                                                    "    renderer: function(storeItem, item) {",
+                                                                    "        if(storeItem.get('DISK_8') == null) {",
+                                                                    "            this.setTitle('0%');",
+                                                                    "        } else {",
+                                                                    "            this.setTitle(storeItem.get('DISK_8') + '%');",
+                                                                    "        }",
+                                                                    "    }",
+                                                                    "}"
+                                                                ],
                                                                 "title": [
                                                                     "DISK_8"
                                                                 ],
@@ -2892,6 +3132,12 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
+                                                                "highlight": [
+                                                                    "{",
+                                                                    "    size: 7,",
+                                                                    "    radius: 7",
+                                                                    "}"
+                                                                ],
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -2901,6 +3147,20 @@
                                                                     "}"
                                                                 ],
                                                                 "showInLegend": false,
+                                                                "tips": [
+                                                                    "{",
+                                                                    "    trackMouse: true,",
+                                                                    "    width: 50,",
+                                                                    "    height: 25,",
+                                                                    "    renderer: function(storeItem, item) {",
+                                                                    "        if(storeItem.get('DISK_9') == null) {",
+                                                                    "            this.setTitle('0%');",
+                                                                    "        } else {",
+                                                                    "            this.setTitle(storeItem.get('DISK_9') + '%');",
+                                                                    "        }",
+                                                                    "    }",
+                                                                    "}"
+                                                                ],
                                                                 "title": [
                                                                     "DISK_9"
                                                                 ],
@@ -2922,6 +3182,12 @@
                                                             },
                                                             "codeClass": null,
                                                             "userConfig": {
+                                                                "highlight": [
+                                                                    "{",
+                                                                    "    size: 7,",
+                                                                    "    radius: 7",
+                                                                    "}"
+                                                                ],
                                                                 "label": [
                                                                     "{",
                                                                     "    display: 'none',",
@@ -2931,6 +3197,20 @@
                                                                     "}"
                                                                 ],
                                                                 "showInLegend": false,
+                                                                "tips": [
+                                                                    "{",
+                                                                    "    trackMouse: true,",
+                                                                    "    width: 50,",
+                                                                    "    height: 25,",
+                                                                    "    renderer: function(storeItem, item) {",
+                                                                    "        if(storeItem.get('DISK_10') == null) {",
+                                                                    "            this.setTitle('0%');",
+                                                                    "        } else {",
+                                                                    "            this.setTitle(storeItem.get('DISK_10') + '%');",
+                                                                    "        }",
+                                                                    "    }",
+                                                                    "}"
+                                                                ],
                                                                 "title": [
                                                                     "DISK_10"
                                                                 ],
@@ -2987,7 +3267,7 @@
                                                             "userConfig": {
                                                                 "fn": "onCpuChartClick11",
                                                                 "implHandler": [
-                                                                    "instancesConstants.me.viewInstanceMonitoringPopup('disk');",
+                                                                    "instancesConstants.me.viewInstanceMonitoringPopup('disk', instancesConstants.selectRow.get(\"machineId\"));",
                                                                     ""
                                                                 ],
                                                                 "name": "click",

@@ -41,6 +41,9 @@ Ext.define('MyApp.store.DashboardWarningStore', {
                 {
                     name: 'disk',
                     type: 'boolean'
+                },
+                {
+                    name: 'machineId'
                 }
             ]
         }, cfg)]);

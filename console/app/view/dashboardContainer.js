@@ -243,7 +243,7 @@ Ext.define('MyApp.view.dashboardContainer', {
                                                         return v;
                                                     }
                                                     
-                                                    if(v.length > 13) {
+                                                    if(v.legnth > 13) {
                                                         return v.substring(0, 13) + "..";
                                                     } else {
                                                         return v;
@@ -266,6 +266,15 @@ Ext.define('MyApp.view.dashboardContainer', {
                                     series: [
                                         {
                                             type: 'bar',
+                                            label: {
+                                                display: 'outside',
+                                                color: '#333',
+                                                'text-anchor': 'middle',
+                                                field: [
+                                                    'cpuUsed',
+                                                    'cpuFree'
+                                                ]
+                                            },
                                             title: [
                                                 'Used CPU',
                                                 'Free CPU'
@@ -308,7 +317,7 @@ Ext.define('MyApp.view.dashboardContainer', {
                                                         return v;
                                                     }
                                                     
-                                                    if(v.length > 13) {
+                                                    if(v.legnth > 13) {
                                                         return v.substring(0, 13) + "..";
                                                     } else {
                                                         return v;
@@ -323,6 +332,11 @@ Ext.define('MyApp.view.dashboardContainer', {
                                                 'memoryUsed',
                                                 'memoryFree'
                                             ],
+                                            label: {
+                                                renderer: function(v) {
+                                                    return String(v);
+                                                }
+                                            },
                                             position: 'bottom',
                                             maximum: 100,
                                             minimum: 0
@@ -331,6 +345,15 @@ Ext.define('MyApp.view.dashboardContainer', {
                                     series: [
                                         {
                                             type: 'bar',
+                                            label: {
+                                                display: 'outside',
+                                                color: '#333',
+                                                'text-anchor': 'middle',
+                                                field: [
+                                                    'memoryUsed',
+                                                    'memoryFree'
+                                                ]
+                                            },
                                             title: [
                                                 'Used Memory',
                                                 'Free Memory'
@@ -374,7 +397,7 @@ Ext.define('MyApp.view.dashboardContainer', {
                                                         return v;
                                                     }
                                                     
-                                                    if(v.length > 13) {
+                                                    if(v.legnth > 13) {
                                                         return v.substring(0, 13) + "..";
                                                     } else {
                                                         return v;
@@ -389,6 +412,11 @@ Ext.define('MyApp.view.dashboardContainer', {
                                                 'storageUsed',
                                                 'storageFree'
                                             ],
+                                            label: {
+                                                renderer: function(v) {
+                                                    return String(v);
+                                                }
+                                            },
                                             position: 'bottom',
                                             maximum: 100,
                                             minimum: 0
@@ -397,6 +425,15 @@ Ext.define('MyApp.view.dashboardContainer', {
                                     series: [
                                         {
                                             type: 'bar',
+                                            label: {
+                                                display: 'outside',
+                                                color: '#333',
+                                                'text-anchor': 'middle',
+                                                field: [
+                                                    'storageUsed',
+                                                    'storageFree'
+                                                ]
+                                            },
                                             title: [
                                                 'Used Storage',
                                                 'Free Storage'

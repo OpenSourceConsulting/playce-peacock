@@ -661,7 +661,7 @@
                     "//RHEVM Menu Click",
                     "",
                     "if(Ext.getCmp(\"searchRhevm\").getRawValue() != item.code) {",
-                    "    ",
+                    "",
                     "    Ext.getCmp(\"rhevmCycle\").setText(item.text);",
                     "    Ext.getCmp(\"searchRhevm\").setRawValue(item.code);",
                     "",
@@ -1046,7 +1046,9 @@
             "codeClass": null,
             "userConfig": {
                 "designer|params": [
-                    "type"
+                    "type",
+                    "machineId",
+                    "timeRange"
                 ],
                 "fn": "viewInstanceMonitoringPopup",
                 "implHandler": [
@@ -1083,10 +1085,18 @@
                     "    type = Ext.getCmp(\"instanceMonitoringType\").getValue();",
                     "}",
                     "",
+                    "if(machineId) {",
+                    "    Ext.getCmp(\"instanceMonitoringMarchineId\").setValue(machineId);",
+                    "}",
+                    "",
+                    "if(timeRange) {",
+                    "    Ext.getCmp(\"comboTimeRange\").setValue(timeRange);",
+                    "}",
+                    "",
                     "var chartStore = Ext.getStore(\"MonitoringPopupStore\");",
                     "",
                     "chartStore.getProxy().extraParams = {",
-                    "    machineId : instancesConstants.selectRow.get(\"machineId\"),",
+                    "    machineId : Ext.getCmp(\"instanceMonitoringMarchineId\").getValue(),",
                     "    timeRange : Ext.getCmp(\"comboTimeRange\").getValue(),",
                     "    period    : Ext.getCmp(\"comboTimePeriod\").getValue()",
                     "};",

@@ -102,6 +102,7 @@
                                 "fn": "renderer",
                                 "implHandler": [
                                     "if(value == true) {",
+                                    "    metaData.tdAttr = 'style=\"cursor: pointer;color:#157fcc;font-weight: bold;\"';",
                                     "    return \"O\";",
                                     "} else {",
                                     "    return \"\";",
@@ -146,6 +147,7 @@
                                 "fn": "renderer",
                                 "implHandler": [
                                     "if(value == true) {",
+                                    "    metaData.tdAttr = 'style=\"cursor: pointer;color:#157fcc;font-weight: bold;\"';",
                                     "    return \"O\";",
                                     "} else {",
                                     "    return \"\";",
@@ -190,6 +192,7 @@
                                 "fn": "renderer",
                                 "implHandler": [
                                     "if(value == true) {",
+                                    "    metaData.tdAttr = 'style=\"cursor: pointer;color:#157fcc;font-weight: bold;\"';",
                                     "    return \"O\";",
                                     "} else {",
                                     "    return \"\";",
@@ -199,6 +202,22 @@
                             "designerId": "2d8b9512-5cd4-44aa-9bb8-1acca600e0ec"
                         }
                     ]
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "machineId",
+                        "hidden": true,
+                        "hideable": false,
+                        "minWidth": 150,
+                        "text": "machineId"
+                    },
+                    "designerId": "025cfec8-ba94-4381-81d3-c5db5dbadea5"
                 },
                 {
                     "type": "Ext.grid.View",

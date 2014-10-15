@@ -284,6 +284,32 @@ Ext.define('MyApp.view.almContainer', {
                                                                         {
                                                                             xtype: 'button',
                                                                             handler: function(button, e) {
+                                                                                Ext.MessageBox.confirm('Confirm', 'Jenkins를 Sync 하시겠습니까?', function(btn){
+
+                                                                                    if(btn == "yes"){
+
+                                                                                        Ext.Ajax.request({
+                                                                                            url: GLOBAL.urlPrefix + "alm/project/jenkins/sync/" + almConstants.selectRow.get("projectCode"),
+                                                                                            method : "GET",
+                                                                                            disableCaching : true,
+                                                                                            waitMsg: 'Package Reload...',
+                                                                                            timeout: 300000,
+                                                                                            success: function(response){
+                                                                                                var msg = Ext.JSON.decode(response.responseText).msg;
+                                                                                                Ext.MessageBox.alert('알림', msg);
+                                                                                            }
+                                                                                        });
+                                                                                    }
+
+                                                                                });
+
+                                                                            },
+                                                                            cls: 'auth-write',
+                                                                            text: 'Sync Jenkins'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'button',
+                                                                            handler: function(button, e) {
                                                                                 var almGroupUsersWindow = Ext.create("widget.AlmUsersWindow");
 
                                                                                 almGroupUsersWindow.show();

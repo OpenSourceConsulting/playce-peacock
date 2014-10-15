@@ -773,7 +773,7 @@ Ext.define('MyApp.controller.InstancesController', {
 
     },
 
-    viewInstanceMonitoringPopup: function(type) {
+    viewInstanceMonitoringPopup: function(type, machineId, timeRange) {
 
         //Instance Chart Popup
 
@@ -807,10 +807,18 @@ Ext.define('MyApp.controller.InstancesController', {
             type = Ext.getCmp("instanceMonitoringType").getValue();
         }
 
+        if(machineId) {
+            Ext.getCmp("instanceMonitoringMarchineId").setValue(machineId);
+        }
+
+        if(timeRange) {
+            Ext.getCmp("comboTimeRange").setValue(timeRange);
+        }
+
         var chartStore = Ext.getStore("MonitoringPopupStore");
 
         chartStore.getProxy().extraParams = {
-            machineId : instancesConstants.selectRow.get("machineId"),
+            machineId : Ext.getCmp("instanceMonitoringMarchineId").getValue(),
             timeRange : Ext.getCmp("comboTimeRange").getValue(),
             period    : Ext.getCmp("comboTimePeriod").getValue()
         };

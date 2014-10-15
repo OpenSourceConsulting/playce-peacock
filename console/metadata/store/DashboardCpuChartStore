@@ -32,7 +32,8 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "cpuUsed"
+                "name": "cpuUsed",
+                "type": "float"
             },
             "designerId": "1f45dac3-9651-4b65-b4ea-43a3fa47673d"
         },
@@ -44,7 +45,8 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "cpuFree"
+                "name": "cpuFree",
+                "type": "float"
             },
             "designerId": "18c2e0fd-5164-466f-a9a7-6fd0f856dc09"
         }
