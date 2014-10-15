@@ -36,6 +36,7 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.athena.peacock.controller.common.component.RHEVMRestTemplate;
 import com.athena.peacock.controller.common.component.RHEVMRestTemplateManager;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 import com.athena.peacock.controller.web.common.model.SimpleJsonResponse;
@@ -71,8 +72,31 @@ public class HypervisorController {
 	@RequestMapping("/list")
 	public @ResponseBody GridJsonResponse list(GridJsonResponse jsonRes) throws Exception {
 		List<HypervisorDto> hypervisorList = hypervisorService.getHypervisorList();
+		List<RHEVMRestTemplate> templateList = RHEVMRestTemplateManager.getAllTemplates();
 		
-		RHEVMRestTemplateManager.resetRHEVMRestTemplate(hypervisorList);
+		int matchCnt = 0;
+		
+		if (hypervisorList.size() == templateList.size()) {
+			for (HypervisorDto hypervisor : hypervisorList) {
+				for (RHEVMRestTemplate template : templateList) {
+					if (hypervisor.getRhevmHost().equals(template.getHost()) &&
+							hypervisor.getRhevmProtocol().equals(template.getProtocol()) &&
+							hypervisor.getRhevmPort().equals(template.getPort()) &&
+							hypervisor.getRhevmDomain().equals(template.getDomain()) &&
+							hypervisor.getRhevmUsername().equals(template.getUsername()) &&
+							hypervisor.getRhevmPassword().equals(template.getPassword())) {
+						
+						matchCnt++;
+						break;
+					}
+				}
+			}
+		}
+		
+		// 기존 RHEVMRestTemplate의 갱신이 필요한 경우
+		if (hypervisorList.size() != templateList.size() || hypervisorList.size() != matchCnt) {
+			RHEVMRestTemplateManager.resetRHEVMRestTemplate(hypervisorList);
+		}
 		
 		jsonRes.setTotal(hypervisorList.size());
 		jsonRes.setList(hypervisorList);

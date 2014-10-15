@@ -105,32 +105,44 @@ public class RHEVMRestTemplate {
 		}
 	}
 	
-	/**
-	 * @return the hypervisorId
-	 */
 	public Integer getHypervisorId() {
 		return hypervisorId;
 	}
 
-	/**
-	 * @param hypervisorId the hypervisorId to set
-	 */
 	public void setHypervisorId(Integer hypervisorId) {
 		this.hypervisorId = hypervisorId;
 	}
 
-	/**
-	 * @return the rhevmName
-	 */
 	public String getRhevmName() {
 		return rhevmName;
 	}
 
-	/**
-	 * @param rhevmName the rhevmName to set
-	 */
 	public void setRhevmName(String rhevmName) {
 		this.rhevmName = rhevmName;
+	}
+
+	public String getProtocol() {
+		return protocol;
+	}
+
+	public String getHost() {
+		return host;
+	}
+
+	public String getDomain() {
+		return domain;
+	}
+
+	public String getPort() {
+		return port;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public String getPassword() {
+		return password;
 	}
 
 	public int getMajor() {
