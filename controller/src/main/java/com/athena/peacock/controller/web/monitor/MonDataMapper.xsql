@@ -188,8 +188,8 @@
 	<select id="getTop5CpuList" resultType="com.athena.peacock.controller.web.dashboard.TopMonitorDto">
 		SELECT * 
 		  FROM (SELECT (SELECT t.DISPLAY_NAME FROM machine_tbl t WHERE t.MACHINE_ID = a.MACHINE_ID) AS instanceName
-					   , FORMAT(FLOOR(AVG(a.MON_DATA_VALUE)), 0) AS free
-					   , FORMAT(FLOOR(AVG(b.MON_DATA_VALUE)), 0) AS used
+					   , ROUND(AVG(a.MON_DATA_VALUE), 1) AS free
+					   , ROUND(AVG(b.MON_DATA_VALUE), 1) AS used
 				  FROM mon_data_tbl a JOIN mon_data_tbl b
 					ON a.MACHINE_ID = b.MACHINE_ID
 				   AND a.REG_DT = b.REG_DT
@@ -204,8 +204,8 @@
 	
 	<select id="getTop5MemoryList" resultType="com.athena.peacock.controller.web.dashboard.TopMonitorDto">
 		SELECT A.instanceName
-			   , FORMAT(FLOOR(A.free), 0) AS free
-		       , (100 - FORMAT(FLOOR(A.free), 0)) AS used
+			   , ROUND(A.free, 1) AS free
+		       , ROUND((100.0 - A.free), 1) AS used
 		  FROM (SELECT (SELECT t.DISPLAY_NAME FROM machine_tbl t WHERE t.MACHINE_ID = a.MACHINE_ID) AS instanceName
 					   , AVG(a.MON_DATA_VALUE / b.MON_DATA_VALUE * 100) AS free
 				  FROM mon_data_tbl a JOIN mon_data_tbl b
@@ -222,8 +222,8 @@
 	
 	<select id="getTop5DiskList" resultType="com.athena.peacock.controller.web.dashboard.TopMonitorDto">
 		SELECT A.instanceName
-		       , (100 - FORMAT(FLOOR(A.used), 0)) AS free
-		       , FORMAT(FLOOR(A.used), 0) AS used
+		       , ROUND((100.0 - A.used), 1) AS free
+			   , ROUND(A.used, 1) AS used
 		  FROM (SELECT (SELECT t.DISPLAY_NAME FROM machine_tbl t WHERE t.MACHINE_ID = a.MACHINE_ID) AS instanceName
 					   , AVG(a.MON_DATA_VALUE / b.MON_DATA_VALUE * 100) AS used
 				  FROM mon_data_tbl a JOIN mon_data_tbl b

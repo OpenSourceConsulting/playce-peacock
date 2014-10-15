@@ -33,8 +33,8 @@ package com.athena.peacock.controller.web.dashboard;
 public class TopMonitorDto {
 
 	private String instanceName;
-	private int used;
-	private int free;
+	private String used;
+	private String free;
 	
 	/**
 	 * @return the instanceName
@@ -51,25 +51,25 @@ public class TopMonitorDto {
 	/**
 	 * @return the used
 	 */
-	public int getUsed() {
+	public String getUsed() {
 		return used;
 	}
 	/**
 	 * @param used the used to set
 	 */
-	public void setUsed(int used) {
+	public void setUsed(String used) {
 		this.used = used;
 	}
 	/**
 	 * @return the free
 	 */
-	public int getFree() {
+	public String getFree() {
 		return free;
 	}
 	/**
 	 * @param free the free to set
 	 */
-	public void setFree(int free) {
+	public void setFree(String free) {
 		this.free = free;
 	}
 }
