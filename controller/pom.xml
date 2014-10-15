@@ -184,6 +184,10 @@
 			<id>local</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
+				<property>
+					<name>mode</name>
+					<value>local</value>
+				</property>
 			</activation>
 			<build>
 				<filters>
