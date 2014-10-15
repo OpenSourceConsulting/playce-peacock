@@ -29,6 +29,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -40,6 +42,7 @@ import com.athena.peacock.controller.web.alm.crowd.dto.ProjectUserDto;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
+import com.athena.peacock.controller.web.rhevm.RHEVMService;
 import com.atlassian.crowd.embedded.api.PasswordCredential;
 import com.atlassian.crowd.exception.ApplicationPermissionException;
 import com.atlassian.crowd.exception.GroupNotFoundException;
@@ -74,6 +77,9 @@ import com.atlassian.crowd.service.client.CrowdClient;
  */
 @Service
 public class AlmCrowdService {
+
+	protected final Logger logger = LoggerFactory
+			.getLogger(AlmCrowdService.class);
 
 	@Value("#{contextProperties['alm.crowd.url']}")
 	private String crowdUrl;
@@ -375,8 +381,8 @@ public class AlmCrowdService {
 			response.setSuccess(false);
 			response.setMsg("UserNotFoundException");
 		} catch (InvalidCredentialException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.info("Crowd Excpetion" + e.getMessage());
+
 		}
 
 		return response;
@@ -545,8 +551,7 @@ public class AlmCrowdService {
 			users = crowdClient.getUsersOfGroup(groupname, 0, 10000);
 		} catch (GroupNotFoundException | ApplicationPermissionException
 				| InvalidAuthenticationException | OperationFailedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.info("Crowd Excpetion" + e.getMessage());
 		}
 		return users;
 
@@ -562,8 +567,7 @@ public class AlmCrowdService {
 		} catch (GroupNotFoundException | OperationFailedException
 				| InvalidAuthenticationException
 				| ApplicationPermissionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.info("Crowd Excpetion" + e.getMessage());
 		}
 		return null;
 

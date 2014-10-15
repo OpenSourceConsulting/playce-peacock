@@ -460,11 +460,16 @@ public class AlmProjectService {
 	public DtoJsonResponse syncJenkins(String projectCode) {
 
 		DtoJsonResponse response = new DtoJsonResponse();
-		
+		response.setMsg("Jenkins Sync 작업이 요청되었습니다");
 
 		List<User> users = crowdService.getGroupUserList(projectCode);
 
 		StringBuffer sb = new StringBuffer();
+
+		if (users == null || users.size() == 0) {
+			response.setMsg("Sync 할 User가 존재하지 않습니다.");
+			return response;
+		}
 		for (int i = 0; i < users.size(); i++) {
 
 			User user = users.get(i);
@@ -487,7 +492,6 @@ public class AlmProjectService {
 					sb.toString());
 		}
 
-		response.setMsg("Jenkins Sync 작업이 요청되었습니다");
 		return response;
 	}
 }
