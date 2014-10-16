@@ -375,7 +375,7 @@
                                                     "}"
                                                 ],
                                                 "fieldLabel": "Label",
-                                                "height": 34,
+                                                "height": null,
                                                 "hideLabel": true,
                                                 "layout": "hbox",
                                                 "width": null
@@ -393,6 +393,7 @@
                                                         "allowBlank": false,
                                                         "fieldLabel": "Project Code",
                                                         "layout|flex": 5,
+                                                        "msgTarget": "under",
                                                         "name": "projectCode",
                                                         "vtype": "template"
                                                     },
@@ -518,6 +519,7 @@
                                                 "fieldLabel": "Project Name",
                                                 "labelWidth": null,
                                                 "layout|anchor": "100%",
+                                                "msgTarget": "under",
                                                 "name": "projectName",
                                                 "padding": ""
                                             },
@@ -551,6 +553,7 @@
                                                 "allowBlank": false,
                                                 "fieldLabel": "Project Description",
                                                 "layout|anchor": "100%",
+                                                "msgTarget": "under",
                                                 "name": "projectDescription"
                                             },
                                             "designerId": "6aa3ebb5-e188-439c-b32d-afb089ad74a6",
@@ -585,6 +588,7 @@
                                                 "labelWidth": null,
                                                 "layout|anchor": "100%",
                                                 "margin": "0 0 15 0",
+                                                "msgTarget": "under",
                                                 "name": "groupDescription",
                                                 "padding": ""
                                             },
@@ -733,6 +737,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "autoScroll": true,
                                 "designer|displayName": "Step 1-2Panel",
                                 "header": false,
                                 "title": "My Panel"
@@ -764,7 +769,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "bodyPadding": 10,
+                                        "bodyPadding": "10 0 10 10",
                                         "fieldDefaults": [
                                             "{",
                                             "    msgTarget: 'side',",
@@ -774,7 +779,8 @@
                                         "header": false,
                                         "id": "addProjectForm2",
                                         "itemId": "addProjectForm2",
-                                        "title": "My Form"
+                                        "title": "My Form",
+                                        "width": 745
                                     },
                                     "designerId": "708a1701-083a-468b-aafe-1b527e12dd36",
                                     "cn": [
@@ -793,6 +799,7 @@
                                                 "labelWidth": null,
                                                 "layout|anchor": "100%",
                                                 "margin": "0 0 15 0",
+                                                "msgTarget": "under",
                                                 "name": "repository",
                                                 "padding": "",
                                                 "store": "ComboAlmRepositoryStore",
@@ -829,6 +836,7 @@
                                                 "editable": false,
                                                 "fieldLabel": "Project Type",
                                                 "layout|anchor": "100%",
+                                                "msgTarget": "under",
                                                 "name": "type",
                                                 "store": "ComboProjectTypeStore",
                                                 "valueField": "value"
@@ -899,6 +907,7 @@
                                                         "editable": false,
                                                         "fieldLabel": "Template",
                                                         "layout|anchor": "100%",
+                                                        "msgTarget": "under",
                                                         "name": "serverTemplate",
                                                         "store": "ComboServerTemplateStore"
                                                     },
@@ -932,6 +941,7 @@
                                                         "allowBlank": false,
                                                         "fieldLabel": "Group ID",
                                                         "layout|anchor": "100%",
+                                                        "msgTarget": "under",
                                                         "name": "serverGroupId"
                                                     },
                                                     "designerId": "6d344f54-cd11-488c-8c85-fdf6deac193a",
@@ -964,6 +974,7 @@
                                                         "allowBlank": false,
                                                         "fieldLabel": "Artifact ID",
                                                         "layout|anchor": "100%",
+                                                        "msgTarget": "under",
                                                         "name": "serverArtifactId"
                                                     },
                                                     "designerId": "c424272e-6665-4f2e-a8f5-66628e2e02ed",
@@ -996,6 +1007,7 @@
                                                         "allowBlank": false,
                                                         "fieldLabel": "Package",
                                                         "layout|anchor": "100%",
+                                                        "msgTarget": "under",
                                                         "name": "serverPackage"
                                                     },
                                                     "designerId": "af1effb4-1e10-49e1-83d8-5215f3de7ebd",
@@ -1029,7 +1041,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "bodyPadding": 10,
+                                        "bodyPadding": "10 0 10 10",
                                         "fieldDefaults": [
                                             "{",
                                             "    msgTarget: 'side',",
@@ -1039,7 +1051,8 @@
                                         "header": false,
                                         "id": "addProjectForm3",
                                         "itemId": "addProjectForm3",
-                                        "title": "My Form"
+                                        "title": "My Form",
+                                        "width": 745
                                     },
                                     "designerId": "42315413-baa2-4b03-a680-16a6f9dcf811",
                                     "cn": [
@@ -1069,6 +1082,7 @@
                                                         "editable": false,
                                                         "fieldLabel": "Template",
                                                         "layout|anchor": "100%",
+                                                        "msgTarget": "under",
                                                         "name": "mobileTemplate",
                                                         "store": "ComboServerTemplateStore"
                                                     },
@@ -1102,6 +1116,7 @@
                                                         "allowBlank": false,
                                                         "fieldLabel": "Group ID",
                                                         "layout|anchor": "100%",
+                                                        "msgTarget": "under",
                                                         "name": "mobileGroupId"
                                                     },
                                                     "designerId": "9d9f3125-748a-4f5b-a545-70f85ba89d82",
@@ -1134,6 +1149,7 @@
                                                         "allowBlank": false,
                                                         "fieldLabel": "Artifact ID",
                                                         "layout|anchor": "100%",
+                                                        "msgTarget": "under",
                                                         "name": "mobileArtifactId"
                                                     },
                                                     "designerId": "d26bb9d6-4a2b-40ef-b48b-7235f6ecd4fd",
@@ -1166,6 +1182,7 @@
                                                         "allowBlank": false,
                                                         "fieldLabel": "Package",
                                                         "layout|anchor": "100%",
+                                                        "msgTarget": "under",
                                                         "name": "mobilePackage"
                                                     },
                                                     "designerId": "e776b13d-8cc2-458b-9d39-2a82b273929f",

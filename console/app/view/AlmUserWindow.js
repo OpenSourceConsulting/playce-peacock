@@ -45,6 +45,7 @@ Ext.define('MyApp.view.AlmUserWindow', {
                     xtype: 'panel',
                     flex: 1,
                     region: 'center',
+                    autoScroll: true,
                     header: false,
                     title: 'almUserPanel',
                     items: [
@@ -52,7 +53,8 @@ Ext.define('MyApp.view.AlmUserWindow', {
                             xtype: 'form',
                             id: 'popAlmUserForm',
                             itemId: 'popAlmUserForm',
-                            bodyPadding: 15,
+                            width: 415,
+                            bodyPadding: '15 0 15 15',
                             fieldDefaults: {
                                 msgTarget: 'side',
                                 labelWidth: 120
@@ -66,6 +68,7 @@ Ext.define('MyApp.view.AlmUserWindow', {
                                     ],
                                     fieldLabel: 'User ID',
                                     labelWidth: 120,
+                                    msgTarget: 'under',
                                     name: 'name',
                                     allowBlank: false
                                 },
@@ -77,6 +80,7 @@ Ext.define('MyApp.view.AlmUserWindow', {
                                     ],
                                     fieldLabel: 'User Name',
                                     labelWidth: 120,
+                                    msgTarget: 'under',
                                     name: 'displayName',
                                     allowBlank: false
                                 },
@@ -87,6 +91,7 @@ Ext.define('MyApp.view.AlmUserWindow', {
                                         '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                     ],
                                     fieldLabel: 'First Name',
+                                    msgTarget: 'under',
                                     name: 'firstName',
                                     allowBlank: false
                                 },
@@ -97,6 +102,7 @@ Ext.define('MyApp.view.AlmUserWindow', {
                                         '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                     ],
                                     fieldLabel: 'Last Name',
+                                    msgTarget: 'under',
                                     name: 'lastName',
                                     allowBlank: false
                                 },
@@ -108,6 +114,7 @@ Ext.define('MyApp.view.AlmUserWindow', {
                                     ],
                                     fieldLabel: 'Password',
                                     labelWidth: 120,
+                                    msgTarget: 'under',
                                     name: 'password',
                                     inputType: 'password',
                                     allowBlank: false
@@ -120,6 +127,7 @@ Ext.define('MyApp.view.AlmUserWindow', {
                                     ],
                                     fieldLabel: 'Confirm Password',
                                     labelWidth: 120,
+                                    msgTarget: 'under',
                                     name: 'confirmPassword',
                                     submitValue: false,
                                     inputType: 'password',
@@ -134,6 +142,7 @@ Ext.define('MyApp.view.AlmUserWindow', {
                                     ],
                                     fieldLabel: 'EMail Address',
                                     labelWidth: 120,
+                                    msgTarget: 'under',
                                     name: 'email',
                                     allowBlank: false
                                 },
@@ -277,6 +286,8 @@ Ext.define('MyApp.view.AlmUserWindow', {
                                                     Ext.Msg.alert('Failure', msg);
                                                 }
                                             });
+
+                                        } else {
 
                                         }
                                     },

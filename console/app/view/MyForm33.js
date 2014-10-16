@@ -44,7 +44,6 @@ Ext.define('MyApp.view.MyForm33', {
             items: [
                 {
                     xtype: 'fieldcontainer',
-                    height: 34,
                     defaults: {
                         flex: 1
                     },
@@ -62,6 +61,7 @@ Ext.define('MyApp.view.MyForm33', {
                                 '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                             ],
                             fieldLabel: 'Project Code',
+                            msgTarget: 'under',
                             name: 'projectCode',
                             allowBlank: false,
                             vtype: 'template',
@@ -125,6 +125,7 @@ Ext.define('MyApp.view.MyForm33', {
                         '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                     ],
                     fieldLabel: 'Project Name',
+                    msgTarget: 'under',
                     name: 'projectName',
                     allowBlank: false
                 },
@@ -137,6 +138,7 @@ Ext.define('MyApp.view.MyForm33', {
                         '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                     ],
                     fieldLabel: 'Project Description',
+                    msgTarget: 'under',
                     name: 'projectDescription',
                     allowBlank: false
                 },
@@ -149,6 +151,7 @@ Ext.define('MyApp.view.MyForm33', {
                         '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                     ],
                     fieldLabel: 'Group Description',
+                    msgTarget: 'under',
                     name: 'groupDescription',
                     allowBlank: false
                 },
@@ -161,6 +164,7 @@ Ext.define('MyApp.view.MyForm33', {
                         '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                     ],
                     fieldLabel: 'Select Repository',
+                    msgTarget: 'under',
                     name: 'repository',
                     allowBlank: false,
                     displayField: 'repositoryCode',

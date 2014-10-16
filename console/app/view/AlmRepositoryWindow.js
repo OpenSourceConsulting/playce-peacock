@@ -25,9 +25,10 @@ Ext.define('MyApp.view.AlmRepositoryWindow', {
         'Ext.button.Button'
     ],
 
-    height: 190,
+    height: 200,
     width: 470,
     resizable: false,
+    layout: 'border',
     title: 'Add Repository',
     modal: true,
 
@@ -37,53 +38,67 @@ Ext.define('MyApp.view.AlmRepositoryWindow', {
         Ext.applyIf(me, {
             items: [
                 {
-                    xtype: 'form',
-                    id: 'popRepositoryForm',
-                    itemId: 'popRepositoryForm',
-                    padding: 5,
-                    bodyPadding: 10,
+                    xtype: 'panel',
+                    flex: 1,
+                    region: 'center',
+                    autoScroll: true,
                     header: false,
-                    title: 'My Form',
-                    fieldDefaults: {
-                        msgTarget: 'side',
-                        labelWidth: 145
-                    },
+                    title: 'My Panel',
                     items: [
                         {
-                            xtype: 'textfield',
-                            anchor: '100%',
-                            afterLabelTextTpl: [
-                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-                            ],
-                            fieldLabel: 'Repository Name',
-                            name: 'repositoryCode',
-                            allowBlank: false
-                        },
-                        {
-                            xtype: 'combobox',
-                            anchor: '100%',
-                            fieldLabel: 'Repository Type',
-                            name: 'repositoryType',
-                            store: [
-                                [
-                                    '10',
-                                    'svn'
-                                ],
-                                [
-                                    '20',
-                                    'git'
-                                ]
+                            xtype: 'form',
+                            id: 'popRepositoryForm',
+                            itemId: 'popRepositoryForm',
+                            padding: 5,
+                            width: 435,
+                            bodyPadding: '10 0 10 10',
+                            header: false,
+                            title: 'My Form',
+                            fieldDefaults: {
+                                msgTarget: 'side',
+                                labelWidth: 145
+                            },
+                            items: [
+                                {
+                                    xtype: 'textfield',
+                                    anchor: '100%',
+                                    afterLabelTextTpl: [
+                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                    ],
+                                    fieldLabel: 'Repository Name',
+                                    msgTarget: 'under',
+                                    name: 'repositoryCode',
+                                    allowBlank: false
+                                },
+                                {
+                                    xtype: 'combobox',
+                                    anchor: '100%',
+                                    fieldLabel: 'Repository Type',
+                                    msgTarget: 'under',
+                                    name: 'repositoryType',
+                                    store: [
+                                        [
+                                            '10',
+                                            'svn'
+                                        ],
+                                        [
+                                            '20',
+                                            'git'
+                                        ]
+                                    ]
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    anchor: '100%',
+                                    afterLabelTextTpl: [
+                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                    ],
+                                    fieldLabel: 'Repository Description',
+                                    msgTarget: 'under',
+                                    name: 'repositoryDescription',
+                                    allowBlank: false
+                                }
                             ]
-                        },
-                        {
-                            xtype: 'textfield',
-                            anchor: '100%',
-                            afterLabelTextTpl: [
-                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-                            ],
-                            fieldLabel: 'Repository Description',
-                            name: 'repositoryDescription',
-                            allowBlank: false
                         }
                     ]
                 }

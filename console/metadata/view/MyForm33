@@ -40,7 +40,7 @@
                     "}"
                 ],
                 "fieldLabel": "Label",
-                "height": 34,
+                "height": null,
                 "hideLabel": true,
                 "layout": "hbox",
                 "width": null
@@ -58,6 +58,7 @@
                         "allowBlank": false,
                         "fieldLabel": "Project Code",
                         "layout|flex": 5,
+                        "msgTarget": "under",
                         "name": "projectCode",
                         "vtype": "template"
                     },
@@ -183,6 +184,7 @@
                 "fieldLabel": "Project Name",
                 "labelWidth": null,
                 "layout|anchor": "100%",
+                "msgTarget": "under",
                 "name": "projectName",
                 "padding": ""
             },
@@ -218,6 +220,7 @@
                 "labelWidth": null,
                 "layout|anchor": "100%",
                 "margin": "0 0 15 0",
+                "msgTarget": "under",
                 "name": "projectDescription",
                 "padding": ""
             },
@@ -253,6 +256,7 @@
                 "labelWidth": null,
                 "layout|anchor": "100%",
                 "margin": "0 0 15 0",
+                "msgTarget": "under",
                 "name": "groupDescription",
                 "padding": ""
             },
@@ -289,6 +293,7 @@
                 "labelWidth": null,
                 "layout|anchor": "100%",
                 "margin": "0 0 15 0",
+                "msgTarget": "under",
                 "name": "repository",
                 "padding": "",
                 "store": "ComboAlmRepositoryStore",

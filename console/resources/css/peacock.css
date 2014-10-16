@@ -62,3 +62,7 @@ span.x-tree-node-text {
 	border-color:#add2ed !important;
 	font-weight: bold;
 }
+
+.all-view-text > div {
+	white-space:normal;
+}
