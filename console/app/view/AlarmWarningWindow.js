@@ -27,7 +27,7 @@ Ext.define('MyApp.view.AlarmWarningWindow', {
     id: '',
     width: 420,
     resizable: false,
-    title: 'Warning Alarm List',
+    title: 'Warning Alarm Status',
     modal: true,
 
     initComponent: function() {

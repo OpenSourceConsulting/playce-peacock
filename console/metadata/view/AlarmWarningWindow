@@ -13,7 +13,7 @@
         "itemId": null,
         "modal": true,
         "resizable": false,
-        "title": "Warning Alarm List",
+        "title": "Warning Alarm Status",
         "width": 420
     },
     "configAlternates": {
