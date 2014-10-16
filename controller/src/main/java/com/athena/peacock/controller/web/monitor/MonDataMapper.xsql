@@ -198,7 +198,7 @@
 				 WHERE a.REG_DT &lt;= NOW()
 				   AND a.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 1 HOUR)
 				 GROUP BY a.MACHINE_ID) A
-		 ORDER BY CAST(used AS UNSIGNED) DESC
+		 ORDER BY CAST(used AS DECIMAL(4,2)) DESC
 		 LIMIT 5
 	</select>
 	
@@ -216,7 +216,7 @@
 				 WHERE a.REG_DT &lt;= NOW()
 				   AND a.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 1 HOUR)
 				 GROUP BY a.MACHINE_ID) A
-		 ORDER BY CAST(used AS UNSIGNED) DESC
+		 ORDER BY CAST(used AS DECIMAL(4,2)) DESC
 		 LIMIT 5
 	</select>
 	
@@ -234,7 +234,7 @@
 				 WHERE a.REG_DT &lt;= NOW()
 				   AND a.REG_DT &gt;= DATE_SUB(NOW(), INTERVAL 1 HOUR)
 				 GROUP BY a.MACHINE_ID) A
-	     ORDER BY CAST(used AS UNSIGNED) DESC
+	     ORDER BY CAST(used AS DECIMAL(4,2)) DESC
 		 LIMIT 5
 	</select>
 
