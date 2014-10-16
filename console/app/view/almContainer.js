@@ -24,13 +24,13 @@ Ext.define('MyApp.view.almContainer', {
         'Ext.grid.View',
         'Ext.toolbar.Toolbar',
         'Ext.toolbar.Separator',
-        'Ext.form.field.Text',
         'Ext.grid.RowNumberer',
         'Ext.form.Label',
         'Ext.form.Panel',
         'Ext.form.field.Display',
         'Ext.toolbar.Spacer',
         'Ext.grid.column.Action',
+        'Ext.form.field.TextArea',
         'Ext.grid.plugin.CellEditing'
     ],
 
@@ -467,7 +467,7 @@ Ext.define('MyApp.view.almContainer', {
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
-                                                                    width: 500,
+                                                                    width: 300,
                                                                     dataIndex: 'exitMessage',
                                                                     text: 'ErrorMessage'
                                                                 },
@@ -672,11 +672,15 @@ Ext.define('MyApp.view.almContainer', {
                                                             columns: [
                                                                 {
                                                                     xtype: 'gridcolumn',
+                                                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                                                        metaData.css = "all-view-text";
+                                                                        return value;
+                                                                    },
                                                                     width: 600,
                                                                     dataIndex: 'message',
                                                                     text: 'Message',
                                                                     editor: {
-                                                                        xtype: 'textfield'
+                                                                        xtype: 'textareafield'
                                                                     }
                                                                 },
                                                                 {

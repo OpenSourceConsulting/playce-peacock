@@ -8,7 +8,7 @@
     "userConfig": {
         "designer|userAlias": "AlmProjectWindow",
         "designer|userClassName": "AlmProjectWindow",
-        "height": 270,
+        "height": 290,
         "id": "AlmProjectWindow",
         "itemId": "AlmProjectWindow",
         "layout": "border",
@@ -30,6 +30,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "autoScroll": true,
                 "header": false,
                 "layout|flex": 1,
                 "layout|region": "center",
@@ -44,6 +45,10 @@
                         "type": "array"
                     },
                     "codeClass": null,
+                    "userConfig": {
+                        "bodyPadding": "15 0 15 15",
+                        "width": 365
+                    },
                     "designerId": "542e799b-8ce1-49ec-8094-e8cb6beea45b",
                     "masterInstanceId": "5cb7ae82-c1fe-4450-a2c5-6352d3ba220d"
                 },

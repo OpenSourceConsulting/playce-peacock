@@ -184,7 +184,6 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                             items: [
                                                 {
                                                     xtype: 'fieldcontainer',
-                                                    height: 34,
                                                     defaults: {
                                                         flex: 1
                                                     },
@@ -202,6 +201,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                                 '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                                             ],
                                                             fieldLabel: 'Project Code',
+                                                            msgTarget: 'under',
                                                             name: 'projectCode',
                                                             allowBlank: false,
                                                             vtype: 'template',
@@ -265,6 +265,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                         '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                                     ],
                                                     fieldLabel: 'Project Name',
+                                                    msgTarget: 'under',
                                                     name: 'projectName',
                                                     allowBlank: false
                                                 },
@@ -275,6 +276,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                         '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                                     ],
                                                     fieldLabel: 'Project Description',
+                                                    msgTarget: 'under',
                                                     name: 'projectDescription',
                                                     allowBlank: false
                                                 },
@@ -287,6 +289,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                         '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                                     ],
                                                     fieldLabel: 'Group Description',
+                                                    msgTarget: 'under',
                                                     name: 'groupDescription',
                                                     allowBlank: false
                                                 }
@@ -340,6 +343,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                 },
                                 {
                                     xtype: 'panel',
+                                    autoScroll: true,
                                     header: false,
                                     title: 'My Panel',
                                     items: [
@@ -353,7 +357,8 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                             xtype: 'form',
                                             id: 'addProjectForm2',
                                             itemId: 'addProjectForm2',
-                                            bodyPadding: 10,
+                                            width: 745,
+                                            bodyPadding: '10 0 10 10',
                                             header: false,
                                             title: 'My Form',
                                             fieldDefaults: {
@@ -370,6 +375,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                         '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                                     ],
                                                     fieldLabel: 'Select Repository',
+                                                    msgTarget: 'under',
                                                     name: 'repository',
                                                     allowBlank: false,
                                                     editable: false,
@@ -384,6 +390,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                         '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                                     ],
                                                     fieldLabel: 'Project Type',
+                                                    msgTarget: 'under',
                                                     name: 'type',
                                                     allowBlank: false,
                                                     editable: false,
@@ -408,6 +415,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                                 '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                                             ],
                                                             fieldLabel: 'Template',
+                                                            msgTarget: 'under',
                                                             name: 'serverTemplate',
                                                             allowBlank: false,
                                                             editable: false,
@@ -420,6 +428,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                                 '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                                             ],
                                                             fieldLabel: 'Group ID',
+                                                            msgTarget: 'under',
                                                             name: 'serverGroupId',
                                                             allowBlank: false
                                                         },
@@ -430,6 +439,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                                 '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                                             ],
                                                             fieldLabel: 'Artifact ID',
+                                                            msgTarget: 'under',
                                                             name: 'serverArtifactId',
                                                             allowBlank: false
                                                         },
@@ -440,6 +450,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                                 '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                                             ],
                                                             fieldLabel: 'Package',
+                                                            msgTarget: 'under',
                                                             name: 'serverPackage',
                                                             allowBlank: false
                                                         }
@@ -451,7 +462,8 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                             xtype: 'form',
                                             id: 'addProjectForm3',
                                             itemId: 'addProjectForm3',
-                                            bodyPadding: 10,
+                                            width: 745,
+                                            bodyPadding: '10 0 10 10',
                                             header: false,
                                             title: 'My Form',
                                             fieldDefaults: {
@@ -472,6 +484,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                                 '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                                             ],
                                                             fieldLabel: 'Template',
+                                                            msgTarget: 'under',
                                                             name: 'mobileTemplate',
                                                             allowBlank: false,
                                                             editable: false,
@@ -484,6 +497,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                                 '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                                             ],
                                                             fieldLabel: 'Group ID',
+                                                            msgTarget: 'under',
                                                             name: 'mobileGroupId',
                                                             allowBlank: false
                                                         },
@@ -494,6 +508,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                                 '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                                             ],
                                                             fieldLabel: 'Artifact ID',
+                                                            msgTarget: 'under',
                                                             name: 'mobileArtifactId',
                                                             allowBlank: false
                                                         },
@@ -504,6 +519,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                                 '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                                             ],
                                                             fieldLabel: 'Package',
+                                                            msgTarget: 'under',
                                                             name: 'mobilePackage',
                                                             allowBlank: false
                                                         }

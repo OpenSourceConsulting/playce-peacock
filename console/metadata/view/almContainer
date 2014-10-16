@@ -1075,7 +1075,7 @@
                                                             "userConfig": {
                                                                 "dataIndex": "exitMessage",
                                                                 "text": "ErrorMessage",
-                                                                "width": 500
+                                                                "width": 300
                                                             },
                                                             "designerId": "ec025437-3cdd-4eb7-829d-186166095b62"
                                                         },
@@ -1586,13 +1586,38 @@
                                                             "designerId": "1c534384-5bba-43bd-8e9d-71ef32d48afa",
                                                             "cn": [
                                                                 {
-                                                                    "type": "Ext.form.field.Text",
+                                                                    "type": "fixedfunction",
+                                                                    "reference": {
+                                                                        "name": "items",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "designer|params": [
+                                                                            "value",
+                                                                            "metaData",
+                                                                            "record",
+                                                                            "rowIndex",
+                                                                            "colIndex",
+                                                                            "store",
+                                                                            "view"
+                                                                        ],
+                                                                        "fn": "renderer",
+                                                                        "implHandler": [
+                                                                            "metaData.css = \"all-view-text\";",
+                                                                            "return value;"
+                                                                        ]
+                                                                    },
+                                                                    "designerId": "1beb00c8-979e-4640-8e50-9f7f91b0d1ac"
+                                                                },
+                                                                {
+                                                                    "type": "Ext.form.field.TextArea",
                                                                     "reference": {
                                                                         "name": "editor",
                                                                         "type": "object"
                                                                     },
                                                                     "codeClass": null,
-                                                                    "designerId": "0edd9abf-ee81-424d-bd97-d32706a019fa"
+                                                                    "designerId": "3fc0dcf4-ce00-4341-945b-06e0c21379b3"
                                                                 }
                                                             ]
                                                         },

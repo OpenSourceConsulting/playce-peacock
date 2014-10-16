@@ -8,7 +8,8 @@
     "userConfig": {
         "designer|userAlias": "AlmRepositoryWindow",
         "designer|userClassName": "AlmRepositoryWindow",
-        "height": 190,
+        "height": 200,
+        "layout": "border",
         "modal": true,
         "resizable": false,
         "title": "Add Repository",
@@ -20,112 +21,135 @@
     "designerId": "dd0fce27-4652-4d03-aac8-09585e31ff23",
     "cn": [
         {
-            "type": "Ext.form.Panel",
+            "type": "Ext.panel.Panel",
             "reference": {
                 "name": "items",
                 "type": "array"
             },
             "codeClass": null,
             "userConfig": {
-                "bodyPadding": 10,
-                "fieldDefaults": [
-                    "{",
-                    "    msgTarget: 'side',",
-                    "    labelWidth: 145",
-                    "}"
-                ],
+                "autoScroll": true,
                 "header": false,
-                "id": "popRepositoryForm",
-                "itemId": "popRepositoryForm",
-                "padding": 5,
-                "title": "My Form"
+                "layout|flex": 1,
+                "layout|region": "center",
+                "title": "My Panel"
             },
-            "designerId": "57f928d0-a63e-4421-bb3c-4eed1423b7a9",
+            "designerId": "c4c76805-0b44-484a-b361-29baf3eeca9f",
             "cn": [
                 {
-                    "type": "Ext.form.field.Text",
+                    "type": "Ext.form.Panel",
                     "reference": {
                         "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "allowBlank": false,
-                        "fieldLabel": "Repository Name",
-                        "layout|anchor": "100%",
-                        "name": "repositoryCode"
+                        "bodyPadding": "10 0 10 10",
+                        "fieldDefaults": [
+                            "{",
+                            "    msgTarget: 'side',",
+                            "    labelWidth: 145",
+                            "}"
+                        ],
+                        "header": false,
+                        "height": null,
+                        "id": "popRepositoryForm",
+                        "itemId": "popRepositoryForm",
+                        "padding": 5,
+                        "title": "My Form",
+                        "width": 435
                     },
-                    "designerId": "21920810-b1a3-45e5-878d-1ee383373e51",
+                    "designerId": "57f928d0-a63e-4421-bb3c-4eed1423b7a9",
                     "cn": [
                         {
-                            "type": "Ext.XTemplate",
+                            "type": "Ext.form.field.Text",
                             "reference": {
-                                "name": "afterLabelTextTpl",
-                                "type": "object"
+                                "name": "items",
+                                "type": "array"
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "designer|displayName": "afterLabelTextTpl",
-                                "implHandler": [
-                                    "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
-                                ]
+                                "allowBlank": false,
+                                "fieldLabel": "Repository Name",
+                                "layout|anchor": "100%",
+                                "msgTarget": "under",
+                                "name": "repositoryCode"
                             },
-                            "designerId": "9a7c6284-ce7c-408c-b582-a97bfcd804c7"
-                        }
-                    ]
-                },
-                {
-                    "type": "Ext.form.field.ComboBox",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "fieldLabel": "Repository Type",
-                        "layout|anchor": "100%",
-                        "name": "repositoryType",
-                        "store": [
-                            "[",
-                            "    [\"10\", \"svn\"],",
-                            "    [\"20\", \"git\"]",
-                            "]"
-                        ]
-                    },
-                    "configAlternates": {
-                        "store": "array"
-                    },
-                    "designerId": "017eca28-7c3c-4ac6-a6e5-32ff12828ac2"
-                },
-                {
-                    "type": "Ext.form.field.Text",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "allowBlank": false,
-                        "fieldLabel": "Repository Description",
-                        "layout|anchor": "100%",
-                        "name": "repositoryDescription"
-                    },
-                    "designerId": "5ed70cde-774f-46e9-8ea5-a154de7721e6",
-                    "cn": [
+                            "designerId": "21920810-b1a3-45e5-878d-1ee383373e51",
+                            "cn": [
+                                {
+                                    "type": "Ext.XTemplate",
+                                    "reference": {
+                                        "name": "afterLabelTextTpl",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "afterLabelTextTpl",
+                                        "implHandler": [
+                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                        ]
+                                    },
+                                    "designerId": "9a7c6284-ce7c-408c-b582-a97bfcd804c7"
+                                }
+                            ]
+                        },
                         {
-                            "type": "Ext.XTemplate",
+                            "type": "Ext.form.field.ComboBox",
                             "reference": {
-                                "name": "afterLabelTextTpl",
-                                "type": "object"
+                                "name": "items",
+                                "type": "array"
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "designer|displayName": "afterLabelTextTpl",
-                                "implHandler": [
-                                    "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                "fieldLabel": "Repository Type",
+                                "layout|anchor": "100%",
+                                "msgTarget": "under",
+                                "name": "repositoryType",
+                                "store": [
+                                    "[",
+                                    "    [\"10\", \"svn\"],",
+                                    "    [\"20\", \"git\"]",
+                                    "]"
                                 ]
                             },
-                            "designerId": "2fbd0511-21d1-43e7-bd99-62ea147c436c"
+                            "configAlternates": {
+                                "store": "array"
+                            },
+                            "designerId": "017eca28-7c3c-4ac6-a6e5-32ff12828ac2"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "fieldLabel": "Repository Description",
+                                "layout|anchor": "100%",
+                                "msgTarget": "under",
+                                "name": "repositoryDescription"
+                            },
+                            "designerId": "5ed70cde-774f-46e9-8ea5-a154de7721e6",
+                            "cn": [
+                                {
+                                    "type": "Ext.XTemplate",
+                                    "reference": {
+                                        "name": "afterLabelTextTpl",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "afterLabelTextTpl",
+                                        "implHandler": [
+                                            "<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>"
+                                        ]
+                                    },
+                                    "designerId": "2fbd0511-21d1-43e7-bd99-62ea147c436c"
+                                }
+                            ]
                         }
                     ]
                 }

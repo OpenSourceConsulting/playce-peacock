@@ -26,6 +26,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "autoScroll": true,
                 "header": false,
                 "layout|flex": 1,
                 "layout|region": "center",
@@ -41,7 +42,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "bodyPadding": 15,
+                        "bodyPadding": "15 0 15 15",
                         "fieldDefaults": [
                             "{",
                             "    msgTarget: 'side',",
@@ -51,7 +52,8 @@
                         "height": null,
                         "id": "popAlmUserForm",
                         "itemId": "popAlmUserForm",
-                        "title": null
+                        "title": null,
+                        "width": 415
                     },
                     "designerId": "0e26ee2a-24dd-4ae2-8905-245463378dd9",
                     "cn": [
@@ -67,6 +69,7 @@
                                 "fieldLabel": "User ID",
                                 "labelWidth": 120,
                                 "layout|anchor": "100%",
+                                "msgTarget": "under",
                                 "name": "name"
                             },
                             "designerId": "c22c6513-50d9-478e-9345-1300cbb5b64a",
@@ -100,6 +103,7 @@
                                 "fieldLabel": "User Name",
                                 "labelWidth": 120,
                                 "layout|anchor": "100%",
+                                "msgTarget": "under",
                                 "name": "displayName"
                             },
                             "designerId": "a16d245d-e5a4-460f-98d8-ebe7c698e505",
@@ -132,6 +136,7 @@
                                 "allowBlank": false,
                                 "fieldLabel": "First Name",
                                 "layout|anchor": "100%",
+                                "msgTarget": "under",
                                 "name": "firstName"
                             },
                             "designerId": "a31d0137-09bc-4144-b732-a7efb319c700",
@@ -164,6 +169,7 @@
                                 "allowBlank": false,
                                 "fieldLabel": "Last Name",
                                 "layout|anchor": "100%",
+                                "msgTarget": "under",
                                 "name": "lastName"
                             },
                             "designerId": "da0d5002-8315-47ef-bcda-752b5733957d",
@@ -198,6 +204,7 @@
                                 "inputType": "password",
                                 "labelWidth": 120,
                                 "layout|anchor": "100%",
+                                "msgTarget": "under",
                                 "name": "password"
                             },
                             "designerId": "d6455432-77f4-45f2-8ed9-82f5092b98dd",
@@ -232,6 +239,7 @@
                                 "inputType": "password",
                                 "labelWidth": 120,
                                 "layout|anchor": "100%",
+                                "msgTarget": "under",
                                 "name": "confirmPassword",
                                 "submitValue": false,
                                 "vtype": "password"
@@ -267,6 +275,7 @@
                                 "fieldLabel": "EMail Address",
                                 "labelWidth": 120,
                                 "layout|anchor": "100%",
+                                "msgTarget": "under",
                                 "name": "email"
                             },
                             "designerId": "ca244840-2270-4107-8e58-5395593736ce",
@@ -434,6 +443,8 @@
                                             "        }",
                                             "     });",
                                             "",
+                                            "} else {",
+                                            "    ",
                                             "}"
                                         ]
                                     },

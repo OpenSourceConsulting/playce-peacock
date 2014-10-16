@@ -24,7 +24,7 @@ Ext.define('MyApp.view.AlmProjectWindow', {
         'Ext.button.Button'
     ],
 
-    height: 270,
+    height: 290,
     id: 'AlmProjectWindow',
     itemId: 'AlmProjectWindow',
     width: 400,
@@ -42,11 +42,14 @@ Ext.define('MyApp.view.AlmProjectWindow', {
                     xtype: 'panel',
                     flex: 1,
                     region: 'center',
+                    autoScroll: true,
                     header: false,
                     title: 'projectPanel',
                     items: [
                         {
-                            xtype: 'myform33'
+                            xtype: 'myform33',
+                            width: 365,
+                            bodyPadding: '15 0 15 15'
                         }
                     ],
                     dockedItems: [

@@ -30,6 +30,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "autoScroll": true,
                 "header": false,
                 "layout|flex": 1,
                 "layout|region": "center",
@@ -45,7 +46,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "bodyPadding": 15,
+                        "bodyPadding": "15 0 15 15",
                         "fieldDefaults": [
                             "{",
                             "    msgTarget: 'side',",
@@ -55,7 +56,8 @@
                         "height": null,
                         "id": "popAlmGroupForm",
                         "itemId": "popAlmGroupForm",
-                        "title": null
+                        "title": null,
+                        "width": 425
                     },
                     "designerId": "822cb25f-e66d-4cda-8ff2-6b9ea7ee1cb4",
                     "cn": [
@@ -71,6 +73,7 @@
                                 "fieldLabel": "Group Name",
                                 "labelWidth": 120,
                                 "layout|anchor": "100%",
+                                "msgTarget": "under",
                                 "name": "name"
                             },
                             "designerId": "bfad3c25-7cd7-4cde-b279-d408ae8c3fd8",
@@ -119,6 +122,7 @@
                                 "fieldLabel": "Group Description",
                                 "labelWidth": 120,
                                 "layout|anchor": "100%",
+                                "msgTarget": "under",
                                 "name": "description"
                             },
                             "designerId": "d85422f2-aa3a-496d-87e9-feb1f569c29c"

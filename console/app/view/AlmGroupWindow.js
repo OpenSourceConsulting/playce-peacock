@@ -44,6 +44,7 @@ Ext.define('MyApp.view.AlmGroupWindow', {
                     xtype: 'panel',
                     flex: 1,
                     region: 'center',
+                    autoScroll: true,
                     header: false,
                     title: 'almGroupPanel',
                     items: [
@@ -51,7 +52,8 @@ Ext.define('MyApp.view.AlmGroupWindow', {
                             xtype: 'form',
                             id: 'popAlmGroupForm',
                             itemId: 'popAlmGroupForm',
-                            bodyPadding: 15,
+                            width: 425,
+                            bodyPadding: '15 0 15 15',
                             fieldDefaults: {
                                 msgTarget: 'side',
                                 labelWidth: 120
@@ -65,6 +67,7 @@ Ext.define('MyApp.view.AlmGroupWindow', {
                                     ],
                                     fieldLabel: 'Group Name',
                                     labelWidth: 120,
+                                    msgTarget: 'under',
                                     name: 'name',
                                     allowBlank: false
                                 },
@@ -81,6 +84,7 @@ Ext.define('MyApp.view.AlmGroupWindow', {
                                     anchor: '100%',
                                     fieldLabel: 'Group Description',
                                     labelWidth: 120,
+                                    msgTarget: 'under',
                                     name: 'description'
                                 }
                             ]
