@@ -303,6 +303,7 @@ Ext.define('MyApp.view.dashboardContainer', {
                                     style: 'font-size: 14px;font-weight: bold;text-align: center;',
                                     width: 356,
                                     shadow: false,
+                                    animate: true,
                                     insetPadding: 20,
                                     store: 'DashboardMemoryChartStore',
                                     axes: [

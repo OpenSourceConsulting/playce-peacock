@@ -636,6 +636,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "animate": true,
                                 "border": null,
                                 "dock": null,
                                 "height": 250,
@@ -652,7 +653,8 @@
                             },
                             "configAlternates": {
                                 "html": "string",
-                                "style": "string"
+                                "style": "string",
+                                "animate": "boolean"
                             },
                             "designerId": "4e56aa63-41f4-4778-b3d7-dfa57db5d1b4",
                             "isBuiltIn": true,
