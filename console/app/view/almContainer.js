@@ -305,7 +305,7 @@ Ext.define('MyApp.view.almContainer', {
 
                                                                             },
                                                                             cls: 'auth-write',
-                                                                            text: 'Sync Jenkins'
+                                                                            text: 'Sync'
                                                                         },
                                                                         {
                                                                             xtype: 'button',
