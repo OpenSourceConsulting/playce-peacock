@@ -158,8 +158,12 @@ public class ShellAction extends Action {
 		} catch (CommandLineException e) {
 			logger.error("CommandLineException has occurred. : ", e);
 		}
-
-		return commandStr + "\n" + consumer.getOutput().substring(0, consumer.getOutput().length() - 1);
+		
+		if (consumer.getOutput() != null && consumer.getOutput().length() > 0) {
+			return commandStr + "\n" + consumer.getOutput().substring(0, consumer.getOutput().length() - 1);
+		} else {
+			return commandStr + "\n" + consumer.getOutput();
+		}
 	}
 	
 }
