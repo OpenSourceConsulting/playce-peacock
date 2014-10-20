@@ -94,6 +94,7 @@
 			users_tbl
 		SET
 			login_id = #{loginId}
+			,passwd = #{passwd}
 			,hashed_passwd = password(#{passwd})
 			,user_name = #{userName}
 			,dept_name = #{deptName}
