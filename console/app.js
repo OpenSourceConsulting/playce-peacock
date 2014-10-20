@@ -115,7 +115,8 @@ Ext.application({
         'AlmProjectHistoryListStore',
         'ComboProjectTypeStore',
         'ComboServerTemplateStore',
-        'ComboSoftwareCompareVersionStore'
+        'ComboSoftwareCompareVersionStore',
+        'AlmUserGroupsStore'
     ],
     views: [
         'peacockViewport',

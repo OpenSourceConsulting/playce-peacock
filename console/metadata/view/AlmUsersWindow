@@ -61,6 +61,15 @@
                     "designerId": "b080beab-f846-4a2a-8826-9c366eda9126",
                     "cn": [
                         {
+                            "type": "Ext.selection.CheckboxModel",
+                            "reference": {
+                                "name": "selModel",
+                                "type": "object"
+                            },
+                            "codeClass": "Ext.selection.CheckboxModel",
+                            "designerId": "c14eaf98-92bc-4bf9-bc9e-c601a87cb309"
+                        },
+                        {
                             "type": "Ext.grid.column.Column",
                             "reference": {
                                 "name": "columns",
@@ -265,6 +274,108 @@
                                         "layout|flex": null
                                     },
                                     "designerId": "871aa61f-8492-498e-9786-a0b31bcb3e0c"
+                                },
+                                {
+                                    "type": "Ext.button.Button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "layout|flex": null,
+                                        "text": "Add User"
+                                    },
+                                    "designerId": "4d0d6248-1252-45dd-b586-8d81d307c99b",
+                                    "cn": [
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "button",
+                                                    "e"
+                                                ],
+                                                "fn": "handler",
+                                                "implHandler": [
+                                                    "var count = Ext.getCmp(\"popAlmUsersGrid\").getSelectionModel().getSelection().length;",
+                                                    "",
+                                                    "if(count == 0) {",
+                                                    "    Ext.MessageBox.alert('알림', \"선택한 User정보가 존재하지 않습니다.\");",
+                                                    "    return;",
+                                                    "}",
+                                                    "",
+                                                    "Ext.MessageBox.confirm('Confirm', 'User를 등록 하시겠습니까?', function(btn){",
+                                                    "",
+                                                    "    if(btn == \"yes\"){",
+                                                    "        ",
+                                                    "        var records = Ext.getCmp(\"popAlmUsersGrid\").getSelectionModel().getSelection();",
+                                                    "        var userIds = \"\";",
+                                                    "        ",
+                                                    "        Ext.each(records, function(record, idx) {",
+                                                    "            if(idx > 0) userIds += \",\";",
+                                                    "            ",
+                                                    "            userIds += record.get(\"userId\");",
+                                                    "        });",
+                                                    "        ",
+                                                    "        alert(userIds);",
+                                                    "",
+                                                    "        var type = Ext.getCmp(\"addAlmUserType\").getValue();",
+                                                    "",
+                                                    "        if(type == \"group\") {",
+                                                    "",
+                                                    "            Ext.Ajax.request({",
+                                                    "                url : GLOBAL.urlPrefix + \"alm/groupmanagement/\"",
+                                                    "                        + almConstants.selectRow.get(\"name\") + \"/\" + userIds,",
+                                                    "                method: 'POST',",
+                                                    "                headers: { 'Content-Type': 'application/json' },",
+                                                    "                disableCaching : true,",
+                                                    "                waitMsg: 'Add ALM User...',",
+                                                    "                success: function(response){",
+                                                    "                    var msg = Ext.JSON.decode(response.responseText).msg;",
+                                                    "                    Ext.MessageBox.alert('알림', msg);",
+                                                    "",
+                                                    "                    Ext.getCmp(\"almGroupUserGrid\").getStore().reload();",
+                                                    "                    ",
+                                                    "                    Ext.getCmp(\"popAlmUsersGrid\").getSelectionModel().deselectAll();",
+                                                    "",
+                                                    "                }",
+                                                    "            });",
+                                                    "",
+                                                    "        } else if(type == \"project\") {",
+                                                    "",
+                                                    "            Ext.Ajax.request({",
+                                                    "                url : GLOBAL.urlPrefix + \"alm/groupmanagement/\"",
+                                                    "                        + almConstants.selectRow.get(\"projectCode\") + \"/\" + userIds,",
+                                                    "                method: 'POST',",
+                                                    "                headers: { 'Content-Type': 'application/json' },",
+                                                    "                disableCaching : true,",
+                                                    "                waitMsg: 'Add Project User...',",
+                                                    "                success: function(response){",
+                                                    "                    var msg = Ext.JSON.decode(response.responseText).msg;",
+                                                    "                    Ext.MessageBox.alert('알림', msg);",
+                                                    "",
+                                                    "                    Ext.getCmp(\"almProjectUserGrid\").getStore().reload();",
+                                                    "                    ",
+                                                    "                    Ext.getCmp(\"popAlmUsersGrid\").getSelectionModel().deselectAll();",
+                                                    "",
+                                                    "                }",
+                                                    "            });",
+                                                    "",
+                                                    "        }",
+                                                    "    }",
+                                                    "",
+                                                    "});",
+                                                    ""
+                                                ]
+                                            },
+                                            "designerId": "66138d0d-8fe5-48df-ad6a-d4b7cee3ac0d"
+                                        }
+                                    ]
                                 },
                                 {
                                     "type": "Ext.toolbar.Spacer",

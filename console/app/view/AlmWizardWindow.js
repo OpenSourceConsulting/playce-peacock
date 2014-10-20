@@ -34,6 +34,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
         'Ext.grid.column.Action',
         'Ext.grid.plugin.CellEditing',
         'Ext.grid.RowNumberer',
+        'Ext.selection.CheckboxModel',
         'Ext.toolbar.Spacer',
         'Ext.form.field.Display'
     ],
@@ -925,6 +926,15 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                             ]
                                                         }
                                                     ],
+                                                    selModel: Ext.create('Ext.selection.CheckboxModel', {
+                                                        listeners: {
+                                                            select: {
+                                                                fn: me.onCheckboxModelSelect,
+                                                                delay: 1,
+                                                                scope: me
+                                                            }
+                                                        }
+                                                    }),
                                                     dockedItems: [
                                                         {
                                                             xtype: 'toolbar',
@@ -941,6 +951,33 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                                     labelWidth: 60,
                                                                     emptyText: 'Search User Name',
                                                                     enableKeyEvents: true
+                                                                },
+                                                                {
+                                                                    xtype: 'button',
+                                                                    handler: function(button, e) {
+                                                                        var records = Ext.getCmp("wizardAddUserGrid").getSelectionModel().getSelection();
+                                                                        var userStore = Ext.getCmp("wizardSelectUserGrid").getStore();
+
+                                                                        if(records.length == 0) {
+                                                                            Ext.MessageBox.alert('알림', "선택한 User정보가 존재하지 않습니다.");
+                                                                            return;
+                                                                        }
+
+                                                                        Ext.each(records, function(record) {
+                                                                            if(userStore.find('userId', record.get('userId')) > -1) {
+                                                                                Ext.Msg.alert('Message', "이미 선택된 User 정보가 존재합니다.");
+                                                                                return;
+                                                                            }
+                                                                        });
+
+                                                                        Ext.each(records, function(record) {
+                                                                            userStore.insert(userStore.getCount(), record);
+                                                                        });
+
+
+                                                                        Ext.getCmp("wizardAddUserGrid").getSelectionModel().deselectAll();
+                                                                    },
+                                                                    text: 'Add User'
                                                                 },
                                                                 {
                                                                     xtype: 'tbspacer',
@@ -1537,6 +1574,14 @@ Ext.define('MyApp.view.AlmWizardWindow', {
             Ext.getCmp("templateFieldSet2").show();
         }else{
             Ext.getCmp("templateFieldSet2").hide();
+        }
+    },
+
+    onCheckboxModelSelect: function(rowmodel, record, index, eOpts) {
+        var userStore = Ext.getCmp("wizardSelectUserGrid").getStore();
+        if(userStore.find('userId', record.get('userId')) > -1) {
+            Ext.getCmp("wizardAddUserGrid").getSelectionModel().deselect(record);
+            Ext.Msg.alert('Message', "이미 선택된 User 정보입니다.");
         }
     }
 

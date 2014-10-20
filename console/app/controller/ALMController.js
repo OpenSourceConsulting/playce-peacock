@@ -70,7 +70,27 @@ Ext.define('MyApp.controller.ALMController', {
 
             almConstants.selectRow = record;
 
-            this.selectAlmUserGrid();
+            var userDetailPanel = Ext.getCmp("almUserDetailPanel");
+            userDetailPanel.layout.setActiveItem(1);
+
+            Ext.getCmp("almUserTabPanel").setActiveTab(0);
+
+            this.searchAlmUserDetail(0);
+        }
+    },
+
+    onAlmUserTabPanelTabChange: function(tabPanel, newCard, oldCard, eOpts) {
+
+        if(newCard.title == "Summary"){
+
+            this.searchAlmUserDetail(0);
+
+        } else {
+
+            Ext.getCmp("almUserGroupsGrid").reconfigure(Ext.getCmp("almUserGroupsGrid").store, Ext.getCmp("almUserGroupsGrid").initialConfig.columns);
+
+            this.searchAlmUserDetail(1);
+
         }
     },
 
@@ -338,6 +358,9 @@ Ext.define('MyApp.controller.ALMController', {
                 cellclick: this.onAlmUserGridCellClick,
                 beforeitemcontextmenu: this.onAlmUserGridBeforeItemContextMenu
             },
+            "#almUserTabPanel": {
+                tabchange: this.onAlmUserTabPanelTabChange
+            },
             "#almGroupGrid": {
                 beforeitemcontextmenu: this.onAlmGroupGridBeforeItemContextMenu,
                 cellclick: this.onAlmGroupGridCellClick
@@ -558,29 +581,40 @@ Ext.define('MyApp.controller.ALMController', {
         Ext.getCmp("almProjectTitleLabel").setText("<h2>"+almConstants.selectRow.get("projectName")+"</h2>", false);
     },
 
-    selectAlmUserGrid: function() {
+    searchAlmUserDetail: function(tabIdx) {
 
-        var userDetailPanel = Ext.getCmp("almUserDetailPanel");
-        userDetailPanel.layout.setActiveItem(1);
+        if(tabIdx == 0) {
 
-        //User Data Loading
+            ///user Summary Data Loading
+            var userForm = Ext.getCmp("almUserForm");
 
-        var userForm = Ext.getCmp("almUserForm");
+            userForm.getForm().reset();
 
-        userForm.getForm().reset();
+            userForm.getForm().waitMsgTarget = userForm.getEl();
+            //alert(almConstants.selectRow.get("username"))
+            userForm.getForm().load({
+                 /*params : {
+                    username : almConstants.selectRow.get("username")
+                }
+                ,*/url : GLOBAL.urlPrefix + "alm/usermanagement/" + almConstants.selectRow.get("userId")
+                ,method : 'GET'
+                ,waitMsg:'Loading...'
+            });
 
-        userForm.getForm().waitMsgTarget = userForm.getEl();
-        //alert(almConstants.selectRow.get("username"))
-        userForm.getForm().load({
-             /*params : {
-                username : almConstants.selectRow.get("username")
-            }
-            ,*/url : GLOBAL.urlPrefix + "alm/usermanagement/" + almConstants.selectRow.get("userId")
-            ,method : 'GET'
-            ,waitMsg:'Loading...'
-        });
+            Ext.getCmp("almUserTitleLabel").setText("<h2>&nbsp;&nbsp;&nbsp;"+almConstants.selectRow.get("displayName")+"</h2>", false);
 
-        Ext.getCmp("almUserTitleLabel").setText("<h2>&nbsp;&nbsp;&nbsp;"+almConstants.selectRow.get("displayName")+"</h2>", false);
+
+        } else {
+
+            var groupStore = Ext.getCmp("almUserGroupsGrid").getStore();
+            groupStore.getProxy().url = GLOBAL.urlPrefix + 'alm/usermanagement/'+almConstants.selectRow.get("userId")+'/groups';
+            groupStore.getProxy().extraParams = {
+                limit : 1
+            };
+
+            groupStore.load();
+
+        }
     },
 
     showAlmUserWindow: function(type) {

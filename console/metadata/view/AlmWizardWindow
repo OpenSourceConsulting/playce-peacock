@@ -2126,6 +2126,39 @@
                                                     "designerId": "90d980e3-9d0e-4b8e-9b28-cabf245c5f36"
                                                 },
                                                 {
+                                                    "type": "Ext.selection.CheckboxModel",
+                                                    "reference": {
+                                                        "name": "selModel",
+                                                        "type": "object"
+                                                    },
+                                                    "codeClass": "Ext.selection.CheckboxModel",
+                                                    "designerId": "d414194a-1745-4d62-8fed-2037f9a8848b",
+                                                    "cn": [
+                                                        {
+                                                            "type": "basiceventbinding",
+                                                            "reference": {
+                                                                "name": "listeners",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "delay": 1,
+                                                                "fn": "onCheckboxModelSelect",
+                                                                "implHandler": [
+                                                                    "var userStore = Ext.getCmp(\"wizardSelectUserGrid\").getStore();",
+                                                                    "if(userStore.find('userId', record.get('userId')) > -1) {",
+                                                                    "    Ext.getCmp(\"wizardAddUserGrid\").getSelectionModel().deselect(record);",
+                                                                    "    Ext.Msg.alert('Message', \"이미 선택된 User 정보입니다.\");",
+                                                                    "}"
+                                                                ],
+                                                                "name": "select",
+                                                                "scope": "me"
+                                                            },
+                                                            "designerId": "abfbcfb5-b843-4bf2-9c8b-6f47b76af8a1"
+                                                        }
+                                                    ]
+                                                },
+                                                {
                                                     "type": "Ext.grid.column.Column",
                                                     "reference": {
                                                         "name": "columns",
@@ -2296,6 +2329,60 @@
                                                                 "layout|flex": null
                                                             },
                                                             "designerId": "ddc63497-2728-46b3-94e0-9603b6e3bfc3"
+                                                        },
+                                                        {
+                                                            "type": "Ext.button.Button",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "layout|flex": null,
+                                                                "text": "Add User"
+                                                            },
+                                                            "designerId": "427579c4-51b1-4dac-9113-988118739ef0",
+                                                            "cn": [
+                                                                {
+                                                                    "type": "fixedfunction",
+                                                                    "reference": {
+                                                                        "name": "items",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "designer|params": [
+                                                                            "button",
+                                                                            "e"
+                                                                        ],
+                                                                        "fn": "handler",
+                                                                        "implHandler": [
+                                                                            "var records = Ext.getCmp(\"wizardAddUserGrid\").getSelectionModel().getSelection();",
+                                                                            "var userStore = Ext.getCmp(\"wizardSelectUserGrid\").getStore();",
+                                                                            "",
+                                                                            "if(records.length == 0) {",
+                                                                            "    Ext.MessageBox.alert('알림', \"선택한 User정보가 존재하지 않습니다.\");",
+                                                                            "    return;",
+                                                                            "}",
+                                                                            "",
+                                                                            "Ext.each(records, function(record) {",
+                                                                            "   if(userStore.find('userId', record.get('userId')) > -1) {",
+                                                                            "        Ext.Msg.alert('Message', \"이미 선택된 User 정보가 존재합니다.\");",
+                                                                            "        return;",
+                                                                            "    }",
+                                                                            "});",
+                                                                            "",
+                                                                            "Ext.each(records, function(record) {",
+                                                                            "    userStore.insert(userStore.getCount(), record);",
+                                                                            "});",
+                                                                            "",
+                                                                            "",
+                                                                            "Ext.getCmp(\"wizardAddUserGrid\").getSelectionModel().deselectAll();"
+                                                                        ]
+                                                                    },
+                                                                    "designerId": "042bab20-8cec-4551-a09c-31d59cc750fb"
+                                                                }
+                                                            ]
                                                         },
                                                         {
                                                             "type": "Ext.toolbar.Spacer",

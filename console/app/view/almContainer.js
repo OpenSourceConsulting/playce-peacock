@@ -888,64 +888,111 @@ Ext.define('MyApp.view.almContainer', {
                                             autoScroll: true,
                                             items: [
                                                 {
-                                                    xtype: 'form',
-                                                    id: 'almUserForm',
-                                                    itemId: 'almUserForm',
-                                                    padding: '',
-                                                    defaults: {
-                                                        border: false,
-                                                        xtype: 'panel',
-                                                        flex: 1,
-                                                        layout: 'anchor'
-                                                    },
-                                                    bodyPadding: 10,
-                                                    bodyStyle: 'padding:5px 5px 0',
-                                                    header: false,
-                                                    fieldDefaults: {
-                                                        msgTarget: 'side',
-                                                        margin: '0 10',
-                                                        readOnly: true,
-                                                        labelStyle: 'font-weight: bold;',
-                                                        labelSeparator: ' :'
-                                                    },
-                                                    waitMsgTarget: 'instDescForm',
+                                                    xtype: 'tabpanel',
+                                                    id: 'almUserTabPanel',
+                                                    itemId: 'almUserTabPanel',
+                                                    margin: '',
+                                                    padding: '10 10 10 10',
+                                                    style: 'background:#ffffff',
+                                                    bodyBorder: false,
+                                                    bodyPadding: '',
+                                                    activeTab: 0,
+                                                    plain: true,
                                                     items: [
                                                         {
-                                                            xtype: 'label',
-                                                            html: '<h2></h2>',
-                                                            id: 'almUserTitleLabel',
-                                                            itemId: 'almUserTitleLabel',
-                                                            padding: 1
+                                                            xtype: 'panel',
+                                                            title: 'Summary',
+                                                            items: [
+                                                                {
+                                                                    xtype: 'form',
+                                                                    id: 'almUserForm',
+                                                                    itemId: 'almUserForm',
+                                                                    padding: '',
+                                                                    defaults: {
+                                                                        border: false,
+                                                                        xtype: 'panel',
+                                                                        flex: 1,
+                                                                        layout: 'anchor'
+                                                                    },
+                                                                    bodyPadding: 8,
+                                                                    bodyStyle: 'padding:5px 5px 0',
+                                                                    header: false,
+                                                                    fieldDefaults: {
+                                                                        msgTarget: 'side',
+                                                                        margin: '0 10',
+                                                                        readOnly: true,
+                                                                        labelStyle: 'font-weight: bold;',
+                                                                        labelSeparator: ' :'
+                                                                    },
+                                                                    waitMsgTarget: 'instDescForm',
+                                                                    items: [
+                                                                        {
+                                                                            xtype: 'label',
+                                                                            html: '<h2></h2>',
+                                                                            id: 'almUserTitleLabel',
+                                                                            itemId: 'almUserTitleLabel'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'displayfield',
+                                                                            padding: '20 10 10 10',
+                                                                            fieldLabel: 'User ID',
+                                                                            name: 'name'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'displayfield',
+                                                                            padding: 10,
+                                                                            fieldLabel: 'User Name',
+                                                                            name: 'displayName'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'displayfield',
+                                                                            padding: 10,
+                                                                            fieldLabel: 'First Name',
+                                                                            name: 'firstName'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'displayfield',
+                                                                            padding: 10,
+                                                                            fieldLabel: 'Last Name',
+                                                                            name: 'lastName'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'displayfield',
+                                                                            padding: 10,
+                                                                            fieldLabel: 'Email',
+                                                                            name: 'emailAddress'
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
                                                         },
                                                         {
-                                                            xtype: 'displayfield',
-                                                            padding: 10,
-                                                            fieldLabel: 'User ID',
-                                                            name: 'name'
-                                                        },
-                                                        {
-                                                            xtype: 'displayfield',
-                                                            padding: 10,
-                                                            fieldLabel: 'User Name',
-                                                            name: 'displayName'
-                                                        },
-                                                        {
-                                                            xtype: 'displayfield',
-                                                            padding: 10,
-                                                            fieldLabel: 'First Name',
-                                                            name: 'firstName'
-                                                        },
-                                                        {
-                                                            xtype: 'displayfield',
-                                                            padding: 10,
-                                                            fieldLabel: 'Last Name',
-                                                            name: 'lastName'
-                                                        },
-                                                        {
-                                                            xtype: 'displayfield',
-                                                            padding: 10,
-                                                            fieldLabel: 'Email',
-                                                            name: 'emailAddress'
+                                                            xtype: 'panel',
+                                                            title: 'Groups',
+                                                            items: [
+                                                                {
+                                                                    xtype: 'gridpanel',
+                                                                    id: 'almUserGroupsGrid',
+                                                                    itemId: 'almUserGroupsGrid',
+                                                                    columnLines: true,
+                                                                    forceFit: true,
+                                                                    store: 'AlmUserGroupsStore',
+                                                                    columns: [
+                                                                        {
+                                                                            xtype: 'gridcolumn',
+                                                                            minWidth: 100,
+                                                                            dataIndex: 'name',
+                                                                            text: 'Group Name'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'gridcolumn',
+                                                                            minWidth: 300,
+                                                                            dataIndex: 'description',
+                                                                            text: 'Description'
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
                                                         }
                                                     ]
                                                 }

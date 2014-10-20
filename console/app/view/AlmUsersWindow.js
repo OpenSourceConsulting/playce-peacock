@@ -19,12 +19,13 @@ Ext.define('MyApp.view.AlmUsersWindow', {
 
     requires: [
         'Ext.grid.Panel',
+        'Ext.selection.CheckboxModel',
         'Ext.grid.column.Action',
         'Ext.grid.View',
         'Ext.toolbar.Toolbar',
         'Ext.form.field.Text',
-        'Ext.toolbar.Spacer',
         'Ext.button.Button',
+        'Ext.toolbar.Spacer',
         'Ext.form.field.Hidden'
     ],
 
@@ -59,6 +60,9 @@ Ext.define('MyApp.view.AlmUsersWindow', {
                             columnLines: true,
                             forceFit: true,
                             store: 'AlmUserStore',
+                            selModel: Ext.create('Ext.selection.CheckboxModel', {
+
+                            }),
                             columns: [
                                 {
                                     xtype: 'gridcolumn',
@@ -160,6 +164,81 @@ Ext.define('MyApp.view.AlmUsersWindow', {
                                             labelWidth: 60,
                                             emptyText: 'Search Name',
                                             enableKeyEvents: true
+                                        },
+                                        {
+                                            xtype: 'button',
+                                            handler: function(button, e) {
+                                                var count = Ext.getCmp("popAlmUsersGrid").getSelectionModel().getSelection().length;
+
+                                                if(count == 0) {
+                                                    Ext.MessageBox.alert('알림', "선택한 User정보가 존재하지 않습니다.");
+                                                    return;
+                                                }
+
+                                                Ext.MessageBox.confirm('Confirm', 'User를 등록 하시겠습니까?', function(btn){
+
+                                                    if(btn == "yes"){
+
+                                                        var records = Ext.getCmp("popAlmUsersGrid").getSelectionModel().getSelection();
+                                                        var userIds = "";
+
+                                                        Ext.each(records, function(record, idx) {
+                                                            if(idx > 0) userIds += ",";
+
+                                                            userIds += record.get("userId");
+                                                        });
+
+                                                        alert(userIds);
+
+                                                        var type = Ext.getCmp("addAlmUserType").getValue();
+
+                                                        if(type == "group") {
+
+                                                            Ext.Ajax.request({
+                                                                url : GLOBAL.urlPrefix + "alm/groupmanagement/"
+                                                                + almConstants.selectRow.get("name") + "/" + userIds,
+                                                                method: 'POST',
+                                                                headers: { 'Content-Type': 'application/json' },
+                                                                disableCaching : true,
+                                                                waitMsg: 'Add ALM User...',
+                                                                success: function(response){
+                                                                    var msg = Ext.JSON.decode(response.responseText).msg;
+                                                                    Ext.MessageBox.alert('알림', msg);
+
+                                                                    Ext.getCmp("almGroupUserGrid").getStore().reload();
+
+                                                                    Ext.getCmp("popAlmUsersGrid").getSelectionModel().deselectAll();
+
+                                                                }
+                                                            });
+
+                                                        } else if(type == "project") {
+
+                                                            Ext.Ajax.request({
+                                                                url : GLOBAL.urlPrefix + "alm/groupmanagement/"
+                                                                + almConstants.selectRow.get("projectCode") + "/" + userIds,
+                                                                method: 'POST',
+                                                                headers: { 'Content-Type': 'application/json' },
+                                                                disableCaching : true,
+                                                                waitMsg: 'Add Project User...',
+                                                                success: function(response){
+                                                                    var msg = Ext.JSON.decode(response.responseText).msg;
+                                                                    Ext.MessageBox.alert('알림', msg);
+
+                                                                    Ext.getCmp("almProjectUserGrid").getStore().reload();
+
+                                                                    Ext.getCmp("popAlmUsersGrid").getSelectionModel().deselectAll();
+
+                                                                }
+                                                            });
+
+                                                        }
+                                                    }
+
+                                                });
+
+                                            },
+                                            text: 'Add User'
                                         },
                                         {
                                             xtype: 'tbspacer',
