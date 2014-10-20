@@ -989,6 +989,49 @@ Ext.define('MyApp.view.almContainer', {
                                                                             minWidth: 300,
                                                                             dataIndex: 'description',
                                                                             text: 'Description'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'actioncolumn',
+                                                                            text: 'Delete',
+                                                                            maxWidth: 60,
+                                                                            minWidth: 70,
+                                                                            style: 'text-align:left;',
+                                                                            width: 60,
+                                                                            defaultWidth: 60,
+                                                                            align: 'center',
+                                                                            hideable: false,
+                                                                            menuText: '',
+                                                                            items: [
+                                                                                {
+                                                                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                                                                        Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){
+
+                                                                                            if(btn == "yes"){
+
+                                                                                                Ext.Ajax.request({
+                                                                                                    url : GLOBAL.urlPrefix + "alm/groupmanagement/"
+                                                                                                    + record.get("name") + "/" + almConstants.selectRow.get("userId"),
+                                                                                                    method: 'DELETE',
+                                                                                                    headers: { 'Content-Type': 'application/json' },
+                                                                                                    disableCaching : true,
+                                                                                                    waitMsg: 'Delete ALM User Group...',
+                                                                                                    success: function(response){
+                                                                                                        var msg = Ext.JSON.decode(response.responseText).msg;
+                                                                                                        Ext.MessageBox.alert('알림', msg);
+
+                                                                                                        Ext.getCmp("almUserGroupsGrid").getStore().reload();
+
+                                                                                                    }
+                                                                                                });
+                                                                                            }
+
+                                                                                        });
+
+                                                                                    },
+                                                                                    icon: 'resources/images/icons/delete.png',
+                                                                                    iconCls: ''
+                                                                                }
+                                                                            ]
                                                                         }
                                                                     ]
                                                                 }

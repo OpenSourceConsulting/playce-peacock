@@ -2480,6 +2480,98 @@
                                                                     "designerId": "3d180720-6a99-4c5a-9c66-2ef61728f5e7"
                                                                 },
                                                                 {
+                                                                    "type": "Ext.grid.column.Action",
+                                                                    "reference": {
+                                                                        "name": "columns",
+                                                                        "type": "array"
+                                                                    },
+                                                                    "codeClass": null,
+                                                                    "userConfig": {
+                                                                        "align": "center",
+                                                                        "defaultWidth": 60,
+                                                                        "hideable": false,
+                                                                        "maxWidth": 60,
+                                                                        "menuText": "",
+                                                                        "minWidth": 70,
+                                                                        "style": [
+                                                                            "\"text-align:left;\""
+                                                                        ],
+                                                                        "text": "Delete",
+                                                                        "width": 60
+                                                                    },
+                                                                    "designerId": "fc57a9db-3122-4789-bff7-14623b2093f7",
+                                                                    "customConfigs": [
+                                                                        {
+                                                                            "group": "(Custom Properties)",
+                                                                            "name": "text",
+                                                                            "type": "string"
+                                                                        }
+                                                                    ],
+                                                                    "cn": [
+                                                                        {
+                                                                            "type": "actioncolumnitem",
+                                                                            "reference": {
+                                                                                "name": "items",
+                                                                                "type": "array"
+                                                                            },
+                                                                            "codeClass": null,
+                                                                            "userConfig": {
+                                                                                "icon": "resources/images/icons/delete.png",
+                                                                                "iconCls": ""
+                                                                            },
+                                                                            "designerId": "b9a38643-3d23-4330-a5e0-f368889d9933",
+                                                                            "cn": [
+                                                                                {
+                                                                                    "type": "fixedfunction",
+                                                                                    "reference": {
+                                                                                        "name": "items",
+                                                                                        "type": "array"
+                                                                                    },
+                                                                                    "codeClass": null,
+                                                                                    "userConfig": {
+                                                                                        "designer|params": [
+                                                                                            "view",
+                                                                                            "rowIndex",
+                                                                                            "colIndex",
+                                                                                            "item",
+                                                                                            "e",
+                                                                                            "record",
+                                                                                            "row"
+                                                                                        ],
+                                                                                        "fn": "handler",
+                                                                                        "implHandler": [
+                                                                                            "Ext.MessageBox.confirm('Confirm', '삭제 하시겠습니까?', function(btn){",
+                                                                                            "",
+                                                                                            "    if(btn == \"yes\"){",
+                                                                                            "",
+                                                                                            "        Ext.Ajax.request({",
+                                                                                            "            url : GLOBAL.urlPrefix + \"alm/groupmanagement/\"",
+                                                                                            "                    + record.get(\"name\") + \"/\" + almConstants.selectRow.get(\"userId\"),",
+                                                                                            "            method: 'DELETE',",
+                                                                                            "            headers: { 'Content-Type': 'application/json' },",
+                                                                                            "            disableCaching : true,",
+                                                                                            "            waitMsg: 'Delete ALM User Group...',",
+                                                                                            "            success: function(response){",
+                                                                                            "                var msg = Ext.JSON.decode(response.responseText).msg;",
+                                                                                            "                Ext.MessageBox.alert('알림', msg);",
+                                                                                            "",
+                                                                                            "                Ext.getCmp(\"almUserGroupsGrid\").getStore().reload();",
+                                                                                            "",
+                                                                                            "            }",
+                                                                                            "        });",
+                                                                                            "    }",
+                                                                                            "",
+                                                                                            "});",
+                                                                                            ""
+                                                                                        ]
+                                                                                    },
+                                                                                    "designerId": "b45f6c17-f03f-436a-a16f-dd5a8e9b2433"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
                                                                     "type": "Ext.grid.View",
                                                                     "reference": {
                                                                         "name": "viewConfig",
@@ -3253,7 +3345,7 @@
                                                                         "text": "Delete",
                                                                         "width": 60
                                                                     },
-                                                                    "designerId": "fc57a9db-3122-4789-bff7-14623b2093f7",
+                                                                    "designerId": "3ff77fe1-baa0-4827-bbf6-50e55708b959",
                                                                     "customConfigs": [
                                                                         {
                                                                             "group": "(Custom Properties)",
@@ -3273,7 +3365,7 @@
                                                                                 "icon": "resources/images/icons/delete.png",
                                                                                 "iconCls": ""
                                                                             },
-                                                                            "designerId": "b9a38643-3d23-4330-a5e0-f368889d9933",
+                                                                            "designerId": "fbfd6dfc-8394-47f6-bbf0-649125154084",
                                                                             "cn": [
                                                                                 {
                                                                                     "type": "fixedfunction",
@@ -3319,7 +3411,7 @@
                                                                                             ""
                                                                                         ]
                                                                                     },
-                                                                                    "designerId": "b45f6c17-f03f-436a-a16f-dd5a8e9b2433"
+                                                                                    "designerId": "3bc6dfe1-ff5d-4cc1-848a-b043cda573b8"
                                                                                 }
                                                                             ]
                                                                         }

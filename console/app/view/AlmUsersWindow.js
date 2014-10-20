@@ -188,8 +188,6 @@ Ext.define('MyApp.view.AlmUsersWindow', {
                                                             userIds += record.get("userId");
                                                         });
 
-                                                        alert(userIds);
-
                                                         var type = Ext.getCmp("addAlmUserType").getValue();
 
                                                         if(type == "group") {
