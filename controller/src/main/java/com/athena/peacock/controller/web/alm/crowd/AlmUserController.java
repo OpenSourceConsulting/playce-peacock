@@ -90,6 +90,12 @@ public class AlmUserController {
 		return service.getUser(username);
 	}
 
+	@RequestMapping(value = "/usermanagement/{username}/groups", method = RequestMethod.GET)
+	public @ResponseBody
+	GridJsonResponse getUserGroup(@PathVariable String username) {
+		return service.getUserGroup(username);
+	}
+
 	// User 추가
 	@RequestMapping(value = "/usermanagement", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody
@@ -131,12 +137,15 @@ public class AlmUserController {
 		return service.removeUser(username);
 	}
 
-	/*// User 패스워드 변경
-	@RequestMapping(value = "/usermanagement/{username}/password", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody
-	DtoJsonResponse passwodReset(@PathVariable String username) {
-		return service.changePasswordUser(username);
-	}*/
+	/*
+	 * // User 패스워드 변경
+	 * 
+	 * @RequestMapping(value = "/usermanagement/{username}/password", method =
+	 * RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE) public
+	 * 
+	 * @ResponseBody DtoJsonResponse passwodReset(@PathVariable String username)
+	 * { return service.changePasswordUser(username); }
+	 */
 
 }
 // end of AlmUserController.java

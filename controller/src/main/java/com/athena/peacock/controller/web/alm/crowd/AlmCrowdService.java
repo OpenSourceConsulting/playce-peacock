@@ -140,8 +140,6 @@ public class AlmCrowdService {
 	private List<AlmUserDto> getUserList(ExtjsGridParam gridParam)
 			throws OperationFailedException, InvalidAuthenticationException,
 			ApplicationPermissionException {
-		
-
 
 		List<AlmUserDto> userLists = new ArrayList<AlmUserDto>();
 
@@ -476,12 +474,37 @@ public class AlmCrowdService {
 		return response;
 	}
 
+	// User의 Gorup정보
+	public GridJsonResponse getUserGroup(String username) {
+
+		GridJsonResponse response = new GridJsonResponse();
+
+		try {
+			response.setList(getGroupsForUser(username));
+			response.setMsg("사용자 그룹이 조회되었습니다.");
+		} catch (UserNotFoundException | OperationFailedException
+				| InvalidAuthenticationException
+				| ApplicationPermissionException e1) {
+			response.setSuccess(false);
+			response.setMsg("사용자 그룹이 조회에 실패했습니다.");
+		}
+
+		return response;
+	}
+
 	public List<User> getGroupUsers(String groupname)
 			throws GroupNotFoundException, ApplicationPermissionException,
 			InvalidAuthenticationException, OperationFailedException {
 
 		List<User> users = crowdClient.getUsersOfGroup(groupname, 0, 10000);
 		return users;
+	}
+
+	public List<Group> getGroupsForUser(String username)
+			throws UserNotFoundException, OperationFailedException,
+			InvalidAuthenticationException, ApplicationPermissionException {
+		List<Group> groups = crowdClient.getGroupsForUser(username, 0, 10000);
+		return groups;
 	}
 
 	// 그룹에 유저 추가
