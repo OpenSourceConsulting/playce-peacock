@@ -24,6 +24,7 @@
  */
 package com.athena.peacock.controller.web.alm.project;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,6 @@ import com.athena.peacock.controller.web.alm.jenkins.AlmJenkinsService;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectHistoryDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto;
-import com.athena.peacock.controller.web.alm.project.dto.ProjectProcessStatusDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectTamplateInfomationDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectTemplateDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectUserPasswordResetDto;
@@ -104,8 +104,9 @@ public class AlmProjectService {
 	// Project 리스트 정보
 	public GridJsonResponse getProjectList(ExtjsGridParam gridParam) {
 
+		System.out.println(gridParam.getSearch());
 		GridJsonResponse response = new GridJsonResponse();
-		List<ProjectDto> projects = projectDao.getProjectList();
+		List<ProjectDto> projects = projectDao.getProjectList(gridParam);
 		response.setList(projects);
 		return response;
 

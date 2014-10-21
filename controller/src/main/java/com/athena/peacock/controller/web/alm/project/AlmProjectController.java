@@ -130,7 +130,7 @@ public class AlmProjectController {
 
 		ExtjsGridParam gridParam = new ExtjsGridParam();
 		gridParam.setPage(offset);
-
+		
 		if (search != null) {
 			gridParam.setSearch(search);
 		}

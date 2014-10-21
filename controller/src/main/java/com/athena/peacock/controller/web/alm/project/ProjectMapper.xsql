@@ -35,8 +35,17 @@
 		 SELECT count(*) from alm_project_tbl
 	</select>
 	
-	<select id="getProjectList" resultMap="projectMap">
-		 SELECT PROJECT_CODE, PROJECT_NAME, PROJECT_DESCRIPTION, REPOSITORY_CODE  from alm_project_tbl
+	<select id="getProjectList" resultMap="projectMap" parameterType="ExtjsGridParam">
+		 SELECT PROJECT_CODE, 
+		 	PROJECT_NAME, 
+		 	PROJECT_DESCRIPTION, 
+		 	REPOSITORY_CODE  
+		 	from alm_project_tbl
+		 	<where>
+				<if test="search != null">
+					PROJECT_NAME LIKE concat('%',#{search},'%') OR PROJECT_NAME LIKE concat('%',#{search},'%')
+				</if>
+		</where>
 	</select>
 	
 	

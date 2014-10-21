@@ -8,6 +8,7 @@ import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectHistoryDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto;
 import com.athena.peacock.controller.web.common.dao.AbstractBaseDao;
+import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 
 @Repository
 public class AlmProjectDao extends AbstractBaseDao {
@@ -15,14 +16,14 @@ public class AlmProjectDao extends AbstractBaseDao {
 	public ProjectDto getProject(String projectCode) {
 		return sqlSession.selectOne("ProjectMapper.getProject", projectCode);
 	}
-	
+
 	public int getProjectCount() {
 		return sqlSession.selectOne("ProjectMapper.getProjectCount");
 	}
-	
 
-	public List<ProjectDto> getProjectList() {
-		return sqlSession.selectList("ProjectMapper.getProjectList");
+
+	public List<ProjectDto> getProjectList(ExtjsGridParam gridParam) {
+		return sqlSession.selectList("ProjectMapper.getProjectList", gridParam);
 	}
 
 	public void insertProject(ProjectDto project) {

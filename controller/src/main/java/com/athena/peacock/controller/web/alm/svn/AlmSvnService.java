@@ -204,7 +204,7 @@ public class AlmSvnService {
 		// Project Permission 생성
 		List<SvnProjectDto> projects = new ArrayList<SvnProjectDto>();
 
-		List<ProjectDto> projectList = projectDao.getProjectList();
+		List<ProjectDto> projectList = projectDao.getProjectList(null);
 
 		for (ProjectDto project : projectList) {
 			SvnProjectDto tmp = new SvnProjectDto();

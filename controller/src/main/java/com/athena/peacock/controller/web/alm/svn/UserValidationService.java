@@ -57,37 +57,40 @@ public class UserValidationService {
 
 	// Project 리스트 정보
 	public List<ProjectDto> getProjectList() {
-		
-		List<ProjectDto> projects = projectDao.getProjectList();
-		
+
+		List<ProjectDto> projects = projectDao.getProjectList(null);
+
 		return projects;
 
 	}
-	
-	public long getLatestRevision(String svnUrl, String userName, String userPassword)throws SVNException{
-		
+
+	public long getLatestRevision(String svnUrl, String userName,
+			String userPassword) throws SVNException {
+
 		SVNURL url = SVNURL.parseURIEncoded(svnUrl);
-        
-		
-        SVNRepository repository = SVNRepositoryFactory.create(url);
 
-        ISVNAuthenticationManager authManager = SVNWCUtil.createDefaultAuthenticationManager(userName, userPassword);
-        repository.setAuthenticationManager(authManager);
-        
-        
-        SVNNodeKind nodeKind = repository.checkPath("", -1);
-        if (nodeKind == SVNNodeKind.NONE) {
-            SVNErrorMessage err = SVNErrorMessage.create(SVNErrorCode.UNKNOWN, "No entry at URL ''{0}''", url);
-            throw new SVNException(err);
-        } else if (nodeKind == SVNNodeKind.FILE) {
-            SVNErrorMessage err = SVNErrorMessage.create(SVNErrorCode.UNKNOWN, "Entry at URL ''{0}'' is a file while directory was expected", url);
-            throw new SVNException(err);
-        }
+		SVNRepository repository = SVNRepositoryFactory.create(url);
 
-        long latestRevision = repository.getLatestRevision();
-        
-        return latestRevision;
+		ISVNAuthenticationManager authManager = SVNWCUtil
+				.createDefaultAuthenticationManager(userName, userPassword);
+		repository.setAuthenticationManager(authManager);
+
+		SVNNodeKind nodeKind = repository.checkPath("", -1);
+		if (nodeKind == SVNNodeKind.NONE) {
+			SVNErrorMessage err = SVNErrorMessage.create(SVNErrorCode.UNKNOWN,
+					"No entry at URL ''{0}''", url);
+			throw new SVNException(err);
+		} else if (nodeKind == SVNNodeKind.FILE) {
+			SVNErrorMessage err = SVNErrorMessage
+					.create(SVNErrorCode.UNKNOWN,
+							"Entry at URL ''{0}'' is a file while directory was expected",
+							url);
+			throw new SVNException(err);
+		}
+
+		long latestRevision = repository.getLatestRevision();
+
+		return latestRevision;
 	}
-	
 
 }

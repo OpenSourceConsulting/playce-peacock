@@ -42,7 +42,6 @@ import com.athena.peacock.controller.web.alm.crowd.dto.ProjectUserDto;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
-import com.athena.peacock.controller.web.rhevm.RHEVMService;
 import com.atlassian.crowd.embedded.api.PasswordCredential;
 import com.atlassian.crowd.exception.ApplicationPermissionException;
 import com.atlassian.crowd.exception.GroupNotFoundException;
@@ -149,6 +148,7 @@ public class AlmCrowdService {
 
 		// Search Text가 있을 경우
 		if (gridParam.getSearch() != null) {
+
 			PropertyRestriction<String> restriction = Restriction.on(
 					UserTermKeys.USERNAME).startingWith(gridParam.getSearch());
 			usernames = crowdClient.searchUsers(restriction, page, 50);
@@ -513,7 +513,11 @@ public class AlmCrowdService {
 		DtoJsonResponse response = new DtoJsonResponse();
 
 		try {
-			crowdClient.addUserToGroup(username, groupname);
+
+			String[] users = username.split(",");
+			for (int i = 0; i < users.length; i++) {
+				crowdClient.addUserToGroup(users[i], groupname);
+			}
 			response.setMsg("사용자가 그룹에 등록되었습니다.");
 		} catch (GroupNotFoundException e) {
 			response.setSuccess(false);
