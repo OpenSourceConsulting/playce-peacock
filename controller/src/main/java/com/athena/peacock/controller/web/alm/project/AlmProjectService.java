@@ -104,7 +104,6 @@ public class AlmProjectService {
 	// Project 리스트 정보
 	public GridJsonResponse getProjectList(ExtjsGridParam gridParam) {
 
-		System.out.println(gridParam.getSearch());
 		GridJsonResponse response = new GridJsonResponse();
 		List<ProjectDto> projects = projectDao.getProjectList(gridParam);
 		response.setList(projects);
