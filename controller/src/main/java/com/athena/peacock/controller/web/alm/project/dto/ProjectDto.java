@@ -42,6 +42,9 @@ public class ProjectDto {
 	private String projectDescription;
 	private String groupDescription;
 	private String repositoryCode;
+	private String svnStatus;
+	private String jenkinsStatus;
+	private String lastSync;
 
 	public String getProjectCode() {
 		return projectCode;
@@ -81,6 +84,33 @@ public class ProjectDto {
 
 	public void setRepositoryCode(String repositoryCode) {
 		this.repositoryCode = repositoryCode;
+	}
+
+	public String getSvnStatus() {
+		return svnStatus;
+	}
+
+	public void setSvnStatus(String svnStatus) {
+		this.svnStatus = svnStatus;
+	}
+
+	public String getJenkinsStatus() {
+		return jenkinsStatus;
+	}
+
+	public void setJenkinsStatus(String jenkinsStatus) {
+		this.jenkinsStatus = jenkinsStatus;
+	}
+
+	public String getLastSync() {
+		return lastSync;
+	}
+
+	/**
+	 * @param lastSync the lastSync to set
+	 */
+	public void setLastSync(String lastSync) {
+		this.lastSync = lastSync;
 	}
 
 }

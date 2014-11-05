@@ -189,7 +189,7 @@ Ext.define('MyApp.view.almContainer', {
                                             items: [
                                                 {
                                                     xtype: 'panel',
-                                                    autoScroll: true,
+                                                    overflowY: 'auto',
                                                     layout: 'fit',
                                                     title: 'Summary',
                                                     dockedItems: [
@@ -215,6 +215,7 @@ Ext.define('MyApp.view.almContainer', {
                                                             id: 'almProjectForm',
                                                             itemId: 'almProjectForm',
                                                             padding: '',
+                                                            autoScroll: true,
                                                             defaults: {
                                                                 border: false,
                                                                 xtype: 'panel',
@@ -253,6 +254,27 @@ Ext.define('MyApp.view.almContainer', {
                                                                     fieldLabel: 'Project Description',
                                                                     labelWidth: 140,
                                                                     name: 'projectDescription'
+                                                                },
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    padding: 10,
+                                                                    fieldLabel: 'SVN Status',
+                                                                    labelWidth: 140,
+                                                                    name: 'svnStatus'
+                                                                },
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    padding: 10,
+                                                                    fieldLabel: 'Jenkins Status',
+                                                                    labelWidth: 140,
+                                                                    name: 'jenkinsStatus'
+                                                                },
+                                                                {
+                                                                    xtype: 'displayfield',
+                                                                    padding: 10,
+                                                                    fieldLabel: '마지막 동기화 시간',
+                                                                    labelWidth: 140,
+                                                                    name: 'lastSync'
                                                                 }
                                                             ]
                                                         }

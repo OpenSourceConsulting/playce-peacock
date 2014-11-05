@@ -397,8 +397,8 @@
                                             },
                                             "codeClass": null,
                                             "userConfig": {
-                                                "autoScroll": true,
                                                 "layout": "fit",
+                                                "overflowY": "auto",
                                                 "title": "Summary"
                                             },
                                             "designerId": "19b4639c-256b-4957-9777-668691872515",
@@ -452,6 +452,7 @@
                                                     },
                                                     "codeClass": null,
                                                     "userConfig": {
+                                                        "autoScroll": true,
                                                         "bodyPadding": 10,
                                                         "bodyStyle": [
                                                             "'padding:5px 5px 0'"
@@ -528,6 +529,51 @@
                                                                 "padding": 10
                                                             },
                                                             "designerId": "e15667d1-46f1-4518-828f-37000351fa81"
+                                                        },
+                                                        {
+                                                            "type": "Ext.form.field.Display",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "fieldLabel": "SVN Status",
+                                                                "labelWidth": 140,
+                                                                "name": "svnStatus",
+                                                                "padding": 10
+                                                            },
+                                                            "designerId": "006e8818-95c6-4602-98a5-f9575b59d5b4"
+                                                        },
+                                                        {
+                                                            "type": "Ext.form.field.Display",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "fieldLabel": "Jenkins Status",
+                                                                "labelWidth": 140,
+                                                                "name": "jenkinsStatus",
+                                                                "padding": 10
+                                                            },
+                                                            "designerId": "d1db6289-9c67-47e0-b5dc-332812509276"
+                                                        },
+                                                        {
+                                                            "type": "Ext.form.field.Display",
+                                                            "reference": {
+                                                                "name": "items",
+                                                                "type": "array"
+                                                            },
+                                                            "codeClass": null,
+                                                            "userConfig": {
+                                                                "fieldLabel": "마지막 동기화 시간",
+                                                                "labelWidth": 140,
+                                                                "name": "lastSync",
+                                                                "padding": 10
+                                                            },
+                                                            "designerId": "e5036f14-5b23-4fb9-a080-1a92d0f5f4cc"
                                                         }
                                                     ]
                                                 }
