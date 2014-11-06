@@ -105,8 +105,8 @@ public class AlmJenkinsService {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			// e.printStackTrace();
-
 			response.setSuccess(false);
+			response.setMsg(e.getMessage());
 		}
 
 		return response;
