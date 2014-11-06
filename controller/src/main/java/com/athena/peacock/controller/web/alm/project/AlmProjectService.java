@@ -509,7 +509,7 @@ public class AlmProjectService {
 					projectCode);
 			return "OK";
 		} else {
-			return "FAIL";
+			return response.getMsg();
 		}
 	}
 
