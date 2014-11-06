@@ -24,7 +24,6 @@
  */
 package com.athena.peacock.controller.web.alm.project;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +35,7 @@ import com.athena.peacock.controller.web.alm.crowd.AlmCrowdService;
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmGroupDto;
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmUserDto;
 import com.athena.peacock.controller.web.alm.jenkins.AlmJenkinsService;
+import com.athena.peacock.controller.web.alm.jenkins.clinet.model.JobDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectHistoryDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto;
@@ -122,6 +122,11 @@ public class AlmProjectService {
 
 		DtoJsonResponse response = new DtoJsonResponse();
 		ProjectDto dto = projectDao.getProject(projectCode);
+
+		// Jenkins와 SVN 상태 확인
+		dto.setJenkinsStatus(getJenkinsStatus(projectCode));
+		dto.setSvnStatus(getSvnStatus(projectCode));
+
 		response.setData(dto);
 		return response;
 
@@ -493,6 +498,24 @@ public class AlmProjectService {
 		}
 
 		return response;
+	}
+
+	private String getJenkinsStatus(String projectCode) {
+
+		GridJsonResponse response = jenkinsService.getJobs(null);
+
+		if (response != null && response.isSuccess()) {
+			jenkinsService.getJobSearch((List<JobDto>) response.getList(),
+					projectCode);
+			return "OK";
+		} else {
+			return "FAIL";
+		}
+	}
+
+	private String getSvnStatus(String projectCode) {
+
+		return "OK";
 	}
 }
 // end of AlmProjectService.java

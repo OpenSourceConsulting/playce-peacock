@@ -88,7 +88,6 @@ public class AlmJenkinsService {
 	public GridJsonResponse getJobs(ExtjsGridParam gridParam) {
 
 		GridJsonResponse response = new GridJsonResponse();
-
 		List<JobDto> jobs = null;
 
 		try {
@@ -105,7 +104,9 @@ public class AlmJenkinsService {
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// e.printStackTrace();
+
+			response.setSuccess(false);
 		}
 
 		return response;
@@ -160,7 +161,7 @@ public class AlmJenkinsService {
 		}
 	}
 
-	private List<JobDto> getJobSearch(List<JobDto> jobs, String search) {
+	public List<JobDto> getJobSearch(List<JobDto> jobs, String search) {
 
 		List<JobDto> searchJobs = new ArrayList<JobDto>();
 
