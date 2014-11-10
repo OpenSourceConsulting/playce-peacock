@@ -42,6 +42,8 @@ public class ProjectDto {
 	private String projectDescription;
 	private String groupDescription;
 	private String repositoryCode;
+	private boolean createSvn;
+	private boolean createJob;
 	private String svnStatus;
 	private String jenkinsStatus;
 	private String lastSync;
@@ -107,10 +109,27 @@ public class ProjectDto {
 	}
 
 	/**
-	 * @param lastSync the lastSync to set
+	 * @param lastSync
+	 *            the lastSync to set
 	 */
 	public void setLastSync(String lastSync) {
 		this.lastSync = lastSync;
+	}
+
+	public boolean isCreateSvn() {
+		return createSvn;
+	}
+
+	public void setCreateSvn(boolean createSvn) {
+		this.createSvn = createSvn;
+	}
+
+	public boolean isCreateJob() {
+		return createJob;
+	}
+
+	public void setCreateJob(boolean createJob) {
+		this.createJob = createJob;
 	}
 
 }
