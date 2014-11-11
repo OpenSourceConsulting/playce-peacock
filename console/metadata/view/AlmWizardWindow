@@ -610,6 +610,34 @@
                                                     "designerId": "77c5bdc2-458a-45d6-a576-91bca9006781"
                                                 }
                                             ]
+                                        },
+                                        {
+                                            "type": "Ext.form.field.Checkbox",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "boxLabel": "",
+                                                "fieldLabel": "Create SVN",
+                                                "name": "createSvn"
+                                            },
+                                            "designerId": "afc23ba0-de3c-4089-b25f-29c7b8702fe1"
+                                        },
+                                        {
+                                            "type": "Ext.form.field.Checkbox",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "boxLabel": "",
+                                                "fieldLabel": "Create Jenkins Job",
+                                                "name": "createJob"
+                                            },
+                                            "designerId": "6b9a0e14-c306-4e87-8be2-df27d86d2da0"
                                         }
                                     ]
                                 },
@@ -2991,6 +3019,36 @@
                                                         "padding": 10
                                                     },
                                                     "designerId": "42025794-dd3e-4a47-9b4a-949b14e975ca"
+                                                },
+                                                {
+                                                    "type": "Ext.form.field.Display",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fieldLabel": "Create SVN",
+                                                        "labelWidth": 140,
+                                                        "name": "createSvn",
+                                                        "padding": 10
+                                                    },
+                                                    "designerId": "dc163f0a-f9aa-432a-b5a8-7207bfd78594"
+                                                },
+                                                {
+                                                    "type": "Ext.form.field.Display",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fieldLabel": "Create Jenkins Job",
+                                                        "labelWidth": 140,
+                                                        "name": "createJob",
+                                                        "padding": 10
+                                                    },
+                                                    "designerId": "9836fb35-a882-44b6-b7e1-90b719ad6b1e"
                                                 }
                                             ]
                                         },

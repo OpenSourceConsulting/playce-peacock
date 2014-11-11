@@ -26,6 +26,7 @@ Ext.define('MyApp.view.AlmWizardWindow', {
         'Ext.XTemplate',
         'Ext.button.Button',
         'Ext.form.field.TextArea',
+        'Ext.form.field.Checkbox',
         'Ext.form.field.Hidden',
         'Ext.form.field.ComboBox',
         'Ext.form.FieldSet',
@@ -293,6 +294,18 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                     msgTarget: 'under',
                                                     name: 'groupDescription',
                                                     allowBlank: false
+                                                },
+                                                {
+                                                    xtype: 'checkboxfield',
+                                                    fieldLabel: 'Create SVN',
+                                                    name: 'createSvn',
+                                                    boxLabel: ''
+                                                },
+                                                {
+                                                    xtype: 'checkboxfield',
+                                                    fieldLabel: 'Create Jenkins Job',
+                                                    name: 'createJob',
+                                                    boxLabel: ''
                                                 }
                                             ]
                                         },
@@ -1204,6 +1217,20 @@ Ext.define('MyApp.view.AlmWizardWindow', {
                                                             fieldLabel: 'Group Description',
                                                             labelWidth: 140,
                                                             name: 'groupDescription'
+                                                        },
+                                                        {
+                                                            xtype: 'displayfield',
+                                                            padding: 10,
+                                                            fieldLabel: 'Create SVN',
+                                                            labelWidth: 140,
+                                                            name: 'createSvn'
+                                                        },
+                                                        {
+                                                            xtype: 'displayfield',
+                                                            padding: 10,
+                                                            fieldLabel: 'Create Jenkins Job',
+                                                            labelWidth: 140,
+                                                            name: 'createJob'
                                                         }
                                                     ]
                                                 },
