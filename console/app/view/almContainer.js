@@ -838,9 +838,30 @@ Ext.define('MyApp.view.almContainer', {
                                         },
                                         {
                                             xtype: 'gridcolumn',
-                                            minWidth: 300,
+                                            minWidth: 240,
                                             dataIndex: 'emailAddress',
                                             text: 'Email'
+                                        },
+                                        {
+                                            xtype: 'actioncolumn',
+                                            text: 'Password 초기화',
+                                            maxWidth: 130,
+                                            minWidth: 130,
+                                            style: 'text-align:left;',
+                                            width: 130,
+                                            align: 'center',
+                                            hideable: false,
+                                            menuText: '',
+                                            items: [
+                                                {
+                                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                                        almConstants.actionRow = record;
+                                                        almConstants.me.resetAlmUserPassword();
+                                                    },
+                                                    icon: 'resources/images/icons/bullet_wrench.png',
+                                                    iconCls: ''
+                                                }
+                                            ]
                                         },
                                         {
                                             xtype: 'actioncolumn',

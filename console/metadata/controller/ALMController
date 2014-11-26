@@ -563,7 +563,7 @@
                     "",
                     "projectForm.getForm().reset();",
                     "",
-                    "projectForm.getForm().waitMsgTarget = projectForm.getEl();",
+                    "projectForm.getForm().waitMsgTarget = Ext.getCmp(\"almContainer\").getEl();",
                     "",
                     "projectForm.getForm().load({",
                     "    url : GLOBAL.urlPrefix + \"alm/project/\" + almConstants.selectRow.get(\"projectCode\")",
@@ -1070,6 +1070,46 @@
                 "scope": "me"
             },
             "designerId": "31502585-beaf-43f3-9a92-8f83eead0f8e"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "resetAlmUserPassword",
+                "implHandler": [
+                    "",
+                    "//User 삭제",
+                    "",
+                    "Ext.MessageBox.confirm('Confirm', 'Password를 초기화 하시겠습니까?', function(btn){",
+                    "",
+                    "    if(btn == \"yes\"){",
+                    "",
+                    "        Ext.Ajax.request({",
+                    "            url: GLOBAL.urlPrefix + \"alm/usermanagement/\" + almConstants.actionRow.get(\"userId\") + \"/password\",",
+                    "            method : 'POST',",
+                    "            headers: { 'Content-Type': 'application/json' },",
+                    "            disableCaching : true,",
+                    "            waitMsg: 'ALM User Password reset...',",
+                    "            success: function(response){",
+                    "                var msg = Ext.JSON.decode(response.responseText).msg;",
+                    "                Ext.MessageBox.alert('알림', msg);",
+                    "",
+                    "                almConstants.selectRow = null;",
+                    "",
+                    "                Ext.getCmp(\"almUserGrid\").getStore().reload();",
+                    "",
+                    "            }",
+                    "        });",
+                    "    }",
+                    "",
+                    "});"
+                ]
+            },
+            "designerId": "2db7b873-ccda-4ea1-8aa2-d7431b29c8b4"
         },
         {
             "type": "basicfunction",

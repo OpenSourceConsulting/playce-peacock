@@ -2086,7 +2086,7 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "dataIndex": "emailAddress",
-                                        "minWidth": 300,
+                                        "minWidth": 240,
                                         "text": "Email"
                                     },
                                     "designerId": "cf97d7eb-69df-4559-8369-8986e835d544"
@@ -2101,14 +2101,14 @@
                                     "userConfig": {
                                         "align": "center",
                                         "hideable": false,
-                                        "maxWidth": 65,
+                                        "maxWidth": 130,
                                         "menuText": "",
-                                        "minWidth": 65,
+                                        "minWidth": 130,
                                         "style": [
                                             "\"text-align:left;\""
                                         ],
-                                        "text": "Edit",
-                                        "width": 65
+                                        "text": "Password 초기화",
+                                        "width": 130
                                     },
                                     "designerId": "9dd97dd2-ee5a-4373-a41f-fe54c71e4be5",
                                     "customConfigs": [
@@ -2127,7 +2127,7 @@
                                             },
                                             "codeClass": null,
                                             "userConfig": {
-                                                "icon": "resources/images/icons/cog.png",
+                                                "icon": "resources/images/icons/bullet_wrench.png",
                                                 "iconCls": ""
                                             },
                                             "designerId": "1b504af8-6edf-4c49-bca1-71f31af48c60",
@@ -2152,10 +2152,80 @@
                                                         "fn": "handler",
                                                         "implHandler": [
                                                             "almConstants.actionRow = record;",
-                                                            "almConstants.me.showAlmUserWindow('edit');"
+                                                            "almConstants.me.resetAlmUserPassword();"
                                                         ]
                                                     },
                                                     "designerId": "722f995c-d5af-4fc9-8d6a-54d15b653911"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.grid.column.Action",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "align": "center",
+                                        "hideable": false,
+                                        "maxWidth": 65,
+                                        "menuText": "",
+                                        "minWidth": 65,
+                                        "style": [
+                                            "\"text-align:left;\""
+                                        ],
+                                        "text": "Edit",
+                                        "width": 65
+                                    },
+                                    "designerId": "b5aa43dd-2b61-4ce3-97ea-7e3cff9da4f3",
+                                    "customConfigs": [
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "text",
+                                            "type": "string"
+                                        }
+                                    ],
+                                    "cn": [
+                                        {
+                                            "type": "actioncolumnitem",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "icon": "resources/images/icons/cog.png",
+                                                "iconCls": ""
+                                            },
+                                            "designerId": "e84e0bf0-14e1-4aa5-aa77-1d95cb7b4e73",
+                                            "cn": [
+                                                {
+                                                    "type": "fixedfunction",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "designer|params": [
+                                                            "view",
+                                                            "rowIndex",
+                                                            "colIndex",
+                                                            "item",
+                                                            "e",
+                                                            "record",
+                                                            "row"
+                                                        ],
+                                                        "fn": "handler",
+                                                        "implHandler": [
+                                                            "almConstants.actionRow = record;",
+                                                            "almConstants.me.showAlmUserWindow('edit');"
+                                                        ]
+                                                    },
+                                                    "designerId": "17cad3f0-947f-49c0-839e-493e7915e70e"
                                                 }
                                             ]
                                         }

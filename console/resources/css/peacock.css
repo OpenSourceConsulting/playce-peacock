@@ -65,4 +65,7 @@ span.x-tree-node-text {
 
 .all-view-text > div {
 	white-space:normal;
+	margin: 1px;
+	border-color: black;
 }
+

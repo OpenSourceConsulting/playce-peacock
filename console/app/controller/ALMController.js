@@ -570,7 +570,7 @@ Ext.define('MyApp.controller.ALMController', {
 
         projectForm.getForm().reset();
 
-        projectForm.getForm().waitMsgTarget = projectForm.getEl();
+        projectForm.getForm().waitMsgTarget = Ext.getCmp("almContainer").getEl();
 
         projectForm.getForm().load({
             url : GLOBAL.urlPrefix + "alm/project/" + almConstants.selectRow.get("projectCode")
@@ -772,6 +772,35 @@ Ext.define('MyApp.controller.ALMController', {
             }
 
         }
+    },
+
+    resetAlmUserPassword: function() {
+
+        //User 삭제
+
+        Ext.MessageBox.confirm('Confirm', 'Password를 초기화 하시겠습니까?', function(btn){
+
+            if(btn == "yes"){
+
+                Ext.Ajax.request({
+                    url: GLOBAL.urlPrefix + "alm/usermanagement/" + almConstants.actionRow.get("userId") + "/password",
+                    method : 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    disableCaching : true,
+                    waitMsg: 'ALM User Password reset...',
+                    success: function(response){
+                        var msg = Ext.JSON.decode(response.responseText).msg;
+                        Ext.MessageBox.alert('알림', msg);
+
+                        almConstants.selectRow = null;
+
+                        Ext.getCmp("almUserGrid").getStore().reload();
+
+                    }
+                });
+            }
+
+        });
     },
 
     deleteAlmUserWindow: function() {
