@@ -328,9 +328,7 @@ public class AlmProjectController {
 	public @ResponseBody
 	DtoJsonResponse getJenkinsNotification(
 			@RequestBody JobNotificationDto notification) {
-		System.out.println("****************************");
-		System.out.println(notification.getName());
-		System.out.println(notification.getUrl());
+
 		DtoJsonResponse response = new DtoJsonResponse();
 		return response;
 	}
@@ -352,19 +350,20 @@ public class AlmProjectController {
 
 	/**
 	 * <pre>
-	 * 사용자 패스워드 변경
+	 * 관리자에서 유저 Password 변경
 	 * </pre>
 	 * 
 	 * @param projectCode
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/project/user/sendtest", method = RequestMethod.GET)
+	@RequestMapping(value = "/project/user/{usercode}/resetpw", method = RequestMethod.GET)
 	public @ResponseBody
-	DtoJsonResponse sendTest() {
-		return almProjectService.resetPasswordEmail(null);
+	DtoJsonResponse resetPasswordAdmin(@PathVariable String usercode) {
+		return almProjectService.resetPasswordByAdmin(usercode);
 	}
-
+	
+	
 	/**
 	 * <pre>
 	 * SVN Sync

@@ -462,6 +462,12 @@ public class AlmProjectService {
 		return null;
 	}
 
+	// Admin Console에서 비밀번호 변경
+	public DtoJsonResponse resetPasswordByAdmin(String usercode) {
+		String password = usercode.substring(1);
+		return crowdService.changePasswordUser(usercode, password);
+	}
+
 	public DtoJsonResponse syncJenkins(String projectCode) {
 
 		DtoJsonResponse response = new DtoJsonResponse();

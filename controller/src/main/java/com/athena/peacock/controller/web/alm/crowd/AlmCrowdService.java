@@ -360,12 +360,16 @@ public class AlmCrowdService {
 		DtoJsonResponse response = new DtoJsonResponse();
 
 		try {
+			
+			//Crowd에 변경처리
 			crowdClient.updateUserCredential(username, password);
+			
+			// ALM User 에도 변경처리하기
 			ProjectUserDto userDto = new ProjectUserDto();
 			userDto.setUSERNAME(username);
 			userDto.setPASSWORD(password);
 			userDao.updateProjectUser(userDto);
-			// ALM User 에도 변경처리하기
+			
 
 			response.setMsg("사용자 비밀번호가 변경되었습니다.");
 		} catch (OperationFailedException e) {
