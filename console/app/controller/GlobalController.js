@@ -101,6 +101,8 @@ Ext.define('MyApp.controller.GlobalController', {
 
         Ext.Ajax.on('requestexception', Ext.getBody().unmask, Ext.getBody());
 
+        delete Ext.tip.Tip.prototype.minWidth;
+
         /*
          * Global Validation(VTypes) Config
          */

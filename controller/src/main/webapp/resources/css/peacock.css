@@ -69,3 +69,12 @@ span.x-tree-node-text {
 	border-color: black;
 }
 
+.x-tip {
+    width: auto !important;
+}
+.x-tip-body {
+    width: auto !important;
+}
+.x-tip-body span {
+    width: auto !important;
+}
