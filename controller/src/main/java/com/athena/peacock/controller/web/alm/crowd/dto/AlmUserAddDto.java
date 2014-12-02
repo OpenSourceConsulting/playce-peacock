@@ -26,8 +26,6 @@ package com.athena.peacock.controller.web.alm.crowd.dto;
 
 import javax.validation.constraints.Pattern;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
 /**
  * <pre>
  * 
@@ -36,7 +34,6 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
  * @author Bong-Jin Kwon
  * @version 1.0
  */
-@JsonIgnoreProperties(ignoreUnknown=true)
 public class AlmUserAddDto {
 
 	private static final long serialVersionUID = -1083153050593982734L;

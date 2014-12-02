@@ -2,7 +2,6 @@ package com.athena.peacock.controller.web.alm.repository.dto;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-@JsonIgnoreProperties
 public class RepositoryDto {
 
 	private String repositoryCode;

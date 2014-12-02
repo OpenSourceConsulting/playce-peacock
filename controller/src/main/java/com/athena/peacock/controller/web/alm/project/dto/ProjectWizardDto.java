@@ -2,12 +2,9 @@ package com.athena.peacock.controller.web.alm.project.dto;
 
 import java.util.List;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
 import com.athena.peacock.controller.web.alm.crowd.dto.AlmUserDto;
 import com.athena.peacock.controller.web.alm.repository.dto.RepositoryDto;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class ProjectWizardDto {
 
 	private ProjectDto project;

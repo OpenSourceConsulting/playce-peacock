@@ -21,6 +21,7 @@ import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
+@Deprecated
 public class JenkinsRestTemplate extends RestTemplate {
 
 	public JenkinsRestTemplate() {
@@ -28,7 +29,7 @@ public class JenkinsRestTemplate extends RestTemplate {
 	}
 
 	public JenkinsRestTemplate(String username, String password) {
-		
+
 		DefaultHttpClient httpClient = new DefaultHttpClient();
 		BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
 		credentialsProvider.setCredentials(new AuthScope(AuthScope.ANY_HOST,

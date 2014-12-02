@@ -34,7 +34,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
  * @author Dave
  * @version 1.0
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class ProjectDto {
 
 	private String projectCode;

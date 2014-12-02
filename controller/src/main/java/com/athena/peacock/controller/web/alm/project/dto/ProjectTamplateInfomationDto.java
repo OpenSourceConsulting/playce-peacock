@@ -24,7 +24,6 @@
  */
 package com.athena.peacock.controller.web.alm.project.dto;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  * <pre>
@@ -34,7 +33,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
  * @author Bong-Jin Kwon
  * @version 1.0
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class ProjectTamplateInfomationDto {
 
 	private String projectRepository;
