@@ -46,7 +46,7 @@ public class AlmUserAddDto {
 	private String firstName;
 	private String lastName;
 	private String displayName;
-	@Pattern(regexp="^[_0-9a-zA-Z-]+@[0-9a-zA-Z]+(.[_0-9a-zA-Z-]+)*$")
+	@Pattern(regexp="^[_0-9a-zA-Z-.+]+@[0-9a-zA-Z]+(.[_0-9a-zA-Z-]+)*$")
 	private String email;
 	private String password;
 	private String confirmPassword;
