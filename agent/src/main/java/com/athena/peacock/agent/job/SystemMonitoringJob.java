@@ -100,17 +100,30 @@ public class SystemMonitoringJob extends BaseJob {
 					continue;
 				}
 				
-				fsu = SigarUtil.getFileSystemUsage(fs.getDirName());
-				
-				if (cnt++ > 0) {
-					usage.append(",");
+				try {
+					// 특정 Volume에 장애(NFS 에러)가 발생한 경우 전체 모니터링이 실패하므로,
+					// try {} catch() {} 추가
+					fsu = SigarUtil.getFileSystemUsage(fs.getDirName());
 					
-				}
-				usage.append(fs.getDirName()).append(":");
-				usage.append(CpuPerc.format(fsu.getUsePercent()).replaceAll("%", ""));
+					if (cnt++ > 0) {
+						usage.append(",");
+						
+					}
+					usage.append(fs.getDirName()).append(":");
+					usage.append(CpuPerc.format(fsu.getUsePercent()).replaceAll("%", ""));
 
-				total += fsu.getTotal();
-				used += fsu.getUsed();
+					total += fsu.getTotal();
+					used += fsu.getUsed();
+				} catch (Exception e) {
+					logger.warn("[{}] has an error.", fs.getDirName());
+					
+					if (cnt++ > 0) {
+						usage.append(",");
+						
+					}
+					usage.append(fs.getDirName()).append(":");
+					usage.append(CpuPerc.format(0D));
+				}
 			}
 			
 			message.setDiskUsage(usage.toString());

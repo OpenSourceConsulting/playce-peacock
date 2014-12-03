@@ -24,12 +24,16 @@
  */
 package com.athena.peacock.controller.web.alm.crowd;
 
+import java.util.Iterator;
+
 import javax.validation.Valid;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -105,7 +109,23 @@ public class AlmUserController {
 		if (result.hasErrors()) {
 			DtoJsonResponse response = new DtoJsonResponse();
 			response.setSuccess(false);
-			response.setMsg("잘못된 파라미터가 입력되었습니다.");
+			
+			StringBuilder sb = new StringBuilder();
+			
+			Iterator<FieldError> iter = result.getFieldErrors().iterator();
+			FieldError error = null;
+			
+			while (iter.hasNext()) {
+				error = iter.next();
+				sb.append(",").append(error.getField());
+			}
+			
+			if (StringUtils.isEmpty(sb.toString())) {
+				response.setMsg("유효하지 않은 파라메타가 입력되었습니다.");
+			} else {
+				response.setMsg(sb.toString().substring(1) + "에 유효하지 않은 파라메타가 입력되었습니다.");
+			}
+			
 			response.setData(result.getAllErrors());
 			return response;
 		}
@@ -122,7 +142,23 @@ public class AlmUserController {
 		if (result.hasErrors()) {
 			DtoJsonResponse response = new DtoJsonResponse();
 			response.setSuccess(false);
-			response.setMsg("잘못된 파라미터가 입력되었습니다.");
+			
+			StringBuilder sb = new StringBuilder();
+			
+			Iterator<FieldError> iter = result.getFieldErrors().iterator();
+			FieldError error = null;
+			
+			while (iter.hasNext()) {
+				error = iter.next();
+				sb.append(",").append(error.getField());
+			}
+			
+			if (StringUtils.isEmpty(sb.toString())) {
+				response.setMsg("유효하지 않은 파라메타가 입력되었습니다.");
+			} else {
+				response.setMsg(sb.toString().substring(1) + "에 유효하지 않은 파라메타가 입력되었습니다.");
+			}
+			
 			response.setData(result.getAllErrors());
 			return response;
 		}
