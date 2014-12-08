@@ -84,6 +84,9 @@ public class AlmProjectService {
 
 	@Autowired
 	private AlmProjectHistoryMessageService historyService;
+	
+	@Autowired
+	private AlmProjectProcess projectProcess;
 
 	public AlmProjectService() {
 		// TODO Auto-generated constructor stub
@@ -143,6 +146,8 @@ public class AlmProjectService {
 		// Project Group 생성
 		addGroup(project);
 
+		projectProcess.processProjectMapping();
+
 		// Make response Data
 		response.setMsg("프로젝트가 생성되었습니다");
 		return response;
@@ -195,7 +200,6 @@ public class AlmProjectService {
 				confluenceMapping.setStatus("STANDBY");
 				confluenceMapping.setMappingExecution("PERMISSION");
 				projectDao.insertProjectMapping(confluenceMapping);
-
 				historyService.addPermissionConfluenceSpace(confluenceMapping);
 
 			}
@@ -259,6 +263,8 @@ public class AlmProjectService {
 			}
 		}
 
+		projectProcess.processProjectMapping();
+		
 		return response;
 
 	}
@@ -334,6 +340,8 @@ public class AlmProjectService {
 			return response;
 		}
 
+		projectProcess.processProjectMapping();
+		
 		return response;
 	}
 
@@ -385,6 +393,7 @@ public class AlmProjectService {
 			return response;
 		}
 
+		
 		projectDao.deleteProjectMapping(mappingDto);
 
 		return response;
