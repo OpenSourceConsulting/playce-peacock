@@ -124,13 +124,13 @@ public class AlmCrowdService {
 			}
 		} catch (OperationFailedException e) {
 			response.setSuccess(false);
-			response.setMsg("OperationFailedException");
+			response.setMsg("리스트를 불러오는데 실패했습니다.");
 		} catch (InvalidAuthenticationException e) {
 			response.setSuccess(false);
-			response.setMsg("InvalidAuthenticationException");
+			response.setMsg("Crowd 인증에 실패했습니다.");
 		} catch (ApplicationPermissionException e) {
 			response.setSuccess(false);
-			response.setMsg("InvalidAuthenticationException");
+			response.setMsg("ErrorCode : ApplicationPermissionException \n 애플리케이션에서 권한이 없습니다.");
 		}
 
 		return response;
@@ -217,16 +217,16 @@ public class AlmCrowdService {
 			response.setData(user);
 		} catch (OperationFailedException e) {
 			response.setSuccess(false);
-			response.setMsg("OperationFailedException");
+			response.setMsg("유저 정보 조회에 실패했습니다.");
 		} catch (ApplicationPermissionException e) {
 			response.setSuccess(false);
-			response.setMsg("ApplicationPermissionException");
+			response.setMsg("ErrorCode : ApplicationPermissionException \n 애플리케이션에서 권한이 없습니다.");
 		} catch (InvalidAuthenticationException e) {
 			response.setSuccess(false);
-			response.setMsg("InvalidAuthenticationException");
+			response.setMsg("ErrorCode : InvalidAuthenticationException \n 애플리케이션에서 인증 에러가 발생했습니다.");
 		} catch (UserNotFoundException e) {
 			response.setSuccess(false);
-			response.setMsg("UserNotFoundException");
+			response.setMsg("ErrorCode : UserNotFoundException \n 사용자를 찾을 수 없습니다.");
 		}
 		return response;
 	}
@@ -244,13 +244,13 @@ public class AlmCrowdService {
 			response.setMsg("OperationFailedException");
 		} catch (ApplicationPermissionException e) {
 			response.setSuccess(false);
-			response.setMsg("ApplicationPermissionException");
+			response.setMsg("ErrorCode : ApplicationPermissionException \n 애플리케이션에서 권한이 없습니다.");
 		} catch (InvalidAuthenticationException e) {
 			response.setSuccess(false);
-			response.setMsg("InvalidAuthenticationException");
+			response.setMsg("ErrorCode : InvalidAuthenticationException \n 애플리케이션에서 인증 에러가 발생했습니다.");
 		} catch (GroupNotFoundException e) {
 			response.setSuccess(false);
-			response.setMsg("GroupNotFoundException");
+			response.setMsg("ErrorCode : GroupNotFoundException \n 그룹을 찾을 수 없습니다.");
 		}
 
 		return response;
@@ -278,19 +278,19 @@ public class AlmCrowdService {
 			response.setMsg("사용자가 추가되었습니다.");
 		} catch (InvalidUserException e) {
 			response.setSuccess(false);
-			response.setMsg("InvalidUserException");
+			response.setMsg("ErrorCode : UserNotFoundException \n 사용자를 찾을 수 없습니다.");
 		} catch (InvalidCredentialException e) {
 			response.setSuccess(false);
-			response.setMsg("InvalidCredentialException");
+			response.setMsg("ErrorCode : InvalidAuthenticationException \n 애플리케이션에서 인증 에러가 발생했습니다.");
 		} catch (OperationFailedException e) {
 			response.setSuccess(false);
 			response.setMsg("OperationFailedException");
 		} catch (InvalidAuthenticationException e) {
 			response.setSuccess(false);
-			response.setMsg("InvalidAuthenticationException");
+			response.setMsg("ErrorCode : InvalidAuthenticationException \n 애플리케이션에서 인증 에러가 발생했습니다.");
 		} catch (ApplicationPermissionException e) {
 			response.setSuccess(false);
-			response.setMsg("ApplicationPermissionException");
+			response.setMsg("ErrorCode : ApplicationPermissionException \n 애플리케이션에서 권한이 없습니다.");
 		}
 
 		return response;
@@ -311,19 +311,19 @@ public class AlmCrowdService {
 			response.setMsg("사용자 정보가 수정되었습니다.");
 		} catch (InvalidUserException e) {
 			response.setSuccess(false);
-			response.setMsg("InvalidUserException");
+			response.setMsg("ErrorCode : UserNotFoundException \n 사용자를 찾을 수 없습니다.");
 		} catch (OperationFailedException e) {
 			response.setSuccess(false);
-			response.setMsg("OperationFailedException");
+			response.setMsg("ErrorCode : OperationFailedException \n 사용자 정보 수정이 실패했습니다.");
 		} catch (InvalidAuthenticationException e) {
 			response.setSuccess(false);
-			response.setMsg("InvalidAuthenticationException");
+			response.setMsg("ErrorCode : InvalidAuthenticationException \n 애플리케이션에서 인증 에러가 발생했습니다.");
 		} catch (ApplicationPermissionException e) {
 			response.setSuccess(false);
-			response.setMsg("ApplicationPermissionException");
+			response.setMsg("ErrorCode : ApplicationPermissionException \n 애플리케이션에서 권한이 없습니다.");
 		} catch (UserNotFoundException e) {
 			response.setSuccess(false);
-			response.setMsg("UserNotFoundException");
+			response.setMsg("ErrorCode : OperationFailedException \n 사용자 정보 수정이 실패했습니다.");
 		}
 
 		return response;
@@ -339,16 +339,16 @@ public class AlmCrowdService {
 			response.setMsg("사용자가 삭제되었습니다.");
 		} catch (InvalidAuthenticationException e) {
 			response.setSuccess(false);
-			response.setMsg("InvalidAuthenticationException");
+			response.setMsg("ErrorCode : InvalidAuthenticationException \n 애플리케이션에서 인증 에러가 발생했습니다.");
 		} catch (UserNotFoundException e) {
 			response.setSuccess(false);
-			response.setMsg("UserNotFoundException");
+			response.setMsg("ErrorCode : UserNotFoundException \n 사용자를 찾을 수 없습니다.");
 		} catch (OperationFailedException e) {
 			response.setSuccess(false);
-			response.setMsg("OperationFailedException");
+			response.setMsg("ErrorCode : OperationFailedException \n 유저 삭제가 실패했습니다..");
 		} catch (ApplicationPermissionException e) {
 			response.setSuccess(false);
-			response.setMsg("ApplicationPermissionException");
+			response.setMsg("ErrorCode : ApplicationPermissionException \n 애플리케이션에서 권한이 없습니다.");
 		}
 
 		return response;
@@ -374,16 +374,16 @@ public class AlmCrowdService {
 			response.setMsg("사용자 비밀번호가 변경되었습니다.");
 		} catch (OperationFailedException e) {
 			response.setSuccess(false);
-			response.setMsg("OperationFailedException");
+			response.setMsg("ErrorCode : OperationFailedException \n 비밀번호 변경에 실패했습니다.");
 		} catch (InvalidAuthenticationException e) {
 			response.setSuccess(false);
-			response.setMsg("InvalidAuthenticationException");
+			response.setMsg("ErrorCode : InvalidAuthenticationException \n 애플리케이션에서 인증 에러가 발생했습니다.");
 		} catch (ApplicationPermissionException e) {
 			response.setSuccess(false);
-			response.setMsg("ApplicationPermissionException");
+			response.setMsg("ErrorCode : ApplicationPermissionException \n 애플리케이션에서 권한이 없습니다.");
 		} catch (UserNotFoundException e) {
 			response.setSuccess(false);
-			response.setMsg("UserNotFoundException");
+			response.setMsg("ErrorCode : UserNotFoundException \n 사용자를 찾을 수 없습니다.");
 		} catch (InvalidCredentialException e) {
 			logger.info("Crowd Excpetion" + e.getMessage());
 
@@ -407,13 +407,13 @@ public class AlmCrowdService {
 			response.setMsg("그룹이 생성되었습니다");
 		} catch (OperationFailedException e) {
 			response.setSuccess(false);
-			response.setMsg("OperationFailedException");
+			response.setMsg("ErrorCode : OperationFailedException \n 그룹이 생성이 실패했습니다.");
 		} catch (InvalidAuthenticationException e) {
 			response.setSuccess(false);
-			response.setMsg("InvalidAuthenticationException");
+			response.setMsg("ErrorCode : InvalidAuthenticationException \n 애플리케이션에서 인증 에러가 발생했습니다.");
 		} catch (ApplicationPermissionException e) {
 			response.setSuccess(false);
-			response.setMsg("ApplicationPermissionException");
+			response.setMsg("ErrorCode : ApplicationPermissionException \n 애플리케이션에서 권한이 없습니다.");
 		} catch (InvalidGroupException e) {
 			response.setSuccess(false);
 			response.setMsg("InvalidGroupException");
@@ -445,16 +445,16 @@ public class AlmCrowdService {
 			response.setMsg("그룹을 삭제하였습니다.");
 		} catch (GroupNotFoundException e) {
 			response.setSuccess(false);
-			response.setMsg("GroupNotFoundException");
+			response.setMsg("ErrorCode : GroupNotFoundException \n 그룹을 찾을 수 없습니다.");
 		} catch (OperationFailedException e) {
 			response.setSuccess(false);
-			response.setMsg("OperationFailedException");
+			response.setMsg("ErrorCode : OperationFailedException \n 그룹 삭제중 에러가 발생했습니다.");
 		} catch (ApplicationPermissionException e) {
 			response.setSuccess(false);
-			response.setMsg("ApplicationPermissionException");
+			response.setMsg("ErrorCode : ApplicationPermissionException \n 애플리케이션에서 권한이 없습니다.");
 		} catch (InvalidAuthenticationException e) {
 			response.setSuccess(false);
-			response.setMsg("InvalidAuthenticationException");
+			response.setMsg("ErrorCode : InvalidAuthenticationException \n 애플리케이션에서 인증 에러가 발생했습니다.");
 		}
 
 		return response;
@@ -525,22 +525,22 @@ public class AlmCrowdService {
 			response.setMsg("사용자가 그룹에 등록되었습니다.");
 		} catch (GroupNotFoundException e) {
 			response.setSuccess(false);
-			response.setMsg("GroupNotFoundException");
+			response.setMsg("ErrorCode : GroupNotFoundException \n 그룹을 찾을 수 없습니다.");
 		} catch (UserNotFoundException e) {
 			response.setSuccess(false);
-			response.setMsg("UserNotFoundException");
+			response.setMsg("ErrorCode : UserNotFoundException \n 사용자를 찾을 수 없습니다.");
 		} catch (MembershipAlreadyExistsException e) {
 			response.setSuccess(false);
-			response.setMsg("MembershipAlreadyExistsException");
+			response.setMsg("ErrorCode : MembershipAlreadyExistsException \n 이미 그룹에 추가된 유저입니다.");
 		} catch (OperationFailedException e) {
 			response.setSuccess(false);
-			response.setMsg("OperationFailedException");
+			response.setMsg("ErrorCode : OperationFailedException \n 사용자를 그룹에 등록하는데 실패했습니다.");
 		} catch (InvalidAuthenticationException e) {
 			response.setSuccess(false);
-			response.setMsg("InvalidAuthenticationException");
+			response.setMsg("ErrorCode : InvalidAuthenticationException \n 애플리케이션에서 인증 에러가 발생했습니다.");
 		} catch (ApplicationPermissionException e) {
 			response.setSuccess(false);
-			response.setMsg("ApplicationPermissionException");
+			response.setMsg("ErrorCode : ApplicationPermissionException \n 애플리케이션에서 권한이 없습니다.");
 		}
 
 		return response;
