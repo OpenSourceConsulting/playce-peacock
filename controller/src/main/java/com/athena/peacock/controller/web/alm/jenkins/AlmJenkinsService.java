@@ -36,12 +36,15 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.athena.peacock.controller.web.alm.jenkins.client.JenkinsServer;
 import com.athena.peacock.controller.web.alm.jenkins.clinet.model.JenkinsResponseDto;
 import com.athena.peacock.controller.web.alm.jenkins.clinet.model.JobDto;
+import com.athena.peacock.controller.web.alm.project.AlmProjectDao;
+import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
@@ -72,6 +75,9 @@ public class AlmJenkinsService {
 	@Value("#{contextProperties['alm.jenkins.mobiletemplate']}")
 	private String JENKINS_MOBILETEMPLATE;
 
+	@Autowired
+	private AlmProjectDao projectDao;
+	
 	private JenkinsServer jenkinsServer;
 
 	@PostConstruct
@@ -114,12 +120,14 @@ public class AlmJenkinsService {
 
 	public String copyJob(ProjectMappingDto jenkins) {
 
+		ProjectDto projectDto = projectDao.getProject(jenkins.getMappingCode());
+		
 		String url = JENKINS_URL + "/job/JobCopy/buildWithParameters";
 
 		Map<String, String> parameter = new HashMap<String, String>();
-		parameter.put("TEMPLATE_NAME", "HHI-TEMPLATE");
+		parameter.put("TEMPLATE_NAME", "JobTemplate");
 		parameter.put("JOB_NAME", jenkins.getMappingCode());
-		parameter.put("REPOSITORY_NAME", "svn://..../hiway");
+		parameter.put("REPOSITORY_NAME", "svn://svn.hiway.hhi.co.kr/"+projectDto.getRepositoryCode());
 		parameter.put("JOBTYPE", "");
 
 		try {
