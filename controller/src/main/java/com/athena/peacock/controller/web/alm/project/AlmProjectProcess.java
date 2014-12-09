@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.athena.peacock.controller.web.alm.confluence.AlmConfluenceService;
 import com.athena.peacock.controller.web.alm.crowd.AlmCrowdService;
 import com.athena.peacock.controller.web.alm.jenkins.AlmJenkinsService;
+import com.athena.peacock.controller.web.alm.project.dto.ProjectDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectHistoryDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectMappingDto;
 import com.athena.peacock.controller.web.alm.project.dto.ProjectProcessStatusDto;
@@ -40,6 +41,7 @@ public class AlmProjectProcess {
 	@Autowired
 	private AlmCrowdService crowdService;
 
+	
 	public void processProjectMapping() {
 
 		List<ProjectMappingDto> lists = projectDao.getProjectMappingStandBy();
@@ -91,8 +93,11 @@ public class AlmProjectProcess {
 	// SVN 생성
 	private ProjectProcessStatusDto createSvnProject(ProjectMappingDto svn) {
 
+		String projectCode = svn.getProjectCode();
+		ProjectDto projectDto = projectDao.getProject(projectCode);
+		
 		ProjectProcessStatusDto statusDto = svnService.createSvnProject(
-				"hiway", svn.getProjectCode());
+				projectDto.getRepositoryCode(), svn.getProjectCode());
 
 		if (statusDto.isSuccess()) {
 			createProjectHistor(svn.getProjectCode(), svn.getProjectCode()
