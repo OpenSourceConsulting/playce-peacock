@@ -122,7 +122,7 @@ public class SystemMonitoringJob extends BaseJob {
 						
 					}
 					usage.append(fs.getDirName()).append(":");
-					usage.append(CpuPerc.format(0D));
+					usage.append("0.0");
 				}
 			}
 			

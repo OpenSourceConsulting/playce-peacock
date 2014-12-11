@@ -156,8 +156,8 @@ public class MonDataDao extends AbstractBaseDao {
 			partitions = value.split(",");
 			
 			for (String partition : partitions) {
-				if (Double.parseDouble(partition.split(":")[1]) >= (double) diskWarningValue &&
-						Double.parseDouble(partition.split(":")[1]) < (double) diskCriticalValue) {
+				if (Double.parseDouble(partition.split(":")[1].replaceAll("%", "")) >= (double) diskWarningValue &&
+						Double.parseDouble(partition.split(":")[1].replaceAll("%", "")) < (double) diskCriticalValue) {
 
 					if (warningAlarmMap.containsKey(md.getInstanceName()) && warningAlarmMap.get(md.getInstanceName()).getDisk() != null) {
 						continue;
@@ -174,7 +174,7 @@ public class MonDataDao extends AbstractBaseDao {
 					}
 
 					warningDiskAlarmCnt++;
-				} else if (Double.parseDouble(partition.split(":")[1]) >= (double) diskCriticalValue) {
+				} else if (Double.parseDouble(partition.split(":")[1].replaceAll("%", "")) >= (double) diskCriticalValue) {
 
 					if (criticalAlarmMap.containsKey(md.getInstanceName()) && criticalAlarmMap.get(md.getInstanceName()).getDisk() != null) {
 						continue;

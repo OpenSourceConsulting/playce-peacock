@@ -144,7 +144,7 @@ public class SvnService {
 			out.write("jenkins =  rw");
 			out.newLine();
 
-
+			boolean hiwaySampleExists = false;
 			for (SvnProjectDto svnProject : svnlists) {
 
 				String tmp = String
@@ -152,10 +152,27 @@ public class SvnService {
 								svnProject.getProjectCode());
 				out.write(tmp);
 				out.newLine();
+				
+				if (svnProject.getRepository().equals("hiway") && svnProject.getProjectCode().equals("sample")) {
+					hiwaySampleExists = true;
+				}
 
 				String auth = String.format("@%s = rw",
 						svnProject.getProjectCode());
 				out.write(auth);
+				out.newLine();
+				
+				if (hiwaySampleExists) {
+					out.write("* = r");
+					out.newLine();
+				}
+			}
+			
+			if (!hiwaySampleExists) {
+				out.write("[hiway:/sample]");
+				out.newLine();
+				
+				out.write("* = r");
 				out.newLine();
 			}
 
