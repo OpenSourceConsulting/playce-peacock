@@ -43,7 +43,7 @@
 		 	from alm_project_tbl
 		 	<where>
 				<if test="search != null">
-					PROJECT_NAME LIKE concat('%',#{search},'%') OR PROJECT_NAME LIKE concat('%',#{search},'%')
+					PROJECT_CODE LIKE concat('%',#{search},'%') OR PROJECT_NAME LIKE concat('%',#{search},'%')
 				</if>
 		</where>
 	</select>

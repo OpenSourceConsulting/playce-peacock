@@ -218,14 +218,15 @@
                                             "codeClass": null,
                                             "userConfig": {
                                                 "cls": null,
-                                                "emptyText": "Search Project Name",
+                                                "emptyText": "Search Project ID or Name",
                                                 "enableKeyEvents": true,
                                                 "fieldLabel": "Filtering",
                                                 "fieldStyle": null,
                                                 "id": "searchProjectName",
                                                 "itemId": "searchProjectName",
                                                 "labelWidth": 60,
-                                                "layout|flex": null
+                                                "layout|flex": null,
+                                                "width": 250
                                             },
                                             "designerId": "e6be731d-71c4-47a9-83fe-d4c1aeadc7cf"
                                         },

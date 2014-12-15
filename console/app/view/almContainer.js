@@ -120,9 +120,10 @@ Ext.define('MyApp.view.almContainer', {
                                                     xtype: 'textfield',
                                                     id: 'searchProjectName',
                                                     itemId: 'searchProjectName',
+                                                    width: 250,
                                                     fieldLabel: 'Filtering',
                                                     labelWidth: 60,
-                                                    emptyText: 'Search Project Name',
+                                                    emptyText: 'Search Project ID or Name',
                                                     enableKeyEvents: true
                                                 },
                                                 {
