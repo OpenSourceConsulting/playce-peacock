@@ -784,7 +784,7 @@ Ext.define('MyApp.controller.ALMController', {
 
                 Ext.Ajax.request({
                     url: GLOBAL.urlPrefix + "alm/project/user/" + almConstants.actionRow.get("userId") + "/resetpw",
-                    method : 'POST',
+                    method : 'GET',
                     headers: { 'Content-Type': 'application/json' },
                     disableCaching : true,
                     waitMsg: 'ALM User Password reset...',
