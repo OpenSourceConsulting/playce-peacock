@@ -27,7 +27,8 @@
 		<module>console</module>
 		<module>common</module>
 		<module>installer</module>
-		
+
+		<module>design</module>
 	</modules>
 
 	<properties>
