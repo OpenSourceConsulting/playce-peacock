@@ -6,9 +6,9 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userClassName": "CarChart"
+        "designer|userClassName": "Feed"
     },
-    "designerId": "5facafe4-e1fe-49da-a9f1-20529581bc87",
+    "designerId": "bae4018f-44b7-474a-9290-298f3814dd81",
     "cn": [
         {
             "type": "Ext.data.Field",
@@ -18,9 +18,9 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "name"
+                "name": "title"
             },
-            "designerId": "57f09d86-1dd0-42ae-8424-4273388367be"
+            "designerId": "8f5640e5-edd7-4903-81f9-5ccb4375d97d"
         },
         {
             "type": "Ext.data.Field",
@@ -30,9 +30,9 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "rating"
+                "name": "url"
             },
-            "designerId": "04143512-1f56-4c2c-b19d-f3c6c7b262bf"
+            "designerId": "2d3a8842-36f4-4cc2-8ff8-481a9d5680f0"
         }
     ]
 }

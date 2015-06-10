@@ -1,5 +1,5 @@
-Ext.define('MyApp.Application', {
-    name: 'MyApp',
+Ext.define('FeedViewer.Application', {
+    name: 'FeedViewer',
 
     extend: 'Ext.app.Application',
 

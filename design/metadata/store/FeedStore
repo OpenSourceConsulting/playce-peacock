@@ -1,0 +1,26 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "data": [
+            "[{",
+            "                title: 'Sencha Blog',",
+            "                url: 'http://feeds.feedburner.com/extblog'",
+            "            }, {",
+            "                title: 'Sencha Forums',",
+            "                url: 'http://sencha.com/forum/external.php?type=RSS2'",
+            "            }, {",
+            "                title: 'Ajaxian',",
+            "                url: 'http://feeds.feedburner.com/ajaxian'",
+            "            }]"
+        ],
+        "designer|userClassName": "FeedStore",
+        "model": "Feed",
+        "storeId": "MyStore"
+    },
+    "designerId": "f3e12d72-b301-4ba2-9484-afed23aa6830"
+}

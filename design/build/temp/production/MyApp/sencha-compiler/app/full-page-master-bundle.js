@@ -1,3 +1,2 @@
 // @tag full-page
-// @require /Development/project/hiway/workspace/athena-peacock/design/ext/ext-theme-neptune.js
-// @require /Development/project/hiway/workspace/athena-peacock/design/app.js
+// @require /Users/nices96/Documents/Sencha/feedViewer2/app.js

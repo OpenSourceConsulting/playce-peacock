@@ -7,8 +7,7 @@
     "codeClass": null,
     "userConfig": {
         "basePath": "ext/",
-        "designer|userClassName": "Library",
-        "theme": "neptune"
+        "designer|userClassName": "Library"
     },
-    "designerId": "67363d08-999e-4648-b11d-5d9fe657da91"
+    "designerId": "a54fe668-0184-4721-bdc3-d27c53c65bb9"
 }

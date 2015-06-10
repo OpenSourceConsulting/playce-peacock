@@ -3,9 +3,23 @@
     "settings": {
         "cmd": {
             "license": "commercial",
-            "cmdVersion": "4.0.4.84",
+            "cmdVersion": "4.0.0.203",
             "frameworkVersion": "4.2.1.883"
         },
+        "urlPrefix": "http://localhost:1841/feedViewer2",
+        "spacesToIndent": 4,
+        "exportPath": "",
+        "sdkPath": "",
+        "lineEnding": "LF",
+        "genTimestamps": false,
+        "cacheBust": false,
+        "codeGenFormat": "Class",
+        "senchaIoKey": "",
+        "senchaIoPath": "http://extjs.cachefly.net/designer/IO/",
+        "instantiateStore": true,
+        "saveOnDeploy": false,
+        "appName": "MyApp",
+        "buildShouldOverwriteIndex": true,
         "canvasControls": {
             "viewportSize": {
                 "name": "Auto Expand",
@@ -14,15 +28,11 @@
                 "width": null
             }
         },
-        "urlPrefix": "",
-        "exportPath": "",
-        "spacesToIndent": 4,
-        "sdkPath": "",
-        "lineEnding": "LF",
-        "genTimestamps": false,
-        "cacheBust": false,
-        "buildShouldOverwriteIndex": true,
-        "generateArchitectVersion": true
+        "generateArchitectVersion": true,
+        "lastBuildSelection": {
+            "value": "webBuild",
+            "display": "Build web app"
+        }
     },
     "xdsVersion": "3.0.4",
     "xdsBuild": 1386,
@@ -31,21 +41,29 @@
     "framework": "ext42",
     "viewOrderMap": {
         "view": [
-            "6081e1df-fca4-4be1-a307-0c0434204fae"
+            "3f0846b9-bddf-471e-a17b-95cb5de14e54",
+            "7067e8e9-8049-4d34-b6d9-8ed2bb34dd81",
+            "19737a33-9c3a-4c90-b562-0ff17c79e914",
+            "b083da5f-2aca-42d4-b9b5-016a581ea465",
+            "c84fb3e7-80ad-4f16-b5ff-73aed7162ce4",
+            "800053d2-01bc-4ec9-89d3-437e0dd821bc",
+            "29c25f5d-cff4-4199-951d-e3a1dfddcc12"
         ],
         "store": [
-            "0315c038-557a-4e0a-8263-df261c02f018",
-            "46782a72-f446-46f1-9b63-5a9f1dc44a0a"
+            "f3e12d72-b301-4ba2-9484-afed23aa6830",
+            "91af3be2-a1de-4a58-9dd1-c19bccd5fef7",
+            "16a083db-7161-48f8-93d8-8ffa3ea34203"
         ],
         "controller": [
-            "20791d17-a8a6-45d8-915f-da11d9e20636"
+            "68141c8e-578f-4b49-b1c0-e140070964e7"
         ],
         "model": [
-            "44284846-393f-4336-9e37-fe0ed78e1e2a",
-            "5facafe4-e1fe-49da-a9f1-20529581bc87"
+            "bae4018f-44b7-474a-9290-298f3814dd81",
+            "3f6c3bf2-72c0-4f3a-a351-f1a663a6a543"
         ],
         "resource": [
-            "67363d08-999e-4648-b11d-5d9fe657da91"
+            "a54fe668-0184-4721-bdc3-d27c53c65bb9",
+            "6634f12a-0d03-419c-8b02-59d383cb88eb"
         ],
         "app": [
             "application"

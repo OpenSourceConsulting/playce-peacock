@@ -1,4 +1,4 @@
-Ext.define('MyApp.view.Main', {
+Ext.define('FeedViewer.view.Main', {
     extend: 'Ext.container.Container',
     requires:[
         'Ext.tab.Panel',

@@ -1,3 +1,3 @@
-Ext.define('MyApp.controller.Main', {
+Ext.define('FeedViewer.controller.Main', {
     extend: 'Ext.app.Controller'
 });

@@ -1,0 +1,100 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "collapseDirection": "left",
+        "designer|userAlias": "feedpanel",
+        "designer|userClassName": "FeedPanel",
+        "layout": "fit",
+        "title": "Feeds"
+    },
+    "designerId": "c84fb3e7-80ad-4f16-b5ff-73aed7162ce4",
+    "cn": [
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "top",
+                "id": null,
+                "itemId": "toolbar"
+            },
+            "designerId": "72e3619b-3a3f-445d-81c1-746b9c2deb80",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "iconCls": "feed-add",
+                        "id": null,
+                        "itemId": "add",
+                        "layout|flex": null,
+                        "text": "Add Feed"
+                    },
+                    "designerId": "0a03427d-e82f-45aa-98ea-f8d721fab2fc"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "iconCls": "feed-remove",
+                        "itemId": "remove",
+                        "layout|flex": null,
+                        "text": "Remove Feed"
+                    },
+                    "designerId": "912fd379-352a-4998-a77a-0acb282641dd"
+                }
+            ]
+        },
+        {
+            "type": "Ext.view.View",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "cls": "feed-list",
+                "id": null,
+                "itemId": "dataview",
+                "itemSelector": ".feed-list-item",
+                "overItemCls": "feed-list-item-hover",
+                "store": "FeedStore",
+                "trackOver": true
+            },
+            "designerId": "0ec3a6d3-4091-4c96-9d30-2e2a8c8342ec",
+            "cn": [
+                {
+                    "type": "Ext.XTemplate",
+                    "reference": {
+                        "name": "tpl",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|displayName": "tpl",
+                        "implHandler": [
+                            "<tpl for=\".\"><div class=\"feed-list-item\">{title}</div></tpl>"
+                        ]
+                    },
+                    "designerId": "771c424e-bb1c-42d6-8602-3d7177d000d1"
+                }
+            ]
+        }
+    ]
+}

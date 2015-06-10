@@ -1,6 +1,8 @@
 {
    "name": "MyApp",
    "requires": [],
-   "id": "4400c2b3-a766-4357-a32b-c6dfa45df869",
-   "resources": []
+   "id": "54d4d15f-8a2f-4f04-8c23-3e7f8617d5e1",
+   "resources": [
+      "Feed-Viewer.css"
+   ]
 }

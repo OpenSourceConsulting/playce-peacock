@@ -20,24 +20,38 @@ Ext.Loader.setConfig({
 
 
 Ext.application({
+
+    requires: [
+        'Ext.Loader'
+    ],
     models: [
-        'CarData',
-        'CarChart'
+        'Feed',
+        'FeedItem'
     ],
     stores: [
-        'CarDataStore',
-        'CarChartStore'
+        'FeedStore',
+        'FeedItemStore',
+        'DefaultFeedsStore'
     ],
     views: [
-        'MainView'
+        'MyViewport',
+        'FeedPanel',
+        'FeedDetail',
+        'FeedGrid',
+        'FeedPost',
+        'FeedInfo',
+        'FeedWindow'
     ],
     controllers: [
-        'Cars'
+        'FeedController'
     ],
     name: 'MyApp',
 
     launch: function() {
-        Ext.create('MyApp.view.MainView');
+        Ext.create('MyApp.view.MyViewport');
+        Ext.syncRequire([
+            'Ext.ux.PreviewPlugin'
+        ]);
     }
 
 });
