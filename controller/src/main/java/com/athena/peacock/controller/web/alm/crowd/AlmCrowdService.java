@@ -43,6 +43,7 @@ import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 import com.atlassian.crowd.embedded.api.PasswordCredential;
+import com.atlassian.crowd.embedded.api.SearchRestriction;
 import com.atlassian.crowd.exception.ApplicationPermissionException;
 import com.atlassian.crowd.exception.GroupNotFoundException;
 import com.atlassian.crowd.exception.InvalidAuthenticationException;
@@ -61,6 +62,8 @@ import com.atlassian.crowd.model.group.Group;
 import com.atlassian.crowd.model.group.GroupType;
 import com.atlassian.crowd.model.user.User;
 import com.atlassian.crowd.search.builder.Restriction;
+import com.atlassian.crowd.search.query.entity.restriction.BooleanRestriction;
+import com.atlassian.crowd.search.query.entity.restriction.BooleanRestrictionImpl;
 import com.atlassian.crowd.search.query.entity.restriction.PropertyRestriction;
 import com.atlassian.crowd.search.query.entity.restriction.constants.GroupTermKeys;
 import com.atlassian.crowd.search.query.entity.restriction.constants.UserTermKeys;
@@ -148,14 +151,16 @@ public class AlmCrowdService {
 
 		// Search Text가 있을 경우
 		if (gridParam.getSearch() != null) {
+			//PropertyRestriction<String> restriction = Restriction.on(UserTermKeys.USERNAME).startingWith(gridParam.getSearch());
+			//usernames = crowdClient.searchUsers(restriction, page, 50);
 
-			PropertyRestriction<String> restriction = Restriction.on(
-					UserTermKeys.USERNAME).startingWith(gridParam.getSearch());
+			SearchRestriction restriction = new BooleanRestrictionImpl(BooleanRestriction.BooleanLogic.OR, 
+					Restriction.on(UserTermKeys.USERNAME).startingWith(gridParam.getSearch()),
+					Restriction.on(UserTermKeys.DISPLAY_NAME).startingWith(gridParam.getSearch()));
+
 			usernames = crowdClient.searchUsers(restriction, page, 50);
-
 		} else { // Search Text가 없을경우
-			PropertyRestriction<Boolean> restriction = Restriction.on(
-					UserTermKeys.ACTIVE).containing(true);
+			PropertyRestriction<Boolean> restriction = Restriction.on(UserTermKeys.ACTIVE).containing(true);
 			usernames = crowdClient.searchUsers(restriction, page, 50);
 		}
 
