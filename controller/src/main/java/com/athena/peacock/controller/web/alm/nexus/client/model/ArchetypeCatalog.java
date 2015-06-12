@@ -1,8 +1,8 @@
 //
-// �� ������ JAXB(JavaTM Architecture for XML Binding) ���� ���� 2.2.7 ������ ���� ��Ǿ���ϴ�. 
-// <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a>�� �����Ͻʽÿ�. 
-// �� ������ �����ϸ� �ҽ� ��Ű���� ���������� �� ���� ������ �սǵ˴ϴ�. 
-// �� ��¥: 2014.09.29 �ð� 10:31:00 AM KST 
+// 이 파일은 JAXB(JavaTM Architecture for XML Binding) 참조 구현 2.2.7 버전을 통해 생성되었습니다. 
+// <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a>를 참조하십시오. 
+// 이 파일을 수정하면 소스 스키마를 재컴파일할 때 수정 사항이 손실됩니다. 
+// 생성 날짜: 2014.09.29 시간 10:31:00 AM KST 
 //
 
 package com.athena.peacock.controller.web.alm.nexus.client.model;
@@ -15,13 +15,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import com.sun.xml.txw2.annotation.XmlElement;
-
 /**
  * 0.0.0+
  * 
  * <p>
- * ArchetypeCatalog complex type�� ���� Java Ŭ�����Դϴ�.
  * 
  * <p>
  * 
@@ -59,8 +56,6 @@ public class ArchetypeCatalog {
 	protected ArchetypeCatalog.Archetypes archetypes;
 
 	/**
-	 * archetypes �Ӽ��� ���� �����ɴϴ�.
-	 * 
 	 * @return possible object is {@link ArchetypeCatalog.Archetypes }
 	 * 
 	 */
@@ -69,8 +64,6 @@ public class ArchetypeCatalog {
 	}
 
 	/**
-	 * archetypes �Ӽ��� ���� �����մϴ�.
-	 * 
 	 * @param value
 	 *            allowed object is {@link ArchetypeCatalog.Archetypes }
 	 * 
@@ -80,12 +73,6 @@ public class ArchetypeCatalog {
 	}
 
 	/**
-	 * <p>
-	 * anonymous complex type�� ���� Java Ŭ�����Դϴ�.
-	 * 
-	 * <p>
-	 * ���� ��Ű�� ������ �� Ŭ������ ���ԵǴ� �ʿ��� �������� �����մϴ�.
-	 * 
 	 * <pre>
 	 * &lt;complexType>
 	 *   &lt;complexContent>

@@ -1,8 +1,8 @@
 //
-// ÀÌ ÆÄÀÏÀº JAXB(JavaTM Architecture for XML Binding) ÂüÁ¶ ±¸Çö 2.2.7 ¹öÀüÀ» ÅëÇØ »ı¼ºµÇ¾ú½À´Ï´Ù. 
-// <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a>¸¦ ÂüÁ¶ÇÏ½Ê½Ã¿À. 
-// ÀÌ ÆÄÀÏÀ» ¼öÁ¤ÇÏ¸é ¼Ò½º ½ºÅ°¸¶¸¦ ÀçÄÄÆÄÀÏÇÒ ¶§ ¼öÁ¤ »çÇ×ÀÌ ¼Õ½ÇµË´Ï´Ù. 
-// »ı¼º ³¯Â¥: 2014.09.29 ½Ã°£ 10:31:00 AM KST 
+// ì´ íŒŒì¼ì€ JAXB(JavaTM Architecture for XML Binding) ì°¸ì¡° êµ¬í˜„ 2.2.7 ë²„ì „ì„ í†µí•´ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤. 
+// <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a>ë¥¼ ì°¸ì¡°í•˜ì‹­ì‹œì˜¤. 
+// ì´ íŒŒì¼ì„ ìˆ˜ì •í•˜ë©´ ì†ŒìŠ¤ ìŠ¤í‚¤ë§ˆë¥¼ ì¬ì»´íŒŒì¼í•  ë•Œ ìˆ˜ì • ì‚¬í•­ì´ ì†ì‹¤ë©ë‹ˆë‹¤. 
+// ìƒì„± ë‚ ì§œ: 2014.09.29 ì‹œê°„ 10:31:00 AM KST 
 //
 
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://maven.apache.org/plugins/maven-archetype-plugin/archetype-catalog/1.0.0", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
