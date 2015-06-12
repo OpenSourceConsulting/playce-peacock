@@ -147,7 +147,7 @@ public class AlmCrowdService {
 
 		int page = getCrowdPage(gridParam);
 
-		Iterable<User> usernames;
+		List<User> usernames;
 
 		// Search Text가 있을 경우
 		if (gridParam.getSearch() != null) {
@@ -155,8 +155,8 @@ public class AlmCrowdService {
 			//usernames = crowdClient.searchUsers(restriction, page, 50);
 
 			SearchRestriction restriction = new BooleanRestrictionImpl(BooleanRestriction.BooleanLogic.OR, 
-					Restriction.on(UserTermKeys.USERNAME).startingWith(gridParam.getSearch()),
-					Restriction.on(UserTermKeys.DISPLAY_NAME).startingWith(gridParam.getSearch()));
+					Restriction.on(UserTermKeys.USERNAME).containing(gridParam.getSearch()),
+					Restriction.on(UserTermKeys.DISPLAY_NAME).containing(gridParam.getSearch()));
 
 			usernames = crowdClient.searchUsers(restriction, page, 50);
 		} else { // Search Text가 없을경우
