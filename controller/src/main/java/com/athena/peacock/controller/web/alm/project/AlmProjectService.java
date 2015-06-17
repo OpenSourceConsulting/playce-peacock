@@ -477,10 +477,9 @@ public class AlmProjectService {
 	}
 
 	public DtoJsonResponse syncJenkins(String projectCode) {
-
+		StringBuilder resultMsg = new StringBuilder();
 		DtoJsonResponse response = new DtoJsonResponse();
-		response.setMsg("Jenkins Sync 작업이 요청되었습니다");
-
+		
 		List<User> users = crowdService.getGroupUserList(projectCode);
 
 		StringBuffer sb = new StringBuffer();
@@ -503,13 +502,20 @@ public class AlmProjectService {
 		ProjectMappingDto mappingDto = new ProjectMappingDto();
 		mappingDto.setProjectCode(projectCode);
 		mappingDto.setMappingType(20);
-		List<ProjectMappingDto> mappingList = projectDao
-				.getProjectMapping(mappingDto);
+		List<ProjectMappingDto> mappingList = projectDao.getProjectMapping(mappingDto);
 
+		String message = null;
 		for (ProjectMappingDto mapping : mappingList) {
-			jenkinsService.copyPermission(mapping.getMappingCode(),
-					sb.toString());
+			message = jenkinsService.copyPermission(mapping.getMappingCode(), sb.toString());
+			
+			if (message.equals("OK")) {
+				resultMsg.append("[" + projectCode + "] Jenkins Sync 작업이 정상적으로 요청되었습니다.<br/>Sync 결과는 Jenkins에서 확인 가능합니다.");
+			} else {
+				resultMsg.append("[" + projectCode + "] Jenkins Sync 작업 요청이 실패하였습니다.<br/>오류 메시지 : ").append(message);
+			}
 		}
+		
+		response.setMsg(resultMsg.toString());
 
 		return response;
 	}

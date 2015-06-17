@@ -142,7 +142,8 @@ public class AlmJenkinsService {
 	}
 
 	public String copyPermission(String jobName, String userName) {
-
+		String message = "OK";
+		
 		String url = JENKINS_URL + "/job/JobPermission/buildWithParameters";
 
 		Map<String, String> parameter = new HashMap<String, String>();
@@ -154,9 +155,10 @@ public class AlmJenkinsService {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			message = e.getMessage();
 		}
 
-		return "OK";
+		return message;
 
 	}
 

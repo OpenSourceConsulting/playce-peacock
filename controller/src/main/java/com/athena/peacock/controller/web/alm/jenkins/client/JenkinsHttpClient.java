@@ -17,7 +17,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.PoolingClientConnectionManager;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.util.EntityUtils;
 import org.codehaus.jackson.map.DeserializationConfig;
@@ -26,53 +25,50 @@ import org.codehaus.jackson.map.ObjectMapper;
 public class JenkinsHttpClient {
 
 	private URI uri;
+	private DefaultHttpClient client;
 	private BasicHttpContext localContext;
 	private HttpResponseValidator httpResponseValidator;
 	private HttpResponseContent contentExtractor;
 
 	private ObjectMapper mapper;
 	private String context;
-	
-	private String username;
-	private String password;
-	
-	private final PoolingClientConnectionManager cm = new PoolingClientConnectionManager();
 
-	public JenkinsHttpClient(URI uri) {
+	public JenkinsHttpClient(URI uri, DefaultHttpClient defaultHttpClient) {
 		this.context = uri.getPath();
 		if (!context.endsWith("/")) {
 			context += "/";
 		}
 		this.uri = uri;
 		this.mapper = getDefaultMapper();
+		this.client = defaultHttpClient;
 		this.httpResponseValidator = new HttpResponseValidator();
 		this.contentExtractor = new HttpResponseContent();
 	}
 
+	public JenkinsHttpClient(URI uri) {
+		this(uri, new DefaultHttpClient());
+	}
+
 	public JenkinsHttpClient(URI uri, String username, String password) {
 		this(uri);
-		
-		this.username = username;
-		this.password = password;
-		
 		if (isNotBlank(username)) {
-			CredentialsProvider provider = getHttpClient().getCredentialsProvider();
-			AuthScope scope = new AuthScope(uri.getHost(), uri.getPort(), "realm");
-			UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username, password);
+			CredentialsProvider provider = client.getCredentialsProvider();
+			AuthScope scope = new AuthScope(uri.getHost(), uri.getPort(),
+					"realm");
+			UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(
+					username, password);
 			provider.setCredentials(scope, credentials);
 
 			localContext = new BasicHttpContext();
 			localContext.setAttribute("preemptive-auth", new BasicScheme());
-
-			getHttpClient().addRequestInterceptor(new PreemptiveAuth(), 0);
+			client.addRequestInterceptor(new PreemptiveAuth(), 0);
 		}
 	}
-
 
 	public <T> T get(String path, Class<T> cls) throws IOException {
 
 		HttpGet getMethod = new HttpGet(api(path));
-		HttpResponse response = getHttpClient().execute(getMethod, localContext);
+		HttpResponse response = client.execute(getMethod, localContext);
 		try {
 			httpResponseValidator.validateResponse(response);
 
@@ -85,12 +81,11 @@ public class JenkinsHttpClient {
 
 	public String get(String path) throws IOException {
 		HttpGet getMethod = new HttpGet(api(path));
-		HttpResponse response = getHttpClient().execute(getMethod, localContext);
+		HttpResponse response = client.execute(getMethod, localContext);
 		try {
 			httpResponseValidator.validateResponse(response);
 			return contentExtractor.contentAsString(response);
 		} finally {
-			EntityUtils.consume(response.getEntity());
 			releaseConnection(getMethod);
 		}
 	}
@@ -102,7 +97,7 @@ public class JenkinsHttpClient {
 		System.out.println(path);
 
 		HttpPost request = new HttpPost(path);
-		HttpResponse response = getHttpClient().execute(request, localContext);
+		HttpResponse response = client.execute(request, localContext);
 
 		try {
 
@@ -180,19 +175,5 @@ public class JenkinsHttpClient {
 
 		return sb.toString();
 
-	}
-	
-	private DefaultHttpClient getHttpClient() {
-		DefaultHttpClient client = new DefaultHttpClient(cm);
-		
-		if (isNotBlank(username) && client.getRequestInterceptorCount() == 0) {
-			AuthScope scope = new AuthScope(uri.getHost(), uri.getPort(), "realm");
-			UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username, password);
-			getHttpClient().getCredentialsProvider().setCredentials(scope, credentials);
-			
-			client.addRequestInterceptor(new PreemptiveAuth(), 0);
-		}
-		
-		return client;
 	}
 }
