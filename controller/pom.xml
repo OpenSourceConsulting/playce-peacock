@@ -123,6 +123,19 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		
+		<!-- jna, libvirt -->
+		<dependency>
+			<groupId>net.java.dev.jna</groupId>
+			<artifactId>jna</artifactId>
+			<version>4.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.libvirt</groupId>
+			<artifactId>libvirt</artifactId>
+			<version>0.5.1</version>
+		</dependency>
+		
 	</dependencies>
 
 	<!-- Build Profile -->
@@ -219,6 +232,9 @@
 				<directory>${basedir}/src/main/java</directory>
 				<includes>
 					<include>**/*Mapper.xsql</include>
+					<include>**/lib/*.dylib</include>
+					<include>**/lib/*.so</include>
+					<include>**/lib/*.dll</include>
 				</includes>
 			</resource>
 		</resources>
