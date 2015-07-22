@@ -37,10 +37,13 @@ import org.libvirt.ConnectAuth;
  */
 public class PeacockKvmAuth extends ConnectAuth {
 	
-	private String username = "root";
-	private String password = "jan01jan";
+	private String username;
+	private String password;
 
-	public PeacockKvmAuth() {
+	public PeacockKvmAuth(String username, String password) {
+		this.username = username;
+		this.password = password;
+		
 		credType = new CredentialType[] { CredentialType.VIR_CRED_AUTHNAME, CredentialType.VIR_CRED_ECHOPROMPT,
                 CredentialType.VIR_CRED_REALM, CredentialType.VIR_CRED_PASSPHRASE, CredentialType.VIR_CRED_NOECHOPROMPT };
 	}

@@ -61,7 +61,7 @@ public class LibvirtTest {
 	
 	public void connect() throws LibvirtException {
 		try {
-			connect = new Connect(KVM_QEMU_URL, new PeacockKvmAuth(), 0);
+			connect = new Connect(KVM_QEMU_URL, new PeacockKvmAuth("root", "jan01jan"), 0);
 		} catch (LibvirtException e) {
 			e.printStackTrace();
 			throw e;
