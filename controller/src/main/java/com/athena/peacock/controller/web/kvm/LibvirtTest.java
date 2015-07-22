@@ -25,6 +25,8 @@ package com.athena.peacock.controller.web.kvm;
 import org.libvirt.Connect;
 import org.libvirt.LibvirtException;
 import org.libvirt.NodeInfo;
+import org.libvirt.StoragePool;
+import org.libvirt.StorageVol;
 
 /**
  * <pre>
@@ -45,7 +47,7 @@ public class LibvirtTest {
 		 * src/main/resources에 등록할 경우 filtering 되면서 바이너리 파일이 변경됨.
 		 * 따라서 src/main/java에 라이브러리를 등록.
 		 */
-		String libvirtPath = KVMManager.class.getResource("/com/athena/peacock/controller/web/kvm/lib").getFile();
+		String libvirtPath = LibvirtTest.class.getResource("/com/athena/peacock/controller/web/kvm/lib").getFile();
 		System.setProperty("jna.library.path", libvirtPath);
 		
 		/**
@@ -89,6 +91,69 @@ public class LibvirtTest {
         System.out.println("getVersion:" + connect.getVersion());
         System.out.println("getLibVirVersion:" + connect.getLibVirVersion());
 	}
+	
+	public void getStoreagePoolInfo() throws LibvirtException {
+		if (connect == null) {
+			connect();
+		}
+		
+		StoragePool pool = null;
+		StorageVol vol = null;
+		for (String poolName : connect.listStoragePools()) {
+			pool = connect.storagePoolLookupByName(poolName);
+			
+			System.out.println("StoragePool's name : " + pool.getName() + ", numOfVolumes : " + pool.numOfVolumes());
+			System.out.println(pool.getXMLDesc(0));
+			
+			int cnt = 1;
+			for (String volName : pool.listVolumes()) {
+				vol = pool.storageVolLookupByName(volName);
+				
+				System.out.println("\t[" + cnt++ + "] \tname : " + vol.getName() + "\n\t\tpath : " + vol.getPath());
+			}
+		}
+	}
+	
+	public void addStoragePool() throws LibvirtException {
+		if (connect == null) {
+			connect();
+		}
+		
+		// virsh # pool-create-as test dir --target /test
+		String poolXml = 	"<pool type='dir'>" +
+							"  <name>test-pool</name>" +
+							"  <target>" +
+							"    <path>/test</path>" +
+							"  </target>" +
+							"</pool>";
+		
+		StoragePool pool = connect.storagePoolCreateXML(poolXml, 0);
+
+		System.out.println("StoragePool's name : " + pool.getName() + ", numOfVolumes : " + pool.numOfVolumes());
+		System.out.println(pool.getXMLDesc(0));
+		
+		// virsh # vol-create-as test-pool test.img 104857600 --format raw
+		// virsh # vol-info test.img --pool test-pool
+		String vollXml = 	"<volume>" +
+							"  <name>test.img</name>" +
+							"  <key>/test/test.img</key>" +
+							"  <capacity unit='bytes'>104857600</capacity>" +
+							//"  <allocation unit='bytes'>104857600</allocation>" +
+							"  <target>" +
+							"    <format type='raw'/>" +
+							"  </target>" +
+							"</volume>";	
+		
+		StorageVol vol = pool.storageVolCreateXML(vollXml, 0);
+		System.out.println("name : " + vol.getName() + ", path : " + vol.getPath());
+		System.out.println(vol.getXMLDesc(0));
+		
+		// virsh # vol-delete test.img --pool test-pool
+		vol.delete(0);
+		
+		// virsh # pool-destroy test
+		pool.destroy();
+	}
 
 	/**
 	 * <pre>
@@ -99,7 +164,9 @@ public class LibvirtTest {
 	 */
 	public static void main(String[] args) throws LibvirtException {
 		LibvirtTest test = new LibvirtTest();
-		test.getSystemInfo();
+		//test.getSystemInfo();
+		//test.getStoreagePoolInfo();
+		test.addStoragePool();
 	}
 
 }
