@@ -23,6 +23,7 @@
 package com.athena.peacock.controller.web.kvm;
 
 import org.libvirt.Connect;
+import org.libvirt.Domain;
 import org.libvirt.LibvirtException;
 import org.libvirt.NodeInfo;
 import org.libvirt.StoragePool;
@@ -114,14 +115,14 @@ public class LibvirtTest {
 		}
 	}
 	
-	public void addStoragePool() throws LibvirtException {
+	public void addStoragePool(String poolName) throws LibvirtException {
 		if (connect == null) {
 			connect();
 		}
 		
 		// virsh # pool-create-as test dir --target /test
 		String poolXml = 	"<pool type='dir'>" +
-							"  <name>test-pool</name>" +
+							"  <name>" + poolName + "</name>" +
 							"  <target>" +
 							"    <path>/test</path>" +
 							"  </target>" +
@@ -131,12 +132,19 @@ public class LibvirtTest {
 
 		System.out.println("StoragePool's name : " + pool.getName() + ", numOfVolumes : " + pool.numOfVolumes());
 		System.out.println(pool.getXMLDesc(0));
+	}
+	
+	public void addStorageVol(String poolName, String volName) throws LibvirtException {
+		if (connect == null) {
+			connect();
+		}
+		
+		StoragePool pool = connect.storagePoolLookupByName(poolName);
 		
 		// virsh # vol-create-as test-pool test.img 104857600 --format raw
 		// virsh # vol-info test.img --pool test-pool
 		String vollXml = 	"<volume>" +
-							"  <name>test.img</name>" +
-							"  <key>/test/test.img</key>" +
+							"  <name>" + volName + "</name>" +
 							"  <capacity unit='bytes'>104857600</capacity>" +
 							//"  <allocation unit='bytes'>104857600</allocation>" +
 							"  <target>" +
@@ -147,12 +155,80 @@ public class LibvirtTest {
 		StorageVol vol = pool.storageVolCreateXML(vollXml, 0);
 		System.out.println("name : " + vol.getName() + ", path : " + vol.getPath());
 		System.out.println(vol.getXMLDesc(0));
+	}
+	
+	public void deleteStorageVol(String poolName, String name) throws LibvirtException {
+		if (connect == null) {
+			connect();
+		}
 		
-		// virsh # vol-delete test.img --pool test-pool
-		vol.delete(0);
+		StoragePool pool = null;
+		StorageVol vol = null;
 		
-		// virsh # pool-destroy test
-		pool.destroy();
+		pool = connect.storagePoolLookupByName(poolName);
+		
+		for (String volName : pool.listVolumes()) {
+			if (volName.equals(name)) {
+				vol = pool.storageVolLookupByName(volName);
+
+				// virsh # vol-delete test.img --pool test-pool
+				vol.delete(0);
+				break;
+			}
+		}
+	}
+	
+	public void deleteStoragePool(String name) throws LibvirtException {
+		if (connect == null) {
+			connect();
+		}
+
+		StoragePool pool = null;
+		for (String poolName : connect.listStoragePools()) {
+			if (poolName.equals(name)) {
+				pool = connect.storagePoolLookupByName(poolName);
+
+				// virsh # pool-destroy test
+				pool.destroy();
+				break;
+			}
+		}
+	}
+
+	public void getDomainInfo() throws LibvirtException {
+		if (connect == null) {
+			connect();
+		}
+
+        Domain domain = null;
+        
+        System.out.println("================================[Active Domain]================================");
+        for (int id : connect.listDomains()) {
+        	domain = connect.domainLookupByID(id);
+
+        	//*
+			System.out.println("domain name : " + domain.getName() + ", type : " + domain.getOSType() + ", max_mem : " + domain.getMaxMemory() + ", max_cpu : " + domain.getMaxVcpus());
+			/*/
+            System.out.println("virDomainGetXMLDesc:" + domain.getXMLDesc(0));
+            System.out.println("virDomainGetAutostart:" + domain.getAutostart());
+            System.out.println("virDomainGetConnect:" + domain.getConnect());
+            System.out.println("virDomainGetID:" + domain.getID());
+            System.out.println("virDomainGetInfo:" + domain.getInfo());
+            System.out.println("virDomainGetMaxMemory:" + domain.getMaxMemory());
+            System.out.println("virDomainGetMaxVcpus:" + domain.getMaxVcpus());
+            System.out.println("virDomainGetName:" + domain.getName());
+            System.out.println("virDomainGetOSType:" + domain.getOSType());
+            System.out.println("virDomainGetSchedulerType:" + domain.getSchedulerType());
+            System.out.println("virDomainGetSchedulerParameters:" + domain.getSchedulerParameters());
+            //*/
+        }	
+        
+        System.out.println("================================[Inactive Domain]================================");
+        for (String name : connect.listDefinedDomains()) {
+        	domain = connect.domainLookupByName(name);
+
+			System.out.println("domain name : " + domain.getName() + ", type : " + domain.getOSType());
+        }	
 	}
 
 	/**
@@ -164,10 +240,15 @@ public class LibvirtTest {
 	 */
 	public static void main(String[] args) throws LibvirtException {
 		LibvirtTest test = new LibvirtTest();
-		//test.getSystemInfo();
-		//test.getStoreagePoolInfo();
-		test.addStoragePool();
+		test.getSystemInfo();
+		test.getStoreagePoolInfo();
+		
+		test.addStoragePool("test-pool");
+		test.addStorageVol("test-pool", "test.img");
+		test.deleteStorageVol("test-pool", "test.img");
+		test.deleteStoragePool("test-pool");
+		
+		test.getDomainInfo();
 	}
-
 }
 //end of LibvirtTest.java
