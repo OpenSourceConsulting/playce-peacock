@@ -206,7 +206,7 @@ public class LibvirtTest {
         for (int id : connect.listDomains()) {
         	domain = connect.domainLookupByID(id);
 
-        	//*
+        	/*
 			System.out.println("domain name : " + domain.getName() + ", type : " + domain.getOSType() + ", max_mem : " + domain.getMaxMemory() + ", max_cpu : " + domain.getMaxVcpus());
 			/*/
             System.out.println("virDomainGetXMLDesc:" + domain.getXMLDesc(0));
@@ -231,6 +231,126 @@ public class LibvirtTest {
         }	
 	}
 
+	public void attachVolume(String domainName, String sourceFile, String deviceName) throws LibvirtException {
+		if (connect == null) {
+			connect();
+		}
+
+        Domain domain = connect.domainLookupByName(domainName);
+        System.out.println("Before Attach : " + domain.getXMLDesc(0));
+        
+        String deviceXml = 	"<disk type='file' device='disk'>" +
+			        		//"	<driver name='qemu' type='raw' cache='none'/>" +
+			        		"	<source file='" + sourceFile + "'/>" +
+			        		"	<target dev='" + deviceName + "' bus='virtio'/>" +
+			        		"</disk>";  
+        
+        //domain.attachDevice(deviceXml);
+        domain.attachDeviceFlags(deviceXml, 0);
+
+        System.out.println("After Attach : " + domain.getXMLDesc(0));
+	}
+
+	public void detatchVolume(String domainName, String sourceFile, String deviceName) throws LibvirtException {
+		if (connect == null) {
+			connect();
+		}
+
+        Domain domain = connect.domainLookupByName(domainName);
+        System.out.println("Before Detatch : " + domain.getXMLDesc(0));
+        
+        String deviceXml =	"<disk type='file' device='disk'>" +
+			        		"	<source file='" + sourceFile + "'/>" +
+			        		"	<target dev='" + deviceName + "' bus='virtio'/>" +
+			        		"</disk>";  
+        
+        //domain.detachDevice(deviceXml);
+        domain.detachDeviceFlags(deviceXml, 0);
+
+        System.out.println("After Detatch : " + domain.getXMLDesc(0));
+	}
+	
+	public void createDomain() throws LibvirtException {
+		if (connect == null) {
+			connect();
+		}
+		
+		String domainXml =	"<domain type='kvm'>" + 
+							"	<name>scpark-test</name>" +
+							//"	<uuid>004b96e1-2d78-c30f-5aa5-f03c87d21e70</uuid>" + 
+							"	<memory unit='KiB'>1048576</memory>" +
+							"	<vcpu>2</vcpu>" + 
+							"	<os>" +
+							"		<type arch='x86_64' machine='rhel6.6.0'>hvm</type>" + 
+							"		<boot dev='hd'/>" +
+							"	</os>" +
+							"	<features>" +
+							"		<acpi/>" +
+							"		<apic/>" +
+							"		<pae/>" +
+							"	</features>" +
+							"	<clock offset='utc'/>" +
+							"	<on_reboot>restart</on_reboot>" + 
+							"	<on_poweroff>restart</on_poweroff>" +
+							"	<on_crash>restart</on_crash>" + 
+							"	<devices>" +
+							"		<emulator>/usr/libexec/qemu-kvm</emulator>" +
+							"		<disk type='file' device='disk'>" +
+							"			<driver name='qemu' type='qcow2' cache='none'/>" +
+							"			<source file='/var/lib/libvirt/images/rhha_khoj_183.img'/>" +
+							"			<target dev='vda' bus='virtio'/>" +
+							"			<alias name='virtio-disk0'/>" +
+							"			<address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x0'/>" +
+							"	    </disk>" +
+							" 		<controller type='usb' index='0'>" +
+							"			<alias name='usb0'/>" +
+							"			<address type='pci' domain='0x0000' bus='0x00' slot='0x01' function='0x2'/>" +
+							"		</controller>" +
+							"		<interface type='bridge'>" +
+							"			<mac address='52:54:00:af:28:c0'/>" +
+							"			<source bridge='br0'/>" +
+							"			<target dev='vnet0'/>" +
+							"			<model type='virtio'/>" +
+							"			<alias name='net0'/>" +
+							"			<address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>" +
+							"		</interface>" +
+							"		<serial type='pty'>" +
+							"			<source path='/dev/pts/0'/>" +
+							"			<target port='0'/>" +
+							" 			<alias name='serial0'/>" +
+							"		</serial>" +
+							"    	<console type='pty' tty='/dev/pts/0'>" +
+							"      		<source path='/dev/pts/0'/>" +
+							"      		<target type='serial' port='0'/>" +
+							"      		<alias name='serial0'/>" +
+							"    	</console>" +
+							"    	<input type='tablet' bus='usb'>" +
+							"      		<alias name='input0'/>" +
+							"    	</input>" +
+							"    	<input type='mouse' bus='ps2'/>" +
+							"    	<graphics type='vnc' port='5900' autoport='yes' listen='127.0.0.1'>" +
+							"      		<listen type='address' address='127.0.0.1'/>" +
+							"    	</graphics>" +
+							"    	<sound model='ich6'>" +
+							"      		<alias name='sound0'/>" +
+							"      		<address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0'/>" +
+							"    	</sound>" +
+							"    	<video>" +
+							"      		<model type='cirrus' vram='9216' heads='1'/>" +
+							"      		<alias name='video0'/>" +
+							"      		<address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x0'/>" +
+							"   	</video>" +
+							"    	<memballoon model='virtio'>" +
+							"     		<alias name='balloon0'/>" +
+							"      		<address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>" +
+							"    	</memballoon>" +
+							"	</devices>" +			
+							"</domain>";
+		
+		connect.domainCreateXML(domainXml, 0);
+		//connect.domainCreateLinux(domainXml, 0);
+	}
+
 	/**
 	 * <pre>
 	 * 
@@ -241,14 +361,20 @@ public class LibvirtTest {
 	public static void main(String[] args) throws LibvirtException {
 		LibvirtTest test = new LibvirtTest();
 		test.getSystemInfo();
-		test.getStoreagePoolInfo();
-		
-		test.addStoragePool("test-pool");
-		test.addStorageVol("test-pool", "test.img");
-		test.deleteStorageVol("test-pool", "test.img");
-		test.deleteStoragePool("test-pool");
-		
+//		test.getStoreagePoolInfo();
+//		
+//		test.addStoragePool("test-pool");
+//		test.addStorageVol("test-pool", "test.img");
+//		
 		test.getDomainInfo();
+		
+		test.createDomain();
+		
+//		test.attachVolume("65clone-kapil", "/test/test.img", "vdb");
+//		test.detatchVolume("65clone-kapil", "/test/test.img", "vdb");
+//
+//		test.deleteStorageVol("test-pool", "test.img");
+//		test.deleteStoragePool("test-pool");
 	}
 }
 //end of LibvirtTest.java
