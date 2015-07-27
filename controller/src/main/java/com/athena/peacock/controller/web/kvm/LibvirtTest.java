@@ -24,6 +24,7 @@ package com.athena.peacock.controller.web.kvm;
 
 import org.libvirt.Connect;
 import org.libvirt.Domain;
+import org.libvirt.DomainSnapshot;
 import org.libvirt.LibvirtException;
 import org.libvirt.NodeInfo;
 import org.libvirt.StoragePool;
@@ -275,80 +276,71 @@ public class LibvirtTest {
 			connect();
 		}
 		
-		String domainXml =	"<domain type='kvm'>" + 
-							"	<name>scpark-test</name>" +
-							//"	<uuid>004b96e1-2d78-c30f-5aa5-f03c87d21e70</uuid>" + 
-							"	<memory unit='KiB'>1048576</memory>" +
-							"	<vcpu>2</vcpu>" + 
-							"	<os>" +
-							"		<type arch='x86_64' machine='rhel6.6.0'>hvm</type>" + 
-							"		<boot dev='hd'/>" +
-							"	</os>" +
-							"	<features>" +
-							"		<acpi/>" +
-							"		<apic/>" +
-							"		<pae/>" +
-							"	</features>" +
-							"	<clock offset='utc'/>" +
-							"	<on_reboot>restart</on_reboot>" + 
-							"	<on_poweroff>restart</on_poweroff>" +
-							"	<on_crash>restart</on_crash>" + 
-							"	<devices>" +
-							"		<emulator>/usr/libexec/qemu-kvm</emulator>" +
-							"		<disk type='file' device='disk'>" +
-							"			<driver name='qemu' type='qcow2' cache='none'/>" +
-							"			<source file='/var/lib/libvirt/images/rhha_khoj_183.img'/>" +
-							"			<target dev='vda' bus='virtio'/>" +
-							"			<alias name='virtio-disk0'/>" +
-							"			<address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x0'/>" +
-							"	    </disk>" +
-							" 		<controller type='usb' index='0'>" +
-							"			<alias name='usb0'/>" +
-							"			<address type='pci' domain='0x0000' bus='0x00' slot='0x01' function='0x2'/>" +
-							"		</controller>" +
-							"		<interface type='bridge'>" +
-							"			<mac address='52:54:00:af:28:c0'/>" +
-							"			<source bridge='br0'/>" +
-							"			<target dev='vnet0'/>" +
-							"			<model type='virtio'/>" +
-							"			<alias name='net0'/>" +
-							"			<address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>" +
-							"		</interface>" +
-							"		<serial type='pty'>" +
-							"			<source path='/dev/pts/0'/>" +
-							"			<target port='0'/>" +
-							" 			<alias name='serial0'/>" +
-							"		</serial>" +
-							"    	<console type='pty' tty='/dev/pts/0'>" +
-							"      		<source path='/dev/pts/0'/>" +
-							"      		<target type='serial' port='0'/>" +
-							"      		<alias name='serial0'/>" +
-							"    	</console>" +
-							"    	<input type='tablet' bus='usb'>" +
-							"      		<alias name='input0'/>" +
-							"    	</input>" +
-							"    	<input type='mouse' bus='ps2'/>" +
-							"    	<graphics type='vnc' port='5900' autoport='yes' listen='127.0.0.1'>" +
-							"      		<listen type='address' address='127.0.0.1'/>" +
-							"    	</graphics>" +
-							"    	<sound model='ich6'>" +
-							"      		<alias name='sound0'/>" +
-							"      		<address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0'/>" +
-							"    	</sound>" +
-							"    	<video>" +
-							"      		<model type='cirrus' vram='9216' heads='1'/>" +
-							"      		<alias name='video0'/>" +
-							"      		<address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x0'/>" +
-							"   	</video>" +
-							"    	<memballoon model='virtio'>" +
-							"     		<alias name='balloon0'/>" +
-							"      		<address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>" +
-							"    	</memballoon>" +
-							"	</devices>" +			
+		String domainXml =	"<domain type='kvm'>" +
+							"  <name>scpark_test</name>" +
+							"  <memory unit='KiB'>1048576</memory>" +
+							"  <vcpu>2</vcpu>" +
+							"  <os>" +
+							"    <type arch='x86_64' machine='rhel6.6.0'>hvm</type>" +
+							"    <boot dev='hd'/>" +
+							"  </os>" +
+							"  <features>" +
+							"    <acpi/>" +
+							"    <apic/>" +
+							"    <pae/>" +
+							"  </features>" +
+							"  <clock offset='utc'/>" +
+							"  <on_poweroff>destroy</on_poweroff>" +
+							"  <on_reboot>restart</on_reboot>" +
+							"  <on_crash>restart</on_crash>" +
+							"  <devices>" +
+							"    <emulator>/usr/libexec/qemu-kvm</emulator>" +
+							"    <disk type='file' device='disk'>" +
+							"      <driver name='qemu' type='qcow2' cache='none'/>" +
+							"      <source file='/var/lib/libvirt/images/scpark_test_qcow2.img'/>" +
+							"      <target dev='vda' bus='virtio'/>" +
+							"    </disk>" +
+							"    <controller type='usb' index='0' model='ich9-ehci1' />" +
+							"    <controller type='usb' index='0' model='ich9-uhci1'>" +
+							"      <master startport='0'/>" +
+							"    </controller>" +
+							"    <controller type='usb' index='0' model='ich9-uhci2'>" +
+							"      <master startport='2'/>" +
+							"    </controller>" +
+							"    <controller type='usb' index='0' model='ich9-uhci3'>" +
+							"      <master startport='4'/>" +
+							"    </controller>" +
+							"    <interface type='bridge'>" +
+							//"      <mac address='52:54:00:c7:d2:2b'/>" +
+							"      <source bridge='br0'/>" +
+							"      <model type='virtio'/>" +
+							"    </interface>" +
+							"    <serial type='pty'>" +
+							"      <target port='0'/>" +
+							"    </serial>" +
+							"    <console type='pty'>" +
+							"      <target type='serial' port='0'/>" +
+							"    </console>" +
+							"    <input type='tablet' bus='usb'/>" +
+							"    <input type='mouse' bus='ps2'/>" +
+							"    <graphics type='vnc' port='-1' autoport='yes'/>" +
+							"    <sound model='ich6' />" +
+							"    <video>" +
+							"      <model type='cirrus' vram='9216' heads='1'/>" +
+							"    </video>" +
+							"    <memballoon model='virtio' />" +
+							"  </devices>" +
 							"</domain>";
-		
-		connect.domainCreateXML(domainXml, 0);
+
+		Domain domain = connect.domainCreateXML(domainXml, 0);
 		//connect.domainCreateLinux(domainXml, 0);
+		
+		String snapshotXml = 	"<domainsnapshot>" + 
+								"  <name>scpark_snapshot</name>" +
+								"</domainsnapshot>";
+		
+		DomainSnapshot snapshot = domain.snapshotCreateXML(snapshotXml, 0);
+		
 	}
 
 	/**
@@ -360,13 +352,15 @@ public class LibvirtTest {
 	 */
 	public static void main(String[] args) throws LibvirtException {
 		LibvirtTest test = new LibvirtTest();
-		test.getSystemInfo();
+//		test.getSystemInfo();
 //		test.getStoreagePoolInfo();
 //		
 //		test.addStoragePool("test-pool");
 //		test.addStorageVol("test-pool", "test.img");
 //		
-		test.getDomainInfo();
+//		test.getDomainInfo();
+		
+		//test.createSnapshot();
 		
 		test.createDomain();
 		
@@ -376,5 +370,79 @@ public class LibvirtTest {
 //		test.deleteStorageVol("test-pool", "test.img");
 //		test.deleteStoragePool("test-pool");
 	}
+	
+	/**
+	http://docs.openstack.org/image-guide/content/ch_converting.html => Converting between image formats
+	<domainsnapshot>
+	  <name>scpark_snapshot</name>
+	</domainsnapshot>
+
+	<domainsnapshot>
+	  <name>scpark-snapshot</name>
+	  <state>running</state>
+	  <creationTime>1438001591</creationTime>
+	  <memory snapshot='internal'/>
+	  <disks>
+	    <disk name='vda' snapshot='internal'/>
+	  </disks>
+	  <domain type='kvm'>
+	    <name>scpark-test</name>
+	    <uuid>8e794d5c-12a4-e199-c644-297ee3a98b05</uuid>
+	    <memory unit='KiB'>1048576</memory>
+	    <currentMemory unit='KiB'>1048576</currentMemory>
+	    <vcpu placement='static'>2</vcpu>
+	    <os>
+	      <type arch='x86_64' machine='rhel6.6.0'>hvm</type>
+	      <boot dev='hd'/>
+	    </os>
+	    <features>
+	      <acpi/>
+	      <apic/>
+	      <pae/>
+	    </features>
+	    <clock offset='utc'/>
+	    <on_poweroff>restart</on_poweroff>
+	    <on_reboot>restart</on_reboot>
+	    <on_crash>restart</on_crash>
+	    <devices>
+	      <emulator>/usr/libexec/qemu-kvm</emulator>
+	      <disk type='file' device='disk'>
+	        <driver name='qemu' type='qcow2' cache='none'/>
+	        <source file='/var/lib/libvirt/images/rhha_khoj_183.img'/>
+	        <target dev='vda' bus='virtio'/>
+	        <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x0'/>
+	      </disk>
+	      <controller type='usb' index='0'/>
+	      <interface type='bridge'>
+	        <mac address='52:54:00:d8:df:b9'/>
+	        <source bridge='br0'/>
+	        <model type='virtio'/>
+	        <address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>
+	      </interface>
+	      <serial type='pty'>
+	        <target port='0'/>
+	      </serial>
+	      <console type='pty'>
+	        <target type='serial' port='0'/>
+	      </console>
+	      <input type='tablet' bus='usb'/>
+	      <input type='mouse' bus='ps2'/>
+	      <graphics type='vnc' port='-1' autoport='yes' listen='127.0.0.1'>
+	        <listen type='address' address='127.0.0.1'/>
+	      </graphics>
+	      <sound model='ich6'>
+	        <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0'/>
+	      </sound>
+	      <video>
+	        <model type='cirrus' vram='9216' heads='1'/>
+	        <address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x0'/>
+	      </video>
+	      <memballoon model='virtio'>
+	        <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>
+	      </memballoon>
+	    </devices>
+	  </domain>
+	</domainsnapshot>
+	*/
 }
 //end of LibvirtTest.java
