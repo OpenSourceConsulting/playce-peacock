@@ -24,7 +24,6 @@ package com.athena.peacock.controller.web.kvm;
 
 import org.libvirt.Connect;
 import org.libvirt.Domain;
-import org.libvirt.DomainSnapshot;
 import org.libvirt.LibvirtException;
 import org.libvirt.NodeInfo;
 import org.libvirt.StoragePool;
@@ -196,6 +195,30 @@ public class LibvirtTest {
 		}
 	}
 
+	public void cloneVol(String poolName, String fromVolName, String newVolName) throws LibvirtException {
+		if (connect == null) {
+			connect();
+		}
+
+		StoragePool pool = null;
+		StorageVol vol = null;
+		
+		pool = connect.storagePoolLookupByName(poolName);
+		
+		for (String volName : pool.listVolumes()) {
+			if (volName.equals(fromVolName)) {
+				vol = pool.storageVolLookupByName(volName);
+
+				String volXml = vol.getXMLDesc(0);
+				volXml = volXml.replaceAll(fromVolName, newVolName);
+				
+				StorageVol newVol = pool.storageVolCreateXMLFrom(volXml, vol, 0);
+				System.out.println(newVol.getXMLDesc(0));
+				break;
+			}
+		}
+	}
+
 	public void getDomainInfo() throws LibvirtException {
 		if (connect == null) {
 			connect();
@@ -332,15 +355,8 @@ public class LibvirtTest {
 							"  </devices>" +
 							"</domain>";
 
-		Domain domain = connect.domainCreateXML(domainXml, 0);
+		connect.domainCreateXML(domainXml, 0);
 		//connect.domainCreateLinux(domainXml, 0);
-		
-		String snapshotXml = 	"<domainsnapshot>" + 
-								"  <name>scpark_snapshot</name>" +
-								"</domainsnapshot>";
-		
-		DomainSnapshot snapshot = domain.snapshotCreateXML(snapshotXml, 0);
-		
 	}
 
 	/**
@@ -353,16 +369,16 @@ public class LibvirtTest {
 	public static void main(String[] args) throws LibvirtException {
 		LibvirtTest test = new LibvirtTest();
 //		test.getSystemInfo();
-//		test.getStoreagePoolInfo();
+		test.getStoreagePoolInfo();
 //		
 //		test.addStoragePool("test-pool");
 //		test.addStorageVol("test-pool", "test.img");
 //		
 //		test.getDomainInfo();
 		
-		//test.createSnapshot();
+		test.cloneVol("default", "scpark_test.img", "scpark_test-clone.img");
 		
-		test.createDomain();
+		//test.createDomain();
 		
 //		test.attachVolume("65clone-kapil", "/test/test.img", "vdb");
 //		test.detatchVolume("65clone-kapil", "/test/test.img", "vdb");
@@ -373,76 +389,6 @@ public class LibvirtTest {
 	
 	/**
 	http://docs.openstack.org/image-guide/content/ch_converting.html => Converting between image formats
-	<domainsnapshot>
-	  <name>scpark_snapshot</name>
-	</domainsnapshot>
-
-	<domainsnapshot>
-	  <name>scpark-snapshot</name>
-	  <state>running</state>
-	  <creationTime>1438001591</creationTime>
-	  <memory snapshot='internal'/>
-	  <disks>
-	    <disk name='vda' snapshot='internal'/>
-	  </disks>
-	  <domain type='kvm'>
-	    <name>scpark-test</name>
-	    <uuid>8e794d5c-12a4-e199-c644-297ee3a98b05</uuid>
-	    <memory unit='KiB'>1048576</memory>
-	    <currentMemory unit='KiB'>1048576</currentMemory>
-	    <vcpu placement='static'>2</vcpu>
-	    <os>
-	      <type arch='x86_64' machine='rhel6.6.0'>hvm</type>
-	      <boot dev='hd'/>
-	    </os>
-	    <features>
-	      <acpi/>
-	      <apic/>
-	      <pae/>
-	    </features>
-	    <clock offset='utc'/>
-	    <on_poweroff>restart</on_poweroff>
-	    <on_reboot>restart</on_reboot>
-	    <on_crash>restart</on_crash>
-	    <devices>
-	      <emulator>/usr/libexec/qemu-kvm</emulator>
-	      <disk type='file' device='disk'>
-	        <driver name='qemu' type='qcow2' cache='none'/>
-	        <source file='/var/lib/libvirt/images/rhha_khoj_183.img'/>
-	        <target dev='vda' bus='virtio'/>
-	        <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x0'/>
-	      </disk>
-	      <controller type='usb' index='0'/>
-	      <interface type='bridge'>
-	        <mac address='52:54:00:d8:df:b9'/>
-	        <source bridge='br0'/>
-	        <model type='virtio'/>
-	        <address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>
-	      </interface>
-	      <serial type='pty'>
-	        <target port='0'/>
-	      </serial>
-	      <console type='pty'>
-	        <target type='serial' port='0'/>
-	      </console>
-	      <input type='tablet' bus='usb'/>
-	      <input type='mouse' bus='ps2'/>
-	      <graphics type='vnc' port='-1' autoport='yes' listen='127.0.0.1'>
-	        <listen type='address' address='127.0.0.1'/>
-	      </graphics>
-	      <sound model='ich6'>
-	        <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0'/>
-	      </sound>
-	      <video>
-	        <model type='cirrus' vram='9216' heads='1'/>
-	        <address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x0'/>
-	      </video>
-	      <memballoon model='virtio'>
-	        <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>
-	      </memballoon>
-	    </devices>
-	  </domain>
-	</domainsnapshot>
 	*/
 }
 //end of LibvirtTest.java
