@@ -355,8 +355,86 @@ public class LibvirtTest {
 							"  </devices>" +
 							"</domain>";
 
-		connect.domainCreateXML(domainXml, 0);
-		//connect.domainCreateLinux(domainXml, 0);
+		Domain domain = connect.domainDefineXML(domainXml);  // persistent domain
+		domain.create(0);
+		//connect.domainCreateXML(domainXml, 0);  // transient domain
+	}
+
+	public void deleteDomain(String domainName) throws LibvirtException {
+		if (connect == null) {
+			connect();
+		}
+		
+        Domain domain = connect.domainLookupByName(domainName);
+        
+        if (domain.isPersistent() == 1) {
+        	domain.undefine();
+        }
+        
+    	domain.destroy();
+	}
+
+	public void shutOffDoman(String domainName) throws LibvirtException {
+		if (connect == null) {
+			connect();
+		}
+
+        Domain domain = connect.domainLookupByName(domainName);
+        domain.managedSave(); // persitent domain 에서만 동작
+        //domain.save("/var/lib/libvirt/qemu/save/" + domainName + ".save");
+	}
+
+	public void restoreDomain(String domainName) throws LibvirtException {
+		if (connect == null) {
+			connect();
+		}
+
+		try {
+			connect.restore("/var/lib/libvirt/qemu/save/" + domainName + ".save");
+		} catch (LibvirtException e) {
+			// in case of save file doesn't exist.
+	        Domain domain = connect.domainLookupByName(domainName);
+	        
+	        if (domain.isPersistent() == 1) {
+	        	domain.create();
+	        }
+		}
+	}
+
+	public void shutdownDoman(String domainName) throws LibvirtException {
+		if (connect == null) {
+			connect();
+		}
+
+        Domain domain = connect.domainLookupByName(domainName);
+        domain.shutdown();
+	}
+
+	public void rebootDoman(String domainName) throws LibvirtException {
+		if (connect == null) {
+			connect();
+		}
+
+        Domain domain = connect.domainLookupByName(domainName);
+        domain.reboot(0);
+	}
+
+	public void suspendDoman(String domainName) throws LibvirtException {
+		if (connect == null) {
+			connect();
+		}
+
+        Domain domain = connect.domainLookupByName(domainName);
+        domain.suspend();
+	}
+
+	public void resumeDoman(String domainName) throws LibvirtException {
+		if (connect == null) {
+			connect();
+		}
+
+        Domain domain = connect.domainLookupByName(domainName);
+        domain.resume();
 	}
 
 	/**
@@ -369,16 +447,25 @@ public class LibvirtTest {
 	public static void main(String[] args) throws LibvirtException {
 		LibvirtTest test = new LibvirtTest();
 //		test.getSystemInfo();
-		test.getStoreagePoolInfo();
+//		test.getStoreagePoolInfo();
 //		
 //		test.addStoragePool("test-pool");
 //		test.addStorageVol("test-pool", "test.img");
 //		
 //		test.getDomainInfo();
 		
-		test.cloneVol("default", "scpark_test.img", "scpark_test-clone.img");
+//		test.cloneVol("default", "scpark_test.img", "scpark_test-clone.img");
 		
-		//test.createDomain();
+//		test.createDomain();
+		
+//		test.shutOffDoman("scpark_test");  // shutOff 상태에서 shutdown, destroy 동작하지 않음.
+//		test.restoreDomain("scpark_test");
+		
+//		test.suspendDoman("scpark_test");  // running 상태에서만 동작
+//		test.resumeDoman("scpark_test");  // paused 상태에서만 동작
+		
+//		test.shutdownDoman("scpark_test");  // running 상태에서만 동작, transient domain은 삭제된다.
+		test.deleteDomain("scpark_test");  // running 상태에서만 동작
 		
 //		test.attachVolume("65clone-kapil", "/test/test.img", "vdb");
 //		test.detatchVolume("65clone-kapil", "/test/test.img", "vdb");
