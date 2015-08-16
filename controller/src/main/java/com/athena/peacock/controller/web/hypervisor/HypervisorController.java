@@ -36,8 +36,8 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.athena.peacock.controller.common.component.RHEVMRestTemplate;
-import com.athena.peacock.controller.common.component.RHEVMRestTemplateManager;
+import com.athena.peacock.controller.common.component.HypervisorClient;
+import com.athena.peacock.controller.common.component.HypervisorClientManager;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 import com.athena.peacock.controller.web.common.model.SimpleJsonResponse;
 import com.athena.peacock.controller.web.user.UserController;
@@ -72,13 +72,13 @@ public class HypervisorController {
 	@RequestMapping("/list")
 	public @ResponseBody GridJsonResponse list(GridJsonResponse jsonRes) throws Exception {
 		List<HypervisorDto> hypervisorList = hypervisorService.getHypervisorList();
-		List<RHEVMRestTemplate> templateList = RHEVMRestTemplateManager.getAllTemplates();
+		List<HypervisorClient> templateList = HypervisorClientManager.getAllTemplates();
 		
 		int matchCnt = 0;
 		
 		if (hypervisorList.size() == templateList.size()) {
 			for (HypervisorDto hypervisor : hypervisorList) {
-				for (RHEVMRestTemplate template : templateList) {
+				for (HypervisorClient template : templateList) {
 					if (hypervisor.getRhevmHost().equals(template.getHost()) &&
 							hypervisor.getRhevmProtocol().equals(template.getProtocol()) &&
 							hypervisor.getRhevmPort().equals(template.getPort()) &&
@@ -93,9 +93,9 @@ public class HypervisorController {
 			}
 		}
 		
-		// 기존 RHEVMRestTemplate의 갱신이 필요한 경우
+		// 기존 HypervisorClient의 갱신이 필요한 경우
 		if (hypervisorList.size() != templateList.size() || hypervisorList.size() != matchCnt) {
-			RHEVMRestTemplateManager.resetRHEVMRestTemplate(hypervisorList);
+			HypervisorClientManager.resetHypervisorClient(hypervisorList);
 		}
 		
 		jsonRes.setTotal(hypervisorList.size());
@@ -128,8 +128,8 @@ public class HypervisorController {
 			hypervisorService.insertHypervisor(hypervisor);
 			jsonRes.setMsg("Hypervisor 생성이 완료되었습니다.");
 			
-			// RHEV Type의 Hypervisor가 추가될 경우 RHEVMRestTemplateManager에 해당 RHEV-M에 대한 RHEVMRestTemplate을 초기화한다.
-			RHEVMRestTemplateManager.setRHEVMRestTemplate(hypervisor);
+			// Hypervisor가 추가될 경우 HypervisorClientManager에 해당 HypervisorClient을 초기화한다.
+			HypervisorClientManager.setHypervisorClient(hypervisor);
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Hypervisor 생성 중 에러가 발생하였습니다.");
@@ -191,8 +191,8 @@ public class HypervisorController {
 			hypervisorService.updateHypervisor(hypervisor);
 			jsonRes.setMsg("Hypervisor 수정이 완료되었습니다.");
 			
-			// RHEV Type의 Hypervisor가 수정될 경우 RHEVMRestTemplateManager에 해당 RHEV-M에 대한 RHEVMRestTemplate을 초기화한다.
-			RHEVMRestTemplateManager.setRHEVMRestTemplate(hypervisor);
+			// Hypervisor가 수정될 경우 HypervisorClientManager에 해당 HypervisorClient을 초기화한다.
+			HypervisorClientManager.setHypervisorClient(hypervisor);
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Hypervisor 수정 중 에러가 발생하였습니다.");
@@ -220,8 +220,8 @@ public class HypervisorController {
 			hypervisorService.deleteHypervisor(hypervisorId);
 			jsonRes.setMsg("Hypervisor 삭제가 완료되었습니다.");
 
-			// RHEV Type의 Hypervisor가 삭제될 경우 RHEVMRestTemplateManager에 해당 RHEV-M에 대한 RHEVMRestTemplate을 제거한다.
-			RHEVMRestTemplateManager.removeRHEVMRestTemplate(hypervisorId);
+			// Hypervisor가 삭제될 경우 HypervisorClientManager에 해당 HypervisorClient을 제거한다.
+			HypervisorClientManager.removeHypervisorClient(hypervisorId);
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Hypervisor 삭제 중 에러가 발생하였습니다.<br/>Agent가 설치된 Instance 목록이 존재할 경우 삭제가 불가능합니다.");

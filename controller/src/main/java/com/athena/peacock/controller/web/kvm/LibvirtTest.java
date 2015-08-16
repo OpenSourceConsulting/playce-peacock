@@ -22,6 +22,8 @@
  */
 package com.athena.peacock.controller.web.kvm;
 
+import org.json.JSONObject;
+import org.json.XML;
 import org.libvirt.Connect;
 import org.libvirt.Domain;
 import org.libvirt.LibvirtException;
@@ -234,6 +236,11 @@ public class LibvirtTest {
 			System.out.println("domain name : " + domain.getName() + ", type : " + domain.getOSType() + ", max_mem : " + domain.getMaxMemory() + ", max_cpu : " + domain.getMaxVcpus());
 			/*/
             System.out.println("virDomainGetXMLDesc:" + domain.getXMLDesc(0));
+            
+            JSONObject xmlJSONObj = XML.toJSONObject(domain.getXMLDesc(0));
+            String jsonPrettyPrintString = xmlJSONObj.toString(3);
+            System.out.println(jsonPrettyPrintString);
+            
             System.out.println("virDomainGetAutostart:" + domain.getAutostart());
             System.out.println("virDomainGetConnect:" + domain.getConnect());
             System.out.println("virDomainGetID:" + domain.getID());
@@ -452,7 +459,7 @@ public class LibvirtTest {
 //		test.addStoragePool("test-pool");
 //		test.addStorageVol("test-pool", "test.img");
 //		
-//		test.getDomainInfo();
+		test.getDomainInfo();
 		
 //		test.cloneVol("default", "scpark_test.img", "scpark_test-clone.img");
 		
@@ -465,7 +472,7 @@ public class LibvirtTest {
 //		test.resumeDoman("scpark_test");  // paused 상태에서만 동작
 		
 //		test.shutdownDoman("scpark_test");  // running 상태에서만 동작, transient domain은 삭제된다.
-		test.deleteDomain("scpark_test");  // running 상태에서만 동작
+//		test.deleteDomain("scpark_test");  // running 상태에서만 동작
 		
 //		test.attachVolume("65clone-kapil", "/test/test.img", "vdb");
 //		test.detatchVolume("65clone-kapil", "/test/test.img", "vdb");

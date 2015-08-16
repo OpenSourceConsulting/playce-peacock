@@ -70,21 +70,13 @@ import org.springframework.web.client.RestTemplate;
  * @author Sang-cheon Park
  * @version 1.0
  */
-public class RHEVMRestTemplate {
+public class RHEVMRestTemplate extends HypervisorClient {
 	
     private static final Logger logger = LoggerFactory.getLogger(RHEVMRestTemplate.class);
 	
 	private static final String HOST_HEADER_KEY = "Host";
 	private static final String AUTH_HEADER_KEY = "Authorization";
 	   
-	private Integer hypervisorId;
-	private String rhevmName;
-	private String protocol;
-	private String host;
-	private String domain;
-	private String port;
-	private String username;
-	private String password;
 	private int major;
 	private int minor;
 	
@@ -103,46 +95,6 @@ public class RHEVMRestTemplate {
 		} catch (Exception e) {
 			// ignore
 		}
-	}
-	
-	public Integer getHypervisorId() {
-		return hypervisorId;
-	}
-
-	public void setHypervisorId(Integer hypervisorId) {
-		this.hypervisorId = hypervisorId;
-	}
-
-	public String getRhevmName() {
-		return rhevmName;
-	}
-
-	public void setRhevmName(String rhevmName) {
-		this.rhevmName = rhevmName;
-	}
-
-	public String getProtocol() {
-		return protocol;
-	}
-
-	public String getHost() {
-		return host;
-	}
-
-	public String getDomain() {
-		return domain;
-	}
-
-	public String getPort() {
-		return port;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public String getPassword() {
-		return password;
 	}
 
 	public int getMajor() {
