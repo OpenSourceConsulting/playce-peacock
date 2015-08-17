@@ -100,7 +100,7 @@ public class KVMController {
 		try {
 			int page = ((dto.getStart() - 1) / 100) + 1;
 			
-			List<Domain> doaminList = kvmService.getDomainList(dto.getHypervisorId(), dto.getName(), page);
+			List<DomainDto> doaminList = kvmService.getDomainList(dto.getHypervisorId(), dto.getName(), page);
 			jsonRes.setTotal(doaminList.size());
 			jsonRes.setList(doaminList);
 			jsonRes.setMsg("VM 목록이 정상적으로 조회되었습니다.");

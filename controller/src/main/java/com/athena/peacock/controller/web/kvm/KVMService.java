@@ -67,60 +67,114 @@ public class KVMService {
 		}
 	}
 
-	public List<Domain> getDomainList(Integer hypervisorId, String name, int page) throws LibvirtException {
+	public List<DomainDto> getDomainList(Integer hypervisorId, String name, int page) throws LibvirtException {
 		Connect connect = getHypervisorClient(hypervisorId).getConnect();
 		
-		List<Domain> domainList = new ArrayList<Domain>();
+		List<DomainDto> domainList = new ArrayList<DomainDto>();
 
         for (int id : connect.listDomains()) {
-        	domainList.add(connect.domainLookupByID(id));
+        	domainList.add(convertToDomainDto(connect.domainLookupByID(id)));
         }
         
         for (String domain : connect.listDefinedDomains()) {
-        	domainList.add(connect.domainLookupByName(domain));
+        	domainList.add(convertToDomainDto(connect.domainLookupByName(domain)));
         }	
 		
 		return domainList;
 	}
 
-	public Domain getDomain(Integer hypervisorId, String vmId) {
+	public DomainDto getDomain(Integer hypervisorId, String vmId) throws LibvirtException {
+		Connect connect = getHypervisorClient(hypervisorId).getConnect();
+		Domain domain = connect.domainLookupByUUIDString(vmId);
+		
+		return convertToDomainDto(domain);
+	}
+
+	public List<?> getInterfaces(Integer hypervisorId, String vmId) throws LibvirtException {
+		Connect connect = getHypervisorClient(hypervisorId).getConnect();
+		Domain domain = connect.domainLookupByUUIDString(vmId);
+		
+		return null;
+	}
+
+	public List<?> getDisks(Integer hypervisorId, String vmId) throws LibvirtException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public List<?> getInterfaces(Integer hypervisorId, String vmId) {
+	public Domain createDomain(Integer hypervisorId, DomainDto dto) throws LibvirtException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public List<?> getDisks(Integer hypervisorId, String vmId) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean startDomain(Integer hypervisorId, String vmId) throws LibvirtException {
+		Connect connect = getHypervisorClient(hypervisorId).getConnect();
+		Domain domain = connect.domainLookupByUUIDString(vmId);
+		
+		/*
+		try {
+			// TODO change 
+			connect.restore("/var/lib/libvirt/qemu/save/" + domain.getName() + ".save");
+		} catch (LibvirtException e) {
+			// in case of save file doesn't exist.
+	        if (domain.isPersistent() == 1) {
+	        	domain.create();
+	        }
+		}
+		*/
+		domain.resume();
+		
+		return true;
 	}
 
-	public Domain createDomain(Integer hypervisorId, DomainDto dto) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean stopDomain(Integer hypervisorId, String vmId) throws LibvirtException {
+		Connect connect = getHypervisorClient(hypervisorId).getConnect();
+		Domain domain = connect.domainLookupByUUIDString(vmId);
+        domain.suspend();
+        
+		return true;
 	}
 
-	public Object startDomain(Integer hypervisorId, String vmId) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean shutdownDomain(Integer hypervisorId, String vmId) throws LibvirtException {
+		Connect connect = getHypervisorClient(hypervisorId).getConnect();
+		Domain domain = connect.domainLookupByUUIDString(vmId);
+        domain.shutdown();
+        
+		return true;
 	}
 
-	public Object stopDomain(Integer hypervisorId, String vmId) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean removeDomain(Integer hypervisorId, String vmId) throws LibvirtException {
+		Connect connect = getHypervisorClient(hypervisorId).getConnect();
+		Domain domain = connect.domainLookupByUUIDString(vmId);
+		
+        if (domain.isPersistent() == 1) {
+        	domain.undefine();
+        }
+        
+    	domain.destroy();
+    	
+		return true;
 	}
+	
+	private DomainDto convertToDomainDto(Domain domain) throws LibvirtException {
+		DomainDto dto = new DomainDto();
 
-	public Object shutdownDomain(Integer hypervisorId, String vmId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Object removeDomain(Integer hypervisorId, String vmId) {
-		// TODO Auto-generated method stub
-		return null;
+		dto.setName(domain.getName());
+		dto.setVmId(domain.getUUIDString());
+		dto.setMemory(domain.getMaxMemory() / 1024);
+		dto.setVcpu(domain.getMaxVcpus());
+		dto.setOsType(domain.getOSType());
+		
+		if (domain.isActive() == 1) {
+			dto.setStatus("Running");
+		} else {
+			dto.setStatus("Shutoff");
+		}
+		
+		// TODO osArch, osMachine
+		dto.setXmlDesc(domain.getXMLDesc(0));
+		
+		return dto;
 	}
 }
 //end of KVMService.java

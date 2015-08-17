@@ -22,6 +22,16 @@
  */
 package com.athena.peacock.controller.web.kvm;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.FactoryConfigurationError;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
+
 import org.json.JSONObject;
 import org.json.XML;
 import org.libvirt.Connect;
@@ -30,6 +40,12 @@ import org.libvirt.LibvirtException;
 import org.libvirt.NodeInfo;
 import org.libvirt.StoragePool;
 import org.libvirt.StorageVol;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 /**
  * <pre>
@@ -443,6 +459,47 @@ public class LibvirtTest {
         Domain domain = connect.domainLookupByName(domainName);
         domain.resume();
 	}
+	
+	public void getInterfaces() throws Exception {
+		if (connect == null) {
+			connect();
+		}
+
+		Domain domain = connect.domainLookupByUUIDString("065db929-9e0f-60b4-d24d-0253920ccce1");
+		
+		String xml = domain.getXMLDesc(0);
+		
+		Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new InputSource(new ByteArrayInputStream(xml.getBytes("utf-8"))));
+
+		System.out.println(xml);
+	    // xpath 생성
+		XPath xpath = XPathFactory.newInstance().newXPath();
+		
+		String expression = "//*/interface";
+		NodeList cols = (NodeList) xpath.compile(expression).evaluate(document, XPathConstants.NODESET);
+
+		for (int idx = 0; idx < cols.getLength(); idx++) {
+			Node iface = cols.item(idx);
+			
+			System.out.println("type : " + iface.getAttributes().item(0).getNodeValue());
+			
+	        if(iface.getNodeType() == Node.ELEMENT_NODE) {
+	        	Element element = (Element) iface;
+	        	
+	        	NodeList mac = element.getElementsByTagName("mac");
+				System.out.println("macAddress :" + mac.item(0).getAttributes().item(0).getNodeValue());
+	        	
+	        	NodeList source = element.getElementsByTagName("source");
+				System.out.println("sourceBridge :" + source.item(0).getAttributes().item(0).getNodeValue());
+	        	
+	        	NodeList target = element.getElementsByTagName("target");
+				System.out.println("targetDev : " + target.item(0).getAttributes().item(0).getNodeValue());
+	        	
+	        	NodeList model = element.getElementsByTagName("model");
+				System.out.println("modelType : " + model.item(0).getAttributes().item(0).getNodeValue());
+	        }
+		}
+	}
 
 	/**
 	 * <pre>
@@ -451,7 +508,7 @@ public class LibvirtTest {
 	 * @param args
 	 * @throws LibvirtException 
 	 */
-	public static void main(String[] args) throws LibvirtException {
+	public static void main(String[] args) throws Exception {
 		LibvirtTest test = new LibvirtTest();
 //		test.getSystemInfo();
 //		test.getStoreagePoolInfo();
@@ -459,7 +516,8 @@ public class LibvirtTest {
 //		test.addStoragePool("test-pool");
 //		test.addStorageVol("test-pool", "test.img");
 //		
-		test.getDomainInfo();
+//		test.getDomainInfo();
+		test.getInterfaces();
 		
 //		test.cloneVol("default", "scpark_test.img", "scpark_test-clone.img");
 		

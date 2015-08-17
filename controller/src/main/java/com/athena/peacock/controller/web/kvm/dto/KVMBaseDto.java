@@ -35,6 +35,7 @@ public class KVMBaseDto {
 	private String vmId;
 	private String name;
 	private String description;
+	private String xmlDesc;
 	
 	public Integer getHypervisorId() {
 		return hypervisorId;
@@ -59,6 +60,12 @@ public class KVMBaseDto {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public String getXmlDesc() {
+		return xmlDesc;
+	}
+	public void setXmlDesc(String xmlDesc) {
+		this.xmlDesc = xmlDesc;
 	}
 }
 //end of KVMBaseDto.java

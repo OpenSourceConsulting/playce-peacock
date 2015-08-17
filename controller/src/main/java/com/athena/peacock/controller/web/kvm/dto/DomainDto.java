@@ -34,25 +34,15 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 public class DomainDto extends KVMBaseDto {
 
 	private int seq;
-//	private String type;
-//	private String status;
-//	private String dataCenter;
-//	private String domain;
-//	private String cluster;
-//	private String host;
-//	private String os;
-//	private String template;
-//	private String memory;
-//	private int sockets;
-//	private int cores;
-//	private String priority;
-//	private String origin;
-//	private String display;
-//	private String ipAddr;
-//	private String boot;
-//	private String haEnabled;
-//	private Integer haPriority;
-//	
+	private String type;
+	private String status;
+	private long memory;
+	private int vcpu;
+	private String osArch;
+	private String osMachine;
+	private String osType;
+	private String sourceFile;
+	
 //	private String startTime;
 //	private String creationTime;
 	
@@ -78,6 +68,70 @@ public class DomainDto extends KVMBaseDto {
 
 	public void setSeq(int seq) {
 		this.seq = seq;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public long getMemory() {
+		return memory;
+	}
+
+	public void setMemory(long memory) {
+		this.memory = memory;
+	}
+
+	public int getVcpu() {
+		return vcpu;
+	}
+
+	public void setVcpu(int vcpu) {
+		this.vcpu = vcpu;
+	}
+
+	public String getOsArch() {
+		return osArch;
+	}
+
+	public void setOsArch(String osArch) {
+		this.osArch = osArch;
+	}
+
+	public String getOsMachine() {
+		return osMachine;
+	}
+
+	public void setOsMachine(String osMachine) {
+		this.osMachine = osMachine;
+	}
+
+	public String getOsType() {
+		return osType;
+	}
+
+	public void setOsType(String osType) {
+		this.osType = osType;
+	}
+
+	public String getSourceFile() {
+		return sourceFile;
+	}
+
+	public void setSourceFile(String sourceFile) {
+		this.sourceFile = sourceFile;
 	}
 
 	public String getHostName() {
