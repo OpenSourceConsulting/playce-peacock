@@ -46,6 +46,10 @@ public class DomainDto extends KVMBaseDto {
 //	private String startTime;
 //	private String creationTime;
 	
+	// for create a domain
+	private NetworkDto networkDto;
+	private DiskDto diskDto;
+	
 	// machine_additional_info_tbl 관련 필드
 	private String hostName;
 	private String ipAddress;
@@ -132,6 +136,30 @@ public class DomainDto extends KVMBaseDto {
 
 	public void setSourceFile(String sourceFile) {
 		this.sourceFile = sourceFile;
+	}
+
+	public NetworkDto getNetworkDto() {
+		if (networkDto == null) {
+			networkDto = new NetworkDto();
+		}
+		
+		return networkDto;
+	}
+
+	public void setNetworkDto(NetworkDto networkDto) {
+		this.networkDto = networkDto;
+	}
+
+	public DiskDto getDiskDto() {
+		if (diskDto == null) {
+			diskDto = new DiskDto();
+		}
+		
+		return diskDto;
+	}
+
+	public void setDiskDto(DiskDto diskDto) {
+		this.diskDto = diskDto;
 	}
 
 	public String getHostName() {

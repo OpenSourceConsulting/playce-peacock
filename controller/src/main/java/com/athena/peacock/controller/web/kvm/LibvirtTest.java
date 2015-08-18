@@ -23,11 +23,8 @@
 package com.athena.peacock.controller.web.kvm;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.FactoryConfigurationError;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
@@ -45,7 +42,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 /**
  * <pre>
@@ -237,7 +233,7 @@ public class LibvirtTest {
 		}
 	}
 
-	public void getDomainInfo() throws LibvirtException {
+	public void getDomainInfo() throws Exception {
 		if (connect == null) {
 			connect();
 		}
@@ -268,6 +264,9 @@ public class LibvirtTest {
             System.out.println("virDomainGetSchedulerType:" + domain.getSchedulerType());
             System.out.println("virDomainGetSchedulerParameters:" + domain.getSchedulerParameters());
             //*/
+            
+            getInterfaces(domain);
+            getDisks(domain);
         }	
         
         System.out.println("================================[Inactive Domain]================================");
@@ -377,6 +376,32 @@ public class LibvirtTest {
 							"    <memballoon model='virtio' />" +
 							"  </devices>" +
 							"</domain>";
+		
+		domainXml =	"<domain type='kvm'>" +
+					"  <name>scpark_test</name>" +
+					"  <memory unit='KiB'>1048576</memory>" +
+					"  <vcpu>2</vcpu>" +
+					"  <os>" +
+					"    <type>hvm</type>" +
+					"  </os>" +
+					"  <devices>" +
+					"    <disk type='file' device='disk'>" +
+					"      <driver name='qemu' type='qcow2' cache='none'/>" +
+					"      <source file='/var/lib/libvirt/images/scpark_test_qcow2.img'/>" +
+					"      <target dev='vda' bus='virtio'/>" +
+					"    </disk>" +
+					"    <interface type='bridge'>" +
+					"      <source bridge='br0'/>" +
+					"      <model type='virtio'/>" +
+					"    </interface>" +
+					"    <console type='pty'>" +
+					"      <target type='serial' port='0'/>" +
+					"    </console>" +
+					"    <input type='tablet' bus='usb'/>" +
+					"    <input type='mouse' bus='ps2'/>" +
+					"    <graphics type='vnc' port='-1' autoport='yes'/>" +
+					"  </devices>" +
+					"</domain>";
 
 		Domain domain = connect.domainDefineXML(domainXml);  // persistent domain
 		domain.create(0);
@@ -460,18 +485,11 @@ public class LibvirtTest {
         domain.resume();
 	}
 	
-	public void getInterfaces() throws Exception {
-		if (connect == null) {
-			connect();
-		}
-
-		Domain domain = connect.domainLookupByUUIDString("065db929-9e0f-60b4-d24d-0253920ccce1");
-		
+	public void getInterfaces(Domain domain) throws Exception {
 		String xml = domain.getXMLDesc(0);
 		
 		Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new InputSource(new ByteArrayInputStream(xml.getBytes("utf-8"))));
 
-		System.out.println(xml);
 	    // xpath 생성
 		XPath xpath = XPathFactory.newInstance().newXPath();
 		
@@ -481,22 +499,63 @@ public class LibvirtTest {
 		for (int idx = 0; idx < cols.getLength(); idx++) {
 			Node iface = cols.item(idx);
 			
-			System.out.println("type : " + iface.getAttributes().item(0).getNodeValue());
+			System.out.println("[interface] type : " + iface.getAttributes().item(0).getNodeValue());
 			
 	        if(iface.getNodeType() == Node.ELEMENT_NODE) {
 	        	Element element = (Element) iface;
 	        	
 	        	NodeList mac = element.getElementsByTagName("mac");
-				System.out.println("macAddress :" + mac.item(0).getAttributes().item(0).getNodeValue());
+				System.out.println("[interface] macAddress :" + mac.item(0).getAttributes().item(0).getNodeValue());
 	        	
 	        	NodeList source = element.getElementsByTagName("source");
-				System.out.println("sourceBridge :" + source.item(0).getAttributes().item(0).getNodeValue());
+				System.out.println("[interface] sourceBridge :" + source.item(0).getAttributes().item(0).getNodeValue());
 	        	
 	        	NodeList target = element.getElementsByTagName("target");
-				System.out.println("targetDev : " + target.item(0).getAttributes().item(0).getNodeValue());
+				System.out.println("[interface] targetDev : " + target.item(0).getAttributes().item(0).getNodeValue());
 	        	
 	        	NodeList model = element.getElementsByTagName("model");
-				System.out.println("modelType : " + model.item(0).getAttributes().item(0).getNodeValue());
+				System.out.println("[interface] modelType : " + model.item(0).getAttributes().item(0).getNodeValue());
+	        }
+		}
+	}
+	
+	public void getDisks(Domain domain) throws Exception {
+		String xml = domain.getXMLDesc(0);
+
+		Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new InputSource(new ByteArrayInputStream(xml.getBytes("utf-8"))));
+
+	    // xpath 생성
+		XPath xpath = XPathFactory.newInstance().newXPath();
+		
+		String expression = "//*/disk";
+		NodeList cols = (NodeList) xpath.compile(expression).evaluate(document, XPathConstants.NODESET);
+
+		for (int idx = 0; idx < cols.getLength(); idx++) {
+			Node iface = cols.item(idx);
+			
+			System.out.println("[disk] type : " + iface.getAttributes().getNamedItem("type").getNodeValue());
+			System.out.println("[disk] device : " + iface.getAttributes().getNamedItem("device").getNodeValue());
+			
+	        if(iface.getNodeType() == Node.ELEMENT_NODE) {
+	        	Element element = (Element) iface;
+	        	
+	        	NodeList nodeList = element.getElementsByTagName("driver");
+				System.out.println("[disk] driverName :" + nodeList.item(0).getAttributes().getNamedItem("name").getNodeValue());
+				System.out.println("[disk] driverType :" + nodeList.item(0).getAttributes().getNamedItem("type").getNodeValue());
+				System.out.println("[disk] driverCache :" + nodeList.item(0).getAttributes().getNamedItem("cache").getNodeValue());
+	        	
+				nodeList = element.getElementsByTagName("source");
+				System.out.println("[disk] sourceFile :" + nodeList.item(0).getAttributes().getNamedItem("file").getNodeValue());
+	        	
+	        	nodeList = element.getElementsByTagName("target");
+				System.out.println("[disk] targetDev : " + nodeList.item(0).getAttributes().getNamedItem("dev").getNodeValue());
+				System.out.println("[disk] targetBus : " + nodeList.item(0).getAttributes().getNamedItem("bus").getNodeValue());
+	        	
+	        	nodeList = element.getElementsByTagName("alias");
+				System.out.println("[disk] aliasName : " + nodeList.item(0).getAttributes().getNamedItem("name").getNodeValue());
+
+	        	nodeList = element.getElementsByTagName("address");
+				System.out.println("[disk] addressType : " + nodeList.item(0).getAttributes().getNamedItem("type").getNodeValue());
 	        }
 		}
 	}
@@ -511,13 +570,12 @@ public class LibvirtTest {
 	public static void main(String[] args) throws Exception {
 		LibvirtTest test = new LibvirtTest();
 //		test.getSystemInfo();
-//		test.getStoreagePoolInfo();
+		test.getStoreagePoolInfo();
 //		
 //		test.addStoragePool("test-pool");
 //		test.addStorageVol("test-pool", "test.img");
 //		
 //		test.getDomainInfo();
-		test.getInterfaces();
 		
 //		test.cloneVol("default", "scpark_test.img", "scpark_test-clone.img");
 		
