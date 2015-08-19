@@ -493,13 +493,11 @@ public class KVMController {
 	 */
 	@RequestMapping("/vms/makeTemplate")
 	public @ResponseBody SimpleJsonResponse makeTemplate(SimpleJsonResponse jsonRes, DomainDto dto) throws Exception {
-		/*
 		Assert.notNull(dto.getHypervisorId(), "hypervisorId must not be null.");
-		Assert.notNull(dto.getDomainName(), "name must not be null.");
-		Assert.notNull(dto.getDomainName(), "domainName must not be null.");
+		Assert.notNull(dto.getVmId(), "vmId must not be null.");
 		
 		try {
-			jsonRes.setData(kvmService.makeTemplate(dto.getHypervisorId(), dto.getDomainName(), dto.getDomainName(), dto.getDescription()));
+			jsonRes.setData(kvmService.makeTemplate(dto.getHypervisorId(), dto.getVmId()));
 			jsonRes.setMsg("VM을 이용한 템플릿 생성이 정상적으로 요청되었습니다. 잠시만 기다려주십시오.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
@@ -507,7 +505,7 @@ public class KVMController {
 			
 			logger.error("Unhandled Expeption has occurred. ", e);
 		}
-		*/
+		
 		return jsonRes;
 	}
 	

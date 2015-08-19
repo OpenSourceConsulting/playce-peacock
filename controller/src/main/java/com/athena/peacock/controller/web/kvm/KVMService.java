@@ -159,8 +159,12 @@ public class KVMService {
 			dto.setDiskDevice(element.getAttributes().item(1).getNodeValue());
 			dto.setDriverName(element.getElementsByTagName("driver").item(0).getAttributes().getNamedItem("name").getNodeValue());
 			dto.setDriverType(element.getElementsByTagName("driver").item(0).getAttributes().getNamedItem("type").getNodeValue());
-			dto.setDriverCache(element.getElementsByTagName("driver").item(0).getAttributes().getNamedItem("cache").getNodeValue());
-			dto.setSourceFile(element.getElementsByTagName("source").item(0).getAttributes().getNamedItem("file").getNodeValue());
+			if (element.getElementsByTagName("driver").item(0).getAttributes().getNamedItem("cache") != null) {
+				dto.setDriverCache(element.getElementsByTagName("driver").item(0).getAttributes().getNamedItem("cache").getNodeValue());
+			}
+			if (element.getElementsByTagName("source").getLength() > 0) {
+				dto.setSourceFile(element.getElementsByTagName("source").item(0).getAttributes().getNamedItem("file").getNodeValue());
+			}
 			dto.setTargetDev(element.getElementsByTagName("target").item(0).getAttributes().getNamedItem("dev").getNodeValue());
 			dto.setTargetBus(element.getElementsByTagName("target").item(0).getAttributes().getNamedItem("bus").getNodeValue());
 			dto.setAliasName(element.getElementsByTagName("alias").item(0).getAttributes().getNamedItem("name").getNodeValue());
@@ -348,6 +352,27 @@ public class KVMService {
     	domain.destroy();
     	
 		return true;
+	}
+
+	public List<String> makeTemplate(Integer hypervisorId, String vmId) throws Exception {
+		List<String> cloneVolList = new ArrayList<String>();
+		
+		String fromVolName = null;
+		String newVolName = null;
+		String extension = null;
+		for (DiskDto disk : getDisks(hypervisorId, vmId)) {
+			if (disk.getDiskType().equals("file")) {
+				fromVolName = disk.getSourceFile();
+				extension = fromVolName.substring(fromVolName.lastIndexOf(".") + 1);
+				newVolName = fromVolName.substring(0, fromVolName.lastIndexOf(".")) + "-clone." + extension;
+				
+				cloneVol(hypervisorId, fromVolName, newVolName);
+				
+				cloneVolList.add(newVolName);
+			}
+		}
+		
+		return cloneVolList;
 	}
 	
 	private DomainDto convertToDomainDto(Domain domain) throws Exception {

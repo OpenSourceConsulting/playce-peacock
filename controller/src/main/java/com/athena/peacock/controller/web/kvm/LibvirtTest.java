@@ -529,7 +529,7 @@ public class LibvirtTest {
 		
 		String expression = "//*/disk";
 		NodeList cols = (NodeList) xpath.compile(expression).evaluate(document, XPathConstants.NODESET);
-
+		
 		for (int idx = 0; idx < cols.getLength(); idx++) {
 			Node iface = cols.item(idx);
 			
@@ -542,10 +542,15 @@ public class LibvirtTest {
 	        	NodeList nodeList = element.getElementsByTagName("driver");
 				System.out.println("[disk] driverName :" + nodeList.item(0).getAttributes().getNamedItem("name").getNodeValue());
 				System.out.println("[disk] driverType :" + nodeList.item(0).getAttributes().getNamedItem("type").getNodeValue());
-				System.out.println("[disk] driverCache :" + nodeList.item(0).getAttributes().getNamedItem("cache").getNodeValue());
+				
+				if (nodeList.item(0).getAttributes().getNamedItem("cache") != null) {
+					System.out.println("[disk] driverCache :" + nodeList.item(0).getAttributes().getNamedItem("cache").getNodeValue());
+				}
 	        	
 				nodeList = element.getElementsByTagName("source");
+				if (nodeList.getLength() > 0) {
 				System.out.println("[disk] sourceFile :" + nodeList.item(0).getAttributes().getNamedItem("file").getNodeValue());
+				}
 	        	
 	        	nodeList = element.getElementsByTagName("target");
 				System.out.println("[disk] targetDev : " + nodeList.item(0).getAttributes().getNamedItem("dev").getNodeValue());
