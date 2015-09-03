@@ -11,15 +11,15 @@
         <text/>
       </controlProperties>
     </control>
-    <control controlID="15" controlTypeID="com.balsamiq.mockups::Label" x="805" y="125" w="-1" h="-1" measuredW="223" measuredH="21" zOrder="2" locked="false" isInGroup="-1">
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::Label" x="805" y="125" w="-1" h="-1" measuredW="222" measuredH="21" zOrder="2" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>%28%uCD5C%uADFC%20%uC811%uC18D%uC2DC%uAC04%20%3A%202014.07.07%2014%3A48%3A48%29</text>
+        <text>%28%uCD5C%uADFC%20%uC811%uC18D%uC2DC%uAC04%20%3A%202015.07.07%2014%3A48%3A48%29</text>
       </controlProperties>
     </control>
-    <control controlID="16" controlTypeID="com.balsamiq.mockups::VerticalTabBar" x="38" y="155" w="1110" h="629" measuredW="200" measuredH="212" zOrder="3" locked="false" isInGroup="-1">
+    <control controlID="16" controlTypeID="com.balsamiq.mockups::VerticalTabBar" x="38" y="155" w="1110" h="629" measuredW="200" measuredH="242" zOrder="3" locked="false" isInGroup="-1">
       <controlProperties>
         <selectedIndex>0</selectedIndex>
-        <text>Dashboard%0AInstances%0ARHEV%20Management%0AALM%20Management%0AUser%20Management</text>
+        <text>Dashboard%0AInstances%0ARHEV%20Management%0AStorage%20Manegement%0AALM%20Management%0AUser%20Management</text>
       </controlProperties>
     </control>
     <control controlID="17" controlTypeID="com.balsamiq.mockups::ComboBox" x="1036" y="126" w="93" h="-1" measuredW="66" measuredH="62" zOrder="4" locked="false" isInGroup="-1">

@@ -5,17 +5,17 @@
         <control controlID="0" controlTypeID="com.balsamiq.mockups::TitleWindow" x="0" y="0" w="450" h="230" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="11">
           <controlProperties>
             <bottomheight>0</bottomheight>
-            <text>HiWay%20Automation%20System</text>
+            <text>Peacock%20Cloud%20Management%20System</text>
           </controlProperties>
         </control>
-        <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="64" y="46" w="-1" h="-1" measuredW="322" measuredH="24" zOrder="1" locked="false" isInGroup="11">
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="64" y="46" w="-1" h="-1" measuredW="308" measuredH="21" zOrder="1" locked="false" isInGroup="11">
           <controlProperties>
-            <text>%uD604%uB300%uC911%uACF5%uC5C5%20%uC790%uB3D9%uD654%20%uBC30%uD3EC%uC2DC%uC2A4%uD15C%uC5D0%20%uC624%uC2E0%20%uAC83%uC744%20%uD658%uC601%uD569%uB2C8%uB2E4.</text>
+            <text>To%20register%20account%2C%20please%20contact%20to%20administrator</text>
           </controlProperties>
         </control>
-        <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="120" y="67" w="-1" h="-1" measuredW="210" measuredH="24" zOrder="2" locked="false" isInGroup="11">
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="245" y="82" w="-1" h="-1" measuredW="41" measuredH="21" zOrder="2" locked="false" isInGroup="11">
           <controlProperties>
-            <text>%uC0AC%uC6A9%uD558%uC2DC%uB824%uBA74%20%uB85C%uADF8%uC778%uC744%20%uD574%20%uC8FC%uC2ED%uC2DC%uC624.</text>
+            <text>LOGIN</text>
           </controlProperties>
         </control>
         <control controlID="3" controlTypeID="com.balsamiq.mockups::TextInput" x="152" y="111" w="274" h="-1" measuredW="79" measuredH="26" zOrder="3" locked="false" isInGroup="11">
@@ -28,19 +28,19 @@
             <text/>
           </controlProperties>
         </control>
-        <control controlID="5" controlTypeID="com.balsamiq.mockups::Button" x="195" y="188" w="-1" h="-1" measuredW="61" measuredH="27" zOrder="5" locked="false" isInGroup="11">
+        <control controlID="5" controlTypeID="com.balsamiq.mockups::Button" x="195" y="188" w="-1" h="-1" measuredW="65" measuredH="27" zOrder="5" locked="false" isInGroup="11">
           <controlProperties>
-            <text>%uB85C%uADF8%uC778</text>
+            <text>Sign%20In</text>
           </controlProperties>
         </control>
-        <control controlID="6" controlTypeID="com.balsamiq.mockups::Label" x="48" y="112" w="-1" h="-1" measuredW="89" measuredH="24" zOrder="6" locked="false" isInGroup="11">
+        <control controlID="6" controlTypeID="com.balsamiq.mockups::Label" x="65" y="114" w="-1" h="-1" measuredW="74" measuredH="21" zOrder="6" locked="false" isInGroup="11">
           <controlProperties>
-            <text>%uC0AC%uC6A9%uC790%uC544%uC774%uB514%20%3A%20</text>
+            <text>UserName%20%3A%20</text>
           </controlProperties>
         </control>
-        <control controlID="7" controlTypeID="com.balsamiq.mockups::Label" x="74" y="143" w="-1" h="-1" measuredW="63" measuredH="24" zOrder="7" locked="false" isInGroup="11">
+        <control controlID="7" controlTypeID="com.balsamiq.mockups::Label" x="74" y="143" w="-1" h="-1" measuredW="66" measuredH="21" zOrder="7" locked="false" isInGroup="11">
           <controlProperties>
-            <text>%uBE44%uBC00%uBC88%uD638%20%3A%20</text>
+            <text>Password%20%3A%20</text>
           </controlProperties>
         </control>
       </groupChildrenDescriptors>
