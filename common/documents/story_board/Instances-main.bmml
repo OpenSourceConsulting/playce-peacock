@@ -11,9 +11,9 @@
         <text/>
       </controlProperties>
     </control>
-    <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="805" y="125" w="-1" h="-1" measuredW="223" measuredH="21" zOrder="3" locked="false" isInGroup="-1">
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="805" y="125" w="-1" h="-1" measuredW="222" measuredH="21" zOrder="3" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>%28%uCD5C%uADFC%20%uC811%uC18D%uC2DC%uAC04%20%3A%202014.07.07%2014%3A48%3A48%29</text>
+        <text>%28%uCD5C%uADFC%20%uC811%uC18D%uC2DC%uAC04%20%3A%202015.07.07%2014%3A48%3A48%29</text>
       </controlProperties>
     </control>
     <control controlID="5" controlTypeID="com.balsamiq.mockups::ComboBox" x="1036" y="126" w="93" h="-1" measuredW="66" measuredH="24" zOrder="4" locked="false" isInGroup="-1">
@@ -23,10 +23,10 @@
       </controlProperties>
     </control>
     <control controlID="12" controlTypeID="com.balsamiq.mockups::VSplitter" x="161" y="452" w="988" h="-1" measuredW="100" measuredH="11" zOrder="6" locked="false" isInGroup="-1"/>
-    <control controlID="13" controlTypeID="com.balsamiq.mockups::VerticalTabBar" x="38" y="155" w="1110" h="629" measuredW="200" measuredH="212" zOrder="5" locked="false" isInGroup="-1">
+    <control controlID="13" controlTypeID="com.balsamiq.mockups::VerticalTabBar" x="38" y="155" w="1110" h="629" measuredW="200" measuredH="242" zOrder="5" locked="false" isInGroup="-1">
       <controlProperties>
         <selectedIndex>1</selectedIndex>
-        <text>Dashboard%0AInstances%0ARHEV%20Management%0AALM%20Management%0AUser%20Management</text>
+        <text>Dashboard%0AInstances%0ARHEV%20Management%0AStorage%20Management%0AALM%20Management%0AUser%20Management</text>
       </controlProperties>
     </control>
     <control controlID="15" controlTypeID="com.balsamiq.mockups::HRule" x="161" y="187" w="983" h="-1" measuredW="100" measuredH="10" zOrder="7" locked="false" isInGroup="-1"/>
@@ -415,7 +415,7 @@
               </controlProperties>
             </control>
             <control controlID="1" controlTypeID="com.balsamiq.mockups::LineChart" x="23" y="62" w="412" h="295" measuredW="187" measuredH="175" zOrder="1" locked="false" isInGroup="1"/>
-            <control controlID="2" controlTypeID="com.balsamiq.mockups::ComboBox" x="240" y="27" w="-1" h="-1" measuredW="89" measuredH="177" zOrder="2" locked="false" isInGroup="1">
+            <control controlID="2" controlTypeID="com.balsamiq.mockups::ComboBox" x="240" y="27" w="-1" h="-1" measuredW="89" measuredH="171" zOrder="2" locked="false" isInGroup="1">
               <controlProperties>
                 <text>%uCD5C%uADFC%2030%uBD84%0A%uCD5C%uADFC%2030%uBD84%0A%uCD5C%uADFC%201%uC2DC%uAC04%0A%uCD5C%uADFC%203%uC2DC%uAC04%0A%uCD5C%uADFC%206%uC2DC%uAC04%0A%uCD5C%uADFC%2012%uC2DC%uAC04%0A%uCD5C%uADFC%2024%uC2DC%uAC04%0A%uCD5C%uADFC%203%uC77C%0A%uCD5C%uADFC%201%uC77C%0A%uCD5C%uADFC%202%uC8FC</text>
               </controlProperties>
