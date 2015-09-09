@@ -1,4 +1,4 @@
-<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="361" measuredH="317" mockupW="320" mockupH="307">
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="726" measuredH="317" mockupW="685" mockupH="307">
   <controls>
     <control controlID="0" controlTypeID="com.balsamiq.mockups::SubTitle" x="41" y="10" w="-1" h="-1" measuredW="274" measuredH="35" zOrder="0" locked="false" isInGroup="-1">
       <controlProperties>
@@ -118,6 +118,116 @@
       <controlProperties>
         <color>13369344</color>
         <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="29" controlTypeID="com.balsamiq.mockups::SubTitle" x="399" y="10" w="-1" h="-1" measuredW="327" measuredH="35" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>32</size>
+        <text>Add%20OpenStack%20Popup</text>
+      </controlProperties>
+    </control>
+    <control controlID="30" controlTypeID="com.balsamiq.mockups::TitleWindow" x="399" y="52" w="320" h="265" measuredW="450" measuredH="400" zOrder="23" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bottomheight>0</bottomheight>
+        <close>true</close>
+        <text>Add%20OpenStack%20Horizon</text>
+      </controlProperties>
+    </control>
+    <control controlID="31" controlTypeID="com.balsamiq.mockups::Label" x="433" y="121" w="-1" h="-1" measuredW="59" measuredH="21" zOrder="24" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Protocol%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="32" controlTypeID="com.balsamiq.mockups::Label" x="457" y="150" w="-1" h="-1" measuredW="35" measuredH="21" zOrder="25" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Port%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="34" controlTypeID="com.balsamiq.mockups::Label" x="419" y="210" w="-1" h="-1" measuredW="72" measuredH="21" zOrder="26" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Username%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="35" controlTypeID="com.balsamiq.mockups::Label" x="425" y="239" w="-1" h="-1" measuredW="66" measuredH="21" zOrder="27" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Password%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="36" controlTypeID="com.balsamiq.mockups::ComboBox" x="509" y="119" w="191" h="-1" measuredW="65" measuredH="24" zOrder="28" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>closed</state>
+        <text>HTTP%0AHTTP%0AHTTPS</text>
+      </controlProperties>
+    </control>
+    <control controlID="38" controlTypeID="com.balsamiq.mockups::TextInput" x="509" y="207" w="190" h="-1" measuredW="79" measuredH="26" zOrder="29" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="39" controlTypeID="com.balsamiq.mockups::Button" x="492" y="277" w="-1" h="-1" measuredW="41" measuredH="27" zOrder="30" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>OK</text>
+      </controlProperties>
+    </control>
+    <control controlID="40" controlTypeID="com.balsamiq.mockups::Button" x="567" y="277" w="-1" h="-1" measuredW="64" measuredH="27" zOrder="31" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cancel</text>
+      </controlProperties>
+    </control>
+    <control controlID="41" controlTypeID="com.balsamiq.mockups::TextInput" x="509" y="147" w="190" h="-1" measuredW="79" measuredH="26" zOrder="32" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="42" controlTypeID="com.balsamiq.mockups::TextInput" x="509" y="236" w="190" h="-1" measuredW="79" measuredH="26" zOrder="33" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="43" controlTypeID="com.balsamiq.mockups::Label" x="489" y="121" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="34" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="44" controlTypeID="com.balsamiq.mockups::Label" x="489" y="150" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="35" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="46" controlTypeID="com.balsamiq.mockups::Label" x="489" y="210" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="36" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="47" controlTypeID="com.balsamiq.mockups::Label" x="489" y="239" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="37" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="48" controlTypeID="com.balsamiq.mockups::Label" x="446" y="91" w="-1" h="-1" measuredW="45" measuredH="21" zOrder="38" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Name%20%3A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="49" controlTypeID="com.balsamiq.mockups::TextInput" x="509" y="88" w="190" h="-1" measuredW="79" measuredH="26" zOrder="39" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="50" controlTypeID="com.balsamiq.mockups::Label" x="489" y="91" w="-1" h="-1" measuredW="10" measuredH="21" zOrder="40" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="51" controlTypeID="com.balsamiq.mockups::Label" x="471" y="180" w="-1" h="-1" measuredW="99" measuredH="21" zOrder="41" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <text>User%20Credential</text>
       </controlProperties>
     </control>
   </controls>
