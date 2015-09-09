@@ -151,9 +151,9 @@
         <text>RHEV-M1%0ARHEV-M1%0ARHEV-M2</text>
       </controlProperties>
     </control>
-    <control controlID="38" controlTypeID="com.balsamiq.mockups::Label" x="41" y="511" w="-1" h="-1" measuredW="279" measuredH="21" zOrder="28" locked="false" isInGroup="-1">
+    <control controlID="38" controlTypeID="com.balsamiq.mockups::Label" x="41" y="511" w="-1" h="-1" measuredW="427" measuredH="21" zOrder="28" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Need%20to%20add%20openstack%20instance%20creation%20menu</text>
+        <text>Need%20to%20add%20openstack%20instance%20creation%20menu%2C%20Provisioning%20Ceph%20Node</text>
       </controlProperties>
     </control>
   </controls>
