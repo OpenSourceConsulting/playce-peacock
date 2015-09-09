@@ -18,9 +18,9 @@
         <text>Config%20File%20Version%20%3A%20</text>
       </controlProperties>
     </control>
-    <control controlID="10" controlTypeID="com.balsamiq.mockups::ComboBox" x="197" y="126" w="346" h="-1" measuredW="198" measuredH="24" zOrder="3" locked="false" isInGroup="-1">
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::ComboBox" x="197" y="126" w="346" h="-1" measuredW="197" measuredH="24" zOrder="3" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>1%20%282014.07.07%2014%3A12%3A24%20KST%29</text>
+        <text>1%20%282015.08.07%2014%3A12%3A24%20KST%29</text>
       </controlProperties>
     </control>
     <control controlID="17" controlTypeID="com.balsamiq.mockups::Button" x="217" y="754" w="-1" h="-1" measuredW="52" measuredH="27" zOrder="4" locked="false" isInGroup="-1">
