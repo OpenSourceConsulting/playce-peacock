@@ -131,10 +131,10 @@ public class PeacockRestTemplate {
 	 */
 	private HttpEntity<Object> setHTTPEntity(Object body) throws IOException {
 		List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
-	    acceptableMediaTypes.add(MediaType.APPLICATION_XML);
+	    acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
 	    
 		HttpHeaders requestHeaders = new HttpHeaders();
-		requestHeaders.setContentType(MediaType.APPLICATION_XML);
+		requestHeaders.setContentType(MediaType.APPLICATION_JSON);
 		requestHeaders.setAccept(acceptableMediaTypes);
 		//requestHeaders.set(HOST_HEADER_KEY, host);
 		//requestHeaders.set(AUTH_HEADER_KEY, getCredential());

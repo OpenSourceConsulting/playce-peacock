@@ -25,6 +25,8 @@ package com.athena.peacock.controller.web.test;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
@@ -32,6 +34,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.athena.peacock.common.core.action.support.TargetHost;
+import com.athena.peacock.common.core.util.SshExecUtil;
 import com.athena.peacock.common.rest.PeacockRestTemplate;
 import com.athena.peacock.controller.web.common.model.SimpleJsonResponse;
 
@@ -46,7 +50,8 @@ import com.athena.peacock.controller.web.common.model.SimpleJsonResponse;
 @RequestMapping("/test")
 public class TestController {
 
-    protected final Logger logger = LoggerFactory.getLogger(TestController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(TestController.class);
+	private static final ObjectMapper MAPPER = new ObjectMapper();
 
 	@Inject
 	@Named("peacockRestTemplate")
@@ -66,16 +71,64 @@ public class TestController {
 		try {
 			String response = peacockRestTemplate.submit("http://192.168.0.227:5000/api/v0.1/status", HttpMethod.GET);
 			jsonRes.setSuccess(true);
-			jsonRes.setData(response);
+			jsonRes.setData(readTree(response));
 			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("status 조회 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
+	}
+
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/monstatus")
+	public @ResponseBody SimpleJsonResponse getMonStatus(SimpleJsonResponse jsonRes) throws Exception {
+		try {
+			TargetHost targetHost = new TargetHost();
+			targetHost.setHost("192.168.0.227");
+			targetHost.setPort(22);
+			targetHost.setUsername("root");
+			targetHost.setPassword("jan01jan");
+			
+			String response = SshExecUtil.executeCommand(targetHost, "ceph mon_status");
+			
+			jsonRes.setSuccess(true);
+			jsonRes.setData(readTree(response));
+			jsonRes.setMsg("mon_status가 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("mon_status 조회 중 에러가 발생하였습니다.");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+	
+	/**
+	 * <pre>
+	 * Method to deserialize JSON content as tree expressed using set of JsonNode instances. 
+	 * </pre>
+	 * @param json JSON content
+	 * @return
+	 */
+	private JsonNode readTree(String json){
+		try {
+			return MAPPER.readTree(json);
+		} catch (Exception ex) {
+			throw new RuntimeException(ex);
+		}
 	}
 }
 //end of TestController.java
