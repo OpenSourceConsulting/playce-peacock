@@ -20,7 +20,7 @@
  * Revision History
  * Author			Date				Description
  * ---------------	----------------	------------
- * khoj			2015. 9. 24.		First Draft.
+ * khoj	d		2015. 9. 24.		First Draft.
  */
 package com.athena.peacock.controller.web.ceph;
 
