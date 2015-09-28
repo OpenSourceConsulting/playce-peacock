@@ -22,6 +22,13 @@
  */
 package com.athena.peacock.controller.web.ceph.pool;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.athena.peacock.controller.web.ceph.CephBaseController;
+
 /**
  * <pre>
  * 
@@ -29,7 +36,11 @@ package com.athena.peacock.controller.web.ceph.pool;
  * @author Sang-cheon Park
  * @version 1.0
  */
-public class PoolController {
+@Controller
+@RequestMapping("/ceph/pool")
+public class PoolController extends CephBaseController {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(PoolController.class);
 
 }
 //end of PoolController.java

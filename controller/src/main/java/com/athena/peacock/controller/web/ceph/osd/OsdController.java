@@ -22,6 +22,13 @@
  */
 package com.athena.peacock.controller.web.ceph.osd;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.athena.peacock.controller.web.ceph.CephBaseController;
+
 /**
  * <pre>
  * 
@@ -29,7 +36,11 @@ package com.athena.peacock.controller.web.ceph.osd;
  * @author Sang-cheon Park
  * @version 1.0
  */
-public class OsdController {
+@Controller
+@RequestMapping("/ceph/osd")
+public class OsdController extends CephBaseController {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(OsdController.class);
 
 }
 //end of OsdController.java

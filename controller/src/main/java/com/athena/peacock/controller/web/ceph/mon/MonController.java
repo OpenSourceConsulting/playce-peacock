@@ -22,6 +22,16 @@
  */
 package com.athena.peacock.controller.web.ceph.mon;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpMethod;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.athena.peacock.controller.web.ceph.CephBaseController;
+import com.athena.peacock.controller.web.common.model.SimpleJsonResponse;
+
 /**
  * <pre>
  * 
@@ -29,7 +39,63 @@ package com.athena.peacock.controller.web.ceph.mon;
  * @author Sang-cheon Park
  * @version 1.0
  */
-public class MonController {
+@Controller
+@RequestMapping("/ceph/mon")
+public class MonController extends CephBaseController {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(MonController.class);
+
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/status")
+	public @ResponseBody SimpleJsonResponse getStatus(SimpleJsonResponse jsonRes) throws Exception {
+		try {
+			Object response = submit("/status", HttpMethod.GET);
+			jsonRes.setSuccess(true);
+			jsonRes.setData(response);
+			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("status 조회 중 에러가 발생하였습니다.");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/monstatus")
+	public @ResponseBody SimpleJsonResponse getMonStatus(SimpleJsonResponse jsonRes) throws Exception {
+		try {
+			Object response = execute("ceph mon_status");
+			
+			jsonRes.setSuccess(true);
+			jsonRes.setData(response);
+			jsonRes.setMsg("mon_status가 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("mon_status 조회 중 에러가 발생하였습니다.");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
 }
 //end of MonController.java

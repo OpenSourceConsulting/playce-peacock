@@ -25,7 +25,7 @@
 	
     <http pattern="/repo/**" 	security="none"/>
     <http pattern="/alm/**" 	security="none"/>
-    <http pattern="/test/**" 	security="none"/>
+    <http pattern="/ceph/**" 	security="none"/>
 	<http>
 	  
 	  <!-- ==================================================== -->
