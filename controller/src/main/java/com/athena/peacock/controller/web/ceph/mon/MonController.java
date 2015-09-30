@@ -56,7 +56,7 @@ public class MonController extends CephBaseController  {
 	 * @throws Exception
 	 */
 	@RequestMapping("/status2")
-	public @ResponseBody SimpleJsonResponse getStatus(SimpleJsonResponse jsonRes) throws Exception {
+	public @ResponseBody SimpleJsonResponse getStatus1(SimpleJsonResponse jsonRes) throws Exception {
 		try {
 			Object response = managementSubmit("/status", HttpMethod.GET);
 			jsonRes.setSuccess(true);
@@ -131,7 +131,7 @@ public class MonController extends CephBaseController  {
 	 * @throws Exception
 	 */
 	@RequestMapping("/monstatus2")
-	public @ResponseBody SimpleJsonResponse getMonStatus(SimpleJsonResponse jsonRes) throws Exception {
+	public @ResponseBody SimpleJsonResponse getMonStatus1(SimpleJsonResponse jsonRes) throws Exception {
 		try {
 			Object response = execute("ceph mon_status");
 			
