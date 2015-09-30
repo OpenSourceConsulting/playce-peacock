@@ -41,9 +41,9 @@ import com.athena.peacock.controller.web.common.model.SimpleJsonResponse;
  */
 @Controller
 @RequestMapping("/ceph/mon")
-public class MonController extends CephBaseController {
+public class MonController_example extends CephBaseController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(MonController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MonController_example.class);
 
 	/**
 	 * <pre>
