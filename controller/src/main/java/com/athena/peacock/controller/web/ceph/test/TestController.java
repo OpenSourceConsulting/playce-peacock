@@ -33,6 +33,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.athena.peacock.controller.web.ceph.CephBaseController;
@@ -193,9 +194,26 @@ public class TestController extends CephBaseController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/cluster/{fsid}/{path}")
-	public @ResponseBody SimpleJsonResponse getPool(SimpleJsonResponse jsonRes, @PathVariable("fsid") String fsid, @PathVariable("path") String path) throws Exception {
+	public @ResponseBody SimpleJsonResponse subCluster(SimpleJsonResponse jsonRes, @PathVariable("fsid") String fsid, @PathVariable("path") String path) throws Exception {
 		try {
-			Object response = calamariSubmit("/cluster/" + fsid + "/" + path, HttpMethod.GET);
+			Object response = null;
+			Map<String, Object> params = null;
+			
+			if (path.equals("cli")) {
+				List<String> command = new ArrayList<String>();
+				command.add("osd");
+				command.add("dump");
+
+				params = new HashMap<String, Object>();
+				params.put("command", "osd list");
+			}
+			
+			if (params != null) {
+				response = calamariSubmit("/cluster/" + fsid + "/" + path, params, HttpMethod.POST);
+			} else {
+				response = calamariSubmit("/cluster/" + fsid + "/" + path, HttpMethod.GET);
+			}
+			
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
 			jsonRes.setMsg("정상적으로 조회되었습니다.");
@@ -218,23 +236,73 @@ public class TestController extends CephBaseController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/cluster/{fsid}/cli")
-	public @ResponseBody SimpleJsonResponse getCli(SimpleJsonResponse jsonRes, @PathVariable("fsid") String fsid) throws Exception {
+	@RequestMapping(value="/user", method=RequestMethod.GET)
+	public @ResponseBody SimpleJsonResponse getUser(SimpleJsonResponse jsonRes) throws Exception {
 		try {
-			List<String> command = new ArrayList<String>();
-			command.add("osd");
-			command.add("dump");
-
-			Map<String, Object> params = new HashMap<String, Object>();
-			params.put("command", "osd list");
-			
-			Object response = calamariSubmit("/cluster/" + fsid + "/cli", params, HttpMethod.POST);
+			Object response = calamariSubmit("/user", HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("cli가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("정상적으로 조회되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("cli 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("조회 중 에러가 발생하였습니다.");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/user", method=RequestMethod.POST)
+	public @ResponseBody SimpleJsonResponse addUser(SimpleJsonResponse jsonRes) throws Exception {
+		try {
+			Map<String, Object> params = new HashMap<String, Object>();
+			params.put("username", "nices96");
+			params.put("password", "qkrtkdcjs");
+			params.put("emain", "nices96@osci.kr");
+			
+			Object response = calamariSubmit("/user", params, HttpMethod.POST);
+			jsonRes.setSuccess(true);
+			jsonRes.setData(response);
+			jsonRes.setMsg("정상적으로 추가되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("추가 중 에러가 발생하였습니다.");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/user/{id}", method=RequestMethod.DELETE)
+	public @ResponseBody SimpleJsonResponse deleteUser(SimpleJsonResponse jsonRes, @PathVariable("id") String id) throws Exception {
+		try {
+			Object response = calamariSubmit("/user/" + id, HttpMethod.DELETE);
+			jsonRes.setSuccess(true);
+			jsonRes.setData(response);
+			jsonRes.setMsg("정상적으로 삭제되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("삭제 중 에러가 발생하였습니다.");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
