@@ -38,7 +38,7 @@ import com.athena.peacock.controller.web.ceph.CephBaseController;
  */
 @Controller
 @RequestMapping("/ceph/osd")
-public class OsdController extends CephBaseController {
+public class OsdController extends CephBaseController  {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(OsdController.class);
 
