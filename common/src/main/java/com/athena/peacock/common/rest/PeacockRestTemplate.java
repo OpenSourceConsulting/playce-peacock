@@ -67,6 +67,7 @@ public class PeacockRestTemplate {
 	 * 지정된 호스트로 API를 호출하고 결과를 반환한다.
 	 * </pre>
 	 * @param uri REST API uri
+	 * @param http method
 	 * @return
 	 * @throws RestClientException
 	 * @throws Exception
@@ -74,7 +75,7 @@ public class PeacockRestTemplate {
 	public String submit(String uri, HttpMethod method) throws RestClientException, Exception {
 		Assert.isTrue(StringUtils.isNotEmpty(uri), "uri must not be null");
 		
-		return submit(uri, method, null);
+		return submit(uri, null, method);
 	}//end of submit()
 	
 	/**
@@ -83,11 +84,12 @@ public class PeacockRestTemplate {
 	 * </pre>
 	 * @param uri REST API uri
 	 * @param body http body contents
+	 * @param http method
 	 * @return
 	 * @throws RestClientException
 	 * @throws Exception
 	 */
-	public synchronized String submit(String uri, HttpMethod method, Object body) throws RestClientException, Exception {
+	public synchronized String submit(String uri, Object body, HttpMethod method) throws RestClientException, Exception {
 		Assert.isTrue(StringUtils.isNotEmpty(uri), "uri must not be null");
 		
 		try {
@@ -156,6 +158,10 @@ public class PeacockRestTemplate {
 	 * @throws IOException
 	 */
 	private String objToJson(Object obj) throws IOException {
+		if (obj instanceof String) {
+			return (String) obj;
+		}
+		
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		JsonGenerator generator = MAPPER.getJsonFactory().createJsonGenerator(outputStream, JsonEncoding.UTF8);
 		MAPPER.writeValue(generator, obj);

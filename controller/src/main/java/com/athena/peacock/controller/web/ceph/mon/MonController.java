@@ -20,13 +20,8 @@
  * ---------------	----------------	------------
  * Sang-cheon Park	2015. 9. 24.		First Draft.
  */
-package com.athena.peacock.controller.web.ceph;
+package com.athena.peacock.controller.web.ceph.mon;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
@@ -34,9 +29,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.athena.peacock.common.core.action.support.TargetHost;
-import com.athena.peacock.common.core.util.SshExecUtil;
-import com.athena.peacock.common.rest.PeacockRestTemplate;
+import com.athena.peacock.controller.web.ceph.CephBaseController;
 import com.athena.peacock.controller.web.common.model.SimpleJsonResponse;
 
 /**
@@ -47,15 +40,10 @@ import com.athena.peacock.controller.web.common.model.SimpleJsonResponse;
  * @version 1.0
  */
 @Controller
-@RequestMapping("/ceph")
-public class CephController {
+@RequestMapping("/ceph/mon")
+public class MonController extends CephBaseController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(CephController.class);
-	private static final ObjectMapper MAPPER = new ObjectMapper();
-
-	@Inject
-	@Named("peacockRestTemplate")
-	private PeacockRestTemplate peacockRestTemplate;
+	private static final Logger LOGGER = LoggerFactory.getLogger(MonController.class);
 
 	/**
 	 * <pre>
@@ -66,12 +54,12 @@ public class CephController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/osd/tree")
+	@RequestMapping("/status")
 	public @ResponseBody SimpleJsonResponse getStatus(SimpleJsonResponse jsonRes) throws Exception {
 		try {
-			String response = peacockRestTemplate.submit("http://192.168.0.227:5000/api/v0.1/osd/tree", HttpMethod.GET);
+			Object response = submit("/status", HttpMethod.GET);
 			jsonRes.setSuccess(true);
-			jsonRes.setData(readTree(response));
+			jsonRes.setData(response);
 			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
@@ -92,16 +80,10 @@ public class CephController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/osdtree")
+	@RequestMapping("/monstatus")
 	public @ResponseBody SimpleJsonResponse getMonStatus(SimpleJsonResponse jsonRes) throws Exception {
 		try {
-			TargetHost targetHost = new TargetHost();
-			targetHost.setHost("192.168.0.227");
-			targetHost.setPort(22);
-			targetHost.setUsername("root");
-			targetHost.setPassword("jan01jan");
-			
-			String response = SshExecUtil.executeCommand(targetHost, "ceph osd tree");
+			Object response = execute("ceph mon_status");
 			
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
@@ -115,20 +97,5 @@ public class CephController {
 		
 		return jsonRes;
 	}
-	
-	/**
-	 * <pre>
-	 * Method to deserialize JSON content as tree expressed using set of JsonNode instances. 
-	 * </pre>
-	 * @param json JSON content
-	 * @return
-	 */
-	private JsonNode readTree(String json){
-		try {
-			return MAPPER.readTree(json);
-		} catch (Exception ex) {
-			throw new RuntimeException(ex);
-		}
-	}
 }
-//end of CephController.java
+//end of MonController.java
