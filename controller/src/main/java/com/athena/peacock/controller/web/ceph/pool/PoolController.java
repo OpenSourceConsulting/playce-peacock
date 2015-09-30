@@ -22,6 +22,8 @@
  */
 package com.athena.peacock.controller.web.ceph.pool;
 
+import javax.ws.rs.QueryParam;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
@@ -80,10 +82,10 @@ public class PoolController extends CephBaseController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/stats/data")
-	public @ResponseBody SimpleJsonResponse getPoolStats(SimpleJsonResponse jsonRes) throws Exception {
+	@RequestMapping("/stats")
+	public @ResponseBody SimpleJsonResponse getPoolStats(SimpleJsonResponse jsonRes, @QueryParam("name") String name) throws Exception {
 		try {
-			Object response = managementSubmit("/osd/pool/stats?name='data'", HttpMethod.GET);
+			Object response = managementSubmit("/osd/pool/stats?name=" + name, HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
 			jsonRes.setMsg("Pool List가 정상적으로 조회되었습니다.");
@@ -106,10 +108,10 @@ public class PoolController extends CephBaseController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/stats/data/size")
-	public @ResponseBody SimpleJsonResponse getPoolSize(SimpleJsonResponse jsonRes) throws Exception {
+	@RequestMapping("/get/size")
+	public @ResponseBody SimpleJsonResponse getPoolSize(SimpleJsonResponse jsonRes, @QueryParam("pool") String pool, @QueryParam("size") String size) throws Exception {
 		try {
-			Object response = managementSubmit("/osd/pool/get?pool='data'&var=size", HttpMethod.GET);
+			Object response = managementSubmit("/osd/pool/get?pool=" + pool + "&var=" + size, HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
 			jsonRes.setMsg("Pool List가 정상적으로 조회되었습니다.");
@@ -132,10 +134,10 @@ public class PoolController extends CephBaseController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/stats/data/pg_num")
-	public @ResponseBody SimpleJsonResponse getPoolPgNum(SimpleJsonResponse jsonRes) throws Exception {
+	@RequestMapping("/get/pg_num")
+	public @ResponseBody SimpleJsonResponse getPoolPgNum(SimpleJsonResponse jsonRes, @QueryParam("pool") String pool, @QueryParam("pg_num") String pg_num) throws Exception {
 		try {
-			Object response = managementSubmit("/osd/pool/get?pool='data'&var=pg_num", HttpMethod.GET);
+			Object response = managementSubmit("/osd/pool/get?pool=" + pool + "&var=" + pg_num, HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
 			jsonRes.setMsg("Pool List가 정상적으로 조회되었습니다.");
@@ -158,10 +160,10 @@ public class PoolController extends CephBaseController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/create/test1")
-	public @ResponseBody SimpleJsonResponse createPool(SimpleJsonResponse jsonRes) throws Exception {
+	@RequestMapping("/create")
+	public @ResponseBody SimpleJsonResponse createPool(SimpleJsonResponse jsonRes, @QueryParam("pool") String pool, @QueryParam("pg_num") String pg_num) throws Exception {
 		try {
-			Object response = managementSubmit("/osd/pool/create?pool='test1'&pg_num=64", HttpMethod.GET);
+			Object response = managementSubmit("/osd/pool/create?pool=" + pool + "&pg_num=" + pg_num, HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
 			jsonRes.setMsg("Pool List가 정상적으로 조회되었습니다.");
@@ -174,6 +176,32 @@ public class PoolController extends CephBaseController {
 		
 		return jsonRes;
 	}	
+
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/set/size")
+	public @ResponseBody SimpleJsonResponse setPoolSize(SimpleJsonResponse jsonRes, @QueryParam("name") String name, @QueryParam("size") String size, @QueryParam("val") String val) throws Exception {
+		try {
+			Object response = managementSubmit("/osd/pool/set?pool=" + name + "&var=" + size + "&val=" + val, HttpMethod.GET);
+			jsonRes.setSuccess(true);
+			jsonRes.setData(response);
+			jsonRes.setMsg("Pool List가 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("Pool List 조회 중 에러가 발생하였습니다.");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
 	
 	/**
 	 * <pre>
@@ -184,10 +212,10 @@ public class PoolController extends CephBaseController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/set/data/pg_num")
-	public @ResponseBody SimpleJsonResponse setPoolPgNum(SimpleJsonResponse jsonRes) throws Exception {
+	@RequestMapping("/set/pg_num")
+	public @ResponseBody SimpleJsonResponse setPoolPgNum(SimpleJsonResponse jsonRes, @QueryParam("name") String name, @QueryParam("pg_num") String pg_num, @QueryParam("val") String val) throws Exception {
 		try {
-			Object response = managementSubmit("/osd/pool/set?pool='data'&var=pg_num&val=128", HttpMethod.GET);
+			Object response = managementSubmit("/osd/pool/set?pool=" + name + "&var=" + pg_num + "&val=" + val, HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
 			jsonRes.setMsg("Pool List가 정상적으로 조회되었습니다.");
