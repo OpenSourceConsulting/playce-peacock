@@ -70,56 +70,8 @@ public class MonController_example extends CephBaseController {
 		
 		return jsonRes;
 	}
-	/**
-	 * <pre>
-	 * 
-	 * </pre>
-	 * @param jsonRes
-	 * @param dto
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/dump")
-	public @ResponseBody SimpleJsonResponse getStatus2(SimpleJsonResponse jsonRes) throws Exception {
-		try {
-			Object response = managementSubmit("/mon/dump?epoch=0", HttpMethod.GET);
-			jsonRes.setSuccess(true);
-			jsonRes.setData(response);
-			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
-		} catch (Exception e) {
-			jsonRes.setSuccess(false);
-			jsonRes.setMsg("status 조회 중 에러가 발생하였습니다.");
-			
-			LOGGER.error("Unhandled Expeption has occurred. ", e);
-		}
-		
-		return jsonRes;
-	}
-	/**
-	 * <pre>
-	 * 
-	 * </pre>
-	 * @param jsonRes
-	 * @param dto
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/dump")
-	public @ResponseBody SimpleJsonResponse getStatus3(SimpleJsonResponse jsonRes) throws Exception {
-		try {
-			Object response = managementSubmit("/mon/dump?epoch=0", HttpMethod.GET);
-			jsonRes.setSuccess(true);
-			jsonRes.setData(response);
-			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
-		} catch (Exception e) {
-			jsonRes.setSuccess(false);
-			jsonRes.setMsg("status 조회 중 에러가 발생하였습니다.");
-			
-			LOGGER.error("Unhandled Expeption has occurred. ", e);
-		}
-		
-		return jsonRes;
-	}
+
+
 	/**
 	 * <pre>
 	 * 
