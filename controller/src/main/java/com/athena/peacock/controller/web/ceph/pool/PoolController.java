@@ -254,5 +254,31 @@ public class PoolController extends CephBaseController {
 		
 		return jsonRes;
 	}
+	
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/rename")
+	public @ResponseBody SimpleJsonResponse renamePool(SimpleJsonResponse jsonRes, @QueryParam("name") String name, @QueryParam("srcpool") String srcpool, @QueryParam("destpool") String destpool) throws Exception {
+		try {
+			Object response = managementSubmit("/osd/pool/rename?srcpool=" + srcpool + "&destpool=" + destpool, HttpMethod.PUT);
+			jsonRes.setSuccess(true);
+			jsonRes.setData(response);
+			jsonRes.setMsg("Pool List가 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("Pool List 조회 중 에러가 발생하였습니다.");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
 }
 //end of PoolController.java
