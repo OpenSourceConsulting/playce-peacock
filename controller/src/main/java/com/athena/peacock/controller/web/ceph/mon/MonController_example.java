@@ -19,7 +19,6 @@
  * Author			Date				Description
  * ---------------	----------------	------------
  * Sang-cheon Park	2015. 9. 24.		First Draft.
- * Ik-Han Kim 		2015. 9. 30.        Add monitoring functions
  */
 package com.athena.peacock.controller.web.ceph.mon;
 
@@ -42,9 +41,9 @@ import com.athena.peacock.controller.web.common.model.SimpleJsonResponse;
  */
 @Controller
 @RequestMapping("/ceph/mon")
-public class MonController extends CephBaseController  {
+public class MonController_example extends CephBaseController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(MonController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MonController_example.class);
 
 	/**
 	 * <pre>
@@ -55,8 +54,8 @@ public class MonController extends CephBaseController  {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/status2")
-	public @ResponseBody SimpleJsonResponse getStatus1(SimpleJsonResponse jsonRes) throws Exception {
+	@RequestMapping("/status")
+	public @ResponseBody SimpleJsonResponse getStatus(SimpleJsonResponse jsonRes) throws Exception {
 		try {
 			Object response = managementSubmit("/status", HttpMethod.GET);
 			jsonRes.setSuccess(true);
@@ -71,6 +70,8 @@ public class MonController extends CephBaseController  {
 		
 		return jsonRes;
 	}
+
+
 	/**
 	 * <pre>
 	 * 
@@ -80,58 +81,8 @@ public class MonController extends CephBaseController  {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/dump")
-	public @ResponseBody SimpleJsonResponse getStatus2(SimpleJsonResponse jsonRes) throws Exception {
-		try {
-			Object response = managementSubmit("/mon/dump?epoch=0", HttpMethod.GET);
-			jsonRes.setSuccess(true);
-			jsonRes.setData(response);
-			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
-		} catch (Exception e) {
-			jsonRes.setSuccess(false);
-			jsonRes.setMsg("status 조회 중 에러가 발생하였습니다.");
-			
-			LOGGER.error("Unhandled Expeption has occurred. ", e);
-		}
-		
-		return jsonRes;
-	}
-	/**
-	 * <pre>
-	 * 
-	 * </pre>
-	 * @param jsonRes
-	 * @param dto
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/stat2")
-	public @ResponseBody SimpleJsonResponse getStat(SimpleJsonResponse jsonRes) throws Exception {
-		try {
-			Object response = managementSubmit("/mon/stat", HttpMethod.GET);
-			jsonRes.setSuccess(true);
-			jsonRes.setData(response);
-			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
-		} catch (Exception e) {
-			jsonRes.setSuccess(false);
-			jsonRes.setMsg("status 조회 중 에러가 발생하였습니다.");
-			
-			LOGGER.error("Unhandled Expeption has occurred. ", e);
-		}
-		
-		return jsonRes;
-	}
-	/**
-	 * <pre>
-	 * 
-	 * </pre>
-	 * @param jsonRes
-	 * @param dto
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/monstatus2")
-	public @ResponseBody SimpleJsonResponse getMonStatus1(SimpleJsonResponse jsonRes) throws Exception {
+	@RequestMapping("/monstatus")
+	public @ResponseBody SimpleJsonResponse getMonStatus(SimpleJsonResponse jsonRes) throws Exception {
 		try {
 			Object response = execute("ceph mon_status");
 			

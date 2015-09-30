@@ -59,18 +59,24 @@ public abstract class CephBaseController {
 	
     @Value("#{contextProperties['ceph.radosgw.rest.api.prefix']}")
     private String radosgw;
+	
+    @Value("#{contextProperties['ceph.calamari.username']}")
+    private String calamariUsername;
+	
+    @Value("#{contextProperties['ceph.calamari.password']}")
+    private String calamariPassword;
     
     @Value("#{contextProperties['ceph.ssh.host']}")
-    private String host;
+    private String sshHost;
     
     @Value("#{contextProperties['ceph.ssh.ip']}")
-    private int ip;
+    private int sshIp;
     
     @Value("#{contextProperties['ceph.ssh.username']}")
-    private String username;
+    private String sshUsername;
     
     @Value("#{contextProperties['ceph.ssh.password']}")
-    private String password;
+    private String sshPassword;
 
 	@Inject
 	@Named("peacockRestTemplate")
@@ -162,11 +168,13 @@ public abstract class CephBaseController {
 	 */
 	protected Object calamariSubmit(String uri, Object body, HttpMethod method) throws RestClientException, Exception {
 		String response = null;
+
+		peacockRestTemplate.calamariLogin(calamari + "/auth/login", calamariUsername, calamariPassword);
 		
 		if (uri.startsWith("http")) {
-			response = peacockRestTemplate.submit(uri, body, method);
+			response = peacockRestTemplate.calamariSubmit(uri, body, method);
 		} else {
-			response = peacockRestTemplate.submit(calamari + uri, body, method);
+			response = peacockRestTemplate.calamariSubmit(calamari + uri, body, method);
 		}
 		
 		if (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2)) {
@@ -232,10 +240,10 @@ public abstract class CephBaseController {
 	 */
 	private TargetHost getTargetHost() {
 		TargetHost targetHost = new TargetHost();
-		targetHost.setHost(host);
-		targetHost.setPort(ip);
-		targetHost.setUsername(username);
-		targetHost.setPassword(password);
+		targetHost.setHost(sshHost);
+		targetHost.setPort(sshIp);
+		targetHost.setUsername(sshUsername);
+		targetHost.setPassword(sshPassword);
 		
 		return targetHost;
 	}

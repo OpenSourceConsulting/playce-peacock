@@ -18,12 +18,15 @@
  * Revision History
  * Author			Date				Description
  * ---------------	----------------	------------
- * Sang-cheon Park	2015. 9. 24.		First Draft.
+ * Sang-cheon Park	2015. 9. 23.		First Draft.
  */
-package com.athena.peacock.controller.web.ceph.osd;
+package com.athena.peacock.controller.web.test;
 
-import javax.ws.rs.QueryParam;
+import javax.inject.Inject;
+import javax.inject.Named;
 
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
@@ -31,24 +34,31 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.athena.peacock.controller.web.ceph.CephBaseController;
+import com.athena.peacock.common.core.action.support.TargetHost;
+import com.athena.peacock.common.core.util.SshExecUtil;
+import com.athena.peacock.common.rest.PeacockRestTemplate;
 import com.athena.peacock.controller.web.common.model.SimpleJsonResponse;
 
 /**
  * <pre>
  * 
  * </pre>
- * @author Hojin kim
- * @version 1.1
-
+ * @author Sang-cheon Park
+ * @version 1.0
  */
 @Controller
-@RequestMapping("/ceph/osd")
-public class OsdController extends CephBaseController   {
+@RequestMapping("/test")
+public class Testihkim {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(OsdController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(Testihkim.class);
+	private static final ObjectMapper MAPPER = new ObjectMapper();
+
+	@Inject
+	@Named("peacockRestTemplate")
+	private PeacockRestTemplate peacockRestTemplate;
+
 	/**
-	 * <pre>
+	 * <pre>,
 	 * 
 	 * </pre>
 	 * @param jsonRes
@@ -56,37 +66,12 @@ public class OsdController extends CephBaseController   {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/dump")
-	public @ResponseBody SimpleJsonResponse getDump(SimpleJsonResponse jsonRes) throws Exception {
+	@RequestMapping("/osddump")
+	public @ResponseBody SimpleJsonResponse getStatus(SimpleJsonResponse jsonRes) throws Exception {
 		try {
-			Object response = managementSubmit("/dump", HttpMethod.GET);
+			String response = peacockRestTemplate.submit("http://192.168.0.227:5000/api/v0.1/osd/dump", HttpMethod.GET);
 			jsonRes.setSuccess(true);
-			jsonRes.setData(response);
-			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
-		} catch (Exception e) {
-			jsonRes.setSuccess(false);
-			jsonRes.setMsg("status 조회 중 에러가 발생하였습니다.");
-			
-			LOGGER.error("Unhandled Expeption has occurred. ", e);
-		}
-		
-		return jsonRes;
-	}
-	/**
-	 * <pre>
-	 * 
-	 * </pre>
-	 * @param jsonRes
-	 * @param dto
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/tree")
-	public @ResponseBody SimpleJsonResponse getOSDTree(SimpleJsonResponse jsonRes) throws Exception {
-		try {
-			Object response = managementSubmit("/tree", HttpMethod.GET);
-			jsonRes.setSuccess(true);
-			jsonRes.setData(response);
+			jsonRes.setData(readTree(response));
 			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
@@ -98,22 +83,52 @@ public class OsdController extends CephBaseController   {
 		return jsonRes;
 	}
 
-	@RequestMapping("/create/test1")
-	public @ResponseBody
-	SimpleJsonResponse createPool(SimpleJsonResponse jsonRes, @QueryParam("name") String name) throws Exception {
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/osdtree")
+	public @ResponseBody SimpleJsonResponse getMonStatus(SimpleJsonResponse jsonRes) throws Exception {
 		try {
-			Object response = managementSubmit("/osd/pool/stats?name=" + name, HttpMethod.GET);
+			TargetHost targetHost = new TargetHost();
+			targetHost.setHost("192.168.0.227");
+			targetHost.setPort(22);
+			targetHost.setUsername("root");
+			targetHost.setPassword("jan01jan");
+			
+			String response = SshExecUtil.executeCommand(targetHost, "ceph osd tree");
+			
 			jsonRes.setSuccess(true);
-			jsonRes.setData(response);
-			jsonRes.setMsg("Pool List가 정상적으로 조회되었습니다.");
+			jsonRes.setData(readTree(response));
+			jsonRes.setMsg("osd tree가 정상적으로 조회되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Pool List 조회 중 에러가 발생하였습니다.");
-
+			jsonRes.setMsg("osd tree 조회 중 에러가 발생하였습니다.");
+			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
-
+		
 		return jsonRes;
+	}
+	
+	/**
+	 * <pre>
+	 * Method to deserialize JSON content as tree expressed using set of JsonNode instances. 
+	 * </pre>
+	 * @param json JSON content
+	 * @return
+	 */
+	private JsonNode readTree(String json){
+		try {
+			return MAPPER.readTree(json);
+		} catch (Exception ex) {
+			throw new RuntimeException(ex);
+		}
 	}
 }
-// end of OsdController.java
+//end of TestController.java

@@ -265,7 +265,7 @@ public class PoolController extends CephBaseController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/rename")
-	public @ResponseBody SimpleJsonResponse renamePool(SimpleJsonResponse jsonRes, @QueryParam("name") String name, @QueryParam("srcpool") String srcpool, @QueryParam("destpool") String destpool) throws Exception {
+	public @ResponseBody SimpleJsonResponse  renamePool(SimpleJsonResponse jsonRes, @QueryParam("name") String name, @QueryParam("srcpool") String srcpool, @QueryParam("destpool") String destpool) throws Exception {
 		try {
 			Object response = managementSubmit("/osd/pool/rename?srcpool=" + srcpool + "&destpool=" + destpool, HttpMethod.PUT);
 			jsonRes.setSuccess(true);
