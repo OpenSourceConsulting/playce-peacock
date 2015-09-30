@@ -57,7 +57,7 @@ public class MonController extends CephBaseController {
 	@RequestMapping("/status")
 	public @ResponseBody SimpleJsonResponse getStatus(SimpleJsonResponse jsonRes) throws Exception {
 		try {
-			Object response = submit("/status", HttpMethod.GET);
+			Object response = managementSubmit("/status", HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
 			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");

@@ -51,8 +51,14 @@ public abstract class CephBaseController {
 	private static final String JSON_PREFIX1 = "{";
 	private static final String JSON_PREFIX2 = "[";
 	
-    @Value("#{contextProperties['ceph.rest.api.prefix']}")
-    private String prefix;
+    @Value("#{contextProperties['ceph.management.rest.api.prefix']}")
+    private String management;
+	
+    @Value("#{contextProperties['ceph.calamari.rest.api.prefix']}")
+    private String calamari;
+	
+    @Value("#{contextProperties['ceph.radosgw.rest.api.prefix']}")
+    private String radosgw;
     
     @Value("#{contextProperties['ceph.ssh.host']}")
     private String host;
@@ -80,10 +86,40 @@ public abstract class CephBaseController {
 	 * @throws RestClientException
 	 * @throws Exception
 	 */
-	protected Object submit(String uri, HttpMethod method) throws RestClientException, Exception {
-		return submit(uri, null, method);
+	protected Object managementSubmit(String uri, HttpMethod method) throws RestClientException, Exception {
+		return managementSubmit(uri, null, method);
 	}
-	//end of submit()
+	//end of managementSubmit()
+	
+	/**
+	 * <pre>
+	 * do http request with given parameters
+	 * </pre>
+	 * @param uri
+	 * @param method
+	 * @return
+	 * @throws RestClientException
+	 * @throws Exception
+	 */
+	protected Object calamariSubmit(String uri, HttpMethod method) throws RestClientException, Exception {
+		return calamariSubmit(uri, null, method);
+	}
+	//end of calamariSubmit()
+	
+	/**
+	 * <pre>
+	 * do http request with given parameters
+	 * </pre>
+	 * @param uri
+	 * @param method
+	 * @return
+	 * @throws RestClientException
+	 * @throws Exception
+	 */
+	protected Object radosgwSubmit(String uri, HttpMethod method) throws RestClientException, Exception {
+		return radosgwSubmit(uri, null, method);
+	}
+	//end of radosgwSubmit()
 	
 	/**
 	 * <pre>
@@ -96,13 +132,13 @@ public abstract class CephBaseController {
 	 * @throws RestClientException
 	 * @throws Exception
 	 */
-	protected Object submit(String uri, Object body, HttpMethod method) throws RestClientException, Exception {
+	protected Object managementSubmit(String uri, Object body, HttpMethod method) throws RestClientException, Exception {
 		String response = null;
 		
 		if (uri.startsWith("http")) {
 			response = peacockRestTemplate.submit(uri, body, method);
 		} else {
-			response = peacockRestTemplate.submit(prefix + uri, body, method);
+			response = peacockRestTemplate.submit(management + uri, body, method);
 		}
 		
 		if (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2)) {
@@ -111,7 +147,63 @@ public abstract class CephBaseController {
 			return response;
 		}
 	}
-	//end of submit()
+	//end of managementSubmit()
+	
+	/**
+	 * <pre>
+	 * do http request with given parameters
+	 * </pre>
+	 * @param uri
+	 * @param body
+	 * @param method
+	 * @return
+	 * @throws RestClientException
+	 * @throws Exception
+	 */
+	protected Object calamariSubmit(String uri, Object body, HttpMethod method) throws RestClientException, Exception {
+		String response = null;
+		
+		if (uri.startsWith("http")) {
+			response = peacockRestTemplate.submit(uri, body, method);
+		} else {
+			response = peacockRestTemplate.submit(calamari + uri, body, method);
+		}
+		
+		if (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2)) {
+			return readTree(response);
+		} else {
+			return response;
+		}
+	}
+	//end of calamariSubmit()
+	
+	/**
+	 * <pre>
+	 * do http request with given parameters
+	 * </pre>
+	 * @param uri
+	 * @param body
+	 * @param method
+	 * @return
+	 * @throws RestClientException
+	 * @throws Exception
+	 */
+	protected Object radosgwSubmit(String uri, Object body, HttpMethod method) throws RestClientException, Exception {
+		String response = null;
+		
+		if (uri.startsWith("http")) {
+			response = peacockRestTemplate.submit(uri, body, method);
+		} else {
+			response = peacockRestTemplate.submit(radosgw + uri, body, method);
+		}
+		
+		if (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2)) {
+			return readTree(response);
+		} else {
+			return response;
+		}
+	}
+	//end of radosgwSubmit()
 	
 	/**
 	 * <pre>
