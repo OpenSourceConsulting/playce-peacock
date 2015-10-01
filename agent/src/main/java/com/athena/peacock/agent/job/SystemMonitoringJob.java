@@ -1,23 +1,29 @@
-/* 
- * Copyright 2013 The Athena-Peacock Project.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+/*
+                                                                                         
+ * Copyright 2015 Open Source Consulting, Inc. <support@osci.kr>                                
+                                                                                              
+ * This file is part of athena-peacock. https://github.com/OpenSourceConsulting/athena-peacock    
+                                                                                              
+ * athena-peacock is free software: you can redistribute it and/or modify it under               
+ * the terms of the GNU Lesser General Public License as published by the Free                  
+ * Software Foundation, either version 3 of the License, or (at your option)                    
+ * any later version.                                                                           
+ *                                                                                              
+ * athena-peacock is distributed in the hope that it will be useful, but WITHOUT ANY             
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS                    
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more                 
+ * details.                                                                                     
+ *                                                                                              
+ * You should have received a copy of the GNU Lesser General Public License                     
+ * along with athena-peacock. If not, see <http://www.gnu.org/licenses/>.                        
  *
  * Revision History
  * Author			Date				Description
  * ---------------	----------------	------------
- * Sang-cheon Park	2013. 8. 1.		First Draft.
+ * Sang-cheon Park	2013. 8. 1.			First Draft.
+ * Ji-Woong Choi	2015. 9. 20.		Channg license from GPLv2 to GPLv3
  */
+
 package com.athena.peacock.agent.job;
 
 import java.io.File;
