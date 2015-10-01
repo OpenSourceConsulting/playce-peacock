@@ -23,6 +23,7 @@
 package com.athena.peacock.controller.web.ceph;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -31,6 +32,7 @@ import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClientException;
 
 import com.athena.peacock.common.core.action.support.TargetHost;
@@ -132,22 +134,67 @@ public abstract class CephBaseController {
 	 * do http request with given parameters
 	 * </pre>
 	 * @param uri
-	 * @param body
 	 * @param method
 	 * @return
 	 * @throws RestClientException
 	 * @throws Exception
 	 */
 	protected Object managementSubmit(String uri, Object body, HttpMethod method) throws RestClientException, Exception {
+		return managementSubmit(uri, null, method, null, null);
+	}
+	//end of managementSubmit()
+	
+	/**
+	 * <pre>
+	 * do http request with given parameters
+	 * </pre>
+	 * @param uri
+	 * @param method
+	 * @return
+	 * @throws RestClientException
+	 * @throws Exception
+	 */
+	protected Object calamariSubmit(String uri, Object body, HttpMethod method) throws RestClientException, Exception {
+		return calamariSubmit(uri, null, method, null, null);
+	}
+	//end of calamariSubmit()
+	
+	/**
+	 * <pre>
+	 * do http request with given parameters
+	 * </pre>
+	 * @param uri
+	 * @param method
+	 * @return
+	 * @throws RestClientException
+	 * @throws Exception
+	 */
+	protected Object radosgwSubmit(String uri, Object body, HttpMethod method) throws RestClientException, Exception {
+		return radosgwSubmit(uri, null, method, null, null);
+	}
+	//end of radosgwSubmit()
+	
+	/**
+	 * <pre>
+	 * do http request with given parameters
+	 * </pre>
+	 * @param uri
+	 * @param body
+	 * @param method
+	 * @return
+	 * @throws RestClientException
+	 * @throws Exception
+	 */
+	protected Object managementSubmit(String uri, Object body, HttpMethod method, List<MediaType> acceptableMediaTypes, MediaType contentType) throws RestClientException, Exception {
 		String response = null;
 		
 		if (uri.startsWith("http")) {
-			response = peacockRestTemplate.submit(uri, body, method);
+			response = peacockRestTemplate.submit(uri, body, method, acceptableMediaTypes, contentType);
 		} else {
-			response = peacockRestTemplate.submit(management + uri, body, method);
+			response = peacockRestTemplate.submit(management + uri, body, method, acceptableMediaTypes, contentType);
 		}
 		
-		if (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2)) {
+		if (response != null && (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2))) {
 			return readTree(response);
 		} else {
 			return response;
@@ -166,17 +213,17 @@ public abstract class CephBaseController {
 	 * @throws RestClientException
 	 * @throws Exception
 	 */
-	protected Object calamariSubmit(String uri, Object body, HttpMethod method) throws RestClientException, Exception {
+	protected Object calamariSubmit(String uri, Object body, HttpMethod method, List<MediaType> acceptableMediaTypes, MediaType contentType) throws RestClientException, Exception {
 		String response = null;
 		peacockRestTemplate.calamariLogin(calamari + "/auth/login", calamariUsername, calamariPassword);
 		
 		if (uri.startsWith("http")) {
-			response = peacockRestTemplate.submit(uri, body, method);
+			response = peacockRestTemplate.submit(uri, body, method, acceptableMediaTypes, contentType);
 		} else {
-			response = peacockRestTemplate.submit(calamari + uri, body, method);
+			response = peacockRestTemplate.submit(calamari + uri, body, method, acceptableMediaTypes, contentType);
 		}
-		
-		if (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2)) {
+
+		if (response != null && (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2))) {
 			return readTree(response);
 		} else {
 			return response;
@@ -195,16 +242,16 @@ public abstract class CephBaseController {
 	 * @throws RestClientException
 	 * @throws Exception
 	 */
-	protected Object radosgwSubmit(String uri, Object body, HttpMethod method) throws RestClientException, Exception {
+	protected Object radosgwSubmit(String uri, Object body, HttpMethod method, List<MediaType> acceptableMediaTypes, MediaType contentType) throws RestClientException, Exception {
 		String response = null;
 		
 		if (uri.startsWith("http")) {
-			response = peacockRestTemplate.submit(uri, body, method);
+			response = peacockRestTemplate.submit(uri, body, method, acceptableMediaTypes, contentType);
 		} else {
-			response = peacockRestTemplate.submit(radosgw + uri, body, method);
+			response = peacockRestTemplate.submit(radosgw + uri, body, method, acceptableMediaTypes, contentType);
 		}
-		
-		if (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2)) {
+
+		if (response != null && (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2))) {
 			return readTree(response);
 		} else {
 			return response;
@@ -222,8 +269,8 @@ public abstract class CephBaseController {
 	 */
 	protected Object execute(String command) throws IOException {
 		String response = SshExecUtil.executeCommand(getTargetHost(), command);
-		
-		if (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2)) {
+
+		if (response != null && (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2))) {
 			return readTree(response);
 		} else {
 			return response;

@@ -80,8 +80,6 @@ public class PeacockRestTemplate {
 	 * @throws Exception
 	 */
 	public String submit(String uri, HttpMethod method) throws RestClientException, Exception {
-		Assert.isTrue(StringUtils.isNotEmpty(uri), "uri must not be null");
-		
 		return submit(uri, null, method);
 	}//end of submit()
 	
@@ -96,7 +94,22 @@ public class PeacockRestTemplate {
 	 * @throws RestClientException
 	 * @throws Exception
 	 */
-	public synchronized String submit(String uri, Object body, HttpMethod method) throws RestClientException, Exception {
+	public String submit(String uri, Object body, HttpMethod method) throws RestClientException, Exception {
+		return submit(uri, body, method, null, null);
+	}//end of submit()
+	
+	/**
+	 * <pre>
+	 * API를 호출하고 결과를 반환한다.
+	 * </pre>
+	 * @param uri REST API uri
+	 * @param body http body contents
+	 * @param http method
+	 * @return
+	 * @throws RestClientException
+	 * @throws Exception
+	 */
+	public synchronized String submit(String uri, Object body, HttpMethod method, List<MediaType> acceptableMediaTypes, MediaType contentType) throws RestClientException, Exception {
 		Assert.isTrue(StringUtils.isNotEmpty(uri), "uri must not be null");
 		
 		try {
@@ -110,11 +123,10 @@ public class PeacockRestTemplate {
 				header.put(X_XSRF_TOKEN, calamariToken);
 				
 				cookie = new ArrayList<String>();
-				cookie.add(XSRF_TOKEN + "=" + calamariToken);
-				cookie.add(CALAMARI_SESSIONID + "=" + calamariSessionid);
+				cookie.add(CALAMARI_SESSIONID + "=" + calamariSessionid + "; " + XSRF_TOKEN + "=" + calamariToken + ";");
 			}
 			
-			ResponseEntity<String> response = rt.exchange(new URI(uri), method, setHTTPEntity(body, header, cookie), String.class);
+			ResponseEntity<String> response = rt.exchange(new URI(uri), method, setHTTPEntity(body, header, cookie, acceptableMediaTypes, contentType), String.class);
 			
 			logger.debug("[Request URL] : {}", uri);
 			logger.debug("[Response] : {}", response);
@@ -248,12 +260,28 @@ public class PeacockRestTemplate {
 	 * @throws IOException 
 	 */
 	private HttpEntity<Object> setHTTPEntity(Object body, Map<String, String> header, List<String> cookie) throws IOException {
-		List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
-	    //acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
-	    acceptableMediaTypes.add(MediaType.ALL);
-	    
+		return setHTTPEntity(body, header, cookie, null, null);
+	}//end of setHTTPEntity()
+	
+	/**
+	 * <pre>
+	 * HTTP Body를 생성한다.
+	 * </pre>
+	 * @return
+	 * @throws IOException 
+	 */
+	private HttpEntity<Object> setHTTPEntity(Object body, Map<String, String> header, List<String> cookie, List<MediaType> acceptableMediaTypes, MediaType contentType) throws IOException {
+		if (acceptableMediaTypes == null) {
+			acceptableMediaTypes = new ArrayList<MediaType>();
+			acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
+		}
+		
+		if (contentType == null) {
+			contentType = MediaType.APPLICATION_JSON;
+		}
+		
 		HttpHeaders requestHeaders = new HttpHeaders();
-		requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+		requestHeaders.setContentType(contentType);
 		requestHeaders.setAccept(acceptableMediaTypes);
 		
 		if (header != null) {
