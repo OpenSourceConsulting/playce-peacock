@@ -110,8 +110,7 @@ public class PeacockRestTemplate {
 				header.put(X_XSRF_TOKEN, calamariToken);
 				
 				cookie = new ArrayList<String>();
-				cookie.add(XSRF_TOKEN + "=" + calamariToken);
-				cookie.add(CALAMARI_SESSIONID + "=" + calamariSessionid);
+				cookie.add(CALAMARI_SESSIONID + "=" + calamariSessionid + "; " + XSRF_TOKEN + "=" + calamariToken + ";");
 			}
 			
 			ResponseEntity<String> response = rt.exchange(new URI(uri), method, setHTTPEntity(body, header, cookie), String.class);
