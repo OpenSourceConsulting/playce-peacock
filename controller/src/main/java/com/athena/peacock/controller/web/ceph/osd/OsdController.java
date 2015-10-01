@@ -59,7 +59,7 @@ public class OsdController extends CephBaseController   {
 	@RequestMapping("/dump")
 	public @ResponseBody SimpleJsonResponse getDump(SimpleJsonResponse jsonRes) throws Exception {
 		try {
-			Object response = managementSubmit("/dump", HttpMethod.GET);
+			Object response = managementSubmit("/osd/dump", HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
 			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
@@ -84,7 +84,7 @@ public class OsdController extends CephBaseController   {
 	@RequestMapping("/tree")
 	public @ResponseBody SimpleJsonResponse getOSDTree(SimpleJsonResponse jsonRes) throws Exception {
 		try {
-			Object response = managementSubmit("/tree", HttpMethod.GET);
+			Object response = managementSubmit("/osd/tree", HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
 			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
@@ -97,7 +97,256 @@ public class OsdController extends CephBaseController   {
 		
 		return jsonRes;
 	}
-
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/blacklist/ls")
+	public @ResponseBody SimpleJsonResponse getOSDBlacklist(SimpleJsonResponse jsonRes) throws Exception {
+		try {
+			Object response = managementSubmit("/osd/blacklist/ls", HttpMethod.GET);
+			jsonRes.setSuccess(true);
+			jsonRes.setData(response);
+			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("status 조회 중 에러가 발생하였습니다.");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/crush/dump")
+	public @ResponseBody SimpleJsonResponse getOSDCrushDump(SimpleJsonResponse jsonRes) throws Exception {
+		try {
+			Object response = managementSubmit("/osd/crush/dump", HttpMethod.GET);
+			jsonRes.setSuccess(true);
+			jsonRes.setData(response);
+			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("status 조회 중 에러가 발생하였습니다.");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/crush/rule/dump")
+	public @ResponseBody SimpleJsonResponse getOSDCrushRuleDump(SimpleJsonResponse jsonRes) throws Exception {
+		try {
+			Object response = managementSubmit("/osd/crush/rule/dump", HttpMethod.GET);
+			jsonRes.setSuccess(true);
+			jsonRes.setData(response);
+			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("status 조회 중 에러가 발생하였습니다.");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/crush/rule/list")
+	public @ResponseBody SimpleJsonResponse getOSDCrushRulelist(SimpleJsonResponse jsonRes) throws Exception {
+		try {
+			Object response = managementSubmit("/osd/crush/rule/list", HttpMethod.GET);
+			jsonRes.setSuccess(true);
+			jsonRes.setData(response);
+			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("status 조회 중 에러가 발생하였습니다.");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/map")
+	public @ResponseBody SimpleJsonResponse getOSDDumpepoch(SimpleJsonResponse jsonRes, @QueryParam("epoch") String epoch) throws Exception {
+		try {
+			Object response = managementSubmit("/osd/dump?epoch=" + epoch, HttpMethod.GET);
+			jsonRes.setSuccess(true);
+			jsonRes.setData(response);
+			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("status 조회 중 에러가 발생하였습니다.");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/find")
+	public @ResponseBody SimpleJsonResponse getOSDCrushMapFind(SimpleJsonResponse jsonRes, @QueryParam("id") String id) throws Exception {
+		try {
+			Object response = managementSubmit("/osd/find?id=" + id, HttpMethod.GET);
+			jsonRes.setSuccess(true);
+			jsonRes.setData(response);
+			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("status 조회 중 에러가 발생하였습니다.");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/getcrushmap")
+	public @ResponseBody SimpleJsonResponse getOSDCrushMap(SimpleJsonResponse jsonRes, @QueryParam("epoch") String epoch) throws Exception {
+		try {
+			Object response = managementSubmit("/osd/getcrushmap?epoch=" + epoch, HttpMethod.GET);
+			jsonRes.setSuccess(true);
+			jsonRes.setData(response);
+			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("status 조회 중 에러가 발생하였습니다.");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/getmap")
+	public @ResponseBody SimpleJsonResponse getOSDMap(SimpleJsonResponse jsonRes, @QueryParam("epoch") String epoch) throws Exception {
+		try {
+			Object response = managementSubmit("/osd/getmap?epoch=" + epoch, HttpMethod.GET);
+			jsonRes.setSuccess(true);
+			jsonRes.setData(response);
+			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("status 조회 중 에러가 발생하였습니다.");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/perf")
+	public @ResponseBody SimpleJsonResponse getOSDPerf(SimpleJsonResponse jsonRes) throws Exception {
+		try {
+			Object response = managementSubmit("/osd/perf", HttpMethod.GET);
+			jsonRes.setSuccess(true);
+			jsonRes.setData(response);
+			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("status 조회 중 에러가 발생하였습니다.");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/stat")
+	public @ResponseBody SimpleJsonResponse getOSDstat(SimpleJsonResponse jsonRes) throws Exception {
+		try {
+			Object response = managementSubmit("/osd/stat", HttpMethod.GET);
+			jsonRes.setSuccess(true);
+			jsonRes.setData(response);
+			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("status 조회 중 에러가 발생하였습니다.");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
 	@RequestMapping("/create/test1")
 	public @ResponseBody
 	SimpleJsonResponse createPool(SimpleJsonResponse jsonRes, @QueryParam("name") String name) throws Exception {
