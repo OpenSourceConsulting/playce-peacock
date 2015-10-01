@@ -23,9 +23,15 @@
  */
 package com.athena.peacock.controller.web.ceph.mon;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ws.rs.QueryParam;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -81,9 +87,9 @@ public class MonController extends CephBaseController  {
 	 * @throws Exception
 	 */
 	@RequestMapping("/dump")
-	public @ResponseBody SimpleJsonResponse getStatus2(SimpleJsonResponse jsonRes) throws Exception {
+	public @ResponseBody SimpleJsonResponse getStatus2(SimpleJsonResponse jsonRes, @QueryParam("epoch") String epoch) throws Exception {
 		try {
-			Object response = managementSubmit("/mon/dump?epoch=0", HttpMethod.GET);
+			Object response = managementSubmit("/mon/dump?epoch=" + epoch, HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
 			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
@@ -105,7 +111,7 @@ public class MonController extends CephBaseController  {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/stat2")
+/**	@RequestMapping("/stat2")
 	public @ResponseBody SimpleJsonResponse getStat(SimpleJsonResponse jsonRes) throws Exception {
 		try {
 			Object response = managementSubmit("/mon/stat", HttpMethod.GET);
@@ -120,6 +126,23 @@ public class MonController extends CephBaseController  {
 		}
 		
 		return jsonRes;
+	} */
+	@RequestMapping("/stat2")
+	public @ResponseBody SimpleJsonResponse getStat(SimpleJsonResponse jsonRes) throws Exception {
+		try {
+			List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
+			acceptableMediaTypes.add(MediaType.ALL);
+			Object response = managementSubmit("/mon/stat", null, HttpMethod.GET, acceptableMediaTypes, MediaType.APPLICATION_JSON);
+			jsonRes.setSuccess(true);
+			jsonRes.setData(response);
+			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("status 조회 중 에러가 발생하였습니다.");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		return jsonRes;	
 	}
 	/**
 	 * <pre>
