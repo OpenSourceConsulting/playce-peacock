@@ -88,10 +88,10 @@ public class PoolController extends CephBaseController {
 			Object response = managementSubmit("/osd/pool/stats?name=" + name, HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("Pool List가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg(name + " Pool의 상태를 정상적으로 조회되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Pool List 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg(name + " Pool의 상태 조회 중 에러가 발생하였습니다.");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -114,10 +114,10 @@ public class PoolController extends CephBaseController {
 			Object response = managementSubmit("/osd/pool/get?pool=" + pool + "&var=size", HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("Pool List가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg(pool + " Pool의 replica size가 정상적으로 조회되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Pool List 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg(pool + " Pool의 replica size 조회 중 에러가 발생하였습니다.");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -140,10 +140,10 @@ public class PoolController extends CephBaseController {
 			Object response = managementSubmit("/osd/pool/get?pool=" + pool + "&var=pg_num", HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("Pool List가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg(pool + " Pool의 pg_num가 정상적으로 조회되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Pool List 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg(pool + " Pool의 pg_num 조회 중 에러가 발생하였습니다.");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -166,10 +166,10 @@ public class PoolController extends CephBaseController {
 			Object response = managementSubmit("/osd/pool/create?pool=" + pool + "&pg_num=" + pg_num, HttpMethod.PUT);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("Pool List가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg(pool + " Pool 생성이 완료되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Pool List 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg(pool + " Pool 생성 중 에러가 발생하였습니다.");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -192,10 +192,10 @@ public class PoolController extends CephBaseController {
 			Object response = managementSubmit("/osd/pool/delete?pool=" + pool + "&pool2=" + pool + "&sure=--yes-i-really-really-mean-it", HttpMethod.PUT);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("Pool List가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg(pool + " Pool 삭제 완료되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Pool List 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg(pool + " Pool 삭제 중 오류가 발생하였습니다.");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -218,10 +218,10 @@ public class PoolController extends CephBaseController {
 			Object response = managementSubmit("/osd/pool/set?pool=" + name + "&var=size&val=" + size, HttpMethod.PUT);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("Pool List가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg(name + " Pool의 replica size 설정 변경이 완료되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Pool List 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg(name + " Pool의 replica size 설정 변경 중 에러가 발생하였습니다.");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -244,10 +244,10 @@ public class PoolController extends CephBaseController {
 			Object response = managementSubmit("/osd/pool/set?pool=" + name + "&var=pg_num&val=" + pg_num, HttpMethod.PUT);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("Pool List가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg(name + " Pool의  pg_num 설정 변경되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Pool List 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg(name + " Pool의  pg_num 설정 변경 중 에러가 발생하였습니다.");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -270,10 +270,10 @@ public class PoolController extends CephBaseController {
 			Object response = managementSubmit("/osd/pool/rename?srcpool=" + srcpool + "&destpool=" + destpool, HttpMethod.PUT);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("Pool List가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg(srcpool + " Pool이 " + destpool + "pool로 정상적으로 변경 되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Pool List 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg(srcpool + " Pool이 " + destpool + "pool로 정상적으로 변경 중 에러가 발생하였습니다.");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
