@@ -147,7 +147,7 @@ public abstract class CephBaseController {
 			response = peacockRestTemplate.submit(management + uri, body, method);
 		}
 		
-		if (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2)) {
+		if (response != null && (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2))) {
 			return readTree(response);
 		} else {
 			return response;
@@ -175,8 +175,8 @@ public abstract class CephBaseController {
 		} else {
 			response = peacockRestTemplate.submit(calamari + uri, body, method);
 		}
-		
-		if (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2)) {
+
+		if (response != null && (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2))) {
 			return readTree(response);
 		} else {
 			return response;
@@ -203,8 +203,8 @@ public abstract class CephBaseController {
 		} else {
 			response = peacockRestTemplate.submit(radosgw + uri, body, method);
 		}
-		
-		if (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2)) {
+
+		if (response != null && (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2))) {
 			return readTree(response);
 		} else {
 			return response;
@@ -222,8 +222,8 @@ public abstract class CephBaseController {
 	 */
 	protected Object execute(String command) throws IOException {
 		String response = SshExecUtil.executeCommand(getTargetHost(), command);
-		
-		if (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2)) {
+
+		if (response != null && (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2))) {
 			return readTree(response);
 		} else {
 			return response;
