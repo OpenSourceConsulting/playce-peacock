@@ -168,13 +168,12 @@ public abstract class CephBaseController {
 	 */
 	protected Object calamariSubmit(String uri, Object body, HttpMethod method) throws RestClientException, Exception {
 		String response = null;
-
 		peacockRestTemplate.calamariLogin(calamari + "/auth/login", calamariUsername, calamariPassword);
 		
 		if (uri.startsWith("http")) {
-			response = peacockRestTemplate.calamariSubmit(uri, body, method);
+			response = peacockRestTemplate.submit(uri, body, method);
 		} else {
-			response = peacockRestTemplate.calamariSubmit(calamari + uri, body, method);
+			response = peacockRestTemplate.submit(calamari + uri, body, method);
 		}
 		
 		if (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2)) {

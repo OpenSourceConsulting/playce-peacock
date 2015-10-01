@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -59,9 +60,6 @@ public class PeacockRestTemplate {
 	
     private static final Logger logger = LoggerFactory.getLogger(PeacockRestTemplate.class);
 
-	//private static final String HOST_HEADER_KEY = "Host";
-	//private static final String AUTH_HEADER_KEY = "Authorization";
-    
     private static final String XSRF_TOKEN = "XSRF-TOKEN";
     private static final String X_XSRF_TOKEN = "X-XSRF-TOKEN";
     private static final String CALAMARI_SESSIONID = "calamari_sessionid";
@@ -104,53 +102,19 @@ public class PeacockRestTemplate {
 		try {
 			RestTemplate rt = new RestTemplate();
 			
-			ResponseEntity<String> response = rt.exchange(new URI(uri), method, setHTTPEntity(body), String.class);
+			Map<String, String> header = null;
+			List<String> cookie = null;
 			
-			logger.debug("[Request URL] : {}", uri);
-			logger.debug("[Response] : {}", response);
-			
-			if(response.getStatusCode().equals(HttpStatus.BAD_REQUEST) 
-					|| response.getStatusCode().equals(HttpStatus.UNAUTHORIZED)
-					|| response.getStatusCode().equals(HttpStatus.PAYMENT_REQUIRED)
-					|| response.getStatusCode().equals(HttpStatus.FORBIDDEN)
-					|| response.getStatusCode().equals(HttpStatus.METHOD_NOT_ALLOWED)
-					|| response.getStatusCode().equals(HttpStatus.NOT_ACCEPTABLE)
-					|| response.getStatusCode().equals(HttpStatus.INTERNAL_SERVER_ERROR)
-					|| response.getStatusCode().equals(HttpStatus.NOT_IMPLEMENTED)
-					|| response.getStatusCode().equals(HttpStatus.BAD_GATEWAY)
-					|| response.getStatusCode().equals(HttpStatus.SERVICE_UNAVAILABLE)
-					|| response.getStatusCode().equals(HttpStatus.GATEWAY_TIMEOUT)) {
-				throw new Exception(response.getStatusCode().value() + " " + response.getStatusCode().toString());
+			if (calamariToken != null && calamariSessionid != null) {
+				header = new HashMap<String, String>();
+				header.put(X_XSRF_TOKEN, calamariToken);
+				
+				cookie = new ArrayList<String>();
+				cookie.add(XSRF_TOKEN + "=" + calamariToken);
+				cookie.add(CALAMARI_SESSIONID + "=" + calamariSessionid);
 			}
 			
-			return response.getBody();
-		} catch (RestClientException e) {
-			logger.error("RestClientException has occurred.", e);
-			throw e;
-		} catch (Exception e) {
-			logger.error("Unhandled Exception has occurred.", e);
-			throw e;
-		}
-	}//end of submit()
-	
-	/**
-	 * <pre>
-	 * API를 호출하고 결과를 반환한다.
-	 * </pre>
-	 * @param uri REST API uri
-	 * @param body http body contents
-	 * @param http method
-	 * @return
-	 * @throws RestClientException
-	 * @throws Exception
-	 */
-	public synchronized String calamariSubmit(String uri, Object body, HttpMethod method) throws RestClientException, Exception {
-		Assert.isTrue(StringUtils.isNotEmpty(uri), "uri must not be null");
-		
-		try {
-			RestTemplate rt = new RestTemplate();
-			
-			ResponseEntity<String> response = rt.exchange(new URI(uri), method, setCalamariHTTPEntity(calamariToken, calamariSessionid), String.class);
+			ResponseEntity<String> response = rt.exchange(new URI(uri), method, setHTTPEntity(body, header, cookie), String.class);
 			
 			logger.debug("[Request URL] : {}", uri);
 			logger.debug("[Response] : {}", response);
@@ -185,28 +149,75 @@ public class PeacockRestTemplate {
 		Assert.isTrue(StringUtils.isNotEmpty(password), "password must not be null");
 		
 		try {
-			Map<String, String> body = new HashMap<String, String>();
-			body.put("username", username);
-			body.put("password", password);
-			
+			/*
 			RestTemplate rt = new RestTemplate();
-			ResponseEntity<String> response = rt.exchange(new URI(uri), HttpMethod.POST, setHTTPEntity(body), String.class);
+			ResponseEntity<String> response = rt.exchange(new URI(uri), HttpMethod.GET, null, String.class);
 			
 			if (response.getStatusCode().equals(HttpStatus.OK)) {
 				List<String> values = response.getHeaders().get("Set-Cookie");
 				
+				calamariToken = null;
+				calamariSessionid = null;
 				for (String value : values) {
 					if (value.startsWith(XSRF_TOKEN)) {
 						calamariToken = value.substring(11, value.indexOf(";"));
-						System.out.println("value : " + value + ", token : " + calamariToken);
+						//System.err.println("value : " + value + ", token : " + calamariToken);
 					}
 					if (value.startsWith(CALAMARI_SESSIONID)) {
 						calamariSessionid = value.substring(19, value.indexOf(";"));
-						System.out.println("value : " + value + ", sessionId : " + calamariSessionid);
+						//System.err.println("value : " + value + ", sessionId : " + calamariSessionid);
+					}
+				}
+				
+				if (calamariToken != null && calamariSessionid != null) {
+					Map<String, String> body = new HashMap<String, String>();
+					body.put("username", username);
+					body.put("password", password);
+					response = rt.exchange(new URI(uri), HttpMethod.POST, setCalamariHTTPEntity(body, calamariToken, calamariSessionid), String.class);
+
+					if (response.getStatusCode().equals(HttpStatus.OK)) {
+						values = response.getHeaders().get("Set-Cookie");
+						
+						calamariToken = null;
+						calamariSessionid = null;
+						for (String value : values) {
+							if (value.startsWith(XSRF_TOKEN)) {
+								calamariToken = value.substring(11, value.indexOf(";"));
+								//System.err.println("value : " + value + ", token : " + calamariToken);
+							}
+							if (value.startsWith(CALAMARI_SESSIONID)) {
+								calamariSessionid = value.substring(19, value.indexOf(";"));
+								//System.err.println("value : " + value + ", sessionId : " + calamariSessionid);
+							}
+						}
 					}
 				}
 			}
-			
+			/*/
+			Map<String, String> body = new HashMap<String, String>();
+			body.put("username", username);
+			body.put("password", password);
+
+			RestTemplate rt = new RestTemplate();
+			ResponseEntity<String> response = rt.exchange(new URI(uri), HttpMethod.POST, setHTTPEntity(body), String.class);
+
+			if (response.getStatusCode().equals(HttpStatus.OK)) {
+				List<String> values = response.getHeaders().get("Set-Cookie");
+				
+				calamariToken = null;
+				calamariSessionid = null;
+				for (String value : values) {
+					if (value.startsWith(XSRF_TOKEN)) {
+						calamariToken = value.substring(11, value.indexOf(";"));
+						//System.err.println("value : " + value + ", token : " + calamariToken);
+					}
+					if (value.startsWith(CALAMARI_SESSIONID)) {
+						calamariSessionid = value.substring(19, value.indexOf(";"));
+						//System.err.println("value : " + value + ", sessionId : " + calamariSessionid);
+					}
+				}
+			}
+			//*/
 			logger.debug("[Request URL] : {}", uri);
 			logger.debug("[Response] : {}", response);
 		} catch (RestClientException e) {
@@ -226,54 +237,40 @@ public class PeacockRestTemplate {
 	 * @throws IOException 
 	 */
 	private HttpEntity<Object> setHTTPEntity(Object body) throws IOException {
+		return setHTTPEntity(body, null, null);
+	}//end of setHTTPEntity()
+	
+	/**
+	 * <pre>
+	 * HTTP Body를 생성한다.
+	 * </pre>
+	 * @return
+	 * @throws IOException 
+	 */
+	private HttpEntity<Object> setHTTPEntity(Object body, Map<String, String> header, List<String> cookie) throws IOException {
 		List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
-	    acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
+	    //acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
+	    acceptableMediaTypes.add(MediaType.ALL);
 	    
 		HttpHeaders requestHeaders = new HttpHeaders();
 		requestHeaders.setContentType(MediaType.APPLICATION_JSON);
 		requestHeaders.setAccept(acceptableMediaTypes);
-		//requestHeaders.set(HOST_HEADER_KEY, host);
-		//requestHeaders.set(AUTH_HEADER_KEY, getCredential());
 		
-		if (body != null) {
-			logger.debug("Content Body => {}", objToJson(body));
-			return new HttpEntity<Object>(objToJson(body), requestHeaders);
-		} else {
-			return new HttpEntity<Object>(requestHeaders);
+		if (header != null) {
+			Iterator<String> iter = header.keySet().iterator();
+			
+			String key = null;
+			while (iter.hasNext()) {
+				key = iter.next();
+				requestHeaders.set(key, header.get(key));
+			}
 		}
-	}//end of setHTTPEntity()
-	
-	/**
-	 * <pre>
-	 * Calamari login 전용 HTTP Body를 생성한다.
-	 * </pre>
-	 * @return
-	 * @throws IOException 
-	 */
-	public HttpEntity<Object> setCalamariHTTPEntity(String token, String sessionId) throws IOException {
-		return setCalamariHTTPEntity(null, token, sessionId);
-	}//end of setHTTPEntity()
-	
-	/**
-	 * <pre>
-	 * Calamari login 전용 HTTP Body를 생성한다.
-	 * </pre>
-	 * @return
-	 * @throws IOException 
-	 */
-	private HttpEntity<Object> setCalamariHTTPEntity(Object body, String token, String sessionId) throws IOException {
-		List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
-	    acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
-	    
-		HttpHeaders requestHeaders = new HttpHeaders();
-		requestHeaders.setContentType(MediaType.APPLICATION_JSON);
-		requestHeaders.set(X_XSRF_TOKEN, token);
 		
-		requestHeaders.add("Cookie", XSRF_TOKEN + "=" + token);
-		requestHeaders.add("Cookie", CALAMARI_SESSIONID + "=" + sessionId);
-		
-		logger.debug(XSRF_TOKEN + " => {}", token);
-		logger.debug(CALAMARI_SESSIONID + " => {}", sessionId);
+		if (cookie != null) {
+			for (String c : cookie) {
+				requestHeaders.add("Cookie", c);
+			}
+		}
 		
 		if (body != null) {
 			logger.debug("Content Body => {}", objToJson(body));
