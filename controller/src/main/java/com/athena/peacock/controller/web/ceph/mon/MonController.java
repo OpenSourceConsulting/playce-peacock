@@ -44,6 +44,7 @@ import com.athena.peacock.controller.web.common.model.SimpleJsonResponse;
  * 
  * </pre>
  * @author Sang-cheon Park
+ * @author Ik-Han Kim
  * @version 1.0
  */
 @Controller
@@ -61,7 +62,7 @@ public class MonController extends CephBaseController  {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/status2")
+	@RequestMapping("/status")
 	public @ResponseBody SimpleJsonResponse getStatus1(SimpleJsonResponse jsonRes) throws Exception {
 		try {
 			Object response = managementSubmit("/status", HttpMethod.GET);
@@ -127,7 +128,7 @@ public class MonController extends CephBaseController  {
 		
 		return jsonRes;
 	} */
-	@RequestMapping("/stat2")
+	@RequestMapping("/stat")
 	public @ResponseBody SimpleJsonResponse getStat(SimpleJsonResponse jsonRes) throws Exception {
 		try {
 			List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
@@ -153,7 +154,7 @@ public class MonController extends CephBaseController  {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/monstatus2")
+	@RequestMapping("/monstatus")
 	public @ResponseBody SimpleJsonResponse getMonStatus1(SimpleJsonResponse jsonRes) throws Exception {
 		try {
 			Object response = execute("ceph mon_status");
