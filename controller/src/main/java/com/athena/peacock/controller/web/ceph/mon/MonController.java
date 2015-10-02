@@ -24,9 +24,7 @@
 package com.athena.peacock.controller.web.ceph.mon;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.ws.rs.QueryParam;
 
@@ -35,7 +33,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -47,6 +44,7 @@ import com.athena.peacock.controller.web.common.model.SimpleJsonResponse;
  * 
  * </pre>
  * @author Sang-cheon Park
+ * @author Ik-Han Kim
  * @version 1.0
  */
 @Controller
@@ -64,7 +62,7 @@ public class MonController extends CephBaseController  {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/status2")
+	@RequestMapping("/status")
 	public @ResponseBody SimpleJsonResponse getStatus1(SimpleJsonResponse jsonRes) throws Exception {
 		try {
 			Object response = managementSubmit("/status", HttpMethod.GET);
@@ -114,7 +112,23 @@ public class MonController extends CephBaseController  {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/stat2")
+/**	@RequestMapping("/stat2")
+	public @ResponseBody SimpleJsonResponse getStat(SimpleJsonResponse jsonRes) throws Exception {
+		try {
+			Object response = managementSubmit("/mon/stat", HttpMethod.GET);
+			jsonRes.setSuccess(true);
+			jsonRes.setData(response);
+			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("status 조회 중 에러가 발생하였습니다.");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+
+		return jsonRes;
+	} */
+	@RequestMapping("/stat")
 	public @ResponseBody SimpleJsonResponse getStat(SimpleJsonResponse jsonRes) throws Exception {
 		try {
 			List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
@@ -125,52 +139,10 @@ public class MonController extends CephBaseController  {
 			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("status 조회 중 에러가 발생하였습니다.");
-			
-			LOGGER.error("Unhandled Expeption has occurred. ", e);
-		}
-		return jsonRes;	
-	}
-	/**
-	 * <pre>
-	 * 
-	 * </pre>
-	 * @param jsonRes
-	 * @param dto
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/cluster/{fsid}/{path}")
-	public @ResponseBody SimpleJsonResponse subCluster(SimpleJsonResponse jsonRes, @PathVariable("fsid") String fsid, @PathVariable("path") String path) throws Exception {
-		try {
-			Object response = null;
-			Map<String, Object> params = null;
-			
-			if (path.equals("cli")) {
-				List<String> command = new ArrayList<String>();
-				command.add("osd");
-				command.add("dump");
-
-				params = new HashMap<String, Object>();
-				params.put("command", "osd list");
-			}
-			
-			if (params != null) {
-				response = calamariSubmit("/cluster/" + fsid + "/" + path, params, HttpMethod.POST);
-			} else {
-				response = calamariSubmit("/cluster/" + fsid + "/" + path, HttpMethod.GET);
-			}
-			
-			jsonRes.setSuccess(true);
-			jsonRes.setData(response);
-			jsonRes.setMsg("정상적으로 조회되었습니다.");
-		} catch (Exception e) {
-			jsonRes.setSuccess(false);
 			jsonRes.setMsg("조회 중 에러가 발생하였습니다.");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
-		
 		return jsonRes;
 	}	
 	/**
@@ -182,7 +154,7 @@ public class MonController extends CephBaseController  {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/monstatus2")
+	@RequestMapping("/monstatus")
 	public @ResponseBody SimpleJsonResponse getMonStatus1(SimpleJsonResponse jsonRes) throws Exception {
 		try {
 			Object response = execute("ceph mon_status");
