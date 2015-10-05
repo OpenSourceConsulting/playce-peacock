@@ -30,6 +30,8 @@ import javax.inject.Named;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.node.ArrayNode;
+import org.codehaus.jackson.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
@@ -261,6 +263,22 @@ public abstract class CephBaseController {
 	
 	/**
 	 * <pre>
+	 * execute /usr/bin/ssh-copy-id to host
+	 * </pre>
+	 * @param host
+	 * @param username
+	 * @param passwd
+	 * @return
+	 * @throws IOException
+	 */
+	protected Object sshCopyId(String host, String username, String passwd) throws IOException {
+		String command = "sshpass -p " + passwd + " ssh-copy-id -o StrictHostKeyChecking=no " + username + "@" + host;
+		return execute(command);
+	}
+	//end of sshCopyId()
+	
+	/**
+	 * <pre>
 	 * execute ssh command
 	 * </pre>
 	 * @param command
@@ -277,6 +295,28 @@ public abstract class CephBaseController {
 		}
 	}
 	//end of execute()
+	
+	/**
+	 * <pre>
+	 * Create an Json Array Node
+	 * </pre>
+	 * @return
+	 */
+	protected ArrayNode createArrayNode() {
+		return MAPPER.createArrayNode();
+	}
+	//end of createArrayNode()
+	
+	/**
+	 * <pre>
+	 * Create an Json Object Node
+	 * </pre>
+	 * @return
+	 */
+	protected ObjectNode createObjectNode() {
+		return MAPPER.createObjectNode();
+	}
+	//end of createObjectNode()
 	
 	/**
 	 * <pre>

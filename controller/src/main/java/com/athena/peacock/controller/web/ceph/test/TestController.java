@@ -27,6 +27,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.node.ArrayNode;
+import org.codehaus.jackson.node.ObjectNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
@@ -167,16 +170,45 @@ public class TestController extends CephBaseController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/cluster")
-	public @ResponseBody SimpleJsonResponse getCluster(SimpleJsonResponse jsonRes) throws Exception {
+	@RequestMapping("/cluster/{path}")
+	public @ResponseBody SimpleJsonResponse getCluster(SimpleJsonResponse jsonRes, @PathVariable("path") String path) throws Exception {
 		try {
+			// 1. cluster 목록을 조회한다.
 			Object response = calamariSubmit("/cluster", HttpMethod.GET);
+			
+			// 2. response 자체가 Json Object이기 때문에 JsonNode로 casting 한다.
+			JsonNode clusters = (JsonNode) response;
+			
+			// 3.전체 cluster에 대한 {path} 결과 목록이 저장될 json array node
+			ArrayNode rootNode = createArrayNode();
+			
+			// 4. 각 cluster에 대한 {path} 결과 목록이 저장될 json object node
+			ObjectNode subNode = null;
+			
+			JsonNode osdList = null;
+			String clusterId = null;
+			if (clusters.isArray()) {
+				for (JsonNode cluster : clusters) {
+					// 5. cluster의 id 값을 조회한다.
+					clusterId = cluster.path("id").asText();
+					
+					osdList = (JsonNode) calamariSubmit("/cluster/" + clusterId + "/" + path, HttpMethod.GET);
+					
+					// 6. 신규 json node를 생성하고 field 이름에 cluster Id, value에 조회된 {path} 결과 목록을 저장한다.
+					subNode = createObjectNode();
+					subNode.put(clusterId, osdList);
+					
+					// 7. 조회 결과를 root node에 저장한다.
+					rootNode.add(subNode);
+				}
+			}
+			
 			jsonRes.setSuccess(true);
-			jsonRes.setData(response);
-			jsonRes.setMsg("cluster가 정상적으로 조회되었습니다.");
+			jsonRes.setData(rootNode);
+			jsonRes.setMsg(path + "이(가) 정상적으로 조회되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("cluster 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg(path + "조회 중 에러가 발생하였습니다.");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
