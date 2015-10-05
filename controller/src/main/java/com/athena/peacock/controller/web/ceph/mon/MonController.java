@@ -125,7 +125,7 @@ public class MonController extends CephBaseController  {
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
-		
+
 		return jsonRes;
 	} */
 	@RequestMapping("/stat")
@@ -139,12 +139,12 @@ public class MonController extends CephBaseController  {
 			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("status 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("조회 중 에러가 발생하였습니다.");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
-		return jsonRes;	
-	}
+		return jsonRes;
+	}	
 	/**
 	 * <pre>
 	 * 

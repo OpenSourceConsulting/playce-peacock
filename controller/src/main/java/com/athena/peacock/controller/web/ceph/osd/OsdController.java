@@ -22,12 +22,18 @@
  */
 package com.athena.peacock.controller.web.ceph.osd;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.ws.rs.QueryParam;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -347,6 +353,49 @@ public class OsdController extends CephBaseController   {
 		
 		return jsonRes;
 	}
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/cluster/{fsid}/{path}")
+	public @ResponseBody SimpleJsonResponse subCluster(SimpleJsonResponse jsonRes, @PathVariable("fsid") String fsid, @PathVariable("path") String path) throws Exception {
+		try {
+			Object response = null;
+			Map<String, Object> params = null;
+			
+			if (path.equals("cli")) {
+				List<String> command = new ArrayList<String>();
+				command.add("osd");
+				command.add("dump");
+
+				params = new HashMap<String, Object>();
+				params.put("command", "osd list");
+			}
+			
+			if (params != null) {
+				response = calamariSubmit("/cluster/" + fsid + "/" + path, params, HttpMethod.POST);
+			} else {
+				response = calamariSubmit("/cluster/" + fsid + "/" + path, HttpMethod.GET);
+			}
+			
+			jsonRes.setSuccess(true);
+			jsonRes.setData(response);
+			jsonRes.setMsg("정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("조회 중 에러가 발생하였습니다.");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}	
+
 	@RequestMapping("/create/test1")
 	public @ResponseBody
 	SimpleJsonResponse createPool(SimpleJsonResponse jsonRes, @QueryParam("name") String name) throws Exception {
@@ -362,6 +411,23 @@ public class OsdController extends CephBaseController   {
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 
+		return jsonRes;
+	}
+	@RequestMapping("/diskava")
+	public @ResponseBody SimpleJsonResponse getOsddiskava(SimpleJsonResponse jsonRes) throws Exception {
+		try {
+			Object response = execute("/usr/bin/diff /root/partitions.txt /root/partitions2.txt | awk {'print $5'}");
+			
+			jsonRes.setSuccess(true);
+			jsonRes.setData(response);
+			jsonRes.setMsg("fdisk가 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("fdisk 조회 중 에러가 발생하였습니다.");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
 		return jsonRes;
 	}
 }
