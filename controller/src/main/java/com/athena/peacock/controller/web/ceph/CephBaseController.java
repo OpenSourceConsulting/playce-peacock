@@ -263,6 +263,22 @@ public abstract class CephBaseController {
 	
 	/**
 	 * <pre>
+	 * execute /usr/bin/ssh-copy-id to host
+	 * </pre>
+	 * @param host
+	 * @param username
+	 * @param passwd
+	 * @return
+	 * @throws IOException
+	 */
+	protected Object sshCopyId(String host, String username, String passwd) throws IOException {
+		String command = "sshpass -p " + passwd + " ssh-copy-id -o StrictHostKeyChecking=no " + username + "@" + host;
+		return execute(command);
+	}
+	//end of sshCopyId()
+	
+	/**
+	 * <pre>
 	 * execute ssh command
 	 * </pre>
 	 * @param command
