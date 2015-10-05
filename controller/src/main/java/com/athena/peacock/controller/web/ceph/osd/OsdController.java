@@ -413,17 +413,16 @@ public class OsdController extends CephBaseController   {
 
 		return jsonRes;
 	}
-	@RequestMapping("/diskava")
-	public @ResponseBody SimpleJsonResponse getOsddiskava(SimpleJsonResponse jsonRes) throws Exception {
-		try {
-			Object response = execute("/usr/bin/diff /root/partitions.txt /root/partitions2.txt | awk {'print $5'}");
-			
+	@RequestMapping("/osdadd")
+	   public @ResponseBody SimpleJsonResponse getOSDAdd(SimpleJsonResponse jsonRes, @QueryParam("host") String host, @QueryParam("path") String path) throws Exception {
+	      try {
+	         Object response = execute("/usr/bin/ceph-deploy --overwrite-conf osd create " + host + ":" + path);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("fdisk가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("osd add가 정상적으로 ㅁ되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("fdisk 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("osd add가 조회 중 에러가 발생하였습니다.");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
