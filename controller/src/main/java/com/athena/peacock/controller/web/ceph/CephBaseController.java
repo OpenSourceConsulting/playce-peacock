@@ -28,18 +28,11 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.ObjectNode;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClientException;
-
-import com.athena.peacock.common.core.action.support.TargetHost;
-import com.athena.peacock.common.core.util.SshExecUtil;
-import com.athena.peacock.common.rest.PeacockRestTemplate;
 
 /**
  * <pre>
@@ -50,41 +43,10 @@ import com.athena.peacock.common.rest.PeacockRestTemplate;
  * @version 1.0
  */
 public abstract class CephBaseController {
-
-	private static final ObjectMapper MAPPER = new ObjectMapper();
-	private static final String JSON_PREFIX1 = "{";
-	private static final String JSON_PREFIX2 = "[";
 	
-    @Value("#{contextProperties['ceph.management.rest.api.prefix']}")
-    private String management;
-	
-    @Value("#{contextProperties['ceph.calamari.rest.api.prefix']}")
-    private String calamari;
-	
-    @Value("#{contextProperties['ceph.radosgw.rest.api.prefix']}")
-    private String radosgw;
-	
-    @Value("#{contextProperties['ceph.calamari.username']}")
-    private String calamariUsername;
-	
-    @Value("#{contextProperties['ceph.calamari.password']}")
-    private String calamariPassword;
-    
-    @Value("#{contextProperties['ceph.ssh.host']}")
-    private String sshHost;
-    
-    @Value("#{contextProperties['ceph.ssh.ip']}")
-    private int sshIp;
-    
-    @Value("#{contextProperties['ceph.ssh.username']}")
-    private String sshUsername;
-    
-    @Value("#{contextProperties['ceph.ssh.password']}")
-    private String sshPassword;
-
 	@Inject
-	@Named("peacockRestTemplate")
-	protected PeacockRestTemplate peacockRestTemplate;
+	@Named("cephService")
+	private CephService cephService;
 	
 	/**
 	 * <pre>
@@ -97,7 +59,7 @@ public abstract class CephBaseController {
 	 * @throws Exception
 	 */
 	protected Object managementSubmit(String uri, HttpMethod method) throws RestClientException, Exception {
-		return managementSubmit(uri, null, method);
+		return cephService.managementSubmit(uri, method);
 	}
 	//end of managementSubmit()
 	
@@ -112,7 +74,7 @@ public abstract class CephBaseController {
 	 * @throws Exception
 	 */
 	protected Object calamariSubmit(String uri, HttpMethod method) throws RestClientException, Exception {
-		return calamariSubmit(uri, null, method);
+		return cephService.calamariSubmit(uri, method);
 	}
 	//end of calamariSubmit()
 	
@@ -127,7 +89,7 @@ public abstract class CephBaseController {
 	 * @throws Exception
 	 */
 	protected Object radosgwSubmit(String uri, HttpMethod method) throws RestClientException, Exception {
-		return radosgwSubmit(uri, null, method);
+		return cephService.radosgwSubmit(uri, method);
 	}
 	//end of radosgwSubmit()
 	
@@ -142,7 +104,7 @@ public abstract class CephBaseController {
 	 * @throws Exception
 	 */
 	protected Object managementSubmit(String uri, Object body, HttpMethod method) throws RestClientException, Exception {
-		return managementSubmit(uri, null, method, null, null);
+		return cephService.managementSubmit(uri, body, method);
 	}
 	//end of managementSubmit()
 	
@@ -157,7 +119,7 @@ public abstract class CephBaseController {
 	 * @throws Exception
 	 */
 	protected Object calamariSubmit(String uri, Object body, HttpMethod method) throws RestClientException, Exception {
-		return calamariSubmit(uri, null, method, null, null);
+		return cephService.calamariSubmit(uri, body, method);
 	}
 	//end of calamariSubmit()
 	
@@ -172,7 +134,7 @@ public abstract class CephBaseController {
 	 * @throws Exception
 	 */
 	protected Object radosgwSubmit(String uri, Object body, HttpMethod method) throws RestClientException, Exception {
-		return radosgwSubmit(uri, null, method, null, null);
+		return cephService.radosgwSubmit(uri, body, method);
 	}
 	//end of radosgwSubmit()
 	
@@ -188,19 +150,7 @@ public abstract class CephBaseController {
 	 * @throws Exception
 	 */
 	protected Object managementSubmit(String uri, Object body, HttpMethod method, List<MediaType> acceptableMediaTypes, MediaType contentType) throws RestClientException, Exception {
-		String response = null;
-		
-		if (uri.startsWith("http")) {
-			response = peacockRestTemplate.submit(uri, body, method, acceptableMediaTypes, contentType);
-		} else {
-			response = peacockRestTemplate.submit(management + uri, body, method, acceptableMediaTypes, contentType);
-		}
-		
-		if (response != null && (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2))) {
-			return readTree(response);
-		} else {
-			return response;
-		}
+		return cephService.managementSubmit(uri, body, method, acceptableMediaTypes, contentType);
 	}
 	//end of managementSubmit()
 	
@@ -216,20 +166,7 @@ public abstract class CephBaseController {
 	 * @throws Exception
 	 */
 	protected Object calamariSubmit(String uri, Object body, HttpMethod method, List<MediaType> acceptableMediaTypes, MediaType contentType) throws RestClientException, Exception {
-		String response = null;
-		peacockRestTemplate.calamariLogin(calamari + "/auth/login", calamariUsername, calamariPassword);
-		
-		if (uri.startsWith("http")) {
-			response = peacockRestTemplate.submit(uri, body, method, acceptableMediaTypes, contentType);
-		} else {
-			response = peacockRestTemplate.submit(calamari + uri, body, method, acceptableMediaTypes, contentType);
-		}
-
-		if (response != null && (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2))) {
-			return readTree(response);
-		} else {
-			return response;
-		}
+		return cephService.calamariSubmit(uri, body, method, acceptableMediaTypes, contentType);
 	}
 	//end of calamariSubmit()
 	
@@ -245,19 +182,7 @@ public abstract class CephBaseController {
 	 * @throws Exception
 	 */
 	protected Object radosgwSubmit(String uri, Object body, HttpMethod method, List<MediaType> acceptableMediaTypes, MediaType contentType) throws RestClientException, Exception {
-		String response = null;
-		
-		if (uri.startsWith("http")) {
-			response = peacockRestTemplate.submit(uri, body, method, acceptableMediaTypes, contentType);
-		} else {
-			response = peacockRestTemplate.submit(radosgw + uri, body, method, acceptableMediaTypes, contentType);
-		}
-
-		if (response != null && (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2))) {
-			return readTree(response);
-		} else {
-			return response;
-		}
+		return cephService.radosgwSubmit(uri, body, method, acceptableMediaTypes, contentType);
 	}
 	//end of radosgwSubmit()
 	
@@ -272,8 +197,7 @@ public abstract class CephBaseController {
 	 * @throws IOException
 	 */
 	protected Object sshCopyId(String host, String username, String passwd) throws IOException {
-		String command = "sshpass -p " + passwd + " ssh-copy-id -o StrictHostKeyChecking=no " + username + "@" + host;
-		return execute(command);
+		return cephService.sshCopyId(host, username, passwd);
 	}
 	//end of sshCopyId()
 	
@@ -286,13 +210,7 @@ public abstract class CephBaseController {
 	 * @throws IOException
 	 */
 	protected Object execute(String command) throws IOException {
-		String response = SshExecUtil.executeCommand(getTargetHost(), command);
-
-		if (response != null && (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2))) {
-			return readTree(response);
-		} else {
-			return response;
-		}
+		return cephService.execute(command);
 	}
 	//end of execute()
 	
@@ -303,7 +221,7 @@ public abstract class CephBaseController {
 	 * @return
 	 */
 	protected ArrayNode createArrayNode() {
-		return MAPPER.createArrayNode();
+		return cephService.createArrayNode();
 	}
 	//end of createArrayNode()
 	
@@ -314,41 +232,8 @@ public abstract class CephBaseController {
 	 * @return
 	 */
 	protected ObjectNode createObjectNode() {
-		return MAPPER.createObjectNode();
+		return cephService.createObjectNode();
 	}
 	//end of createObjectNode()
-	
-	/**
-	 * <pre>
-	 * get TargetHost for ssh connection
-	 * </pre>
-	 * @return
-	 */
-	private TargetHost getTargetHost() {
-		TargetHost targetHost = new TargetHost();
-		targetHost.setHost(sshHost);
-		targetHost.setPort(sshIp);
-		targetHost.setUsername(sshUsername);
-		targetHost.setPassword(sshPassword);
-		
-		return targetHost;
-	}
-	//end of getTargetHost()
-
-	/**
-	 * <pre>
-	 * Method to deserialize JSON content as tree expressed using set of JsonNode instances. 
-	 * </pre>
-	 * @param json JSON content
-	 * @return
-	 */
-	private JsonNode readTree(String json){
-		try {
-			return MAPPER.readTree(json);
-		} catch (Exception ex) {
-			throw new RuntimeException(ex);
-		}
-	}
-	//end of readTree()
 }
 //end of CephBaseController.java
