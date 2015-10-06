@@ -93,10 +93,10 @@ public class MonController extends CephBaseController  {
 			Object response = managementSubmit("/mon/dump?epoch=" + epoch, HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("dump가 정상적으로 조회되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("status 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("dump 조회 중 에러가 발생하였습니다.");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -136,10 +136,10 @@ public class MonController extends CephBaseController  {
 			Object response = managementSubmit("/mon/stat", null, HttpMethod.GET, acceptableMediaTypes, MediaType.APPLICATION_JSON);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("status가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("stat가 정상적으로 조회되었습니다.");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("stat가 조회 중 에러가 발생하였습니다.");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
