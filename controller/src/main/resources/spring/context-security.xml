@@ -9,6 +9,7 @@
            http://www.springframework.org/schema/security
            http://www.springframework.org/schema/security/spring-security.xsd">
 	
+	<http pattern="/**" 	security="none"/>
 	<!-- 
 	<http pattern="/**" 	security="none"/>
 	-->
