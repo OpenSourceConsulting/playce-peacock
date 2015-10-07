@@ -889,6 +889,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.model.DataCenterModel": [],
   "MyApp.model.DiskModel": [],
   "MyApp.model.GroupModel": [],
+  "MyApp.model.HostModel": [],
   "MyApp.model.HypervisorModel": [],
   "MyApp.model.InstanceMonitoringModel": [],
   "MyApp.model.MachineModel": [],
@@ -949,6 +950,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.DashboardTemplateStore": [],
   "MyApp.store.DashboardVmStore": [],
   "MyApp.store.DashboardWarningStore": [],
+  "MyApp.store.HostStore": [],
   "MyApp.store.HypervisorStore": [],
   "MyApp.store.InstanceGroupStore": [],
   "MyApp.store.InstanceMonitoringStore": [],
@@ -1008,10 +1010,18 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.almContainer": [],
   "MyApp.view.blankPanel": [],
   "MyApp.view.dashboardContainer": [],
+  "MyApp.view.hostContainer": [],
   "MyApp.view.instancesContainer": [],
   "MyApp.view.loginWindow": [],
+  "MyApp.view.monContainer": [],
+  "MyApp.view.objectContainer": [],
+  "MyApp.view.osdContainer": [],
   "MyApp.view.peacockViewport": [],
+  "MyApp.view.pgStatusContainer": [],
+  "MyApp.view.poolContainer": [],
   "MyApp.view.rhevmContainer": [],
+  "MyApp.view.storageContainer": [],
+  "MyApp.view.usageContainer": [],
   "RHEVMConstants": [],
   "almConstants": [],
   "dashboardConstants": [],
@@ -2043,6 +2053,7 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.model.DataCenterModel": [],
   "MyApp.model.DiskModel": [],
   "MyApp.model.GroupModel": [],
+  "MyApp.model.HostModel": [],
   "MyApp.model.HypervisorModel": [],
   "MyApp.model.InstanceMonitoringModel": [],
   "MyApp.model.MachineModel": [],
@@ -2103,6 +2114,7 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.store.DashboardTemplateStore": [],
   "MyApp.store.DashboardVmStore": [],
   "MyApp.store.DashboardWarningStore": [],
+  "MyApp.store.HostStore": [],
   "MyApp.store.HypervisorStore": [],
   "MyApp.store.InstanceGroupStore": [],
   "MyApp.store.InstanceMonitoringStore": [],
@@ -2240,17 +2252,41 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.dashboardContainer": [
     "widget.dashboardcontainer"
   ],
+  "MyApp.view.hostContainer": [
+    "widget.hostcontainer"
+  ],
   "MyApp.view.instancesContainer": [
     "widget.instancesContainer"
   ],
   "MyApp.view.loginWindow": [
     "widget.loginWindow"
   ],
+  "MyApp.view.monContainer": [
+    "widget.moncontainer"
+  ],
+  "MyApp.view.objectContainer": [
+    "widget.objectContainer"
+  ],
+  "MyApp.view.osdContainer": [
+    "widget.osdcontainer"
+  ],
   "MyApp.view.peacockViewport": [
     "widget.peacockViewport"
   ],
+  "MyApp.view.pgStatusContainer": [
+    "widget.pgstatuscontainer"
+  ],
+  "MyApp.view.poolContainer": [
+    "widget.poolcontainer"
+  ],
   "MyApp.view.rhevmContainer": [
     "widget.rhevmcontainer"
+  ],
+  "MyApp.view.storageContainer": [
+    "widget.storageContainer"
+  ],
+  "MyApp.view.usageContainer": [
+    "widget.usagecontainer"
   ],
   "RHEVMConstants": [],
   "almConstants": [],

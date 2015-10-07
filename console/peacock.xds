@@ -2,7 +2,7 @@
     "name": "peacock",
     "settings": {
         "cmd": {
-            "license": "commercial",
+            "license": "gpl",
             "cmdVersion": "4.0.4.84",
             "frameworkVersion": "4.2.1.883"
         },
@@ -23,6 +23,7 @@
         "cacheBust": false,
         "buildShouldOverwriteIndex": true,
         "generateArchitectVersion": true,
+        "displayfield-ExtBox1-1346-inputEl": "Not Installed",
         "lastBuildSelection": {
             "value": "webBuild",
             "display": "Build web app"
@@ -42,6 +43,14 @@
             "9568d27e-4978-4f86-8c05-d3f5356bdf28",
             "e1ad24eb-2063-4976-b028-3bf0b1aeea7f",
             "952b63b1-9df8-432e-baa0-1645c77bd5e3",
+            "586ae296-dc30-4cf1-af63-f8996a5fb2cb",
+            "174c1c5c-ce08-43e3-b22a-1960d5dd8685",
+            "c7bd6d03-c67d-4d3f-b677-8230e099d302",
+            "3ac810a1-bd0c-4b91-918d-d738ad2af4bd",
+            "a953fdf6-daef-4c03-ab10-18a5dae2ad8e",
+            "18672648-3c0a-46c2-92f3-a7b492775095",
+            "a3e0b3c8-21c4-42a7-9e8c-a1ee46371df6",
+            "c51bfe42-df7e-4633-9a8b-0256cb2687f8",
             "f252af18-e36c-4a0d-8d96-720e20e95fae",
             "19d8b270-246d-44e7-887f-16ad05760382",
             "4caf3eaf-9220-4a7e-bd7f-1e2fa9534a1e",
@@ -137,7 +146,8 @@
             "f5a6bbe3-2844-4182-a120-f61af1d92592",
             "cb3a1c20-2ad4-4196-89b2-ea759bd1db34",
             "ae6632f7-7ba6-4a19-bb52-c7bf2e34d000",
-            "0646ffdc-df08-4b47-9d21-43c70bc1e535"
+            "0646ffdc-df08-4b47-9d21-43c70bc1e535",
+            "4ddcf17c-2aa0-4292-b9ae-2148a56880a9"
         ],
         "controller": [
             "58836076-b762-47f5-a367-008beaa4c967",
@@ -182,7 +192,8 @@
             "f867b76d-564e-4b23-9cf7-21b7186ade49",
             "ac595529-bda8-46d9-a0b0-4183ea1d333d",
             "92c0ff45-2f6a-43a3-bcf2-3d55cae75c8a",
-            "16ffbfee-a7b9-4cd1-8c9e-2a1055baf40b"
+            "16ffbfee-a7b9-4cd1-8c9e-2a1055baf40b",
+            "bb52a329-9bc2-4ba4-8fe3-47aece69f966"
         ],
         "resource": [
             "abd9c1f0-9aa9-4683-84b3-d35f7daae4d8",

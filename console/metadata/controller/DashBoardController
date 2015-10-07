@@ -31,8 +31,7 @@
                     "Ext.define('dashboardConstants', {",
                     "    singleton: true,",
                     "    me : dashboard",
-                    "});",
-                    ""
+                    "});"
                 ]
             },
             "designerId": "62b3344b-674b-4505-a8ab-36690981c00a"
@@ -163,7 +162,7 @@
                     "",
                     "    window = Ext.create(\"widget.VmSummaryWindow\");",
                     "    window.show();",
-                    "    ",
+                    "",
                     "    Ext.getCmp(\"vmSummaryGrid\").getStore().loadData(record.get(\"vmList\"), false);",
                     "",
                     "} else if(cellIndex == 2) {",
@@ -180,21 +179,21 @@
                     "    window.show();",
                     "",
                     "    Ext.getCmp(\"agentSummaryGrid\").getStore().loadData(record.get(\"agentList\"), false);",
-                    "    ",
+                    "",
                     "} else if(cellIndex == 4) {",
                     "",
                     "    window = Ext.create(\"widget.AlarmCriticalWindow\");",
                     "    window.show();",
                     "",
                     "    Ext.getCmp(\"alarmCriticalGrid\").getStore().loadData(record.get(\"criticalList\"), false);",
-                    "    ",
+                    "",
                     "} else if(cellIndex == 5) {",
                     "",
                     "    window = Ext.create(\"widget.AlarmWarningWindow\");",
                     "    window.show();",
                     "",
                     "    Ext.getCmp(\"alarmWarningGrid\").getStore().loadData(record.get(\"warningList\"), false);",
-                    "    ",
+                    "",
                     "}"
                 ],
                 "name": "cellclick",
