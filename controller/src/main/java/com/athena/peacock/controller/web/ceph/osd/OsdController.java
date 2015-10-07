@@ -433,7 +433,7 @@ public class OsdController extends CephBaseController   {
 	@RequestMapping("/delete")
 	public @ResponseBody SimpleJsonResponse delete(SimpleJsonResponse jsonRes, @QueryParam("host") String host, @QueryParam("id") String id) throws Exception {
 		try {
-	        Object response = execute("/usr/bin/ceph crush remove osd." + id);
+	        Object response = execute("/usr/bin/ceph osd crush remove osd." + id);
 	        
 	        if (((String) response).indexOf("ERROR") > -1) {
 	        	throw new Exception("Crush remove failed.");
