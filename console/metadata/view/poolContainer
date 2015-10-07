@@ -1,0 +1,17 @@
+{
+    "type": "Ext.container.Container",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "poolcontainer",
+        "designer|userClassName": "poolContainer",
+        "height": 250,
+        "id": "poolContainer",
+        "itemId": "poolContainer",
+        "width": 400
+    },
+    "designerId": "18672648-3c0a-46c2-92f3-a7b492775095"
+}

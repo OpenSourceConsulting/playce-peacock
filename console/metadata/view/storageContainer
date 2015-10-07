@@ -1,0 +1,213 @@
+{
+    "type": "Ext.container.Container",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "storageContainer",
+        "designer|userClassName": "storageContainer",
+        "height": 755,
+        "id": "storageContainer",
+        "itemId": "storageContainer",
+        "layout": "border",
+        "width": 1000
+    },
+    "designerId": "586ae296-dc30-4cf1-af63-f8996a5fb2cb",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "container|align": "stretch",
+                "height": 80,
+                "id": "storageMenuPanel",
+                "itemId": "storageMenuPanel",
+                "layout": "hbox",
+                "layout|region": "north",
+                "title": null
+            },
+            "designerId": "dfc3c60b-f2ee-4236-91bc-4b9c059fd060",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "hostBtn",
+                        "itemId": "hostBtn",
+                        "layout|flex": 1,
+                        "scale": "large",
+                        "text": "HOST<br/>11 / 11<br/>Reporting"
+                    },
+                    "designerId": "20e697f1-6c6f-48df-a7d6-5932dc621a70"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "monBtn",
+                        "itemId": "monBtn",
+                        "layout|flex": 1,
+                        "scale": "large",
+                        "text": "MON<br/> 2 / 2<br/>Quorum"
+                    },
+                    "designerId": "a0554ec8-fc9c-4b81-ac6b-6f901a06b438"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "osdBtn",
+                        "itemId": "osdBtn",
+                        "layout|flex": 1,
+                        "scale": "large",
+                        "text": "OSD<br/>9 / 9<br/>In & Up"
+                    },
+                    "designerId": "829c5f05-3a0b-4838-b1c1-4019208a7345"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "poolBtn",
+                        "itemId": "poolBtn",
+                        "layout|flex": 1,
+                        "scale": "large",
+                        "text": "POOL<br/>14 / 14<br/>Active"
+                    },
+                    "designerId": "1791e49e-f677-411a-bb1a-c7d3639a38f3"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "pgStatusBtn",
+                        "itemId": "pgStatusBtn",
+                        "layout|flex": 1,
+                        "scale": "large",
+                        "text": "PG Status<br/>356 / 256<br/>Active / Clean"
+                    },
+                    "designerId": "db539e5c-f96c-47c5-8b51-df8488a01e5e"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "usageBtn",
+                        "itemId": "usageBtn",
+                        "layout|flex": 1,
+                        "scale": "large",
+                        "text": "Usage<br/><br/>0.3Tb / 80.9Tb"
+                    },
+                    "designerId": "098127bc-3696-4f00-908e-d8f1394d0209"
+                }
+            ]
+        },
+        {
+            "type": "Ext.container.Container",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": "storageSubContainer",
+                "itemId": "storageSubContainer",
+                "layout": "card",
+                "layout|region": "center"
+            },
+            "designerId": "41296a0a-5f54-44cd-b59e-f85b3284df1c",
+            "cn": [
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "designerId": "1c55d9bf-128b-4d69-93dc-c71d55d66e57",
+                    "masterInstanceId": "c7bd6d03-c67d-4d3f-b677-8230e099d302"
+                },
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "designerId": "874a9552-842e-4883-acdf-b2597f8d68a4",
+                    "masterInstanceId": "3ac810a1-bd0c-4b91-918d-d738ad2af4bd"
+                },
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "designerId": "68064b5a-fa25-4617-afe2-d06bd60f6a32",
+                    "masterInstanceId": "a953fdf6-daef-4c03-ab10-18a5dae2ad8e"
+                },
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "designerId": "ff625052-8f1c-4fce-a034-d81af1f83a4c",
+                    "masterInstanceId": "18672648-3c0a-46c2-92f3-a7b492775095"
+                },
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "designerId": "40bd16f8-6680-4e83-8859-aaee9cd2ffdc",
+                    "masterInstanceId": "a3e0b3c8-21c4-42a7-9e8c-a1ee46371df6"
+                },
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "designerId": "75d51c8a-25ab-4af6-998d-44ac0670f0e2",
+                    "masterInstanceId": "c51bfe42-df7e-4633-9a8b-0256cb2687f8"
+                }
+            ]
+        }
+    ]
+}

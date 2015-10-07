@@ -1,0 +1,17 @@
+{
+    "type": "Ext.container.Container",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "osdcontainer",
+        "designer|userClassName": "osdContainer",
+        "height": 250,
+        "id": "osdContainer",
+        "itemId": "osdContainer",
+        "width": 400
+    },
+    "designerId": "a953fdf6-daef-4c03-ab10-18a5dae2ad8e"
+}

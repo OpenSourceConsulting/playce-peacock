@@ -1,0 +1,17 @@
+{
+    "type": "Ext.container.Container",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "moncontainer",
+        "designer|userClassName": "monContainer",
+        "height": 250,
+        "id": "monContainer",
+        "itemId": "monContainer",
+        "width": 400
+    },
+    "designerId": "3ac810a1-bd0c-4b91-918d-d738ad2af4bd"
+}
