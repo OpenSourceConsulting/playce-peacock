@@ -274,6 +274,7 @@ Ext.define('MyApp.controller.LoginController', {
         var authorities = sessionStore.getAt(0).get("authorities");
 
         var adminFlag = false;
+
         Ext.each(authorities, function (auth){
 
             if(auth.authority == "ROLE_ADMIN") {
@@ -398,9 +399,7 @@ Ext.define('MyApp.controller.LoginController', {
 
                 }
 
-
             });
-
 
         }
 

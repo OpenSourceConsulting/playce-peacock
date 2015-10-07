@@ -60,7 +60,6 @@ Ext.define('MyApp.controller.MenuController', {
                     almConstants.me.searchAlmRepository(true);
                 }
 
-
             } else if(record.get('id') == 'ROLE_B4_READ') {
 
                 if(Ext.getCmp("adminTabPanel").items.getAt(0).disabled == false) {
@@ -71,8 +70,18 @@ Ext.define('MyApp.controller.MenuController', {
 
                     userConstants.me.searchUserPermission(true);
                 }
+            } else if(record.get('id') == 'ROLE_B5_READ') {
 
-           }
+                //
+                alert('hello');
+
+            } else if(record.get('id') == 'ROLE_B6_READ') {
+
+                //
+                alert('world');
+
+            }
+
 
         }
     },

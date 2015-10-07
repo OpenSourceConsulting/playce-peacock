@@ -34,7 +34,6 @@
                     "/*",
                     " * Global Ajax Config",
                     " */",
-                    "",
                     "Ext.Ajax.timeout = 60000;// default is 30000.",
                     "Ext.Ajax.on(\"requestexception\", function(conn, response, options, eOpts){",
                     "",
@@ -94,13 +93,10 @@
                     "                sessionInfo.sync();",
                     "",
                     "                window.location.reload();",
-                    "                /*",
-                    "                Ext.getCmp(\"centerContainer\").layout.setActiveItem(0);",
-                    "                Ext.getCmp(\"peacockViewport\").layout.setActiveItem(0);",
-                    "                */",
+                    "                //Ext.getCmp(\"centerContainer\").layout.setActiveItem(0);",
+                    "                //Ext.getCmp(\"peacockViewport\").layout.setActiveItem(0);",
                     "            }",
                     "        });",
-                    "",
                     "    }",
                     "",
                     "}, Ext.getBody());",
@@ -174,8 +170,7 @@
                     "        store.getProxy().url = GLOBAL.urlPrefix + store.getProxy().url;",
                     "    }",
                     "",
-                    "}",
-                    ""
+                    "}"
                 ]
             },
             "designerId": "5aad5c6f-f046-40cc-abb5-d8784d7d72db"

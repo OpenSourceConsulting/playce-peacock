@@ -68,6 +68,22 @@ Ext.define('MyApp.store.MenuTreeStore', {
                         iconCls: 'no-icon',
                         cls: 'parent-node last-children',
                         activeRow: 4
+                    },
+                    {
+                        text: '<b>Storage Management</b>',
+                        id: 'ROLE_B5_READ',
+                        leaf: true,
+                        iconCls: 'no-icon',
+                        cls: 'parent-node last-children',
+                        activeRow: 5
+                    },
+                    {
+                        text: '<b>Object Storage</b>',
+                        id: 'ROLE_B6_READ',
+                        leaf: true,
+                        iconCls: 'no-icon',
+                        cls: 'parent-node last-children',
+                        activeRow: 6
                     }
                 ]
             },

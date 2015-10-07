@@ -16,7 +16,7 @@
         "layout": "vbox",
         "modal": true,
         "resizable": false,
-        "title": "HiWAY Automation System",
+        "title": "Athena Peacock",
         "width": 420
     },
     "configAlternates": {
@@ -51,7 +51,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "height": 55,
-                        "html": "<h3>현대중공업 자동화 배포시스템에 오신 것을 환영합니다.<br/>사용하시려면 <font color=\"red\">로그인</font>을 해주십시오.</h3>",
+                        "html": "<h3>자동화 배포시스템에 오신 것을 환영합니다.<br/>사용하시려면 <font color=\"red\">로그인</font>을 해주십시오.</h3>",
                         "id": "welcomeLabel",
                         "itemId": "welcomeLabel",
                         "layout|flex": null,

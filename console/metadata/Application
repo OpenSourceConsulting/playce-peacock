@@ -49,7 +49,8 @@
             "SoftwareRepoModel",
             "ConfigModel",
             "ProjectMappingModel",
-            "AlmProjectHistoryModel"
+            "AlmProjectHistoryModel",
+            "HostModel"
         ],
         "name": "MyApp",
         "requires": [
@@ -114,7 +115,8 @@
             "ComboProjectTypeStore",
             "ComboServerTemplateStore",
             "ComboSoftwareCompareVersionStore",
-            "AlmUserGroupsStore"
+            "AlmUserGroupsStore",
+            "HostStore"
         ],
         "views": [
             "peacockViewport",
@@ -158,7 +160,15 @@
             "EditPermissionWindow",
             "PermissionUserWindow",
             "AlmRepositoryWindow",
-            "CompareConfigWindow"
+            "CompareConfigWindow",
+            "storageContainer",
+            "objectContainer",
+            "hostContainer",
+            "monContainer",
+            "osdContainer",
+            "poolContainer",
+            "pgStatusContainer",
+            "usageContainer"
         ]
     },
     "designerId": "application"

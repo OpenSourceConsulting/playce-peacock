@@ -30,7 +30,7 @@ Ext.define('MyApp.view.loginWindow', {
     width: 420,
     resizable: false,
     closable: false,
-    title: 'HiWAY Automation System',
+    title: 'Athena Peacock',
     modal: true,
 
     layout: {
@@ -57,7 +57,7 @@ Ext.define('MyApp.view.loginWindow', {
                             xtype: 'label',
                             margins: '',
                             height: 55,
-                            html: '<h3>현대중공업 자동화 배포시스템에 오신 것을 환영합니다.<br/>사용하시려면 <font color="red">로그인</font>을 해주십시오.</h3>',
+                            html: '<h3>자동화 배포시스템에 오신 것을 환영합니다.<br/>사용하시려면 <font color="red">로그인</font>을 해주십시오.</h3>',
                             id: 'welcomeLabel',
                             itemId: 'welcomeLabel',
                             margin: '5 0 0 0',

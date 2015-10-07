@@ -23,6 +23,8 @@ Ext.define('MyApp.view.peacockViewport', {
         'MyApp.view.rhevmContainer',
         'MyApp.view.almContainer',
         'MyApp.view.adminContainer',
+        'MyApp.view.storageContainer',
+        'MyApp.view.objectContainer',
         'Ext.Img',
         'Ext.toolbar.Spacer',
         'Ext.toolbar.Toolbar',
@@ -79,7 +81,7 @@ Ext.define('MyApp.view.peacockViewport', {
                                     height: 45,
                                     id: 'logoImg',
                                     itemId: 'logoImg',
-                                    src: 'resources/images/logos/peacock-logo.png'
+                                    src: 'resources/images/logos/osc-logo.png'
                                 },
                                 {
                                     xtype: 'tbspacer',
@@ -190,6 +192,12 @@ Ext.define('MyApp.view.peacockViewport', {
                                 },
                                 {
                                     xtype: 'adminContainer'
+                                },
+                                {
+                                    xtype: 'storageContainer'
+                                },
+                                {
+                                    xtype: 'objectContainer'
                                 }
                             ]
                         }

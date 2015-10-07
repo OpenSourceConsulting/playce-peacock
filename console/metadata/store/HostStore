@@ -1,0 +1,104 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": true,
+        "designer|userClassName": "HostStore",
+        "model": "HostModel",
+        "storeId": "HostStore"
+    },
+    "designerId": "4ddcf17c-2aa0-4292-b9ae-2148a56880a9",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Memory",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "data": [
+                    "{",
+                    "    data: [",
+                    "        {",
+                    "            type: \"mon\",",
+                    "            id: \"osd-ceph-mon1\",",
+                    "            hostname: \"osc-ceph-mon1\",",
+                    "            health: \"OK\"",
+                    "        }, {",
+                    "            type: \"mon\",",
+                    "            id: \"osd-ceph-mon2\",",
+                    "            hostname: \"osd-ceph-mon2\",",
+                    "            health: \"OK\"",
+                    "        }, {",
+                    "            type: \"osd\",",
+                    "            id: \"0\",",
+                    "            hostname: \"osd-ceph-osd01\",",
+                    "            health: \"OK\"",
+                    "        }, {",
+                    "            type: \"osd\",",
+                    "            id: \"1\",",
+                    "            hostname: \"osd-ceph-osd01\",",
+                    "            health: \"OK\"",
+                    "        }, {",
+                    "            type: \"osd\",",
+                    "            id: \"2\",",
+                    "            hostname: \"osd-ceph-osd01\",",
+                    "            health: \"OK\"",
+                    "        }, {",
+                    "             type: \"osd\",",
+                    "            id: \"3\",",
+                    "            hostname: \"osd-ceph-osd02\",",
+                    "            health: \"OK\"",
+                    "        }, {",
+                    "            type: \"osd\",",
+                    "            id: \"4\",",
+                    "            hostname: \"osd-ceph-osd02\",",
+                    "            health: \"OK\"",
+                    "        }, {",
+                    "            type: \"osd\",",
+                    "            id: \"5\",",
+                    "            hostname: \"osd-ceph-osd02\",",
+                    "            health: \"OK\"",
+                    "        }, {",
+                    "            type: \"osd\",",
+                    "            id: \"6\",",
+                    "            hostname: \"osd-ceph-osd03\",",
+                    "            health: \"OK\"",
+                    "        }, {",
+                    "             type: \"osd\",",
+                    "            id: \"7\",",
+                    "            hostname: \"osd-ceph-osd03\",",
+                    "            health: \"OK\"",
+                    "        }, {",
+                    "             type: \"osd\",",
+                    "            id: \"8\",",
+                    "            hostname: \"osd-ceph-osd03\",",
+                    "            health: \"OK\"",
+                    "        }",
+                    "    ]",
+                    "}"
+                ]
+            },
+            "designerId": "8965ea15-b104-49cb-a928-2f052d7aac70",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "data"
+                    },
+                    "designerId": "faa542f0-4318-4aae-a833-db311c150a36"
+                }
+            ]
+        }
+    ]
+}

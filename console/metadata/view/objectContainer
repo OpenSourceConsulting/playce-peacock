@@ -1,0 +1,18 @@
+{
+    "type": "Ext.container.Container",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "objectContainer",
+        "designer|userClassName": "objectContainer",
+        "height": 750,
+        "id": "objectContainer",
+        "itemId": "objectContainer",
+        "layout": "border",
+        "width": 1000
+    },
+    "designerId": "174c1c5c-ce08-43e3-b22a-1960d5dd8685"
+}

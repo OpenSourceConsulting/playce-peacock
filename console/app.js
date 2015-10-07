@@ -55,7 +55,8 @@ Ext.application({
         'SoftwareRepoModel',
         'ConfigModel',
         'ProjectMappingModel',
-        'AlmProjectHistoryModel'
+        'AlmProjectHistoryModel',
+        'HostModel'
     ],
     stores: [
         'MenuTreeStore',
@@ -116,7 +117,8 @@ Ext.application({
         'ComboProjectTypeStore',
         'ComboServerTemplateStore',
         'ComboSoftwareCompareVersionStore',
-        'AlmUserGroupsStore'
+        'AlmUserGroupsStore',
+        'HostStore'
     ],
     views: [
         'peacockViewport',
@@ -160,7 +162,15 @@ Ext.application({
         'EditPermissionWindow',
         'PermissionUserWindow',
         'AlmRepositoryWindow',
-        'CompareConfigWindow'
+        'CompareConfigWindow',
+        'storageContainer',
+        'objectContainer',
+        'hostContainer',
+        'monContainer',
+        'osdContainer',
+        'poolContainer',
+        'pgStatusContainer',
+        'usageContainer'
     ],
     controllers: [
         'LoginController',

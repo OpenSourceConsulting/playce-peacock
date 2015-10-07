@@ -28,7 +28,6 @@ Ext.define('MyApp.controller.GlobalController', {
         /*
          * Global Ajax Config
          */
-
         Ext.Ajax.timeout = 60000;// default is 30000.
         Ext.Ajax.on("requestexception", function(conn, response, options, eOpts){
 
@@ -88,13 +87,10 @@ Ext.define('MyApp.controller.GlobalController', {
                         sessionInfo.sync();
 
                         window.location.reload();
-                        /*
-                        Ext.getCmp("centerContainer").layout.setActiveItem(0);
-                        Ext.getCmp("peacockViewport").layout.setActiveItem(0);
-                        */
+                        //Ext.getCmp("centerContainer").layout.setActiveItem(0);
+                        //Ext.getCmp("peacockViewport").layout.setActiveItem(0);
                     }
                 });
-
             }
 
         }, Ext.getBody());
@@ -169,7 +165,6 @@ Ext.define('MyApp.controller.GlobalController', {
             }
 
         }
-
     }
 
 });

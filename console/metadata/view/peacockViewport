@@ -85,7 +85,7 @@
                                 "itemId": "logoImg",
                                 "layout|flex": null,
                                 "layout|margins": "3 3 3 8",
-                                "src": "resources/images/logos/peacock-logo.png",
+                                "src": "resources/images/logos/osc-logo.png",
                                 "title": null,
                                 "width": null
                             },
@@ -366,6 +366,26 @@
                             "codeClass": null,
                             "designerId": "9dce4c59-edd6-4579-9628-56eb351024cd",
                             "masterInstanceId": "952b63b1-9df8-432e-baa0-1645c77bd5e3"
+                        },
+                        {
+                            "type": "linkedinstance",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "designerId": "7ac8e0d1-fc6e-4559-8bc8-e6ad64019967",
+                            "masterInstanceId": "586ae296-dc30-4cf1-af63-f8996a5fb2cb"
+                        },
+                        {
+                            "type": "linkedinstance",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "designerId": "bcea46b9-96af-4121-97b5-6cbfe46fedfb",
+                            "masterInstanceId": "174c1c5c-ce08-43e3-b22a-1960d5dd8685"
                         }
                     ]
                 }

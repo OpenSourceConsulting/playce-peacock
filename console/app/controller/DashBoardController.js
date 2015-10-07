@@ -113,7 +113,6 @@ Ext.define('MyApp.controller.DashBoardController', {
                     me : dashboard
                 });
 
-
         this.control({
             "#serverSummaryGrid": {
                 cellclick: this.onServerSummaryGridCellClick
