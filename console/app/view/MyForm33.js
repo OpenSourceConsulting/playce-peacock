@@ -165,7 +165,7 @@ Ext.define('MyApp.view.MyForm33', {
                     ],
                     fieldLabel: 'Select Repository',
                     msgTarget: 'under',
-                    name: 'repository',
+                    name: 'repositoryCode',
                     allowBlank: false,
                     displayField: 'repositoryCode',
                     store: 'ComboAlmRepositoryStore',
