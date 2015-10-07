@@ -23,6 +23,7 @@
  */
 package com.athena.peacock.controller.web.ceph.mon;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -165,6 +166,46 @@ public class MonController extends CephBaseController  {
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("mon_status 조회 중 에러가 발생하였습니다.");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+
+	@RequestMapping("/add")
+
+	public @ResponseBody SimpleJsonResponse add(SimpleJsonResponse jsonRes, @QueryParam("host") String host, @QueryParam("user") String user, @QueryParam("password") String password, @QueryParam("mgmt") String mgmt) throws Exception {
+		try {
+			sshCopyId(host, user, password);
+	        Object response = execute("/usr/bin/ceph-deploy install --repo --release=hammer" + host);
+	        
+	        if (((String) response).indexOf("ERROR") > -1) {
+	        	throw new Exception("Mon repo failed.");
+	        }
+	        
+	        response = execute("/usr/bin/ceph-deploy install --mon" + host);
+	        
+	        if (((String) response).indexOf("ERROR") > -1) {
+	        	throw new Exception("Mon install failed.");
+	        }
+	        
+	        response = execute("/usr/bin/ceph-deploy mon add" + host);
+	        
+	        if (((String) response).indexOf("ERROR") > -1) {
+	        	throw new Exception("Mon Add failed.");
+	        }     
+	        response = execute("/usr/bin/ceph-deploy calamari connect --master" + mgmt + host);
+	        
+	        if (((String) response).indexOf("ERROR") > -1) {
+	        	throw new Exception("Calamari Add failed.");
+	        }     
+			jsonRes.setSuccess(true);
+			jsonRes.setData(response);
+			jsonRes.setMsg("Mon이 정상적으로 추가 되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("Mon 추가가 실패 하였습니다.");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
