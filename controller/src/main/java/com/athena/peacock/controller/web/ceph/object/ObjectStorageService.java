@@ -33,6 +33,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.ResponseHeaderOverrides;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
+import com.athena.peacock.common.core.action.support.PropertyUtil;
 
 @Service("objectStorageService")
 public class ObjectStorageService {	
@@ -264,6 +265,37 @@ public class ObjectStorageService {
 		} catch (Exception e) {		
 			return false;
 		}
+	}
+	
+	public boolean uploadFile(ObjectDto dto, String bucketName, String folderName) {
+		try {
+			String fileName = folderName + FOLDER_SUFFIX + dto.getFile().getOriginalFilename();
+			conn.putObject(new PutObjectRequest(bucketName, fileName, saveFile(dto)));
+		
+			return true;
+		} catch (Exception e) {		
+			return false;
+		}
+	}
+	
+	private File saveFile(ObjectDto dto) throws Exception { 
+		File file = null;
+		
+		if (dto.getFile() != null && dto.getFile().getSize() > 0) {
+			String defaultPath = System.getProperty("java.io.tmpdir");
+			file = new File(defaultPath + dto.getFile().getOriginalFilename());
+			
+			if (!file.exists()) {
+				if (!file.mkdirs()) {
+					throw new Exception("Fail to create a directory for attached file [" + file + "]");
+				}
+			}
+
+			file.deleteOnExit();
+			dto.getFile().transferTo(file);
+		}
+			
+		return file;
 	}
 	
 	public static void main(String [] args) throws Exception {

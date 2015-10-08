@@ -35,6 +35,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.amazonaws.services.s3.model.S3Object;
@@ -123,11 +124,32 @@ public class ObjectStorageController{
 		
 		return jsonRes;
 	}
+	
 	@RequestMapping("/get/object")
 	public @ResponseBody GridJsonResponse getObjectByName(GridJsonResponse jsonRes, @QueryParam("bucket") String bucket, @QueryParam("object") String object) throws Exception {
 		try {
 			String response = objectStorageService.getObjectsMethod(bucket, object);
 			jsonRes.setMsg(response);
+			//jsonRes.setMsg("Object 다운 성공");
+			
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("Object 다운 실패");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}	
+	
+	@RequestMapping(value="/upload", method=RequestMethod.POST)
+	public @ResponseBody GridJsonResponse fileUpload(GridJsonResponse jsonRes, ObjectDto dto) throws Exception {
+		try {
+			System.err.println("FileName : " + dto.getFile().getOriginalFilename());
+			System.err.println("FileSize : " + dto.getFile().getSize());
+			
+			boolean response = objectStorageService.uploadFile(dto, "my-new-bucket", "test-folder");
+			jsonRes.setMsg(Boolean.toString(response));
 			//jsonRes.setMsg("Object 다운 성공");
 			
 		} catch (Exception e) {

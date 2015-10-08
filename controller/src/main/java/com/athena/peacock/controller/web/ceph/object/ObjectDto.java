@@ -3,6 +3,8 @@ package com.athena.peacock.controller.web.ceph.object;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 import com.amazonaws.services.s3.model.Owner;
 
 public class ObjectDto implements Serializable {
@@ -17,6 +19,8 @@ public class ObjectDto implements Serializable {
 	protected Date lastModified;
 	protected String storageClass;
 	protected Owner owner;
+	
+	private CommonsMultipartFile file;
 
 
 	public String getBucketName() {
@@ -65,6 +69,14 @@ public class ObjectDto implements Serializable {
 
 	public void setStorageClass(String storageClass) {
 		this.storageClass = storageClass;
+	}
+
+	public CommonsMultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(CommonsMultipartFile file) {
+		this.file = file;
 	}
 
 	@Override
