@@ -24,6 +24,7 @@
  */
 package com.athena.peacock.controller.web.ceph.object;
 
+import java.io.InputStream;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -36,6 +37,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.amazonaws.services.s3.model.S3Object;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
 /**
  * <pre>
@@ -124,9 +126,10 @@ public class ObjectStorageController{
 	@RequestMapping("/get/object")
 	public @ResponseBody GridJsonResponse getObjectByName(GridJsonResponse jsonRes, @QueryParam("bucket") String bucket, @QueryParam("object") String object) throws Exception {
 		try {
-			boolean response = objectStorageService.getObjectsMethod(bucket, object);
-			jsonRes.setSuccess(response);			
-			jsonRes.setMsg("Object 다운 성공");
+			String response = objectStorageService.getObjectsMethod(bucket, object);
+			jsonRes.setMsg(response);
+			//jsonRes.setMsg("Object 다운 성공");
+			
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Object 다운 실패");

@@ -8,6 +8,7 @@
 package com.athena.peacock.controller.web.ceph.object;
 
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,25 +107,85 @@ public class ObjectStorageService {
 		return objectList;
 	}
 	
-	public S3Object getObjectsMethod(String bucketName, String objectName){
+	public boolean setObjectAclToPublic(String bucketName, String objectName){
+		try {
+			conn.setObjectAcl(bucketName, objectName, CannedAccessControlList.PublicRead);
+			
+			return true;
+			
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public boolean setObjectAclToPrivate(String bucketName, String objectName){
+		try {
+			conn.setObjectAcl(bucketName, objectName, CannedAccessControlList.Private);
+			
+			return true;
+			
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public boolean DeleteObject(String bucketName, String objectName){
+		try {
+			conn.deleteObject(bucketName, objectName);
+			
+			return true;
+			
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public String getUrlOfObject(String bucketName, String objectName){
+		try {
+			GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(bucketName, objectName);
+						
+			return conn.generatePresignedUrl(request).toString();
+			
+		} catch (Exception e) {
+			System.err.println("Error");
+			return "failed";
+		}
+	}		
+	
+	public String getObjectsMethod(String bucketName, String objectName){
 		try {
 			GetObjectRequest request = new GetObjectRequest(bucketName, objectName);
-			//bucket = conn.getObject(objectName);
-
+			
 			ResponseHeaderOverrides responseHeaders = new ResponseHeaderOverrides();
 			responseHeaders.setCacheControl("No-cache");
 			responseHeaders.setContentDisposition("attachment; filename=" + objectName);
-
+			
 			// Add the ResponseHeaderOverides to the request.
 			request.setResponseHeaders(responseHeaders);
 			
 			S3Object objectPortion = conn.getObject(request);
+			System.err.println("\n\n\nerror 2");			
 			
-			return objectPortion;
-			//InputStream objectData = objectPortion.getObjectContent();
+
+			
+			System.err.println("\n\n\nerror 3");
+			
+
+			
+			System.err.println("\n\n\nerror 4");
+			
+			InputStream objectData = objectPortion.getObjectContent();			
+			
+			String response = objectData.toString();
+			System.err.println(response);
+			
+			objectPortion.close();
+			
+			return response;
 			
 		} catch (Exception e) {
-			return false;
+			System.err.println(e);
+			return "falied";
 		}
 	}
 	
@@ -136,9 +197,31 @@ public class ObjectStorageService {
 	}
 	
 	public static void main(String [] args) throws Exception {
+		long timeStamp = 1444264448;
+		java.util.Date time = new java.util.Date(timeStamp*1000);
+		
+		System.out.println("Expire time : ");
+		System.out.println(time);
+		
 		ObjectStorageService osc = new ObjectStorageService();
 		
+		System.out.println("Bucket List : ");
 		System.out.println(osc.listOfBucktes());
+		
+		System.out.println("Object List : ");
 		System.out.println(osc.listOfObjects("my-new-bucket"));
+		System.out.println(osc.listOfObjects("my-new-bucket2"));
+		
+		System.out.println("Set Object ACL to Public : ");
+		System.out.println(osc.setObjectAclToPublic("my-new-bucket","file.txt"));
+		
+		System.out.println("Set Object ACL to Private : ");
+		System.out.println(osc.setObjectAclToPrivate("my-new-bucket2","test.txt"));
+		
+		System.out.println("Object URL : ");
+		System.out.println(osc.getUrlOfObject("my-new-bucket","file.txt"));
+		System.out.println(osc.getUrlOfObject("my-new-bucket2","test.txt"));
+		
+		System.out.println(osc.getObjectsMethod("my-new-bucket","file.txt"));
 	}
 }
