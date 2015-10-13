@@ -196,7 +196,7 @@ public abstract class CephBaseController {
 	 * @return
 	 * @throws IOException
 	 */
-	protected Object sshCopyId(String host, String username, String passwd) throws IOException {
+	protected Object sshCopyId(String host, String username, String passwd) throws Exception {
 		return cephService.sshCopyId(host, username, passwd);
 	}
 	//end of sshCopyId()
@@ -209,7 +209,7 @@ public abstract class CephBaseController {
 	 * @return
 	 * @throws IOException
 	 */
-	protected Object execute(String command) throws IOException {
+	protected Object execute(String command) throws Exception {
 		return cephService.execute(command);
 	}
 	//end of execute()

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CephMapper">
+
+	<insert id="insertCeph" parameterType="com.athena.peacock.controller.web.ceph.base.CephDto">
+		<selectKey keyProperty="cephId" resultType="int" order="BEFORE">SELECT IFNULL(MAX(ceph_id),0)+1 FROM ceph_tbl</selectKey>
+		INSERT INTO ceph_tbl(CEPH_ID, MACHINE_ID, MGMT_HOST, MGMT_PORT, MGMT_USERNAME, MGMT_PASSWORD, MGMT_API_PREFIX, RADOSGW_API_PREFIX,
+					CALAMARI_API_PREFIX, CALAMARI_USERNAME, CALAMARI_PASSWORD, S3_ACCESS_KEY, S3_SECRET_KEY, REG_USER_ID, REG_DT, UPD_USER_ID, UPD_DT)
+		VALUES (#{cephId}, #{machineId}, #{mgmtHost}, #{mgmtPort}, #{mgmtUsername}, #{mgmtPassword}, #{mgmtApiPrefix}, #{radosgwApiPrefix}
+				, #{calamariApiPrefix}, #{calamariUsername}, #{calamariPassword}, #{s3AccessKey}, #{s3SecretKey}, #{regUserId}, NOW(), #{updUserId}, NOW())
+	</insert>
+
+	<select id="selectCeph" parameterType="int" resultType="com.athena.peacock.controller.web.ceph.base.CephDto">
+		SELECT CEPH_ID AS cephId, 
+			   MACHINE_ID AS machineId, 
+			   MGMT_HOST AS mgmtHost, 
+			   MGMT_PORT AS mgmtPort, 
+			   MGMT_USERNAME AS mgmtUsername, 
+			   MGMT_PASSWORD AS mgmtPassword, 
+			   MGMT_API_PREFIX AS mgmtApiPrefix, 
+			   RADOSGW_API_PREFIX AS radosgwApiPrefix, 
+			   CALAMARI_API_PREFIX AS calamariApiPrefix, 
+			   CALAMARI_USERNAME AS calamariUsername, 
+			   CALAMARI_PASSWORD AS calamariPassword, 
+			   S3_ACCESS_KEY AS s3AccessKey, 
+			   S3_SECRET_KEY AS s3SecretKey, 
+			   REG_USER_ID AS regUserId,
+			   REG_DT AS regDt,
+			   UPD_USER_ID AS updUserId,
+			   UPD_DT AS updDt
+		 FROM ceph_tbl
+		WHERE CEPH_ID = #{cephId}
+	</select>
+	
+	<update id="updateCeph" parameterType="com.athena.peacock.controller.web.ceph.base.CephDto">
+		UPDATE ceph_tbl
+		   SET CEPH_ID = #{cephId}, 
+			   MACHINE_ID = #{machineId}, 
+			   MGMT_HOST = #{mgmtHost}, 
+			   MGMT_PORT = #{mgmtPort}, 
+			   MGMT_USERNAME = #{mgmtUsername}, 
+			   MGMT_PASSWORD = #{mgmtPassword}, 
+			   MGMT_API_PREFIX = #{mgmtApiPrefix}, 
+			   RADOSGW_API_PREFIX = #{radosgwApiPrefix}, 
+			   CALAMARI_API_PREFIX = #{calamariApiPrefix}, 
+			   CALAMARI_USERNAME = #{calamariUsername}, 
+			   CALAMARI_PASSWORD = #{calamariPassword}, 
+			   S3_ACCESS_KEY = #{s3AccessKey}, 
+			   S3_SECRET_KEY = #{s3SecretKey}, 
+			   UPD_USER_ID = #{updUserId},
+			   UPD_DT = NOW()
+		 WHERE CEPH_ID = #{userId}
+	</update>
+	
+	<delete id="deleteCeph" parameterType="int">
+		DELETE FROM ceph_tbl
+		 WHERE CEPH_ID = #{cephId}
+	</delete>
+</mapper>

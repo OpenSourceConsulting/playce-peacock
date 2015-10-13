@@ -32,15 +32,19 @@ import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.ObjectNode;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClientException;
 
 import com.athena.peacock.common.core.action.support.TargetHost;
 import com.athena.peacock.common.core.util.SshExecUtil;
 import com.athena.peacock.common.rest.PeacockRestTemplate;
+import com.athena.peacock.controller.web.ceph.base.CephDao;
+import com.athena.peacock.controller.web.ceph.base.CephDto;
 
 /**
  * <pre>
@@ -50,42 +54,57 @@ import com.athena.peacock.common.rest.PeacockRestTemplate;
  * @version 1.0
  */
 @Service("cephService")
-public class CephService {
+@Transactional(rollbackFor = {Throwable.class}, propagation = Propagation.REQUIRED)
+public class CephService implements InitializingBean {
 
 	private static final ObjectMapper MAPPER = new ObjectMapper();
 	private static final String JSON_PREFIX1 = "{";
 	private static final String JSON_PREFIX2 = "[";
 	
-    @Value("#{contextProperties['ceph.management.rest.api.prefix']}")
-    private String management;
+	private static final int DEFAULT_CEPH_ID = 1;
 	
-    @Value("#{contextProperties['ceph.calamari.rest.api.prefix']}")
-    private String calamari;
-	
-    @Value("#{contextProperties['ceph.radosgw.rest.api.prefix']}")
-    private String radosgw;
-	
-    @Value("#{contextProperties['ceph.calamari.username']}")
-    private String calamariUsername;
-	
-    @Value("#{contextProperties['ceph.calamari.password']}")
-    private String calamariPassword;
-    
-    @Value("#{contextProperties['ceph.ssh.host']}")
-    private String sshHost;
-    
-    @Value("#{contextProperties['ceph.ssh.ip']}")
-    private int sshIp;
-    
-    @Value("#{contextProperties['ceph.ssh.username']}")
-    private String sshUsername;
-    
-    @Value("#{contextProperties['ceph.ssh.password']}")
-    private String sshPassword;
-
 	@Inject
 	@Named("peacockRestTemplate")
 	private PeacockRestTemplate peacockRestTemplate;
+	
+	@Inject
+	@Named("cephDao")
+	private CephDao cephDao;
+	
+	private CephDto ceph;
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		if (ceph == null) {
+			ceph = cephDao.selectCeph(DEFAULT_CEPH_ID);
+		}
+	}
+	
+	public void insertCeph(CephDto ceph) throws Exception {
+		if (selectCeph() == null) {
+			cephDao.insertCeph(ceph);
+		} else {
+			cephDao.updateCeph(ceph);
+			this.ceph = ceph;
+		}
+	}
+
+	public CephDto selectCeph() {	
+		if (ceph == null) {
+			ceph = cephDao.selectCeph(DEFAULT_CEPH_ID);
+		}
+		
+		return ceph;
+	}
+	
+	public void updateCeph(CephDto ceph) throws Exception {
+		cephDao.updateCeph(ceph);
+		this.ceph = ceph;
+	}
+	
+	public void deleteCeph() throws Exception {
+		cephDao.deleteCeph(DEFAULT_CEPH_ID);
+	}
 	
 	/**
 	 * <pre>
@@ -189,12 +208,16 @@ public class CephService {
 	 * @throws Exception
 	 */
 	public Object managementSubmit(String uri, Object body, HttpMethod method, List<MediaType> acceptableMediaTypes, MediaType contentType) throws RestClientException, Exception {
+		if (ceph == null) {
+			throw new Exception("Ceph cluster is not configured yet.");
+		}
+		
 		String response = null;
 		
 		if (uri.startsWith("http")) {
 			response = peacockRestTemplate.submit(uri, body, method, acceptableMediaTypes, contentType);
 		} else {
-			response = peacockRestTemplate.submit(management + uri, body, method, acceptableMediaTypes, contentType);
+			response = peacockRestTemplate.submit(ceph.getMgmtApiPrefix() + uri, body, method, acceptableMediaTypes, contentType);
 		}
 		
 		if (response != null && (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2))) {
@@ -217,13 +240,17 @@ public class CephService {
 	 * @throws Exception
 	 */
 	public Object calamariSubmit(String uri, Object body, HttpMethod method, List<MediaType> acceptableMediaTypes, MediaType contentType) throws RestClientException, Exception {
+		if (ceph == null) {
+			throw new Exception("Ceph cluster is not configured yet.");
+		}
+		
 		String response = null;
-		peacockRestTemplate.calamariLogin(calamari + "/auth/login", calamariUsername, calamariPassword);
+		peacockRestTemplate.calamariLogin(ceph.getCalamariApiPrefix() + "/auth/login", ceph.getCalamariUsername(), ceph.getCalamariPassword());
 		
 		if (uri.startsWith("http")) {
 			response = peacockRestTemplate.submit(uri, body, method, acceptableMediaTypes, contentType);
 		} else {
-			response = peacockRestTemplate.submit(calamari + uri, body, method, acceptableMediaTypes, contentType);
+			response = peacockRestTemplate.submit(ceph.getCalamariApiPrefix() + uri, body, method, acceptableMediaTypes, contentType);
 		}
 
 		if (response != null && (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2))) {
@@ -246,12 +273,16 @@ public class CephService {
 	 * @throws Exception
 	 */
 	public Object radosgwSubmit(String uri, Object body, HttpMethod method, List<MediaType> acceptableMediaTypes, MediaType contentType) throws RestClientException, Exception {
+		if (ceph == null) {
+			throw new Exception("Ceph cluster is not configured yet.");
+		}
+		
 		String response = null;
 		
 		if (uri.startsWith("http")) {
 			response = peacockRestTemplate.submit(uri, body, method, acceptableMediaTypes, contentType);
 		} else {
-			response = peacockRestTemplate.submit(radosgw + uri, body, method, acceptableMediaTypes, contentType);
+			response = peacockRestTemplate.submit(ceph.getRadosgwApiPrefix() + uri, body, method, acceptableMediaTypes, contentType);
 		}
 
 		if (response != null && (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2))) {
@@ -272,7 +303,7 @@ public class CephService {
 	 * @return
 	 * @throws IOException
 	 */
-	public Object sshCopyId(String host, String username, String passwd) throws IOException {
+	public Object sshCopyId(String host, String username, String passwd) throws Exception {
 		String command = "sshpass -p " + passwd + " ssh-copy-id -o StrictHostKeyChecking=no " + username + "@" + host;
 		return execute(command);
 	}
@@ -286,7 +317,7 @@ public class CephService {
 	 * @return
 	 * @throws IOException
 	 */
-	public Object execute(String command) throws IOException {
+	public Object execute(String command) throws Exception {
 		String response = SshExecUtil.executeCommand(getTargetHost(), command);
 
 		if (response != null && (response.trim().startsWith(JSON_PREFIX1) || response.trim().startsWith(JSON_PREFIX2))) {
@@ -324,13 +355,18 @@ public class CephService {
 	 * get TargetHost for ssh connection
 	 * </pre>
 	 * @return
+	 * @throws Exception 
 	 */
-	private TargetHost getTargetHost() {
+	private TargetHost getTargetHost() throws Exception {
+		if (ceph == null) {
+			throw new Exception("Ceph cluster is not configured yet.");
+		}
+		
 		TargetHost targetHost = new TargetHost();
-		targetHost.setHost(sshHost);
-		targetHost.setPort(sshIp);
-		targetHost.setUsername(sshUsername);
-		targetHost.setPassword(sshPassword);
+		targetHost.setHost(ceph.getMgmtHost());
+		targetHost.setPort(Integer.parseInt(ceph.getMgmtPort()));
+		targetHost.setUsername(ceph.getMgmtUsername());
+		targetHost.setPassword(ceph.getMgmtPassword());
 		
 		return targetHost;
 	}
@@ -351,5 +387,6 @@ public class CephService {
 		}
 	}
 	//end of readTree()
+	
 }
 //end of CephService.java
