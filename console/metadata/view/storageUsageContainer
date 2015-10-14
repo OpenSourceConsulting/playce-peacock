@@ -1,0 +1,377 @@
+{
+    "type": "Ext.container.Container",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "storageUsageContainer",
+        "designer|userClassName": "storageUsageContainer",
+        "height": null,
+        "id": "storageUsageContainer",
+        "itemId": "storageUsageContainer",
+        "layout": "border",
+        "width": null
+    },
+    "designerId": "e7671a47-e702-405d-93c0-f883388f386c",
+    "cn": [
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "columnLines": true,
+                "forceFit": true,
+                "id": "storageUsageGrid",
+                "itemId": "storageUsageGrid",
+                "layout|flex": 3,
+                "layout|region": "center",
+                "store": "storageUsageJsonStore",
+                "title": null
+            },
+            "designerId": "61173a5c-2073-47d2-8ab4-5f653f8b236c",
+            "cn": [
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dock": "top",
+                        "height": 36,
+                        "id": "storageUsageToolbar",
+                        "itemId": "storageUsageToolbar"
+                    },
+                    "designerId": "cd7e18df-785d-4b8e-a3d9-5c4243c6589a"
+                },
+                {
+                    "type": "Ext.grid.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "storageUsageGridView",
+                        "itemId": "storageUsageGridView"
+                    },
+                    "designerId": "91208712-b0e7-4ec2-94bf-27e402d52017"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "name",
+                        "text": "Name"
+                    },
+                    "designerId": "6d249efe-0c98-4c51-b8e4-00d709dd5a3f"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "type",
+                        "text": "Type"
+                    },
+                    "designerId": "8bed0bd6-024f-4e4e-a850-996b6f3e3b4a"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "id",
+                        "text": "Id"
+                    },
+                    "designerId": "66becccb-9e83-4371-a58e-51cbeca5b55a"
+                },
+                {
+                    "type": "Ext.grid.column.Number",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "crush_weight",
+                        "text": "Crush_weight"
+                    },
+                    "designerId": "f07ff2e2-8404-4c47-9244-8c27fe418d52"
+                },
+                {
+                    "type": "Ext.grid.column.Number",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "reweight",
+                        "text": "Reweight"
+                    },
+                    "designerId": "3efa540a-a659-43a1-a9a5-bd4ea0129876"
+                },
+                {
+                    "type": "Ext.grid.column.Number",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "kb",
+                        "text": "Kb"
+                    },
+                    "designerId": "d41e279f-5a78-4da8-8dba-7799de1a54bf"
+                },
+                {
+                    "type": "Ext.grid.column.Number",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "kb_used",
+                        "text": "Kb_used"
+                    },
+                    "designerId": "2ee5df3e-1c8e-41fd-9121-b384ab54dcdd"
+                },
+                {
+                    "type": "Ext.grid.column.Number",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "kb_avail",
+                        "text": "Kb_avail"
+                    },
+                    "designerId": "4082fbda-83ef-425b-9a5c-9a6f19aa6d4f"
+                },
+                {
+                    "type": "Ext.grid.column.Number",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "utilization",
+                        "text": "Utilization"
+                    },
+                    "designerId": "30dd62be-7416-4c26-870e-cd67900198ab"
+                },
+                {
+                    "type": "Ext.grid.column.Number",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "vars",
+                        "text": "Vars"
+                    },
+                    "designerId": "8e617dc5-845d-4493-8172-235ab22500d0"
+                }
+            ]
+        },
+        {
+            "type": "Ext.container.Container",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "autoScroll": null,
+                "container|align": "stretch",
+                "container|padding": null,
+                "height": null,
+                "id": "storageUsageDetail",
+                "itemId": "storageUsageDetail",
+                "layout": "hbox",
+                "layout|flex": 3,
+                "layout|region": "south",
+                "layout|split": true
+            },
+            "designerId": "a8ab9c9f-9ee8-41f5-b16b-be1915ceaaf3",
+            "cn": [
+                {
+                    "type": "Ext.panel.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "autoScroll": true,
+                        "bodyPadding": 10,
+                        "bodyStyle": [
+                            "{",
+                            "    background: '#fff'",
+                            "}"
+                        ],
+                        "border": 1,
+                        "id": "storageUsageDetail1",
+                        "itemId": "storageUsageDetail1",
+                        "layout": "border",
+                        "layout|flex": 1,
+                        "title": "Summary"
+                    },
+                    "designerId": "b31b21f3-f3c3-4aaa-82e9-a25371e9eb2e",
+                    "cn": [
+                        {
+                            "type": "Ext.XTemplate",
+                            "reference": {
+                                "name": "tpl",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "tpl",
+                                "implHandler": [
+                                    "<table border=0>",
+                                    "<tr>",
+                                    "<td>",
+                                    "Total Size :<br>",
+                                    "Total Used :<br>",
+                                    "Total Avail :<br>",
+                                    "<br>",
+                                    "</td>",
+                                    "<td align=right>",
+                                    "&nbsp; {total_kb:number('0,000')}K &nbsp;<br>",
+                                    "&nbsp; {total_kb_used:number('0,000')}K &nbsp;<br>",
+                                    "&nbsp; {total_kb_avail:number('0,000')}K &nbsp;<br>",
+                                    "<br>",
+                                    "</td>",
+                                    "</tr>",
+                                    "<tr>",
+                                    "<td>",
+                                    "Average Used% :<br>",
+                                    "Min / Max Var :",
+                                    "</td>",
+                                    "<td>",
+                                    "&nbsp; {average_utilization:number('0,000.00')}% <br>",
+                                    "&nbsp; {min_var:number('0,000.00000')} / {max_var:number('0,000.00000')} ",
+                                    "</td>",
+                                    "</tr>",
+                                    "</table>"
+                                ]
+                            },
+                            "designerId": "7c705144-e445-4eba-ac97-2a54dcebdbbc"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.panel.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "bodyPadding": 10,
+                        "bodyStyle": [
+                            "{",
+                            "    background: '#fff'",
+                            "}"
+                        ],
+                        "border": 1,
+                        "id": "storageUsageDetail2",
+                        "itemId": "storageUsageDetail2",
+                        "layout": "border",
+                        "layout|flex": 1,
+                        "title": "Average Usage"
+                    },
+                    "designerId": "3ccd5bca-8f9b-457d-ae62-53fff6ac1871",
+                    "cn": [
+                        {
+                            "type": "Ext.chart.Chart",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "animate": [
+                                    "true"
+                                ],
+                                "background": [
+                                    "{",
+                                    "    fill: '#fff'",
+                                    "}"
+                                ],
+                                "dock": null,
+                                "id": "storageUsageDetailChart",
+                                "insetPadding": 35,
+                                "itemId": "storageUsageDetailChart",
+                                "layout|region": "center",
+                                "store": "storageUsageDetailJsonStore"
+                            },
+                            "designerId": "d167c2ed-b689-4f57-97f6-f382829fb0d4",
+                            "isBuiltIn": true,
+                            "iconCls": "icon-gauge-chart",
+                            "autoName": "GaugeChart",
+                            "cn": [
+                                {
+                                    "type": "Ext.chart.axis.Gauge",
+                                    "reference": {
+                                        "name": "axes",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "storageUsageDetailAxis",
+                                        "margin": 8,
+                                        "maximum": 100,
+                                        "minimum": 0
+                                    },
+                                    "designerId": "baa6c3c1-79a9-4051-bcee-1c4f6462f952"
+                                },
+                                {
+                                    "type": "Ext.chart.series.Gauge",
+                                    "reference": {
+                                        "name": "series",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "angleField": "average_utilization",
+                                        "colorSet": [
+                                            "['#FF5555', '#FFFF20']"
+                                        ],
+                                        "designer|displayName": "storageUsageDetailSeries",
+                                        "style": [
+                                            "{}"
+                                        ]
+                                    },
+                                    "designerId": "d159f102-d0fb-4c2b-bc78-877ca1d8d94e"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

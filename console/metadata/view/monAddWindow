@@ -1,0 +1,200 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "monAddWindow",
+        "designer|userClassName": "monAddWindow",
+        "height": 200,
+        "layout": "border",
+        "modal": true,
+        "resizable": false,
+        "title": "Add MON",
+        "width": 400
+    },
+    "configAlternates": {
+        "resizable": "boolean"
+    },
+    "designerId": "39195cd7-95dc-444c-804f-754a35902607",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": "monAddTopPanel",
+                "itemId": "monAddTopPanel",
+                "layout|region": "center",
+                "title": null
+            },
+            "designerId": "cd45fc55-efc2-4ba5-859a-41bd0a7678d6",
+            "cn": [
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "bodyPadding": 10,
+                        "height": 156,
+                        "id": "monAddFormPanel",
+                        "itemId": "monAddFormPanel",
+                        "title": null
+                    },
+                    "designerId": "0dd34cc5-6ee4-4480-bf42-175a3b999f05",
+                    "cn": [
+                        {
+                            "type": "Ext.form.FieldSet",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "padding": 10,
+                                "title": " MON Data "
+                            },
+                            "designerId": "80bf22a7-d2ac-4e0e-9726-2a0e62008ea2",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "MON Hostname",
+                                        "id": "monAddHost",
+                                        "itemId": "monAddHost",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%",
+                                        "name": "monAddHost"
+                                    },
+                                    "designerId": "65dc0d3c-7d13-43f4-8edb-581d99fc4544"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "MON IP address",
+                                        "id": "monAddIP",
+                                        "itemId": "monAddIP",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%",
+                                        "name": "monAddIP"
+                                    },
+                                    "designerId": "6fed7c3c-2d84-4fcf-928e-77c420853317"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|pack": "center",
+                        "designer|uiInterfaceName": "footer",
+                        "dock": "bottom",
+                        "id": "monAddToolbar",
+                        "itemId": "monAddToolbar"
+                    },
+                    "designerId": "b97c5c25-6fa6-43f4-9c3e-73e86bcfcce8",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "padding": "2 20 2 20",
+                                "text": "Ok"
+                            },
+                            "designerId": "ddb23890-a52d-4f4b-ac22-7dd439c22c1c",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "storageConstants.me.addStorageMon();"
+                                        ]
+                                    },
+                                    "designerId": "26f93ad6-8c5b-4893-8c3d-f069049c0ade"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "padding": "2 12 2 12",
+                                "text": "Clear"
+                            },
+                            "designerId": "5637671f-1f1f-4fb4-87af-c7321a033b39",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var myForm = Ext.getCmp(\"monAddFormPanel\");",
+                                            "",
+                                            "myForm.getForm().findField(\"monAddHost\").setValue('');",
+                                            "myForm.getForm().findField(\"monAddIP\").setValue('');",
+                                            ""
+                                        ]
+                                    },
+                                    "designerId": "889c4261-3687-4b7e-b270-5626f921f5a1"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

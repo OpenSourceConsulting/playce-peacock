@@ -1,0 +1,98 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "storageUsageDetailModel"
+    },
+    "designerId": "08b5f041-26aa-4939-ac29-651f461c7e66",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "total_kb"
+            },
+            "designerId": "aae7a437-e29d-4990-ae34-1c08c7091cd1"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "dev"
+            },
+            "designerId": "2b57f0ba-0886-4718-a5cb-7cfe9d075d21"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "max_var"
+            },
+            "designerId": "42fdae75-2a95-4077-8624-33903c0e7f4e"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "total_kb_avail"
+            },
+            "designerId": "4a53a202-1097-43eb-91b1-72f2eb447e32"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "min_var"
+            },
+            "designerId": "2c29c5cc-a2a3-4453-962f-0ec17f681ea9"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "average_utilization"
+            },
+            "designerId": "a88acbb8-808e-4264-a69a-1b18aa0158db"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "total_kb_used"
+            },
+            "designerId": "a4c7bc47-1f94-4a74-893b-63db34c02596"
+        }
+    ]
+}

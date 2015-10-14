@@ -1,0 +1,185 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "createBucketWindow",
+        "designer|userClassName": "createBucketWindow",
+        "height": 172,
+        "id": null,
+        "itemId": null,
+        "layout": "border",
+        "modal": true,
+        "resizable": false,
+        "title": "Create Bucket",
+        "width": 400
+    },
+    "configAlternates": {
+        "resizable": "boolean"
+    },
+    "designerId": "bdbb9152-ea86-4cd0-a95d-e200391b4e3a",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": "createBucketTopPanel",
+                "itemId": "createBucketTopPanel",
+                "layout|region": "center",
+                "title": null
+            },
+            "designerId": "a07f591f-801f-4471-8f27-62b162d061ab",
+            "cn": [
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "bodyPadding": 10,
+                        "height": 156,
+                        "id": "createBucketFormPanel",
+                        "itemId": "createBucketFormPanel",
+                        "title": null
+                    },
+                    "designerId": "2a174741-05cb-4169-a186-2488aa0807a8",
+                    "cn": [
+                        {
+                            "type": "Ext.form.FieldSet",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "padding": 10,
+                                "title": "Bucket Data "
+                            },
+                            "designerId": "a03a6268-0a48-4247-aa93-1ee605164e4e",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Bucket Name",
+                                        "id": "createBucketName",
+                                        "itemId": "createBucketName",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%",
+                                        "name": "createBucketName"
+                                    },
+                                    "designerId": "8a8103d3-e43b-4cad-abcc-ef5437aaab58"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|pack": "center",
+                        "designer|uiInterfaceName": "footer",
+                        "dock": "bottom",
+                        "id": "createBucketToolbar",
+                        "itemId": "createBucketToolbar"
+                    },
+                    "designerId": "6acbaa05-5349-45ca-bd2b-7f80fda72c50",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "padding": "2 20 2 20",
+                                "text": "Ok"
+                            },
+                            "designerId": "bf4e8c1f-d3c8-4312-8545-fd908d6e4214",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "objectConstants.me.createObjectBucket();"
+                                        ]
+                                    },
+                                    "designerId": "68871165-e10b-4fd7-9c09-6fb844b13a0d"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "padding": "2 12 2 12",
+                                "text": "Clear"
+                            },
+                            "designerId": "e1cffcfa-3c47-4e3a-aedc-723e7b45ad01",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var myForm = Ext.getCmp(\"createBucketFormPanel\");",
+                                            "",
+                                            "myForm.getForm().findField(\"createBucketName\").setValue('');",
+                                            "",
+                                            ""
+                                        ]
+                                    },
+                                    "designerId": "01e875b6-1fac-4fa7-b3b5-e62e01ee9f4b"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

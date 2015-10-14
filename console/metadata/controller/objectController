@@ -1,0 +1,1040 @@
+{
+    "type": "Ext.app.Controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "objectController",
+        "id": "objectController"
+    },
+    "designerId": "dcfc3460-e75e-40ed-b8d6-7fdbaa988473",
+    "cn": [
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#objectBucketsGrid",
+                "designer|targetType": "Ext.grid.Panel",
+                "fn": "onObjectBucketsGridpanelCellClick",
+                "implHandler": [
+                    "objectConstants.selectRow = record;",
+                    "objectConstants.selectIndex = rowIndex;",
+                    "",
+                    "//var gNm = Ext.getCmp('objectBucketsGrid').getStore().getAt(rowIndex).get('name');",
+                    "var gNm = record.get('name');",
+                    "",
+                    "var gUrl = 'resources/json/objectBucketsStats1.json';",
+                    "var gLog = 'resources/json/objectBucketsBilog1.json';",
+                    "if (gNm == 'my-new-bucket2') {",
+                    "    gUrl = 'resources/json/objectBucketsStats2.json';",
+                    "    gLog = 'resources/json/objectBucketsBilog2.json';",
+                    "}",
+                    "",
+                    "Ext.Ajax.request({",
+                    "    url: GLOBAL.urlPrefix + gUrl,",
+                    "    disableCaching : true,",
+                    "    success: function(response){",
+                    "        var data = Ext.decode(response.responseText);",
+                    "",
+                    "        var htmlData = '<pre>\\r\\n';",
+                    "        htmlData += 'Bucket : ' + data.bucket + '\\r\\n';",
+                    "        htmlData += 'Pool   : ' + data.pool + '\\r\\n';",
+                    "        htmlData += 'mTime  : ' + data.mtime + '\\r\\n';",
+                    "        htmlData += 'Owner  : ' + data.owner + '\\r\\n';",
+                    "        htmlData += '</pre>';",
+                    "",
+                    "",
+                    "        var logsData = '<pre>\\r\\n';",
+                    "        logsData += 'Logging >\\r\\n';",
+                    "        Ext.Ajax.request({",
+                    "            url: GLOBAL.urlPrefix + gLog,",
+                    "            disableCaching : true,",
+                    "            success: function(response){",
+                    "                var data = Ext.decode(response.responseText);",
+                    "",
+                    "                Ext.each(data, function(logs){",
+                    "                    logsData += '' + logs + '\\r\\n';",
+                    "                });",
+                    "            }",
+                    "        });",
+                    "        logsData += '</pre>';",
+                    "",
+                    "        Ext.getCmp(\"objectBucketsDetail1\").update(htmlData);",
+                    "        Ext.getCmp(\"objectBucketsDetail1\").updateLayout();",
+                    "        Ext.getCmp(\"objectBucketsDetail2\").update(logsData);",
+                    "        Ext.getCmp(\"objectBucketsDetail2\").updateLayout();",
+                    "        Ext.getCmp(\"objectBucketsDetail\").expand();",
+                    "    }",
+                    "});",
+                    ""
+                ],
+                "name": "cellclick",
+                "scope": "me"
+            },
+            "designerId": "d0d8f767-32b0-483a-902b-c5cbc5dc3365"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "setObjectBucketsData",
+                "implHandler": [
+                    "Ext.getCmp('objectBucketsGrid').getStore().load();",
+                    ""
+                ]
+            },
+            "designerId": "7561efad-b10b-4fb5-8c30-6b28cce786c1"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "createObjectBucket",
+                "implHandler": [
+                    "//Create Bucket Execute",
+                    "",
+                    "var myForm = Ext.getCmp(\"createBucketFormPanel\");",
+                    "var name = myForm.getForm().findField(\"createBucketName\").getValue();",
+                    "var myData = [ [name] ];",
+                    "",
+                    "Ext.getCmp('objectBucketsGrid').getStore().loadRawData(myData, true);",
+                    "",
+                    "myForm.up('window').close();",
+                    ""
+                ]
+            },
+            "designerId": "7736c1c1-c45e-4aca-9937-6ca5999f982a"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "deleteObjectBucket",
+                "implHandler": [
+                    "Ext.Msg.show({",
+                    "    title:'Confirm',",
+                    "    msg: 'Delete selected Bucket?',",
+                    "    buttons: Ext.Msg.OKCANCEL,",
+                    "    icon: Ext.Msg.QUESTION,",
+                    "    fn: function(btn) {",
+                    "        if (btn === 'ok') {",
+                    "            Ext.getCmp('objectBucketsGrid').getStore().remove(objectConstants.selectRow);",
+                    "",
+                    "            Ext.getCmp(\"objectBucketsDetail1\").update('');",
+                    "            Ext.getCmp(\"objectBucketsDetail1\").updateLayout();",
+                    "            Ext.getCmp(\"objectBucketsDetail2\").update('');",
+                    "            Ext.getCmp(\"objectBucketsDetail2\").updateLayout();",
+                    "        }",
+                    "    }",
+                    "});",
+                    ""
+                ]
+            },
+            "designerId": "b308314b-08f9-4ab6-8d3e-452aaff3f4a4"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "emptyObjectBucket",
+                "implHandler": [
+                    "Ext.Msg.show({",
+                    "    title:'Confirm',",
+                    "    msg: 'Empty selected Bucket?',",
+                    "    buttons: Ext.Msg.OKCANCEL,",
+                    "    icon: Ext.Msg.QUESTION,",
+                    "    fn: function(btn) {",
+                    "        if (btn === 'ok') {",
+                    "            alert('empty!');",
+                    "            //Ext.getCmp('objectBucketsGrid').getStore().remove(objectConstants.selectRow);",
+                    "        }",
+                    "    }",
+                    "});",
+                    ""
+                ]
+            },
+            "designerId": "b26b17aa-2e8c-4d87-90fc-cb23e05ba44b"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "setObjectFilesData",
+                "implHandler": [
+                    "Ext.getCmp('objectFilesGrid').getStore().load();",
+                    ""
+                ]
+            },
+            "designerId": "391ed299-7273-4df4-9f9a-147f25698119"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "uploadFileClick",
+                "implHandler": [
+                    "//Upload Popup 호출",
+                    "",
+                    "var AddWindow = Ext.create('widget.uploadFileWindow');",
+                    "AddWindow.title = 'Upload';",
+                    "AddWindow.show();",
+                    "",
+                    ""
+                ]
+            },
+            "designerId": "dbabdb8e-797a-4b53-93b5-637a06b2ce61"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "renameFileClick",
+                "implHandler": [
+                    "//Rename Popup 호출",
+                    "",
+                    "var AddWindow = Ext.create('widget.renameFileWindow');",
+                    "AddWindow.title = 'Rename';",
+                    "",
+                    "var myForm = Ext.getCmp(\"renameFileFormPanel\");",
+                    "var nameField = myForm.getForm().findField(\"renameFileName\");",
+                    "var name = objectConstants.selectFilesRow.get('name');",
+                    "",
+                    "nameField.setValue(name);",
+                    "",
+                    "AddWindow.show();",
+                    ""
+                ]
+            },
+            "designerId": "c8b87ec3-82f5-418d-8539-f10f8bc50084"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "openObjectFile",
+                "implHandler": [
+                    "var selections = Ext.getCmp('objectFilesGrid').selModel.getSelection();",
+                    "Ext.each(selections, function(recs){",
+                    "    //Ext.getCmp('objectFilesGrid').getStore().remove(recs);",
+                    "});",
+                    ""
+                ]
+            },
+            "designerId": "e0c074a1-a43f-430f-8390-14430cf3f0a5"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "downloadObjectFile",
+                "implHandler": [
+                    "var selections = Ext.getCmp('objectFilesGrid').selModel.getSelection();",
+                    "Ext.each(selections, function(recs){",
+                    "    //Ext.getCmp('objectFilesGrid').getStore().remove(recs);",
+                    "});",
+                    ""
+                ]
+            },
+            "designerId": "d076dd2d-5767-4db6-851e-db0d7423f9e7"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "fnm"
+                ],
+                "fn": "uploadObjectFile",
+                "implHandler": [
+                    "// 다시 로드할 것",
+                    "var obj = [{'name':fnm, 'size':0, 'sclass':'', 'mdate':''}];",
+                    "Ext.getCmp('objectFilesGrid').getStore().loadRawData(obj, true);",
+                    "",
+                    "myForm.up('window').close();",
+                    ""
+                ]
+            },
+            "designerId": "999a10b7-9df2-44ab-8b22-a5717cc8defd"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "makepublicObjectFile",
+                "implHandler": [
+                    "var selections = Ext.getCmp('objectFilesGrid').selModel.getSelection();",
+                    "Ext.each(selections, function(recs){",
+                    "    //Ext.getCmp('objectFilesGrid').getStore().remove(recs);",
+                    "});",
+                    ""
+                ]
+            },
+            "designerId": "b085fded-9baf-4513-81d4-e5e310ae520c"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "makeprotectedObjectFile",
+                "implHandler": [
+                    "var selections = Ext.getCmp('objectFilesGrid').selModel.getSelection();",
+                    "Ext.each(selections, function(recs){",
+                    "    //Ext.getCmp('objectFilesGrid').getStore().remove(recs);",
+                    "});",
+                    ""
+                ]
+            },
+            "designerId": "d6e8f9af-4571-4c80-9abd-ea3ee789f109"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "renameObjectFile",
+                "implHandler": [
+                    "var myForm = Ext.getCmp(\"renameFileFormPanel\");",
+                    "var nameField = myForm.getForm().findField(\"renameFileName\");",
+                    "var name = nameField.getValue();",
+                    "",
+                    "Ext.getCmp('objectFilesGrid').getStore().getAt(objectConstants.selectFilesIndex).set('name', name);",
+                    "",
+                    "myForm.up('window').close();",
+                    ""
+                ]
+            },
+            "designerId": "a2cc7e8f-3952-47a6-82cd-11139d82660e"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "deleteObjectFile",
+                "implHandler": [
+                    "var selections = Ext.getCmp('objectFilesGrid').selModel.getSelection();",
+                    "Ext.each(selections, function(recs){",
+                    "    Ext.getCmp('objectFilesGrid').getStore().remove(recs);",
+                    "});",
+                    "",
+                    "Ext.getCmp(\"objectFilesDetail1\").update('');",
+                    "Ext.getCmp(\"objectFilesDetail1\").updateLayout();",
+                    "Ext.getCmp(\"objectFilesDetail2\").update('');",
+                    "Ext.getCmp(\"objectFilesDetail2\").updateLayout();",
+                    ""
+                ]
+            },
+            "designerId": "007f0efe-a224-4706-88fd-859c2c9bc03f"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "cutObjectFile",
+                "implHandler": [
+                    "objectConstants.filesSelectMode = 'cut';",
+                    "objectConstants.filesSelectBucket = objectConstants.currentBucket;",
+                    "objectConstants.filesSelectList = Ext.getCmp('objectFilesGrid').selModel.getSelection();",
+                    ""
+                ]
+            },
+            "designerId": "f0261d04-5e42-440f-877e-b2e692609f27"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "copyObjectFile",
+                "implHandler": [
+                    "objectConstants.filesSelectMode = 'copy';",
+                    "objectConstants.filesSelectBucket = objectConstants.currentBucket;",
+                    "objectConstants.filesSelectList = Ext.getCmp('objectFilesGrid').selModel.getSelection();",
+                    ""
+                ]
+            },
+            "designerId": "91b7756b-b05b-4b22-bbbf-424972d7a090"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "pasteObjectFile",
+                "implHandler": [
+                    "Ext.each(objectConstants.filesSelectList, function(recs){",
+                    "    var obj = [{'name':recs.get('name'), 'size':recs.get('size'), 'sclass':recs.get('sclass'), 'mdate':recs.get('mdate')}];",
+                    "    Ext.getCmp('objectFilesGrid').getStore().loadRawData(obj, true);",
+                    "});",
+                    "",
+                    "if (objectConstants.filesSelectMode == 'cut') {",
+                    "    Ext.each(objectConstants.filesSelectList, function(recs){",
+                    "        Ext.getCmp('objectFilesGrid').getStore().remove(recs);",
+                    "    });",
+                    "",
+                    "    objectConstants.filesSelectBucket = '';",
+                    "    objectConstants.filesSelectList = null;",
+                    "}"
+                ]
+            },
+            "designerId": "db674dda-32d6-4493-bb58-c9e7f26ee474"
+        },
+        {
+            "type": "fixedfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "application"
+                ],
+                "fn": "init",
+                "implHandler": [
+                    "var objects = this;",
+                    "",
+                    "var bucketsGridContextMenu = new Ext.menu.Menu({",
+                    "    items:",
+                    "    [",
+                    "        { text: 'Delete Bucket',",
+                    "         handler: function() {",
+                    "             objects.deleteObjectBucket();",
+                    "         }",
+                    "        },",
+                    "        { text: 'Empty Bucket',",
+                    "         handler: function() {",
+                    "             objects.emptyObjectBucket();",
+                    "         }",
+                    "        }",
+                    "    ]",
+                    "});",
+                    "",
+                    "var filesGridContextMenu = new Ext.menu.Menu({",
+                    "    items:",
+                    "    [",
+                    "        { text: 'Open',",
+                    "         handler: function() {",
+                    "             objects.openObjectFile();",
+                    "         }",
+                    "        },",
+                    "        { text: 'Download',",
+                    "         handler: function() {",
+                    "             objects.downloadObjectFile();",
+                    "         }",
+                    "        },",
+                    "        { text: 'Upload',",
+                    "         handler: function() {",
+                    "             objects.uploadFileClick();",
+                    "         }",
+                    "        },",
+                    "        { text: 'Make Public',",
+                    "         handler: function() {",
+                    "             objects.makepublicObjectFile();",
+                    "         }",
+                    "        },",
+                    "        { text: 'Make Protected',",
+                    "         handler: function() {",
+                    "             objects.makeprotectedObjectFile();",
+                    "         }",
+                    "        },",
+                    "        { text: 'Rename',",
+                    "         handler: function() {",
+                    "             objects.renameFileClick();",
+                    "         }",
+                    "        },",
+                    "        { text: 'Delete',",
+                    "         handler: function() {",
+                    "             objects.deleteObjectFile();",
+                    "         }",
+                    "        },",
+                    "        {",
+                    "            xtype: 'menuseparator'",
+                    "        },",
+                    "        { text: 'Cut',",
+                    "         handler: function() {",
+                    "             objects.cutObjectFile();",
+                    "         }",
+                    "        },",
+                    "        { text: 'Copy',",
+                    "         handler: function() {",
+                    "             objects.copyObjectFile();",
+                    "         }",
+                    "        },",
+                    "        { text: 'Paste',",
+                    "         handler: function() {",
+                    "             objects.pasteObjectFile();",
+                    "         }",
+                    "        }",
+                    "    ]",
+                    "});",
+                    "",
+                    "Ext.define('objectConstants', {",
+                    "    singleton: true,",
+                    "    me : objects,",
+                    "    bucketsContextMenu: bucketsGridContextMenu,",
+                    "    filesContextMenu: filesGridContextMenu,",
+                    "    currentBucket: '',",
+                    "    filesSelectList: null,",
+                    "    filesSelectMode: 'cut',",
+                    "    filesSelectBucket: '',",
+                    "    selectRow:  null,",
+                    "    selectIndex: 0,",
+                    "    selectFilesRow:  null,",
+                    "    selectFilesIndex: 0",
+                    "});"
+                ]
+            },
+            "designerId": "25f77906-6b28-447e-8f17-be0801b0ad55"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#objectBucketsGrid",
+                "designer|targetType": "Ext.grid.Panel",
+                "fn": "onObjectBucketsGridpanelCellDblClick",
+                "implHandler": [
+                    "objectConstants.selectRow = record;",
+                    "objectConstants.selectIndex = rowIndex;",
+                    "objectConstants.currentBucket = record.get('name');",
+                    "",
+                    "Ext.getCmp('objectCenterContainer').layout.setActiveItem(1);",
+                    "Ext.getCmp('filesTextItem1').setText(objectConstants.currentBucket);",
+                    "objectConstants.me.setObjectFilesData();",
+                    ""
+                ],
+                "name": "celldblclick",
+                "scope": "me"
+            },
+            "designerId": "1de8c8ef-ee37-41c2-826f-fff6f4a27f57"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#objectBucketsGrid",
+                "designer|targetType": "Ext.grid.Panel",
+                "fn": "onObjectBucketsGridpanelBeforeItemContextMenu",
+                "implHandler": [
+                    "objectConstants.selectRow = record;",
+                    "objectConstants.selectIndex = index;",
+                    "",
+                    "var position = e.getXY();",
+                    "e.stopEvent();",
+                    "objectConstants.bucketsContextMenu.showAt(position);"
+                ],
+                "name": "beforeitemcontextmenu",
+                "scope": "me"
+            },
+            "designerId": "8ea1bf95-2e9d-4db6-8f18-26c335f2218e"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#bucketsCreateButton",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onbucketsCreateButtonClick",
+                "implHandler": [
+                    "//Add Popup 호출",
+                    "",
+                    "var AddWindow = Ext.create('widget.createBucketWindow');",
+                    "AddWindow.title = 'Create Bucket';",
+                    "AddWindow.show();",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "3a2e6eeb-3e64-4650-b1c7-fd7407497685"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#bucketsCreateMenuItem",
+                "designer|targetType": "Ext.menu.Item",
+                "fn": "onbucketsCreateMenuitemClick",
+                "implHandler": [
+                    "//Add Popup 호출",
+                    "",
+                    "var AddWindow = Ext.create('widget.createBucketWindow');",
+                    "AddWindow.title = 'Create Bucket';",
+                    "AddWindow.show();",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "5f6b5a61-abb2-4916-a715-5a398337e35c"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#bucketsDeleteMenuItem",
+                "designer|targetType": "Ext.menu.Item",
+                "fn": "onbucketsDeleteMenuitemClick",
+                "implHandler": [
+                    "objectConstants.me.deleteObjectBucket();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "35b81fb1-073a-437e-aab6-ed268de6d616"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#bucketsEmptyMenuItem",
+                "designer|targetType": "Ext.menu.Item",
+                "fn": "onbucketsEmptyMenuitemClick",
+                "implHandler": [
+                    "objectConstants.me.emptyObjectBucket();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "a067be1f-360a-4bce-8541-c9292ed9e7e9"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#bucketsRefreshMenuItem",
+                "designer|targetType": "Ext.menu.Item",
+                "fn": "onbucketsRefreshMenuitemClick",
+                "implHandler": [
+                    "objectConstants.me.setObjectBucketsData();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "41f0c6dd-081e-4c3d-94fd-520f5c6274d0"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#objectFilesGrid",
+                "designer|targetType": "Ext.grid.Panel",
+                "fn": "onObjectFilesGridpanelCellClick",
+                "implHandler": [
+                    "objectConstants.selectFilesRow = record;",
+                    "objectConstants.selectFilesIndex = rowIndex;",
+                    "",
+                    "var gNm = Ext.getCmp('objectFilesGrid').getStore().getAt(rowIndex).get('name');",
+                    "",
+                    "var gUrl = 'resources/json/objectFilesStat1.json';",
+                    "var gPer = 'resources/json/objectFilesPer1.json';",
+                    "if (gNm == 'myphoto2.jpg') {",
+                    "    gUrl = 'resources/json/objectFilesStat2.json';",
+                    "    gPer = 'resources/json/objectFilesPer2.json';",
+                    "}",
+                    "",
+                    "Ext.Ajax.request({",
+                    "    url: GLOBAL.urlPrefix + gUrl,",
+                    "    disableCaching : true,",
+                    "    success: function(response){",
+                    "        var data = Ext.decode(response.responseText);",
+                    "",
+                    "        var htmlData = '<pre>\\r\\n';",
+                    "        htmlData += 'Name   : ' + data.name + '\\r\\n';",
+                    "        htmlData += 'Bucket : ' + data.bucket + '\\r\\n';",
+                    "        htmlData += 'Link   : ' + data.links + '\\r\\n';",
+                    "        htmlData += 'Size   : ' + data.size + '\\r\\n';",
+                    "        htmlData += 'mTime  : ' + data.mdate + '\\r\\n';",
+                    "        htmlData += 'Owner  : ' + data.owner + '\\r\\n';",
+                    "        htmlData += 'Expire : ' + data.expire + '\\r\\n';",
+                    "        htmlData += '</pre>';",
+                    "",
+                    "",
+                    "        var persData = '<pre>\\r\\n';",
+                    "        persData += 'Permisions >\\r\\n';",
+                    "        Ext.Ajax.request({",
+                    "            url: GLOBAL.urlPrefix + gPer,",
+                    "            disableCaching : true,",
+                    "            success: function(response){",
+                    "                var data = Ext.decode(response.responseText);",
+                    "",
+                    "                Ext.each(data, function(pers){",
+                    "                    persData += '' + pers + '\\r\\n';",
+                    "                });",
+                    "            }",
+                    "        });",
+                    "        persData += '</pre>';",
+                    "",
+                    "        Ext.getCmp(\"objectFilesDetail1\").update(htmlData);",
+                    "        Ext.getCmp(\"objectFilesDetail1\").updateLayout();",
+                    "        Ext.getCmp(\"objectFilesDetail2\").update(persData);",
+                    "        Ext.getCmp(\"objectFilesDetail2\").updateLayout();",
+                    "        Ext.getCmp(\"objectFilesDetail\").expand();",
+                    "    }",
+                    "});",
+                    ""
+                ],
+                "name": "cellclick",
+                "scope": "me"
+            },
+            "designerId": "c24747c2-5753-4c56-a476-fa62c1df40aa"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#objectFilesGrid",
+                "designer|targetType": "Ext.grid.Panel",
+                "fn": "onObjectFilesGridpanelBeforeItemContextMenu",
+                "implHandler": [
+                    "objectConstants.selectFilesRow = record;",
+                    "objectConstants.selectFilesIndex = index;",
+                    "",
+                    "var position = e.getXY();",
+                    "e.stopEvent();",
+                    "objectConstants.filesContextMenu.showAt(position);"
+                ],
+                "name": "beforeitemcontextmenu",
+                "scope": "me"
+            },
+            "designerId": "0014ad4d-769c-4832-ab84-c8d11629049a"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#filesTextItem",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onfilesTextItemButtonClick",
+                "implHandler": [
+                    "Ext.getCmp('objectCenterContainer').layout.setActiveItem(0);",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "ecd7174c-e7f3-4992-a3f6-8b73c1ca47eb"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#filesUploadButton",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onfilesUploadButtonClick",
+                "implHandler": [
+                    "objectConstants.me.uploadFileClick();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "cc20956b-4dbe-4662-993c-6191019dbbb4"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#filesOpenMenuItem",
+                "designer|targetType": "Ext.menu.Item",
+                "fn": "onfilesOpenMenuitemClick",
+                "implHandler": [
+                    "objectConstants.me.openObjectFile();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "eedaf7ed-0d83-45c1-abb4-978651ab8633"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#filesDownloadMenuItem",
+                "designer|targetType": "Ext.menu.Item",
+                "fn": "onfilesDownloadMenuitemClick",
+                "implHandler": [
+                    "objectConstants.me.downloadObjectFile();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "452de813-4f88-41a1-b416-ad02a95d63db"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#filesUploadMenuItem",
+                "designer|targetType": "Ext.menu.Item",
+                "fn": "onfilesUploadMenuitemClick",
+                "implHandler": [
+                    "objectConstants.me.uploadFileClick();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "637a51f8-8919-4366-beed-be8ed10ee3ab"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#filesMakepublicMenuItem",
+                "designer|targetType": "Ext.menu.Item",
+                "fn": "onfilesMakepublicMenuitemClick",
+                "implHandler": [
+                    "objectConstants.me.makepublicObjectFile();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "9c6eb678-390e-4106-be82-f05b17447054"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#filesMakeprotectedMenuItem",
+                "designer|targetType": "Ext.menu.Item",
+                "fn": "onfilesMakeprotectedMenuitemClick",
+                "implHandler": [
+                    "objectConstants.me.makeprotectedObjectFile();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "8c768b2a-bda8-48fa-adad-abae352ced1e"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#filesRenameMenuItem",
+                "designer|targetType": "Ext.menu.Item",
+                "fn": "onfilesRenameMenuitemClick",
+                "implHandler": [
+                    "objectConstants.me.renameFileClick();",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "ca6423ea-a40c-4bca-a308-ea92fc32be99"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#filesDeleteMenuItem",
+                "designer|targetType": "Ext.menu.Item",
+                "fn": "onfilesDeleteMenuitemClick",
+                "implHandler": [
+                    "objectConstants.me.deleteObjectFile();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "46a1cee3-4053-4519-946b-1ec80004d479"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#filesCutMenuItem",
+                "designer|targetType": "Ext.menu.Item",
+                "fn": "onfilesCutMenuitemClick",
+                "implHandler": [
+                    "objectConstants.me.cutObjectFile();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "dc6c5765-ebc5-4878-84de-3d90f86a711c"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#filesCopyMenuItem",
+                "designer|targetType": "Ext.menu.Item",
+                "fn": "onfilesCopyMenuitemClick",
+                "implHandler": [
+                    "objectConstants.me.copyObjectFile();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "6eea58f8-64e3-4d55-a59f-6bf43019c15f"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#filesPasteMenuItem",
+                "designer|targetType": "Ext.menu.Item",
+                "fn": "onfilesPasteMenuitemClick",
+                "implHandler": [
+                    "objectConstants.me.pasteObjectFile();"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "a7ad7c37-895d-49fd-9247-30265f7053ca"
+        }
+    ]
+}

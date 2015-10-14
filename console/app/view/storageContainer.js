@@ -18,12 +18,13 @@ Ext.define('MyApp.view.storageContainer', {
     alias: 'widget.storageContainer',
 
     requires: [
-        'MyApp.view.hostContainer',
-        'MyApp.view.monContainer',
-        'MyApp.view.osdContainer',
-        'MyApp.view.poolContainer',
-        'MyApp.view.pgStatusContainer',
-        'MyApp.view.usageContainer',
+        'MyApp.view.storageMainContainer',
+        'MyApp.view.storageHostContainer',
+        'MyApp.view.storageMonContainer',
+        'MyApp.view.storageOsdContainer',
+        'MyApp.view.storagePoolContainer',
+        'MyApp.view.storagePgContainer',
+        'MyApp.view.storageUsageContainer',
         'Ext.panel.Panel',
         'Ext.button.Button'
     ],
@@ -43,87 +44,150 @@ Ext.define('MyApp.view.storageContainer', {
                     xtype: 'panel',
                     region: 'north',
                     height: 80,
-                    id: 'storageMenuPanel',
-                    itemId: 'storageMenuPanel',
+                    id: 'topPanel',
+                    itemId: 'topPanel',
                     layout: {
                         type: 'hbox',
                         align: 'stretch'
                     },
                     items: [
                         {
-                            xtype: 'button',
+                            xtype: 'panel',
                             flex: 1,
-                            id: 'hostBtn',
-                            itemId: 'hostBtn',
-                            scale: 'large',
-                            text: 'HOST<br/>11 / 11<br/>Reporting'
+                            border: 2,
+                            id: 'storageTopPanel1',
+                            itemId: 'storageTopPanel1',
+                            dockedItems: [
+                                {
+                                    xtype: 'button',
+                                    dock: 'top',
+                                    height: 80,
+                                    id: 'storageHostButton',
+                                    itemId: 'storageHostButton',
+                                    scale: 'large',
+                                    text: 'HOST<br>11 / 11<br>Reporting'
+                                }
+                            ]
                         },
                         {
-                            xtype: 'button',
+                            xtype: 'panel',
                             flex: 1,
-                            id: 'monBtn',
-                            itemId: 'monBtn',
-                            scale: 'large',
-                            text: 'MON<br/> 2 / 2<br/>Quorum'
+                            border: 2,
+                            id: 'storageTopPanel2',
+                            itemId: 'storageTopPanel2',
+                            dockedItems: [
+                                {
+                                    xtype: 'button',
+                                    dock: 'top',
+                                    height: 80,
+                                    id: 'storageMonButton',
+                                    itemId: 'storageMonButton',
+                                    scale: 'large',
+                                    text: 'MON<br>2 / 2<br>Quorum'
+                                }
+                            ]
                         },
                         {
-                            xtype: 'button',
+                            xtype: 'panel',
                             flex: 1,
-                            id: 'osdBtn',
-                            itemId: 'osdBtn',
-                            scale: 'large',
-                            text: 'OSD<br/>9 / 9<br/>In & Up'
+                            border: 2,
+                            id: 'storageTopPanel3',
+                            itemId: 'storageTopPanel3',
+                            dockedItems: [
+                                {
+                                    xtype: 'button',
+                                    dock: 'top',
+                                    height: 80,
+                                    id: 'storageOsdButton',
+                                    itemId: 'storageOsdButton',
+                                    scale: 'large',
+                                    text: 'OSD<br>9 / 9<br>In & Up'
+                                }
+                            ]
                         },
                         {
-                            xtype: 'button',
+                            xtype: 'panel',
                             flex: 1,
-                            id: 'poolBtn',
-                            itemId: 'poolBtn',
-                            scale: 'large',
-                            text: 'POOL<br/>14 / 14<br/>Active'
+                            border: 2,
+                            id: 'storageTopPanel4',
+                            itemId: 'storageTopPanel4',
+                            dockedItems: [
+                                {
+                                    xtype: 'button',
+                                    dock: 'top',
+                                    height: 80,
+                                    id: 'storagePoolButton',
+                                    itemId: 'storagePoolButton',
+                                    scale: 'large',
+                                    text: 'POOL<br>14 / 14<br>Active'
+                                }
+                            ]
                         },
                         {
-                            xtype: 'button',
+                            xtype: 'panel',
                             flex: 1,
-                            id: 'pgStatusBtn',
-                            itemId: 'pgStatusBtn',
-                            scale: 'large',
-                            text: 'PG Status<br/>356 / 256<br/>Active / Clean'
+                            border: 2,
+                            id: 'storageTopPanel5',
+                            itemId: 'storageTopPanel5',
+                            dockedItems: [
+                                {
+                                    xtype: 'button',
+                                    dock: 'top',
+                                    height: 80,
+                                    id: 'storagePgButton',
+                                    itemId: 'storagePgButton',
+                                    scale: 'large',
+                                    text: 'PG Status<br>256 / 256<br>Active/Clean'
+                                }
+                            ]
                         },
                         {
-                            xtype: 'button',
+                            xtype: 'panel',
                             flex: 1,
-                            id: 'usageBtn',
-                            itemId: 'usageBtn',
-                            scale: 'large',
-                            text: 'Usage<br/><br/>0.3Tb / 80.9Tb'
+                            border: 2,
+                            id: 'storageTopPanel6',
+                            itemId: 'storageTopPanel6',
+                            dockedItems: [
+                                {
+                                    xtype: 'button',
+                                    dock: 'top',
+                                    height: 80,
+                                    id: 'storageUsageButton',
+                                    itemId: 'storageUsageButton',
+                                    scale: 'large',
+                                    text: 'Usage<br>&nbsp;<br>0.3 Tb / 80.9Tb'
+                                }
+                            ]
                         }
                     ]
                 },
                 {
                     xtype: 'container',
                     region: 'center',
-                    id: 'storageSubContainer',
-                    itemId: 'storageSubContainer',
+                    id: 'storageCenterContainer',
+                    itemId: 'storageCenterContainer',
                     layout: 'card',
                     items: [
                         {
-                            xtype: 'hostcontainer'
+                            xtype: 'storageMainContainer'
                         },
                         {
-                            xtype: 'moncontainer'
+                            xtype: 'storageHostContainer'
                         },
                         {
-                            xtype: 'osdcontainer'
+                            xtype: 'storageMonContainer'
                         },
                         {
-                            xtype: 'poolcontainer'
+                            xtype: 'storageOsdContainer'
                         },
                         {
-                            xtype: 'pgstatuscontainer'
+                            xtype: 'storagePoolContainer'
                         },
                         {
-                            xtype: 'usagecontainer'
+                            xtype: 'storagePgContainer'
+                        },
+                        {
+                            xtype: 'storageUsageContainer'
                         }
                     ]
                 }

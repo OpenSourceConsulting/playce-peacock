@@ -56,7 +56,15 @@ Ext.application({
         'ConfigModel',
         'ProjectMappingModel',
         'AlmProjectHistoryModel',
-        'HostModel'
+        'storageMainModel',
+        'storageHostModel',
+        'storageMonModel',
+        'storageOsdModel',
+        'storagePoolModel',
+        'storagePgModel',
+        'storageUsageModel',
+        'storageUsageDetailModel',
+        'objectFilesModel'
     ],
     stores: [
         'MenuTreeStore',
@@ -118,7 +126,17 @@ Ext.application({
         'ComboServerTemplateStore',
         'ComboSoftwareCompareVersionStore',
         'AlmUserGroupsStore',
-        'HostStore'
+        'storageMainJsonStore',
+        'storageHostJsonStore',
+        'storageMonJsonStore',
+        'storageOsdJsonStore',
+        'storagePoolJsonStore',
+        'storagePgJsonStore',
+        'storageUsageJsonStore',
+        'storageUsageDetailJsonStore',
+        'PgNumComboArrayStore',
+        'objectBucketsListArrayStore',
+        'objectFilesListJsonStore'
     ],
     views: [
         'peacockViewport',
@@ -165,12 +183,21 @@ Ext.application({
         'CompareConfigWindow',
         'storageContainer',
         'objectContainer',
-        'hostContainer',
-        'monContainer',
-        'osdContainer',
-        'poolContainer',
-        'pgStatusContainer',
-        'usageContainer'
+        'storageMainContainer',
+        'storageHostContainer',
+        'storageMonContainer',
+        'storageOsdContainer',
+        'storagePoolContainer',
+        'storagePgContainer',
+        'storageUsageContainer',
+        'hostAddWindow',
+        'monAddWindow',
+        'osdAddWindow',
+        'poolAddWindow',
+        'objectBucketsContainer',
+        'createBucketWindow',
+        'renameFileWindow',
+        'uploadFileWindow'
     ],
     controllers: [
         'LoginController',
@@ -182,7 +209,9 @@ Ext.application({
         'RHEVMController',
         'ALMController',
         'AdminController',
-        'DashBoardController'
+        'DashBoardController',
+        'storageController',
+        'objectController'
     ],
     name: 'MyApp',
 

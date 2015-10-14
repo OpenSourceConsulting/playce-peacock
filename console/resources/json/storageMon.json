@@ -1,0 +1,8 @@
+[
+ {
+  'name':'osc-ceph-mon1', 'rank':0, 'in_quorum':true, 'server':'osc-ceph-mon1', 'ip':'192.168.0.222', 'port':'6789', 'pid':'0', 'addr':'192.168.0.222:6789/0'
+ }, 
+ {
+  'name':'osc-ceph-mon2', 'rank':1, 'in_quorum':true, 'server':'osc-ceph-mon2', 'ip':'192.168.0.222', 'port':'6789', 'pid':'0', 'addr':'192.168.0.223:6789/0'
+ }
+]

@@ -506,7 +506,7 @@
                     "    } else if(pagingType == 'right') {",
                     "        RHEVMConstants.page++;",
                     "    }",
-                    "    ",
+                    "",
                     "    var grid = Ext.getCmp(grid_id);",
                     "    grid.getStore().removeAll();",
                     "",

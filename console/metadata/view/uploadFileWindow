@@ -1,0 +1,195 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "uploadFileWindow",
+        "designer|userClassName": "uploadFileWindow",
+        "height": 172,
+        "id": null,
+        "itemId": null,
+        "layout": "border",
+        "modal": true,
+        "resizable": false,
+        "title": "Upload",
+        "width": 520
+    },
+    "configAlternates": {
+        "resizable": "boolean"
+    },
+    "designerId": "c308eb82-9922-4d2e-92df-f8239ee60c72",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": "uploadFileTopPanel",
+                "itemId": "uploadFileTopPanel",
+                "layout|region": "center",
+                "title": null
+            },
+            "designerId": "1dd4b53b-38b0-4a99-a490-00ae338bb874",
+            "cn": [
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "bodyPadding": 10,
+                        "height": 156,
+                        "id": "uploadFileFormPanel",
+                        "itemId": "uploadFileFormPanel",
+                        "title": null
+                    },
+                    "designerId": "ab648af6-b90c-4003-a2d2-723ddb81220a",
+                    "cn": [
+                        {
+                            "type": "Ext.form.FieldSet",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "padding": 10,
+                                "title": "Upload File "
+                            },
+                            "designerId": "499a73cd-e884-42a0-9023-c55c4316ada1",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.File",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "File Name",
+                                        "id": "uploadFileName",
+                                        "itemId": "uploadFileName",
+                                        "labelWidth": 64,
+                                        "layout|anchor": "100%",
+                                        "name": "uploadFileName"
+                                    },
+                                    "designerId": "3bdcdfae-449c-4f9f-8609-ccaffb97f9b4"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|pack": "center",
+                        "designer|uiInterfaceName": "footer",
+                        "dock": "bottom",
+                        "id": "uploadFileToolbar",
+                        "itemId": "uploadFileToolbar"
+                    },
+                    "designerId": "0988d110-5e50-410a-a1da-755b0432934b",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "padding": "2 20 2 20",
+                                "text": "Ok"
+                            },
+                            "designerId": "a70ecebc-8635-42c4-add8-17854f746370",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var myForm = Ext.getCmp(\"uploadFileFormPanel\");",
+                                            "",
+                                            "if(myForm.isValid()){",
+                                            "    myForm.submit({",
+                                            "        url: '/',",
+                                            "        waitMsg: 'Uploading your file...',",
+                                            "        success: function(fp, o) {",
+                                            "            objectConstants.me.uploadObjectFile(o.result.file);",
+                                            "        }",
+                                            "    });",
+                                            "}",
+                                            ""
+                                        ]
+                                    },
+                                    "designerId": "d989d902-ee53-4bfc-bb5d-93c5e0346ca8"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "padding": "2 12 2 12",
+                                "text": "Clear"
+                            },
+                            "designerId": "1098ecd7-2eb8-4466-91a0-4113f1247208",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var myForm = Ext.getCmp(\"uploadFileFormPanel\");",
+                                            "",
+                                            "myForm.getForm().findField(\"uploadFileName\").reset();",
+                                            ""
+                                        ]
+                                    },
+                                    "designerId": "ffd17317-361b-4558-8d3b-8859c8e41552"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

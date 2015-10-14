@@ -109,7 +109,6 @@ Ext.define('MyApp.controller.LoginController', {
             });
         } else {
 
-
             //TODO: Login using server-side authentication service
             Ext.Ajax.request({
                 url: GLOBAL.urlPrefix + "user/login",
@@ -117,7 +116,18 @@ Ext.define('MyApp.controller.LoginController', {
                 success: successCallback,
                 failure: failureCallback
             });
-
+        /*
+            var response = {
+                'userId': 'admin',
+                'loginId': 'admin',
+                'userName': 'admin',
+                'deptName': 'admin',
+                'email': 'email',
+                'lastLogon'	: '2015.10.08 10:37:55',
+                'authorities' : {'authority': 'ROLE_ADMIN'}
+            };
+            me.successfulLogin(response, "json");
+        */
         }
     },
 

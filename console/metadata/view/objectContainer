@@ -14,5 +14,44 @@
         "layout": "border",
         "width": 1000
     },
-    "designerId": "174c1c5c-ce08-43e3-b22a-1960d5dd8685"
+    "designerId": "174c1c5c-ce08-43e3-b22a-1960d5dd8685",
+    "cn": [
+        {
+            "type": "Ext.container.Container",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": "objectCenterContainer",
+                "itemId": "objectCenterContainer",
+                "layout": "card",
+                "layout|region": "center"
+            },
+            "designerId": "1931bd58-b27c-4be8-8ac3-c7a158a025ae",
+            "cn": [
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "designerId": "9dd271f3-5527-497b-9fb6-2160181a507c",
+                    "masterInstanceId": "900dbd0c-704d-47c6-a147-0ca564957684"
+                },
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "designerId": "a34dfc8a-f9af-4ee3-95a8-262826a15848",
+                    "masterInstanceId": "9c46e28f-49c8-4350-bcb4-3da54ee23269"
+                }
+            ]
+        }
+    ]
 }

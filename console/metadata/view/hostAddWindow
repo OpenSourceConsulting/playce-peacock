@@ -1,0 +1,215 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "hostAddWindow",
+        "designer|userClassName": "hostAddWindow",
+        "height": 225,
+        "layout": "border",
+        "modal": true,
+        "resizable": false,
+        "title": "Add HOST",
+        "width": 400
+    },
+    "configAlternates": {
+        "resizable": "boolean"
+    },
+    "designerId": "d6df0e6a-5841-4c96-bf0a-ef75e8b96018",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": "hostAddTopPanel",
+                "itemId": "hostAddTopPanel",
+                "layout|region": "center",
+                "title": null
+            },
+            "designerId": "6fd25d0c-639c-4e2e-afc2-26c31e4a4359",
+            "cn": [
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "bodyPadding": 10,
+                        "height": 156,
+                        "id": "hostAddFormPanel",
+                        "itemId": "hostAddFormPanel",
+                        "title": null
+                    },
+                    "designerId": "509e8b56-d4f5-479b-94ba-42166c4f3ad3",
+                    "cn": [
+                        {
+                            "type": "Ext.form.FieldSet",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "padding": 10,
+                                "title": " HOST Data "
+                            },
+                            "designerId": "23c523be-dfb5-4156-ac3d-949dd67bf423",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Hostname or IP",
+                                        "id": "hostAddHost",
+                                        "itemId": "hostAddHost",
+                                        "layout|anchor": "100%",
+                                        "name": "hostAddHost"
+                                    },
+                                    "designerId": "35ca4215-bb6b-4b25-b4f6-923ec1f7fdf9"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "User",
+                                        "id": "hostAddUser",
+                                        "itemId": "hostAddUser",
+                                        "layout|anchor": "100%",
+                                        "name": "hostAddUser"
+                                    },
+                                    "designerId": "59edf8c1-2976-42ea-a917-39425de5e827"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Password",
+                                        "id": "hostAddPass",
+                                        "itemId": "hostAddPass",
+                                        "layout|anchor": "100%",
+                                        "name": "hostAddPass"
+                                    },
+                                    "designerId": "0323929d-8034-4231-9966-be65aa8930df"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|pack": "center",
+                        "designer|uiInterfaceName": "footer",
+                        "dock": "bottom",
+                        "id": "hostAddToolbar",
+                        "itemId": "hostAddToolbar"
+                    },
+                    "designerId": "fccc3932-64db-41d8-89d7-4893a7c53978",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "padding": "2 20 2 20",
+                                "text": "Ok"
+                            },
+                            "designerId": "79954e31-b7f4-4f07-bd0b-7d61a9714281",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "storageConstants.me.addStorageHost();"
+                                        ]
+                                    },
+                                    "designerId": "fe7ea0b8-bc85-4d95-b9c4-49021e26b13b"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "padding": "2 12 2 12",
+                                "text": "Clear"
+                            },
+                            "designerId": "fbb59f91-60cb-4e47-8bf6-68a358136a4c",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var myForm = Ext.getCmp(\"hostAddFormPanel\");",
+                                            "",
+                                            "myForm.getForm().findField(\"hostAddHost\").setValue('');",
+                                            "myForm.getForm().findField(\"hostAddUser\").setValue('');",
+                                            "myForm.getForm().findField(\"hostAddPass\").setValue('');",
+                                            ""
+                                        ]
+                                    },
+                                    "designerId": "8440421c-0a41-4e63-a87a-75378a6cdabd"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

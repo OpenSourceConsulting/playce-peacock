@@ -30,6 +30,8 @@ Ext.Loader.addClassPathMappings({
   "almConstants": "app/controller/ALMController.js",
   "dashboardConstants": "app/controller/DashBoardController.js",
   "instancesConstants": "app/controller/InstancesController.js",
+  "objectConstants": "app/controller/objectController.js",
+  "storageConstants": "app/controller/storageController.js",
   "userConstants": "app/controller/AdminController.js"
 });
 Ext.ClassManager.addNameAlternateMappings({
@@ -434,6 +436,7 @@ Ext.ClassManager.addNameAlternateMappings({
   ],
   "Ext.grid.RowEditor": [],
   "Ext.grid.RowEditorButtons": [],
+  "Ext.grid.Scroller": [],
   "Ext.grid.View": [],
   "Ext.grid.ViewDropZone": [],
   "Ext.grid.column.Action": [
@@ -878,6 +881,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.controller.RHEVMController": [],
   "MyApp.controller.SettingsMenuController": [],
   "MyApp.controller.SoftwareInstallController": [],
+  "MyApp.controller.objectController": [],
+  "MyApp.controller.storageController": [],
   "MyApp.model.AccountModel": [],
   "MyApp.model.AlmGroupModel": [],
   "MyApp.model.AlmJobModel": [],
@@ -889,7 +894,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.model.DataCenterModel": [],
   "MyApp.model.DiskModel": [],
   "MyApp.model.GroupModel": [],
-  "MyApp.model.HostModel": [],
   "MyApp.model.HypervisorModel": [],
   "MyApp.model.InstanceMonitoringModel": [],
   "MyApp.model.MachineModel": [],
@@ -910,6 +914,15 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.model.instanceOsModel": [],
   "MyApp.model.instanceSoftwareModel": [],
   "MyApp.model.monitoringChartModel": [],
+  "MyApp.model.objectFilesModel": [],
+  "MyApp.model.storageHostModel": [],
+  "MyApp.model.storageMainModel": [],
+  "MyApp.model.storageMonModel": [],
+  "MyApp.model.storageOsdModel": [],
+  "MyApp.model.storagePgModel": [],
+  "MyApp.model.storagePoolModel": [],
+  "MyApp.model.storageUsageDetailModel": [],
+  "MyApp.model.storageUsageModel": [],
   "MyApp.store.AccountStore": [],
   "MyApp.store.AllMenuTreeStore": [],
   "MyApp.store.AlmGroupStore": [],
@@ -950,7 +963,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.DashboardTemplateStore": [],
   "MyApp.store.DashboardVmStore": [],
   "MyApp.store.DashboardWarningStore": [],
-  "MyApp.store.HostStore": [],
   "MyApp.store.HypervisorStore": [],
   "MyApp.store.InstanceGroupStore": [],
   "MyApp.store.InstanceMonitoringStore": [],
@@ -962,6 +974,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.PermissionMenuTreeStore": [],
   "MyApp.store.PermissionStore": [],
   "MyApp.store.PermissionUserStore": [],
+  "MyApp.store.PgNumComboArrayStore": [],
   "MyApp.store.SessionStore": [],
   "MyApp.store.TempSpaceStore": [],
   "MyApp.store.TempUserStore": [],
@@ -970,6 +983,16 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.VMDiskStore": [],
   "MyApp.store.VMNetworkStore": [],
   "MyApp.store.VMStore": [],
+  "MyApp.store.objectBucketsListArrayStore": [],
+  "MyApp.store.objectFilesListJsonStore": [],
+  "MyApp.store.storageHostJsonStore": [],
+  "MyApp.store.storageMainJsonStore": [],
+  "MyApp.store.storageMonJsonStore": [],
+  "MyApp.store.storageOsdJsonStore": [],
+  "MyApp.store.storagePgJsonStore": [],
+  "MyApp.store.storagePoolJsonStore": [],
+  "MyApp.store.storageUsageDetailJsonStore": [],
+  "MyApp.store.storageUsageJsonStore": [],
   "MyApp.view.AgentSummaryWindow": [],
   "MyApp.view.AlarmCriticalWindow": [],
   "MyApp.view.AlarmWarningWindow": [],
@@ -1009,23 +1032,35 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.adminContainer": [],
   "MyApp.view.almContainer": [],
   "MyApp.view.blankPanel": [],
+  "MyApp.view.createBucketWindow": [],
   "MyApp.view.dashboardContainer": [],
-  "MyApp.view.hostContainer": [],
+  "MyApp.view.hostAddWindow": [],
   "MyApp.view.instancesContainer": [],
   "MyApp.view.loginWindow": [],
-  "MyApp.view.monContainer": [],
+  "MyApp.view.monAddWindow": [],
+  "MyApp.view.objectBucketsContainer": [],
   "MyApp.view.objectContainer": [],
-  "MyApp.view.osdContainer": [],
+  "MyApp.view.objectFilesContainer": [],
+  "MyApp.view.osdAddWindow": [],
   "MyApp.view.peacockViewport": [],
-  "MyApp.view.pgStatusContainer": [],
-  "MyApp.view.poolContainer": [],
+  "MyApp.view.poolAddWindow": [],
+  "MyApp.view.renameFileWindow": [],
   "MyApp.view.rhevmContainer": [],
   "MyApp.view.storageContainer": [],
-  "MyApp.view.usageContainer": [],
+  "MyApp.view.storageHostContainer": [],
+  "MyApp.view.storageMainContainer": [],
+  "MyApp.view.storageMonContainer": [],
+  "MyApp.view.storageOsdContainer": [],
+  "MyApp.view.storagePgContainer": [],
+  "MyApp.view.storagePoolContainer": [],
+  "MyApp.view.storageUsageContainer": [],
+  "MyApp.view.uploadFileWindow": [],
   "RHEVMConstants": [],
   "almConstants": [],
   "dashboardConstants": [],
   "instancesConstants": [],
+  "objectConstants": [],
+  "storageConstants": [],
   "userConstants": []
 });
 Ext.ClassManager.addNameAliasMappings({
@@ -1464,6 +1499,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.grid.RowEditorButtons": [
     "widget.roweditorbuttons"
   ],
+  "Ext.grid.Scroller": [],
   "Ext.grid.View": [
     "widget.gridview"
   ],
@@ -2042,6 +2078,8 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.controller.RHEVMController": [],
   "MyApp.controller.SettingsMenuController": [],
   "MyApp.controller.SoftwareInstallController": [],
+  "MyApp.controller.objectController": [],
+  "MyApp.controller.storageController": [],
   "MyApp.model.AccountModel": [],
   "MyApp.model.AlmGroupModel": [],
   "MyApp.model.AlmJobModel": [],
@@ -2053,7 +2091,6 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.model.DataCenterModel": [],
   "MyApp.model.DiskModel": [],
   "MyApp.model.GroupModel": [],
-  "MyApp.model.HostModel": [],
   "MyApp.model.HypervisorModel": [],
   "MyApp.model.InstanceMonitoringModel": [],
   "MyApp.model.MachineModel": [],
@@ -2074,6 +2111,15 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.model.instanceOsModel": [],
   "MyApp.model.instanceSoftwareModel": [],
   "MyApp.model.monitoringChartModel": [],
+  "MyApp.model.objectFilesModel": [],
+  "MyApp.model.storageHostModel": [],
+  "MyApp.model.storageMainModel": [],
+  "MyApp.model.storageMonModel": [],
+  "MyApp.model.storageOsdModel": [],
+  "MyApp.model.storagePgModel": [],
+  "MyApp.model.storagePoolModel": [],
+  "MyApp.model.storageUsageDetailModel": [],
+  "MyApp.model.storageUsageModel": [],
   "MyApp.store.AccountStore": [],
   "MyApp.store.AllMenuTreeStore": [],
   "MyApp.store.AlmGroupStore": [],
@@ -2114,7 +2160,6 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.store.DashboardTemplateStore": [],
   "MyApp.store.DashboardVmStore": [],
   "MyApp.store.DashboardWarningStore": [],
-  "MyApp.store.HostStore": [],
   "MyApp.store.HypervisorStore": [],
   "MyApp.store.InstanceGroupStore": [],
   "MyApp.store.InstanceMonitoringStore": [],
@@ -2126,6 +2171,7 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.store.PermissionMenuTreeStore": [],
   "MyApp.store.PermissionStore": [],
   "MyApp.store.PermissionUserStore": [],
+  "MyApp.store.PgNumComboArrayStore": [],
   "MyApp.store.SessionStore": [],
   "MyApp.store.TempSpaceStore": [],
   "MyApp.store.TempUserStore": [],
@@ -2134,6 +2180,16 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.store.VMDiskStore": [],
   "MyApp.store.VMNetworkStore": [],
   "MyApp.store.VMStore": [],
+  "MyApp.store.objectBucketsListArrayStore": [],
+  "MyApp.store.objectFilesListJsonStore": [],
+  "MyApp.store.storageHostJsonStore": [],
+  "MyApp.store.storageMainJsonStore": [],
+  "MyApp.store.storageMonJsonStore": [],
+  "MyApp.store.storageOsdJsonStore": [],
+  "MyApp.store.storagePgJsonStore": [],
+  "MyApp.store.storagePoolJsonStore": [],
+  "MyApp.store.storageUsageDetailJsonStore": [],
+  "MyApp.store.storageUsageJsonStore": [],
   "MyApp.view.AgentSummaryWindow": [
     "widget.AgentSummaryWindow"
   ],
@@ -2249,11 +2305,14 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.blankPanel": [
     "widget.blankpanel"
   ],
+  "MyApp.view.createBucketWindow": [
+    "widget.createBucketWindow"
+  ],
   "MyApp.view.dashboardContainer": [
     "widget.dashboardcontainer"
   ],
-  "MyApp.view.hostContainer": [
-    "widget.hostcontainer"
+  "MyApp.view.hostAddWindow": [
+    "widget.hostAddWindow"
   ],
   "MyApp.view.instancesContainer": [
     "widget.instancesContainer"
@@ -2261,23 +2320,29 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.loginWindow": [
     "widget.loginWindow"
   ],
-  "MyApp.view.monContainer": [
-    "widget.moncontainer"
+  "MyApp.view.monAddWindow": [
+    "widget.monAddWindow"
+  ],
+  "MyApp.view.objectBucketsContainer": [
+    "widget.objectBucketsContainer"
   ],
   "MyApp.view.objectContainer": [
     "widget.objectContainer"
   ],
-  "MyApp.view.osdContainer": [
-    "widget.osdcontainer"
+  "MyApp.view.objectFilesContainer": [
+    "widget.objectFilesContainer"
+  ],
+  "MyApp.view.osdAddWindow": [
+    "widget.osdAddWindow"
   ],
   "MyApp.view.peacockViewport": [
     "widget.peacockViewport"
   ],
-  "MyApp.view.pgStatusContainer": [
-    "widget.pgstatuscontainer"
+  "MyApp.view.poolAddWindow": [
+    "widget.poolAddWindow"
   ],
-  "MyApp.view.poolContainer": [
-    "widget.poolcontainer"
+  "MyApp.view.renameFileWindow": [
+    "widget.renameFileWindow"
   ],
   "MyApp.view.rhevmContainer": [
     "widget.rhevmcontainer"
@@ -2285,13 +2350,36 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.storageContainer": [
     "widget.storageContainer"
   ],
-  "MyApp.view.usageContainer": [
-    "widget.usagecontainer"
+  "MyApp.view.storageHostContainer": [
+    "widget.storageHostContainer"
+  ],
+  "MyApp.view.storageMainContainer": [
+    "widget.storageMainContainer"
+  ],
+  "MyApp.view.storageMonContainer": [
+    "widget.storageMonContainer"
+  ],
+  "MyApp.view.storageOsdContainer": [
+    "widget.storageOsdContainer"
+  ],
+  "MyApp.view.storagePgContainer": [
+    "widget.storagePgContainer"
+  ],
+  "MyApp.view.storagePoolContainer": [
+    "widget.storagePoolContainer"
+  ],
+  "MyApp.view.storageUsageContainer": [
+    "widget.storageUsageContainer"
+  ],
+  "MyApp.view.uploadFileWindow": [
+    "widget.uploadFileWindow"
   ],
   "RHEVMConstants": [],
   "almConstants": [],
   "dashboardConstants": [],
   "instancesConstants": [],
+  "objectConstants": [],
+  "storageConstants": [],
   "userConstants": []
 });
 Ext.setVersion("ext-theme-base", "4.2.1");

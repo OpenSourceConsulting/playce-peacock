@@ -17,6 +17,12 @@ Ext.define('MyApp.view.objectContainer', {
     extend: 'Ext.container.Container',
     alias: 'widget.objectContainer',
 
+    requires: [
+        'MyApp.view.objectBucketsContainer',
+        'MyApp.view.objectFilesContainer',
+        'Ext.container.Container'
+    ],
+
     height: 750,
     id: 'objectContainer',
     itemId: 'objectContainer',
@@ -25,6 +31,26 @@ Ext.define('MyApp.view.objectContainer', {
 
     initComponent: function() {
         var me = this;
+
+        Ext.applyIf(me, {
+            items: [
+                {
+                    xtype: 'container',
+                    region: 'center',
+                    id: 'objectCenterContainer',
+                    itemId: 'objectCenterContainer',
+                    layout: 'card',
+                    items: [
+                        {
+                            xtype: 'objectBucketsContainer'
+                        },
+                        {
+                            xtype: 'objectFilesContainer'
+                        }
+                    ]
+                }
+            ]
+        });
 
         me.callParent(arguments);
     }

@@ -1,0 +1,44 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "storagePgJsonStore",
+        "model": "storagePgModel",
+        "storeId": "storagePgJsonStore"
+    },
+    "designerId": "aa92299c-0e2e-435c-9b66-fbcb1744a92e",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "storagePgAjaxProxy",
+                "url": "resources/json/storagePg.json"
+            },
+            "designerId": "bf42c32b-9ecc-4467-845c-a9312208ec90",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|displayName": "storagePgJsonReader",
+                        "root": null
+                    },
+                    "designerId": "385418d9-f7c3-47f0-a758-250600ddebb8"
+                }
+            ]
+        }
+    ]
+}

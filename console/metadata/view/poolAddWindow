@@ -1,0 +1,218 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "poolAddWindow",
+        "designer|userClassName": "poolAddWindow",
+        "height": 225,
+        "layout": "border",
+        "modal": true,
+        "resizable": false,
+        "title": "Add POOL",
+        "width": 400
+    },
+    "configAlternates": {
+        "resizable": "boolean"
+    },
+    "designerId": "ef2fcffb-08e9-48ae-ab06-7f2e20436166",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": "poolAddTopPanel",
+                "itemId": "poolAddTopPanel",
+                "layout|region": "center",
+                "title": null
+            },
+            "designerId": "a0838cbd-c312-409a-9c1c-405f06b04099",
+            "cn": [
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "bodyPadding": 10,
+                        "height": 156,
+                        "id": "poolAddFormPanel",
+                        "itemId": "poolAddFormPanel",
+                        "title": null
+                    },
+                    "designerId": "a065abed-a3be-4893-a4c5-bbb9ab1001a5",
+                    "cn": [
+                        {
+                            "type": "Ext.form.FieldSet",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "padding": 10,
+                                "title": " POOL Data "
+                            },
+                            "designerId": "3aa2cade-f992-477a-a058-045b94773f5e",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Pool Name",
+                                        "id": "poolAddName",
+                                        "itemId": "poolAddName",
+                                        "layout|anchor": "100%",
+                                        "name": "poolAddName"
+                                    },
+                                    "designerId": "e5049a16-b465-453c-8128-e9fc1f6e980a"
+                                },
+                                {
+                                    "type": "Ext.form.field.Number",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Replica Size",
+                                        "id": "poolAddSize",
+                                        "itemId": "poolAddSize",
+                                        "layout|anchor": "100%",
+                                        "name": "poolAddSize"
+                                    },
+                                    "designerId": "987539aa-4c30-4bc6-b0c8-0437a4fd2377"
+                                },
+                                {
+                                    "type": "Ext.form.field.ComboBox",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "displayField": "value",
+                                        "fieldLabel": "PG Number",
+                                        "id": "poolAddPgNum",
+                                        "itemId": "poolAddPgNum",
+                                        "layout|anchor": "100%",
+                                        "name": "poolAddPgNum",
+                                        "store": "PgNumComboArrayStore",
+                                        "valueField": "value"
+                                    },
+                                    "designerId": "9d7f67ba-7b23-44f0-a1e3-b1217e735cc6"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|pack": "center",
+                        "designer|uiInterfaceName": "footer",
+                        "dock": "bottom",
+                        "id": "poolAddToolbar",
+                        "itemId": "poolAddToolbar"
+                    },
+                    "designerId": "927c110c-7073-445e-a6be-51b0fc53d3bd",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "padding": "2 20 2 20",
+                                "text": "Ok"
+                            },
+                            "designerId": "b5aa2fd4-ea7b-46cc-ab07-cd56b58830d1",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "storageConstants.me.addStoragePool();"
+                                        ]
+                                    },
+                                    "designerId": "7b5bd8d4-0a8f-4874-9688-82bfee947cd8"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "padding": "2 12 2 12",
+                                "text": "Clear"
+                            },
+                            "designerId": "31877499-c5e3-4ab6-997d-bc15ffa857d8",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var myForm = Ext.getCmp(\"poolAddFormPanel\");",
+                                            "",
+                                            "myForm.getForm().findField(\"poolAddName\").setValue('');",
+                                            "myForm.getForm().findField(\"poolAddSize\").setValue('');",
+                                            "myForm.getForm().findField(\"poolAddPgNum\").setValue('');",
+                                            ""
+                                        ]
+                                    },
+                                    "designerId": "899d1038-77bd-41a3-b0bd-4d58b2ecadf4"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

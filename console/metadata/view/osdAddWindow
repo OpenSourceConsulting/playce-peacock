@@ -1,0 +1,200 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "osdAddWindow",
+        "designer|userClassName": "osdAddWindow",
+        "height": 200,
+        "layout": "border",
+        "modal": true,
+        "resizable": false,
+        "title": "Add OSD",
+        "width": 400
+    },
+    "configAlternates": {
+        "resizable": "boolean"
+    },
+    "designerId": "e48edb6c-5aa5-4eef-ac5c-dc38f8f16a5b",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": "osdAddTopPanel",
+                "itemId": "osdAddTopPanel",
+                "layout|region": "center",
+                "title": null
+            },
+            "designerId": "04f0602f-adf2-4139-aeea-32aa2a19dca4",
+            "cn": [
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "bodyPadding": 10,
+                        "height": 156,
+                        "id": "osdAddFormPanel",
+                        "itemId": "osdAddFormPanel",
+                        "title": null
+                    },
+                    "designerId": "2c6ca3f9-79ea-4034-a7b9-7b97af3d26b0",
+                    "cn": [
+                        {
+                            "type": "Ext.form.FieldSet",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "padding": 10,
+                                "title": " OSD Data "
+                            },
+                            "designerId": "d7dc2057-828f-4e87-8098-5145c09b30d0",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "OSD Hostname",
+                                        "id": "osdAddHost",
+                                        "itemId": "osdAddHost",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%",
+                                        "name": "osdAddHost"
+                                    },
+                                    "designerId": "1cda89e4-f700-4053-8041-b6161a7b6773"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "OSD IP address",
+                                        "id": "osdAddIP",
+                                        "itemId": "osdAddIP",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%",
+                                        "name": "osdAddIP"
+                                    },
+                                    "designerId": "9622680d-bb2a-48cc-9f3a-8305556132f3"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|pack": "center",
+                        "designer|uiInterfaceName": "footer",
+                        "dock": "bottom",
+                        "id": "osdAddToolbar",
+                        "itemId": "osdAddToolbar"
+                    },
+                    "designerId": "10dd0544-dd17-4205-b1d7-b2f3e0946c37",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "padding": "2 20 2 20",
+                                "text": "Ok"
+                            },
+                            "designerId": "8e013f16-08fb-4b28-8a18-12b5b9f5c171",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "storageConstants.me.addStorageOsd();"
+                                        ]
+                                    },
+                                    "designerId": "9aabea23-8cdb-4f26-ae49-22fb0db70e23"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "padding": "2 12 2 12",
+                                "text": "Clear"
+                            },
+                            "designerId": "3ab933b3-3dac-4530-8cbf-a2cf2265756c",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var myForm = Ext.getCmp(\"osdAddFormPanel\");",
+                                            "",
+                                            "myForm.getForm().findField(\"osdAddHost\").setValue('');",
+                                            "myForm.getForm().findField(\"osdAddIP\").setValue('');",
+                                            ""
+                                        ]
+                                    },
+                                    "designerId": "703c3d0a-4ccf-4eae-ab5c-2e5f44173f8d"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

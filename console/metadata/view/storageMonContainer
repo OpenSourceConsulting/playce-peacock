@@ -1,0 +1,166 @@
+{
+    "type": "Ext.container.Container",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "storageMonContainer",
+        "designer|userClassName": "storageMonContainer",
+        "height": null,
+        "id": "storageMonContainer",
+        "itemId": "storageMonContainer",
+        "layout": "border",
+        "width": null
+    },
+    "designerId": "e8773dfb-817d-431f-ad83-9513a3e50c0d",
+    "cn": [
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "columnLines": true,
+                "forceFit": true,
+                "id": "storageMonGrid",
+                "itemId": "storageMonGrid",
+                "layout|flex": 3,
+                "layout|region": "center",
+                "store": "storageMonJsonStore",
+                "title": null
+            },
+            "designerId": "0b6ab872-1f2d-43d5-a729-6bae0fc01eb8",
+            "cn": [
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dock": "top",
+                        "height": 36,
+                        "id": "storageMonToolbar",
+                        "itemId": "storageMonToolbar"
+                    },
+                    "designerId": "3f2b00a2-d8d1-442a-ae9f-7708a78ce794",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "storageMonAdd",
+                                "itemId": "storageMonAdd",
+                                "layout|flex": null,
+                                "padding": "3 10 3 10",
+                                "text": "Add MON"
+                            },
+                            "designerId": "5e221271-1f28-4d10-a357-3e8f4b6b5ea0"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "storageMonGridView",
+                        "itemId": "storageMonGridView"
+                    },
+                    "designerId": "0fd0bec9-651a-40d3-9bd9-f15cddf814c8"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "name",
+                        "text": "Name"
+                    },
+                    "designerId": "fead5fce-7707-4e48-99c7-fa19f124968e"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "server",
+                        "text": "Server"
+                    },
+                    "designerId": "cd121f19-2b41-4940-965a-537b696bcb5d"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "ip",
+                        "text": "Ip"
+                    },
+                    "designerId": "d92ddaa2-d11f-414f-aba5-475662e30b84"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "in_quorum",
+                        "text": "In_quorum"
+                    },
+                    "designerId": "9404f524-a4d4-47d8-b382-3233c9a09b51"
+                }
+            ]
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "autoScroll": true,
+                "bodyPadding": 10,
+                "bodyStyle": [
+                    "{",
+                    "    background: '#fff'",
+                    "}"
+                ],
+                "container|padding": null,
+                "height": null,
+                "id": "storageMonDetail",
+                "itemId": "storageMonDetail",
+                "layout": "border",
+                "layout|flex": 2,
+                "layout|region": "south",
+                "layout|split": true,
+                "title": null
+            },
+            "designerId": "1145e532-c5e3-48bd-8ada-4f9b42c2e398"
+        }
+    ]
+}

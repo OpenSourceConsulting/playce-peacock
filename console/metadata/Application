@@ -16,7 +16,9 @@
             "RHEVMController",
             "ALMController",
             "AdminController",
-            "DashBoardController"
+            "DashBoardController",
+            "storageController",
+            "objectController"
         ],
         "models": [
             "instanceModel",
@@ -50,7 +52,15 @@
             "ConfigModel",
             "ProjectMappingModel",
             "AlmProjectHistoryModel",
-            "HostModel"
+            "storageMainModel",
+            "storageHostModel",
+            "storageMonModel",
+            "storageOsdModel",
+            "storagePoolModel",
+            "storagePgModel",
+            "storageUsageModel",
+            "storageUsageDetailModel",
+            "objectFilesModel"
         ],
         "name": "MyApp",
         "requires": [
@@ -116,7 +126,17 @@
             "ComboServerTemplateStore",
             "ComboSoftwareCompareVersionStore",
             "AlmUserGroupsStore",
-            "HostStore"
+            "storageMainJsonStore",
+            "storageHostJsonStore",
+            "storageMonJsonStore",
+            "storageOsdJsonStore",
+            "storagePoolJsonStore",
+            "storagePgJsonStore",
+            "storageUsageJsonStore",
+            "storageUsageDetailJsonStore",
+            "PgNumComboArrayStore",
+            "objectBucketsListArrayStore",
+            "objectFilesListJsonStore"
         ],
         "views": [
             "peacockViewport",
@@ -163,12 +183,21 @@
             "CompareConfigWindow",
             "storageContainer",
             "objectContainer",
-            "hostContainer",
-            "monContainer",
-            "osdContainer",
-            "poolContainer",
-            "pgStatusContainer",
-            "usageContainer"
+            "storageMainContainer",
+            "storageHostContainer",
+            "storageMonContainer",
+            "storageOsdContainer",
+            "storagePoolContainer",
+            "storagePgContainer",
+            "storageUsageContainer",
+            "hostAddWindow",
+            "monAddWindow",
+            "osdAddWindow",
+            "poolAddWindow",
+            "objectBucketsContainer",
+            "createBucketWindow",
+            "renameFileWindow",
+            "uploadFileWindow"
         ]
     },
     "designerId": "application"

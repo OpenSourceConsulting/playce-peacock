@@ -1,0 +1,185 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "renameFileWindow",
+        "designer|userClassName": "renameFileWindow",
+        "height": 172,
+        "id": null,
+        "itemId": null,
+        "layout": "border",
+        "modal": true,
+        "resizable": false,
+        "title": "Rename",
+        "width": 400
+    },
+    "configAlternates": {
+        "resizable": "boolean"
+    },
+    "designerId": "e169e57e-fa23-453d-af2e-9f43238555e3",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": "renameFileTopPanel",
+                "itemId": "renameFileTopPanel",
+                "layout|region": "center",
+                "title": null
+            },
+            "designerId": "0fb66e1f-712e-4ffd-a9f9-6b2ac8b0bb51",
+            "cn": [
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "bodyPadding": 10,
+                        "height": 156,
+                        "id": "renameFileFormPanel",
+                        "itemId": "renameFileFormPanel",
+                        "title": null
+                    },
+                    "designerId": "8d2ecea5-7294-430b-9dbb-06f404144ce9",
+                    "cn": [
+                        {
+                            "type": "Ext.form.FieldSet",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "padding": 10,
+                                "title": "File Data "
+                            },
+                            "designerId": "85022ef6-5794-4d24-be64-c5d254436cd5",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "File Name",
+                                        "id": "renameFileName",
+                                        "itemId": "renameFileName",
+                                        "labelWidth": 110,
+                                        "layout|anchor": "100%",
+                                        "name": "renameFileName"
+                                    },
+                                    "designerId": "f2d1284a-0f42-4e5b-b73c-f7312c3be493"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|pack": "center",
+                        "designer|uiInterfaceName": "footer",
+                        "dock": "bottom",
+                        "id": "trnameFileToolbar",
+                        "itemId": "trnameFileToolbar"
+                    },
+                    "designerId": "be29161c-ba8a-4c17-9fa8-09a486c4c42f",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "padding": "2 20 2 20",
+                                "text": "Ok"
+                            },
+                            "designerId": "7fa2c6c6-103c-4f2d-869a-c84cbc388183",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "objectConstants.me.renameObjectFile();"
+                                        ]
+                                    },
+                                    "designerId": "0366b820-a936-4dc5-ba37-2b8da1409ce2"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "padding": "2 12 2 12",
+                                "text": "Clear"
+                            },
+                            "designerId": "963737be-0309-4ec2-8a28-bd1432f88f97",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var myForm = Ext.getCmp(\"renameFileFormPanel\");",
+                                            "",
+                                            "myForm.getForm().findField(\"renameFileName\").setValue('');",
+                                            "",
+                                            ""
+                                        ]
+                                    },
+                                    "designerId": "2e816145-9ee9-4113-a625-591bef2cb670"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

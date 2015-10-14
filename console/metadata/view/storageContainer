@@ -26,109 +26,224 @@
             "userConfig": {
                 "container|align": "stretch",
                 "height": 80,
-                "id": "storageMenuPanel",
-                "itemId": "storageMenuPanel",
+                "id": "topPanel",
+                "itemId": "topPanel",
                 "layout": "hbox",
                 "layout|region": "north",
                 "title": null
             },
-            "designerId": "dfc3c60b-f2ee-4236-91bc-4b9c059fd060",
+            "designerId": "03447b2d-052c-4052-bd4f-368353d8afad",
             "cn": [
                 {
-                    "type": "Ext.button.Button",
+                    "type": "Ext.panel.Panel",
                     "reference": {
                         "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "id": "hostBtn",
-                        "itemId": "hostBtn",
+                        "border": 2,
+                        "id": "storageTopPanel1",
+                        "itemId": "storageTopPanel1",
                         "layout|flex": 1,
-                        "scale": "large",
-                        "text": "HOST<br/>11 / 11<br/>Reporting"
+                        "title": null
                     },
-                    "designerId": "20e697f1-6c6f-48df-a7d6-5932dc621a70"
+                    "designerId": "11e5e5f8-5667-403b-82bb-b572e6dec933",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "dockedItems",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dock": "top",
+                                "height": 80,
+                                "id": "storageHostButton",
+                                "itemId": "storageHostButton",
+                                "scale": "large",
+                                "text": "HOST<br>11 / 11<br>Reporting"
+                            },
+                            "designerId": "d5dc460a-0b30-454e-b667-5c0244c3ba8b"
+                        }
+                    ]
                 },
                 {
-                    "type": "Ext.button.Button",
+                    "type": "Ext.panel.Panel",
                     "reference": {
                         "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "id": "monBtn",
-                        "itemId": "monBtn",
+                        "border": 2,
+                        "id": "storageTopPanel2",
+                        "itemId": "storageTopPanel2",
                         "layout|flex": 1,
-                        "scale": "large",
-                        "text": "MON<br/> 2 / 2<br/>Quorum"
+                        "title": null
                     },
-                    "designerId": "a0554ec8-fc9c-4b81-ac6b-6f901a06b438"
+                    "designerId": "5c139371-e5e7-48ae-a3ce-5559bddf740f",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "dockedItems",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dock": "top",
+                                "height": 80,
+                                "id": "storageMonButton",
+                                "itemId": "storageMonButton",
+                                "scale": "large",
+                                "text": "MON<br>2 / 2<br>Quorum"
+                            },
+                            "designerId": "a6e5c9bb-b36b-471a-a2f1-b10f49c7b1c1"
+                        }
+                    ]
                 },
                 {
-                    "type": "Ext.button.Button",
+                    "type": "Ext.panel.Panel",
                     "reference": {
                         "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "id": "osdBtn",
-                        "itemId": "osdBtn",
+                        "border": 2,
+                        "id": "storageTopPanel3",
+                        "itemId": "storageTopPanel3",
                         "layout|flex": 1,
-                        "scale": "large",
-                        "text": "OSD<br/>9 / 9<br/>In & Up"
+                        "title": null
                     },
-                    "designerId": "829c5f05-3a0b-4838-b1c1-4019208a7345"
+                    "designerId": "9c90f105-51cd-47f6-9499-606b4b157849",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "dockedItems",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dock": "top",
+                                "height": 80,
+                                "id": "storageOsdButton",
+                                "itemId": "storageOsdButton",
+                                "scale": "large",
+                                "text": "OSD<br>9 / 9<br>In & Up"
+                            },
+                            "designerId": "221ae607-425b-48b4-8c42-723afdab10db"
+                        }
+                    ]
                 },
                 {
-                    "type": "Ext.button.Button",
+                    "type": "Ext.panel.Panel",
                     "reference": {
                         "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "id": "poolBtn",
-                        "itemId": "poolBtn",
+                        "border": 2,
+                        "id": "storageTopPanel4",
+                        "itemId": "storageTopPanel4",
                         "layout|flex": 1,
-                        "scale": "large",
-                        "text": "POOL<br/>14 / 14<br/>Active"
+                        "title": null
                     },
-                    "designerId": "1791e49e-f677-411a-bb1a-c7d3639a38f3"
+                    "designerId": "95ceb49d-17f8-4c7d-b6be-c87d41c71f0f",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "dockedItems",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dock": "top",
+                                "height": 80,
+                                "id": "storagePoolButton",
+                                "itemId": "storagePoolButton",
+                                "scale": "large",
+                                "text": "POOL<br>14 / 14<br>Active"
+                            },
+                            "designerId": "f9ac5de1-d4f7-44d5-9b0f-db0c8ec0e8cb"
+                        }
+                    ]
                 },
                 {
-                    "type": "Ext.button.Button",
+                    "type": "Ext.panel.Panel",
                     "reference": {
                         "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "id": "pgStatusBtn",
-                        "itemId": "pgStatusBtn",
+                        "border": 2,
+                        "id": "storageTopPanel5",
+                        "itemId": "storageTopPanel5",
                         "layout|flex": 1,
-                        "scale": "large",
-                        "text": "PG Status<br/>356 / 256<br/>Active / Clean"
+                        "title": null
                     },
-                    "designerId": "db539e5c-f96c-47c5-8b51-df8488a01e5e"
+                    "designerId": "8617bb89-5b35-4544-b326-fc4dd6203626",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "dockedItems",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dock": "top",
+                                "height": 80,
+                                "id": "storagePgButton",
+                                "itemId": "storagePgButton",
+                                "scale": "large",
+                                "text": "PG Status<br>256 / 256<br>Active/Clean"
+                            },
+                            "designerId": "8435e3bc-0ee4-474e-a7a2-a09617edf83e"
+                        }
+                    ]
                 },
                 {
-                    "type": "Ext.button.Button",
+                    "type": "Ext.panel.Panel",
                     "reference": {
                         "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "id": "usageBtn",
-                        "itemId": "usageBtn",
+                        "border": 2,
+                        "id": "storageTopPanel6",
+                        "itemId": "storageTopPanel6",
                         "layout|flex": 1,
-                        "scale": "large",
-                        "text": "Usage<br/><br/>0.3Tb / 80.9Tb"
+                        "title": null
                     },
-                    "designerId": "098127bc-3696-4f00-908e-d8f1394d0209"
+                    "designerId": "c565bac7-2e7b-4461-b409-ef66978ef3db",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "dockedItems",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dock": "top",
+                                "height": 80,
+                                "id": "storageUsageButton",
+                                "itemId": "storageUsageButton",
+                                "scale": "large",
+                                "text": "Usage<br>&nbsp;<br>0.3 Tb / 80.9Tb",
+                                "width": null
+                            },
+                            "designerId": "92772c50-f6ca-4626-a9ad-96a17c6dbb13"
+                        }
+                    ]
                 }
             ]
         },
@@ -140,12 +255,12 @@
             },
             "codeClass": null,
             "userConfig": {
-                "id": "storageSubContainer",
-                "itemId": "storageSubContainer",
+                "id": "storageCenterContainer",
+                "itemId": "storageCenterContainer",
                 "layout": "card",
                 "layout|region": "center"
             },
-            "designerId": "41296a0a-5f54-44cd-b59e-f85b3284df1c",
+            "designerId": "a227b8cf-db42-4042-bf5f-2106a1de8969",
             "cn": [
                 {
                     "type": "linkedinstance",
@@ -154,8 +269,8 @@
                         "type": "array"
                     },
                     "codeClass": null,
-                    "designerId": "1c55d9bf-128b-4d69-93dc-c71d55d66e57",
-                    "masterInstanceId": "c7bd6d03-c67d-4d3f-b677-8230e099d302"
+                    "designerId": "982def24-1cb1-4bdb-8d03-22811126ddb2",
+                    "masterInstanceId": "55f16adb-0c61-4148-8674-3e47ebed774c"
                 },
                 {
                     "type": "linkedinstance",
@@ -164,8 +279,8 @@
                         "type": "array"
                     },
                     "codeClass": null,
-                    "designerId": "874a9552-842e-4883-acdf-b2597f8d68a4",
-                    "masterInstanceId": "3ac810a1-bd0c-4b91-918d-d738ad2af4bd"
+                    "designerId": "a67f76bf-a700-402f-b255-38f179688075",
+                    "masterInstanceId": "d5cb78dd-a335-4017-9553-ec68e7094ece"
                 },
                 {
                     "type": "linkedinstance",
@@ -174,8 +289,8 @@
                         "type": "array"
                     },
                     "codeClass": null,
-                    "designerId": "68064b5a-fa25-4617-afe2-d06bd60f6a32",
-                    "masterInstanceId": "a953fdf6-daef-4c03-ab10-18a5dae2ad8e"
+                    "designerId": "2f293a7c-8f69-43b3-90a6-4b9939d44482",
+                    "masterInstanceId": "e8773dfb-817d-431f-ad83-9513a3e50c0d"
                 },
                 {
                     "type": "linkedinstance",
@@ -184,8 +299,8 @@
                         "type": "array"
                     },
                     "codeClass": null,
-                    "designerId": "ff625052-8f1c-4fce-a034-d81af1f83a4c",
-                    "masterInstanceId": "18672648-3c0a-46c2-92f3-a7b492775095"
+                    "designerId": "59e41d85-a81d-488c-9b5f-c57d2ef32d3d",
+                    "masterInstanceId": "4decf64f-bb0d-4893-a583-407656fcbf3b"
                 },
                 {
                     "type": "linkedinstance",
@@ -194,8 +309,8 @@
                         "type": "array"
                     },
                     "codeClass": null,
-                    "designerId": "40bd16f8-6680-4e83-8859-aaee9cd2ffdc",
-                    "masterInstanceId": "a3e0b3c8-21c4-42a7-9e8c-a1ee46371df6"
+                    "designerId": "7b4d4b1e-1b57-49bb-b9f6-65c4bcb9992e",
+                    "masterInstanceId": "11179870-a968-41a0-8676-c5f2386bbbb2"
                 },
                 {
                     "type": "linkedinstance",
@@ -204,8 +319,18 @@
                         "type": "array"
                     },
                     "codeClass": null,
-                    "designerId": "75d51c8a-25ab-4af6-998d-44ac0670f0e2",
-                    "masterInstanceId": "c51bfe42-df7e-4633-9a8b-0256cb2687f8"
+                    "designerId": "9effe8be-f677-461f-a64d-6d7fbed92c2c",
+                    "masterInstanceId": "743bef3f-0868-4ed8-b71c-b13e8234e496"
+                },
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "designerId": "5790883c-db45-457a-8f6b-685234ddbed1",
+                    "masterInstanceId": "e7671a47-e702-405d-93c0-f883388f386c"
                 }
             ]
         }

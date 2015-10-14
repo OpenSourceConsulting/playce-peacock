@@ -1,0 +1,74 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "storagePgModel"
+    },
+    "designerId": "aef80eb6-bc0a-409f-8d50-f2d7918e57db",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "num"
+            },
+            "designerId": "8bdac05d-d5fd-4999-ad49-fcfd0b6660b3"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "name"
+            },
+            "designerId": "20bb8292-6428-4057-8f94-f5b75056d593"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "version"
+            },
+            "designerId": "a0fd0daf-4ed1-4993-a43d-2bd68f5e25f4"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "raw_bytes_used"
+            },
+            "designerId": "70c90728-7ef1-4e2d-a2fb-d176d08504fc"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "raw_bytes_avail"
+            },
+            "designerId": "e813f630-d447-4902-aa89-bbc08fa9cafa"
+        }
+    ]
+}

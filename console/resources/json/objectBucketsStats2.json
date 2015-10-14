@@ -1,0 +1,24 @@
+{
+    'bucket': 'my-new-bucket2',
+    'pool': '.rgw.buckets',
+    'index_pool': '.rgw.buckets.index',
+    'id': 'default.576994.4',
+    'marker': 'default.576994.4',
+    'owner': 'osc',
+    'ver': '0#123',
+    'master_ver': '0#0',
+    'mtime': '2015-10-01 13:29:37.000000',
+    'max_marker': '0#',
+    'usage': {
+        'rgw.main': {
+            'size_kb': 30,
+            'size_kb_actual': 36,
+            'num_objects': 4
+        }
+    },
+    'bucket_quota': {
+        'enabled': false,
+        'max_size_kb': -1,
+        'max_objects': -1
+    }
+}

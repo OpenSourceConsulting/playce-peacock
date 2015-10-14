@@ -1,0 +1,148 @@
+{
+    "type": "Ext.container.Container",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "storageMainContainer",
+        "designer|userClassName": "storageMainContainer",
+        "height": null,
+        "id": "storageMainContainer",
+        "itemId": "storageMainContainer",
+        "layout": "border",
+        "width": null
+    },
+    "designerId": "55f16adb-0c61-4148-8674-3e47ebed774c",
+    "cn": [
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "columnLines": true,
+                "forceFit": true,
+                "id": "storageMainGrid",
+                "itemId": "storageMainGrid",
+                "layout|flex": 3,
+                "layout|region": "center",
+                "store": "storageMainJsonStore",
+                "title": null
+            },
+            "designerId": "5a74e9b4-e8a7-41af-8b91-8e11fd773646",
+            "cn": [
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dock": "top",
+                        "height": 36,
+                        "id": "storageMainToolbar",
+                        "itemId": "storageMainToolbar"
+                    },
+                    "designerId": "11f60098-b786-4170-8a0a-7b37a0da9dc7"
+                },
+                {
+                    "type": "Ext.grid.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "storageMainGridView",
+                        "itemId": "storageMainGridView"
+                    },
+                    "designerId": "2c1ae6c4-1478-45c0-abc8-1928d3548eb6"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "type",
+                        "text": "Type"
+                    },
+                    "designerId": "bbd66144-7b58-4a9c-8195-8ccbcd36545c"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "id",
+                        "text": "Id"
+                    },
+                    "designerId": "687e2102-6ec5-4aae-bcf4-eb78067d3889"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "hostname",
+                        "text": "Hostname"
+                    },
+                    "designerId": "ef195d18-ebde-48d3-9e8b-4168ef0044e6"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "health",
+                        "text": "Health"
+                    },
+                    "designerId": "390a84e1-ae80-432e-a6b5-e77b0b477333"
+                }
+            ]
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "autoScroll": true,
+                "bodyPadding": 10,
+                "bodyStyle": [
+                    "{",
+                    "    background: '#fff'",
+                    "}"
+                ],
+                "container|padding": null,
+                "height": null,
+                "id": "storageMainDetail",
+                "itemId": "storageMainDetail",
+                "layout": "border",
+                "layout|flex": 2,
+                "layout|region": "south",
+                "layout|split": true,
+                "title": null
+            },
+            "designerId": "d5633f43-c887-4e51-b29e-0f5cb92ab516"
+        }
+    ]
+}

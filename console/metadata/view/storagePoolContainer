@@ -1,0 +1,179 @@
+{
+    "type": "Ext.container.Container",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "storagePoolContainer",
+        "designer|userClassName": "storagePoolContainer",
+        "height": null,
+        "id": "storagePoolContainer",
+        "itemId": "storagePoolContainer",
+        "layout": "border",
+        "width": null
+    },
+    "designerId": "11179870-a968-41a0-8676-c5f2386bbbb2",
+    "cn": [
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "columnLines": true,
+                "forceFit": true,
+                "id": "storagePoolGrid",
+                "itemId": "storagePoolGrid",
+                "layout|flex": 3,
+                "layout|region": "center",
+                "store": "storagePoolJsonStore",
+                "title": null
+            },
+            "designerId": "14d9ab3c-6cb3-4641-a946-605dc25ee7bc",
+            "cn": [
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dock": "top",
+                        "height": 36,
+                        "id": "storagePoolToolbar",
+                        "itemId": "storagePoolToolbar"
+                    },
+                    "designerId": "3a27f019-2f83-4db9-9e1a-5a1a06b855d1",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "storagePoolAdd",
+                                "itemId": "storagePoolAdd",
+                                "layout|flex": null,
+                                "padding": "3 10 3 10",
+                                "text": "Add POOL"
+                            },
+                            "designerId": "b2f0d362-ef3f-431b-beb3-9019df9c1166"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "storagePoolGridView",
+                        "itemId": "storagePoolGridView"
+                    },
+                    "designerId": "eba0af6c-3884-4a0d-8c46-72cd4d4a6d94"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "name",
+                        "text": "Name"
+                    },
+                    "designerId": "95b26e90-b9a0-4fc5-97fd-616745276a84"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "id",
+                        "text": "Id"
+                    },
+                    "designerId": "4860976a-0905-478d-bb78-7ffb28bbf2d4"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "size",
+                        "text": "Size"
+                    },
+                    "designerId": "c1f7774b-a130-47ac-997c-f37e4cb7d386"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "pg_num",
+                        "text": "Pg_num"
+                    },
+                    "designerId": "08420b1f-1c04-460b-9ea3-d6da18a8aa65"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "pgp_num",
+                        "text": "Pgp_num"
+                    },
+                    "designerId": "cd6bc6c0-9f0b-4bfe-8bad-68acf6206c0f"
+                }
+            ]
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "autoScroll": true,
+                "bodyPadding": 10,
+                "bodyStyle": [
+                    "{",
+                    "    background: '#fff'",
+                    "}"
+                ],
+                "container|padding": null,
+                "height": null,
+                "id": "storagePoolDetail",
+                "itemId": "storagePoolDetail",
+                "layout": "border",
+                "layout|flex": 2,
+                "layout|region": "south",
+                "layout|split": true,
+                "title": null
+            },
+            "designerId": "baca4033-68b9-4531-b3b5-3fe4d366a67b"
+        }
+    ]
+}

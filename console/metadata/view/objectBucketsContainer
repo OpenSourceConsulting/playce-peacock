@@ -1,0 +1,361 @@
+{
+    "type": "Ext.container.Container",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "objectBucketsContainer",
+        "designer|userClassName": "objectBucketsContainer",
+        "height": null,
+        "id": "objectBucketsContainer",
+        "itemId": "objectBucketsContainer",
+        "layout": "border",
+        "width": null
+    },
+    "designerId": "900dbd0c-704d-47c6-a147-0ca564957684",
+    "cn": [
+        {
+            "type": "Ext.container.Container",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "border": null,
+                "height": 80,
+                "id": "objectBucketsTopContainer",
+                "itemId": "objectBucketsTopContainer",
+                "layout": "border",
+                "layout|region": "north",
+                "layout|split": true,
+                "layout|splitterResize": false
+            },
+            "designerId": "69827271-2e2c-4c9d-a28e-99669727d152",
+            "cn": [
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": 40,
+                        "id": "objectBucketsTopBtnsToolbar",
+                        "itemId": "objectBucketsTopBtnsToolbar",
+                        "layout|region": "north"
+                    },
+                    "designerId": "02d04ca3-754f-4aa6-9bae-fd75941ed8ca",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 28,
+                                "id": "bucketsCreateButton",
+                                "itemId": "bucketsCreateButton",
+                                "layout|flex": null,
+                                "padding": null,
+                                "text": "Create Bucket",
+                                "width": 120
+                            },
+                            "designerId": "21e17d64-aab1-44f9-9ec8-6b8f0ef6996b"
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 28,
+                                "id": "bucketsActionsButton",
+                                "itemId": "bucketsActionsButton",
+                                "layout|flex": null,
+                                "text": "Actions",
+                                "width": 120
+                            },
+                            "designerId": "79979b24-d48f-4660-a52a-fd16f0e2cfda",
+                            "cn": [
+                                {
+                                    "type": "Ext.menu.Menu",
+                                    "reference": {
+                                        "name": "menu",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "id": "bucketsActionsMenu",
+                                        "itemId": "bucketsActionsMenu",
+                                        "minWidth": 140,
+                                        "width": 140
+                                    },
+                                    "designerId": "a3725fb8-601b-413a-996f-a650274a0c62",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.menu.Item",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "id": "bucketsCreateMenuItem",
+                                                "itemId": "bucketsCreateMenuItem",
+                                                "text": "Create Bucket"
+                                            },
+                                            "designerId": "fa2d0cee-ea91-481a-b704-623a5a7679a9"
+                                        },
+                                        {
+                                            "type": "Ext.menu.Item",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "id": "bucketsDeleteMenuItem",
+                                                "itemId": "bucketsDeleteMenuItem",
+                                                "text": "Delete Bucket"
+                                            },
+                                            "designerId": "170fc5b7-f126-4ac9-b7be-2923207bcc3c"
+                                        },
+                                        {
+                                            "type": "Ext.menu.Item",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "id": "bucketsEmptyMenuItem",
+                                                "itemId": "bucketsEmptyMenuItem",
+                                                "text": "Empty Bucket"
+                                            },
+                                            "designerId": "c1683b9d-3b06-4f9d-acad-6ff9f43bd2bb"
+                                        },
+                                        {
+                                            "type": "Ext.menu.Separator",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "id": "bucketsMenuSeparator",
+                                                "itemId": "bucketsMenuSeparator"
+                                            },
+                                            "designerId": "64c51dce-dd31-4e09-8107-c9a54f8a093b"
+                                        },
+                                        {
+                                            "type": "Ext.menu.Item",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "id": "bucketsRefreshMenuItem",
+                                                "itemId": "bucketsRefreshMenuItem",
+                                                "text": "Refresh"
+                                            },
+                                            "designerId": "02425197-d97d-4b3d-8f34-f3a59d3ccd7d"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": 40,
+                        "id": "objectBucketsTopAddrToolbar",
+                        "itemId": "objectBucketsTopAddrToolbar",
+                        "layout|region": "north",
+                        "padding": "15 0 0 6"
+                    },
+                    "designerId": "50efb2f0-701c-4632-8ecd-0dfb6e55798e",
+                    "cn": [
+                        {
+                            "type": "Ext.toolbar.TextItem",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "bucketsTextItem",
+                                "itemId": "bucketsTextItem",
+                                "layout|flex": null,
+                                "text": "All Buckets (5)",
+                                "width": 720
+                            },
+                            "designerId": "b64fd13e-fd37-4762-8fdc-a1938a4b6103"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Ext.container.Container",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "border": null,
+                "id": "objectBucketsCenterContainer",
+                "itemId": "objectBucketsCenterContainer",
+                "layout": "border",
+                "layout|region": "center",
+                "layout|split": false
+            },
+            "designerId": "e14fded6-f58e-407c-8bc4-b07b82df8e62",
+            "cn": [
+                {
+                    "type": "Ext.grid.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "border": null,
+                        "columnLines": true,
+                        "forceFit": true,
+                        "id": "objectBucketsGrid",
+                        "itemId": "objectBucketsGrid",
+                        "layout|flex": 2,
+                        "layout|region": "center",
+                        "store": "objectBucketsListArrayStore",
+                        "title": null
+                    },
+                    "designerId": "3a10b6c4-7b6e-43e3-bfb3-41b4cc3cf35c",
+                    "cn": [
+                        {
+                            "type": "Ext.grid.View",
+                            "reference": {
+                                "name": "viewConfig",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "objectBucketsGridView",
+                                "itemId": "objectBucketsGridView"
+                            },
+                            "designerId": "1985dcf7-4e41-4bea-9a65-13574bb130b7"
+                        },
+                        {
+                            "type": "Ext.grid.column.Column",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dataIndex": "name",
+                                "text": "Name"
+                            },
+                            "designerId": "1fc9a270-4ecf-4117-8218-8ccb40105cc8"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.panel.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "bodyPadding": null,
+                        "border": null,
+                        "collapseDirection": null,
+                        "collapsed": true,
+                        "collapsible": true,
+                        "container|align": "stretch",
+                        "id": "objectBucketsDetail",
+                        "itemId": "objectBucketsDetail",
+                        "layout": "vbox",
+                        "layout|flex": 1,
+                        "layout|region": "east",
+                        "layout|split": true,
+                        "title": "Detail",
+                        "titleCollapse": false,
+                        "width": null
+                    },
+                    "designerId": "94571302-02a4-41bc-b14a-a63dfcebe5c0",
+                    "cn": [
+                        {
+                            "type": "Ext.panel.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "autoScroll": true,
+                                "bodyBorder": null,
+                                "bodyPadding": 10,
+                                "bodyStyle": [
+                                    "{",
+                                    "    background: '#fff'",
+                                    "}"
+                                ],
+                                "border": 1,
+                                "dock": null,
+                                "id": "objectBucketsDetail1",
+                                "itemId": "objectBucketsDetail1",
+                                "layout": "border",
+                                "layout|flex": 1,
+                                "title": null
+                            },
+                            "designerId": "3932d481-2418-4280-97c2-636b251c8746"
+                        },
+                        {
+                            "type": "Ext.panel.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "autoScroll": true,
+                                "bodyPadding": 10,
+                                "bodyStyle": [
+                                    "{",
+                                    "    background: '#fff'",
+                                    "}"
+                                ],
+                                "border": 1,
+                                "dock": null,
+                                "id": "objectBucketsDetail2",
+                                "itemId": "objectBucketsDetail2",
+                                "layout": "border",
+                                "layout|flex": 3,
+                                "title": null
+                            },
+                            "designerId": "87919858-1503-4f26-bc3f-66bb106a979b"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

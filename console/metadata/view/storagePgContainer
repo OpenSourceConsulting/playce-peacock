@@ -1,0 +1,161 @@
+{
+    "type": "Ext.container.Container",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "storagePgContainer",
+        "designer|userClassName": "storagePgContainer",
+        "height": null,
+        "id": "storagePgContainer",
+        "itemId": "storagePgContainer",
+        "layout": "border",
+        "width": null
+    },
+    "designerId": "743bef3f-0868-4ed8-b71c-b13e8234e496",
+    "cn": [
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "columnLines": true,
+                "forceFit": true,
+                "id": "storagePgGrid",
+                "itemId": "storagePgGrid",
+                "layout|flex": 2,
+                "layout|region": "center",
+                "store": "storagePgJsonStore",
+                "title": null
+            },
+            "designerId": "299362b3-b9a4-4372-aac7-af015aa89e9a",
+            "cn": [
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dock": "top",
+                        "height": 36,
+                        "id": "storagePgToolbar",
+                        "itemId": "storagePgToolbar"
+                    },
+                    "designerId": "bc607600-3c3a-4445-b943-a41d1f17c43e"
+                },
+                {
+                    "type": "Ext.grid.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "storagePgGridView",
+                        "itemId": "storagePgGridView"
+                    },
+                    "designerId": "d6b01a16-1b21-4189-96a9-7297bd46002a"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "num",
+                        "text": "Num"
+                    },
+                    "designerId": "af2b8ca1-c1d2-4c04-aa50-edc3c0b78b4a"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "name",
+                        "text": "Name"
+                    },
+                    "designerId": "6b30cce7-3779-4a07-a514-7f57df47b38e"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "version",
+                        "text": "Version"
+                    },
+                    "designerId": "e033c539-270b-45cb-9d54-a12840cf4d18"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "raw_bytes_used",
+                        "text": "Raw_bytes_used"
+                    },
+                    "designerId": "63d5201d-7c0e-4c08-80b6-b26d38c9b78c"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "raw_bytes_avail",
+                        "text": "Raw_bytes_avail"
+                    },
+                    "designerId": "10049c72-022e-4a44-ac45-3524c7868745"
+                }
+            ]
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "autoScroll": true,
+                "bodyPadding": 10,
+                "bodyStyle": [
+                    "{",
+                    "    background: '#fff'",
+                    "}"
+                ],
+                "container|padding": null,
+                "height": null,
+                "id": "storagePgDetail",
+                "itemId": "storagePgDetail",
+                "layout": "border",
+                "layout|flex": 4,
+                "layout|region": "south",
+                "layout|split": true,
+                "title": null
+            },
+            "designerId": "506d2ebd-2f1c-4d58-b0dc-1aeac1080fae"
+        }
+    ]
+}

@@ -1,0 +1,39 @@
+{
+    "type": "arraystore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "data": [
+            "[",
+            "    {'value': 8},",
+            "    {'value': 16},",
+            "    {'value': 32},",
+            "    {'value': 64},",
+            "    {'value': 128},",
+            "    {'value': 256},",
+            "    {'value': 512}",
+            "]",
+            ""
+        ],
+        "designer|userClassName": "PgNumComboArrayStore",
+        "storeId": "PgNumComboArrayStore"
+    },
+    "designerId": "9fadb5c5-5103-4d61-b8d5-a54a59829b29",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "value"
+            },
+            "designerId": "d2359003-6c2d-4b75-8205-99fc7904cf21"
+        }
+    ]
+}

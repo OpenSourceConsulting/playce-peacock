@@ -294,7 +294,7 @@
                 "layout|anchor": "100%",
                 "margin": "0 0 15 0",
                 "msgTarget": "under",
-                "name": "repository",
+                "name": "repositoryCode",
                 "padding": "",
                 "store": "ComboAlmRepositoryStore",
                 "valueField": "repositoryCode"

@@ -21,7 +21,7 @@ Ext.define('MyApp.controller.GlobalController', {
             singleton: true,
             lastSelectedMenuId: null,
             required: '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>',
-            urlPrefix:""//http://localhost:8080/"
+            urlPrefix:""//http://192.168.0.68:8080/"
         });
 
 
@@ -160,7 +160,7 @@ Ext.define('MyApp.controller.GlobalController', {
 
             var store = Ext.getStore(stores[i]);
 
-            if(store.getProxy().url != null) {
+            if(store.getProxy().url !== null) {
                 store.getProxy().url = GLOBAL.urlPrefix + store.getProxy().url;
             }
 
