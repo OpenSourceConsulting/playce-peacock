@@ -92,7 +92,7 @@
                         "dataIndex": "name",
                         "text": "Name"
                     },
-                    "designerId": "95b26e90-b9a0-4fc5-97fd-616745276a84"
+                    "designerId": "eec5ef42-d898-4d26-8ad8-1a801535d310"
                 },
                 {
                     "type": "Ext.grid.column.Column",
@@ -105,7 +105,7 @@
                         "dataIndex": "id",
                         "text": "Id"
                     },
-                    "designerId": "4860976a-0905-478d-bb78-7ffb28bbf2d4"
+                    "designerId": "e93fe427-5bad-4d77-b516-2f558b10fba8"
                 },
                 {
                     "type": "Ext.grid.column.Column",
@@ -118,7 +118,7 @@
                         "dataIndex": "size",
                         "text": "Size"
                     },
-                    "designerId": "c1f7774b-a130-47ac-997c-f37e4cb7d386"
+                    "designerId": "28a7e88d-cdf4-4605-a109-b3bc0255264e"
                 },
                 {
                     "type": "Ext.grid.column.Column",
@@ -131,7 +131,7 @@
                         "dataIndex": "pg_num",
                         "text": "Pg_num"
                     },
-                    "designerId": "08420b1f-1c04-460b-9ea3-d6da18a8aa65"
+                    "designerId": "4e49a06a-33e3-4b2b-aeb2-f2df4a4603ad"
                 },
                 {
                     "type": "Ext.grid.column.Column",
@@ -144,7 +144,7 @@
                         "dataIndex": "pgp_num",
                         "text": "Pgp_num"
                     },
-                    "designerId": "cd6bc6c0-9f0b-4bfe-8bad-68acf6206c0f"
+                    "designerId": "ee040edd-fff0-4184-aff6-478588fd10b4"
                 }
             ]
         },
@@ -173,7 +173,93 @@
                 "layout|split": true,
                 "title": null
             },
-            "designerId": "baca4033-68b9-4531-b3b5-3fe4d366a67b"
+            "designerId": "baca4033-68b9-4531-b3b5-3fe4d366a67b",
+            "cn": [
+                {
+                    "type": "Ext.XTemplate",
+                    "reference": {
+                        "name": "tpl",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|displayName": "tpl",
+                        "implHandler": [
+                            "<table border=0>",
+                            "<tr>",
+                            "<td>{name}</td>",
+                            "<td>&nbsp;</td>",
+                            "<td>&nbsp;</td>",
+                            "</tr>",
+                            "",
+                            "<tr>",
+                            "<td>",
+                            "Log Size<br>",
+                            "Ondisk Log Size",
+                            "</td>",
+                            "<td>",
+                            " : <br>",
+                            " : ",
+                            "</td>",
+                            "<td align=right>",
+                            " {log_size:number('0,000')}<br>",
+                            " {ondisk_log_size:number('0,000')}",
+                            "</td>",
+                            "</tr>",
+                            "",
+                            "<tr>",
+                            "<td>Stat Sum</td>",
+                            "<td>&nbsp;</td>",
+                            "<td>&nbsp;</td>",
+                            "</tr>",
+                            "<tr>",
+                            "<td>",
+                            "&nbsp; Num Read<br>",
+                            "&nbsp; Num Object Recovered<br>",
+                            "&nbsp; Num Object Omap<br>",
+                            "&nbsp; Num Write<br>",
+                            "&nbsp; Num Objects<br>",
+                            "&nbsp; Num Read kb<br>",
+                            "&nbsp; Num Write Kb<br>",
+                            "&nbsp; Num Bytes Recovered<br>",
+                            "&nbsp; Num Object Copies<br>",
+                            "&nbsp; Num Bytes<br>",
+                            "&nbsp; Num Objects Dirty",
+                            "</td>",
+                            "<td>",
+                            " : <br>",
+                            " : <br>",
+                            " : <br>",
+                            " : <br>",
+                            " : <br>",
+                            " : <br>",
+                            " : <br>",
+                            " : <br>",
+                            " : <br>",
+                            " : <br>",
+                            " : ",
+                            "</td>",
+                            "<td align=right>",
+                            " {stat_sum.num_read:number('0,000')}<br>",
+                            " {stat_sum.num_objects_recovered:number('0,000')}<br>",
+                            " {stat_sum.num_objects_omap:number('0,000')}<br>",
+                            " {stat_sum.num_write:number('0,000')}<br>",
+                            " {stat_sum.num_objects:number('0,000')}<br>",
+                            " {stat_sum.num_read_kb:number('0,000')}<br>",
+                            " {stat_sum.num_write_kb:number('0,000')}<br>",
+                            " {stat_sum.num_bytes_recovered:number('0,000')}<br>",
+                            " {stat_sum.num_object_copies:number('0,000')}<br>",
+                            " {stat_sum.num_bytes:number('0,000')}<br>",
+                            " {stat_sum.num_objects_dirty:number('0,000')}",
+                            "</td>",
+                            "</tr>",
+                            "</table>",
+                            ""
+                        ]
+                    },
+                    "designerId": "6c2c9153-4020-45bb-838e-687be0ed393f"
+                }
+            ]
         }
     ]
 }

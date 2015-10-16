@@ -30,9 +30,10 @@ Ext.define('MyApp.store.storagePgJsonStore', {
             storeId: 'storagePgJsonStore',
             proxy: {
                 type: 'ajax',
-                url: 'resources/json/storagePg.json',
+                url: 'ceph/grid/pglist',
                 reader: {
-                    type: 'json'
+                    type: 'json',
+                    root: 'data'
                 }
             }
         }, cfg)]);

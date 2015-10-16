@@ -22,7 +22,8 @@ Ext.define('MyApp.view.storageOsdContainer', {
         'Ext.toolbar.Toolbar',
         'Ext.button.Button',
         'Ext.grid.View',
-        'Ext.grid.column.Column'
+        'Ext.grid.column.Column',
+        'Ext.XTemplate'
     ],
 
     id: 'storageOsdContainer',
@@ -78,6 +79,7 @@ Ext.define('MyApp.view.storageOsdContainer', {
                         },
                         {
                             xtype: 'gridcolumn',
+                            align: 'center',
                             dataIndex: 'status',
                             text: 'Status'
                         },
@@ -99,7 +101,7 @@ Ext.define('MyApp.view.storageOsdContainer', {
                         {
                             xtype: 'gridcolumn',
                             dataIndex: 'up_from',
-                            text: 'Up_from'
+                            text: 'Up From'
                         },
                         {
                             xtype: 'gridcolumn',
@@ -108,21 +110,25 @@ Ext.define('MyApp.view.storageOsdContainer', {
                         },
                         {
                             xtype: 'gridcolumn',
+                            hidden: true,
                             dataIndex: 'public_addr',
                             text: 'Public_addr'
                         },
                         {
                             xtype: 'gridcolumn',
+                            hidden: true,
                             dataIndex: 'cluster_addr',
                             text: 'Cluster_addr'
                         },
                         {
                             xtype: 'gridcolumn',
+                            hidden: true,
                             dataIndex: 'heartbeat_back_addr',
                             text: 'Heartbeat_back_addr'
                         },
                         {
                             xtype: 'gridcolumn',
+                            hidden: true,
                             dataIndex: 'heartbeat_front_addr',
                             text: 'Heartbeat_front_addr'
                         }
@@ -135,6 +141,33 @@ Ext.define('MyApp.view.storageOsdContainer', {
                     split: true,
                     id: 'storageOsdDetail',
                     itemId: 'storageOsdDetail',
+                    tpl: [
+                        '<table border=0>',
+                        '<tpl for=".">',
+                        '<tr>',
+                        '<td>{name}</td>',
+                        '<td>&nbsp;</td>',
+                        '</tr>',
+                        '<tr>',
+                        '<td align=right>',
+                        'Public addr :<br>',
+                        'Cluster addr :<br>',
+                        'Heartbeat back :<br>',
+                        'Heartbeat front :<br>',
+                        '<br>',
+                        '</td>',
+                        '<td align=left>',
+                        '{public_addr} <br>',
+                        '{cluster_addr} <br>',
+                        '{heartbeat_back_addr} <br>',
+                        '{heartbeat_front_addr} <br>',
+                        '<br>',
+                        '</td>',
+                        '</tr>',
+                        '</tpl>',
+                        '</table>',
+                        ''
+                    ],
                     autoScroll: true,
                     layout: 'border',
                     bodyPadding: 10,

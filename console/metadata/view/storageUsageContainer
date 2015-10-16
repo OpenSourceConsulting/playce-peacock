@@ -71,6 +71,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "align": "center",
                         "dataIndex": "name",
                         "text": "Name"
                     },
@@ -84,6 +85,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "align": "center",
                         "dataIndex": "type",
                         "text": "Type"
                     },
@@ -97,6 +99,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "align": "center",
                         "dataIndex": "id",
                         "text": "Id"
                     },
@@ -110,8 +113,10 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "align": "center",
                         "dataIndex": "crush_weight",
-                        "text": "Crush_weight"
+                        "format": "0,000.000000",
+                        "text": "CRUSH Weight"
                     },
                     "designerId": "f07ff2e2-8404-4c47-9244-8c27fe418d52"
                 },
@@ -123,6 +128,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "align": "center",
                         "dataIndex": "reweight",
                         "text": "Reweight"
                     },
@@ -136,7 +142,9 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "align": "right",
                         "dataIndex": "kb",
+                        "format": "0,000",
                         "text": "Kb"
                     },
                     "designerId": "d41e279f-5a78-4da8-8dba-7799de1a54bf"
@@ -149,8 +157,10 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "align": "right",
                         "dataIndex": "kb_used",
-                        "text": "Kb_used"
+                        "format": "0,000",
+                        "text": "Kb Used"
                     },
                     "designerId": "2ee5df3e-1c8e-41fd-9121-b384ab54dcdd"
                 },
@@ -162,8 +172,10 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "align": "right",
                         "dataIndex": "kb_avail",
-                        "text": "Kb_avail"
+                        "format": "0,000",
+                        "text": "Kb Avail"
                     },
                     "designerId": "4082fbda-83ef-425b-9a5c-9a6f19aa6d4f"
                 },
@@ -175,7 +187,9 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "align": "right",
                         "dataIndex": "utilization",
+                        "format": "0,000.000000",
                         "text": "Utilization"
                     },
                     "designerId": "30dd62be-7416-4c26-870e-cd67900198ab"
@@ -188,8 +202,10 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "vars",
-                        "text": "Vars"
+                        "align": "right",
+                        "dataIndex": "var",
+                        "format": "0,000.000000",
+                        "text": "Var"
                     },
                     "designerId": "8e617dc5-845d-4493-8172-235ab22500d0"
                 }

@@ -32,7 +32,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "designer|displayName": "objectBucketsListArrayReader"
+                        "designer|displayName": "objectBucketsListArrayReader",
+                        "root": "data"
                     },
                     "designerId": "fbc9bb8d-c79d-416f-9e8d-9cbf47ee1c5a"
                 }

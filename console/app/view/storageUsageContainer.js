@@ -62,53 +62,69 @@ Ext.define('MyApp.view.storageUsageContainer', {
                     columns: [
                         {
                             xtype: 'gridcolumn',
+                            align: 'center',
                             dataIndex: 'name',
                             text: 'Name'
                         },
                         {
                             xtype: 'gridcolumn',
+                            align: 'center',
                             dataIndex: 'type',
                             text: 'Type'
                         },
                         {
                             xtype: 'gridcolumn',
+                            align: 'center',
                             dataIndex: 'id',
                             text: 'Id'
                         },
                         {
                             xtype: 'numbercolumn',
+                            align: 'center',
                             dataIndex: 'crush_weight',
-                            text: 'Crush_weight'
+                            text: 'CRUSH Weight',
+                            format: '0,000.000000'
                         },
                         {
                             xtype: 'numbercolumn',
+                            align: 'center',
                             dataIndex: 'reweight',
                             text: 'Reweight'
                         },
                         {
                             xtype: 'numbercolumn',
+                            align: 'right',
                             dataIndex: 'kb',
-                            text: 'Kb'
+                            text: 'Kb',
+                            format: '0,000'
                         },
                         {
                             xtype: 'numbercolumn',
+                            align: 'right',
                             dataIndex: 'kb_used',
-                            text: 'Kb_used'
+                            text: 'Kb Used',
+                            format: '0,000'
                         },
                         {
                             xtype: 'numbercolumn',
+                            align: 'right',
                             dataIndex: 'kb_avail',
-                            text: 'Kb_avail'
+                            text: 'Kb Avail',
+                            format: '0,000'
                         },
                         {
                             xtype: 'numbercolumn',
+                            align: 'right',
                             dataIndex: 'utilization',
-                            text: 'Utilization'
+                            text: 'Utilization',
+                            format: '0,000.000000'
                         },
                         {
                             xtype: 'numbercolumn',
-                            dataIndex: 'vars',
-                            text: 'Vars'
+                            align: 'right',
+                            dataIndex: 'var',
+                            text: 'Var',
+                            format: '0,000.000000'
                         }
                     ]
                 },

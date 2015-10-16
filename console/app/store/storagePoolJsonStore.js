@@ -30,9 +30,10 @@ Ext.define('MyApp.store.storagePoolJsonStore', {
             storeId: 'storagePoolJsonStore',
             proxy: {
                 type: 'ajax',
-                url: 'resources/json/storagePool.json',
+                url: 'ceph/grid/poollist',
                 reader: {
-                    type: 'json'
+                    type: 'json',
+                    root: 'data'
                 }
             }
         }, cfg)]);

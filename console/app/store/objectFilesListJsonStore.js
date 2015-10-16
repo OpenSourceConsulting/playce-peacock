@@ -32,7 +32,8 @@ Ext.define('MyApp.store.objectFilesListJsonStore', {
                 type: 'ajax',
                 url: 'resources/json/objectFilesList.json',
                 reader: {
-                    type: 'json'
+                    type: 'json',
+                    root: 'data'
                 }
             }
         }, cfg)]);

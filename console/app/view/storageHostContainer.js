@@ -84,6 +84,14 @@ Ext.define('MyApp.view.storageHostContainer', {
                         },
                         {
                             xtype: 'gridcolumn',
+                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                if (value === true) {
+                                    return "<img src='resources/images/grid/drop-yes.png'>";
+                                } else {
+                                    return "<img src='resources/images/grid/drop-no.png'>";
+                                }
+                            },
+                            align: 'center',
                             dataIndex: 'running',
                             text: 'Running'
                         }

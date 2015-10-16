@@ -21,7 +21,7 @@
             "codeClass": null,
             "userConfig": {
                 "designer|displayName": "storagePoolAjaxProxy",
-                "url": "resources/json/storagePool.json"
+                "url": "ceph/grid/poollist"
             },
             "designerId": "1f1bf154-1eb8-4cdc-a329-f7b020a272cb",
             "cn": [
@@ -34,7 +34,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "designer|displayName": "storagePoolJsonReader",
-                        "root": null
+                        "root": "data"
                     },
                     "designerId": "ba6e18f0-0f4e-40c6-82b0-d41049336b81"
                 }

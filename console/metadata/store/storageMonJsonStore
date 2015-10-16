@@ -21,7 +21,7 @@
             "codeClass": null,
             "userConfig": {
                 "designer|displayName": "storageMonAjaxProxy",
-                "url": "resources/json/storageMon.json"
+                "url": "ceph/grid/monlist"
             },
             "designerId": "3d368334-4bff-40ca-acbb-4e4fc4757022",
             "cn": [
@@ -34,7 +34,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "designer|displayName": "storageMonJsonReader",
-                        "root": null
+                        "root": "data"
                     },
                     "designerId": "8c48cc58-2bb8-4e72-857f-3f97c22af873"
                 }

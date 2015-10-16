@@ -245,7 +245,7 @@ Ext.define('MyApp.controller.objectController', {
 
         var myForm = Ext.getCmp("createBucketFormPanel");
         var name = myForm.getForm().findField("createBucketName").getValue();
-        var myData = [ [name] ];
+        var myData = {'data':[ [name] ]};
 
         Ext.getCmp('objectBucketsGrid').getStore().loadRawData(myData, true);
 
@@ -338,7 +338,7 @@ Ext.define('MyApp.controller.objectController', {
 
     uploadObjectFile: function(fnm) {
         // 다시 로드할 것
-        var obj = [{'name':fnm, 'size':0, 'sclass':'', 'mdate':''}];
+        var obj = {'data':[{'name':fnm, 'size':0, 'sclass':'', 'mdate':''}]};
         Ext.getCmp('objectFilesGrid').getStore().loadRawData(obj, true);
 
         myForm.up('window').close();
@@ -401,7 +401,7 @@ Ext.define('MyApp.controller.objectController', {
 
     pasteObjectFile: function() {
         Ext.each(objectConstants.filesSelectList, function(recs){
-            var obj = [{'name':recs.get('name'), 'size':recs.get('size'), 'sclass':recs.get('sclass'), 'mdate':recs.get('mdate')}];
+            var obj = {'data':[{'name':recs.get('name'), 'size':recs.get('size'), 'sclass':recs.get('sclass'), 'mdate':recs.get('mdate')}]};
             Ext.getCmp('objectFilesGrid').getStore().loadRawData(obj, true);
         });
 

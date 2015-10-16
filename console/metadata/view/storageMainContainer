@@ -74,7 +74,7 @@
                         "dataIndex": "type",
                         "text": "Type"
                     },
-                    "designerId": "bbd66144-7b58-4a9c-8195-8ccbcd36545c"
+                    "designerId": "fc7cc625-2c0b-4db9-b870-c5b94225f12e"
                 },
                 {
                     "type": "Ext.grid.column.Column",
@@ -87,7 +87,7 @@
                         "dataIndex": "id",
                         "text": "Id"
                     },
-                    "designerId": "687e2102-6ec5-4aae-bcf4-eb78067d3889"
+                    "designerId": "dc257810-10a3-4fe6-9130-db20e404eb8d"
                 },
                 {
                     "type": "Ext.grid.column.Column",
@@ -100,7 +100,7 @@
                         "dataIndex": "hostname",
                         "text": "Hostname"
                     },
-                    "designerId": "ef195d18-ebde-48d3-9e8b-4168ef0044e6"
+                    "designerId": "643cbc81-c111-4b92-9f63-366c3fd74a29"
                 },
                 {
                     "type": "Ext.grid.column.Column",
@@ -110,10 +110,41 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "health",
-                        "text": "Health"
+                        "align": "center",
+                        "dataIndex": "running",
+                        "text": "Running"
                     },
-                    "designerId": "390a84e1-ae80-432e-a6b5-e77b0b477333"
+                    "designerId": "ca897daa-01fd-45cb-9067-dc3bef405ab9",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "metaData",
+                                    "record",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "store",
+                                    "view"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "if (value === true) {",
+                                    "    return \"<img src='resources/images/grid/drop-yes.png'>\";",
+                                    "} else {",
+                                    "    return \"<img src='resources/images/grid/drop-no.png'>\";",
+                                    "}"
+                                ]
+                            },
+                            "designerId": "e26c9cc6-19ff-4f7c-99e7-91f6c2f99e24"
+                        }
+                    ]
                 }
             ]
         },

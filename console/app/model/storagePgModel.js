@@ -31,10 +31,12 @@ Ext.define('MyApp.model.storagePgModel', {
             name: 'version'
         },
         {
-            name: 'raw_bytes_used'
+            name: 'raw_bytes_used',
+            type: 'int'
         },
         {
-            name: 'raw_bytes_avail'
+            name: 'raw_bytes_avail',
+            type: 'int'
         }
     ]
 });

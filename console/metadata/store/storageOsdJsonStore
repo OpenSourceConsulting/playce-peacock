@@ -21,7 +21,7 @@
             "codeClass": null,
             "userConfig": {
                 "designer|displayName": "storageOsdAjaxProxy",
-                "url": "resources/json/storageOsd.json"
+                "url": "ceph/grid/osdlist"
             },
             "designerId": "b07b6c7b-bdce-4624-a01e-caf5ee56e343",
             "cn": [
@@ -34,7 +34,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "designer|displayName": "storageMonJsonReader",
-                        "root": null
+                        "root": "data"
                     },
                     "designerId": "87d67b0d-c00b-4969-a293-3bb5845992a8"
                 }

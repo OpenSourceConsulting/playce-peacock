@@ -30,9 +30,10 @@ Ext.define('MyApp.store.storageOsdJsonStore', {
             storeId: 'storageOsdJsonStore',
             proxy: {
                 type: 'ajax',
-                url: 'resources/json/storageOsd.json',
+                url: 'ceph/grid/osdlist',
                 reader: {
-                    type: 'json'
+                    type: 'json',
+                    root: 'data'
                 }
             }
         }, cfg)]);

@@ -33,7 +33,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "designer|displayName": "objectFilesListJsonReader"
+                        "designer|displayName": "objectFilesListJsonReader",
+                        "root": "data"
                     },
                     "designerId": "944c567b-e4d7-4427-ab21-c8df8b744326"
                 }

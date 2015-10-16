@@ -65,7 +65,7 @@ Ext.define('MyApp.view.storageContainer', {
                                     id: 'storageHostButton',
                                     itemId: 'storageHostButton',
                                     scale: 'large',
-                                    text: 'HOST<br>11 / 11<br>Reporting'
+                                    text: 'HOST<br> <br> '
                                 }
                             ]
                         },
@@ -83,7 +83,7 @@ Ext.define('MyApp.view.storageContainer', {
                                     id: 'storageMonButton',
                                     itemId: 'storageMonButton',
                                     scale: 'large',
-                                    text: 'MON<br>2 / 2<br>Quorum'
+                                    text: 'MON<br> <br> '
                                 }
                             ]
                         },
@@ -101,7 +101,7 @@ Ext.define('MyApp.view.storageContainer', {
                                     id: 'storageOsdButton',
                                     itemId: 'storageOsdButton',
                                     scale: 'large',
-                                    text: 'OSD<br>9 / 9<br>In & Up'
+                                    text: 'OSD<br> <br> '
                                 }
                             ]
                         },
@@ -119,7 +119,7 @@ Ext.define('MyApp.view.storageContainer', {
                                     id: 'storagePoolButton',
                                     itemId: 'storagePoolButton',
                                     scale: 'large',
-                                    text: 'POOL<br>14 / 14<br>Active'
+                                    text: 'POOL<br> <br> '
                                 }
                             ]
                         },
@@ -137,7 +137,7 @@ Ext.define('MyApp.view.storageContainer', {
                                     id: 'storagePgButton',
                                     itemId: 'storagePgButton',
                                     scale: 'large',
-                                    text: 'PG Status<br>256 / 256<br>Active/Clean'
+                                    text: 'PG Status<br> <br> '
                                 }
                             ]
                         },
@@ -155,7 +155,7 @@ Ext.define('MyApp.view.storageContainer', {
                                     id: 'storageUsageButton',
                                     itemId: 'storageUsageButton',
                                     scale: 'large',
-                                    text: 'Usage<br>&nbsp;<br>0.3 Tb / 80.9Tb'
+                                    text: 'Usage<br>&nbsp;<br> '
                                 }
                             ]
                         }

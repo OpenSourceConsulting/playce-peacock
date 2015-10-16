@@ -128,10 +128,41 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "align": "center",
                         "dataIndex": "in_quorum",
                         "text": "In_quorum"
                     },
-                    "designerId": "9404f524-a4d4-47d8-b382-3233c9a09b51"
+                    "designerId": "9404f524-a4d4-47d8-b382-3233c9a09b51",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "metaData",
+                                    "record",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "store",
+                                    "view"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "if (value === true) {",
+                                    "    return \"<img src='resources/images/grid/drop-yes.png'>\";",
+                                    "} else {",
+                                    "    return \"<img src='resources/images/grid/drop-no.png'>\";",
+                                    "}"
+                                ]
+                            },
+                            "designerId": "7c7743bf-9e04-4f9f-add5-df60a1e9a892"
+                        }
+                    ]
                 }
             ]
         },
@@ -160,7 +191,50 @@
                 "layout|split": true,
                 "title": null
             },
-            "designerId": "1145e532-c5e3-48bd-8ada-4f9b42c2e398"
+            "designerId": "1145e532-c5e3-48bd-8ada-4f9b42c2e398",
+            "cn": [
+                {
+                    "type": "Ext.XTemplate",
+                    "reference": {
+                        "name": "tpl",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|displayName": "tpl",
+                        "implHandler": [
+                            "<table border=0>",
+                            "<tpl for=\".\">",
+                            "<tr>",
+                            "<td>{name}</td>",
+                            "<td>&nbsp;</td>",
+                            "</tr>",
+                            "<tr>",
+                            "<td align=right>",
+                            "Avail Percent :<br>",
+                            "Size Total(K) :<br>",
+                            "Size Avail(K) :<br>",
+                            "Size Used(K) :<br>",
+                            "Health :<br>",
+                            "<br>",
+                            "</td>",
+                            "<td align=right>",
+                            "{avail_percent:number('0,000')} % <br>",
+                            "{kb_total:number('0,000')} K <br>",
+                            "{kb_avail:number('0,000')} K <br>",
+                            "{kb_used:number('0,000')} K <br>",
+                            "{health} <br>",
+                            "<br>",
+                            "</td>",
+                            "</tr>",
+                            "</tpl>",
+                            "</table>",
+                            ""
+                        ]
+                    },
+                    "designerId": "33469898-d8ab-46eb-9828-6923cd77c4df"
+                }
+            ]
         }
     ]
 }

@@ -74,43 +74,19 @@ Ext.define('MyApp.controller.storageController', {
         var gId = Ext.getCmp(storageConstants.workingGrid).getStore().getAt(rowIndex).get('id');
         var gNm = Ext.getCmp(storageConstants.workingGrid).getStore().getAt(rowIndex).get('name');
 
-        Ext.Ajax.request({
-            url: GLOBAL.urlPrefix + "resources/json/storagePoolStats.json",
-            disableCaching : true,
-            success: function(response){
-                var data = Ext.decode(response.responseText);
+        if (gId !== null) {
+            Ext.Ajax.request({
+                url: GLOBAL.urlPrefix + "ceph/grid/pooldetail/" + gId,
+                disableCaching : true,
+                success: function(response){
+                    var data = Ext.decode(response.responseText);
+                    var detail = data.data[0];
+                    detail.name = gNm;
 
-                var htmlData = '<pre>\r\n';
-
-                Ext.each(data, function(pool){
-
-                    if (pool.poolid == gId) {
-                        htmlData += gNm + '\r\n';
-                        htmlData += '    Log Size             : ' + pool.log_size + '\r\n';
-                        htmlData += '    Ondisk Log Size      : ' + pool.ondisk_log_size + '\r\n';
-                        htmlData += '    Num Read             : ' + pool.stat_sum.num_read + '\r\n';
-                        htmlData += '    Num Object Recovered : ' + pool.stat_sum.num_objects_recovered + '\r\n';
-                        htmlData += '    Num Object Omap      : ' + pool.stat_sum.num_objects_omap + '\r\n';
-                        htmlData += '    Num Write            : ' + pool.stat_sum.num_write + '\r\n';
-                        htmlData += '    Num Objects          : ' + pool.stat_sum.num_objects + '\r\n';
-                        htmlData += '    Num Read kb          : ' + pool.stat_sum.num_read_kb + '\r\n';
-                        htmlData += '    Num Write Kb         : ' + pool.stat_sum.num_write_kb + '\r\n';
-                        htmlData += '    Num Bytes Recovered  : ' + pool.stat_sum.num_bytes_recovered + '\r\n';
-                        htmlData += '    Num Object Copies    : ' + pool.stat_sum.num_object_copies + '\r\n';
-                        htmlData += '    Num Bytes            : ' + pool.stat_sum.num_bytes + '\r\n';
-                        htmlData += '    Num Objects Dirty    : ' + pool.stat_sum.num_objects_dirty + '\r\n';
-                        htmlData += '\r\n';
-
-                        return false;
-                    }
-                });
-
-                htmlData += '</pre>';
-
-                Ext.getCmp("storagePoolDetail").update(htmlData);
-                Ext.getCmp("storagePoolDetail").updateLayout();
-            }
-        });
+                    Ext.getCmp("storagePoolDetail").update(detail);
+                }
+            });
+        }
 
     },
 
@@ -181,17 +157,16 @@ Ext.define('MyApp.controller.storageController', {
     },
 
     setStorageMainData: function() {
-        //Ext.getCmp("storageMainGrid").getStore().loadPage(1);
         Ext.getCmp("storageMainGrid").getStore().load();
 
         Ext.Ajax.request({
-            url: GLOBAL.urlPrefix + "resources/json/storageMain1.json",
+            url: GLOBAL.urlPrefix + "ceph/grid/cephstatus",
             disableCaching : true,
             success: function(response){
                 var data = Ext.decode(response.responseText);
 
                 var htmlData = '<pre>\r\n';
-                htmlData += data.status + '\r\n';
+                htmlData += data.data + '\r\n';
                 htmlData += '</pre>';
 
                 Ext.getCmp("storageMainDetail").update(htmlData);
@@ -203,37 +178,19 @@ Ext.define('MyApp.controller.storageController', {
     },
 
     setStorageHostData: function() {
-        //Ext.getCmp(storageConstants.workingGrid).getStore().loadPage(1);
         Ext.getCmp(storageConstants.workingGrid).getStore().load();
         this.setStorageHostButtonText();
     },
 
     setStorageMonData: function() {
-        //Ext.getCmp(storageConstants.workingGrid).getStore().loadPage(1);
         Ext.getCmp(storageConstants.workingGrid).getStore().load();
 
         Ext.Ajax.request({
-            url: GLOBAL.urlPrefix + "resources/json/storageMon2.json",
+            url: GLOBAL.urlPrefix + "ceph/grid/mondetail",
             disableCaching : true,
             success: function(response){
                 var data = Ext.decode(response.responseText);
-
-                var htmlData = '<pre>\r\n';
-
-                Ext.each(data, function(mon){
-                    htmlData += mon.name + '\r\n';
-                    htmlData += '    Avail Percent : ' + mon.avail_percent + '%\r\n';
-                    htmlData += '    Size Total(K) : ' + mon.kb_total + 'K\r\n';
-                    htmlData += '    Size Avail(K) : ' + mon.kb_avail + 'K\r\n';
-                    htmlData += '    Size Used(K)  : ' + mon.kb_used + 'K\r\n';
-                    htmlData += '    Health        : ' + mon.health + '\r\n';
-                    htmlData += '\r\n';
-                });
-
-                htmlData += '</pre>';
-
-                Ext.getCmp("storageMonDetail").update(htmlData);
-                Ext.getCmp("storageMonDetail").updateLayout();
+                Ext.getCmp("storageMonDetail").update(data.data);
             }
         });
 
@@ -241,30 +198,14 @@ Ext.define('MyApp.controller.storageController', {
     },
 
     setStorageOsdData: function() {
-        //Ext.getCmp(storageConstants.workingGrid).getStore().loadPage(1);
         Ext.getCmp(storageConstants.workingGrid).getStore().load();
 
         Ext.Ajax.request({
-            url: GLOBAL.urlPrefix + "resources/json/storageOsd.json",
+            url: GLOBAL.urlPrefix + "ceph/grid/osdlist",
             disableCaching : true,
             success: function(response){
                 var data = Ext.decode(response.responseText);
-
-                var htmlData = '<pre>\r\n';
-
-                Ext.each(data, function(osd){
-                    htmlData += osd.name + '\r\n';
-                    htmlData += '    Public addr     : ' + osd.public_addr + '\r\n';
-                    htmlData += '    Cluster addr    : ' + osd.cluster_addr + '\r\n';
-                    htmlData += '    Heartbeat back  : ' + osd.heartbeat_back_addr + '\r\n';
-                    htmlData += '    Heartbeat front : ' + osd.heartbeat_front_addr + '\r\n';
-                    htmlData += '\r\n';
-                });
-
-                htmlData += '</pre>';
-
-                Ext.getCmp("storageOsdDetail").update(htmlData);
-                Ext.getCmp("storageOsdDetail").updateLayout();
+                Ext.getCmp("storageOsdDetail").update(data.data);
             }
         });
 
@@ -272,44 +213,19 @@ Ext.define('MyApp.controller.storageController', {
     },
 
     setStoragePoolData: function() {
-        //Ext.getCmp(storageConstants.workingGrid).getStore().loadPage(1);
         Ext.getCmp(storageConstants.workingGrid).getStore().load();
         this.setStoragePoolButtonText();
     },
 
     setStoragePgData: function() {
-        //Ext.getCmp(storageConstants.workingGrid).getStore().loadPage(1);
         Ext.getCmp(storageConstants.workingGrid).getStore().load();
 
         Ext.Ajax.request({
-            url: GLOBAL.urlPrefix + "resources/json/storagePgStats.json",
+            url: GLOBAL.urlPrefix + "ceph/grid/pgdetail",
             disableCaching : true,
             success: function(response){
                 var data = Ext.decode(response.responseText);
-
-                var htmlData = '<pre>\r\n';
-
-                htmlData += '    Acting               : ' + data.acting + '\r\n';
-                htmlData += '    Log Size             : ' + data.log_size + '\r\n';
-                htmlData += '    Ondisk Log Size      : ' + data.ondisk_log_size + '\r\n';
-                htmlData += '    Num Read             : ' + data.stat_sum.num_read + '\r\n';
-                htmlData += '    Num Object Recovered : ' + data.stat_sum.num_objects_recovered + '\r\n';
-                htmlData += '    Num Object Omap      : ' + data.stat_sum.num_objects_omap + '\r\n';
-                htmlData += '    Num Write            : ' + data.stat_sum.num_write + '\r\n';
-                htmlData += '    Num Objects          : ' + data.stat_sum.num_objects + '\r\n';
-                htmlData += '    Num Read kb          : ' + data.stat_sum.num_read_kb + '\r\n';
-                htmlData += '    Num Write Kb         : ' + data.stat_sum.num_write_kb + '\r\n';
-                htmlData += '    Num Bytes Recovered  : ' + data.stat_sum.num_bytes_recovered + '\r\n';
-                htmlData += '    Num Object Copies    : ' + data.stat_sum.num_object_copies + '\r\n';
-                htmlData += '    Num Bytes            : ' + data.stat_sum.num_bytes + '\r\n';
-                htmlData += '    Num Objects Dirty    : ' + data.stat_sum.num_objects_dirty + '\r\n';
-                htmlData += '    Up                   : ' + data.up + '\r\n';
-                htmlData += '\r\n';
-
-                htmlData += '</pre>';
-
-                Ext.getCmp("storagePgDetail").update(htmlData);
-                Ext.getCmp("storagePgDetail").updateLayout();
+                Ext.getCmp("storagePgDetail").update(data.data[0]);
             }
         });
 
@@ -321,11 +237,11 @@ Ext.define('MyApp.controller.storageController', {
         Ext.getCmp(storageConstants.workingGrid).getStore().load();
 
         Ext.Ajax.request({
-            url: GLOBAL.urlPrefix + "resources/json/storageUsage1.json",
+            url: GLOBAL.urlPrefix + "ceph/grid/usagedetail",
             disableCaching : true,
             success: function(response){
                 var data = Ext.decode(response.responseText);
-                Ext.getCmp("storageUsageDetail1").update(data);
+                Ext.getCmp("storageUsageDetail1").update(data.data[0]);
             }
         });
 
@@ -347,8 +263,7 @@ Ext.define('MyApp.controller.storageController', {
 
     setStorageHostButtonText: function() {
         Ext.Ajax.request({
-            //url: GLOBAL.urlPrefix + "resources/json/storageHost.json",
-            url: GLOBAL.urlPrefix + Ext.getCmp('storageHostGrid').getStore().getProxy().url,
+            url: Ext.getCmp('storageHostGrid').getStore().getProxy().url,
             disableCaching : true,
             success: function(response){
                 var data = Ext.decode(response.responseText);
@@ -356,14 +271,13 @@ Ext.define('MyApp.controller.storageController', {
                 var totalCnt = 0;
                 var activeCnt = 0;
 
-                Ext.each(data.list, function(list){
+                Ext.each(data.data, function(list){
                     totalCnt++;
-                    if (list.running == 'OK'){
+                    if (list.running === true){
                         activeCnt++;
                     }
                 });
 
-                //Ext.getCmp("storageHostButton").text  = "HOST<br>" + totalCnt.toString() + " / " + activeCnt.toString() + "<br>Running";
                 var textData = "HOST<br>" + activeCnt.toString() + " / " + totalCnt.toString() + "<br>Running";
                 Ext.getCmp("storageHostButton").setText(textData);
             }
@@ -373,8 +287,7 @@ Ext.define('MyApp.controller.storageController', {
 
     setStorageMonButtonText: function() {
         Ext.Ajax.request({
-            //url: GLOBAL.urlPrefix + "resources/json/storageMon.json",
-            url: GLOBAL.urlPrefix + Ext.getCmp('storageMonGrid').getStore().getProxy().url,
+            url: Ext.getCmp('storageMonGrid').getStore().getProxy().url,
             disableCaching : true,
             success: function(response){
                 var data = Ext.decode(response.responseText);
@@ -382,14 +295,13 @@ Ext.define('MyApp.controller.storageController', {
                 var totalCnt = 0;
                 var activeCnt = 0;
 
-                Ext.each(data, function(list){
+                Ext.each(data.data, function(list){
                     totalCnt++;
                     if (list.in_quorum === true){
                         activeCnt++;
                     }
                 });
 
-                //Ext.getCmp("storageMonButton").text  = "MON<br>" + totalCnt.toString() + " / " + activeCnt.toString() + "<br>Quorum";
                 var textData = "MON<br>" + activeCnt.toString() + " / " + totalCnt.toString() + "<br>Quorum";
                 Ext.getCmp("storageMonButton").setText(textData);
             }
@@ -399,8 +311,7 @@ Ext.define('MyApp.controller.storageController', {
 
     setStorageOsdButtonText: function() {
         Ext.Ajax.request({
-            //url: GLOBAL.urlPrefix + "resources/json/storageOsd.json",
-            url: GLOBAL.urlPrefix + Ext.getCmp('storageOsdGrid').getStore().getProxy().url,
+            url: Ext.getCmp('storageOsdGrid').getStore().getProxy().url,
             disableCaching : true,
             success: function(response){
                 var data = Ext.decode(response.responseText);
@@ -408,14 +319,13 @@ Ext.define('MyApp.controller.storageController', {
                 var totalCnt = 0;
                 var activeCnt = 0;
 
-                Ext.each(data, function(list){
+                Ext.each(data.data, function(list){
                     totalCnt++;
                     if ((list.status == 'up/in') || (list.status == 'in/up')){
                         activeCnt++;
                     }
                 });
 
-                //Ext.getCmp("storageOsdButton").text  = "OSD<br>" + totalCnt.toString() + " / " + activeCnt.toString() + "<br>In & Up";
                 var textData = "OSD<br>" + activeCnt.toString() + " / " + totalCnt.toString() + "<br>In & Up";
                 Ext.getCmp("storageOsdButton").setText(textData);
             }
@@ -425,8 +335,7 @@ Ext.define('MyApp.controller.storageController', {
 
     setStoragePoolButtonText: function() {
         Ext.Ajax.request({
-            //url: GLOBAL.urlPrefix + "resources/json/storagePool.json",
-            url: GLOBAL.urlPrefix + Ext.getCmp('storagePoolGrid').getStore().getProxy().url,
+            url: Ext.getCmp('storagePoolGrid').getStore().getProxy().url,
             disableCaching : true,
             success: function(response){
                 var data = Ext.decode(response.responseText);
@@ -434,9 +343,8 @@ Ext.define('MyApp.controller.storageController', {
                 var totalCnt = 0;
                 var activeCnt = 0;
 
-                totalCnt = data.length;
+                totalCnt = data.data.length;
 
-                //Ext.getCmp("storagePoolButton").text  = "POOL<br>" + totalCnt.toString() + "<br>Active";
                 var textData = "POOL<br>" + totalCnt.toString() + "<br>Active";
                 Ext.getCmp("storagePoolButton").setText(textData);
             }
@@ -446,8 +354,7 @@ Ext.define('MyApp.controller.storageController', {
 
     setStoragePgButtonText: function() {
         Ext.Ajax.request({
-            //url: GLOBAL.urlPrefix + "resources/json/storagePg.json",
-            url: GLOBAL.urlPrefix + Ext.getCmp('storagePgGrid').getStore().getProxy().url,
+            url: Ext.getCmp('storagePgGrid').getStore().getProxy().url,
             disableCaching : true,
             success: function(response){
                 var data = Ext.decode(response.responseText);
@@ -455,14 +362,13 @@ Ext.define('MyApp.controller.storageController', {
                 var totalCnt = 0;
                 var activeCnt = 0;
 
-                Ext.each(data, function(list){
+                Ext.each(data.data, function(list){
                     totalCnt += list.num;
                     if (list.name == 'active+clean'){
                         activeCnt += list.num;
                     }
                 });
 
-                //Ext.getCmp("storagePgButton").text  = "PG Status<br>" + totalCnt.toString() + " / " + activeCnt.toString() + "<br>Active/Clean";
                 var textData = "PG Status<br>" + activeCnt.toString() + " / " + totalCnt.toString() + "<br>Active/Clean";
                 Ext.getCmp("storagePgButton").setText(textData);
             }
@@ -472,7 +378,7 @@ Ext.define('MyApp.controller.storageController', {
 
     setStorageUsageButtonText: function() {
         Ext.Ajax.request({
-            url: GLOBAL.urlPrefix + "resources/json/storageUsage1.json",
+            url: GLOBAL.urlPrefix + "ceph/grid/usagedetail",
             disableCaching : true,
             success: function(response){
                 var data = Ext.decode(response.responseText);
@@ -481,7 +387,7 @@ Ext.define('MyApp.controller.storageController', {
                 var activeCnt = 0;
                 var units = '';
 
-                Ext.each(data, function(list){
+                Ext.each(data.data, function(list){
                     totalCnt += list.total_kb;
                     activeCnt += list.total_kb_used;
                 });
@@ -496,7 +402,6 @@ Ext.define('MyApp.controller.storageController', {
                     units = 'Gb';
                 }
 
-                //Ext.getCmp("storageUsageButton").text  = "Usage<br>&nbsp;<br>" + totalCnt.toFixed(1) + units + " / " + activeCnt.toFixed(1) + units;
                 var textData = "Usage<br>&nbsp;<br>" + activeCnt.toFixed(1) + units + " / " + totalCnt.toFixed(1) + units;
                 Ext.getCmp("storageUsageButton").setText(textData);
             }
@@ -513,7 +418,7 @@ Ext.define('MyApp.controller.storageController', {
         var user = myForm.getForm().findField("hostAddUser").getValue();
         var pass = myForm.getForm().findField("hostAddPass").getValue();
 
-        var myData = {'list':[{'type':'mon', 'id':host, 'hostname':host, 'running':'OK'}]};
+        var myData = {'data':[{'type':'mon', 'id':host, 'hostname':host, 'running':'OK'}]};
         //Ext.MessageBox.alert("info", Ext.JSON.encode(myData));
 
         Ext.getCmp(storageConstants.workingGrid).getStore().loadRawData(myData, true);
@@ -531,7 +436,7 @@ Ext.define('MyApp.controller.storageController', {
         var addr = myForm.getForm().findField("monAddIP").getValue();
 
         if (storageConstants.editMode == 'add') {
-            var myData = {'name':host, 'rank':10, 'in_quorum':true, 'server':host, 'ip':addr, 'port':'6780', 'pid':'0', 'addr':addr+':6780/0'};
+            var myData = {'data':[{'name':host, 'rank':10, 'in_quorum':true, 'server':host, 'ip':addr, 'port':'6780', 'pid':'0', 'addr':addr+':6780/0'}]};
 
             //Ext.MessageBox.alert("info", Ext.JSON.encode(myData));
 
@@ -553,7 +458,7 @@ Ext.define('MyApp.controller.storageController', {
         var host = myForm.getForm().findField("osdAddHost").getValue();
         var addr = myForm.getForm().findField("osdAddIP").getValue();
 
-        var myData = {
+        var myData = {'data':[{
           'name':'osd.10',
           'id':10,
           'status':'up/in',
@@ -566,7 +471,7 @@ Ext.define('MyApp.controller.storageController', {
           'heartbeat_front_addr':addr + ':6801/1633',
           'up_from':86,
           'host':host
-         };
+        }]};
 
         //Ext.MessageBox.alert("info", Ext.JSON.encode(myData));
 
@@ -586,7 +491,7 @@ Ext.define('MyApp.controller.storageController', {
         var pgnm = myForm.getForm().findField("poolAddPgNum").getValue();
 
         if (storageConstants.editMode == 'add') {
-            var myData = {
+            var myData = {'data':[{
              "name": name,
              "id": 21,
              "size": size,
@@ -599,7 +504,7 @@ Ext.define('MyApp.controller.storageController', {
              "full": false,
              "quota_max_objects": 0,
              "quota_max_bytes": 0
-            };
+            }]};
 
             //Ext.MessageBox.alert("info", Ext.JSON.encode(myData));
 

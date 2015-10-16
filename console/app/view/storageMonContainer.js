@@ -22,7 +22,8 @@ Ext.define('MyApp.view.storageMonContainer', {
         'Ext.toolbar.Toolbar',
         'Ext.button.Button',
         'Ext.grid.View',
-        'Ext.grid.column.Column'
+        'Ext.grid.column.Column',
+        'Ext.XTemplate'
     ],
 
     id: 'storageMonContainer',
@@ -83,6 +84,14 @@ Ext.define('MyApp.view.storageMonContainer', {
                         },
                         {
                             xtype: 'gridcolumn',
+                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                if (value === true) {
+                                    return "<img src='resources/images/grid/drop-yes.png'>";
+                                } else {
+                                    return "<img src='resources/images/grid/drop-no.png'>";
+                                }
+                            },
+                            align: 'center',
                             dataIndex: 'in_quorum',
                             text: 'In_quorum'
                         }
@@ -95,6 +104,35 @@ Ext.define('MyApp.view.storageMonContainer', {
                     split: true,
                     id: 'storageMonDetail',
                     itemId: 'storageMonDetail',
+                    tpl: [
+                        '<table border=0>',
+                        '<tpl for=".">',
+                        '<tr>',
+                        '<td>{name}</td>',
+                        '<td>&nbsp;</td>',
+                        '</tr>',
+                        '<tr>',
+                        '<td align=right>',
+                        'Avail Percent :<br>',
+                        'Size Total(K) :<br>',
+                        'Size Avail(K) :<br>',
+                        'Size Used(K) :<br>',
+                        'Health :<br>',
+                        '<br>',
+                        '</td>',
+                        '<td align=right>',
+                        '{avail_percent:number(\'0,000\')} % <br>',
+                        '{kb_total:number(\'0,000\')} K <br>',
+                        '{kb_avail:number(\'0,000\')} K <br>',
+                        '{kb_used:number(\'0,000\')} K <br>',
+                        '{health} <br>',
+                        '<br>',
+                        '</td>',
+                        '</tr>',
+                        '</tpl>',
+                        '</table>',
+                        ''
+                    ],
                     autoScroll: true,
                     layout: 'border',
                     bodyPadding: 10,

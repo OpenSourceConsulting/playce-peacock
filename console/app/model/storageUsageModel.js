@@ -55,7 +55,7 @@ Ext.define('MyApp.model.storageUsageModel', {
             type: 'float'
         },
         {
-            name: 'vars',
+            name: 'var',
             type: 'float'
         }
     ]

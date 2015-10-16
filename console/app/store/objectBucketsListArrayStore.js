@@ -31,7 +31,8 @@ Ext.define('MyApp.store.objectBucketsListArrayStore', {
                 type: 'ajax',
                 url: 'resources/json/objectBucketsList.json',
                 reader: {
-                    type: 'array'
+                    type: 'array',
+                    root: 'data'
                 }
             },
             fields: [

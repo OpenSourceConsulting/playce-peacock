@@ -132,7 +132,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "vars",
+                "name": "var",
                 "type": "float"
             },
             "designerId": "d4c9eb01-b135-4bc1-a58b-e205b25c9667"

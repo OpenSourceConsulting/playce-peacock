@@ -21,7 +21,7 @@
             "codeClass": null,
             "userConfig": {
                 "designer|displayName": "storageUsageAjaxProxy",
-                "url": "resources/json/storageUsage.json"
+                "url": "ceph/grid/usagelist"
             },
             "designerId": "e29256de-7dc8-4632-b4db-90718cd7daa7",
             "cn": [
@@ -34,7 +34,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "designer|displayName": "storageUsageJsonReader",
-                        "root": "list"
+                        "root": "data"
                     },
                     "designerId": "782d3168-17ba-498b-af42-f9d295aa3d7a"
                 }

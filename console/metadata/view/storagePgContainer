@@ -71,10 +71,11 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "align": "center",
                         "dataIndex": "num",
                         "text": "Num"
                     },
-                    "designerId": "af2b8ca1-c1d2-4c04-aa50-edc3c0b78b4a"
+                    "designerId": "74963c3c-8766-4265-9171-8f9d12ed55f1"
                 },
                 {
                     "type": "Ext.grid.column.Column",
@@ -84,10 +85,11 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "align": "center",
                         "dataIndex": "name",
-                        "text": "Name"
+                        "text": "Stat"
                     },
-                    "designerId": "6b30cce7-3779-4a07-a514-7f57df47b38e"
+                    "designerId": "f603388e-b76c-42f6-9742-33709b95d549"
                 },
                 {
                     "type": "Ext.grid.column.Column",
@@ -97,36 +99,41 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "align": "center",
                         "dataIndex": "version",
                         "text": "Version"
                     },
-                    "designerId": "e033c539-270b-45cb-9d54-a12840cf4d18"
+                    "designerId": "2aa7ad59-99bf-4f99-9cd7-d5ab30a63fc2"
                 },
                 {
-                    "type": "Ext.grid.column.Column",
+                    "type": "Ext.grid.column.Number",
                     "reference": {
                         "name": "columns",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "align": "right",
                         "dataIndex": "raw_bytes_used",
-                        "text": "Raw_bytes_used"
+                        "format": "0,000",
+                        "text": "Raw bytes used (Total)"
                     },
-                    "designerId": "63d5201d-7c0e-4c08-80b6-b26d38c9b78c"
+                    "designerId": "49ab76c8-09b3-494b-90a5-1c9aef3298a7"
                 },
                 {
-                    "type": "Ext.grid.column.Column",
+                    "type": "Ext.grid.column.Number",
                     "reference": {
                         "name": "columns",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "align": "right",
                         "dataIndex": "raw_bytes_avail",
-                        "text": "Raw_bytes_avail"
+                        "format": "0,000",
+                        "text": "Raw bytes avail (Total)"
                     },
-                    "designerId": "10049c72-022e-4a44-ac45-3524c7868745"
+                    "designerId": "88c34989-8afb-40c3-9206-475cd10634b3"
                 }
             ]
         },
@@ -155,7 +162,90 @@
                 "layout|split": true,
                 "title": null
             },
-            "designerId": "506d2ebd-2f1c-4d58-b0dc-1aeac1080fae"
+            "designerId": "506d2ebd-2f1c-4d58-b0dc-1aeac1080fae",
+            "cn": [
+                {
+                    "type": "Ext.XTemplate",
+                    "reference": {
+                        "name": "tpl",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|displayName": "tpl",
+                        "implHandler": [
+                            "<table border=0>",
+                            "<tr>",
+                            "<td>",
+                            "Acting<br>",
+                            "Log Size<br>",
+                            "Ondisk Log Size",
+                            "</td>",
+                            "<td>",
+                            " : <br>",
+                            " : <br>",
+                            " : ",
+                            "</td>",
+                            "<td align=right>",
+                            " {acting:number('0,000')}<br>",
+                            " {log_size:number('0,000')}<br>",
+                            " {ondisk_log_size:number('0,000')}",
+                            "</td>",
+                            "</tr>",
+                            "",
+                            "<tr>",
+                            "<td>Stat Sum</td>",
+                            "<td>&nbsp;</td>",
+                            "<td>&nbsp;</td>",
+                            "</tr>",
+                            "<tr>",
+                            "<td>",
+                            "&nbsp; Num Read<br>",
+                            "&nbsp; Num Object Recovered<br>",
+                            "&nbsp; Num Object Omap<br>",
+                            "&nbsp; Num Write<br>",
+                            "&nbsp; Num Objects<br>",
+                            "&nbsp; Num Read kb<br>",
+                            "&nbsp; Num Write Kb<br>",
+                            "&nbsp; Num Bytes Recovered<br>",
+                            "&nbsp; Num Object Copies<br>",
+                            "&nbsp; Num Bytes<br>",
+                            "&nbsp; Num Objects Dirty",
+                            "</td>",
+                            "<td>",
+                            " : <br>",
+                            " : <br>",
+                            " : <br>",
+                            " : <br>",
+                            " : <br>",
+                            " : <br>",
+                            " : <br>",
+                            " : <br>",
+                            " : <br>",
+                            " : <br>",
+                            " : ",
+                            "</td>",
+                            "<td align=right>",
+                            " {stat_sum.num_read:number('0,000')}<br>",
+                            " {stat_sum.num_objects_recovered:number('0,000')}<br>",
+                            " {stat_sum.num_objects_omap:number('0,000')}<br>",
+                            " {stat_sum.num_write:number('0,000')}<br>",
+                            " {stat_sum.num_objects:number('0,000')}<br>",
+                            " {stat_sum.num_read_kb:number('0,000')}<br>",
+                            " {stat_sum.num_write_kb:number('0,000')}<br>",
+                            " {stat_sum.num_bytes_recovered:number('0,000')}<br>",
+                            " {stat_sum.num_object_copies:number('0,000')}<br>",
+                            " {stat_sum.num_bytes:number('0,000')}<br>",
+                            " {stat_sum.num_objects_dirty:number('0,000')}",
+                            "</td>",
+                            "</tr>",
+                            "</table>",
+                            ""
+                        ]
+                    },
+                    "designerId": "8a41d0fc-7af2-4eaa-bf3a-71351885f56b"
+                }
+            ]
         }
     ]
 }

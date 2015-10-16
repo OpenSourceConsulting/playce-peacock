@@ -116,6 +116,8 @@ Ext.define('MyApp.controller.LoginController', {
                 success: successCallback,
                 failure: failureCallback
             });
+
+
         /*
             var response = {
                 'userId': 'admin',

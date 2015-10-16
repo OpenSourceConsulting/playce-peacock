@@ -31,7 +31,7 @@ Ext.define('MyApp.model.storageMainModel', {
             name: 'hostname'
         },
         {
-            name: 'health'
+            name: 'running'
         }
     ]
 });

@@ -1,3 +1,0 @@
-{
-'status':'cluster a82efafc-bfa3-473e-92f6-25719386b673\r\n health HEALTH_OK\r\n monmap e3: 2 mons at {osc-ceph-mon1=192.168.0.222:6789/0,osc-ceph-mon2=192.168.0.223:6789/0}\r\n        election epoch 20, quorum 0,1 osc-ceph-mon1,osc-ceph-mon2\r\n osdmap e111: 9 osds: 9 up, 9 in\r\n  pgmap v7688: 240 pgs, 14 pools, 1961 bytes data, 54 objects\r\n        347 MB used, 82497 MB / 82844 MB avail\r\n             240 active+clean'
-}

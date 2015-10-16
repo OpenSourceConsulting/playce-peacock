@@ -54,7 +54,9 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "raw_bytes_used"
+                "dateFormat": null,
+                "name": "raw_bytes_used",
+                "type": "int"
             },
             "designerId": "70c90728-7ef1-4e2d-a2fb-d176d08504fc"
         },
@@ -66,7 +68,9 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "raw_bytes_avail"
+                "dateFormat": null,
+                "name": "raw_bytes_avail",
+                "type": "int"
             },
             "designerId": "e813f630-d447-4902-aa89-bbc08fa9cafa"
         }

@@ -21,7 +21,7 @@
             "codeClass": null,
             "userConfig": {
                 "designer|displayName": "storagePgAjaxProxy",
-                "url": "resources/json/storagePg.json"
+                "url": "ceph/grid/pglist"
             },
             "designerId": "bf42c32b-9ecc-4467-845c-a9312208ec90",
             "cn": [
@@ -34,7 +34,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "designer|displayName": "storagePgJsonReader",
-                        "root": null
+                        "root": "data"
                     },
                     "designerId": "385418d9-f7c3-47f0-a758-250600ddebb8"
                 }

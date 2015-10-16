@@ -21,7 +21,7 @@
             "codeClass": null,
             "userConfig": {
                 "designer|displayName": "storageHostAjaxProxy",
-                "url": "resources/json/storageHost.json"
+                "url": "ceph/grid/hostlist"
             },
             "designerId": "37bcea54-6788-415a-b3a1-70844249f2e7",
             "cn": [
@@ -34,7 +34,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "designer|displayName": "storageHostJsonReader",
-                        "root": "list"
+                        "root": "data"
                     },
                     "designerId": "5a47be2d-8310-4209-abc6-ff075ed54df2"
                 }

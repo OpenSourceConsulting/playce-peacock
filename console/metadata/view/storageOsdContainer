@@ -115,6 +115,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "align": "center",
                         "dataIndex": "status",
                         "text": "Status"
                     },
@@ -168,7 +169,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "up_from",
-                        "text": "Up_from"
+                        "text": "Up From"
                     },
                     "designerId": "2f17a4d8-59f9-4370-b54e-1c33f4854d14"
                 },
@@ -194,6 +195,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "public_addr",
+                        "hidden": true,
                         "text": "Public_addr"
                     },
                     "designerId": "e76ee5bd-d473-4de6-ac4d-a921c0aa6cfa"
@@ -207,6 +209,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "cluster_addr",
+                        "hidden": true,
                         "text": "Cluster_addr"
                     },
                     "designerId": "82944d45-1049-4e55-9897-e95dcf0296c6"
@@ -220,6 +223,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "heartbeat_back_addr",
+                        "hidden": true,
                         "text": "Heartbeat_back_addr"
                     },
                     "designerId": "5c7c47ac-90e1-415b-86af-89eb3a7e8357"
@@ -233,6 +237,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "heartbeat_front_addr",
+                        "hidden": true,
                         "text": "Heartbeat_front_addr"
                     },
                     "designerId": "bf1c4be5-6940-4fa6-863c-fa3ffd058e91"
@@ -264,7 +269,48 @@
                 "layout|split": true,
                 "title": null
             },
-            "designerId": "3438d3e1-69d2-4d89-bb6d-2f18abc281d7"
+            "designerId": "3438d3e1-69d2-4d89-bb6d-2f18abc281d7",
+            "cn": [
+                {
+                    "type": "Ext.XTemplate",
+                    "reference": {
+                        "name": "tpl",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|displayName": "tpl",
+                        "implHandler": [
+                            "<table border=0>",
+                            "<tpl for=\".\">",
+                            "<tr>",
+                            "<td>{name}</td>",
+                            "<td>&nbsp;</td>",
+                            "</tr>",
+                            "<tr>",
+                            "<td align=right>",
+                            "Public addr :<br>",
+                            "Cluster addr :<br>",
+                            "Heartbeat back :<br>",
+                            "Heartbeat front :<br>",
+                            "<br>",
+                            "</td>",
+                            "<td align=left>",
+                            "{public_addr} <br>",
+                            "{cluster_addr} <br>",
+                            "{heartbeat_back_addr} <br>",
+                            "{heartbeat_front_addr} <br>",
+                            "<br>",
+                            "</td>",
+                            "</tr>",
+                            "</tpl>",
+                            "</table>",
+                            ""
+                        ]
+                    },
+                    "designerId": "0527cf0f-dabc-467a-ad91-68e113aa64ae"
+                }
+            ]
         }
     ]
 }
