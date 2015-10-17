@@ -8,20 +8,20 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.amazonaws.services.s3.model.Owner;
 
 public class ObjectDto implements Serializable {
-    /**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
-	protected String bucketName;
-	protected String key;
-	protected long size;
-	protected Date lastModified;
-	protected String storageClass;
-	protected Owner owner;
+	private String bucketName;
+	private String parentPath;
+	private String objectName;
+	private boolean isFolder;
+	private String key;
+	private long size;
+	private Date lastModified;
+	private String storageClass;
+	private Owner owner;
 	
 	private CommonsMultipartFile file;
-
 
 	public String getBucketName() {
 		return bucketName;
@@ -29,6 +29,34 @@ public class ObjectDto implements Serializable {
 
 	public void setBucketName(String bucketName) {
 		this.bucketName = bucketName;
+	}
+
+	public String getParentPath() {
+		if (parentPath == null) {
+			parentPath = "";
+		}
+		
+		return parentPath;
+	}
+
+	public void setParentPath(String parentPath) {
+		this.parentPath = parentPath;
+	}
+
+	public String getObjectName() {
+		return objectName;
+	}
+
+	public void setObjectName(String objectName) {
+		this.objectName = objectName;
+	}
+
+	public boolean isFolder() {
+		return isFolder;
+	}
+
+	public void setFolder(boolean isFolder) {
+		this.isFolder = isFolder;
 	}
 
 	public String getKey() {
@@ -81,8 +109,7 @@ public class ObjectDto implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ObjectDto [bucketName=" + bucketName + ", key=" + key + ", size=" + size + ", owner=" + owner
-				+ ", storageClass=" + storageClass + ", lastModified=" + lastModified + "]";
+		return "ObjectDto [bucketName=" + bucketName + ", parentPath=" + parentPath + ", objectName=" + objectName + ", isFolder=" + isFolder
+				 + ", key=" + key + ", size=" + size + ", owner=" + owner + ", storageClass=" + storageClass + ", lastModified=" + lastModified + "]";
 	}
-    
 }

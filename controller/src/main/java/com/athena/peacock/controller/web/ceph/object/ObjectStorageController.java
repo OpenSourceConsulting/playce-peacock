@@ -24,13 +24,17 @@
  */
 package com.athena.peacock.controller.web.ceph.object;
 
-import java.io.InputStream;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.ws.rs.QueryParam;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -38,8 +42,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.amazonaws.services.s3.model.AccessControlList;
 import com.amazonaws.services.s3.model.S3Object;
+import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
+import com.athena.peacock.controller.web.common.model.SimpleJsonResponse;
+
 /**
  * <pre>
  * 
@@ -56,13 +64,18 @@ public class ObjectStorageController{
 	@Named("objectStorageService")
 	private ObjectStorageService objectStorageService;
 	
-	@RequestMapping("/buckets")
-	public @ResponseBody GridJsonResponse listBuckets(GridJsonResponse jsonRes, ObjectDto dto) throws Exception {
+	/**
+	 * <pre>
+	 * Get bucket list
+	 * </pre>
+	 * @param jsonRes
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/buckets", method={ RequestMethod.GET })
+	public @ResponseBody GridJsonResponse listBuckets(GridJsonResponse jsonRes) throws Exception {
 		try {
-			
-			System.err.println("\n\n\nObjectDto : " + dto);
-			
-			List<BucketDto> response = objectStorageService.listOfBucktes();
+			List<BucketDto> response = objectStorageService.listBucktes();
 			jsonRes.setSuccess(true);
 			jsonRes.setList(response);
 			jsonRes.setMsg("Object Storage - Bucket List 조회 성공");
@@ -76,11 +89,49 @@ public class ObjectStorageController{
 		return jsonRes;
 	}
 	
-	@RequestMapping("/create/bucket")
-	public @ResponseBody GridJsonResponse createBucketByName(GridJsonResponse jsonRes, @QueryParam("bucket") String bucket) throws Exception {
+	/**
+	 * <pre>
+	 * Get object list
+	 *  - Required parameters : bucketName
+	 *  - Optional parameters : parentPath
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/objects", method={ RequestMethod.GET })
+	public @ResponseBody GridJsonResponse listObjects(GridJsonResponse jsonRes, ObjectDto dto) throws Exception {
 		try {
-			boolean response = objectStorageService.createBucketMethod(bucket);
-			jsonRes.setSuccess(response);			
+			List<ObjectDto> response = objectStorageService.listObjects(dto);
+			jsonRes.setSuccess(true);
+			jsonRes.setList(response);
+			jsonRes.setMsg("Object Storage - Bucket List 조회 성공");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("Object Storage - Bucket List 조회 실패");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+	
+	/**
+	 * <pre>
+	 * Create a new bucket
+	 *  - Required parameters : bucketName
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/bucket", method={ RequestMethod.POST })
+	public @ResponseBody SimpleJsonResponse createBucket(SimpleJsonResponse jsonRes, ObjectDto dto) throws Exception {
+		try {
+			objectStorageService.createBucket(dto);
+			jsonRes.setSuccess(true);			
 			jsonRes.setMsg("Create Bucket 성공");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
@@ -92,11 +143,21 @@ public class ObjectStorageController{
 		return jsonRes;
 	}
 
-	@RequestMapping("/delete/bucket")
-	public @ResponseBody GridJsonResponse deleteBucketByName(GridJsonResponse jsonRes, @QueryParam("bucket") String bucket) throws Exception {
+	/**
+	 * <pre>
+	 * Delete a bucket
+	 *  - Required parameters : bucketName
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/bucket", method={ RequestMethod.DELETE })
+	public @ResponseBody SimpleJsonResponse deleteBucket(SimpleJsonResponse jsonRes, ObjectDto dto) throws Exception {
 		try {
-			boolean response = objectStorageService.deleteBucketMethod(bucket);
-			jsonRes.setSuccess(response);			
+			objectStorageService.deleteBucket(dto);
+			jsonRes.setSuccess(true);			
 			jsonRes.setMsg("Delete Bucket 성공");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
@@ -108,53 +169,190 @@ public class ObjectStorageController{
 		return jsonRes;
 	}
 	
-	@RequestMapping("/objects")
-	public @ResponseBody GridJsonResponse listObjects(GridJsonResponse jsonRes, @QueryParam("bucket") String bucket) throws Exception {
+	/**
+	 * <pre>
+	 * Create a new folder
+	 *  - Required parameters : bucketName, objectName
+	 *  - Optional parameters : parentPath
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/folder", method={ RequestMethod.POST })
+	public @ResponseBody SimpleJsonResponse createFolder(SimpleJsonResponse jsonRes, ObjectDto dto) throws Exception {
 		try {
-			List<ObjectDto> response = objectStorageService.listOfObjects(bucket);
-			jsonRes.setSuccess(true);
-			jsonRes.setList(response);
-			jsonRes.setMsg("Object Storage - Bucket List 조회 성공");
+			objectStorageService.createFolder(dto);
+			jsonRes.setSuccess(true);			
+			jsonRes.setMsg("Create Folder 성공");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Object Storage - Bucket List 조회 실패");
+			jsonRes.setMsg("Create Folder 실패");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
 	}
-	
-	@RequestMapping("/get/object")
-	public @ResponseBody GridJsonResponse getObjectByName(GridJsonResponse jsonRes, @QueryParam("bucket") String bucket, @QueryParam("object") String object) throws Exception {
+
+	/**
+	 * <pre>
+	 * Get an object's ACL info
+	 *  - Required parameters : bucketName, key
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/object", method={ RequestMethod.GET })
+	public @ResponseBody DtoJsonResponse getObject(DtoJsonResponse jsonRes, ObjectDto dto) throws Exception {
 		try {
-			String response = objectStorageService.getObjectsMethod(bucket, object);
-			jsonRes.setMsg(response);
-			//jsonRes.setMsg("Object 다운 성공");
-			
+			AccessControlList response = objectStorageService.getObjectAcl(dto);
+			jsonRes.setSuccess(true);	
+			jsonRes.setData(response);
+			jsonRes.setMsg("objec 상세 조회 성공");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Object 다운 실패");
+			jsonRes.setMsg("objec 상세 조회 실패");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
+	}
+
+	/**
+	 * <pre>
+	 * Delete an object(file & folder)
+	 *  - Required parameters : bucketName, key, isFolder
+	 *  - Optional parameters : parentPath
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/object", method={ RequestMethod.DELETE })
+	public @ResponseBody SimpleJsonResponse deleteObject(SimpleJsonResponse jsonRes, ObjectDto dto) throws Exception {
+		try {
+			objectStorageService.deleteObject(dto);
+			jsonRes.setSuccess(true);
+			jsonRes.setMsg("objec 삭제 성공");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("objec 삭제 실패");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+
+	/**
+	 * <pre>
+	 * Delete a folder
+	 *  - Required parameters : bucketName, objectName
+	 *  - Optional parameters : parentPath
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+//	@RequestMapping("/delete/folder")
+//	public @ResponseBody SimpleJsonResponse deleteFolder(SimpleJsonResponse jsonRes, ObjectDto dto) throws Exception {
+//		try {
+//			objectStorageService.deleteFolder(dto);
+//			jsonRes.setSuccess(true);			
+//			jsonRes.setMsg("Delete Folder 성공");
+//		} catch (Exception e) {
+//			jsonRes.setSuccess(false);
+//			jsonRes.setMsg("Delete Folder 실패");
+//			
+//			LOGGER.error("Unhandled Expeption has occurred. ", e);
+//		}
+//		
+//		return jsonRes;
+//	}
+	
+	/**
+	 * <pre>
+	 * Get Object
+	 *  - Required parameters : bucketName, key
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/download", method={ RequestMethod.GET })
+	public void download(HttpServletRequest request, HttpServletResponse response, ObjectDto dto) throws Exception {
+		S3Object object = objectStorageService.getS3Object(dto);
+
+		//response.reset();
+
+		response.setHeader("Content-Length", Long.toString(object.getObjectMetadata().getContentLength()));
+		response.setContentType(object.getObjectMetadata().getContentType());
+
+		String name = object.getKey().substring(object.getKey().lastIndexOf("/") + 1);
+		
+		System.out.println("============== getObjectByName() ==============");
+		System.out.println("key => " + object.getKey());
+		System.out.println("name => " + name);
+		System.out.println("Content-Type => " + object.getObjectMetadata().getContentType());
+		System.out.println("Content-Type => " + object.getObjectMetadata().getContentLength());
+		System.out.println("Content-Disposition => " + object.getObjectMetadata().getContentDisposition());
+		System.out.println("Content-Encoding => " + object.getObjectMetadata().getContentEncoding());
+		
+        if(request.getHeader("User-Agent").toLowerCase().contains("firefox") || request.getHeader("User-Agent").toLowerCase().contains("safari")) { 
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + new String(name.getBytes("UTF-8"), "ISO-8859-1") + "\""); 
+            response.setHeader("Content-Transfer-Encoding", "binary");
+        } else { 
+            response.setHeader("Content-Disposition","attachment;filename=" + URLEncoder.encode(name, "UTF-8"));
+        }
+
+		try {
+			BufferedInputStream fin = new BufferedInputStream(object.getObjectContent());
+			BufferedOutputStream outs = new BufferedOutputStream(response.getOutputStream());
+			
+			int read = 0;
+			while ((read = fin.read()) != -1) {
+				outs.write(read);
+			}
+			
+			IOUtils.closeQuietly(fin);
+			IOUtils.closeQuietly(outs);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}	
 	
+	/**
+	 * <pre>
+	 * Upload a file
+	 *  - Required parameters : bucketName, file
+	 *  - Optional parameters : parentPath
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public @ResponseBody GridJsonResponse fileUpload(GridJsonResponse jsonRes, ObjectDto dto) throws Exception {
+	public @ResponseBody SimpleJsonResponse fileUpload(SimpleJsonResponse jsonRes, ObjectDto dto) throws Exception {
 		try {
 			System.err.println("FileName : " + dto.getFile().getOriginalFilename());
 			System.err.println("FileSize : " + dto.getFile().getSize());
 			
-			boolean response = objectStorageService.uploadFile(dto, "my-new-bucket", "test-folder");
-			jsonRes.setMsg(Boolean.toString(response));
-			//jsonRes.setMsg("Object 다운 성공");
+			objectStorageService.uploadFile(dto);
+			jsonRes.setSuccess(true);
+			jsonRes.setMsg("Object 업로드 성공");
 			
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Object 다운 실패");
+			jsonRes.setMsg("Object 업로드 실패");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}

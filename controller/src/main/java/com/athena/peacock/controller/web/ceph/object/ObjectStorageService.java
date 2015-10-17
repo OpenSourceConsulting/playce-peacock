@@ -1,65 +1,85 @@
-/**
- * <pre>
- * 
- * </pre>
- * @author jin
- * @version 1.0
- */
 package com.athena.peacock.controller.web.ceph.object;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
-import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.util.StringUtils;
-import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.AccessControlList;
 import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.amazonaws.services.s3.model.GetObjectRequest;
-import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.ResponseHeaderOverrides;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
-import com.athena.peacock.common.core.action.support.PropertyUtil;
+import com.athena.peacock.controller.web.ceph.CephService;
+import com.athena.peacock.controller.web.ceph.base.CephDto;
 
+/**
+ * <pre>
+ * 
+ * </pre>
+ * @author jyy
+ * @version 1.0
+ */
 @Service("objectStorageService")
 public class ObjectStorageService {	
-	private final static String accessKey = "YURR234DJCPXHAWA2BKG";
-	private final static String secretKey = "6oyIDbSPAG081wiBFEvo0zXTou01d1gljNi5FdnD";
-	
+
 	private final static String FOLDER_SUFFIX = "/";
-		
-	private final static AmazonS3 conn;
 	
-	static {
-		conn = new AmazonS3Client(new BasicAWSCredentials(accessKey, secretKey));
-	}
+	@Inject
+	@Named("cephService")
+	private CephService cephService;
 	
-	public ObjectStorageService() throws Exception {
-		conn.setEndpoint("http://192.168.0.219");
-	}
+	private AmazonS3Client client;
 	
-	public List<BucketDto> listOfBucktes() throws Exception {		
-		System.out.println("Connection : " + conn);
-		List<BucketDto> bucketList = null;
-	
-		List<Bucket> buckets = conn.listBuckets();
-		
-		if (buckets != null) {
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @return
+	 * @throws Exception
+	 */
+	private AmazonS3Client getClient() throws Exception {
+		if (client == null) {
+			CephDto cephDto = cephService.selectCeph();
 			
+			if (cephDto == null) {
+				throw new Exception("Ceph cluster does not initiated yet.");
+			}
+
+			client = new AmazonS3Client(new BasicAWSCredentials(cephDto.getS3AccessKey(), cephDto.getS3SecretKey()));
+			client.setEndpoint(cephDto.getRadosgwApiPrefix());
+		}
+		
+		return client;
+	}
+	
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @return
+	 * @throws Exception
+	 */
+	public List<BucketDto> listBucktes() throws Exception {	
+		List<Bucket> buckets = getClient().listBuckets();
+		
+		List<BucketDto> bucketList = null;
+		if (buckets != null) {
 			bucketList = new ArrayList<BucketDto>();
 			for (Bucket bucket : buckets) {
 				BucketDto dto = new BucketDto();
@@ -68,79 +88,70 @@ public class ObjectStorageService {
 				dto.setCreationDate(bucket.getCreationDate());
 				bucketList.add(dto);
 			}
-		}		
+		}
+		
 		return bucketList;
 	}
 	
-	public boolean createBucketMethod(String bucketName) throws Exception {
-		try {
-			Bucket bucket = conn.createBucket(bucketName);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-	
-	public boolean deleteBucketMethod(String bucketName) throws Exception {
-		try {
-			conn.deleteBucket(bucketName);
-			
-			return true;
-			
-		} catch (Exception e) {
-			return false;
-		}
-	}
-	
-	public boolean createFolder(String bucketName, String folderName) throws Exception {
-		try {
-			// Create metadata for your folder & set content-length to 0
-			ObjectMetadata metadata = new ObjectMetadata();
-			metadata.setContentLength(0);
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ObjectDto> listObjects(ObjectDto dto) throws Exception {
+		List<ObjectDto> objectList = new ArrayList<ObjectDto>();
+		List<ObjectDto> fileList = new ArrayList<ObjectDto>();
+		List<ObjectDto> folderList = new ArrayList<ObjectDto>();
 
-			// Create empty content
-			InputStream emptyContent = new ByteArrayInputStream(new byte[0]);
-
-			PutObjectRequest putObjectRequest =
-				new PutObjectRequest(bucketName, folderName + FOLDER_SUFFIX, emptyContent, metadata);
-
-			conn.putObject(putObjectRequest);
-			
-			return true;
-			
-		} catch (Exception e) {
-			
-			return false;			
-		}		
-	}
-	
-	public boolean deleteFolder(String bucketName, String folderName) throws Exception {
-		try {
-			List<S3ObjectSummary> fileList = conn.listObjects(bucketName, folderName).getObjectSummaries();
-
-			for (S3ObjectSummary file : fileList) {
-				conn.deleteObject(bucketName, file.getKey());
+		ObjectListing objectListing = getClient().listObjects(dto.getBucketName(), dto.getParentPath());
+		
+		ObjectDto obj = null;
+		String objectName = null;
+		int cnt = 0;
+		for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
+			if (objectSummary.getKey().equals(dto.getParentPath())) {
+				continue;
 			}
 			
-			conn.deleteObject(bucketName, folderName);
+			obj = new ObjectDto();
+			obj.setBucketName(objectSummary.getBucketName());
+			obj.setKey(objectSummary.getKey());
+			obj.setSize(objectSummary.getSize());
+			obj.setOwner(objectSummary.getOwner());
+			obj.setStorageClass(objectSummary.getStorageClass());
+			obj.setLastModified(objectSummary.getLastModified());
 			
-			return true;
+			objectName = objectSummary.getKey().substring(dto.getParentPath().length());
+			cnt = StringUtils.countMatches(objectName, FOLDER_SUFFIX);
 			
-		} catch (Exception e) {		
-			return false;
-		}
-	}
+			if (cnt == 0) {
+				// in case of file
+				obj.setObjectName(objectName);
+				obj.setFolder(false);
+				
+				fileList.add(obj);
+			} else if (cnt == 1 && objectName.endsWith(FOLDER_SUFFIX)) {
+				// in case of folder
+				obj.setObjectName(objectName);
+				obj.setFolder(true);
+				
+				folderList.add(obj);
+			}
+			// cnt > 1 entries will not be included 
+        }
 	
-	public List<ObjectDto> listOfObjects(String bucketName) throws Exception {
-		List<ObjectDto> objectList = null;
-
-		ListObjectsRequest listObjectsRequest = new ListObjectsRequest().withBucketName(bucketName);
+		objectList.addAll(folderList);
+		objectList.addAll(fileList);
 		
+		/*
 		//ObjectListing objects = conn.listObjects(bucket.getName());
 		ObjectListing objectListing;
 		objectList = new ArrayList<ObjectDto>();
 		do {
-			    objectListing = conn.listObjects(listObjectsRequest);
+			    objectListing = getClient().listObjects(request);
 		        for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
 					ObjectDto dto = new ObjectDto();
 					dto.setBucketName(objectSummary.getBucketName());
@@ -152,15 +163,144 @@ public class ObjectStorageService {
 					objectList.add(dto);		                
 		        }
 		        //objects = conn.listNextBatchOfObjects(objects);
-		        listObjectsRequest.setMarker(objectListing.getNextMarker());
+		        request.setMarker(objectListing.getNextMarker());
 		} while (objectListing.isTruncated());
+		*/
 		
 		return objectList;
 	}
 	
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param dto
+	 * @throws Exception
+	 */
+	public void createBucket(ObjectDto dto) throws Exception {
+		getClient().createBucket(dto.getBucketName());
+	}
+	
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param dto
+	 * @throws Exception
+	 */
+	public void deleteBucket(ObjectDto dto) throws Exception {
+		getClient().deleteBucket(dto.getBucketName());
+	}
+	
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param dto
+	 * @throws Exception
+	 */
+	public void createFolder(ObjectDto dto) throws Exception {
+		// Create metadata for your folder & set content-length to 0
+		ObjectMetadata metadata = new ObjectMetadata();
+		metadata.setContentLength(0);
+
+		// Create empty content
+		InputStream emptyContent = new ByteArrayInputStream(new byte[0]);
+		
+		String path = null;
+		
+		if (dto.getParentPath() != null) {
+			path = dto.getParentPath();
+		}
+		
+		if (path.endsWith(FOLDER_SUFFIX)) {
+			path = path + dto.getObjectName() + FOLDER_SUFFIX;
+		} else {
+			path = path + FOLDER_SUFFIX + dto.getObjectName() + FOLDER_SUFFIX;
+		}
+
+		PutObjectRequest putObjectRequest =	new PutObjectRequest(dto.getBucketName(), path, emptyContent, metadata);
+		getClient().putObject(putObjectRequest);
+	}
+	
+	public void deleteFolder(ObjectDto dto) throws Exception {
+		String path = null;
+		
+		if (dto.getParentPath() != null) {
+			path = dto.getParentPath();
+		}
+		
+		if (path.endsWith(FOLDER_SUFFIX)) {
+			path = path + dto.getObjectName() + FOLDER_SUFFIX;
+		} else {
+			path = path + FOLDER_SUFFIX + dto.getObjectName() + FOLDER_SUFFIX;
+		}
+		
+		List<S3ObjectSummary> fileList = getClient().listObjects(dto.getBucketName(), path).getObjectSummaries();
+
+		for (S3ObjectSummary file : fileList) {
+			getClient().deleteObject(dto.getBucketName(), file.getKey());
+		}
+		
+		getClient().deleteObject(dto.getBucketName(), path);
+	}
+	
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	public AccessControlList getObjectAcl(ObjectDto dto) throws Exception {
+		return getClient().getObjectAcl(dto.getBucketName(), dto.getKey());
+	}
+	
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	public S3Object getS3Object(ObjectDto dto) throws Exception {
+		GetObjectRequest request = new GetObjectRequest(dto.getBucketName(), dto.getKey());
+		
+		ResponseHeaderOverrides responseHeaders = new ResponseHeaderOverrides();
+		responseHeaders.setCacheControl("No-cache");
+		responseHeaders.setContentDisposition("attachment; filename=" + dto.getObjectName());
+		
+		// Add the ResponseHeaderOverides to the request.
+		request.setResponseHeaders(responseHeaders);
+		
+		return getClient().getObject(request);
+	}
+	
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param dto
+	 * @throws Exception
+	 */
+	public void deleteObject(ObjectDto dto) throws Exception {
+		if (dto.isFolder()) {
+			deleteFolder(dto);
+		} else {
+			getClient().deleteObject(dto.getBucketName(), dto.getKey());
+		}
+	}
+	
+	public void uploadFile(ObjectDto dto) throws Exception {
+		String fileName = dto.getParentPath() + dto.getFile().getOriginalFilename();
+		getClient().putObject(new PutObjectRequest(dto.getBucketName(), fileName, saveFile(dto)));
+	}
+	
 	public boolean setObjectAclToPublic(String bucketName, String objectName){
 		try {
-			conn.setObjectAcl(bucketName, objectName, CannedAccessControlList.PublicRead);
+			getClient().setObjectAcl(bucketName, objectName, CannedAccessControlList.PublicRead);
 			
 			return true;
 			
@@ -171,7 +311,7 @@ public class ObjectStorageService {
 
 	public boolean setObjectAclToPrivate(String bucketName, String objectName){
 		try {
-			conn.setObjectAcl(bucketName, objectName, CannedAccessControlList.Private);
+			getClient().setObjectAcl(bucketName, objectName, CannedAccessControlList.Private);
 			
 			return true;
 			
@@ -182,24 +322,12 @@ public class ObjectStorageService {
 
 	public String getObjectAcl(String bucketName, String objectName) {
 		try {
-			AccessControlList objectAcl = conn.getObjectAcl(bucketName, objectName);
+			AccessControlList objectAcl = getClient().getObjectAcl(bucketName, objectName);
 						
 			return objectAcl.toString();
 			
 		} catch (Exception e) {
 			return "Failed";
-		}
-		
-	}	
-	
-	public boolean DeleteObject(String bucketName, String objectName){
-		try {
-			conn.deleteObject(bucketName, objectName);
-			
-			return true;
-			
-		} catch (Exception e) {
-			return false;
 		}
 	}
 	
@@ -207,76 +335,13 @@ public class ObjectStorageService {
 		try {
 			GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(bucketName, objectName);
 						
-			return conn.generatePresignedUrl(request).toString();
+			return getClient().generatePresignedUrl(request).toString();
 			
 		} catch (Exception e) {
 			System.err.println("Error");
 			return "failed";
 		}
 	}		
-	
-	public String getObjectsMethod(String bucketName, String objectName){
-		try {
-			GetObjectRequest request = new GetObjectRequest(bucketName, objectName);
-			
-			ResponseHeaderOverrides responseHeaders = new ResponseHeaderOverrides();
-			responseHeaders.setCacheControl("No-cache");
-			responseHeaders.setContentDisposition("attachment; filename=" + objectName);
-			
-			// Add the ResponseHeaderOverides to the request.
-			request.setResponseHeaders(responseHeaders);
-			
-			S3Object objectPortion = conn.getObject(request);
-			System.err.println("\n\n\nerror 2");			
-			
-
-			
-			System.err.println("\n\n\nerror 3");
-			
-
-			
-			System.err.println("\n\n\nerror 4");
-			
-			InputStream objectData = objectPortion.getObjectContent();			
-			
-			String response = objectData.toString();
-			System.err.println(response);
-			
-			objectPortion.close();
-			
-			return response;
-			
-		} catch (Exception e) {
-			System.err.println(e);
-			return "falied";
-		}
-	}
-	
-	public boolean uploadFile(String bucketName, String folderName, String objectName){
-		try {
-			String filePath = "C:\\Users\\jin\\Downloads\\srv-DC-alger-cpu.png";
-			String fileName = folderName + FOLDER_SUFFIX + objectName;
-
-			File uploadFile = new File(filePath);
-			conn.putObject(new PutObjectRequest(bucketName, fileName, uploadFile));
-		
-			return true;
-			
-		} catch (Exception e) {		
-			return false;
-		}
-	}
-	
-	public boolean uploadFile(ObjectDto dto, String bucketName, String folderName) {
-		try {
-			String fileName = folderName + FOLDER_SUFFIX + dto.getFile().getOriginalFilename();
-			conn.putObject(new PutObjectRequest(bucketName, fileName, saveFile(dto)));
-		
-			return true;
-		} catch (Exception e) {		
-			return false;
-		}
-	}
 	
 	private File saveFile(ObjectDto dto) throws Exception { 
 		File file = null;
@@ -299,6 +364,72 @@ public class ObjectStorageService {
 	}
 	
 	public static void main(String [] args) throws Exception {
+		String accessKey = "YURR234DJCPXHAWA2BKG";
+		String secretKey = "6oyIDbSPAG081wiBFEvo0zXTou01d1gljNi5FdnD";
+		
+		AmazonS3Client client = new AmazonS3Client(new BasicAWSCredentials(accessKey, secretKey));
+		client.setEndpoint("http://192.168.0.219");
+		
+		/*
+		ObjectMetadata metadata = new ObjectMetadata();
+		metadata.setContentLength(0);
+
+		InputStream emptyContent = new ByteArrayInputStream(new byte[0]);
+		
+		PutObjectRequest putObjectRequest =	new PutObjectRequest("scpark", "folder1/sub-folder1/sub-sub-folder1/", emptyContent, metadata);
+		client.putObject(putObjectRequest);
+		//*/
+		
+		//*
+		String parentPath = "folder1/";
+		ObjectListing objectListing = client.listObjects("scpark", parentPath);
+
+        for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
+        	if (objectSummary.getKey().equals(parentPath)) {
+        		continue;
+        	}
+        	
+			ObjectDto dto = new ObjectDto();
+			dto.setBucketName(objectSummary.getBucketName());
+			dto.setParentPath(parentPath);
+			dto.setKey(objectSummary.getKey());
+			dto.setSize(objectSummary.getSize());
+			dto.setOwner(objectSummary.getOwner());
+			dto.setStorageClass(objectSummary.getStorageClass());
+			dto.setLastModified(objectSummary.getLastModified());
+			
+			String key = objectSummary.getKey().substring(parentPath.length());
+			
+			System.out.println(key + " : " + StringUtils.countMatches(key, "/") + " : " + dto);
+        }
+		/*/
+		ListObjectsRequest listObjectsRequest = new ListObjectsRequest().withBucketName("scpark");
+		
+		//ObjectListing objects = conn.listObjects(bucket.getName());
+		ObjectListing objectListing;
+		do {
+			    objectListing = client.listObjects(listObjectsRequest);
+		        for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
+					ObjectDto dto = new ObjectDto();
+					dto.setBucketName(objectSummary.getBucketName());
+					dto.setKey(objectSummary.getKey());
+					dto.setSize(objectSummary.getSize());
+					dto.setOwner(objectSummary.getOwner());
+					dto.setStorageClass(objectSummary.getStorageClass());
+					dto.setLastModified(objectSummary.getLastModified());
+
+					System.out.println(dto);
+		        }
+		        //objects = conn.listNextBatchOfObjects(objects);
+		        listObjectsRequest.setMarker(objectListing.getNextMarker());
+		} while (objectListing.isTruncated());
+		//*/
+
+		
+	}
+	
+	/*
+	public static void main(String [] args) throws Exception {
 		long timeStamp = 1444264448;
 		java.util.Date time = new java.util.Date(timeStamp*1000);
 		
@@ -311,7 +442,7 @@ public class ObjectStorageService {
 		System.out.println(osc.listOfBucktes());
 
 		System.out.println("Create Folder : ");
-		System.out.println(osc.createFolder("my-new-bucket2", "testFolder"));
+		System.out.println(osc.createFolder("my-new-bucket2", null, "testFolder"));
 		
 		System.out.println("Object List : ");
 		System.out.println(osc.listOfObjects("my-new-bucket"));
@@ -345,4 +476,5 @@ public class ObjectStorageService {
 		
 		System.out.println(osc.getObjectsMethod("my-new-bucket","file.txt"));
 	}
+	*/
 }
