@@ -3,8 +3,6 @@ package com.athena.peacock.controller.web.ceph.object;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.amazonaws.services.s3.model.Owner;
-
 public class BucketDto implements Serializable {
     /**
 	 * 

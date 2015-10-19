@@ -21,8 +21,11 @@ public class ObjectDto implements Serializable {
 	private String storageClass;
 	private Owner owner;
 	
+	private String newName;
+	private String acl;
+	
 	private CommonsMultipartFile file;
-
+	
 	public String getBucketName() {
 		return bucketName;
 	}
@@ -99,6 +102,22 @@ public class ObjectDto implements Serializable {
 		this.storageClass = storageClass;
 	}
 
+	public String getNewName() {
+		return newName;
+	}
+
+	public void setNewName(String newName) {
+		this.newName = newName;
+	}
+
+	public String getAcl() {
+		return acl;
+	}
+
+	public void setAcl(String acl) {
+		this.acl = acl;
+	}
+
 	public CommonsMultipartFile getFile() {
 		return file;
 	}
@@ -110,6 +129,7 @@ public class ObjectDto implements Serializable {
 	@Override
 	public String toString() {
 		return "ObjectDto [bucketName=" + bucketName + ", parentPath=" + parentPath + ", objectName=" + objectName + ", isFolder=" + isFolder
-				 + ", key=" + key + ", size=" + size + ", owner=" + owner + ", storageClass=" + storageClass + ", lastModified=" + lastModified + "]";
+				 + ", key=" + key + ", size=" + size + ", owner=" + owner + ", storageClass=" + storageClass + ", lastModified=" + lastModified
+				 + ", newName=" + newName + ", acl=" + acl + "]";
 	}
 }

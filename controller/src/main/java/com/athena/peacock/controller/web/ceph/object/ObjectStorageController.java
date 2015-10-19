@@ -28,6 +28,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -37,12 +38,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.amazonaws.services.s3.model.AccessControlList;
 import com.amazonaws.services.s3.model.S3Object;
 import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.GridJsonResponse;
@@ -207,9 +209,9 @@ public class ObjectStorageController{
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/object", method={ RequestMethod.GET })
-	public @ResponseBody DtoJsonResponse getObject(DtoJsonResponse jsonRes, ObjectDto dto) throws Exception {
+	public @ResponseBody DtoJsonResponse getObjectAcl(DtoJsonResponse jsonRes, ObjectDto dto) throws Exception {
 		try {
-			AccessControlList response = objectStorageService.getObjectAcl(dto);
+			Map<String, Object> response = objectStorageService.getObjectDetail(dto);
 			jsonRes.setSuccess(true);	
 			jsonRes.setData(response);
 			jsonRes.setMsg("objec 상세 조회 성공");
@@ -222,6 +224,65 @@ public class ObjectStorageController{
 		
 		return jsonRes;
 	}
+	
+	/**
+	 * <pre>
+	 * Update a object(Make Public/Private and rename)
+	 *  - Required parameters : bucketName, key, objectName
+	 *  - Optional parameters : newName, acl
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/object", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody SimpleJsonResponse updateObject(SimpleJsonResponse jsonRes, @RequestBody ObjectDto dto) throws Exception {
+		try {
+			objectStorageService.updateObject(dto);
+			jsonRes.setSuccess(true);
+			jsonRes.setMsg("Object 수정 성공");
+			
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("Object 수정 실패");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+	
+	/**
+	 * <pre>
+	 * Create a object(Upload a file)
+	 *  - Required parameters : bucketName, file
+	 *  - Optional parameters : parentPath
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/object", method=RequestMethod.POST)
+	public @ResponseBody SimpleJsonResponse createObject(SimpleJsonResponse jsonRes, ObjectDto dto) throws Exception {
+		try {
+			System.err.println("FileName : " + dto.getFile().getOriginalFilename());
+			System.err.println("FileSize : " + dto.getFile().getSize());
+			
+			objectStorageService.uploadFile(dto);
+			jsonRes.setSuccess(true);
+			jsonRes.setMsg("Object 업로드 성공");
+			
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("Object 업로드 실패");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}	
 
 	/**
 	 * <pre>
@@ -327,37 +388,6 @@ public class ObjectStorageController{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}	
-	
-	/**
-	 * <pre>
-	 * Upload a file
-	 *  - Required parameters : bucketName, file
-	 *  - Optional parameters : parentPath
-	 * </pre>
-	 * @param jsonRes
-	 * @param dto
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public @ResponseBody SimpleJsonResponse fileUpload(SimpleJsonResponse jsonRes, ObjectDto dto) throws Exception {
-		try {
-			System.err.println("FileName : " + dto.getFile().getOriginalFilename());
-			System.err.println("FileSize : " + dto.getFile().getSize());
-			
-			objectStorageService.uploadFile(dto);
-			jsonRes.setSuccess(true);
-			jsonRes.setMsg("Object 업로드 성공");
-			
-		} catch (Exception e) {
-			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Object 업로드 실패");
-			
-			LOGGER.error("Unhandled Expeption has occurred. ", e);
-		}
-		
-		return jsonRes;
 	}	
 	
 }

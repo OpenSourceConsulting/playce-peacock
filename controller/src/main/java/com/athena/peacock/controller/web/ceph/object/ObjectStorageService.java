@@ -3,8 +3,11 @@ package com.athena.peacock.controller.web.ceph.object;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -17,6 +20,8 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.AccessControlList;
 import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.CopyObjectRequest;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
@@ -245,6 +250,24 @@ public class ObjectStorageService {
 		getClient().deleteObject(dto.getBucketName(), path);
 	}
 	
+	public Map<String, Object> getObjectDetail(ObjectDto dto) throws Exception {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		AccessControlList acl = getClient().getObjectAcl(dto.getBucketName(), dto.getKey());
+		
+		GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(dto.getBucketName(), dto.getKey());
+		URL url = getClient().generatePresignedUrl(request);
+		
+		ObjectMetadata metadata = getClient().getObjectMetadata(dto.getBucketName(), dto.getKey());
+		
+		result.put("acl", acl);
+		result.put("url", url);
+		result.put("metadata", metadata);
+		
+		// TODO merge object detail info
+		return result;
+	}
+	
 	/**
 	 * <pre>
 	 * 
@@ -255,6 +278,72 @@ public class ObjectStorageService {
 	 */
 	public AccessControlList getObjectAcl(ObjectDto dto) throws Exception {
 		return getClient().getObjectAcl(dto.getBucketName(), dto.getKey());
+	}
+	
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	public URL getObjectUrl(ObjectDto dto) throws Exception {
+		GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(dto.getBucketName(), dto.getKey());
+		return getClient().generatePresignedUrl(request);
+	}
+	
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	public ObjectMetadata getObjectMetadata(ObjectDto dto) throws Exception {
+		return getClient().getObjectMetadata(dto.getBucketName(), dto.getKey());
+	}
+	
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	public void updateObject(ObjectDto dto) throws Exception {
+		
+		if (dto.getNewName() != null && !dto.getNewName().equals("")) {
+			String destinationKeyName = dto.getKey().substring(0, dto.getKey().lastIndexOf(dto.getObjectName())) + dto.getNewName();
+			
+			CopyObjectRequest copyObjRequest = new CopyObjectRequest(dto.getBucketName(), dto.getKey(), dto.getBucketName(), destinationKeyName);
+			getClient().copyObject(copyObjRequest);
+			getClient().deleteObject(new DeleteObjectRequest(dto.getBucketName(), dto.getKey()));
+		}
+		
+		System.out.println("DTO : " + dto);
+		System.out.println("ACL : " + dto.getAcl());
+		
+		if (dto.getAcl() != null && !dto.getAcl().equals("")) {
+			String acl = dto.getAcl();
+			
+			CannedAccessControlList newAcl = null;
+			if (acl.equals(CannedAccessControlList.Private.toString())) {
+				newAcl = CannedAccessControlList.Private;
+			} else if (acl.equals(CannedAccessControlList.PublicRead.toString())) {
+				newAcl = CannedAccessControlList.PublicRead;
+			} else if (acl.equals(CannedAccessControlList.PublicReadWrite.toString())) {
+				newAcl = CannedAccessControlList.PublicReadWrite;
+			}
+			
+			if (newAcl != null) {
+				System.out.println("Will be changed to : " + newAcl);
+				
+				getClient().setObjectAcl(dto.getBucketName(), dto.getKey(), newAcl);
+			}
+		}
 	}
 	
 	/**
@@ -297,51 +386,6 @@ public class ObjectStorageService {
 		String fileName = dto.getParentPath() + dto.getFile().getOriginalFilename();
 		getClient().putObject(new PutObjectRequest(dto.getBucketName(), fileName, saveFile(dto)));
 	}
-	
-	public boolean setObjectAclToPublic(String bucketName, String objectName){
-		try {
-			getClient().setObjectAcl(bucketName, objectName, CannedAccessControlList.PublicRead);
-			
-			return true;
-			
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	public boolean setObjectAclToPrivate(String bucketName, String objectName){
-		try {
-			getClient().setObjectAcl(bucketName, objectName, CannedAccessControlList.Private);
-			
-			return true;
-			
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	public String getObjectAcl(String bucketName, String objectName) {
-		try {
-			AccessControlList objectAcl = getClient().getObjectAcl(bucketName, objectName);
-						
-			return objectAcl.toString();
-			
-		} catch (Exception e) {
-			return "Failed";
-		}
-	}
-	
-	public String getUrlOfObject(String bucketName, String objectName){
-		try {
-			GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(bucketName, objectName);
-						
-			return getClient().generatePresignedUrl(request).toString();
-			
-		} catch (Exception e) {
-			System.err.println("Error");
-			return "failed";
-		}
-	}		
 	
 	private File saveFile(ObjectDto dto) throws Exception { 
 		File file = null;
