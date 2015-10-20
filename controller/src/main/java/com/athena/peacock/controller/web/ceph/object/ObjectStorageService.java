@@ -245,16 +245,16 @@ public class ObjectStorageService {
 		// Create empty content
 		InputStream emptyContent = new ByteArrayInputStream(new byte[0]);
 		
-		String path = null;
+		String path = dto.getParentPath();
 		
-		if (dto.getParentPath() != null) {
-			path = dto.getParentPath();
+		if (path.equals("") || path.endsWith(FOLDER_SUFFIX)) {
+			path = path + dto.getObjectName();
+		} else {
+			path = path + FOLDER_SUFFIX + dto.getObjectName();
 		}
 		
-		if (path.endsWith(FOLDER_SUFFIX)) {
-			path = path + dto.getObjectName() + FOLDER_SUFFIX;
-		} else {
-			path = path + FOLDER_SUFFIX + dto.getObjectName() + FOLDER_SUFFIX;
+		if (!path.endsWith(FOLDER_SUFFIX)) {
+			path += FOLDER_SUFFIX;
 		}
 
 		PutObjectRequest putObjectRequest =	new PutObjectRequest(dto.getBucketName(), path, emptyContent, metadata);
@@ -262,25 +262,25 @@ public class ObjectStorageService {
 	}
 	
 	public void deleteFolder(ObjectDto dto) throws Exception {
-		String path = null;
+//		String path = null;
+//		
+//		if (dto.getParentPath() != null) {
+//			path = dto.getParentPath();
+//		}
+//		
+//		if (path.endsWith(FOLDER_SUFFIX)) {
+//			path = path + dto.getObjectName() + FOLDER_SUFFIX;
+//		} else {
+//			path = path + FOLDER_SUFFIX + dto.getObjectName() + FOLDER_SUFFIX;
+//		}
 		
-		if (dto.getParentPath() != null) {
-			path = dto.getParentPath();
-		}
-		
-		if (path.endsWith(FOLDER_SUFFIX)) {
-			path = path + dto.getObjectName() + FOLDER_SUFFIX;
-		} else {
-			path = path + FOLDER_SUFFIX + dto.getObjectName() + FOLDER_SUFFIX;
-		}
-		
-		List<S3ObjectSummary> fileList = getClient().listObjects(dto.getBucketName(), path).getObjectSummaries();
+		List<S3ObjectSummary> fileList = getClient().listObjects(dto.getBucketName(), dto.getKey()).getObjectSummaries();
 
 		for (S3ObjectSummary file : fileList) {
 			getClient().deleteObject(dto.getBucketName(), file.getKey());
 		}
 		
-		getClient().deleteObject(dto.getBucketName(), path);
+		getClient().deleteObject(dto.getBucketName(), dto.getKey());
 	}
 	
 	public ObjectDto getObjectDetail(ObjectDto dto) throws Exception {

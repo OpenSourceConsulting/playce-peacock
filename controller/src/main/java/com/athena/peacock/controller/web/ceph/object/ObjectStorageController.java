@@ -313,7 +313,6 @@ public class ObjectStorageController{
 	 * <pre>
 	 * Delete an object(file & folder)
 	 *  - Required parameters : bucketName, key, isFolder
-	 *  - Optional parameters : parentPath
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto
