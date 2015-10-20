@@ -1,0 +1,3 @@
+---
+- name: restart salt-server
+  service: name=salt-master state=restarted enabled=yes

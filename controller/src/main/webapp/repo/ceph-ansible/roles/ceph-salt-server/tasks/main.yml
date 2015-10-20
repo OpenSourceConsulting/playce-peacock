@@ -1,0 +1,3 @@
+---
+- include: deploy_salt.yml
+- include: deploy_salt_master.yml

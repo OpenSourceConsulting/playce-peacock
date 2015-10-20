@@ -1,0 +1,9 @@
+---
+- name: restart salt-minion
+  service: name=salt-minion state=restarted enabled=yes
+
+- name: start salt-minion
+  service: name=salt-minion state=started enabled=yes
+
+- name: restart diamond
+  command: /etc/init.d/diamond restart

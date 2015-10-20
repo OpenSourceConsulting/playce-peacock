@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/usr/bin/ceph-rest-api", line 59, in <module>
+    rest,
+  File "/usr/lib/python2.7/site-packages/ceph_rest_api.py", line 496, in generate_app
+    addr, port = api_setup(app, conf, cluster, clientname, clientid, args)
+  File "/usr/lib/python2.7/site-packages/ceph_rest_api.py", line 133, in api_setup
+    app.logger.addHandler(logging.handlers.WatchedFileHandler(logfile))
+  File "/usr/lib64/python2.7/logging/handlers.py", line 392, in __init__
+    logging.FileHandler.__init__(self, filename, mode, encoding, delay)
+  File "/usr/lib64/python2.7/logging/__init__.py", line 902, in __init__
+    StreamHandler.__init__(self, self._open())
+  File "/usr/lib64/python2.7/logging/__init__.py", line 925, in _open
+    stream = open(self.baseFilename, self.mode)
+IOError: [Errno 2] No such file or directory: '/var/log/rbd-clients/qemu-guest-30773.log'
