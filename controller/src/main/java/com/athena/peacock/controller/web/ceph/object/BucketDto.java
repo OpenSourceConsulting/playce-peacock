@@ -3,6 +3,15 @@ package com.athena.peacock.controller.web.ceph.object;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import com.amazonaws.services.s3.model.AccessControlList;
+import com.amazonaws.services.s3.model.BucketCrossOriginConfiguration;
+import com.amazonaws.services.s3.model.BucketLoggingConfiguration;
+import com.amazonaws.services.s3.model.BucketPolicy;
+import com.amazonaws.services.s3.model.BucketVersioningConfiguration;
+
 public class BucketDto implements Serializable {
     /**
 	 * 
@@ -17,6 +26,13 @@ public class BucketDto implements Serializable {
 
     /** The date this bucket was created */
     private Date creationDate = null;
+    
+    private AccessControlList acl;
+    private BucketCrossOriginConfiguration crossOrigin;
+    private String location;
+    private BucketLoggingConfiguration logging;
+    private BucketPolicy policy;
+    private BucketVersioningConfiguration versioning;
 
 	public String getName() {
 		return name;
@@ -42,10 +58,56 @@ public class BucketDto implements Serializable {
 		this.creationDate = creationDate;
 	}
 
-	@Override
-	public String toString() {
-		return "BucketDto [name=" + name + ", owner=" + owner
-				+ ", creationDate=" + creationDate + "]";
+	public AccessControlList getAcl() {
+		return acl;
 	}
-    
+
+	public void setAcl(AccessControlList acl) {
+		this.acl = acl;
+	}
+
+	public BucketCrossOriginConfiguration getCrossOrigin() {
+		return crossOrigin;
+	}
+
+	public void setCrossOrigin(BucketCrossOriginConfiguration crossOrigin) {
+		this.crossOrigin = crossOrigin;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public BucketLoggingConfiguration getLogging() {
+		return logging;
+	}
+
+	public void setLogging(BucketLoggingConfiguration logging) {
+		this.logging = logging;
+	}
+
+	public BucketPolicy getPolicy() {
+		return policy;
+	}
+
+	public void setPolicy(BucketPolicy policy) {
+		this.policy = policy;
+	}
+
+	public BucketVersioningConfiguration getVersioning() {
+		return versioning;
+	}
+
+	public void setVersioning(BucketVersioningConfiguration versioning) {
+		this.versioning = versioning;
+	}
+
+	@Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
 }

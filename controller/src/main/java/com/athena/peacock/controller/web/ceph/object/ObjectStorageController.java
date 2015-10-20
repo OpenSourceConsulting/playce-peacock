@@ -120,6 +120,33 @@ public class ObjectStorageController{
 	
 	/**
 	 * <pre>
+	 * Get a bucket detail
+	 *  - Required parameters : bucketName
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/bucket", method={ RequestMethod.GET })
+	public @ResponseBody DtoJsonResponse getBucket(DtoJsonResponse jsonRes, BucketDto dto) throws Exception {
+		try {
+			dto = objectStorageService.getBuckteDetail(dto);
+			jsonRes.setSuccess(true);	
+			jsonRes.setData(dto);		
+			jsonRes.setMsg("Bucket 조회 성공");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("Bucket 조회 실패");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+	
+	/**
+	 * <pre>
 	 * Create a new bucket
 	 *  - Required parameters : bucketName
 	 * </pre>

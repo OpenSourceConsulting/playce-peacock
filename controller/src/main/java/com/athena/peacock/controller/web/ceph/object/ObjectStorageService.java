@@ -104,6 +104,43 @@ public class ObjectStorageService {
 	 * <pre>
 	 * 
 	 * </pre>
+	 * @return
+	 * @throws Exception
+	 */
+	public BucketDto getBuckteDetail(BucketDto dto) throws Exception {	
+		List<Bucket> buckets = getClient().listBuckets();
+		
+		for (Bucket bucket : buckets) {
+			if (dto.getName().equals(bucket.getName())) {
+				dto.setOwner(bucket.getOwner().getDisplayName());
+				dto.setName(bucket.getName());
+				dto.setCreationDate(bucket.getCreationDate());
+				
+				dto.setAcl(getClient().getBucketAcl(dto.getName()));
+				dto.setCrossOrigin(getClient().getBucketCrossOriginConfiguration(dto.getName()));
+				dto.setLocation(getClient().getBucketLocation(dto.getName()));
+				dto.setLogging(getClient().getBucketLoggingConfiguration(dto.getName()));
+				dto.setPolicy(getClient().getBucketPolicy(dto.getName()));
+				dto.setVersioning(getClient().getBucketVersioningConfiguration(dto.getName()));
+				
+				// below operations has error
+				//dto.setLifecycle(getClient().getBucketLifecycleConfiguration(dto.getName()));
+				//dto.setNotification(getClient().getBucketNotificationConfiguration(dto.getName()));
+				//dto.setReplication(getClient().getBucketReplicationConfiguration(dto.getName()));
+				//dto.setTagging(getClient().getBucketTaggingConfiguration(dto.getName()));
+				//dto.setWebsite(getClient().getBucketWebsiteConfiguration(dto.getName()));
+				
+				break;
+			}
+		}
+		
+		return dto;
+	}
+	
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
 	 * @param dto
 	 * @return
 	 * @throws Exception
