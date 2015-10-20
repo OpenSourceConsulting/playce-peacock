@@ -28,7 +28,6 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.net.URLEncoder;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -144,6 +143,32 @@ public class ObjectStorageController{
 		
 		return jsonRes;
 	}
+	
+	/**
+	 * <pre>
+	 * Empty a bucket
+	 *  - Required parameters : bucketName
+	 * </pre>
+	 * @param jsonRes
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/bucket", method={ RequestMethod.PUT })
+	public @ResponseBody SimpleJsonResponse emptyBucket(SimpleJsonResponse jsonRes, ObjectDto dto) throws Exception {
+		try {
+			objectStorageService.emptyBucket(dto);
+			jsonRes.setSuccess(true);			
+			jsonRes.setMsg("Empty Bucket 성공");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("Empty Bucket 실패");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
 
 	/**
 	 * <pre>
@@ -211,9 +236,9 @@ public class ObjectStorageController{
 	@RequestMapping(value="/object", method={ RequestMethod.GET })
 	public @ResponseBody DtoJsonResponse getObjectAcl(DtoJsonResponse jsonRes, ObjectDto dto) throws Exception {
 		try {
-			Map<String, Object> response = objectStorageService.getObjectDetail(dto);
+			dto = objectStorageService.getObjectDetail(dto);
 			jsonRes.setSuccess(true);	
-			jsonRes.setData(response);
+			jsonRes.setData(dto);
 			jsonRes.setMsg("objec 상세 조회 성공");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
@@ -229,7 +254,7 @@ public class ObjectStorageController{
 	 * <pre>
 	 * Update a object(Make Public/Private and rename)
 	 *  - Required parameters : bucketName, key, objectName
-	 *  - Optional parameters : newName, acl
+	 *  - Optional parameters : newName, permission
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto

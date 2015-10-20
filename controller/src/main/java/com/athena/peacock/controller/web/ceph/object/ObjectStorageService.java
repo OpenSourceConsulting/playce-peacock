@@ -5,9 +5,8 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -24,12 +23,15 @@ import com.amazonaws.services.s3.model.CopyObjectRequest;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.amazonaws.services.s3.model.GetObjectRequest;
+import com.amazonaws.services.s3.model.ListVersionsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.ResponseHeaderOverrides;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
+import com.amazonaws.services.s3.model.S3VersionSummary;
+import com.amazonaws.services.s3.model.VersionListing;
 import com.athena.peacock.controller.web.ceph.CephService;
 import com.athena.peacock.controller.web.ceph.base.CephDto;
 
@@ -194,7 +196,38 @@ public class ObjectStorageService {
 	 * @throws Exception
 	 */
 	public void deleteBucket(ObjectDto dto) throws Exception {
+		emptyBucket(dto);        
 		getClient().deleteBucket(dto.getBucketName());
+	}
+	
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param dto
+	 * @throws Exception
+	 */
+	public void emptyBucket(ObjectDto dto) throws Exception {
+		ObjectListing objectListing = getClient().listObjects(dto.getBucketName());
+        
+        while (true) {
+            for ( Iterator<?> iterator = objectListing.getObjectSummaries().iterator(); iterator.hasNext(); ) {
+                S3ObjectSummary objectSummary = (S3ObjectSummary) iterator.next();
+                getClient().deleteObject(dto.getBucketName(), objectSummary.getKey());
+            }
+ 
+            if (objectListing.isTruncated()) {
+                objectListing = getClient().listNextBatchOfObjects(objectListing);
+            } else {
+                break;
+            }
+        };
+        
+        VersionListing list = getClient().listVersions(new ListVersionsRequest().withBucketName(dto.getBucketName()));
+        for ( Iterator<?> iterator = list.getVersionSummaries().iterator(); iterator.hasNext(); ) {
+            S3VersionSummary s = (S3VersionSummary)iterator.next();
+            getClient().deleteVersion(dto.getBucketName(), s.getKey(), s.getVersionId());
+        }
 	}
 	
 	/**
@@ -250,9 +283,7 @@ public class ObjectStorageService {
 		getClient().deleteObject(dto.getBucketName(), path);
 	}
 	
-	public Map<String, Object> getObjectDetail(ObjectDto dto) throws Exception {
-		Map<String, Object> result = new HashMap<String, Object>();
-		
+	public ObjectDto getObjectDetail(ObjectDto dto) throws Exception {
 		AccessControlList acl = getClient().getObjectAcl(dto.getBucketName(), dto.getKey());
 		
 		GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(dto.getBucketName(), dto.getKey());
@@ -260,12 +291,11 @@ public class ObjectStorageService {
 		
 		ObjectMetadata metadata = getClient().getObjectMetadata(dto.getBucketName(), dto.getKey());
 		
-		result.put("acl", acl);
-		result.put("url", url);
-		result.put("metadata", metadata);
+		dto.setAcl(acl);
+		dto.setUrl(url.toString());
+		dto.setMetadata(metadata);
 		
-		// TODO merge object detail info
-		return result;
+		return dto;
 	}
 	
 	/**
@@ -324,10 +354,10 @@ public class ObjectStorageService {
 		}
 		
 		System.out.println("DTO : " + dto);
-		System.out.println("ACL : " + dto.getAcl());
+		System.out.println("Permission : " + dto.getPermission());
 		
-		if (dto.getAcl() != null && !dto.getAcl().equals("")) {
-			String acl = dto.getAcl();
+		if (dto.getPermission() != null && !dto.getPermission().equals("")) {
+			String acl = dto.getPermission();
 			
 			CannedAccessControlList newAcl = null;
 			if (acl.equals(CannedAccessControlList.Private.toString())) {

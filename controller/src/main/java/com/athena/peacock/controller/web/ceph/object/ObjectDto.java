@@ -3,8 +3,12 @@ package com.athena.peacock.controller.web.ceph.object;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.amazonaws.services.s3.model.AccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.Owner;
 
 public class ObjectDto implements Serializable {
@@ -22,7 +26,11 @@ public class ObjectDto implements Serializable {
 	private Owner owner;
 	
 	private String newName;
-	private String acl;
+	private String permission;
+	
+	private AccessControlList acl;
+	private String url;
+	private ObjectMetadata metadata;
 	
 	private CommonsMultipartFile file;
 	
@@ -109,13 +117,37 @@ public class ObjectDto implements Serializable {
 	public void setNewName(String newName) {
 		this.newName = newName;
 	}
+	
+	public String getPermission() {
+		return permission;
+	}
 
-	public String getAcl() {
+	public void setPermission(String permission) {
+		this.permission = permission;
+	}
+
+	public AccessControlList getAcl() {
 		return acl;
 	}
 
-	public void setAcl(String acl) {
+	public void setAcl(AccessControlList acl) {
 		this.acl = acl;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public ObjectMetadata getMetadata() {
+		return metadata;
+	}
+
+	public void setMetadata(ObjectMetadata metadata) {
+		this.metadata = metadata;
 	}
 
 	public CommonsMultipartFile getFile() {
@@ -127,9 +159,7 @@ public class ObjectDto implements Serializable {
 	}
 
 	@Override
-	public String toString() {
-		return "ObjectDto [bucketName=" + bucketName + ", parentPath=" + parentPath + ", objectName=" + objectName + ", isFolder=" + isFolder
-				 + ", key=" + key + ", size=" + size + ", owner=" + owner + ", storageClass=" + storageClass + ", lastModified=" + lastModified
-				 + ", newName=" + newName + ", acl=" + acl + "]";
-	}
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
 }
