@@ -200,7 +200,7 @@ public class ObjectStorageController{
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/bucket", method={ RequestMethod.DELETE })
+	@RequestMapping(value="/bucket")
 	public @ResponseBody SimpleJsonResponse deleteBucket(SimpleJsonResponse jsonRes, ObjectDto dto) throws Exception {
 		try {
 			objectStorageService.deleteBucket(dto);
@@ -339,7 +339,7 @@ public class ObjectStorageController{
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/object", method={ RequestMethod.DELETE })
+	@RequestMapping(value="/object")
 	public @ResponseBody SimpleJsonResponse deleteObject(SimpleJsonResponse jsonRes, ObjectDto dto) throws Exception {
 		try {
 			objectStorageService.deleteObject(dto);
