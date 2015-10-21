@@ -453,6 +453,15 @@ public class ObjectStorageService {
 		String fileName = dto.getParentPath() + dto.getFile().getOriginalFilename();
 		getClient().putObject(new PutObjectRequest(dto.getBucketName(), fileName, saveFile(dto)));
 	}
+
+	public void copyObject(ObjectDto dto, boolean isMove) throws Exception {
+		String targetKey = dto.getParentPath() + dto.getObjectName();
+		getClient().copyObject(dto.getBucketName(), dto.getKey(), dto.getTargetBucketName(), targetKey);
+		
+		if (isMove) {
+			getClient().deleteObject(dto.getBucketName(), dto.getKey());
+		}
+	}
 	
 	private File saveFile(ObjectDto dto) throws Exception { 
 		File file = null;
@@ -535,8 +544,6 @@ public class ObjectStorageService {
 		        listObjectsRequest.setMarker(objectListing.getNextMarker());
 		} while (objectListing.isTruncated());
 		//*/
-
-		
 	}
 	
 	/*

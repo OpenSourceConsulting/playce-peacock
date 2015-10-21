@@ -32,6 +32,8 @@ public class ObjectDto implements Serializable {
 	private String url;
 	private ObjectMetadata metadata;
 	
+	private String targetBucketName;
+	
 	private CommonsMultipartFile file;
 	
 	public String getBucketName() {
@@ -148,6 +150,14 @@ public class ObjectDto implements Serializable {
 
 	public void setMetadata(ObjectMetadata metadata) {
 		this.metadata = metadata;
+	}
+
+	public String getTargetBucketName() {
+		return targetBucketName;
+	}
+
+	public void setTargetBucketName(String targetBucketName) {
+		this.targetBucketName = targetBucketName;
 	}
 
 	public CommonsMultipartFile getFile() {
