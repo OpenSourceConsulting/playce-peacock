@@ -41,3 +41,6 @@
     mode: 644
   notify:
     - restart diamond
+
+- name: add salt service to chkconfig
+  command: chkconfig --level 345 diamond on

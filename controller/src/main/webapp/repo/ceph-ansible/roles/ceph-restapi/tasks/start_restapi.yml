@@ -5,7 +5,12 @@
   failed_when: false
   register: restapi_status
 
-- name: start ceph rest api
-  shell: "ceph-rest-api -n client.admin &"
-  changed_when: false
-#  when: restapi_status.rc != 0
+- name: copy ceph-restapi systemd file
+  copy: >
+    src=ceph-restapi.service
+    dest=/usr/lib/systemd/system/ceph-restapi.service
+    owner=root
+    group=root
+    mode=644
+  notify:
+  - start ceph-restapi

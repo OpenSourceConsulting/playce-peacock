@@ -1,0 +1,12 @@
+---
+# Defines deployment design and assigns role to server groups
+
+- hosts: mons
+  sudo: True
+  roles:
+  - ceph-mon
+
+- hosts: rgws
+  sudo: True
+  roles:
+  - ceph-rgw

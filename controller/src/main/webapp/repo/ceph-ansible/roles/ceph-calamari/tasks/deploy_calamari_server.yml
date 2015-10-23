@@ -34,6 +34,14 @@
     group=root
     mode=0644
 
+- name: copy calamari createsuperuser.py file
+  copy: >
+    src=createsuperuser.py.new
+    dest=/opt/calamari/venv/lib/python2.7/site-packages/django/contrib/auth/management/commands/createsuperuser.py
+    owner=root
+    group=root
+    mode=0644
+
 - name: create working directory for installing calamari
   file: >
     path=/opt/calamari/webapp/content
@@ -55,3 +63,6 @@
 
 - name: initialize calamari-server
   command: calamari-ctl initialize
+
+- name: install ceph-deploy
+  yum: name=ceph-deploy state=present

@@ -82,7 +82,7 @@
   {% if hostvars[host]['ansible_hostname'] is defined %}
   [mon.{{ hostvars[host]['ansible_hostname'] }}]
     host = {{ hostvars[host]['ansible_hostname'] }}
-    mon addr = {{ hostvars[host]['ansible_' + (hostvars[host]['monitor_interface'] if hostvars[host]['monitor_interface'] is defined else monitor_interface) ]['ipv4']['address'] }}
+    mon addr = {{ hostvars[host]['ansible_default_ipv4']['address'] }}
   {% endif %}
 {% endfor %}
 
@@ -155,6 +155,7 @@
   rgw frontends = fastcgi socket_port=9000 socket_host=0.0.0.0
   log file = /var/log/radosgw/radosgw-{{ hostvars[host]['ansible_hostname'] }}.log
   rgw data = /var/lib/ceph/radosgw/ceph-rgw.{{ hostvars[host]['ansible_hostname'] }}
+  rgw enable usage log = true
   rgw print continue = false
   {% if radosgw_frontend  == 'civetweb' %}
   rgw frontends = civetweb port={{ radosgw_civetweb_port }}

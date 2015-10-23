@@ -10,10 +10,10 @@
     - /var/lib/ceph/bootstrap-rgw
     - /var/lib/ceph/radosgw/ceph-rgw.{{ ansible_hostname }}
 
-- name: copy rados gateway bootstrap key
+- name: copy ceph admin key to create radosgw-key
   copy: >
-    src={{ fetch_directory }}/{{ fsid }}/var/lib/ceph/bootstrap-rgw/ceph.keyring
-    dest=/var/lib/ceph/bootstrap-rgw/ceph.keyring
+    src={{ fetch_directory }}/{{ fsid }}/etc/ceph/ceph.client.admin.keyring
+    dest=/etc/ceph/ceph.client.admin.keyring
     owner=root
     group=root
     mode=600
@@ -21,10 +21,12 @@
 
 - name: create rados gateway keyring
   command: >
-    ceph --cluster ceph --name client.bootstrap-rgw --keyring /var/lib/ceph/bootstrap-rgw/ceph.keyring auth get-or-create client.rgw.{{ ansible_hostname }} osd 'allow rwx' mon 'allow rw' -o /var/lib/ceph/radosgw/ceph-rgw.{{ ansible_hostname }}/keyring
+    ceph auth get-or-create client.radosgw.{{ ansible_hostname }} osd 'allow rwx' mon 'allow rw' -o /var/lib/ceph/radosgw/ceph-rgw.{{ ansible_hostname }}/keyring
     creates=/var/lib/ceph/radosgw/ceph-rgw.{{ ansible_hostname }}/keyring
   changed_when: false
   when: cephx
+
+- file: path=/etc/ceph/ceph.client.admin.keyring state=absent
 
 - name: set rados gateway key permissions
   file: >

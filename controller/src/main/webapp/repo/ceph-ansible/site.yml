@@ -1,20 +1,15 @@
 ---
 # Defines deployment design and assigns role to server groups
 
+- hosts: ntp-client
+  sudo: True
+  roles:
+  - ntp
+
 - hosts: mons
   sudo: True
   roles:
   - ceph-mon
-
-- hosts: restapi
-  sudo: True
-  roles:
-  - ceph-restapi
-
-- hosts: calamari
-  sudo: True
-  roles:
-  - ceph-calamari
 
 - hosts: osds
   sudo: True
@@ -26,12 +21,27 @@
   roles:
   - ceph-mds
 
+- hosts: restapi
+  sudo: True
+  roles:
+  - ceph-restapi
+
 - hosts: rgws
   sudo: True
   roles:
   - ceph-rgw
 
-- hosts: ntp-client
+- hosts: calamari
   sudo: True
   roles:
-  - ntp
+  - ceph-calamari
+
+- hosts: salt-server
+  sudo: True
+  roles:
+  - ceph-salt-server
+
+- hosts: salt-client
+  sudo: True
+  roles:
+  - ceph-salt-client

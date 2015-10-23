@@ -1,0 +1,13 @@
+[Unit]
+Description=The Ceph Restapi
+After=syslog.target network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/ceph-rest-api -n client.admin
+PrivateTmp=false
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target

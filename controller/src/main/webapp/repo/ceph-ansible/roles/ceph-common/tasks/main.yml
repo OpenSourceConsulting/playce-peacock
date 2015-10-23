@@ -6,18 +6,18 @@
 - include: ./misc/system_tuning.yml
   when: osd_group_name in group_names
 
-- include: ./pre_requisites/prerequisite_ice.yml
-  when: ceph_stable_ice
+#- include: ./pre_requisites/prerequisite_ice.yml
+#  when: ceph_stable_ice
 
-- include: ./pre_requisites/prerequisite_rh_storage_iso_install.yml
-  when:
-    ceph_stable_rh_storage and
-    ceph_stable_rh_storage_iso_install
+#- include: ./pre_requisites/prerequisite_rh_storage_iso_install.yml
+#  when:
+#    ceph_stable_rh_storage and
+#    ceph_stable_rh_storage_iso_install
 
-- include: ./pre_requisites/prerequisite_rh_storage_cdn_install.yml
-  when:
-    ceph_stable_rh_storage and
-    ceph_stable_rh_storage_cdn_install
+#- include: ./pre_requisites/prerequisite_rh_storage_cdn_install.yml
+#  when:
+#    ceph_stable_rh_storage and
+#    ceph_stable_rh_storage_cdn_install
 
 - include: ./installs/install_on_redhat.yml
   when: ansible_os_family == 'RedHat'

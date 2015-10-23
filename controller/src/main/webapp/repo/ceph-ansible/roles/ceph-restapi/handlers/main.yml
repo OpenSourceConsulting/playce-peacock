@@ -1,0 +1,3 @@
+---
+- name: start ceph-restapi
+  service: name=ceph-restapi state=started enabled=yes

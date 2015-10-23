@@ -1,12 +1,12 @@
 ---
 - name: check if rgw is started
-  command: /etc/init.d/radosgw status
+  command: /etc/init.d/ceph-radosgw status
   register: rgwstatus
   changed_when: false
   failed_when: false
 
 - name: start rgw
-  command: /etc/init.d/radosgw start
+  command: /etc/init.d/ceph-radosgw start
   when:
     rgwstatus.rc != 0 and
     ansible_distribution != "Ubuntu" and
@@ -29,4 +29,11 @@
     name=ceph-radosgw
     state=started
     enabled=yes
-  when: ansible_distribution == 'RedHat'
+  when: ansible_distribution == 'CentOS'
+
+- name: start httpd
+  service: >
+    name=httpd
+    state=started
+    enabled=yes
+  when: ansible_distribution == 'CentOS'
