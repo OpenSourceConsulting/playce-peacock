@@ -1803,7 +1803,7 @@ public class ProvisioningHandler {
 		String publicNetwork = provisioningDetail.getPublicNetwork();
 		String clusterNetwork = provisioningDetail.getClusterNetwork();
 		String fileSystem = provisioningDetail.getFileSystem();
-		String calamariServer = provisioningDetail.getCalamariServer();
+		String calamariServer = null;
 		String ntpServer = provisioningDetail.getNtpServer();
 		String[] hostname = provisioningDetail.getHostname();
 		String[] ip = provisioningDetail.getIp();
@@ -1812,17 +1812,24 @@ public class ProvisioningHandler {
 		String[] password = provisioningDetail.getPassword();
 		String[] devicePaths = provisioningDetail.getDevicePaths();
 		
-		ClusterServer[] servers = new ClusterServer[hostname.length];
-		ClusterServer cs = null;
-		for (int i = 0; i < hostname.length; i++) {
-			cs = new ClusterServer();
-			cs.setHostname(hostname[i]);
-			cs.setIp(ip[i]);
-			cs.setType(type[i]);
-			cs.setUsername(userName[i]);
-			cs.setPassword(password[i]);
-			
-			servers[i] = cs;
+		ClusterServer[] servers = null;
+		if (hostname != null && hostname.length > 0) {
+			servers = new ClusterServer[hostname.length];
+			ClusterServer cs = null;
+			for (int i = 0; i < hostname.length; i++) {
+				cs = new ClusterServer();
+				cs.setHostname(hostname[i]);
+				cs.setIp(ip[i]);
+				cs.setType(type[i]);
+				cs.setUsername(userName[i]);
+				cs.setPassword(password[i]);
+				
+				servers[i] = cs;
+				
+				if (type[i].equals("management")) {
+					calamariServer = hostname[i];
+				}
+			}
 		}
 
 		logger.debug("fileLocation : " + fileLocation);

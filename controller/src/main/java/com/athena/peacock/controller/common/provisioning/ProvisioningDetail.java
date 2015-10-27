@@ -113,7 +113,6 @@ public class ProvisioningDetail implements Serializable {
 	private String publicNetwork;
 	private String clusterNetwork;
 	private String fileSystem;
-	private String calamariServer;
 	private String ntpServer;
 	private String[] hostname;
 	private String[] ip;
@@ -972,20 +971,6 @@ public class ProvisioningDetail implements Serializable {
 	 */
 	public void setFileSystem(String fileSystem) {
 		this.fileSystem = fileSystem;
-	}
-
-	/**
-	 * @return the calamariServer
-	 */
-	public String getCalamariServer() {
-		return calamariServer;
-	}
-
-	/**
-	 * @param calamariServer the calamariServer to set
-	 */
-	public void setCalamariServer(String calamariServer) {
-		this.calamariServer = calamariServer;
 	}
 
 	/**
