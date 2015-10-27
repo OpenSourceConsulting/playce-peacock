@@ -39,69 +39,6 @@ public class ProvisioningDetail implements Serializable {
 	
 	/** Controller에서 각 Software의 config 파일을 읽기 위한 url prefix */
 	private String urlPrefix;
-	
-	public static void main(String[] args) {
-		
-		ClusterServer[] servers = new ClusterServer[8];
-		
-		ClusterServer cs = new ClusterServer("ceph-mgmt", "management");
-		servers[0] = cs;
-		cs = new ClusterServer("ceph-mon-001", "mon");
-		servers[1] = cs;
-		cs = new ClusterServer("ceph-mon-002", "mon");
-		servers[2] = cs;
-		cs = new ClusterServer("ceph-mon-003", "mon");
-		servers[3] = cs;
-		cs = new ClusterServer("ceph-osd-001", "osd");
-		servers[4] = cs;
-		cs = new ClusterServer("ceph-osd-002", "osd");
-		servers[5] = cs;
-		cs = new ClusterServer("ceph-osd-003", "osd");
-		servers[6] = cs;
-		cs = new ClusterServer("ceph-radosgw-001", "radosgw");
-		servers[7] = cs;
-
-		StringBuilder rgws = new StringBuilder("[rgws]").append("\r\n");
-		StringBuilder restapi = new StringBuilder("[restapi]").append("\r\n");
-		StringBuilder calamari = new StringBuilder("[calamari]").append("\r\n");
-		StringBuilder saltServer = new StringBuilder("[salt-server]").append("\r\n");
-		StringBuilder mons = new StringBuilder("[mons]").append("\r\n");
-		StringBuilder osds = new StringBuilder("[osds]").append("\r\n");
-		StringBuilder saltClient = new StringBuilder("[salt-client]").append("\r\n");
-		StringBuilder ntpClient = new StringBuilder("[ntp-client]").append("\r\n");
-		
-		for (ClusterServer server : servers) {
-			if (server.getType().equals("radosgw")) {
-				rgws.append(server.getHostname()).append("\r\n");
-				ntpClient.append(server.getHostname()).append("\r\n");
-			} else if (server.getType().equals("management")) {
-				restapi.append(server.getHostname()).append("\r\n");
-				calamari.append(server.getHostname()).append("\r\n");
-				saltServer.append(server.getHostname()).append("\r\n");
-				ntpClient.append(server.getHostname()).append("\r\n");
-			} else if (server.getType().equals("mon")) {
-				mons.append(server.getHostname()).append("\r\n");
-				saltClient.append(server.getHostname()).append("\r\n");
-				ntpClient.append(server.getHostname()).append("\r\n");
-			} else if (server.getType().equals("osd")) {
-				osds.append(server.getHostname()).append("\r\n");
-				saltClient.append(server.getHostname()).append("\r\n");
-				ntpClient.append(server.getHostname()).append("\r\n");
-			} 
-		}
-
-		StringBuilder sb = new StringBuilder();
-		sb.append(rgws).append("\r\n");
-		sb.append(restapi).append("\r\n");
-		sb.append(calamari).append("\r\n");
-		sb.append(saltServer).append("\r\n");
-		sb.append(mons).append("\r\n");
-		sb.append(osds).append("\r\n");
-		sb.append(saltClient).append("\r\n");
-		sb.append(ntpClient);
-		
-		System.out.print(sb.toString());
-	}
 
 	/** Apache, Tomcat, JBoss, MySQL 공통 Variables */
 	private String machineId;
@@ -178,7 +115,9 @@ public class ProvisioningDetail implements Serializable {
 	private String fileSystem;
 	private String calamariServer;
 	private String ntpServer;
-	private ClusterServer[] servers;
+	private String[] hostname;
+	private String[] ip;
+	private String[] type;
 	private String[] devicePaths;
 
 	/**
@@ -1064,17 +1003,45 @@ public class ProvisioningDetail implements Serializable {
 	}
 
 	/**
-	 * @return the servers
+	 * @return the hostname
 	 */
-	public ClusterServer[] getServers() {
-		return servers;
+	public String[] getHostname() {
+		return hostname;
 	}
 
 	/**
-	 * @param servers the servers to set
+	 * @param hostname the hostname to set
 	 */
-	public void setServers(ClusterServer[] servers) {
-		this.servers = servers;
+	public void setHostname(String[] hostname) {
+		this.hostname = hostname;
+	}
+
+	/**
+	 * @return the ip
+	 */
+	public String[] getIp() {
+		return ip;
+	}
+
+	/**
+	 * @param ip the ip to set
+	 */
+	public void setIp(String[] ip) {
+		this.ip = ip;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public String[] getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(String[] type) {
+		this.type = type;
 	}
 
 	/**

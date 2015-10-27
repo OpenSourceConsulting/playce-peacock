@@ -1805,8 +1805,25 @@ public class ProvisioningHandler {
 		String fileSystem = provisioningDetail.getFileSystem();
 		String calamariServer = provisioningDetail.getCalamariServer();
 		String ntpServer = provisioningDetail.getNtpServer();
-		ClusterServer[] servers = provisioningDetail.getServers();
+		String[] hostname = provisioningDetail.getHostname();
+		String[] ip = provisioningDetail.getIp();
+		String[] type = provisioningDetail.getType();
+		String[] userName = provisioningDetail.getUserName();
+		String[] password = provisioningDetail.getPassword();
 		String[] devicePaths = provisioningDetail.getDevicePaths();
+		
+		ClusterServer[] servers = new ClusterServer[hostname.length];
+		ClusterServer cs = null;
+		for (int i = 0; i < hostname.length; i++) {
+			cs = new ClusterServer();
+			cs.setHostname(hostname[i]);
+			cs.setIp(ip[i]);
+			cs.setType(type[i]);
+			cs.setUsername(userName[i]);
+			cs.setPassword(password[i]);
+			
+			servers[i] = cs;
+		}
 
 		logger.debug("fileLocation : " + fileLocation);
 		logger.debug("fileName : " + fileName);
@@ -1826,14 +1843,6 @@ public class ProvisioningHandler {
 		logger.debug("machineId : " + provisioningDetail.getMachineId());
 		logger.debug("softwareId : " + provisioningDetail.getSoftwareId());
 		logger.debug("softwareName : " + provisioningDetail.getSoftwareName());
-		
-		
-		int j = 1;
-		if (j == 1) {
-			return;
-		}
-		
-		
 		
 		Command command = new Command("ceph-ansible INSTALL");
 		ShellAction s_action = null;

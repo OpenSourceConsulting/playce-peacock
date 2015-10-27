@@ -37,16 +37,6 @@ public class ClusterServer {
 	private String username;
 	private String password;
 	
-	public ClusterServer() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	public ClusterServer(String hostname, String type) {
-		this.hostname = hostname;
-		this.type = type;
-	}
-	
-	
 	/**
 	 * @return the hostname
 	 */
