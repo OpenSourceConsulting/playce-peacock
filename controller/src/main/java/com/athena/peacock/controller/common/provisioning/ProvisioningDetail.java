@@ -39,6 +39,69 @@ public class ProvisioningDetail implements Serializable {
 	
 	/** Controller에서 각 Software의 config 파일을 읽기 위한 url prefix */
 	private String urlPrefix;
+	
+	public static void main(String[] args) {
+		
+		ClusterServer[] servers = new ClusterServer[8];
+		
+		ClusterServer cs = new ClusterServer("ceph-mgmt", "management");
+		servers[0] = cs;
+		cs = new ClusterServer("ceph-mon-001", "mon");
+		servers[1] = cs;
+		cs = new ClusterServer("ceph-mon-002", "mon");
+		servers[2] = cs;
+		cs = new ClusterServer("ceph-mon-003", "mon");
+		servers[3] = cs;
+		cs = new ClusterServer("ceph-osd-001", "osd");
+		servers[4] = cs;
+		cs = new ClusterServer("ceph-osd-002", "osd");
+		servers[5] = cs;
+		cs = new ClusterServer("ceph-osd-003", "osd");
+		servers[6] = cs;
+		cs = new ClusterServer("ceph-radosgw-001", "radosgw");
+		servers[7] = cs;
+
+		StringBuilder rgws = new StringBuilder("[rgws]").append("\r\n");
+		StringBuilder restapi = new StringBuilder("[restapi]").append("\r\n");
+		StringBuilder calamari = new StringBuilder("[calamari]").append("\r\n");
+		StringBuilder saltServer = new StringBuilder("[salt-server]").append("\r\n");
+		StringBuilder mons = new StringBuilder("[mons]").append("\r\n");
+		StringBuilder osds = new StringBuilder("[osds]").append("\r\n");
+		StringBuilder saltClient = new StringBuilder("[salt-client]").append("\r\n");
+		StringBuilder ntpClient = new StringBuilder("[ntp-client]").append("\r\n");
+		
+		for (ClusterServer server : servers) {
+			if (server.getType().equals("radosgw")) {
+				rgws.append(server.getHostname()).append("\r\n");
+				ntpClient.append(server.getHostname()).append("\r\n");
+			} else if (server.getType().equals("management")) {
+				restapi.append(server.getHostname()).append("\r\n");
+				calamari.append(server.getHostname()).append("\r\n");
+				saltServer.append(server.getHostname()).append("\r\n");
+				ntpClient.append(server.getHostname()).append("\r\n");
+			} else if (server.getType().equals("mon")) {
+				mons.append(server.getHostname()).append("\r\n");
+				saltClient.append(server.getHostname()).append("\r\n");
+				ntpClient.append(server.getHostname()).append("\r\n");
+			} else if (server.getType().equals("osd")) {
+				osds.append(server.getHostname()).append("\r\n");
+				saltClient.append(server.getHostname()).append("\r\n");
+				ntpClient.append(server.getHostname()).append("\r\n");
+			} 
+		}
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(rgws).append("\r\n");
+		sb.append(restapi).append("\r\n");
+		sb.append(calamari).append("\r\n");
+		sb.append(saltServer).append("\r\n");
+		sb.append(mons).append("\r\n");
+		sb.append(osds).append("\r\n");
+		sb.append(saltClient).append("\r\n");
+		sb.append(ntpClient);
+		
+		System.out.print(sb.toString());
+	}
 
 	/** Apache, Tomcat, JBoss, MySQL 공통 Variables */
 	private String machineId;
@@ -102,6 +165,21 @@ public class ProvisioningDetail implements Serializable {
 	private String port;
 	
 	private Integer userId;
+	
+	/** Ceph Variables */
+	private String fsid;
+	private String journalSize;
+	private String monNetworkInterface;
+	private String pgNum;
+	private String pgpNum;
+	private String replicaSize;
+	private String publicNetwork;
+	private String clusterNetwork;
+	private String fileSystem;
+	private String calamariServer;
+	private String ntpServer;
+	private ClusterServer[] servers;
+	private String[] devicePaths;
 
 	/**
 	 * @return the urlPrefix
@@ -829,6 +907,188 @@ public class ProvisioningDetail implements Serializable {
 	 */
 	public void setUserId(Integer userId) {
 		this.userId = userId;
+	}
+
+	/**
+	 * @return the fsid
+	 */
+	public String getFsid() {
+		return fsid;
+	}
+
+	/**
+	 * @param fsid the fsid to set
+	 */
+	public void setFsid(String fsid) {
+		this.fsid = fsid;
+	}
+
+	/**
+	 * @return the journalSize
+	 */
+	public String getJournalSize() {
+		return journalSize;
+	}
+
+	/**
+	 * @param journalSize the journalSize to set
+	 */
+	public void setJournalSize(String journalSize) {
+		this.journalSize = journalSize;
+	}
+
+	/**
+	 * @return the monNetworkInterface
+	 */
+	public String getMonNetworkInterface() {
+		return monNetworkInterface;
+	}
+
+	/**
+	 * @param monNetworkInterface the monNetworkInterface to set
+	 */
+	public void setMonNetworkInterface(String monNetworkInterface) {
+		this.monNetworkInterface = monNetworkInterface;
+	}
+
+	/**
+	 * @return the pgNum
+	 */
+	public String getPgNum() {
+		return pgNum;
+	}
+
+	/**
+	 * @param pgNum the pgNum to set
+	 */
+	public void setPgNum(String pgNum) {
+		this.pgNum = pgNum;
+	}
+
+	/**
+	 * @return the pgpNum
+	 */
+	public String getPgpNum() {
+		return pgpNum;
+	}
+
+	/**
+	 * @param pgpNum the pgpNum to set
+	 */
+	public void setPgpNum(String pgpNum) {
+		this.pgpNum = pgpNum;
+	}
+
+	/**
+	 * @return the replicaSize
+	 */
+	public String getReplicaSize() {
+		return replicaSize;
+	}
+
+	/**
+	 * @param replicaSize the replicaSize to set
+	 */
+	public void setReplicaSize(String replicaSize) {
+		this.replicaSize = replicaSize;
+	}
+
+	/**
+	 * @return the publicNetwork
+	 */
+	public String getPublicNetwork() {
+		return publicNetwork;
+	}
+
+	/**
+	 * @param publicNetwork the publicNetwork to set
+	 */
+	public void setPublicNetwork(String publicNetwork) {
+		this.publicNetwork = publicNetwork;
+	}
+
+	/**
+	 * @return the clusterNetwork
+	 */
+	public String getClusterNetwork() {
+		return clusterNetwork;
+	}
+
+	/**
+	 * @param clusterNetwork the clusterNetwork to set
+	 */
+	public void setClusterNetwork(String clusterNetwork) {
+		this.clusterNetwork = clusterNetwork;
+	}
+
+	/**
+	 * @return the fileSystem
+	 */
+	public String getFileSystem() {
+		return fileSystem;
+	}
+
+	/**
+	 * @param fileSystem the fileSystem to set
+	 */
+	public void setFileSystem(String fileSystem) {
+		this.fileSystem = fileSystem;
+	}
+
+	/**
+	 * @return the calamariServer
+	 */
+	public String getCalamariServer() {
+		return calamariServer;
+	}
+
+	/**
+	 * @param calamariServer the calamariServer to set
+	 */
+	public void setCalamariServer(String calamariServer) {
+		this.calamariServer = calamariServer;
+	}
+
+	/**
+	 * @return the ntpServer
+	 */
+	public String getNtpServer() {
+		return ntpServer;
+	}
+
+	/**
+	 * @param ntpServer the ntpServer to set
+	 */
+	public void setNtpServer(String ntpServer) {
+		this.ntpServer = ntpServer;
+	}
+
+	/**
+	 * @return the servers
+	 */
+	public ClusterServer[] getServers() {
+		return servers;
+	}
+
+	/**
+	 * @param servers the servers to set
+	 */
+	public void setServers(ClusterServer[] servers) {
+		this.servers = servers;
+	}
+
+	/**
+	 * @return the devicePaths
+	 */
+	public String[] getDevicePaths() {
+		return devicePaths;
+	}
+
+	/**
+	 * @param devicePaths the devicePaths to set
+	 */
+	public void setDevicePaths(String[] devicePaths) {
+		this.devicePaths = devicePaths;
 	}
 }
 //end of ProvisioningDetail.java

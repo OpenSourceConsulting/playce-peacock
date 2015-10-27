@@ -36,7 +36,7 @@ public class CephDto extends BaseDto {
 	private static final long serialVersionUID = -6765693525752120066L;
 	
 	private int cephId;
-	private int machineId;
+	private String machineId;
 	private String mgmtHost;
 	private String mgmtPort;
 	private String mgmtUsername;
@@ -64,13 +64,13 @@ public class CephDto extends BaseDto {
 	/**
 	 * @return the machineId
 	 */
-	public int getMachineId() {
+	public String getMachineId() {
 		return machineId;
 	}
 	/**
 	 * @param machineId the machineId to set
 	 */
-	public void setMachineId(int machineId) {
+	public void setMachineId(String machineId) {
 		this.machineId = machineId;
 	}
 	/**

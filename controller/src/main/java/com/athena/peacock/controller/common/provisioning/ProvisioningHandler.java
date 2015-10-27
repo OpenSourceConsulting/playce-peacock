@@ -28,6 +28,7 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -51,6 +52,8 @@ import com.athena.peacock.common.netty.message.AbstractMessage;
 import com.athena.peacock.common.netty.message.ProvisioningCommandMessage;
 import com.athena.peacock.common.netty.message.ProvisioningResponseMessage;
 import com.athena.peacock.controller.netty.PeacockTransmitter;
+import com.athena.peacock.controller.web.ceph.CephService;
+import com.athena.peacock.controller.web.ceph.base.CephDto;
 import com.athena.peacock.controller.web.config.ConfigDto;
 import com.athena.peacock.controller.web.config.ConfigService;
 import com.athena.peacock.controller.web.machine.MachineService;
@@ -85,6 +88,10 @@ public class ProvisioningHandler {
 	@Inject
 	@Named("machineService")
 	private MachineService machineService;
+	
+	@Inject
+	@Named("cephService")
+	private CephService cephService;
 
 	public void install(ProvisioningDetail provisioningDetail) throws Exception {
 		if (provisioningDetail.getSoftwareName().toLowerCase().indexOf("httpd") > -1) {
@@ -95,6 +102,8 @@ public class ProvisioningHandler {
 			jbossInstall(provisioningDetail);
 		} else if (provisioningDetail.getSoftwareName().toLowerCase().indexOf("mysql") > -1) {
 			mysqlInstall(provisioningDetail);
+		} else if (provisioningDetail.getSoftwareName().toLowerCase().indexOf("ceph") > -1) {
+			cephInstall(provisioningDetail);
 		}
 	}
 
@@ -107,6 +116,9 @@ public class ProvisioningHandler {
 			jbossRemove(provisioningDetail);
 		} else if (provisioningDetail.getSoftwareName().toLowerCase().indexOf("mysql") > -1) {
 			mysqlRemove(provisioningDetail);
+		} else if (provisioningDetail.getSoftwareName().toLowerCase().indexOf("ceph") > -1) {
+			//cephRemove(provisioningDetail);
+			throw new Exception("Ceph clustering does not support delete operation.");
 		}
 	}
     
@@ -1767,6 +1779,365 @@ public class ProvisioningHandler {
 		config.setRegUserId(provisioningDetail.getUserId());
 		config.setUpdUserId(provisioningDetail.getUserId());
 		configList.add(config);
+
+		new InstallThread(peacockTransmitter, softwareService, cmdMsg, software, configList).start();
+	}
+	
+	private void cephInstall(ProvisioningDetail provisioningDetail) throws Exception {
+		ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
+		cmdMsg.setAgentId(provisioningDetail.getMachineId());
+		cmdMsg.setBlocking(true);
+		
+		/**
+		 * Ceph Variables
+		 */
+		String fileLocation = provisioningDetail.getFileLocation();
+		String fileName = provisioningDetail.getFileName();
+
+		String fsid = UUID.randomUUID().toString();
+		String journalSize = provisioningDetail.getJournalSize();
+		String monNetworkInterface = provisioningDetail.getMonNetworkInterface();
+		String pgNum = provisioningDetail.getPgNum();
+		String pgpNum = provisioningDetail.getPgNum();
+		String replicaSize = provisioningDetail.getReplicaSize();
+		String publicNetwork = provisioningDetail.getPublicNetwork();
+		String clusterNetwork = provisioningDetail.getClusterNetwork();
+		String fileSystem = provisioningDetail.getFileSystem();
+		String calamariServer = provisioningDetail.getCalamariServer();
+		String ntpServer = provisioningDetail.getNtpServer();
+		ClusterServer[] servers = provisioningDetail.getServers();
+		String[] devicePaths = provisioningDetail.getDevicePaths();
+
+		logger.debug("fileLocation : " + fileLocation);
+		logger.debug("fileName : " + fileName);
+		logger.debug("fsid : " + fsid);
+		logger.debug("journalSize : " + journalSize);
+		logger.debug("monNetworkInterface : " + monNetworkInterface);
+		logger.debug("pgNum : " + pgNum);
+		logger.debug("pgpNum : " + pgpNum);
+		logger.debug("replicaSize : " + replicaSize);
+		logger.debug("publicNetwork : " + publicNetwork);
+		logger.debug("clusterNetwork : " + clusterNetwork);
+		logger.debug("fileSystem : " + fileSystem);
+		logger.debug("calamariServer : " + calamariServer);
+		logger.debug("ntpServer : " + ntpServer);
+		logger.debug("servers : " + servers);
+		logger.debug("devicePaths : " + devicePaths);
+		logger.debug("machineId : " + provisioningDetail.getMachineId());
+		logger.debug("softwareId : " + provisioningDetail.getSoftwareId());
+		logger.debug("softwareName : " + provisioningDetail.getSoftwareName());
+		
+		
+		int j = 1;
+		if (j == 1) {
+			return;
+		}
+		
+		
+		
+		Command command = new Command("ceph-ansible INSTALL");
+		ShellAction s_action = null;
+		int sequence = 0;
+
+		s_action = new ShellAction(sequence++);
+		s_action.setWorkingDiretory("/opt");
+		s_action.setCommand("wget");
+		s_action.addArguments("${RepositoryUrl}" + fileLocation + "/" + fileName);
+		s_action.addArguments("-O");
+		s_action.addArguments(fileName);
+		command.addAction(s_action);
+
+		s_action = new ShellAction(sequence++);
+		s_action.setWorkingDiretory("/opt");
+		s_action.setCommand("rm");
+		s_action.addArguments("-rf");
+		s_action.addArguments("ceph-ansible");
+		command.addAction(s_action);
+
+		s_action = new ShellAction(sequence++);
+		s_action.setWorkingDiretory("/opt");
+		s_action.setCommand("tar");
+		s_action.addArguments("-xvzf");
+		s_action.addArguments(fileName);
+		command.addAction(s_action);
+		
+		// Add ceph-ansible INSTALL Command
+		cmdMsg.addCommand(command);
+		
+		command = new Command("Install RPM Packages");
+		sequence = 0;
+
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("yum");
+		s_action.addArguments("install");
+		s_action.addArguments("-y");
+		s_action.addArguments("epel-release");
+		command.addAction(s_action);
+
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("yum");
+		s_action.addArguments("install");
+		s_action.addArguments("-y");
+		s_action.addArguments("ansible");
+		command.addAction(s_action);
+
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("yum");
+		s_action.addArguments("install");
+		s_action.addArguments("-y");
+		s_action.addArguments("sshpass");
+		command.addAction(s_action);
+		
+		// Add Install RPM Packages Command
+		cmdMsg.addCommand(command);
+		
+		command = new Command("Set /etc/hosts");
+		sequence = 0;
+		
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("echo");
+		s_action.addArguments("-e");
+		s_action.addArguments("\"" + ntpServer + "\\tntp-server\"");
+		s_action.addArguments(">>");
+		s_action.addArguments("/etc/hosts");
+		command.addAction(s_action);
+		
+		for (ClusterServer server : servers) {
+			s_action = new ShellAction(sequence++);
+			s_action.setCommand("echo");
+			s_action.addArguments("-e");
+			s_action.addArguments("\"" + server.getIp() + "\\t" + server.getHostname() + "\"");
+			s_action.addArguments(">>");
+			s_action.addArguments("/etc/hosts");
+			command.addAction(s_action);
+		}
+		
+		// Add Set /etc/hosts Command
+		cmdMsg.addCommand(command);
+		
+		command = new Command("Set /opt/ceph-ansible/group_vars/all, osds");
+		sequence = 0;
+		
+		String all = IOUtils.toString(new URL(provisioningDetail.getUrlPrefix() + "/repo/ceph/ceph-ansible/group_vars/all"), "UTF-8");
+		all = all.replaceAll("\\$\\{fsid\\}", fsid)
+					.replaceAll("\\$\\{journal_size\\}", journalSize)
+					.replaceAll("\\$\\{pool_default_pg_num\\}", pgNum)
+					.replaceAll("\\$\\{pool_default_pgp_num\\}", pgpNum)
+					.replaceAll("\\$\\{pool_default_size\\}", replicaSize)
+					.replaceAll("\\$\\{public_network\\}", publicNetwork)
+					.replaceAll("\\$\\{calamari_server\\}", calamariServer)
+					.replaceAll("\\$\\{ntp-server\\}", ntpServer);
+
+		FileWriteAction fw_action = new FileWriteAction(sequence++);
+		fw_action.setContents(all);
+		fw_action.setFileName("/opt/ceph-ansible/group_vars/all");
+		command.addAction(fw_action);
+		
+		String osd = IOUtils.toString(new URL(provisioningDetail.getUrlPrefix() + "/repo/ceph/ceph-ansible/group_vars/osds"), "UTF-8");
+		
+		StringBuilder sb = new StringBuilder();
+		String path = null;
+		for (int i = 0; i < devicePaths.length; i++) {
+			path = devicePaths[i];
+			
+			if (i > 0) {
+				sb.append("\r\n  - ");
+			}
+			
+			sb.append(path);
+		}
+		
+		osd = osd.replaceAll("\\$\\{path_of_devices\\}", sb.toString());
+
+		fw_action = new FileWriteAction(sequence++);
+		fw_action.setContents(osd);
+		fw_action.setFileName("/opt/ceph-ansible/group_vars/osds");
+		command.addAction(fw_action);
+		
+		// Add Set /opt/ceph-ansible/group_vars/all, osds Command
+		cmdMsg.addCommand(command);
+		
+		command = new Command("Set /etc/ansible/hosts");
+		sequence = 0;
+		
+		StringBuilder rgws = new StringBuilder("[rgws]").append("\r\n");
+		StringBuilder restapi = new StringBuilder("[restapi]").append("\r\n");
+		StringBuilder calamari = new StringBuilder("[calamari]").append("\r\n");
+		StringBuilder saltServer = new StringBuilder("[salt-server]").append("\r\n");
+		StringBuilder mons = new StringBuilder("[mons]").append("\r\n");
+		StringBuilder osds = new StringBuilder("[osds]").append("\r\n");
+		StringBuilder saltClient = new StringBuilder("[salt-client]").append("\r\n");
+		StringBuilder ntpClient = new StringBuilder("[ntp-client]").append("\r\n");
+		
+		for (ClusterServer server : servers) {
+			if (server.getType().equals("radosgw")) {
+				rgws.append(server.getHostname()).append("\r\n");
+				ntpClient.append(server.getHostname()).append("\r\n");
+			} else if (server.getType().equals("management")) {
+				restapi.append(server.getHostname()).append("\r\n");
+				calamari.append(server.getHostname()).append("\r\n");
+				saltServer.append(server.getHostname()).append("\r\n");
+				ntpClient.append(server.getHostname()).append("\r\n");
+			} else if (server.getType().equals("mon")) {
+				mons.append(server.getHostname()).append("\r\n");
+				saltClient.append(server.getHostname()).append("\r\n");
+				ntpClient.append(server.getHostname()).append("\r\n");
+			} else if (server.getType().equals("osd")) {
+				osds.append(server.getHostname()).append("\r\n");
+				saltClient.append(server.getHostname()).append("\r\n");
+				ntpClient.append(server.getHostname()).append("\r\n");
+			} 
+		}
+
+		sb = new StringBuilder();
+		sb.append(rgws).append("\r\n");
+		sb.append(restapi).append("\r\n");
+		sb.append(calamari).append("\r\n");
+		sb.append(saltServer).append("\r\n");
+		sb.append(mons).append("\r\n");
+		sb.append(osds).append("\r\n");
+		sb.append(saltClient).append("\r\n");
+		sb.append(ntpClient);
+		
+		fw_action = new FileWriteAction(sequence++);
+		fw_action.setContents(sb.toString());
+		fw_action.setFileName("/etc/ansible/hosts");
+		command.addAction(fw_action);
+		
+		// Add Set /etc/ansible/hosts Command
+		cmdMsg.addCommand(command);
+		
+		command = new Command("Make and copy ssh key files, copy /etc/hosts");
+		sequence = 0;
+		
+		// Make a ssh key
+		s_action = new ShellAction(sequence++);
+		//ssh-keygen -t rsa -f ~/.ssh/id_rsa -q -N ""
+		s_action.setCommand("ssh-keygen");
+		s_action.addArguments("-t");
+		s_action.addArguments("rsa");
+		s_action.addArguments("-f");
+		s_action.addArguments("~/.ssh/id_rsa");
+		s_action.addArguments("-q");
+		s_action.addArguments("-N");
+		s_action.addArguments("\"\"");
+		command.addAction(s_action);
+		
+		for (ClusterServer server : servers) {
+			//sshpass -p{password} ssh -o StrictHostKeyChecking=no {username}@{hostname} "mkdir -p ~/.ssh"
+			s_action = new ShellAction(sequence++);
+			s_action.setCommand("sshpass");
+			s_action.addArguments("-p" + server.getPassword());
+			s_action.addArguments("ssh");
+			s_action.addArguments("-o");
+			s_action.addArguments("StrictHostKeyChecking=no");
+			s_action.addArguments(server.getUsername() + "@" + server.getHostname());
+			s_action.addArguments("\"mkdir -p ~/.ssh\"");
+			command.addAction(s_action);
+
+			//sshpass -p{password} ssh -o StrictHostKeyChecking=no {username}@{hostname} "chmod 700 ~/.ssh"
+			s_action = new ShellAction(sequence++);
+			s_action.setCommand("sshpass");
+			s_action.addArguments("-p" + server.getPassword());
+			s_action.addArguments("ssh");
+			s_action.addArguments("-o");
+			s_action.addArguments("StrictHostKeyChecking=no");
+			s_action.addArguments(server.getUsername() + "@" + server.getHostname());
+			s_action.addArguments("\"chmod 700 ~/.ssh\"");
+			command.addAction(s_action);
+			
+			//sshpass -p{password} scp -o StrictHostKeyChecking=no ~/.ssh/id_rsa.pub {username}@{hostname}:~/.ssh/authorized_keys
+			s_action = new ShellAction(sequence++);
+			s_action.setCommand("sshpass");
+			s_action.addArguments("-p" + server.getPassword());
+			s_action.addArguments("scp");
+			s_action.addArguments("-o");
+			s_action.addArguments("StrictHostKeyChecking=no");
+			s_action.addArguments("~/.ssh/id_rsa.pub");
+			s_action.addArguments(server.getUsername() + "@" + server.getHostname() + ":~/.ssh/authorized_keys");
+			command.addAction(s_action);
+
+			//sshpass -p{password} ssh -o StrictHostKeyChecking=no {username}@{hostname} "chmod 600 ~/.ssh/authorized_keys"
+			s_action = new ShellAction(sequence++);
+			s_action.setCommand("sshpass");
+			s_action.addArguments("-p" + server.getPassword());
+			s_action.addArguments("ssh");
+			s_action.addArguments("-o");
+			s_action.addArguments("StrictHostKeyChecking=no");
+			s_action.addArguments(server.getUsername() + "@" + server.getHostname());
+			s_action.addArguments("\"chmod 600 ~/.ssh/authorized_keys\"");
+			command.addAction(s_action);
+			
+			//sshpass -p{password} scp -o StrictHostKeyChecking=no ~/.ssh/id_rsa* {username}@{hostname}:~/.ssh/
+			s_action = new ShellAction(sequence++);
+			s_action.setCommand("sshpass");
+			s_action.addArguments("-p" + server.getPassword());
+			s_action.addArguments("scp");
+			s_action.addArguments("-o");
+			s_action.addArguments("StrictHostKeyChecking=no");
+			s_action.addArguments("/etc/hosts");
+			s_action.addArguments(server.getUsername() + "@" + server.getHostname() + ":/etc/hosts");
+			command.addAction(s_action);
+		}
+		
+		// Add Make and copy ssh key files, copy /etc/hosts Command
+		cmdMsg.addCommand(command);
+		
+		command = new Command("Run ansible-playbook");
+		sequence = 0;
+		
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("ansible-playbook");
+		s_action.addArguments("/opt/ceph-ansible/site.yml");
+		command.addAction(s_action);
+		
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("ceph");
+		s_action.addArguments("status");
+		command.addAction(s_action);
+
+		// Add Run ansible-playbook Command
+		cmdMsg.addCommand(command);
+		
+		/***************************************************************
+		 *  software_tbl에 소프트웨어 설치 정보 및 config_tbl에 설정파일 정보 추가
+		 ***************************************************************/
+		SoftwareDto software = new SoftwareDto();
+		software.setSoftwareId(provisioningDetail.getSoftwareId());
+		software.setMachineId(provisioningDetail.getMachineId());
+		software.setInstallStat("INSTALLING");
+		software.setDescription("Ceph Provisioning");
+		software.setDeleteYn("N");
+		software.setRegUserId(provisioningDetail.getUserId());
+		software.setUpdUserId(provisioningDetail.getUserId());
+		
+		List<ConfigDto> configList = new ArrayList<ConfigDto>();
+		
+		CephDto dto = new CephDto();
+		dto.setMachineId(provisioningDetail.getMachineId());
+		
+		for (ClusterServer server : servers) {
+			if (server.getType().equals("radosgw")) {
+				dto.setRadosgwApiPrefix("http://" + server.getIp());
+			} else if (server.getType().equals("management")) {
+				dto.setMgmtHost(server.getIp());
+				dto.setMgmtPort("22");
+				dto.setMgmtUsername(server.getUsername());
+				dto.setMgmtPassword(server.getPassword());
+				dto.setMgmtApiPrefix("http://" + server.getIp() + ":5000/api/v0.1");
+				
+				dto.setCalamariApiPrefix("http://" + server.getIp() + "/api/v2");
+				dto.setCalamariUsername("root");
+				dto.setCalamariPassword("calamaripw");
+			}
+		}
+		
+		// TODO S3AccessKey, S3SecretKey should be replaced.
+		dto.setS3AccessKey("YURR234DJCPXHAWA2BKG");
+		dto.setS3SecretKey("6oyIDbSPAG081wiBFEvo0zXTou01d1gljNi5FdnD");
+		dto.setRegUserId(provisioningDetail.getUserId());
+		dto.setUpdUserId(provisioningDetail.getUserId());
+		cephService.insertCeph(dto);
 
 		new InstallThread(peacockTransmitter, softwareService, cmdMsg, software, configList).start();
 	}

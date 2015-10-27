@@ -218,6 +218,7 @@ public class DashboardService {
 				logger.debug("[DASHBOARD] {}'s critical / alarm list, cpu / memory / disk top 5 list 조회 완료", restTemplate.getRhevmName());
 			}
 			
+			/*
 			// project cnt
 			try {
 				dto.setProjectCnt(almDashboardComponent.getProjectCnt());
@@ -241,6 +242,7 @@ public class DashboardService {
 				logger.error("Unhandled exception has occurred while invoke getJenkinsCnt() : ", e);
 				dto.setJenkinsCnt(0);
 			}
+			*/
 			
 			// httpd, tomcat, jboss cnt
 			SoftwareRepoDto softwareRepo = new SoftwareRepoDto();
