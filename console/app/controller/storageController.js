@@ -52,10 +52,6 @@ Ext.define('MyApp.controller.storageController', {
         Ext.getCmp('storageCenterContainer').layout.setActiveItem(4);
         this.setStoragePoolData();
 
-        var myGrid = Ext.getCmp(storageConstants.workingGrid);
-        myGrid.selModel.select(0);
-        myGrid.fireEvent('cellclick', myGrid, null, 0, 0, null, 0);
-
     },
 
     onStoragePgButtonClick: function(button, e, eOpts) {
@@ -396,7 +392,15 @@ Ext.define('MyApp.controller.storageController', {
     },
 
     setStoragePoolData: function() {
-        Ext.getCmp(storageConstants.workingGrid).getStore().load();
+        Ext.getCmp(storageConstants.workingGrid).getStore().load({
+            callback: function(records, operation, success){
+                if (this.count() > 0) {
+                    var myGrid = Ext.getCmp(storageConstants.workingGrid);
+                    myGrid.selModel.select(0);
+                    myGrid.fireEvent('cellclick', myGrid, null, 0, 0, null, 0);
+                }
+            }
+        });
         this.setStoragePoolButtonText();
     },
 

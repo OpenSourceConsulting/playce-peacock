@@ -117,16 +117,20 @@ Ext.define('MyApp.controller.objectController', {
         objectConstants.me.setFilesMenuEnable(record);
 
         var key = record.get('key');
+        var folder = objectConstants.currentFolder;
 
         Ext.Ajax.request({
             url: GLOBAL.urlPrefix + 'ceph/object/object?bucketName='+objectConstants.currentBucket + '&key='+key,
             disableCaching : true,
             success: function(response){
                 var data = Ext.decode(response.responseText);
-                Ext.getCmp("objectFilesDetail1").update(data.data);
-                Ext.getCmp("objectFilesDetail2").update(data.data.acl.grantsAsList);
 
-                Ext.getCmp("objectFilesDetail").expand();
+                if ((objectConstants.currentBucket == data.data.bucketName) && (objectConstants.currentFolder == folder)) {
+                    Ext.getCmp("objectFilesDetail1").update(data.data);
+                    Ext.getCmp("objectFilesDetail2").update(data.data.acl.grantsAsList);
+
+                    Ext.getCmp("objectFilesDetail").expand();
+                }
             }
         });
 
@@ -402,6 +406,38 @@ Ext.define('MyApp.controller.objectController', {
                 }
             }
         }
+
+        Ext.getCmp("objectFilesDetail1").update(null);
+        Ext.getCmp("objectFilesDetail2").update(null);
+        Ext.getCmp("objectFilesDetail").collapse();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     },
 
