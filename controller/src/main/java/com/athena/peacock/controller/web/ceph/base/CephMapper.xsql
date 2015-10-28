@@ -52,7 +52,7 @@
 			   S3_SECRET_KEY = #{s3SecretKey}, 
 			   UPD_USER_ID = #{updUserId},
 			   UPD_DT = NOW()
-		 WHERE CEPH_ID = #{userId}
+		 WHERE CEPH_ID = #{cephId}
 	</update>
 	
 	<delete id="deleteCeph" parameterType="int">

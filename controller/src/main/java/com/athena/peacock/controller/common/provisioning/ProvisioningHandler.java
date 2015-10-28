@@ -1858,10 +1858,44 @@ public class ProvisioningHandler {
 		logger.debug("machineId : " + provisioningDetail.getMachineId());
 		logger.debug("softwareId : " + provisioningDetail.getSoftwareId());
 		logger.debug("softwareName : " + provisioningDetail.getSoftwareName());
-		
-		Command command = new Command("ceph-ansible INSTALL");
+
+		Command command = new Command("Install RPM Packages");
 		ShellAction s_action = null;
 		int sequence = 0;
+
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("yum");
+		s_action.addArguments("install");
+		s_action.addArguments("-y");
+		s_action.addArguments("epel-release");
+		command.addAction(s_action);
+
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("yum");
+		s_action.addArguments("install");
+		s_action.addArguments("-y");
+		s_action.addArguments("wget");
+		command.addAction(s_action);
+
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("yum");
+		s_action.addArguments("install");
+		s_action.addArguments("-y");
+		s_action.addArguments("ansible");
+		command.addAction(s_action);
+
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("yum");
+		s_action.addArguments("install");
+		s_action.addArguments("-y");
+		s_action.addArguments("sshpass");
+		command.addAction(s_action);
+		
+		// Add Install RPM Packages Command
+		cmdMsg.addCommand(command);
+		
+		command = new Command("ceph-ansible INSTALL");
+		sequence = 0;
 
 		s_action = new ShellAction(sequence++);
 		s_action.setWorkingDiretory("/opt");
@@ -1886,57 +1920,6 @@ public class ProvisioningHandler {
 		command.addAction(s_action);
 		
 		// Add ceph-ansible INSTALL Command
-		cmdMsg.addCommand(command);
-		
-		command = new Command("Install RPM Packages");
-		sequence = 0;
-
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("yum");
-		s_action.addArguments("install");
-		s_action.addArguments("-y");
-		s_action.addArguments("epel-release");
-		command.addAction(s_action);
-
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("yum");
-		s_action.addArguments("install");
-		s_action.addArguments("-y");
-		s_action.addArguments("ansible");
-		command.addAction(s_action);
-
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("yum");
-		s_action.addArguments("install");
-		s_action.addArguments("-y");
-		s_action.addArguments("sshpass");
-		command.addAction(s_action);
-		
-		// Add Install RPM Packages Command
-		cmdMsg.addCommand(command);
-		
-		command = new Command("Set /etc/hosts");
-		sequence = 0;
-		
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("echo");
-		s_action.addArguments("-e");
-		s_action.addArguments("\"" + ntpServer + "\\tntp-server\"");
-		s_action.addArguments(">>");
-		s_action.addArguments("/etc/hosts");
-		command.addAction(s_action);
-		
-		for (ClusterServer server : servers) {
-			s_action = new ShellAction(sequence++);
-			s_action.setCommand("echo");
-			s_action.addArguments("-e");
-			s_action.addArguments("\"" + server.getIp() + "\\t" + server.getHostname() + "\"");
-			s_action.addArguments(">>");
-			s_action.addArguments("/etc/hosts");
-			command.addAction(s_action);
-		}
-		
-		// Add Set /etc/hosts Command
 		cmdMsg.addCommand(command);
 		
 		command = new Command("Set /opt/ceph-ansible/group_vars/all, osds");
@@ -1965,7 +1948,7 @@ public class ProvisioningHandler {
 			path = devicePaths[i];
 			
 			if (i > 0) {
-				sb.append("\r\n  - ");
+				sb.append("\n  - ");
 			}
 			
 			sb.append(path);
@@ -1984,43 +1967,43 @@ public class ProvisioningHandler {
 		command = new Command("Set /etc/ansible/hosts");
 		sequence = 0;
 		
-		StringBuilder rgws = new StringBuilder("[rgws]").append("\r\n");
-		StringBuilder restapi = new StringBuilder("[restapi]").append("\r\n");
-		StringBuilder calamari = new StringBuilder("[calamari]").append("\r\n");
-		StringBuilder saltServer = new StringBuilder("[salt-server]").append("\r\n");
-		StringBuilder mons = new StringBuilder("[mons]").append("\r\n");
-		StringBuilder osds = new StringBuilder("[osds]").append("\r\n");
-		StringBuilder saltClient = new StringBuilder("[salt-client]").append("\r\n");
-		StringBuilder ntpClient = new StringBuilder("[ntp-client]").append("\r\n");
+		StringBuilder rgws = new StringBuilder("[rgws]").append("\n");
+		StringBuilder restapi = new StringBuilder("[restapi]").append("\n");
+		StringBuilder calamari = new StringBuilder("[calamari]").append("\n");
+		StringBuilder saltServer = new StringBuilder("[salt-server]").append("\n");
+		StringBuilder mons = new StringBuilder("[mons]").append("\n");
+		StringBuilder osds = new StringBuilder("[osds]").append("\n");
+		StringBuilder saltClient = new StringBuilder("[salt-client]").append("\n");
+		StringBuilder ntpClient = new StringBuilder("[ntp-client]").append("\n");
 		
 		for (ClusterServer server : servers) {
 			if (server.getType().equals("radosgw")) {
-				rgws.append(server.getHostname()).append("\r\n");
-				ntpClient.append(server.getHostname()).append("\r\n");
+				rgws.append(server.getHostname()).append("\n");
+				ntpClient.append(server.getHostname()).append("\n");
 			} else if (server.getType().equals("management")) {
-				restapi.append(server.getHostname()).append("\r\n");
-				calamari.append(server.getHostname()).append("\r\n");
-				saltServer.append(server.getHostname()).append("\r\n");
-				ntpClient.append(server.getHostname()).append("\r\n");
+				restapi.append(server.getHostname()).append("\n");
+				calamari.append(server.getHostname()).append("\n");
+				saltServer.append(server.getHostname()).append("\n");
+				ntpClient.append(server.getHostname()).append("\n");
 			} else if (server.getType().equals("mon")) {
-				mons.append(server.getHostname()).append("\r\n");
-				saltClient.append(server.getHostname()).append("\r\n");
-				ntpClient.append(server.getHostname()).append("\r\n");
+				mons.append(server.getHostname()).append("\n");
+				saltClient.append(server.getHostname()).append("\n");
+				ntpClient.append(server.getHostname()).append("\n");
 			} else if (server.getType().equals("osd")) {
-				osds.append(server.getHostname()).append("\r\n");
-				saltClient.append(server.getHostname()).append("\r\n");
-				ntpClient.append(server.getHostname()).append("\r\n");
+				osds.append(server.getHostname()).append("\n");
+				saltClient.append(server.getHostname()).append("\n");
+				ntpClient.append(server.getHostname()).append("\n");
 			} 
 		}
 
 		sb = new StringBuilder();
-		sb.append(rgws).append("\r\n");
-		sb.append(restapi).append("\r\n");
-		sb.append(calamari).append("\r\n");
-		sb.append(saltServer).append("\r\n");
-		sb.append(mons).append("\r\n");
-		sb.append(osds).append("\r\n");
-		sb.append(saltClient).append("\r\n");
+		sb.append(rgws).append("\n");
+		sb.append(restapi).append("\n");
+		sb.append(calamari).append("\n");
+		sb.append(saltServer).append("\n");
+		sb.append(mons).append("\n");
+		sb.append(osds).append("\n");
+		sb.append(saltClient).append("\n");
 		sb.append(ntpClient);
 		
 		fw_action = new FileWriteAction(sequence++);
@@ -2030,22 +2013,41 @@ public class ProvisioningHandler {
 		
 		// Add Set /etc/ansible/hosts Command
 		cmdMsg.addCommand(command);
-		
-		command = new Command("Make and copy ssh key files, copy /etc/hosts");
+
+		command = new Command("Set script & run");
 		sequence = 0;
+
+		StringBuilder script = new StringBuilder("#!/bin/bash").append("\n");
+		script.append("echo -e \"" + ntpServer + "\\tntp-server\" >> /etc/hosts").append("\n");
 		
-		// Make a ssh key
+		for (ClusterServer server : servers) {
+			script.append("echo -e \"" + server.getIp() + "\\t" + server.getHostname() + "\" >> /etc/hosts").append("\n");
+		}
+
+		script.append("rm -f ~/.ssh/id_rsa*").append("\n");
+		script.append("ssh-keygen -t rsa -f ~/.ssh/id_rsa -q -N \"\"");
+		
+		fw_action = new FileWriteAction(sequence++);
+		fw_action.setContents(script.toString());
+		fw_action.setFileName("/tmp/ceph-init.sh");
+		command.addAction(fw_action);
+
 		s_action = new ShellAction(sequence++);
-		//ssh-keygen -t rsa -f ~/.ssh/id_rsa -q -N ""
-		s_action.setCommand("ssh-keygen");
-		s_action.addArguments("-t");
-		s_action.addArguments("rsa");
-		s_action.addArguments("-f");
-		s_action.addArguments("~/.ssh/id_rsa");
-		s_action.addArguments("-q");
-		s_action.addArguments("-N");
-		s_action.addArguments("\"\"");
+		s_action.setCommand("chmod");
+		s_action.addArguments("+x");
+		s_action.addArguments("/tmp/ceph-init.sh");
 		command.addAction(s_action);
+
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("sh");
+		s_action.addArguments("/tmp/ceph-init.sh");
+		command.addAction(s_action);
+		
+		// Add Set script & run Command
+		cmdMsg.addCommand(command);
+		
+		command = new Command("Copy ssh key files and /etc/hosts");
+		sequence = 0;
 		
 		for (ClusterServer server : servers) {
 			//sshpass -p{password} ssh -o StrictHostKeyChecking=no {username}@{hostname} "mkdir -p ~/.ssh"
