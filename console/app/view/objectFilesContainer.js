@@ -168,6 +168,7 @@ Ext.define('MyApp.view.objectFilesContainer', {
                                     style: {
                                         color: '#66f'
                                     },
+                                    width: 100,
                                     text: 'All Buckets'
                                 }
                             ]

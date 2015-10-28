@@ -606,6 +606,21 @@ Ext.define('MyApp.controller.storageController', {
 
         var params = 'host=' + host + '&' + 'user=' + user + '&' + 'pass=' + pass;
 
+
+        var myGrid = Ext.getCmp("storageMonGrid");
+        var myStore = myGrid.getStore();
+        var myName = '';
+
+        for (var i = 0; i < myStore.count(); i++) {
+            myName = myStore.getAt(i).get('server');
+            if (myName == host) {
+                alert('Host (' + host + ') already exist.');
+                myForm.getForm().findField("monAddHost").focus();
+                return;
+            }
+        }
+
+
         Ext.Ajax.request({
             url: GLOBAL.urlPrefix + "ceph/mon/add?" + params,
             method : "GET",

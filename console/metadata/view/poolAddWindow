@@ -119,6 +119,7 @@
                                     "userConfig": {
                                         "displayField": "value",
                                         "fieldLabel": "PG Number",
+                                        "forceSelection": true,
                                         "id": "poolAddPgNum",
                                         "itemId": "poolAddPgNum",
                                         "labelAlign": "right",
@@ -129,7 +130,35 @@
                                         "store": "PgNumComboArrayStore",
                                         "valueField": "value"
                                     },
-                                    "designerId": "9d7f67ba-7b23-44f0-a1e3-b1217e735cc6"
+                                    "designerId": "9d7f67ba-7b23-44f0-a1e3-b1217e735cc6",
+                                    "cn": [
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "value"
+                                                ],
+                                                "fn": "validator",
+                                                "implHandler": [
+                                                    "var ret = true;",
+                                                    "if (storageConstants.editMode == 'edit') {",
+                                                    "    var pgnm = storageConstants.selectRow.get('pg_num');",
+                                                    "    if (pgnm > value) {",
+                                                    "        ret = false;",
+                                                    "    }",
+                                                    "}",
+                                                    "",
+                                                    "return ret;"
+                                                ]
+                                            },
+                                            "designerId": "1aa54064-76d9-49b2-a284-050a50db4a82"
+                                        }
+                                    ]
                                 }
                             ]
                         }

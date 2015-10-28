@@ -132,6 +132,11 @@ Ext.define('MyApp.controller.objectController', {
 
     },
 
+    onObjectFilesGridpanelCellDblClick: function(tableview, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+        objectConstants.me.openObjectFile();
+
+    },
+
     onObjectFilesGridpanelBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
         objectConstants.selectFilesRow = record;
         objectConstants.selectFilesIndex = index;
@@ -356,6 +361,7 @@ Ext.define('MyApp.controller.objectController', {
             style: {
                 color: '#66f'
             },
+            width: 100,
             text: 'All Buckets'
         };
         Ext.getCmp('objectFilesTopAddrToolbar').add(button);
@@ -366,7 +372,30 @@ Ext.define('MyApp.controller.objectController', {
             var key='';
             var splitKey = objectConstants.currentFolder.split('/');
 
-            for (var i=0; i < splitKey.length; i++) {
+            var i_count = splitKey.length;
+            if (splitKey[splitKey.length - 1] === '') {
+                i_count -= 1;
+            }
+
+            var i_width = Ext.getCmp('objectFilesTopAddrToolbar').getWidth();
+            var i_max = (i_count * 130) + 250;
+            var i_start = 0;
+            if (i_max > i_width) {
+                i_start = Math.floor((i_max - i_width - 1) / 130) + 1;
+                if (i_start >= i_count) {
+                    i_start = i_count - 1;
+                }
+
+                if (i_start > 0) {
+                    Ext.getCmp('objectFilesTopAddrToolbar').add('>');
+                    Ext.getCmp('objectFilesTopAddrToolbar').add('...');
+                }
+            }
+
+            for (var i = 0; i < i_start; i++) {
+                key += splitKey[i] + '/';
+            }
+            for (var i = i_start; i < splitKey.length; i++) {
                 key += splitKey[i] + '/';
                 if (splitKey[i] !== '') {
                     objectConstants.me.addFilesFolderButton(splitKey[i], key);
@@ -1011,6 +1040,7 @@ Ext.define('MyApp.controller.objectController', {
             },
             "#objectFilesGrid": {
                 cellclick: this.onObjectFilesGridpanelCellClick,
+                celldblclick: this.onObjectFilesGridpanelCellDblClick,
                 beforeitemcontextmenu: this.onObjectFilesGridpanelBeforeItemContextMenu
             },
             "#filesAllBuckets": {

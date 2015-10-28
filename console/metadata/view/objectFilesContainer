@@ -307,7 +307,11 @@
                                     "}"
                                 ],
                                 "text": "All Buckets",
-                                "width": null
+                                "tooltip": null,
+                                "width": 100
+                            },
+                            "configAlternates": {
+                                "tooltip": "string"
                             },
                             "designerId": "75ab576f-e598-442a-8eb1-04a9178585f5"
                         }

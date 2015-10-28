@@ -87,6 +87,17 @@ Ext.define('MyApp.view.poolAddWindow', {
                                         },
                                         {
                                             xtype: 'combobox',
+                                            validator: function(value) {
+                                                var ret = true;
+                                                if (storageConstants.editMode == 'edit') {
+                                                    var pgnm = storageConstants.selectRow.get('pg_num');
+                                                    if (pgnm > value) {
+                                                        ret = false;
+                                                    }
+                                                }
+
+                                                return ret;
+                                            },
                                             anchor: '100%',
                                             id: 'poolAddPgNum',
                                             itemId: 'poolAddPgNum',
@@ -96,6 +107,7 @@ Ext.define('MyApp.view.poolAddWindow', {
                                             name: 'poolAddPgNum',
                                             maxLength: 32,
                                             displayField: 'value',
+                                            forceSelection: true,
                                             store: 'PgNumComboArrayStore',
                                             valueField: 'value'
                                         }
