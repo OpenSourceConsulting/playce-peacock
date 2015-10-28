@@ -36,6 +36,9 @@ import javax.inject.Named;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.node.ArrayNode;
 import org.jboss.ews.dbcp.BlowfishEncrypter;
 import org.picketbox.datasource.security.SecureIdentityLoginModule;
 import org.slf4j.Logger;
@@ -660,7 +663,7 @@ public class ProvisioningHandler {
 		config.setUpdUserId(provisioningDetail.getUserId());
 		configList.add(config);
 		
-		new InstallThread(peacockTransmitter, softwareService, cmdMsg, software, configList).start();
+		new InstallThread(peacockTransmitter, softwareService, cmdMsg, software, configList, null, null).start();
 	}
 	
 	private void tomcatInstall(ProvisioningDetail provisioningDetail) throws Exception {
@@ -1057,7 +1060,7 @@ public class ProvisioningHandler {
 		config.setUpdUserId(provisioningDetail.getUserId());
 		configList.add(config);
 
-		new InstallThread(peacockTransmitter, softwareService, cmdMsg, software, configList).start();
+		new InstallThread(peacockTransmitter, softwareService, cmdMsg, software, configList, null, null).start();
 	}
 	
 	private void jbossInstall(ProvisioningDetail provisioningDetail) throws Exception {
@@ -1650,7 +1653,7 @@ public class ProvisioningHandler {
 		config.setUpdUserId(provisioningDetail.getUserId());
 		configList.add(config);
 
-		new InstallThread(peacockTransmitter, softwareService, cmdMsg, software, configList).start();
+		new InstallThread(peacockTransmitter, softwareService, cmdMsg, software, configList, null, null).start();
 	}
 	
 	private void mysqlInstall(ProvisioningDetail provisioningDetail) throws Exception {
@@ -1781,7 +1784,7 @@ public class ProvisioningHandler {
 		config.setUpdUserId(provisioningDetail.getUserId());
 		configList.add(config);
 
-		new InstallThread(peacockTransmitter, softwareService, cmdMsg, software, configList).start();
+		new InstallThread(peacockTransmitter, softwareService, cmdMsg, software, configList, null, null).start();
 	}
 	
 	private void cephInstall(ProvisioningDetail provisioningDetail) throws Exception {
@@ -1855,11 +1858,6 @@ public class ProvisioningHandler {
 		logger.debug("machineId : " + provisioningDetail.getMachineId());
 		logger.debug("softwareId : " + provisioningDetail.getSoftwareId());
 		logger.debug("softwareName : " + provisioningDetail.getSoftwareName());
-		
-		int j = 1;
-		if (j == 1) {
-			return;
-		}
 		
 		Command command = new Command("ceph-ansible INSTALL");
 		ShellAction s_action = null;
@@ -2125,6 +2123,80 @@ public class ProvisioningHandler {
 		// Add Run ansible-playbook Command
 		cmdMsg.addCommand(command);
 		
+		command = new Command("Add user for object storage");
+		sequence = 0;
+		
+		// radosgw-admin user create --uid=osc --display-name="osc"
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("radosgw-admin");
+		s_action.addArguments("user");
+		s_action.addArguments("create");
+		s_action.addArguments("--uid=osc");
+		s_action.addArguments("--display-name=\"osc\"");
+		command.addAction(s_action);
+
+		// # radosgw-admin caps add --uid=osc --caps="usage=read, write"
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("radosgw-admin");
+		s_action.addArguments("caps");
+		s_action.addArguments("add");
+		s_action.addArguments("--uid=osc");
+		s_action.addArguments("--caps=\"usage=read, write\"");
+		command.addAction(s_action);
+
+		// # radosgw-admin caps add --uid=osc --caps="buckets=read, write"
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("radosgw-admin");
+		s_action.addArguments("caps");
+		s_action.addArguments("add");
+		s_action.addArguments("--uid=osc");
+		s_action.addArguments("--caps=\"buckets=read, write\"");
+		command.addAction(s_action);
+
+		// # radosgw-admin caps add --uid=osc --caps="users=read, write"
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("radosgw-admin");
+		s_action.addArguments("caps");
+		s_action.addArguments("add");
+		s_action.addArguments("--uid=osc");
+		s_action.addArguments("--caps=\"users=read, write\"");
+		command.addAction(s_action);
+
+		// # radosgw-admin caps add --uid=osc --caps="zone=read, write"
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("radosgw-admin");
+		s_action.addArguments("caps");
+		s_action.addArguments("add");
+		s_action.addArguments("--uid=osc");
+		s_action.addArguments("--caps=\"zone=read, write\"");
+		command.addAction(s_action);
+
+		// # radosgw-admin caps add --uid=osc --caps="metadata=read, write"
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("radosgw-admin");
+		s_action.addArguments("caps");
+		s_action.addArguments("add");
+		s_action.addArguments("--uid=osc");
+		s_action.addArguments("--caps=\"metadata=read, write\"");
+		command.addAction(s_action);
+
+		// Add user for object storage Command
+		cmdMsg.addCommand(command);
+		
+		command = new Command("Get S3 Credeitials");
+		sequence = 0;
+		
+		// radosgw-admin user info --uid=osc
+		s_action = new ShellAction(sequence++);
+		s_action.setCommand("radosgw-admin");
+		s_action.addArguments("user");
+		s_action.addArguments("info");
+		s_action.addArguments("--uid=osc");
+		command.addAction(s_action);
+
+		// Add Get S3 Credeitials Command
+		cmdMsg.addCommand(command);
+		
 		/***************************************************************
 		 *  software_tbl에 소프트웨어 설치 정보 및 config_tbl에 설정파일 정보 추가
 		 ***************************************************************/
@@ -2139,33 +2211,29 @@ public class ProvisioningHandler {
 		
 		List<ConfigDto> configList = new ArrayList<ConfigDto>();
 		
-		CephDto dto = new CephDto();
-		dto.setMachineId(provisioningDetail.getMachineId());
+		CephDto cephDto = new CephDto();
+		cephDto.setMachineId(provisioningDetail.getMachineId());
 		
 		for (ClusterServer server : servers) {
 			if (server.getType().equals("radosgw")) {
-				dto.setRadosgwApiPrefix("http://" + server.getIp());
+				cephDto.setRadosgwApiPrefix("http://" + server.getIp());
 			} else if (server.getType().equals("management")) {
-				dto.setMgmtHost(server.getIp());
-				dto.setMgmtPort("22");
-				dto.setMgmtUsername(server.getUsername());
-				dto.setMgmtPassword(server.getPassword());
-				dto.setMgmtApiPrefix("http://" + server.getIp() + ":5000/api/v0.1");
+				cephDto.setMgmtHost(server.getIp());
+				cephDto.setMgmtPort("22");
+				cephDto.setMgmtUsername(server.getUsername());
+				cephDto.setMgmtPassword(server.getPassword());
+				cephDto.setMgmtApiPrefix("http://" + server.getIp() + ":5000/api/v0.1");
 				
-				dto.setCalamariApiPrefix("http://" + server.getIp() + "/api/v2");
-				dto.setCalamariUsername("root");
-				dto.setCalamariPassword("calamaripw");
+				cephDto.setCalamariApiPrefix("http://" + server.getIp() + "/api/v2");
+				cephDto.setCalamariUsername("root");
+				cephDto.setCalamariPassword("calamaripw");
 			}
 		}
 		
-		// TODO S3AccessKey, S3SecretKey should be replaced.
-		dto.setS3AccessKey("YURR234DJCPXHAWA2BKG");
-		dto.setS3SecretKey("6oyIDbSPAG081wiBFEvo0zXTou01d1gljNi5FdnD");
-		dto.setRegUserId(provisioningDetail.getUserId());
-		dto.setUpdUserId(provisioningDetail.getUserId());
-		cephService.insertCeph(dto);
+		cephDto.setRegUserId(provisioningDetail.getUserId());
+		cephDto.setUpdUserId(provisioningDetail.getUserId());
 
-		new InstallThread(peacockTransmitter, softwareService, cmdMsg, software, configList).start();
+		new InstallThread(peacockTransmitter, softwareService, cmdMsg, software, configList, cephService, cephDto).start();
 	}
 	
 	private void httpdRemove(ProvisioningDetail provisioningDetail) throws Exception {
@@ -2483,14 +2551,19 @@ class InstallThread extends Thread {
 	private ProvisioningCommandMessage cmdMsg;
 	private SoftwareDto software;
 	private List<ConfigDto> configList;
+	private CephService cephService;
+	private CephDto cephDto;
 	
 	public InstallThread(PeacockTransmitter peacockTransmitter, SoftwareService softwareService,
-			ProvisioningCommandMessage cmdMsg, SoftwareDto software, List<ConfigDto> configList) {
+			ProvisioningCommandMessage cmdMsg, SoftwareDto software, List<ConfigDto> configList,
+			CephService cephService, CephDto cephDto) {
 		this.peacockTransmitter = peacockTransmitter;
 		this.softwareService = softwareService;
 		this.cmdMsg = cmdMsg;
 		this.software = software;
 		this.configList = configList;
+		this.cephService = cephService;
+		this.cephDto = cephDto;
 	}
 	
 	@Override
@@ -2511,17 +2584,51 @@ class InstallThread extends Thread {
 				if (i < commands.size()) {
 					if (commands.get(i) != null) {
 						sb.append("[Command] : " + commands.get(i) + "\n");
+						
+						if (commands.get(i).equals("Get S3 Credeitials")) {
+							try {
+								ObjectMapper mapper = new ObjectMapper();
+								JsonNode node = mapper.readTree(results.get(i));
+								JsonNode keys = node.get("keys");
+								
+								String accessKey = null;
+								String secretKey = null;
+								if (keys.isArray()) {
+									for (JsonNode key : (ArrayNode) keys) {
+										if (key.get("user").asText().equals("osc")) {
+											accessKey = key.get("access_key").asText();
+											secretKey = key.get("secret_key").asText();
+										}
+									}
+								} else {
+									if (keys.get("user").asText().equals("osc")) {
+										accessKey = keys.get("access_key").asText();
+										secretKey = keys.get("secret_key").asText();
+									}
+								}
+								
+								cephDto.setS3AccessKey(accessKey);
+								cephDto.setS3SecretKey(secretKey);
+							} catch (Exception e) {
+								logger.error("Unhandled Exception has occurred during parsing S3 credentials.", e);
+							}
+						}
 					}
 				}
 
 				sb.append(results.get(i) + "\n");
 			}
+			
 			software.setInstallStat("COMPLETED");
 			software.setInstallLog(sb.toString());
 
 			logger.debug("Install Log : [{}]", sb.toString());
 			
 			softwareService.insertSoftware(software, configList);
+			
+			if (cephService != null && cephDto != null) {
+				cephService.insertCeph(cephDto);
+			}
 		} catch (Exception e) {
 			software.setInstallStat("INST_ERROR");
 			software.setInstallLog(e.getMessage());
