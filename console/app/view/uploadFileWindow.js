@@ -21,6 +21,7 @@ Ext.define('MyApp.view.uploadFileWindow', {
         'Ext.form.Panel',
         'Ext.form.FieldSet',
         'Ext.form.field.File',
+        'Ext.form.field.Hidden',
         'Ext.toolbar.Toolbar',
         'Ext.button.Button'
     ],
@@ -61,8 +62,26 @@ Ext.define('MyApp.view.uploadFileWindow', {
                                             id: 'uploadFileName',
                                             itemId: 'uploadFileName',
                                             fieldLabel: 'File Name',
-                                            labelWidth: 64,
-                                            name: 'uploadFileName'
+                                            labelAlign: 'right',
+                                            labelWidth: 68,
+                                            name: 'file',
+                                            enforceMaxLength: false
+                                        },
+                                        {
+                                            xtype: 'hiddenfield',
+                                            anchor: '100%',
+                                            id: 'uploadBucketName',
+                                            itemId: 'uploadBucketName',
+                                            fieldLabel: 'Label',
+                                            name: 'bucketName'
+                                        },
+                                        {
+                                            xtype: 'hiddenfield',
+                                            anchor: '100%',
+                                            id: 'uploadParentPath',
+                                            itemId: 'uploadParentPath',
+                                            fieldLabel: 'Label',
+                                            name: 'parentPath'
                                         }
                                     ]
                                 }
@@ -84,13 +103,34 @@ Ext.define('MyApp.view.uploadFileWindow', {
                                     xtype: 'button',
                                     handler: function(button, e) {
                                         var myForm = Ext.getCmp("uploadFileFormPanel");
+                                        myForm.getForm().findField('uploadBucketName').setValue(objectConstants.currentBucket);
+                                        myForm.getForm().findField('uploadParentPath').setValue(objectConstants.currentFolder);
 
                                         if(myForm.isValid()){
-                                            myForm.submit({
-                                                url: '/',
-                                                waitMsg: 'Uploading your file...',
-                                                success: function(fp, o) {
-                                                    objectConstants.me.uploadObjectFile(o.result.file);
+                                            myForm.getForm().submit({
+                                                url: GLOBAL.urlPrefix + "ceph/object/object",
+                                                waitMsg : 'Uploading file...',
+                                                success: function(fp, res){
+                                                    var data = Ext.decode(res.response.responseText);
+                                                    Ext.Msg.show({
+                                                        title:'Information',
+                                                        msg: 'File Upload Complete.',
+                                                        buttons: Ext.Msg.OK,
+                                                        icon: Ext.Msg.INFO
+                                                    });
+
+                                                    myForm.up('window').close();
+                                                    objectConstants.me.setObjectFilesData();
+                                                },
+                                                failure: function(response){
+                                                    Ext.Msg.show({
+                                                        title:'Error',
+                                                        msg: 'Error on Upload File.',
+                                                        buttons: Ext.Msg.OK,
+                                                        icon: Ext.Msg.ERROR
+                                                    });
+
+                                                    myForm.up('window').close();
                                                 }
                                             });
                                         }

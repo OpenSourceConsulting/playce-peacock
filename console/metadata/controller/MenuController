@@ -81,7 +81,7 @@
                     "        storageConstants.me.setStorageMainData();",
                     "",
                     "    } else if(record.get('id') == 'ROLE_B6_READ') {",
-                    "        ",
+                    "",
                     "        Ext.getCmp('objectCenterContainer').layout.setActiveItem(0);",
                     "        objectConstants.me.setObjectBucketsData();",
                     "    }",

@@ -29,6 +29,7 @@ Ext.define('MyApp.controller.storageController', {
 
         Ext.getCmp('storageCenterContainer').layout.setActiveItem(1);
         this.setStorageHostData();
+
     },
 
     onStorageMonButtonClick: function(button, e, eOpts) {
@@ -50,6 +51,11 @@ Ext.define('MyApp.controller.storageController', {
 
         Ext.getCmp('storageCenterContainer').layout.setActiveItem(4);
         this.setStoragePoolData();
+
+        var myGrid = Ext.getCmp(storageConstants.workingGrid);
+        myGrid.selModel.select(0);
+        myGrid.fireEvent('cellclick', myGrid, null, 0, 0, null, 0);
+
     },
 
     onStoragePgButtonClick: function(button, e, eOpts) {
@@ -66,11 +72,10 @@ Ext.define('MyApp.controller.storageController', {
         this.setStorageUsageData();
     },
 
-    onStorageOsdGridpanelCellClick: function(tableview, td, cellIndex, record, tr, rowIndex, e, eOpts) {
-
-    },
-
     onStoragePoolGridpanelCellClick: function(tableview, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+        storageConstants.selectRow = record;
+        storageConstants.selectIndex = rowIndex;
+
         var gId = Ext.getCmp(storageConstants.workingGrid).getStore().getAt(rowIndex).get('id');
         var gNm = Ext.getCmp(storageConstants.workingGrid).getStore().getAt(rowIndex).get('name');
 
@@ -91,11 +96,32 @@ Ext.define('MyApp.controller.storageController', {
     },
 
     onHostAddButtonClick: function(button, e, eOpts) {
-        //Add Popup 호출
+        //CreateClusterWindow 호출
 
-        storageConstants.editMode = 'add';
-        var AddWindow = Ext.create('widget.hostAddWindow');
-        AddWindow.title = 'Add HOST';
+        var AddWindow = Ext.create('widget.CreateClusterWindow');
+
+        var myForm = Ext.getCmp("GeneralConfigurationFormPanel1");
+        myForm.getForm().findField("clusterReplicaSize").setValue(3);
+        myForm.getForm().findField("clusterPgNum").setValue(8);
+
+        myForm = Ext.getCmp("GeneralConfigurationFormPanel2");
+        myForm.getForm().findField("clusterJournalSize").setValue(1024);
+
+        AddWindow.show();
+
+
+    },
+
+    onClusterAddPathButtonClick: function(button, e, eOpts) {
+        var AddWindow = Ext.create('widget.clusterDevicePathWindow');
+
+        AddWindow.show();
+
+    },
+
+    onClusterAddServerButtonClick: function(button, e, eOpts) {
+        var AddWindow = Ext.create('widget.clusterServerWindow');
+
         AddWindow.show();
 
     },
@@ -107,10 +133,11 @@ Ext.define('MyApp.controller.storageController', {
         var AddWindow = Ext.create('widget.monAddWindow');
         AddWindow.title = 'Add MON';
 
-
         var myForm = Ext.getCmp("monAddFormPanel");
-        var addrField = myForm.getForm().findField("monAddIP");
-        addrField.show();
+        var userField = myForm.getForm().findField("monAddUser");
+        var passField = myForm.getForm().findField("monAddPass");
+        userField.show();
+        passField.show();
 
         AddWindow.show();
 
@@ -132,7 +159,133 @@ Ext.define('MyApp.controller.storageController', {
         storageConstants.editMode = 'add';
         var AddWindow = Ext.create('widget.poolAddWindow');
         AddWindow.title = 'Add POOL';
+
+        var myForm = Ext.getCmp("poolAddFormPanel");
+        var nameField = myForm.getForm().findField("poolAddName");
+        var sizeField = myForm.getForm().findField("poolAddSize");
+        var pgnmField = myForm.getForm().findField("poolAddPgNum");
+
+        nameField.setValue('');
+        sizeField.setValue(3);
+        pgnmField.setValue(8);
+
         AddWindow.show();
+
+    },
+
+    onCreateClusterButtonClick: function(button, e, eOpts) {
+        var myForm = Ext.getCmp("GeneralConfigurationFormPanel1");
+        if (myForm.getForm().isValid() !== true) {
+            return;
+        }
+        var replicaSize = myForm.getForm().findField("clusterReplicaSize").getValue();
+        var pgNum = myForm.getForm().findField("clusterPgNum").getValue();
+        var publicNetwork = myForm.getForm().findField("clusterPublicNetwork").getValue();
+        var clusterNetwork = myForm.getForm().findField("clusterClusterNetwork").getValue();
+
+
+
+        myForm = Ext.getCmp("GeneralConfigurationFormPanel2");
+        if (myForm.getForm().isValid() !== true) {
+            return;
+        }
+        var journalSize = myForm.getForm().findField("clusterJournalSize").getValue();
+        var monNetworkInterface = myForm.getForm().findField("clusterMonNetworkInterface").getValue();
+        var fileSystem = myForm.getForm().findField("clusterFileSystem").getValue();
+        var ntpServer = myForm.getForm().findField("clusterNtpServer").getValue();
+
+
+
+        var hostname = [];
+        var ip = [];
+        var type = [];
+        var userName = [];
+        var password = [];
+
+        var myGrid = Ext.getCmp("ClusterServersGrid");
+        var myStore = myGrid.getStore();
+        if (myStore.count() <= 0) {
+            alert('Input Cluster Server informations.');
+            return;
+        }
+
+        for (var i = 0; i < myStore.count(); i++) {
+            hostname.push(myStore.getAt(i).get('hostname'));
+            ip.push(myStore.getAt(i).get('ip'));
+            type.push(myStore.getAt(i).get('type'));
+            userName.push(myStore.getAt(i).get('username'));
+            password.push(myStore.getAt(i).get('password'));
+        }
+
+
+        var devicePaths = [];
+        var path = '';
+
+        myGrid = Ext.getCmp("OsdDevicePathGrid");
+        myStore = myGrid.getStore();
+        if (myStore.count() <= 0) {
+            alert('Input Osd Device Path informations.');
+            return;
+        }
+
+        for (var i = 0; i < myStore.count(); i++) {
+            path = myStore.getAt(i).get('path');
+
+            devicePaths.push(path);
+        }
+
+
+        var params = {
+            'journalSize': journalSize,
+            'monNetworkInterface': monNetworkInterface,
+            'pgNum': pgNum,
+        	'replicaSize': replicaSize,
+        	'publicNetwork': publicNetwork,
+        	'clusterNetwork': clusterNetwork,
+        	'fileSystem': fileSystem,
+        	'ntpServer': ntpServer,
+            'hostname': hostname,
+            'ip': ip,
+            'type': type,
+            'userName': userName,
+            'password': password,
+        	'devicePaths': devicePaths
+        };
+
+
+
+        var form = Ext.create('Ext.form.Panel', {
+            url: 'software/install',
+            items : [
+                {xtype: 'textfield', name: 'softwareId', value: 7},
+                {xtype: 'textfield', name: 'machineId', value: 'a110bb8f-9494-4ed4-949d-9d6a2defb4df'},
+                {xtype: 'textfield', name: 'journalSize', value: journalSize},
+                {xtype: 'textfield', name: 'monNetworkInterface', value: monNetworkInterface},
+                {xtype: 'textfield', name: 'pgNum', value: pgNum},
+                {xtype: 'textfield', name: 'replicaSize', value: replicaSize},
+                {xtype: 'textfield', name: 'publicNetwork', value: publicNetwork},
+                {xtype: 'textfield', name: 'clusterNetwork', value: clusterNetwork},
+                {xtype: 'textfield', name: 'fileSystem', value: fileSystem},
+                {xtype: 'textfield', name: 'ntpServer', value: ntpServer}
+            ]
+        });
+
+        for (var i = 0; i < hostname.length; i++) {
+            form.items.add(Ext.create("Ext.form.field.Text", {xtype: 'textfield', name: 'hostname', value: hostname[i]}));
+            form.items.add(Ext.create("Ext.form.field.Text", {xtype: 'textfield', name: 'ip', value: ip[i]}));
+            form.items.add(Ext.create("Ext.form.field.Text", {xtype: 'textfield', name: 'type', value: type[i]}));
+            form.items.add(Ext.create("Ext.form.field.Text", {xtype: 'textfield', name: 'userName', value: userName[i]}));
+            form.items.add(Ext.create("Ext.form.field.Text", {xtype: 'textfield', name: 'password', value: password[i]}));
+        }
+
+        for (var i = 0; i < devicePaths.length; i++) {
+            form.items.add(Ext.create("Ext.form.field.Text", {xtype: 'textfield', name: 'devicePaths', value: devicePaths[i]}));
+        }
+
+        console.log(Ext.JSON.encode(form.getValues()));
+        alert(Ext.JSON.encode(form.getValues()));
+
+        form.submit();
 
     },
 
@@ -146,6 +299,16 @@ Ext.define('MyApp.controller.storageController', {
         storageConstants.monContextMenu.showAt(position);
     },
 
+    onOsdGridpanelBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
+        var position = e.getXY();
+        e.stopEvent();
+
+        storageConstants.selectRow = record;
+        storageConstants.selectIndex = index;
+
+        storageConstants.osdContextMenu.showAt(position);
+    },
+
     onPoolGridpanelBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
         var position = e.getXY();
         e.stopEvent();
@@ -154,6 +317,26 @@ Ext.define('MyApp.controller.storageController', {
         storageConstants.selectIndex = index;
 
         storageConstants.poolContextMenu.showAt(position);
+    },
+
+    onServerGridpanelBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
+        var position = e.getXY();
+        e.stopEvent();
+
+        storageConstants.selectRow = record;
+        storageConstants.selectIndex = index;
+
+        storageConstants.serverContextMenu.showAt(position);
+    },
+
+    onPathGridpanelBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
+        var position = e.getXY();
+        e.stopEvent();
+
+        storageConstants.selectRow = record;
+        storageConstants.selectIndex = index;
+
+        storageConstants.pathContextMenu.showAt(position);
     },
 
     setStorageMainData: function() {
@@ -409,143 +592,257 @@ Ext.define('MyApp.controller.storageController', {
 
     },
 
-    addStorageHost: function() {
-        //Add Host Execute
-
-        var myForm = Ext.getCmp("hostAddFormPanel");
-
-        var host = myForm.getForm().findField("hostAddHost").getValue();
-        var user = myForm.getForm().findField("hostAddUser").getValue();
-        var pass = myForm.getForm().findField("hostAddPass").getValue();
-
-        var myData = {'data':[{'type':'mon', 'id':host, 'hostname':host, 'running':'OK'}]};
-        //Ext.MessageBox.alert("info", Ext.JSON.encode(myData));
-
-        Ext.getCmp(storageConstants.workingGrid).getStore().loadRawData(myData, true);
-
-        myForm.up('window').close();
-
-        this.setStorageHostButtonText();
-    },
-
     addStorageMon: function() {
         //Add Mon Execute
 
         var myForm = Ext.getCmp("monAddFormPanel");
-        var host = myForm.getForm().findField("monAddHost").getValue();
-        var addr = myForm.getForm().findField("monAddIP").getValue();
-
-        if (storageConstants.editMode == 'add') {
-            var myData = {'data':[{'name':host, 'rank':10, 'in_quorum':true, 'server':host, 'ip':addr, 'port':'6780', 'pid':'0', 'addr':addr+':6780/0'}]};
-
-            //Ext.MessageBox.alert("info", Ext.JSON.encode(myData));
-
-            Ext.getCmp(storageConstants.workingGrid).getStore().loadRawData(myData, true);
-        } else {
-            Ext.getCmp(storageConstants.workingGrid).getStore().getAt(storageConstants.selectIndex).set('name', host);
-            Ext.getCmp(storageConstants.workingGrid).getStore().getAt(storageConstants.selectIndex).set('server', host);
+        if (myForm.getForm().isValid() !== true) {
+            return;
         }
 
-        myForm.up('window').close();
+        var host = myForm.getForm().findField("monAddHost").getValue();
+        var user = myForm.getForm().findField("monAddUser").getValue();
+        var pass = myForm.getForm().findField("monAddPass").getValue();
 
-        this.setStorageMonButtonText();
+        var params = 'host=' + host + '&' + 'user=' + user + '&' + 'pass=' + pass;
+
+        Ext.Ajax.request({
+            url: GLOBAL.urlPrefix + "ceph/mon/add?" + params,
+            method : "GET",
+            disableCaching : true,
+            success: function(response){
+                var data = Ext.decode(response.responseText);
+                if (data.success === true) {
+                    storageConstants.me.setStorageMonData();
+                    myForm.up('window').close();
+                    storageConstants.me.setStorageMonButtonText();
+                } else {
+                    Ext.Msg.alert({
+                        title: "MON Add Failure",
+                        msg: data.msg,
+                        buttons: Ext.Msg.OK,
+                        fn: function(choice) {
+                            myForm.getForm().findField("monAddHost").focus();
+                        },
+                        icon: Ext.Msg.ERROR
+                    });
+                }
+            }
+        });
+
     },
 
     addStorageOsd: function() {
         //Add Osd Execute
 
         var myForm = Ext.getCmp("osdAddFormPanel");
+        if (myForm.getForm().isValid() !== true) {
+            return;
+        }
+
         var host = myForm.getForm().findField("osdAddHost").getValue();
-        var addr = myForm.getForm().findField("osdAddIP").getValue();
+        var path = myForm.getForm().findField("osdAddPath").getValue();
 
-        var myData = {'data':[{
-          'name':'osd.10',
-          'id':10,
-          'status':'up/in',
-          'ip':addr,
-          'port':'6800',
-          'pid':'1633',
-          'public_addr':addr + ':6800/1633',
-          'cluster_addr':'10.0.0.229:6800/1633',
-          'heartbeat_back_addr':'10.0.0.229:6801/1633',
-          'heartbeat_front_addr':addr + ':6801/1633',
-          'up_from':86,
-          'host':host
-        }]};
+        var params = 'host=' + host + '&' + 'path=' + path;
 
-        //Ext.MessageBox.alert("info", Ext.JSON.encode(myData));
+        Ext.Ajax.request({
+            url: GLOBAL.urlPrefix + "ceph/osd/add?" + params,
+            method : "GET",
+            disableCaching : true,
+            success: function(response){
+                var data = Ext.decode(response.responseText);
+                if (data.success === true) {
+                    storageConstants.me.setStorageOsdData();
+                    myForm.up('window').close();
+                    storageConstants.me.setStorageOsdButtonText();
+                } else {
+                    Ext.Msg.alert({
+                        title: "OSD Add Failure",
+                        msg: data.msg,
+                        buttons: Ext.Msg.OK,
+                        fn: function(choice) {
+                            myForm.getForm().findField("osdAddHost").focus();
+                        },
+                        icon: Ext.Msg.ERROR
+                    });
+                }
+            }
+        });
 
-        Ext.getCmp(storageConstants.workingGrid).getStore().loadRawData(myData, true);
-
-        myForm.up('window').close();
-
-        this.setStorageOsdButtonText();
     },
 
     addStoragePool: function() {
         //Add Pool Execute
 
         var myForm = Ext.getCmp("poolAddFormPanel");
+        if (myForm.getForm().isValid() !== true) {
+            return;
+        }
+
         var name = myForm.getForm().findField("poolAddName").getValue();
         var size = myForm.getForm().findField("poolAddSize").getValue();
         var pgnm = myForm.getForm().findField("poolAddPgNum").getValue();
 
+        var params = '';
+
         if (storageConstants.editMode == 'add') {
-            var myData = {'data':[{
-             "name": name,
-             "id": 21,
-             "size": size,
-             "pg_num": pgnm,
-             "crush_ruleset": 0,
-             "min_size": size,
-             "crash_replay_interval": 0,
-             "pgp_num": pgnm,
-             "hashpspool": true,
-             "full": false,
-             "quota_max_objects": 0,
-             "quota_max_bytes": 0
-            }]};
+            var myGrid = Ext.getCmp("storagePoolGrid");
+            var myStore = myGrid.getStore();
+            var myName = '';
 
-            //Ext.MessageBox.alert("info", Ext.JSON.encode(myData));
+            for (var i = 0; i < myStore.count(); i++) {
+                myName = myStore.getAt(i).get('name');
+                if (myName == name) {
+                    alert('Pool name(' + name + ') already exist.');
+                    myForm.getForm().findField("poolAddName").focus();
+                    return;
+                }
+            }
 
-            Ext.getCmp(storageConstants.workingGrid).getStore().loadRawData(myData, true);
+            params = 'pool=' + name + '&' + 'pg_num=' + pgnm;
+
+            Ext.Ajax.request({
+                url: GLOBAL.urlPrefix + "ceph/pool/create?" + params,
+                method : "GET",
+                disableCaching : true,
+                success: function(response){
+                    var data = Ext.decode(response.responseText);
+
+                    if (data.success === true) {
+                        params = 'name=' + name + '&' + 'size=' + size;
+                        Ext.Ajax.request({
+                            url: GLOBAL.urlPrefix + "ceph/pool/set/size?" + params,
+                            method : "GET",
+                            disableCaching : true,
+                            success: function(response){
+                                var data = Ext.decode(response.responseText);
+
+                                if (data.success !== true) {
+                                    Ext.Msg.alert({
+                                        title: "Failure",
+                                        msg: data.msg,
+                                        buttons: Ext.Msg.OK,
+                                        icon: Ext.Msg.ERROR
+                                    });
+                                }
+
+                                storageConstants.me.setStoragePoolData();
+                                myForm.up('window').close();
+                                storageConstants.me.setStoragePoolButtonText();
+                            }
+                        });
+                    } else {
+                        Ext.Msg.alert({
+                            title: "POOL Add Failure",
+                            msg: data.msg,
+                            buttons: Ext.Msg.OK,
+                            fn: function(choice) {
+                                myForm.getForm().findField("poolAddName").focus();
+                            },
+                            icon: Ext.Msg.ERROR
+                        });
+                    }
+                }
+            });
         } else {
-            Ext.getCmp(storageConstants.workingGrid).getStore().getAt(storageConstants.selectIndex).set('name', name);
-            Ext.getCmp(storageConstants.workingGrid).getStore().getAt(storageConstants.selectIndex).set('size', size);
-            Ext.getCmp(storageConstants.workingGrid).getStore().getAt(storageConstants.selectIndex).set('pg_num', pgnm);
-            Ext.getCmp(storageConstants.workingGrid).getStore().getAt(storageConstants.selectIndex).set('min_size', size);
-            Ext.getCmp(storageConstants.workingGrid).getStore().getAt(storageConstants.selectIndex).set('pgp_num', pgnm);
+            var oName = storageConstants.selectRow.get('name');
+            var oSize = storageConstants.selectRow.get('size');
+            var oPgnm = storageConstants.selectRow.get('pg_num');
+
+            if (oName != name) {
+                var myGrid = Ext.getCmp("storagePoolGrid");
+                var myStore = myGrid.getStore();
+                var myName = '';
+
+                for (var i = 0; i < myStore.count(); i++) {
+                    myName = myStore.getAt(i).get('name');
+                    if (myName == name) {
+                        alert('Pool name(' + name + ') already exist.');
+                        myForm.getForm().findField("poolAddName").focus();
+                        return;
+                    }
+                }
+
+                params = 'name=' + oName + '&' + 'srcpool=' + oName + '&' + 'destpool=' + name;
+                Ext.Ajax.request({
+                    url: GLOBAL.urlPrefix + "ceph/pool/rename?" + params,
+                    method : "GET",
+                    disableCaching : true,
+                    success: function(response){
+                        var data = Ext.decode(response.responseText);
+
+                        if (data.success !== true) {
+                            Ext.Msg.alert({
+                                title: "POOL Rename Failure",
+                                msg: data.msg,
+                                buttons: Ext.Msg.OK,
+                                icon: Ext.Msg.ERROR
+                            });
+                        } else {
+                            storageConstants.me.setStoragePoolData();
+                            storageConstants.me.setStoragePoolButtonText();
+                        }
+                    }
+                });
+            }
+
+            if (oSize != size) {
+                params = 'name=' + name + '&' + 'size=' + size;
+                Ext.Ajax.request({
+                    url: GLOBAL.urlPrefix + "ceph/pool/set/size?" + params,
+                    method : "GET",
+                    disableCaching : true,
+                    success: function(response){
+                        var data = Ext.decode(response.responseText);
+
+                        if (data.success !== true) {
+                            Ext.Msg.alert({
+                                title: "POOL Setting Size Failure",
+                                msg: data.msg,
+                                buttons: Ext.Msg.OK,
+                                icon: Ext.Msg.ERROR
+                            });
+                        } else {
+                            storageConstants.me.setStoragePoolData();
+                            storageConstants.me.setStoragePoolButtonText();
+                        }
+                    }
+                });
+            }
+
+            if (oPgnm != pgnm) {
+                params = 'name=' + name + '&' + 'pg_num=' + pgnm;
+                Ext.Ajax.request({
+                    url: GLOBAL.urlPrefix + "ceph/pool/set/pg_num?" + params,
+                    method : "GET",
+                    disableCaching : true,
+                    success: function(response){
+                        var data = Ext.decode(response.responseText);
+
+                        if (data.success !== true) {
+                            Ext.Msg.alert({
+                                title: "POOL Setting PG Num Failure",
+                                msg: data.msg,
+                                buttons: Ext.Msg.OK,
+                                icon: Ext.Msg.ERROR
+                            });
+                        } else {
+                            storageConstants.me.setStoragePoolData();
+                            storageConstants.me.setStoragePoolButtonText();
+                        }
+                    }
+                });
+            }
+
+            myForm.up('window').close();
         }
-
-        myForm.up('window').close();
-
-        this.setStoragePoolButtonText();
-    },
-
-    editStorageMon: function() {
-        //Add Popup 호출(title = Edit)
-
-        storageConstants.editMode = 'edit';
-        var AddWindow = Ext.create('widget.monAddWindow');
-        AddWindow.title = 'Edit MON';
-
-        var myForm = Ext.getCmp("monAddFormPanel");
-        var nameField = myForm.getForm().findField("monAddHost");
-        var addrField = myForm.getForm().findField("monAddIP");
-
-        var name = storageConstants.selectRow.get('server');
-        var addr = storageConstants.selectRow.get('ip');
-
-        nameField.setValue(name);
-        addrField.setValue(addr);
-
-        addrField.hide();
-
-        AddWindow.show();
 
     },
 
     deleteStorageMon: function() {
+        var name = storageConstants.selectRow.get('name');
+        var params = 'name=' + name;
+
         Ext.Msg.show({
             title:'Confirm',
             msg: 'Delete selected MON?',
@@ -553,12 +850,50 @@ Ext.define('MyApp.controller.storageController', {
             icon: Ext.Msg.QUESTION,
             fn: function(btn) {
                 if (btn === 'ok') {
-                    Ext.getCmp(storageConstants.workingGrid).getStore().remove(storageConstants.selectRow);
+                    alert('Call Delete MON api ....');
+                    storageConstants.me.setStorageMonButtonText();        }
+            }
+        });
+
+    },
+
+    deleteStorageOsd: function() {
+        var host = storageConstants.selectRow.get('host');
+        var id = storageConstants.selectRow.get('id');  // name으로 바꿔야될 것 같음(api 수정 확인)
+
+        var params = 'host=' + host + '&' + 'id=' + id;
+
+        Ext.Msg.show({
+            title:'Confirm',
+            msg: 'Delete selected OSD?',
+            buttons: Ext.Msg.OKCANCEL,
+            icon: Ext.Msg.QUESTION,
+            fn: function(btn) {
+                if (btn === 'ok') {
+                    Ext.Ajax.request({
+                        url: GLOBAL.urlPrefix + "ceph/osd/delete?" + params,
+                        method : "GET",
+                        disableCaching : true,
+                        success: function(response){
+                            var data = Ext.decode(response.responseText);
+
+                            if (data.success === true) {
+                                storageConstants.me.setStorageOsdData();
+                                storageConstants.me.setStorageOsdButtonText();
+                            } else {
+                                Ext.Msg.alert({
+                                    title: "OSD Delete Failure",
+                                    msg: data.msg,
+                                    buttons: Ext.Msg.OK,
+                                    icon: Ext.Msg.ERROR
+                                });
+                            }
+                        }
+                    });
                 }
             }
         });
 
-        this.setStorageMonButtonText();
     },
 
     editStoragePool: function() {
@@ -586,6 +921,8 @@ Ext.define('MyApp.controller.storageController', {
     },
 
     deleteStoragePool: function() {
+        var name = storageConstants.selectRow.get('name');
+
         Ext.Msg.show({
             title:'Confirm',
             msg: 'Delete selected POOL?',
@@ -593,12 +930,140 @@ Ext.define('MyApp.controller.storageController', {
             icon: Ext.Msg.QUESTION,
             fn: function(btn) {
                 if (btn === 'ok') {
-                    Ext.getCmp(storageConstants.workingGrid).getStore().remove(storageConstants.selectRow);
+
+                    Ext.Ajax.request({
+                        url: GLOBAL.urlPrefix + "ceph/pool/delete?pool=" + name,
+                        method : "GET",
+                        disableCaching : true,
+                        success: function(response){
+                            var data = Ext.decode(response.responseText);
+
+                            if (data.success === true) {
+                                storageConstants.me.setStoragePoolData();
+                                storageConstants.me.setStoragePoolButtonText();
+                            } else {
+                                Ext.Msg.alert({
+                                    title: "POOL Delete Failure",
+                                    msg: data.msg,
+                                    buttons: Ext.Msg.OK,
+                                    icon: Ext.Msg.ERROR
+                                });
+                            }
+                        }
+                    });
                 }
             }
         });
 
-        this.setStoragePoolButtonText();
+    },
+
+    addClusterServer: function() {
+        var myForm = Ext.getCmp("clusterServerFormPanel");
+        if (myForm.getForm().isValid() !== true) {
+            return;
+        }
+
+        var host = myForm.getForm().findField("clusterServerHost").getValue();
+        var addr = myForm.getForm().findField("clusterServerIp").getValue();
+        var type = myForm.getForm().findField("clusterServerType").getValue();
+        var user = myForm.getForm().findField("clusterServerUser").getValue();
+        var pass = myForm.getForm().findField("clusterServerPass").getValue();
+
+        var myData = [{'hostname':host, 'ip':addr, 'type':type, 'username':user, 'password':pass}];
+
+
+        var myGrid = Ext.getCmp("ClusterServersGrid");
+        var myStore = myGrid.getStore();
+        var myHost = '';
+        var myIp = '';
+
+        for (var i = 0; i < myStore.count(); i++) {
+            myHost = myStore.getAt(i).get('hostname');
+            myIp = myStore.getAt(i).get('ip');
+            if (myHost == host) {
+                alert('Hostname(' + host + ') already exist.');
+                myForm.getForm().findField("clusterServerHost").focus();
+                return;
+            }
+            if (myIp == addr) {
+                alert('Ip(' + addr + ') already exist.');
+                myForm.getForm().findField("clusterServerIp").focus();
+                return;
+            }
+            if ((type == 'management') && (myStore.getAt(i).get('type') == type)) {
+                alert('managemrnt Type already exist.');
+                myForm.getForm().findField("clusterServerType").focus();
+                return;
+            }
+            if ((type == 'radosgw') && (myStore.getAt(i).get('type') == type)) {
+                alert('radosgw Type already exist.');
+                myForm.getForm().findField("clusterServerType").focus();
+                return;
+            }
+        }
+
+
+        Ext.getCmp('ClusterServersGrid').getStore().loadRawData(myData, true);
+
+
+    },
+
+    addOsdDevicePath: function() {
+        var myForm = Ext.getCmp("clusterDevicePathFormPanel");
+        if (myForm.getForm().isValid() !== true) {
+            return;
+        }
+
+        var path = myForm.getForm().findField("osdDevicePath").getValue();
+        var myData = [{'path':path}];
+
+
+        var myGrid = Ext.getCmp("OsdDevicePathGrid");
+        var myStore = myGrid.getStore();
+        var myName = '';
+
+        for (var i = 0; i < myStore.count(); i++) {
+            myName = myStore.getAt(i).get('path');
+            if (myName == path) {
+                alert('Path(' + path + ') already exist.');
+                myForm.getForm().findField("osdDevicePath").focus();
+                return;
+            }
+        }
+
+
+        Ext.getCmp('OsdDevicePathGrid').getStore().loadRawData(myData, true);
+
+    },
+
+    deleteClusterServer: function() {
+        Ext.Msg.show({
+            title:'Confirm',
+            msg: 'Delete selected Server?',
+            buttons: Ext.Msg.OKCANCEL,
+            icon: Ext.Msg.QUESTION,
+            fn: function(btn) {
+                if (btn === 'ok') {
+                    Ext.getCmp('ClusterServersGrid').getStore().remove(storageConstants.selectRow);
+                }
+            }
+        });
+
+    },
+
+    deleteClusterPath: function() {
+        Ext.Msg.show({
+            title:'Confirm',
+            msg: 'Delete selected Path?',
+            buttons: Ext.Msg.OKCANCEL,
+            icon: Ext.Msg.QUESTION,
+            fn: function(btn) {
+                if (btn === 'ok') {
+                    Ext.getCmp('OsdDevicePathGrid').getStore().remove(storageConstants.selectRow);
+                }
+            }
+        });
+
     },
 
     init: function(application) {
@@ -607,18 +1072,19 @@ Ext.define('MyApp.controller.storageController', {
                 var monGridContextMenu = new Ext.menu.Menu({
                     items:
                     [
+                    /*
                     { text: 'Edit',
-                        handler: function() {
-                            storage.editStorageMon();
-                        }
+                    handler: function() {
+                    storage.editStorageMon();
+                    }
                     },
+                    */
                     { text: 'Delete',
                         handler: function() {
                             storage.deleteStorageMon();
                         }
                     }
                     ]
-
                 });
 
                 var poolGridContextMenu = new Ext.menu.Menu({
@@ -635,7 +1101,39 @@ Ext.define('MyApp.controller.storageController', {
                         }
                     }
                     ]
+                });
 
+                var osdGridContextMenu = new Ext.menu.Menu({
+                    items:
+                    [
+                    { text: 'Delete',
+                        handler: function() {
+                            storage.deleteStorageOsd();
+                        }
+                    }
+                    ]
+                });
+
+                var serverGridContextMenu = new Ext.menu.Menu({
+                    items:
+                    [
+                    { text: 'Delete',
+                        handler: function() {
+                            storage.deleteClusterServer();
+                        }
+                    }
+                    ]
+                });
+
+                var pathGridContextMenu = new Ext.menu.Menu({
+                    items:
+                    [
+                    { text: 'Delete',
+                        handler: function() {
+                            storage.deleteClusterPath();
+                        }
+                    }
+                    ]
                 });
 
                 Ext.define('storageConstants', {
@@ -643,6 +1141,9 @@ Ext.define('MyApp.controller.storageController', {
                     me : storage,
                     monContextMenu: monGridContextMenu,
                     poolContextMenu: poolGridContextMenu,
+                    osdContextMenu: osdGridContextMenu,
+                    serverContextMenu: serverGridContextMenu,
+                    pathContextMenu: pathGridContextMenu,
                     workingGrid: '',
                     selectRow:  null,
                     selectIndex: 0,
@@ -672,15 +1173,18 @@ Ext.define('MyApp.controller.storageController', {
             "#storageUsageButton": {
                 click: this.onStorageUsageButtonClick
             },
-            "#storageOsdGrid": {
-                cellclick: this.onStorageOsdGridpanelCellClick
-            },
             "#storagePoolGrid": {
                 cellclick: this.onStoragePoolGridpanelCellClick,
                 beforeitemcontextmenu: this.onPoolGridpanelBeforeItemContextMenu
             },
             "#storageHostAdd": {
                 click: this.onHostAddButtonClick
+            },
+            "#clusterAddPath": {
+                click: this.onClusterAddPathButtonClick
+            },
+            "#clusterAddServer": {
+                click: this.onClusterAddServerButtonClick
             },
             "#storageMonAdd": {
                 click: this.onMonAddButtonClick
@@ -691,8 +1195,20 @@ Ext.define('MyApp.controller.storageController', {
             "#storagePoolAdd": {
                 click: this.onPoolAddButtonClick
             },
+            "#createCluster": {
+                click: this.onCreateClusterButtonClick
+            },
             "#storageMonGrid": {
                 beforeitemcontextmenu: this.onMonGridpanelBeforeItemContextMenu
+            },
+            "#storageOsdGrid": {
+                beforeitemcontextmenu: this.onOsdGridpanelBeforeItemContextMenu
+            },
+            "#ClusterServersGrid": {
+                beforeitemcontextmenu: this.onServerGridpanelBeforeItemContextMenu
+            },
+            "#OsdDevicePathGrid": {
+                beforeitemcontextmenu: this.onPathGridpanelBeforeItemContextMenu
             }
         });
     }

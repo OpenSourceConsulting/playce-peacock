@@ -72,11 +72,17 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "fieldLabel": "OSD Hostname",
+                                        "allowBlank": false,
+                                        "allowOnlyWhitespace": false,
+                                        "enforceMaxLength": true,
+                                        "fieldLabel": "Host",
                                         "id": "osdAddHost",
                                         "itemId": "osdAddHost",
-                                        "labelWidth": 110,
+                                        "labelAlign": "right",
+                                        "labelWidth": 40,
                                         "layout|anchor": "100%",
+                                        "maskRe": "/[a-z0-9_\\-]/",
+                                        "maxLength": 32,
                                         "name": "osdAddHost"
                                     },
                                     "designerId": "1cda89e4-f700-4053-8041-b6161a7b6773"
@@ -89,12 +95,18 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "fieldLabel": "OSD IP address",
-                                        "id": "osdAddIP",
-                                        "itemId": "osdAddIP",
-                                        "labelWidth": 110,
+                                        "allowBlank": false,
+                                        "allowOnlyWhitespace": false,
+                                        "enforceMaxLength": true,
+                                        "fieldLabel": "Path",
+                                        "id": "osdAddPath",
+                                        "itemId": "osdAddPath",
+                                        "labelAlign": "right",
+                                        "labelWidth": 40,
                                         "layout|anchor": "100%",
-                                        "name": "osdAddIP"
+                                        "maskRe": "/[a-zA-Z0-9_\\-\\/\\.]/",
+                                        "maxLength": 80,
+                                        "name": "osdAddPath"
                                     },
                                     "designerId": "9622680d-bb2a-48cc-9f3a-8305556132f3"
                                 }
@@ -184,7 +196,7 @@
                                             "var myForm = Ext.getCmp(\"osdAddFormPanel\");",
                                             "",
                                             "myForm.getForm().findField(\"osdAddHost\").setValue('');",
-                                            "myForm.getForm().findField(\"osdAddIP\").setValue('');",
+                                            "myForm.getForm().findField(\"osdAddPath\").setValue('');",
                                             ""
                                         ]
                                     },

@@ -30,10 +30,10 @@ Ext.define('MyApp.store.objectFilesListJsonStore', {
             storeId: 'objectFilesListJsonStore',
             proxy: {
                 type: 'ajax',
-                url: 'resources/json/objectFilesList.json',
+                url: 'ceph/object/objects',
                 reader: {
                     type: 'json',
-                    root: 'data'
+                    root: 'list'
                 }
             }
         }, cfg)]);

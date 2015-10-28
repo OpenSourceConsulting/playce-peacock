@@ -25,7 +25,8 @@ Ext.define('MyApp.view.objectBucketsContainer', {
         'Ext.toolbar.TextItem',
         'Ext.grid.Panel',
         'Ext.grid.View',
-        'Ext.grid.column.Column'
+        'Ext.grid.column.Column',
+        'Ext.XTemplate'
     ],
 
     id: 'objectBucketsContainer',
@@ -145,7 +146,7 @@ Ext.define('MyApp.view.objectBucketsContainer', {
                             itemId: 'objectBucketsGrid',
                             columnLines: true,
                             forceFit: true,
-                            store: 'objectBucketsListArrayStore',
+                            store: 'objectBucketsListJsonStore',
                             viewConfig: {
                                 id: 'objectBucketsGridView',
                                 itemId: 'objectBucketsGridView'
@@ -155,6 +156,16 @@ Ext.define('MyApp.view.objectBucketsContainer', {
                                     xtype: 'gridcolumn',
                                     dataIndex: 'name',
                                     text: 'Name'
+                                },
+                                {
+                                    xtype: 'gridcolumn',
+                                    dataIndex: 'owner',
+                                    text: 'Owner'
+                                },
+                                {
+                                    xtype: 'gridcolumn',
+                                    dataIndex: 'creationDate',
+                                    text: 'Creation Date'
                                 }
                             ]
                         },
@@ -180,6 +191,45 @@ Ext.define('MyApp.view.objectBucketsContainer', {
                                     border: 1,
                                     id: 'objectBucketsDetail1',
                                     itemId: 'objectBucketsDetail1',
+                                    tpl: Ext.create('Ext.XTemplate', 
+                                        '<table border=0>',
+                                        '<tr>',
+                                        '<td align=right>',
+                                        'Bucket :<br>',
+                                        'Owner :<br>',
+                                        'Create :',
+                                        '</td>',
+                                        '<td>',
+                                        '&nbsp; {name}<br>',
+                                        '&nbsp; {owner}<br>',
+                                        '&nbsp; {creationDate}',
+                                        '</td>',
+                                        '</tr>',
+                                        '</table>',
+                                        '<br>',
+                                        'Permissions ><br>',
+                                        '<table border=0>',
+                                        '<tpl for="acl.grantsAsList">',
+                                        '<tr>',
+                                        '<td>',
+                                        '<tpl if="this.isObj(grantee)">',
+                                        '{grantee.displayName}',
+                                        '<tpl else>',
+                                        '{grantee}',
+                                        '</tpl>',
+                                        '</td>',
+                                        '<td> : </td>',
+                                        '<td>{permission}</td>',
+                                        '</tr>',
+                                        '</tpl>',
+                                        '</table>',
+                                        '',
+                                        {
+                                            isObj: function(vars) {
+                                                return (vars.displayName !== undefined);
+                                            }
+                                        }
+                                    ),
                                     autoScroll: true,
                                     layout: 'border',
                                     bodyPadding: 10,
@@ -193,6 +243,24 @@ Ext.define('MyApp.view.objectBucketsContainer', {
                                     border: 1,
                                     id: 'objectBucketsDetail2',
                                     itemId: 'objectBucketsDetail2',
+                                    tpl: [
+                                        'Logging ><br>',
+                                        '<table border=0>',
+                                        '<tr>',
+                                        '<td align=right>',
+                                        'Destination :<br>',
+                                        'Log File Prefix :<br>',
+                                        'Logging Enabled :',
+                                        '</td>',
+                                        '<td>',
+                                        '&nbsp; {destinationBucketName}<br>',
+                                        '&nbsp; {logFilePrefix}<br>',
+                                        '&nbsp; {loggingEnabled}',
+                                        '</td>',
+                                        '</tr>',
+                                        '</table>',
+                                        ''
+                                    ],
                                     autoScroll: true,
                                     layout: 'border',
                                     bodyPadding: 10,

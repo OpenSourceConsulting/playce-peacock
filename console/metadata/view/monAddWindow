@@ -8,7 +8,7 @@
     "userConfig": {
         "designer|userAlias": "monAddWindow",
         "designer|userClassName": "monAddWindow",
-        "height": 200,
+        "height": 226,
         "layout": "border",
         "modal": true,
         "resizable": false,
@@ -72,11 +72,17 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "fieldLabel": "MON Hostname",
+                                        "allowBlank": false,
+                                        "allowOnlyWhitespace": false,
+                                        "enforceMaxLength": true,
+                                        "fieldLabel": "Host",
                                         "id": "monAddHost",
                                         "itemId": "monAddHost",
-                                        "labelWidth": 110,
+                                        "labelAlign": "right",
+                                        "labelWidth": 72,
                                         "layout|anchor": "100%",
+                                        "maskRe": "/[a-z0-9_\\-]/",
+                                        "maxLength": 32,
                                         "name": "monAddHost"
                                     },
                                     "designerId": "65dc0d3c-7d13-43f4-8edb-581d99fc4544"
@@ -89,14 +95,43 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "fieldLabel": "MON IP address",
-                                        "id": "monAddIP",
-                                        "itemId": "monAddIP",
-                                        "labelWidth": 110,
+                                        "allowBlank": false,
+                                        "allowOnlyWhitespace": false,
+                                        "enforceMaxLength": true,
+                                        "fieldLabel": "User",
+                                        "id": "monAddUser",
+                                        "itemId": "monAddUser",
+                                        "labelAlign": "right",
+                                        "labelWidth": 72,
                                         "layout|anchor": "100%",
-                                        "name": "monAddIP"
+                                        "maskRe": "/[a-zA-Z0-9_\\-]/",
+                                        "maxLength": 32,
+                                        "name": "monAddUser"
                                     },
                                     "designerId": "6fed7c3c-2d84-4fcf-928e-77c420853317"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "allowBlank": false,
+                                        "allowOnlyWhitespace": false,
+                                        "enforceMaxLength": true,
+                                        "fieldLabel": "Password",
+                                        "id": "monAddPass",
+                                        "inputType": "password",
+                                        "itemId": "monAddPw",
+                                        "labelAlign": "right",
+                                        "labelWidth": 72,
+                                        "layout|anchor": "100%",
+                                        "maxLength": 32,
+                                        "name": "monAddPass"
+                                    },
+                                    "designerId": "98d60c19-348d-44fe-ac05-5779005233b7"
                                 }
                             ]
                         }
@@ -184,7 +219,8 @@
                                             "var myForm = Ext.getCmp(\"monAddFormPanel\");",
                                             "",
                                             "myForm.getForm().findField(\"monAddHost\").setValue('');",
-                                            "myForm.getForm().findField(\"monAddIP\").setValue('');",
+                                            "myForm.getForm().findField(\"monAddUser\").setValue('');",
+                                            "myForm.getForm().findField(\"monAddPass\").setValue('');",
                                             ""
                                         ]
                                     },

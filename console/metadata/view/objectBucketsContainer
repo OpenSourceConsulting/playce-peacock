@@ -243,7 +243,7 @@
                         "itemId": "objectBucketsGrid",
                         "layout|flex": 2,
                         "layout|region": "center",
-                        "store": "objectBucketsListArrayStore",
+                        "store": "objectBucketsListJsonStore",
                         "title": null
                     },
                     "designerId": "3a10b6c4-7b6e-43e3-bfb3-41b4cc3cf35c",
@@ -272,7 +272,33 @@
                                 "dataIndex": "name",
                                 "text": "Name"
                             },
-                            "designerId": "1fc9a270-4ecf-4117-8218-8ccb40105cc8"
+                            "designerId": "da643436-c09c-4ce8-b7b6-3004672907af"
+                        },
+                        {
+                            "type": "Ext.grid.column.Column",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dataIndex": "owner",
+                                "text": "Owner"
+                            },
+                            "designerId": "d5378cbf-b3ac-4b1e-b1c3-b4b989a0340a"
+                        },
+                        {
+                            "type": "Ext.grid.column.Column",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dataIndex": "creationDate",
+                                "text": "Creation Date"
+                            },
+                            "designerId": "21c9a22f-9235-46b8-b6a4-15d28a0935d8"
                         }
                     ]
                 },
@@ -326,7 +352,75 @@
                                 "layout|flex": 1,
                                 "title": null
                             },
-                            "designerId": "3932d481-2418-4280-97c2-636b251c8746"
+                            "designerId": "3932d481-2418-4280-97c2-636b251c8746",
+                            "cn": [
+                                {
+                                    "type": "Ext.XTemplate",
+                                    "reference": {
+                                        "name": "tpl",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "tpl",
+                                        "implHandler": [
+                                            "<table border=0>",
+                                            "<tr>",
+                                            "<td align=right>",
+                                            "Bucket :<br>",
+                                            "Owner :<br>",
+                                            "Create :",
+                                            "</td>",
+                                            "<td>",
+                                            "&nbsp; {name}<br>",
+                                            "&nbsp; {owner}<br>",
+                                            "&nbsp; {creationDate}",
+                                            "</td>",
+                                            "</tr>",
+                                            "</table>",
+                                            "<br>",
+                                            "Permissions ><br>",
+                                            "<table border=0>",
+                                            "<tpl for=\"acl.grantsAsList\">",
+                                            "<tr>",
+                                            "<td>",
+                                            "<tpl if=\"this.isObj(grantee)\">",
+                                            "{grantee.displayName}",
+                                            "<tpl else>",
+                                            "{grantee}",
+                                            "</tpl>",
+                                            "</td>",
+                                            "<td> : </td>",
+                                            "<td>{permission}</td>",
+                                            "</tr>",
+                                            "</tpl>",
+                                            "</table>",
+                                            ""
+                                        ]
+                                    },
+                                    "designerId": "70d40e4d-f87b-425f-a106-11265d94cb35",
+                                    "cn": [
+                                        {
+                                            "type": "templatefunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "vars"
+                                                ],
+                                                "fn": "isObj",
+                                                "implHandler": [
+                                                    "return (vars.displayName !== undefined);"
+                                                ]
+                                            },
+                                            "designerId": "11a4f7cd-4ee9-4f34-9cf9-e4fc721a8e91"
+                                        }
+                                    ]
+                                }
+                            ]
                         },
                         {
                             "type": "Ext.panel.Panel",
@@ -351,7 +445,39 @@
                                 "layout|flex": 3,
                                 "title": null
                             },
-                            "designerId": "87919858-1503-4f26-bc3f-66bb106a979b"
+                            "designerId": "87919858-1503-4f26-bc3f-66bb106a979b",
+                            "cn": [
+                                {
+                                    "type": "Ext.XTemplate",
+                                    "reference": {
+                                        "name": "tpl",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "tpl",
+                                        "implHandler": [
+                                            "Logging ><br>",
+                                            "<table border=0>",
+                                            "<tr>",
+                                            "<td align=right>",
+                                            "Destination :<br>",
+                                            "Log File Prefix :<br>",
+                                            "Logging Enabled :",
+                                            "</td>",
+                                            "<td>",
+                                            "&nbsp; {destinationBucketName}<br>",
+                                            "&nbsp; {logFilePrefix}<br>",
+                                            "&nbsp; {loggingEnabled}",
+                                            "</td>",
+                                            "</tr>",
+                                            "</table>",
+                                            ""
+                                        ]
+                                    },
+                                    "designerId": "3241f040-8445-47f8-834e-722572961975"
+                                }
+                            ]
                         }
                     ]
                 }

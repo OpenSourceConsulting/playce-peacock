@@ -22,17 +22,50 @@ Ext.define('MyApp.model.objectFilesModel', {
 
     fields: [
         {
-            name: 'name'
+            name: 'bucketName'
+        },
+        {
+            name: 'parentPath'
+        },
+        {
+            name: 'objectName'
+        },
+        {
+            name: 'key'
         },
         {
             name: 'size',
             type: 'int'
         },
         {
-            name: 'sclass'
+            name: 'lastModified'
         },
         {
-            name: 'mdate'
+            name: 'storageClass'
+        },
+        {
+            name: 'owner'
+        },
+        {
+            name: 'newName'
+        },
+        {
+            name: 'permission'
+        },
+        {
+            name: 'acl'
+        },
+        {
+            name: 'url'
+        },
+        {
+            name: 'metadata'
+        },
+        {
+            name: 'file'
+        },
+        {
+            name: 'folder'
         }
     ]
 });

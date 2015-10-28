@@ -1,0 +1,224 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "createFolderWindow",
+        "designer|userClassName": "createFolderWindow",
+        "height": 172,
+        "id": null,
+        "itemId": null,
+        "layout": "border",
+        "modal": true,
+        "resizable": false,
+        "title": "Create Folder",
+        "width": 400
+    },
+    "configAlternates": {
+        "resizable": "boolean"
+    },
+    "designerId": "a6e6d42a-507c-4326-a756-3e65645258c5",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": "createFolderTopPanel",
+                "itemId": "createFolderTopPanel",
+                "layout|region": "center",
+                "title": null
+            },
+            "designerId": "a9c82829-8e3a-4905-880a-d3124827d57f",
+            "cn": [
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "bodyPadding": 10,
+                        "height": 156,
+                        "id": "createFolderFormPanel",
+                        "itemId": "createFolderFormPanel",
+                        "title": null
+                    },
+                    "designerId": "56101ce0-dfc6-484a-b493-7a117cd16218",
+                    "cn": [
+                        {
+                            "type": "Ext.form.FieldSet",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "padding": 10,
+                                "title": "Folder Data "
+                            },
+                            "designerId": "77694640-e515-4ebc-a459-94e027bd700b",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "allowBlank": false,
+                                        "allowOnlyWhitespace": false,
+                                        "enforceMaxLength": true,
+                                        "fieldLabel": "Name",
+                                        "id": "createFolderName",
+                                        "itemId": "createFolderName",
+                                        "labelAlign": "right",
+                                        "labelWidth": 54,
+                                        "layout|anchor": "100%",
+                                        "maskRe": "/[a-z0-9_\\-]/",
+                                        "maxLength": 32,
+                                        "minLength": null,
+                                        "name": "objectName"
+                                    },
+                                    "designerId": "2b922b14-d147-4502-8f25-26b260c25868"
+                                },
+                                {
+                                    "type": "Ext.form.field.Hidden",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Label",
+                                        "id": "createFolderBucket",
+                                        "itemId": "createFolderBucket",
+                                        "layout|anchor": "100%",
+                                        "name": "bucketName"
+                                    },
+                                    "designerId": "142b424a-bff3-4d3a-8bd2-45e745ead6bf"
+                                },
+                                {
+                                    "type": "Ext.form.field.Hidden",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Label",
+                                        "id": "createFolderParent",
+                                        "itemId": "createFolderParent",
+                                        "layout|anchor": "100%",
+                                        "name": "parentPath"
+                                    },
+                                    "designerId": "f1d3bb95-7a46-4455-b44c-83951dca480e"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|pack": "center",
+                        "designer|uiInterfaceName": "footer",
+                        "dock": "bottom",
+                        "id": "createBucketToolbar1",
+                        "itemId": "createBucketToolbar"
+                    },
+                    "designerId": "c90c5c96-5edb-4494-bfcb-02c2b3414fcb",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "padding": "2 20 2 20",
+                                "text": "Ok"
+                            },
+                            "designerId": "c086af30-22e8-42ea-a010-d4bbb91a6c8c",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "objectConstants.me.createfolderObjectFile();"
+                                        ]
+                                    },
+                                    "designerId": "995a1e9e-cb36-4ad9-9c9e-081f43210ccb"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "padding": "2 12 2 12",
+                                "text": "Clear"
+                            },
+                            "designerId": "9f5df20c-0732-4912-bab3-71ab64755ee0",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var myForm = Ext.getCmp(\"createBucketFormPanel\");",
+                                            "",
+                                            "myForm.getForm().findField(\"createBucketName\").setValue('');",
+                                            "",
+                                            ""
+                                        ]
+                                    },
+                                    "designerId": "93f32354-73b2-4142-ab67-2666f7a53070"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

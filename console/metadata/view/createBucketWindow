@@ -74,12 +74,19 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "fieldLabel": "Bucket Name",
+                                        "allowBlank": false,
+                                        "allowOnlyWhitespace": false,
+                                        "enforceMaxLength": true,
+                                        "fieldLabel": "Name",
                                         "id": "createBucketName",
                                         "itemId": "createBucketName",
-                                        "labelWidth": 110,
+                                        "labelAlign": "right",
+                                        "labelWidth": 54,
                                         "layout|anchor": "100%",
-                                        "name": "createBucketName"
+                                        "maskRe": "/[a-z0-9_\\-]/",
+                                        "maxLength": 32,
+                                        "minLength": null,
+                                        "name": "bucketName"
                                     },
                                     "designerId": "8a8103d3-e43b-4cad-abcc-ef5437aaab58"
                                 }

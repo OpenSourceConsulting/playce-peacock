@@ -21,6 +21,7 @@ Ext.define('MyApp.view.renameFileWindow', {
         'Ext.form.Panel',
         'Ext.form.FieldSet',
         'Ext.form.field.Text',
+        'Ext.form.field.Hidden',
         'Ext.toolbar.Toolbar',
         'Ext.button.Button'
     ],
@@ -61,8 +62,38 @@ Ext.define('MyApp.view.renameFileWindow', {
                                             id: 'renameFileName',
                                             itemId: 'renameFileName',
                                             fieldLabel: 'File Name',
-                                            labelWidth: 110,
-                                            name: 'renameFileName'
+                                            labelAlign: 'right',
+                                            labelWidth: 68,
+                                            name: 'newName',
+                                            allowBlank: false,
+                                            allowOnlyWhitespace: false,
+                                            enforceMaxLength: true,
+                                            maskRe: /[A-Za-z0-9_\-]/,
+                                            maxLength: 64
+                                        },
+                                        {
+                                            xtype: 'hiddenfield',
+                                            anchor: '100%',
+                                            id: 'renameKey',
+                                            itemId: 'renameKey',
+                                            fieldLabel: 'Label',
+                                            name: 'key'
+                                        },
+                                        {
+                                            xtype: 'hiddenfield',
+                                            anchor: '100%',
+                                            id: 'renameObjectName',
+                                            itemId: 'renameObjectName',
+                                            fieldLabel: 'Label',
+                                            name: 'objectName'
+                                        },
+                                        {
+                                            xtype: 'hiddenfield',
+                                            anchor: '100%',
+                                            id: 'renameBucketName',
+                                            itemId: 'renameBucketName',
+                                            fieldLabel: 'Label',
+                                            name: 'bucketName'
                                         }
                                     ]
                                 }
@@ -84,6 +115,7 @@ Ext.define('MyApp.view.renameFileWindow', {
                                     xtype: 'button',
                                     handler: function(button, e) {
                                         objectConstants.me.renameObjectFile();
+
                                     },
                                     padding: '2 20 2 20',
                                     text: 'Ok'

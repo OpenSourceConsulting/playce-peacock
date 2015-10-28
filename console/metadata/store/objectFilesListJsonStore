@@ -21,7 +21,8 @@
             "codeClass": null,
             "userConfig": {
                 "designer|displayName": "objectFilesListAjaxProxy",
-                "url": "resources/json/objectFilesList.json"
+                "extraParams": null,
+                "url": "ceph/object/objects"
             },
             "designerId": "ea434ba9-36e6-4238-911a-a63207bd8b5d",
             "cn": [
@@ -34,7 +35,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "designer|displayName": "objectFilesListJsonReader",
-                        "root": "data"
+                        "root": "list"
                     },
                     "designerId": "944c567b-e4d7-4427-ab21-c8df8b744326"
                 }

@@ -64,7 +64,8 @@ Ext.application({
         'storagePgModel',
         'storageUsageModel',
         'storageUsageDetailModel',
-        'objectFilesModel'
+        'objectFilesModel',
+        'objectBucketsModel'
     ],
     stores: [
         'MenuTreeStore',
@@ -135,8 +136,11 @@ Ext.application({
         'storageUsageJsonStore',
         'storageUsageDetailJsonStore',
         'PgNumComboArrayStore',
-        'objectBucketsListArrayStore',
-        'objectFilesListJsonStore'
+        'objectFilesListJsonStore',
+        'objectBucketsListJsonStore',
+        'storageClusterServersArrayStore',
+        'storageOsdDevicePathArrayStore',
+        'ServerTypeArrayStore'
     ],
     views: [
         'peacockViewport',
@@ -190,14 +194,17 @@ Ext.application({
         'storagePoolContainer',
         'storagePgContainer',
         'storageUsageContainer',
-        'hostAddWindow',
         'monAddWindow',
         'osdAddWindow',
         'poolAddWindow',
         'objectBucketsContainer',
         'createBucketWindow',
         'renameFileWindow',
-        'uploadFileWindow'
+        'uploadFileWindow',
+        'createFolderWindow',
+        'CreateClusterWindow',
+        'clusterDevicePathWindow',
+        'clusterServerWindow'
     ],
     controllers: [
         'LoginController',

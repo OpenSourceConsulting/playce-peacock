@@ -74,14 +74,68 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
+                                        "allowBlank": false,
+                                        "allowOnlyWhitespace": false,
+                                        "enforceMaxLength": true,
                                         "fieldLabel": "File Name",
                                         "id": "renameFileName",
                                         "itemId": "renameFileName",
-                                        "labelWidth": 110,
+                                        "labelAlign": "right",
+                                        "labelWidth": 68,
                                         "layout|anchor": "100%",
-                                        "name": "renameFileName"
+                                        "maskRe": "/[A-Za-z0-9_\\-]/",
+                                        "maxLength": 64,
+                                        "name": "newName"
                                     },
                                     "designerId": "f2d1284a-0f42-4e5b-b73c-f7312c3be493"
+                                },
+                                {
+                                    "type": "Ext.form.field.Hidden",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Label",
+                                        "id": "renameKey",
+                                        "itemId": "renameKey",
+                                        "layout|anchor": "100%",
+                                        "name": "key"
+                                    },
+                                    "designerId": "1d89dc85-b229-4dca-94bb-ad6609592b2b"
+                                },
+                                {
+                                    "type": "Ext.form.field.Hidden",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Label",
+                                        "id": "renameObjectName",
+                                        "itemId": "renameObjectName",
+                                        "layout|anchor": "100%",
+                                        "name": "objectName"
+                                    },
+                                    "designerId": "f5e83d57-f0f7-42a0-9da1-96d28feea775"
+                                },
+                                {
+                                    "type": "Ext.form.field.Hidden",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": "Label",
+                                        "id": "renameBucketName",
+                                        "itemId": "renameBucketName",
+                                        "layout|anchor": "100%",
+                                        "name": "bucketName"
+                                    },
+                                    "designerId": "1d52d6d0-2865-4673-a9b2-d85291f5e65a"
                                 }
                             ]
                         }
@@ -131,7 +185,8 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
-                                            "objectConstants.me.renameObjectFile();"
+                                            "objectConstants.me.renameObjectFile();",
+                                            ""
                                         ]
                                     },
                                     "designerId": "0366b820-a936-4dc5-ba37-2b8da1409ce2"

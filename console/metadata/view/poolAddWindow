@@ -72,10 +72,17 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
+                                        "allowBlank": false,
+                                        "allowOnlyWhitespace": false,
+                                        "enforceMaxLength": true,
                                         "fieldLabel": "Pool Name",
                                         "id": "poolAddName",
                                         "itemId": "poolAddName",
+                                        "labelAlign": "right",
+                                        "labelWidth": 80,
                                         "layout|anchor": "100%",
+                                        "maskRe": "/[a-z0-9_\\-]/",
+                                        "maxLength": 32,
                                         "name": "poolAddName"
                                     },
                                     "designerId": "e5049a16-b465-453c-8128-e9fc1f6e980a"
@@ -88,10 +95,16 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
+                                        "allowDecimals": false,
                                         "fieldLabel": "Replica Size",
                                         "id": "poolAddSize",
                                         "itemId": "poolAddSize",
+                                        "labelAlign": "right",
+                                        "labelWidth": 80,
                                         "layout|anchor": "100%",
+                                        "maxLength": 32,
+                                        "maxValue": 32,
+                                        "minValue": 2,
                                         "name": "poolAddSize"
                                     },
                                     "designerId": "987539aa-4c30-4bc6-b0c8-0437a4fd2377"
@@ -108,7 +121,10 @@
                                         "fieldLabel": "PG Number",
                                         "id": "poolAddPgNum",
                                         "itemId": "poolAddPgNum",
+                                        "labelAlign": "right",
+                                        "labelWidth": 80,
                                         "layout|anchor": "100%",
+                                        "maxLength": 32,
                                         "name": "poolAddPgNum",
                                         "store": "PgNumComboArrayStore",
                                         "valueField": "value"

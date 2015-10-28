@@ -57,7 +57,7 @@ Ext.define('MyApp.view.storageHostContainer', {
                                     id: 'storageHostAdd',
                                     itemId: 'storageHostAdd',
                                     padding: '3 7 3 7',
-                                    text: 'Add HOST'
+                                    text: 'Create New Ceph Cluster'
                                 }
                             ]
                         }

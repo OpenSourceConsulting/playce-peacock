@@ -1,0 +1,289 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "clusterServerWindow",
+        "designer|userClassName": "clusterServerWindow",
+        "height": 282,
+        "layout": "border",
+        "modal": true,
+        "resizable": false,
+        "title": "Cluster Server",
+        "width": 400
+    },
+    "configAlternates": {
+        "resizable": "boolean"
+    },
+    "designerId": "7284ed26-9034-4857-b68d-3c9aca00b2d5",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": "clusterServerTopPanel",
+                "itemId": "clusterServerTopPanel",
+                "layout|region": "center",
+                "title": null
+            },
+            "designerId": "5f4811b1-b45d-4093-8694-8b15c94fa6d3",
+            "cn": [
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "bodyPadding": 10,
+                        "height": 214,
+                        "id": "clusterServerFormPanel",
+                        "itemId": "clusterServerFormPanel",
+                        "title": null
+                    },
+                    "designerId": "2a58a2bc-830c-420a-9153-a2fbf606c7ec",
+                    "cn": [
+                        {
+                            "type": "Ext.form.FieldSet",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout": null,
+                                "layout|anchor": null,
+                                "padding": 10,
+                                "title": " Server Data "
+                            },
+                            "designerId": "6c188d2f-03e0-4011-bcd7-1b1c0de9fd9d",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "allowBlank": false,
+                                        "allowOnlyWhitespace": false,
+                                        "enforceMaxLength": true,
+                                        "fieldLabel": "Host",
+                                        "id": "clusterServerHost",
+                                        "itemId": "clusterServerHost",
+                                        "labelAlign": "right",
+                                        "labelWidth": 72,
+                                        "layout|anchor": "100%",
+                                        "maskRe": "/[a-z0-9_\\-]/",
+                                        "maxLength": 32,
+                                        "name": "clusterServerHost"
+                                    },
+                                    "designerId": "c1ad0656-28cb-44c0-a0d3-0897ae24895f"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "allowBlank": false,
+                                        "allowOnlyWhitespace": false,
+                                        "enforceMaxLength": true,
+                                        "fieldLabel": "Ip",
+                                        "id": "clusterServerIp",
+                                        "itemId": "clusterServerIp",
+                                        "labelAlign": "right",
+                                        "labelWidth": 72,
+                                        "layout|anchor": "100%",
+                                        "maskRe": "/[0-9\\.\\/]/",
+                                        "maxLength": 32,
+                                        "name": "clusterServerIp"
+                                    },
+                                    "designerId": "4ab2759e-a56e-474f-b754-5986b45b183e"
+                                },
+                                {
+                                    "type": "Ext.form.field.ComboBox",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "allowBlank": false,
+                                        "allowOnlyWhitespace": false,
+                                        "displayField": "value",
+                                        "enforceMaxLength": true,
+                                        "fieldLabel": "Type",
+                                        "forceSelection": true,
+                                        "id": "clusterServerType",
+                                        "itemId": "clusterServerType",
+                                        "labelAlign": "right",
+                                        "labelWidth": 72,
+                                        "layout|anchor": "100%",
+                                        "maxLength": null,
+                                        "name": "clusterServerType",
+                                        "store": "ServerTypeArrayStore",
+                                        "valueField": "value"
+                                    },
+                                    "designerId": "83f87dad-6fb8-4bbc-956a-2b1cb8b117b0"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "allowBlank": false,
+                                        "allowOnlyWhitespace": false,
+                                        "enforceMaxLength": true,
+                                        "fieldLabel": "User",
+                                        "id": "clusterServerUser",
+                                        "itemId": "clusterServerUser",
+                                        "labelAlign": "right",
+                                        "labelWidth": 72,
+                                        "layout|anchor": "100%",
+                                        "maskRe": "/[a-zA-Z0-9_\\-]/",
+                                        "maxLength": 32,
+                                        "name": "clusterServerUser"
+                                    },
+                                    "designerId": "418c7571-73e7-4024-9ffe-3d3bd08931a4"
+                                },
+                                {
+                                    "type": "Ext.form.field.Text",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "allowBlank": false,
+                                        "allowOnlyWhitespace": false,
+                                        "enforceMaxLength": true,
+                                        "fieldLabel": "Password",
+                                        "id": "clusterServerPass",
+                                        "inputType": "password",
+                                        "itemId": "clusterServerPass",
+                                        "labelAlign": "right",
+                                        "labelWidth": 72,
+                                        "layout|anchor": "100%",
+                                        "maxLength": 32,
+                                        "name": "clusterServerPass"
+                                    },
+                                    "designerId": "705dfd10-bb2a-430f-937b-e275c7dbcf59"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|pack": "center",
+                        "designer|uiInterfaceName": "footer",
+                        "dock": "bottom",
+                        "id": "monAddToolbar1",
+                        "itemId": "monAddToolbar"
+                    },
+                    "designerId": "c611144c-3dc3-4b84-b850-47e38ad83ee2",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "padding": "2 20 2 20",
+                                "text": "Ok"
+                            },
+                            "designerId": "6894876b-2de4-4a45-9d8e-148acbb9010e",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "storageConstants.me.addClusterServer();"
+                                        ]
+                                    },
+                                    "designerId": "3b8ff969-1995-4198-94d3-d76ba91746de"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "padding": "2 12 2 12",
+                                "text": "Clear"
+                            },
+                            "designerId": "8d71db67-d762-4064-92f0-e0b7e9f5f75b",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "button",
+                                            "e"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var myForm = Ext.getCmp(\"clusterServerFormPanel\");",
+                                            "",
+                                            "myForm.getForm().findField(\"clusterServerHost\").setValue('');",
+                                            "myForm.getForm().findField(\"clusterServerIp\").setValue('');",
+                                            "myForm.getForm().findField(\"clusterServerType\").setValue('');",
+                                            "myForm.getForm().findField(\"clusterServerUser\").setValue('');",
+                                            "myForm.getForm().findField(\"clusterServerPass\").setValue('');",
+                                            ""
+                                        ]
+                                    },
+                                    "designerId": "8bda41fb-1edf-4347-b9da-d7ffab120bec"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

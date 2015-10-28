@@ -914,6 +914,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.model.instanceOsModel": [],
   "MyApp.model.instanceSoftwareModel": [],
   "MyApp.model.monitoringChartModel": [],
+  "MyApp.model.objectBucketsModel": [],
   "MyApp.model.objectFilesModel": [],
   "MyApp.model.storageHostModel": [],
   "MyApp.model.storageMainModel": [],
@@ -975,6 +976,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.PermissionStore": [],
   "MyApp.store.PermissionUserStore": [],
   "MyApp.store.PgNumComboArrayStore": [],
+  "MyApp.store.ServerTypeArrayStore": [],
   "MyApp.store.SessionStore": [],
   "MyApp.store.TempSpaceStore": [],
   "MyApp.store.TempUserStore": [],
@@ -983,11 +985,13 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.store.VMDiskStore": [],
   "MyApp.store.VMNetworkStore": [],
   "MyApp.store.VMStore": [],
-  "MyApp.store.objectBucketsListArrayStore": [],
+  "MyApp.store.objectBucketsListJsonStore": [],
   "MyApp.store.objectFilesListJsonStore": [],
+  "MyApp.store.storageClusterServersArrayStore": [],
   "MyApp.store.storageHostJsonStore": [],
   "MyApp.store.storageMainJsonStore": [],
   "MyApp.store.storageMonJsonStore": [],
+  "MyApp.store.storageOsdDevicePathArrayStore": [],
   "MyApp.store.storageOsdJsonStore": [],
   "MyApp.store.storagePgJsonStore": [],
   "MyApp.store.storagePoolJsonStore": [],
@@ -1006,6 +1010,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.AlmWizardWindow": [],
   "MyApp.view.CLIWindow": [],
   "MyApp.view.CompareConfigWindow": [],
+  "MyApp.view.CreateClusterWindow": [],
   "MyApp.view.CrontabWindow": [],
   "MyApp.view.EditInstanceWindow": [],
   "MyApp.view.EditPermissionWindow": [],
@@ -1032,9 +1037,11 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.adminContainer": [],
   "MyApp.view.almContainer": [],
   "MyApp.view.blankPanel": [],
+  "MyApp.view.clusterDevicePathWindow": [],
+  "MyApp.view.clusterServerWindow": [],
   "MyApp.view.createBucketWindow": [],
+  "MyApp.view.createFolderWindow": [],
   "MyApp.view.dashboardContainer": [],
-  "MyApp.view.hostAddWindow": [],
   "MyApp.view.instancesContainer": [],
   "MyApp.view.loginWindow": [],
   "MyApp.view.monAddWindow": [],
@@ -2111,6 +2118,7 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.model.instanceOsModel": [],
   "MyApp.model.instanceSoftwareModel": [],
   "MyApp.model.monitoringChartModel": [],
+  "MyApp.model.objectBucketsModel": [],
   "MyApp.model.objectFilesModel": [],
   "MyApp.model.storageHostModel": [],
   "MyApp.model.storageMainModel": [],
@@ -2172,6 +2180,7 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.store.PermissionStore": [],
   "MyApp.store.PermissionUserStore": [],
   "MyApp.store.PgNumComboArrayStore": [],
+  "MyApp.store.ServerTypeArrayStore": [],
   "MyApp.store.SessionStore": [],
   "MyApp.store.TempSpaceStore": [],
   "MyApp.store.TempUserStore": [],
@@ -2180,11 +2189,13 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.store.VMDiskStore": [],
   "MyApp.store.VMNetworkStore": [],
   "MyApp.store.VMStore": [],
-  "MyApp.store.objectBucketsListArrayStore": [],
+  "MyApp.store.objectBucketsListJsonStore": [],
   "MyApp.store.objectFilesListJsonStore": [],
+  "MyApp.store.storageClusterServersArrayStore": [],
   "MyApp.store.storageHostJsonStore": [],
   "MyApp.store.storageMainJsonStore": [],
   "MyApp.store.storageMonJsonStore": [],
+  "MyApp.store.storageOsdDevicePathArrayStore": [],
   "MyApp.store.storageOsdJsonStore": [],
   "MyApp.store.storagePgJsonStore": [],
   "MyApp.store.storagePoolJsonStore": [],
@@ -2228,6 +2239,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.CompareConfigWindow": [
     "widget.CompareConfigWindow"
+  ],
+  "MyApp.view.CreateClusterWindow": [
+    "widget.CreateClusterWindow"
   ],
   "MyApp.view.CrontabWindow": [
     "widget.CrontabWindow"
@@ -2305,14 +2319,20 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.blankPanel": [
     "widget.blankpanel"
   ],
+  "MyApp.view.clusterDevicePathWindow": [
+    "widget.clusterDevicePathWindow"
+  ],
+  "MyApp.view.clusterServerWindow": [
+    "widget.clusterServerWindow"
+  ],
   "MyApp.view.createBucketWindow": [
     "widget.createBucketWindow"
   ],
+  "MyApp.view.createFolderWindow": [
+    "widget.createFolderWindow"
+  ],
   "MyApp.view.dashboardContainer": [
     "widget.dashboardcontainer"
-  ],
-  "MyApp.view.hostAddWindow": [
-    "widget.hostAddWindow"
   ],
   "MyApp.view.instancesContainer": [
     "widget.instancesContainer"

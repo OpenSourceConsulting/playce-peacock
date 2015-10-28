@@ -1,0 +1,36 @@
+{
+    "type": "arraystore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "data": [
+            "[",
+            "    {'value': 'management'},",
+            "    {'value': 'mon'},",
+            "    {'value': 'osd'},",
+            "    {'value': 'radosgw'}",
+            "]",
+            ""
+        ],
+        "designer|userClassName": "ServerTypeArrayStore",
+        "storeId": "ServerTypeArrayStore"
+    },
+    "designerId": "38db44de-4165-4763-a216-620e50070c0e",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "value"
+            },
+            "designerId": "93be506d-4a4f-4812-8253-bae12cca9ad7"
+        }
+    ]
+}

@@ -22,49 +22,16 @@ Ext.define('MyApp.controller.objectController', {
         objectConstants.selectRow = record;
         objectConstants.selectIndex = rowIndex;
 
-        //var gNm = Ext.getCmp('objectBucketsGrid').getStore().getAt(rowIndex).get('name');
         var gNm = record.get('name');
 
-        var gUrl = 'resources/json/objectBucketsStats1.json';
-        var gLog = 'resources/json/objectBucketsBilog1.json';
-        if (gNm == 'my-new-bucket2') {
-            gUrl = 'resources/json/objectBucketsStats2.json';
-            gLog = 'resources/json/objectBucketsBilog2.json';
-        }
-
         Ext.Ajax.request({
-            url: GLOBAL.urlPrefix + gUrl,
+            url: GLOBAL.urlPrefix + 'ceph/object/bucket?name=' + gNm,
             disableCaching : true,
             success: function(response){
                 var data = Ext.decode(response.responseText);
+                Ext.getCmp("objectBucketsDetail1").update(data.data);
+                Ext.getCmp("objectBucketsDetail2").update(data.data.logging);
 
-                var htmlData = '<pre>\r\n';
-                htmlData += 'Bucket : ' + data.bucket + '\r\n';
-                htmlData += 'Pool   : ' + data.pool + '\r\n';
-                htmlData += 'mTime  : ' + data.mtime + '\r\n';
-                htmlData += 'Owner  : ' + data.owner + '\r\n';
-                htmlData += '</pre>';
-
-
-                var logsData = '<pre>\r\n';
-                logsData += 'Logging >\r\n';
-                Ext.Ajax.request({
-                    url: GLOBAL.urlPrefix + gLog,
-                    disableCaching : true,
-                    success: function(response){
-                        var data = Ext.decode(response.responseText);
-
-                        Ext.each(data, function(logs){
-                            logsData += '' + logs + '\r\n';
-                        });
-                    }
-                });
-                logsData += '</pre>';
-
-                Ext.getCmp("objectBucketsDetail1").update(htmlData);
-                Ext.getCmp("objectBucketsDetail1").updateLayout();
-                Ext.getCmp("objectBucketsDetail2").update(logsData);
-                Ext.getCmp("objectBucketsDetail2").updateLayout();
                 Ext.getCmp("objectBucketsDetail").expand();
             }
         });
@@ -75,9 +42,9 @@ Ext.define('MyApp.controller.objectController', {
         objectConstants.selectRow = record;
         objectConstants.selectIndex = rowIndex;
         objectConstants.currentBucket = record.get('name');
+        objectConstants.currentFolder = '';
 
         Ext.getCmp('objectCenterContainer').layout.setActiveItem(1);
-        Ext.getCmp('filesTextItem1').setText(objectConstants.currentBucket);
         objectConstants.me.setObjectFilesData();
 
     },
@@ -98,6 +65,8 @@ Ext.define('MyApp.controller.objectController', {
         AddWindow.title = 'Create Bucket';
         AddWindow.show();
 
+        var myForm = Ext.getCmp("createBucketFormPanel");
+        myForm.getForm().findField("createBucketName").focus();
     },
 
     onbucketsCreateMenuitemClick: function(item, e, eOpts) {
@@ -107,6 +76,8 @@ Ext.define('MyApp.controller.objectController', {
         AddWindow.title = 'Create Bucket';
         AddWindow.show();
 
+        var myForm = Ext.getCmp("createBucketFormPanel");
+        myForm.getForm().findField("createBucketName").focus();
     },
 
     onbucketsDeleteMenuitemClick: function(item, e, eOpts) {
@@ -121,55 +92,40 @@ Ext.define('MyApp.controller.objectController', {
         objectConstants.me.setObjectBucketsData();
     },
 
+    onCreateBucketNameTextfieldSpecialkey: function(field, e, eOpts) {
+        if (e.getKey() == e.ENTER) {
+            this.createObjectBucket();
+        }
+    },
+
+    onCreateFolderNameTextfieldSpecialkey: function(field, e, eOpts) {
+        if (e.getKey() == e.ENTER) {
+            this.createfolderObjectFile();
+        }
+    },
+
+    onRenameFileNameTextfieldSpecialkey: function(field, e, eOpts) {
+        if (e.getKey() == e.ENTER) {
+            this.renameObjectFile();
+        }
+    },
+
     onObjectFilesGridpanelCellClick: function(tableview, td, cellIndex, record, tr, rowIndex, e, eOpts) {
         objectConstants.selectFilesRow = record;
         objectConstants.selectFilesIndex = rowIndex;
 
-        var gNm = Ext.getCmp('objectFilesGrid').getStore().getAt(rowIndex).get('name');
+        objectConstants.me.setFilesMenuEnable(record);
 
-        var gUrl = 'resources/json/objectFilesStat1.json';
-        var gPer = 'resources/json/objectFilesPer1.json';
-        if (gNm == 'myphoto2.jpg') {
-            gUrl = 'resources/json/objectFilesStat2.json';
-            gPer = 'resources/json/objectFilesPer2.json';
-        }
+        var key = record.get('key');
 
         Ext.Ajax.request({
-            url: GLOBAL.urlPrefix + gUrl,
+            url: GLOBAL.urlPrefix + 'ceph/object/object?bucketName='+objectConstants.currentBucket + '&key='+key,
             disableCaching : true,
             success: function(response){
                 var data = Ext.decode(response.responseText);
+                Ext.getCmp("objectFilesDetail1").update(data.data);
+                Ext.getCmp("objectFilesDetail2").update(data.data.acl.grantsAsList);
 
-                var htmlData = '<pre>\r\n';
-                htmlData += 'Name   : ' + data.name + '\r\n';
-                htmlData += 'Bucket : ' + data.bucket + '\r\n';
-                htmlData += 'Link   : ' + data.links + '\r\n';
-                htmlData += 'Size   : ' + data.size + '\r\n';
-                htmlData += 'mTime  : ' + data.mdate + '\r\n';
-                htmlData += 'Owner  : ' + data.owner + '\r\n';
-                htmlData += 'Expire : ' + data.expire + '\r\n';
-                htmlData += '</pre>';
-
-
-                var persData = '<pre>\r\n';
-                persData += 'Permisions >\r\n';
-                Ext.Ajax.request({
-                    url: GLOBAL.urlPrefix + gPer,
-                    disableCaching : true,
-                    success: function(response){
-                        var data = Ext.decode(response.responseText);
-
-                        Ext.each(data, function(pers){
-                            persData += '' + pers + '\r\n';
-                        });
-                    }
-                });
-                persData += '</pre>';
-
-                Ext.getCmp("objectFilesDetail1").update(htmlData);
-                Ext.getCmp("objectFilesDetail1").updateLayout();
-                Ext.getCmp("objectFilesDetail2").update(persData);
-                Ext.getCmp("objectFilesDetail2").updateLayout();
                 Ext.getCmp("objectFilesDetail").expand();
             }
         });
@@ -180,12 +136,14 @@ Ext.define('MyApp.controller.objectController', {
         objectConstants.selectFilesRow = record;
         objectConstants.selectFilesIndex = index;
 
+        objectConstants.me.setFilesMenuEnable(record);
+
         var position = e.getXY();
         e.stopEvent();
         objectConstants.filesContextMenu.showAt(position);
     },
 
-    onfilesTextItemButtonClick: function(button, e, eOpts) {
+    onfilesAllBucketsButtonClick: function(button, e, eOpts) {
         Ext.getCmp('objectCenterContainer').layout.setActiveItem(0);
 
     },
@@ -200,6 +158,11 @@ Ext.define('MyApp.controller.objectController', {
 
     onfilesDownloadMenuitemClick: function(item, e, eOpts) {
         objectConstants.me.downloadObjectFile();
+    },
+
+    onfilesCreatefolderMenuitemClick: function(item, e, eOpts) {
+        objectConstants.me.createObjectFolder();
+
     },
 
     onfilesUploadMenuitemClick: function(item, e, eOpts) {
@@ -244,16 +207,58 @@ Ext.define('MyApp.controller.objectController', {
         //Create Bucket Execute
 
         var myForm = Ext.getCmp("createBucketFormPanel");
-        var name = myForm.getForm().findField("createBucketName").getValue();
-        var myData = {'data':[ [name] ]};
+        if (myForm.getForm().isValid() !== true) {
+            return;
+        }
 
-        Ext.getCmp('objectBucketsGrid').getStore().loadRawData(myData, true);
+        var values = myForm.getValues();
+
+        var nameField = myForm.getForm().findField("createBucketName");
+        var name = nameField.getValue();
+
+        if (name !== '') {
+            var myGrid = Ext.getCmp("objectBucketsGrid");
+            var myStore = myGrid.getStore();
+            var myName = '';
+
+            for (var i = 0; i < myStore.count(); i++) {
+                myName = myStore.getAt(i).get('name');
+                if (myName == name) {
+                    alert('Bucket name(' + name + ') already exist.');
+                    nameField.focus();
+                    return;
+                }
+            }
+
+            Ext.Ajax.request({
+                url: GLOBAL.urlPrefix + "ceph/object/bucket",
+                method: 'POST',
+                params: values,
+                success: function(response){
+                    var data = Ext.decode(response.responseText);
+
+                    objectConstants.me.setObjectBucketsData();
+                },
+                failure: function(response){
+                    var data = Ext.decode(response.responseText);
+
+                    Ext.Msg.show({
+                        title:'Error',
+                        msg: 'Error on Create Bucket.',
+                        buttons: Ext.Msg.OK,
+                        icon: Ext.Msg.ERROR
+                    });
+                }
+            });
+        }
 
         myForm.up('window').close();
 
     },
 
     deleteObjectBucket: function() {
+        var name = objectConstants.selectRow.get('name');
+
         Ext.Msg.show({
             title:'Confirm',
             msg: 'Delete selected Bucket?',
@@ -261,12 +266,25 @@ Ext.define('MyApp.controller.objectController', {
             icon: Ext.Msg.QUESTION,
             fn: function(btn) {
                 if (btn === 'ok') {
-                    Ext.getCmp('objectBucketsGrid').getStore().remove(objectConstants.selectRow);
+                    Ext.Ajax.request({
+                        url: GLOBAL.urlPrefix + "ceph/object/bucket/delete",
+                        method: 'POST',
+                        params:{'bucketName':name},
+                        success: function(response){
+                            var data = Ext.decode(response.responseText);
+                            objectConstants.me.setObjectBucketsData();
+                        },
+                        failure: function(response){
+                            var data = Ext.decode(response.responseText);
 
-                    Ext.getCmp("objectBucketsDetail1").update('');
-                    Ext.getCmp("objectBucketsDetail1").updateLayout();
-                    Ext.getCmp("objectBucketsDetail2").update('');
-                    Ext.getCmp("objectBucketsDetail2").updateLayout();
+                            Ext.Msg.show({
+                                title:'Error',
+                                msg: 'Error on Delete Bucket.',
+                                buttons: Ext.Msg.OK,
+                                icon: Ext.Msg.ERROR
+                            });
+                        }
+                    });
                 }
             }
         });
@@ -274,6 +292,8 @@ Ext.define('MyApp.controller.objectController', {
     },
 
     emptyObjectBucket: function() {
+        var name = objectConstants.selectRow.get('name');
+
         Ext.Msg.show({
             title:'Confirm',
             msg: 'Empty selected Bucket?',
@@ -281,8 +301,30 @@ Ext.define('MyApp.controller.objectController', {
             icon: Ext.Msg.QUESTION,
             fn: function(btn) {
                 if (btn === 'ok') {
-                    alert('empty!');
-                    //Ext.getCmp('objectBucketsGrid').getStore().remove(objectConstants.selectRow);
+                    Ext.Ajax.request({
+                        url: GLOBAL.urlPrefix + "ceph/object/bucket?bucketName=" + name,
+                        method: 'PUT',
+                        success: function(response){
+                            var data = Ext.decode(response.responseText);
+
+                            Ext.Msg.show({
+                                title:'Information',
+                                msg: 'Empty Bucket success.',
+                                buttons: Ext.Msg.OK,
+                                icon: Ext.Msg.INFO
+                            });
+                        },
+                        failure: function(response){
+                            var data = Ext.decode(response.responseText);
+
+                            Ext.Msg.show({
+                                title:'Error',
+                                msg: 'Error on Empty Bucket.',
+                                buttons: Ext.Msg.OK,
+                                icon: Ext.Msg.ERROR
+                            });
+                        }
+                    });
                 }
             }
         });
@@ -290,7 +332,59 @@ Ext.define('MyApp.controller.objectController', {
     },
 
     setObjectFilesData: function() {
-        Ext.getCmp('objectFilesGrid').getStore().load();
+        var store = Ext.getCmp('objectFilesGrid').getStore();
+
+        if (objectConstants.currentFolder !== '') {
+            store.getProxy().extraParams = {
+                bucketName : objectConstants.currentBucket,
+                parentPath : objectConstants.currentFolder
+            };
+        } else {
+            store.getProxy().extraParams = {
+                bucketName : objectConstants.currentBucket
+            };
+        }
+        store.load();
+
+        var toolBar = Ext.getCmp('objectFilesTopAddrToolbar');
+
+        toolBar.removeAll();
+        var button = {
+            xtype: 'button',
+            id: 'filesAllBuckets',
+            itemId: 'filesAllBuckets',
+            style: {
+                color: '#66f'
+            },
+            text: 'All Buckets'
+        };
+        Ext.getCmp('objectFilesTopAddrToolbar').add(button);
+
+        objectConstants.me.addFilesFolderButton(objectConstants.currentBucket, '');
+
+        if (objectConstants.currentFolder !== '') {
+            var key='';
+            var splitKey = objectConstants.currentFolder.split('/');
+
+            for (var i=0; i < splitKey.length; i++) {
+                key += splitKey[i] + '/';
+                if (splitKey[i] !== '') {
+                    objectConstants.me.addFilesFolderButton(splitKey[i], key);
+                }
+            }
+        }
+
+    },
+
+    createObjectFolder: function() {
+        //Add Popup 호출
+
+        var AddWindow = Ext.create('widget.createFolderWindow');
+        AddWindow.title = 'Create Folder';
+        AddWindow.show();
+
+        var myForm = Ext.getCmp("createFolderFormPanel");
+        myForm.getForm().findField("createFolderName").focus();
 
     },
 
@@ -307,39 +401,124 @@ Ext.define('MyApp.controller.objectController', {
     renameFileClick: function() {
         //Rename Popup 호출
 
-        var AddWindow = Ext.create('widget.renameFileWindow');
-        AddWindow.title = 'Rename';
+        var name = objectConstants.selectFilesRow.get('objectName');
+        var folder = objectConstants.selectFilesRow.get('folder');
 
-        var myForm = Ext.getCmp("renameFileFormPanel");
-        var nameField = myForm.getForm().findField("renameFileName");
-        var name = objectConstants.selectFilesRow.get('name');
+        if (folder !== true) {
+            var AddWindow = Ext.create('widget.renameFileWindow');
+            AddWindow.title = 'Rename';
 
-        nameField.setValue(name);
+            var myForm = Ext.getCmp("renameFileFormPanel");
+            var nameField = myForm.getForm().findField("renameFileName");
 
-        AddWindow.show();
+            nameField.setValue(name);
+            AddWindow.show();
+        }
 
     },
 
     openObjectFile: function() {
-        var selections = Ext.getCmp('objectFilesGrid').selModel.getSelection();
-        Ext.each(selections, function(recs){
-            //Ext.getCmp('objectFilesGrid').getStore().remove(recs);
-        });
+        var key = objectConstants.selectFilesRow.get('key');
+        var folder = objectConstants.selectFilesRow.get('folder');
+
+        if (folder === true) {
+            objectConstants.currentFolder = key;
+            objectConstants.me.setObjectFilesData();
+        }
 
     },
 
     downloadObjectFile: function() {
-        var selections = Ext.getCmp('objectFilesGrid').selModel.getSelection();
-        Ext.each(selections, function(recs){
-            //Ext.getCmp('objectFilesGrid').getStore().remove(recs);
+        Ext.Msg.show({
+            title:'Confirm',
+            msg: 'Download selected files?',
+            buttons: Ext.Msg.OKCANCEL,
+            icon: Ext.Msg.QUESTION,
+            fn: function(btn) {
+                if (btn === 'ok') {
+                    var selections = Ext.getCmp('objectFilesGrid').selModel.getSelection();
+                    var idx = 0;
+
+                    Ext.each(selections, function(recs){
+                        if (recs.get('folder') !== true) {
+                            var key = recs.get('key');
+
+                            Ext.Ajax.request({
+                                url: GLOBAL.urlPrefix + 'ceph/object/object?bucketName='+objectConstants.currentBucket + '&key='+key,
+                                disableCaching : true,
+                                success: function(response){
+                                    var data = Ext.decode(response.responseText);
+
+                                    Ext.DomHelper.append(document.body, {
+                                        tag: 'iframe',
+                                        id : 'downloadIframe' + idx,
+                                        frameBorder: 0,
+                                        width: 0,
+                                        height: 0,
+                                        css: 'display:none;visibility:hidden;height:0px;',
+                                        src: data.data.url
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            }
         });
 
     },
 
-    uploadObjectFile: function(fnm) {
-        // 다시 로드할 것
-        var obj = {'data':[{'name':fnm, 'size':0, 'sclass':'', 'mdate':''}]};
-        Ext.getCmp('objectFilesGrid').getStore().loadRawData(obj, true);
+    createfolderObjectFile: function() {
+        //Create Folder Execute
+
+        var myForm = Ext.getCmp("createFolderFormPanel");
+        if (myForm.getForm().isValid() !== true) {
+            return;
+        }
+
+        myForm.getForm().findField("createFolderBucket").setValue(objectConstants.currentBucket);
+        myForm.getForm().findField("createFolderParent").setValue(objectConstants.currentFolder);
+
+        var values = myForm.getValues();
+
+        var nameField = myForm.getForm().findField("createFolderName");
+        var name = nameField.getValue() + '/';
+
+        if (name !== '') {
+            var myGrid = Ext.getCmp("objectFilesGrid");
+            var myStore = myGrid.getStore();
+            var myName = '';
+
+            for (var i = 0; i < myStore.count(); i++) {
+                myName = myStore.getAt(i).get('objectName');
+                if (myName == name) {
+                    alert('Folder name(' + name + ') already exist.');
+                    nameField.focus();
+                    return;
+                }
+            }
+
+            Ext.Ajax.request({
+                url: GLOBAL.urlPrefix + "ceph/object/folder",
+                method: 'POST',
+                params: values,
+                success: function(response){
+                    var data = Ext.decode(response.responseText);
+
+                    objectConstants.me.setObjectFilesData();
+                },
+                failure: function(response){
+                    var data = Ext.decode(response.responseText);
+
+                    Ext.Msg.show({
+                        title:'Error',
+                        msg: 'Error on Create Folder.',
+                        buttons: Ext.Msg.OK,
+                        icon: Ext.Msg.ERROR
+                    });
+                }
+            });
+        }
 
         myForm.up('window').close();
 
@@ -351,6 +530,47 @@ Ext.define('MyApp.controller.objectController', {
             //Ext.getCmp('objectFilesGrid').getStore().remove(recs);
         });
 
+        var bucketName = objectConstants.currentBucket;
+        var key = '';
+        var permission = 'public-read-write';  //private | public-read | public-read-write | authenticated-read | bucket-owner-read | bucket-owner-full-control
+        var pars = null;
+
+        Ext.Msg.show({
+            title:'Confirm',
+            msg: 'Make to Public Objects?',
+            buttons: Ext.Msg.OKCANCEL,
+            icon: Ext.Msg.QUESTION,
+            fn: function(btn) {
+                if (btn === 'ok') {
+                    var selections = Ext.getCmp('objectFilesGrid').selModel.getSelection();
+                    Ext.each(selections, function(recs){
+                        key = recs.get('key');
+
+                        pars = { 'bucketName':bucketName, 'key':key, 'permission' : permission };
+
+                        Ext.Ajax.request({
+                            url: GLOBAL.urlPrefix + "ceph/object/object",
+                            method: 'PUT',
+                            jsonData: pars,
+                            success: function(response){
+                                var data = Ext.decode(response.responseText);
+                                objectConstants.me.setObjectFilesData();
+                            },
+                            failure: function(response){
+                                var data = Ext.decode(response.responseText);
+                                Ext.Msg.show({
+                                    title:'Error',
+                                    msg: 'Error on Make Public Object. (' + key + ')',
+                                    buttons: Ext.Msg.OK,
+                                    icon: Ext.Msg.ERROR
+                                });
+                            }
+                        });
+                    });
+                }
+            }
+        });
+
     },
 
     makeprotectedObjectFile: function() {
@@ -359,29 +579,163 @@ Ext.define('MyApp.controller.objectController', {
             //Ext.getCmp('objectFilesGrid').getStore().remove(recs);
         });
 
+        var bucketName = objectConstants.currentBucket;
+        var key = '';
+        var permission = 'private';  //private | public-read | public-read-write | authenticated-read | bucket-owner-read | bucket-owner-full-control
+        var pars = null;
+
+        Ext.Msg.show({
+            title:'Confirm',
+            msg: 'Make to Protected Objects?',
+            buttons: Ext.Msg.OKCANCEL,
+            icon: Ext.Msg.QUESTION,
+            fn: function(btn) {
+                if (btn === 'ok') {
+                    var selections = Ext.getCmp('objectFilesGrid').selModel.getSelection();
+                    Ext.each(selections, function(recs){
+                        key = recs.get('key');
+
+                        pars = { 'bucketName':bucketName, 'key':key, 'permission' : permission };
+
+                        Ext.Ajax.request({
+                            url: GLOBAL.urlPrefix + "ceph/object/object",
+                            method: 'PUT',
+                            jsonData: pars,
+                            success: function(response){
+                                var data = Ext.decode(response.responseText);
+                                objectConstants.me.setObjectFilesData();
+                            },
+                            failure: function(response){
+                                var data = Ext.decode(response.responseText);
+                                Ext.Msg.show({
+                                    title:'Error',
+                                    msg: 'Error on Make Public Object. (' + key + ')',
+                                    buttons: Ext.Msg.OK,
+                                    icon: Ext.Msg.ERROR
+                                });
+                            }
+                        });
+                    });
+                }
+            }
+        });
+
     },
 
     renameObjectFile: function() {
+        //Rename File Execute
+
+        var objectName = objectConstants.selectFilesRow.get('objectName');
+        var values = null;
+
         var myForm = Ext.getCmp("renameFileFormPanel");
+        if (myForm.getForm().isValid() !== true) {
+            return;
+        }
+
         var nameField = myForm.getForm().findField("renameFileName");
-        var name = nameField.getValue();
+        var newName = nameField.getValue();
 
-        Ext.getCmp('objectFilesGrid').getStore().getAt(objectConstants.selectFilesIndex).set('name', name);
+        if (newName !== objectName) {
+            var myGrid = Ext.getCmp("objectFilesGrid");
+            var myStore = myGrid.getStore();
+            var myName = '';
 
-        myForm.up('window').close();
+            for (var i = 0; i < myStore.count(); i++) {
+                myName = myStore.getAt(i).get('objectName');
+                if (myName == newName) {
+                    alert('Object name(' + newName + ') already exist.');
+                    nameField.focus();
+                    return;
+                }
+            }
+
+            myForm.getForm().findField("renameKey").setValue(objectConstants.currentFolder + objectName);
+            myForm.getForm().findField("renameObjectName").setValue(objectName);
+            myForm.getForm().findField("renameBucketName").setValue(objectConstants.currentBucket);
+            values = myForm.getValues();
+
+            Ext.Ajax.request({
+                url: GLOBAL.urlPrefix + "ceph/object/object",
+                method: 'PUT',
+                jsonData: values,
+                success: function(response){
+                    var data = Ext.decode(response.responseText);
+                    objectConstants.me.setObjectFilesData();
+
+                    // Empty Selections
+                    objectConstants.filesSelectBucket = '';
+                    objectConstants.filesSelectList = null;
+
+                    Ext.getCmp("filesPasteMenuItem").disable();
+                    Ext.getCmp("filesPasteMenu").disable();
+                },
+                failure: function(response){
+                    var data = Ext.decode(response.responseText);
+
+                    Ext.Msg.show({
+                        title:'Error',
+                        msg: 'Error on Rename Object.',
+                        buttons: Ext.Msg.OK,
+                        icon: Ext.Msg.ERROR
+                    });
+                }
+            });
+
+            myForm.up('window').close();
+        } else {
+            nameField.focus();
+        }
 
     },
 
     deleteObjectFile: function() {
-        var selections = Ext.getCmp('objectFilesGrid').selModel.getSelection();
-        Ext.each(selections, function(recs){
-            Ext.getCmp('objectFilesGrid').getStore().remove(recs);
-        });
+        var bucketName = objectConstants.currentBucket;
+        var key = '';
+        var isFolder = false;
+        var pars = '';
 
-        Ext.getCmp("objectFilesDetail1").update('');
-        Ext.getCmp("objectFilesDetail1").updateLayout();
-        Ext.getCmp("objectFilesDetail2").update('');
-        Ext.getCmp("objectFilesDetail2").updateLayout();
+        Ext.Msg.show({
+            title:'Confirm',
+            msg: 'Delete selected Objects?',
+            buttons: Ext.Msg.OKCANCEL,
+            icon: Ext.Msg.QUESTION,
+            fn: function(btn) {
+                if (btn === 'ok') {
+                    var selections = Ext.getCmp('objectFilesGrid').selModel.getSelection();
+                    Ext.each(selections, function(recs){
+                        key = recs.get('key');
+                        isFolder = recs.get('folder');
+
+                        pars = 'bucketName=' + bucketName + '&' + 'key=' + key + '&' + 'isFolder=' + isFolder;
+
+                        Ext.Ajax.request({
+                            url: GLOBAL.urlPrefix + "ceph/object/object/delete?" + pars,
+                            success: function(response){
+                                var data = Ext.decode(response.responseText);
+                                objectConstants.me.setObjectFilesData();
+                            },
+                            failure: function(response){
+                                var data = Ext.decode(response.responseText);
+                                Ext.Msg.show({
+                                    title:'Error',
+                                    msg: 'Error on Delete Object. (' + key + ')',
+                                    buttons: Ext.Msg.OK,
+                                    icon: Ext.Msg.ERROR
+                                });
+                            }
+                        });
+                    });
+
+                    // Empty Selections
+                    objectConstants.filesSelectBucket = '';
+                    objectConstants.filesSelectList = null;
+
+                    Ext.getCmp("filesPasteMenuItem").disable();
+                    Ext.getCmp("filesPasteMenu").disable();
+                }
+            }
+        });
 
     },
 
@@ -400,19 +754,117 @@ Ext.define('MyApp.controller.objectController', {
     },
 
     pasteObjectFile: function() {
-        Ext.each(objectConstants.filesSelectList, function(recs){
-            var obj = {'data':[{'name':recs.get('name'), 'size':recs.get('size'), 'sclass':recs.get('sclass'), 'mdate':recs.get('mdate')}]};
-            Ext.getCmp('objectFilesGrid').getStore().loadRawData(obj, true);
+        var values = null;
+        var url = 'ceph/object/';
+        var msg = 'Paste ';
+        if (objectConstants.filesSelectMode == 'cut') {
+            msg += 'cutted Objects?';
+            url += 'move';
+        } else {
+            msg += 'coppied Objects?';
+            url += 'copy';
+        }
+
+        Ext.Msg.show({
+            title:'Confirm',
+            msg: msg,
+            buttons: Ext.Msg.OKCANCEL,
+            icon: Ext.Msg.QUESTION,
+            fn: function(btn) {
+                if (btn === 'ok') {
+                    Ext.each(objectConstants.filesSelectList, function(recs){
+                        if (recs.get('folder') !== true) {
+                            values = {
+                                'bucketName':objectConstants.filesSelectBucket,
+                                'key':recs.get('key'),
+                                'objectName':recs.get('objectName'),
+                                'targetBucketName':objectConstants.currentBucket,
+                                'parentPath':objectConstants.currentFolder
+                            };
+
+                            Ext.Ajax.request({
+                                url: GLOBAL.urlPrefix + url,
+                                method: 'POST',
+                                jsonData: values,
+                                success: function(response){
+                                    var data = Ext.decode(response.responseText);
+                                    objectConstants.me.setObjectFilesData();
+                                },
+                                failure: function(response){
+                                    var data = Ext.decode(response.responseText);
+                                    Ext.Msg.show({
+                                        title:'Error',
+                                        msg: 'Error on Coping(Moving) Objects.',
+                                        buttons: Ext.Msg.OK,
+                                        icon: Ext.Msg.ERROR
+                                    });
+                                }
+                            });
+                        }
+                    });
+
+                    if (objectConstants.filesSelectMode == 'cut') {
+                        objectConstants.filesSelectBucket = '';
+                        objectConstants.filesSelectList = null;
+
+                        Ext.getCmp("filesPasteMenuItem").disable();
+                        Ext.getCmp("filesPasteMenu").disable();
+                    }
+                }
+            }
         });
 
-        if (objectConstants.filesSelectMode == 'cut') {
-            Ext.each(objectConstants.filesSelectList, function(recs){
-                Ext.getCmp('objectFilesGrid').getStore().remove(recs);
-            });
+    },
 
-            objectConstants.filesSelectBucket = '';
-            objectConstants.filesSelectList = null;
+    addFilesFolderButton: function(name, key) {
+        var button = {
+            xtype : 'button',
+            text : name,
+            width : 100,
+            style: {
+                color: '#66f'
+            },
+            listeners : {
+                click : function(){
+                    objectConstants.currentFolder = key;
+                    objectConstants.me.setObjectFilesData();
+                }
+            }
+        };
+
+        Ext.getCmp('objectFilesTopAddrToolbar').add('>');
+        Ext.getCmp('objectFilesTopAddrToolbar').add(button);
+    },
+
+    setFilesMenuEnable: function(record) {
+        var folder = record.get('folder');
+        if (folder === true) {
+            Ext.getCmp("filesOpenMenuItem").enable();
+            Ext.getCmp("filesDownloadMenuItem").disable();
+            Ext.getCmp("filesRenameMenuItem").disable();
+
+            Ext.getCmp("filesOpenMenu").enable();
+            Ext.getCmp("filesDownloadMenu").disable();
+            Ext.getCmp("filesRenameMenu").disable();
+        } else {
+            Ext.getCmp("filesOpenMenuItem").disable();
+            Ext.getCmp("filesDownloadMenuItem").enable();
+            Ext.getCmp("filesRenameMenuItem").enable();
+
+            Ext.getCmp("filesOpenMenu").disable();
+            Ext.getCmp("filesDownloadMenu").enable();
+            Ext.getCmp("filesRenameMenu").enable();
         }
+
+        var cnt = Ext.getCmp('objectFilesGrid').selModel.getSelection().length;
+        if (cnt > 0) {
+            Ext.getCmp("filesPasteMenuItem").enable();
+            Ext.getCmp("filesPasteMenu").enable();
+        } else {
+            Ext.getCmp("filesPasteMenuItem").disable();
+            Ext.getCmp("filesPasteMenu").disable();
+        }
+
     },
 
     init: function(application) {
@@ -438,36 +890,51 @@ Ext.define('MyApp.controller.objectController', {
                     items:
                     [
                     { text: 'Open',
+                        id: 'filesOpenMenu',
                         handler: function() {
                             objects.openObjectFile();
                         }
                     },
                     { text: 'Download',
+                        id: 'filesDownloadMenu',
                         handler: function() {
                             objects.downloadObjectFile();
                         }
                     },
-                    { text: 'Upload',
-                        handler: function() {
-                            objects.uploadFileClick();
-                        }
+                    /*
+                    { text: 'Create Folder',
+                    id: 'filesCreatefolderMenu',
+                    handler: function() {
+                    objects.createObjectFolder();
+                    }
                     },
+                    { text: 'Upload',
+                    id: 'filesUploadMenu',
+                    handler: function() {
+                    objects.uploadFileClick();
+                    }
+                    },
+                    */
                     { text: 'Make Public',
+                        id: 'filesMakepublicMenu',
                         handler: function() {
                             objects.makepublicObjectFile();
                         }
                     },
                     { text: 'Make Protected',
+                        id: 'filesMakeprotectedMenu',
                         handler: function() {
                             objects.makeprotectedObjectFile();
                         }
                     },
                     { text: 'Rename',
+                        id: 'filesRenameMenu',
                         handler: function() {
                             objects.renameFileClick();
                         }
                     },
                     { text: 'Delete',
+                        id: 'filesDeleteMenu',
                         handler: function() {
                             objects.deleteObjectFile();
                         }
@@ -476,16 +943,19 @@ Ext.define('MyApp.controller.objectController', {
                         xtype: 'menuseparator'
                     },
                     { text: 'Cut',
+                        id: 'filesCutMenu',
                         handler: function() {
                             objects.cutObjectFile();
                         }
                     },
                     { text: 'Copy',
+                        id: 'filesCopyMenu',
                         handler: function() {
                             objects.copyObjectFile();
                         }
                     },
                     { text: 'Paste',
+                        id: 'filesPasteMenu',
                         handler: function() {
                             objects.pasteObjectFile();
                         }
@@ -499,6 +969,7 @@ Ext.define('MyApp.controller.objectController', {
                     bucketsContextMenu: bucketsGridContextMenu,
                     filesContextMenu: filesGridContextMenu,
                     currentBucket: '',
+                    currentFolder: '',
                     filesSelectList: null,
                     filesSelectMode: 'cut',
                     filesSelectBucket: '',
@@ -529,12 +1000,21 @@ Ext.define('MyApp.controller.objectController', {
             "#bucketsRefreshMenuItem": {
                 click: this.onbucketsRefreshMenuitemClick
             },
+            "#createBucketName": {
+                specialkey: this.onCreateBucketNameTextfieldSpecialkey
+            },
+            "#createFolderName": {
+                specialkey: this.onCreateFolderNameTextfieldSpecialkey
+            },
+            "#renameFileName": {
+                specialkey: this.onRenameFileNameTextfieldSpecialkey
+            },
             "#objectFilesGrid": {
                 cellclick: this.onObjectFilesGridpanelCellClick,
                 beforeitemcontextmenu: this.onObjectFilesGridpanelBeforeItemContextMenu
             },
-            "#filesTextItem": {
-                click: this.onfilesTextItemButtonClick
+            "#filesAllBuckets": {
+                click: this.onfilesAllBucketsButtonClick
             },
             "#filesUploadButton": {
                 click: this.onfilesUploadButtonClick
@@ -544,6 +1024,9 @@ Ext.define('MyApp.controller.objectController', {
             },
             "#filesDownloadMenuItem": {
                 click: this.onfilesDownloadMenuitemClick
+            },
+            "#filesCreatefolderMenuItem": {
+                click: this.onfilesCreatefolderMenuitemClick
             },
             "#filesUploadMenuItem": {
                 click: this.onfilesUploadMenuitemClick

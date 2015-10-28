@@ -62,7 +62,7 @@
                                 "itemId": "storageHostAdd",
                                 "layout|flex": null,
                                 "padding": "3 7 3 7",
-                                "text": "Add HOST"
+                                "text": "Create New Ceph Cluster"
                             },
                             "designerId": "8ce1c948-a51c-4141-aee0-105352f031e4"
                         }

@@ -1,0 +1,62 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "objectBucketsListJsonStore",
+        "model": "objectBucketsModel",
+        "storeId": "objectBucketsListJsonStore"
+    },
+    "designerId": "d43c72f8-8e14-4453-b6a7-02eb32b88f1f",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "objectBucketsListAjaxProxy",
+                "url": "ceph/object/buckets"
+            },
+            "designerId": "caf36386-4227-47e5-95dc-127107c9d98d",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|displayName": "objectBucketsListJsonReader",
+                        "root": "list"
+                    },
+                    "designerId": "d85bd3ee-960e-4acc-b4b5-0d77a2d65500"
+                }
+            ]
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onJsonstoreLoad",
+                "implHandler": [
+                    "var str = 'All Buckets (' + store.count() + ')';",
+                    "Ext.getCmp('bucketsTextItem').setText(str);"
+                ],
+                "name": "load",
+                "scope": "me"
+            },
+            "designerId": "6c7d795f-cdb6-47b1-8243-9b5ffb274c1a"
+        }
+    ]
+}

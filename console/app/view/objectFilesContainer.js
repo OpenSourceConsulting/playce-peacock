@@ -22,11 +22,11 @@ Ext.define('MyApp.view.objectFilesContainer', {
         'Ext.button.Button',
         'Ext.menu.Menu',
         'Ext.menu.Separator',
-        'Ext.toolbar.TextItem',
         'Ext.grid.Panel',
         'Ext.grid.View',
+        'Ext.selection.CheckboxModel',
         'Ext.grid.column.Number',
-        'Ext.selection.CheckboxModel'
+        'Ext.XTemplate'
     ],
 
     id: 'objectFilesContainer',
@@ -88,6 +88,12 @@ Ext.define('MyApp.view.objectFilesContainer', {
                                                 id: 'filesDownloadMenuItem',
                                                 itemId: 'filesDownloadMenuItem',
                                                 text: 'Download'
+                                            },
+                                            {
+                                                xtype: 'menuitem',
+                                                id: 'filesCreatefolderMenuItem',
+                                                itemId: 'filesCreatefolderMenuItem',
+                                                text: 'Create Folder'
                                             },
                                             {
                                                 xtype: 'menuitem',
@@ -157,20 +163,12 @@ Ext.define('MyApp.view.objectFilesContainer', {
                             items: [
                                 {
                                     xtype: 'button',
-                                    id: 'filesTextItem',
-                                    itemId: 'filesTextItem',
+                                    id: 'filesAllBuckets',
+                                    itemId: 'filesAllBuckets',
                                     style: {
                                         color: '#66f'
                                     },
                                     text: 'All Buckets'
-                                },
-                                {
-                                    xtype: 'tbtext',
-                                    id: 'filesTextItem1',
-                                    itemId: 'filesTextItem1',
-                                    margin: '0 0 0 0',
-                                    width: 640,
-                                    text: '/ my-new-bucket'
                                 }
                             ]
                         }
@@ -197,11 +195,19 @@ Ext.define('MyApp.view.objectFilesContainer', {
                                 id: 'objectFilesGridView',
                                 itemId: 'objectFilesGridView'
                             },
+                            selModel: Ext.create('Ext.selection.CheckboxModel', {
+
+                            }),
                             columns: [
                                 {
                                     xtype: 'gridcolumn',
-                                    dataIndex: 'name',
+                                    dataIndex: 'objectName',
                                     text: 'Name'
+                                },
+                                {
+                                    xtype: 'gridcolumn',
+                                    dataIndex: 'storageClass',
+                                    text: 'Storage Class'
                                 },
                                 {
                                     xtype: 'numbercolumn',
@@ -212,18 +218,76 @@ Ext.define('MyApp.view.objectFilesContainer', {
                                 },
                                 {
                                     xtype: 'gridcolumn',
-                                    dataIndex: 'sclass',
-                                    text: 'Sclass'
+                                    dataIndex: 'lastModified',
+                                    text: 'Last Modified'
                                 },
                                 {
                                     xtype: 'gridcolumn',
-                                    dataIndex: 'mdate',
-                                    text: 'Mdate'
+                                    hidden: true,
+                                    dataIndex: 'bucketName',
+                                    text: 'BucketName'
+                                },
+                                {
+                                    xtype: 'gridcolumn',
+                                    hidden: true,
+                                    dataIndex: 'parentPath',
+                                    text: 'ParentPath'
+                                },
+                                {
+                                    xtype: 'gridcolumn',
+                                    hidden: true,
+                                    dataIndex: 'key',
+                                    text: 'Key'
+                                },
+                                {
+                                    xtype: 'gridcolumn',
+                                    hidden: true,
+                                    dataIndex: 'owner',
+                                    text: 'Owner'
+                                },
+                                {
+                                    xtype: 'gridcolumn',
+                                    hidden: true,
+                                    dataIndex: 'newName',
+                                    text: 'NewName'
+                                },
+                                {
+                                    xtype: 'gridcolumn',
+                                    hidden: true,
+                                    dataIndex: 'permission',
+                                    text: 'Permission'
+                                },
+                                {
+                                    xtype: 'gridcolumn',
+                                    hidden: true,
+                                    dataIndex: 'acl',
+                                    text: 'Acl'
+                                },
+                                {
+                                    xtype: 'gridcolumn',
+                                    hidden: true,
+                                    dataIndex: 'url',
+                                    text: 'Url'
+                                },
+                                {
+                                    xtype: 'gridcolumn',
+                                    hidden: true,
+                                    dataIndex: 'metadata',
+                                    text: 'Metadata'
+                                },
+                                {
+                                    xtype: 'gridcolumn',
+                                    hidden: true,
+                                    dataIndex: 'file',
+                                    text: 'File'
+                                },
+                                {
+                                    xtype: 'gridcolumn',
+                                    hidden: true,
+                                    dataIndex: 'folder',
+                                    text: 'Folder'
                                 }
-                            ],
-                            selModel: Ext.create('Ext.selection.CheckboxModel', {
-
-                            })
+                            ]
                         },
                         {
                             xtype: 'panel',
@@ -247,6 +311,34 @@ Ext.define('MyApp.view.objectFilesContainer', {
                                     border: 1,
                                     id: 'objectFilesDetail1',
                                     itemId: 'objectFilesDetail1',
+                                    tpl: [
+                                        '<table border=0 width=100%>',
+                                        '<tr>',
+                                        '<td align=right width=120>',
+                                        'Name :<br>',
+                                        'Bucket :<br>',
+                                        'Size :<br>',
+                                        'LastModified :<br>',
+                                        'Owner :<br>',
+                                        'Expire :',
+                                        '</td>',
+                                        '<td>',
+                                        '&nbsp; {key}<br>',
+                                        '&nbsp; {bucketName}<br>',
+                                        '&nbsp; {metadata.contentLength}<br>',
+                                        '&nbsp; {metadata.lastModified}<br>',
+                                        '&nbsp; {acl.owner.displayName}<br>',
+                                        '&nbsp; {metadata.expirationTime}',
+                                        '</td>',
+                                        '</tr>',
+                                        '</table>',
+                                        '<br>',
+                                        'Link > <a href=\'{url}\'>Download</a><br>',
+                                        '<div border=0 width=100%>',
+                                        '{url}<br>',
+                                        '</div>',
+                                        ''
+                                    ],
                                     autoScroll: true,
                                     layout: 'border',
                                     bodyPadding: 10,
@@ -260,6 +352,29 @@ Ext.define('MyApp.view.objectFilesContainer', {
                                     border: 1,
                                     id: 'objectFilesDetail2',
                                     itemId: 'objectFilesDetail2',
+                                    tpl: Ext.create('Ext.XTemplate', 
+                                        'Permissions ><br>',
+                                        '<table border=0>',
+                                        '<tpl for=".">',
+                                        '<tr>',
+                                        '<tpl if="this.isObj(grantee)">',
+                                        ' <td>{grantee.displayName}</td>',
+                                        '<tpl else>',
+                                        ' <td>{grantee}</td>',
+                                        '</tpl>',
+                                        '<td> : </td>',
+                                        '<td>{permission}</td>',
+                                        '</tr>',
+                                        '</tpl>',
+                                        '</table>',
+                                        '',
+                                        {
+                                            isObj: function(vars) {
+                                                return (vars.displayName !== undefined);
+
+                                            }
+                                        }
+                                    ),
                                     autoScroll: true,
                                     layout: 'border',
                                     bodyPadding: 10,

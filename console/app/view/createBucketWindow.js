@@ -60,9 +60,15 @@ Ext.define('MyApp.view.createBucketWindow', {
                                             anchor: '100%',
                                             id: 'createBucketName',
                                             itemId: 'createBucketName',
-                                            fieldLabel: 'Bucket Name',
-                                            labelWidth: 110,
-                                            name: 'createBucketName'
+                                            fieldLabel: 'Name',
+                                            labelAlign: 'right',
+                                            labelWidth: 54,
+                                            name: 'bucketName',
+                                            allowBlank: false,
+                                            allowOnlyWhitespace: false,
+                                            enforceMaxLength: true,
+                                            maskRe: /[a-z0-9_\-]/,
+                                            maxLength: 32
                                         }
                                     ]
                                 }

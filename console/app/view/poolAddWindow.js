@@ -62,7 +62,14 @@ Ext.define('MyApp.view.poolAddWindow', {
                                             id: 'poolAddName',
                                             itemId: 'poolAddName',
                                             fieldLabel: 'Pool Name',
-                                            name: 'poolAddName'
+                                            labelAlign: 'right',
+                                            labelWidth: 80,
+                                            name: 'poolAddName',
+                                            allowBlank: false,
+                                            allowOnlyWhitespace: false,
+                                            enforceMaxLength: true,
+                                            maskRe: /[a-z0-9_\-]/,
+                                            maxLength: 32
                                         },
                                         {
                                             xtype: 'numberfield',
@@ -70,7 +77,13 @@ Ext.define('MyApp.view.poolAddWindow', {
                                             id: 'poolAddSize',
                                             itemId: 'poolAddSize',
                                             fieldLabel: 'Replica Size',
-                                            name: 'poolAddSize'
+                                            labelAlign: 'right',
+                                            labelWidth: 80,
+                                            name: 'poolAddSize',
+                                            maxLength: 32,
+                                            allowDecimals: false,
+                                            maxValue: 32,
+                                            minValue: 2
                                         },
                                         {
                                             xtype: 'combobox',
@@ -78,7 +91,10 @@ Ext.define('MyApp.view.poolAddWindow', {
                                             id: 'poolAddPgNum',
                                             itemId: 'poolAddPgNum',
                                             fieldLabel: 'PG Number',
+                                            labelAlign: 'right',
+                                            labelWidth: 80,
                                             name: 'poolAddPgNum',
+                                            maxLength: 32,
                                             displayField: 'value',
                                             store: 'PgNumComboArrayStore',
                                             valueField: 'value'

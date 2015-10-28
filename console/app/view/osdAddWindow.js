@@ -60,18 +60,30 @@ Ext.define('MyApp.view.osdAddWindow', {
                                             anchor: '100%',
                                             id: 'osdAddHost',
                                             itemId: 'osdAddHost',
-                                            fieldLabel: 'OSD Hostname',
-                                            labelWidth: 110,
-                                            name: 'osdAddHost'
+                                            fieldLabel: 'Host',
+                                            labelAlign: 'right',
+                                            labelWidth: 40,
+                                            name: 'osdAddHost',
+                                            allowBlank: false,
+                                            allowOnlyWhitespace: false,
+                                            enforceMaxLength: true,
+                                            maskRe: /[a-z0-9_\-]/,
+                                            maxLength: 32
                                         },
                                         {
                                             xtype: 'textfield',
                                             anchor: '100%',
-                                            id: 'osdAddIP',
-                                            itemId: 'osdAddIP',
-                                            fieldLabel: 'OSD IP address',
-                                            labelWidth: 110,
-                                            name: 'osdAddIP'
+                                            id: 'osdAddPath',
+                                            itemId: 'osdAddPath',
+                                            fieldLabel: 'Path',
+                                            labelAlign: 'right',
+                                            labelWidth: 40,
+                                            name: 'osdAddPath',
+                                            allowBlank: false,
+                                            allowOnlyWhitespace: false,
+                                            enforceMaxLength: true,
+                                            maskRe: /[a-zA-Z0-9_\-\/\.]/,
+                                            maxLength: 80
                                         }
                                     ]
                                 }
@@ -103,7 +115,7 @@ Ext.define('MyApp.view.osdAddWindow', {
                                         var myForm = Ext.getCmp("osdAddFormPanel");
 
                                         myForm.getForm().findField("osdAddHost").setValue('');
-                                        myForm.getForm().findField("osdAddIP").setValue('');
+                                        myForm.getForm().findField("osdAddPath").setValue('');
 
                                     },
                                     padding: '2 12 2 12',

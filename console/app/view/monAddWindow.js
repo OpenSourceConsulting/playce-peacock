@@ -25,7 +25,7 @@ Ext.define('MyApp.view.monAddWindow', {
         'Ext.button.Button'
     ],
 
-    height: 200,
+    height: 226,
     width: 400,
     resizable: false,
     layout: 'border',
@@ -60,18 +60,45 @@ Ext.define('MyApp.view.monAddWindow', {
                                             anchor: '100%',
                                             id: 'monAddHost',
                                             itemId: 'monAddHost',
-                                            fieldLabel: 'MON Hostname',
-                                            labelWidth: 110,
-                                            name: 'monAddHost'
+                                            fieldLabel: 'Host',
+                                            labelAlign: 'right',
+                                            labelWidth: 72,
+                                            name: 'monAddHost',
+                                            allowBlank: false,
+                                            allowOnlyWhitespace: false,
+                                            enforceMaxLength: true,
+                                            maskRe: /[a-z0-9_\-]/,
+                                            maxLength: 32
                                         },
                                         {
                                             xtype: 'textfield',
                                             anchor: '100%',
-                                            id: 'monAddIP',
-                                            itemId: 'monAddIP',
-                                            fieldLabel: 'MON IP address',
-                                            labelWidth: 110,
-                                            name: 'monAddIP'
+                                            id: 'monAddUser',
+                                            itemId: 'monAddUser',
+                                            fieldLabel: 'User',
+                                            labelAlign: 'right',
+                                            labelWidth: 72,
+                                            name: 'monAddUser',
+                                            allowBlank: false,
+                                            allowOnlyWhitespace: false,
+                                            enforceMaxLength: true,
+                                            maskRe: /[a-zA-Z0-9_\-]/,
+                                            maxLength: 32
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            anchor: '100%',
+                                            id: 'monAddPass',
+                                            itemId: 'monAddPw',
+                                            fieldLabel: 'Password',
+                                            labelAlign: 'right',
+                                            labelWidth: 72,
+                                            name: 'monAddPass',
+                                            inputType: 'password',
+                                            allowBlank: false,
+                                            allowOnlyWhitespace: false,
+                                            enforceMaxLength: true,
+                                            maxLength: 32
                                         }
                                     ]
                                 }
@@ -103,7 +130,8 @@ Ext.define('MyApp.view.monAddWindow', {
                                         var myForm = Ext.getCmp("monAddFormPanel");
 
                                         myForm.getForm().findField("monAddHost").setValue('');
-                                        myForm.getForm().findField("monAddIP").setValue('');
+                                        myForm.getForm().findField("monAddUser").setValue('');
+                                        myForm.getForm().findField("monAddPass").setValue('');
 
                                     },
                                     padding: '2 12 2 12',

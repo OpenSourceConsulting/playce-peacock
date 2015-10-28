@@ -74,14 +74,50 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
+                                        "enforceMaxLength": false,
                                         "fieldLabel": "File Name",
                                         "id": "uploadFileName",
                                         "itemId": "uploadFileName",
-                                        "labelWidth": 64,
+                                        "labelAlign": "right",
+                                        "labelWidth": 68,
                                         "layout|anchor": "100%",
-                                        "name": "uploadFileName"
+                                        "name": "file"
                                     },
                                     "designerId": "3bdcdfae-449c-4f9f-8609-ccaffb97f9b4"
+                                },
+                                {
+                                    "type": "Ext.form.field.Hidden",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": null,
+                                        "fieldLabel": "Label",
+                                        "id": "uploadBucketName",
+                                        "itemId": "uploadBucketName",
+                                        "layout|anchor": "100%",
+                                        "name": "bucketName"
+                                    },
+                                    "designerId": "a98bc5b5-5a2e-4cd3-a051-2b7d307ae420"
+                                },
+                                {
+                                    "type": "Ext.form.field.Hidden",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": null,
+                                        "fieldLabel": "Label",
+                                        "id": "uploadParentPath",
+                                        "itemId": "uploadParentPath",
+                                        "layout|anchor": "100%",
+                                        "name": "parentPath"
+                                    },
+                                    "designerId": "3471f21c-5862-48a3-8491-79fc8b1bd310"
                                 }
                             ]
                         }
@@ -132,13 +168,34 @@
                                         "fn": "handler",
                                         "implHandler": [
                                             "var myForm = Ext.getCmp(\"uploadFileFormPanel\");",
+                                            "myForm.getForm().findField('uploadBucketName').setValue(objectConstants.currentBucket);",
+                                            "myForm.getForm().findField('uploadParentPath').setValue(objectConstants.currentFolder);",
                                             "",
                                             "if(myForm.isValid()){",
-                                            "    myForm.submit({",
-                                            "        url: '/',",
-                                            "        waitMsg: 'Uploading your file...',",
-                                            "        success: function(fp, o) {",
-                                            "            objectConstants.me.uploadObjectFile(o.result.file);",
+                                            "    myForm.getForm().submit({",
+                                            "        url: GLOBAL.urlPrefix + \"ceph/object/object\",",
+                                            "        waitMsg : 'Uploading file...',",
+                                            "        success: function(fp, res){",
+                                            "            var data = Ext.decode(res.response.responseText);",
+                                            "            Ext.Msg.show({",
+                                            "                title:'Information',",
+                                            "                msg: 'File Upload Complete.',",
+                                            "                buttons: Ext.Msg.OK,",
+                                            "                icon: Ext.Msg.INFO",
+                                            "            });",
+                                            "",
+                                            "            myForm.up('window').close();",
+                                            "            objectConstants.me.setObjectFilesData();",
+                                            "        },",
+                                            "        failure: function(response){",
+                                            "            Ext.Msg.show({",
+                                            "                title:'Error',",
+                                            "                msg: 'Error on Upload File.',",
+                                            "                buttons: Ext.Msg.OK,",
+                                            "                icon: Ext.Msg.ERROR",
+                                            "            });",
+                                            "",
+                                            "            myForm.up('window').close();",
                                             "        }",
                                             "    });",
                                             "}",
