@@ -27,6 +27,7 @@ package com.athena.peacock.controller.common.provisioning;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -1845,11 +1846,20 @@ public class ProvisioningHandler {
 		logger.debug("fileSystem : " + fileSystem);
 		logger.debug("calamariServer : " + calamariServer);
 		logger.debug("ntpServer : " + ntpServer);
-		logger.debug("servers : " + servers);
-		logger.debug("devicePaths : " + devicePaths);
+		logger.debug("hostname : " + Arrays.toString(hostname));
+		logger.debug("ip : " + Arrays.toString(ip));
+		logger.debug("type : " + Arrays.toString(type));
+		logger.debug("userName : " + Arrays.toString(userName));
+		logger.debug("password : " + Arrays.toString(password));
+		logger.debug("devicePaths : " + Arrays.toString(devicePaths));
 		logger.debug("machineId : " + provisioningDetail.getMachineId());
 		logger.debug("softwareId : " + provisioningDetail.getSoftwareId());
 		logger.debug("softwareName : " + provisioningDetail.getSoftwareName());
+		
+		int j = 1;
+		if (j == 1) {
+			return;
+		}
 		
 		Command command = new Command("ceph-ansible INSTALL");
 		ShellAction s_action = null;
