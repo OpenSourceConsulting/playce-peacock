@@ -53,6 +53,11 @@ public class ObjectStorageService {
 	
 	private AmazonS3Client client;
 	
+	private String accessKey;
+	private String secretKey;
+	
+	private CephDto cephDto;
+	
 	/**
 	 * <pre>
 	 * 
@@ -60,16 +65,29 @@ public class ObjectStorageService {
 	 * @return
 	 * @throws Exception
 	 */
-	private AmazonS3Client getClient() throws Exception {
+	private synchronized AmazonS3Client getClient() throws Exception {
 		if (client == null) {
-			CephDto cephDto = cephService.selectCeph();
+			cephDto = cephService.selectCeph();
 			
 			if (cephDto == null) {
 				throw new Exception("Ceph cluster does not initiated yet.");
 			}
+			
+			accessKey = cephDto.getS3AccessKey();
+			secretKey = cephDto.getS3SecretKey();
 
-			client = new AmazonS3Client(new BasicAWSCredentials(cephDto.getS3AccessKey(), cephDto.getS3SecretKey()));
+			client = new AmazonS3Client(new BasicAWSCredentials(accessKey, secretKey));
 			client.setEndpoint(cephDto.getRadosgwApiPrefix());
+		} else {
+			cephDto = cephService.selectCeph();
+
+			if (!accessKey.equals(cephDto.getS3AccessKey()) || !secretKey.equals(cephDto.getS3SecretKey())) {
+				accessKey = cephDto.getS3AccessKey();
+				secretKey = cephDto.getS3SecretKey();
+
+				client = new AmazonS3Client(new BasicAWSCredentials(accessKey, secretKey));
+				client.setEndpoint(cephDto.getRadosgwApiPrefix());
+			}
 		}
 		
 		return client;
