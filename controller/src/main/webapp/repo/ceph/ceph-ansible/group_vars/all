@@ -1,6 +1,7 @@
 ---
 dummy:
 ceph_stable: true
+ceph_stable_key: https://git.ceph.com/git/?p=ceph.git;a=blob_plain;f=keys/release.asc
 
 ## Ceph options
 fsid: "${fsid}"

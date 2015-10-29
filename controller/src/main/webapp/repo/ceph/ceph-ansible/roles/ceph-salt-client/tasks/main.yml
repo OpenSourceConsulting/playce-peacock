@@ -1,4 +1,0 @@
----
-- include: deploy_salt.yml
-- include: deploy_salt_minion.yml
-- include: deploy_diamond.yml

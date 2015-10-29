@@ -1,9 +1,0 @@
----
-- name: copy ceph rest api keyring
-  copy: >
-    src={{ fetch_directory }}/{{ fsid }}/etc/ceph/ceph.client.admin.keyring
-    dest=/etc/ceph
-    owner=root
-    group=root
-    mode=600
-  when: cephx

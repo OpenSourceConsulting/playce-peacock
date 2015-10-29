@@ -1,9 +1,0 @@
-- name: copy salt-master systemd file
-  copy: >
-    src=salt-master.service
-    dest=/usr/lib/systemd/system/salt-master.service
-    owner=root
-    group=root
-    mode=0644
-  notify:
-    - restart salt-server
