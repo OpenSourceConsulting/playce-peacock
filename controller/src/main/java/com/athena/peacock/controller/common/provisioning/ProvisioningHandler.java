@@ -1940,6 +1940,7 @@ public class ProvisioningHandler {
 					.replaceAll("\\$\\{pool_default_pgp_num\\}", pgpNum)
 					.replaceAll("\\$\\{pool_default_size\\}", replicaSize)
 					.replaceAll("\\$\\{public_network\\}", publicNetwork)
+					.replaceAll("\\$\\{filesystem\\}", fileSystem)
 					.replaceAll("\\$\\{calamari_server\\}", calamariServer)
 					.replaceAll("\\$\\{ntp-server\\}", ntpServer);
 
