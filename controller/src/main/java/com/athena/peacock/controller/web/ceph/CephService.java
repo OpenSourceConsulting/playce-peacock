@@ -84,6 +84,7 @@ public class CephService implements InitializingBean {
 		if (selectCeph() == null) {
 			cephDao.insertCeph(ceph);
 		} else {
+			ceph.setCephId(DEFAULT_CEPH_ID);
 			cephDao.updateCeph(ceph);
 			this.ceph = ceph;
 		}

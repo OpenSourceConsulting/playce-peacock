@@ -2596,7 +2596,7 @@ class InstallThread extends Thread {
 					if (commands.get(i) != null) {
 						sb.append("[Command] : " + commands.get(i) + "\n");
 						
-						if (commands.get(i).equals("Get S3 Credeitials")) {
+						if (commands.get(i).indexOf("radosgw-admin user info") > -1) {
 							try {
 								ObjectMapper mapper = new ObjectMapper();
 								JsonNode node = mapper.readTree(results.get(i));
@@ -2618,6 +2618,9 @@ class InstallThread extends Thread {
 									}
 								}
 								
+								logger.debug("S3 AccessKey : [{}]", accessKey);
+								logger.debug("S3 SecretKey : [{}]", secretKey);
+								
 								cephDto.setS3AccessKey(accessKey);
 								cephDto.setS3SecretKey(secretKey);
 							} catch (Exception e) {
@@ -2637,7 +2640,11 @@ class InstallThread extends Thread {
 			
 			softwareService.insertSoftware(software, configList);
 			
+			logger.debug("cephService's instance : [{}]", cephService);
+			logger.debug("cephDto's instance : [{}]", cephDto);
+			
 			if (cephService != null && cephDto != null) {
+				logger.debug("cephDto will be inserted to DB");
 				cephService.insertCeph(cephDto);
 			}
 		} catch (Exception e) {
