@@ -53,7 +53,7 @@ Ext.define('MyApp.store.MenuTreeStore', {
                         cls: 'parent-node last-children',
                         activeRow: 2
                     },
-                    {
+                    /*        {
                         text: '<b>ALM Management</b>',
                         id: 'ROLE_B3_READ',
                         leaf: true,
@@ -61,7 +61,7 @@ Ext.define('MyApp.store.MenuTreeStore', {
                         cls: 'parent-node last-children',
                         activeRow: 3
                     },
-                    {
+                    */        {
                         text: '<b>Administration</b>',
                         id: 'ROLE_B4_READ',
                         leaf: true,

@@ -48,25 +48,7 @@
                         "id": "storageHostToolbar",
                         "itemId": "storageHostToolbar"
                     },
-                    "designerId": "a8fe1934-2902-41f1-89ff-c5fa49e3ffc5",
-                    "cn": [
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "id": "storageHostAdd",
-                                "itemId": "storageHostAdd",
-                                "layout|flex": null,
-                                "padding": "3 7 3 7",
-                                "text": "Create New Ceph Cluster"
-                            },
-                            "designerId": "8ce1c948-a51c-4141-aee0-105352f031e4"
-                        }
-                    ]
+                    "designerId": "a8fe1934-2902-41f1-89ff-c5fa49e3ffc5"
                 },
                 {
                     "type": "Ext.grid.View",

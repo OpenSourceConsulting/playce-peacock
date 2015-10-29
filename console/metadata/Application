@@ -201,10 +201,7 @@
             "createBucketWindow",
             "renameFileWindow",
             "uploadFileWindow",
-            "createFolderWindow",
-            "CreateClusterWindow",
-            "clusterDevicePathWindow",
-            "clusterServerWindow"
+            "createFolderWindow"
         ]
     },
     "designerId": "application"

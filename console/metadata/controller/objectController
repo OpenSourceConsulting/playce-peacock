@@ -1375,7 +1375,7 @@
                     "        if ((objectConstants.currentBucket == data.data.bucketName) && (objectConstants.currentFolder == folder)) {",
                     "            Ext.getCmp(\"objectFilesDetail1\").update(data.data);",
                     "            Ext.getCmp(\"objectFilesDetail2\").update(data.data.acl.grantsAsList);",
-                    "            ",
+                    "",
                     "            Ext.getCmp(\"objectFilesDetail\").expand();",
                     "        }",
                     "    }",

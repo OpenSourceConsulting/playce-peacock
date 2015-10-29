@@ -50,6 +50,11 @@ Ext.define('MyApp.controller.SoftwareInstallController', {
 
                 Ext.getCmp("jbossEAPForm").down('#datasourceRemoveToolbar').hide();
 
+            } else if (index == 3) {
+
+                Ext.getCmp("cephForm").down('#clusterServerRemoveToolbar').hide();
+                //Ext.getCmp("cephForm").down('#osdDevicePathRemoveToolbar').hide();
+
             }
 
         }
@@ -65,6 +70,36 @@ Ext.define('MyApp.controller.SoftwareInstallController', {
 
     },
 
+    onAddClusterServerBtnClick: function(button, e, eOpts) {
+        var form = button.up("form"),
+            orgObj = form.down("#clusterServerSet"),
+            index = form.items.length;
+
+        form.insert(index-3, orgObj.cloneConfig({itemId : "clusterServerSet"+index}));
+    },
+
+    onAddOsdDevicePathBtnClick: function(button, e, eOpts) {
+        var form = button.up("form"),
+            orgObj = form.down("#osdDevicePathSet"),
+            index = orgObj.items.length;
+
+        orgObj.insert(index-1, {
+                                xtype: 'textfield',
+                                anchor: '100%',
+                                itemId: 'devicePaths' + (index-1),
+                                afterLabelTextTpl: [ '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>' ],
+                                fieldLabel: 'Path',
+                                labelWidth: 140,
+                                name: 'devicePaths',
+                                allowBlank: false,
+                                enforceMaxLength: true,
+                                maskRe: /[a-zA-Z0-9_\-\/\.]/,
+                                maxLength: 80
+                               }
+                     );
+
+    },
+
     init: function(application) {
         this.control({
             "#popComboSoftwareName": {
@@ -72,6 +107,12 @@ Ext.define('MyApp.controller.SoftwareInstallController', {
             },
             "#addDataSourceBtn": {
                 click: this.onAddDataSourceBtnClick
+            },
+            "#addClusterServerBtn": {
+                click: this.onAddClusterServerBtnClick
+            },
+            "#addOsdDevicePathBtn": {
+                click: this.onAddOsdDevicePathBtnClick
             }
         });
     }

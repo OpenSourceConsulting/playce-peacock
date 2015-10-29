@@ -26,7 +26,8 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
         'Ext.XTemplate',
         'Ext.form.field.TextArea',
         'Ext.form.field.Checkbox',
-        'Ext.form.field.Hidden'
+        'Ext.form.field.Hidden',
+        'Ext.form.field.Number'
     ],
 
     height: 630,
@@ -189,10 +190,90 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                     if(validFlag)
                                     return;
 
+                                } else if (index == 3) {
+
+                                    installForm = Ext.getCmp("cephForm");
+                                    if (installForm.getForm().isValid() !== true) {
+                                        return;
+                                    }
+
+                                    var values = installForm.getValues();
+                                    var types = values.type;
+                                    var hosts = values.hostname;
+                                    var ips = values.ip;
+                                    var paths = values.devicePaths;
+
+                                    if (installForm.items.length == 5) {
+                                        if (types !== 'management') {
+                                            alert('Input managemrnt server information.');
+                                            return;
+                                        }
+                                    } else {
+                                        var iMgmt = 0;
+                                        var iRados = 0;
+                                        for (var i = 0; i < types.length; i++) {
+                                            if (types[i] == 'management') {
+                                                iMgmt++;
+                                            } else if (types[i] == 'radosgw') {
+                                                iRados++;
+                                            }
+
+                                            var iHost = 0;
+                                            var iIP = 0;
+                                            for (var j = 0; j < hosts.length; j++) {
+                                                if (hosts[i] == hosts[j]) {
+                                                    iHost++;
+                                                }
+                                                if (ips[i] == ips[j]) {
+                                                    iIP++;
+                                                }
+                                            }
+                                            if (iHost > 1) {
+                                                alert('Duplicate host name. (' + hosts[i] + ')');
+                                                return;
+                                            }
+                                            if (iIP > 1) {
+                                                alert('Duplicate ip addr. (' + ips[i] + ')');
+                                                return;
+                                            }
+                                        }
+
+                                        if (iMgmt === 0) {
+                                            alert('Input managemrnt server information.');
+                                            return;
+                                        }
+                                        if (iMgmt > 1) {
+                                            alert('managemrnt server should be one.');
+                                            return;
+                                        }
+                                        if (iRados > 1) {
+                                            alert('radosgw server should be one.');
+                                            return;
+                                        }
+                                    }
+
+                                    if (Ext.isArray(paths)){
+                                        for (var i = 0; i < paths.length; i++) {
+                                            var iPath = 0;
+                                            for (var j = 0; j < paths.length; j++) {
+                                                if (paths[i] == paths[j]) {
+                                                    iPath++;
+                                                }
+                                            }
+                                            if (iPath > 1) {
+                                                alert('Duplicate OSD Device Path. (' + paths[i] + ')');
+                                                return;
+                                            }
+                                        }
+                                    }
+
+                                    /* for Test
+                                    installForm.getForm().findField("machineId").setValue(instancesConstants.selectRow.get("machineId"));
+                                    console.log(Ext.JSON.encode(installForm.getValues()));
+                                    alert(Ext.JSON.encode(installForm.getValues()));
+                                    return;
+                                    */
                                 }
-
-
-
 
                                 installForm.getForm().findField("machineId").setValue(instancesConstants.selectRow.get("machineId"));
 
@@ -857,12 +938,7 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             fieldLabel: 'Base Template',
                                             name: 'baseTemplate',
                                             allowBlank: false,
-                                            store: [
-                                                'codeServer11',
-                                                'codeServer11_cs',
-                                                'codeServer21',
-                                                'codeServer21_cs'
-                                            ],
+                                            store: '[\n    \'codeServer11\', \n    \'codeServer11_cs\', \n    \'codeServer21\', \n    \'codeServer21_cs\'\n]',
                                             listeners: {
                                                 change: {
                                                     fn: me.onComboboxChange3,
@@ -1175,6 +1251,379 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                     ]
                                 }
                             ]
+                        },
+                        {
+                            xtype: 'form',
+                            height: 242,
+                            id: 'cephForm',
+                            itemId: 'cephForm',
+                            autoScroll: true,
+                            bodyPadding: 15,
+                            fieldDefaults: {
+                                msgTarget: 'side',
+                                labelWidth: 130
+                            },
+                            items: [
+                                {
+                                    xtype: 'fieldset',
+                                    title: 'CEPH Install',
+                                    items: [
+                                        {
+                                            xtype: 'combobox',
+                                            anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
+                                            fieldLabel: 'Version',
+                                            labelWidth: 140,
+                                            name: 'version',
+                                            allowBlank: false,
+                                            displayField: 'softwareVersion',
+                                            store: 'ComboSoftwareVersionStore',
+                                            valueField: 'softwareVersion',
+                                            listeners: {
+                                                change: {
+                                                    fn: me.onMycombobox13Change111,
+                                                    scope: me
+                                                }
+                                            }
+                                        },
+                                        {
+                                            xtype: 'numberfield',
+                                            anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
+                                            fieldLabel: 'Replica Size',
+                                            labelWidth: 140,
+                                            name: 'replicaSize',
+                                            value: 3,
+                                            allowBlank: false,
+                                            allowDecimals: false,
+                                            allowExponential: false,
+                                            maxValue: 32,
+                                            minValue: 2
+                                        },
+                                        {
+                                            xtype: 'combobox',
+                                            anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
+                                            fieldLabel: 'PG Num',
+                                            labelWidth: 140,
+                                            name: 'pgNum',
+                                            value: 8,
+                                            allowBlank: false,
+                                            displayField: 'value',
+                                            forceSelection: true,
+                                            store: 'PgNumComboArrayStore',
+                                            valueField: 'value'
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
+                                            fieldLabel: 'Public Network',
+                                            labelWidth: 140,
+                                            name: 'publicNetwork',
+                                            value: '192.168.0.0/24',
+                                            readOnly: true,
+                                            allowBlank: false,
+                                            maskRe: /[0-9\/\.]/,
+                                            maxLength: 32
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
+                                            fieldLabel: 'Cluster Network',
+                                            labelWidth: 140,
+                                            name: 'clusterNetwork',
+                                            value: '192.168.0.0/24',
+                                            readOnly: true,
+                                            allowBlank: false,
+                                            maskRe: /[0-9\/\.]/,
+                                            maxLength: 32
+                                        },
+                                        {
+                                            xtype: 'numberfield',
+                                            anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
+                                            fieldLabel: 'Journal Size',
+                                            labelWidth: 140,
+                                            name: 'journalSize',
+                                            value: 1024,
+                                            allowBlank: false,
+                                            allowDecimals: false,
+                                            allowExponential: false,
+                                            maxValue: 10737418240
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
+                                            fieldLabel: 'mon Network Interface',
+                                            labelWidth: 140,
+                                            name: 'monNetworkInterface',
+                                            value: 'eth0',
+                                            readOnly: true,
+                                            allowBlank: false,
+                                            maskRe: /[a-z0-9_\-\.]/,
+                                            maxLength: 32
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
+                                            fieldLabel: 'File System',
+                                            labelWidth: 140,
+                                            name: 'fileSystem',
+                                            value: 'xfs',
+                                            readOnly: true,
+                                            allowBlank: false,
+                                            maskRe: /[a-zA-Z0-9_\-\/\.]/,
+                                            maxLength: 64
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
+                                            fieldLabel: 'NTP Server',
+                                            labelWidth: 140,
+                                            name: 'ntpServer',
+                                            value: '192.168.0.68',
+                                            readOnly: true,
+                                            allowBlank: false,
+                                            maskRe: /[0-9\/\.]/,
+                                            maxLength: 32
+                                        },
+                                        {
+                                            xtype: 'hiddenfield',
+                                            anchor: '100%',
+                                            fieldLabel: 'Label',
+                                            name: 'machineId'
+                                        },
+                                        {
+                                            xtype: 'hiddenfield',
+                                            anchor: '100%',
+                                            fieldLabel: 'Label',
+                                            name: 'softwareId'
+                                        },
+                                        {
+                                            xtype: 'hiddenfield',
+                                            anchor: '100%',
+                                            fieldLabel: 'Label',
+                                            name: 'softwareName'
+                                        },
+                                        {
+                                            xtype: 'hiddenfield',
+                                            anchor: '100%',
+                                            fieldLabel: 'Label',
+                                            name: 'fileName'
+                                        },
+                                        {
+                                            xtype: 'hiddenfield',
+                                            anchor: '100%',
+                                            fieldLabel: 'Label',
+                                            name: 'fileLocation'
+                                        }
+                                    ]
+                                },
+                                {
+                                    xtype: 'fieldset',
+                                    id: 'clusterServerSet',
+                                    itemId: 'clusterServerSet',
+                                    title: 'Cluster Server Data',
+                                    items: [
+                                        {
+                                            xtype: 'textfield',
+                                            anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
+                                            fieldLabel: 'Host',
+                                            labelWidth: 140,
+                                            name: 'hostname',
+                                            allowBlank: false,
+                                            enforceMaxLength: true,
+                                            maskRe: /[a-z0-9_\-]/,
+                                            maxLength: 32
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
+                                            fieldLabel: 'IP',
+                                            labelWidth: 140,
+                                            name: 'ip',
+                                            value: '0.0.0.0',
+                                            allowBlank: false,
+                                            maskRe: /[0-9\/\.]/,
+                                            maxLength: 32
+                                        },
+                                        {
+                                            xtype: 'combobox',
+                                            anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
+                                            fieldLabel: 'Type',
+                                            labelWidth: 140,
+                                            name: 'type',
+                                            allowBlank: false,
+                                            displayField: 'value',
+                                            forceSelection: true,
+                                            store: 'ServerTypeArrayStore',
+                                            valueField: 'value'
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
+                                            fieldLabel: 'User Name',
+                                            labelWidth: 140,
+                                            name: 'userName',
+                                            value: 'root',
+                                            allowBlank: false,
+                                            enforceMaxLength: true,
+                                            maskRe: /[a-zA-Z0-9_\-]/,
+                                            maxLength: 32
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
+                                            fieldLabel: 'Password',
+                                            labelWidth: 140,
+                                            name: 'password',
+                                            inputType: 'password',
+                                            allowBlank: false,
+                                            enforceMaxLength: true,
+                                            maxLength: 32
+                                        },
+                                        {
+                                            xtype: 'toolbar',
+                                            itemId: 'clusterServerRemoveToolbar',
+                                            layout: {
+                                                type: 'hbox',
+                                                pack: 'center'
+                                            },
+                                            items: [
+                                                {
+                                                    xtype: 'button',
+                                                    handler: function(button, e) {
+                                                        var form = button.up("form"),
+                                                            fieldset = button.up("fieldset");
+
+                                                        form.remove(fieldset);
+
+                                                    },
+                                                    text: 'Remove'
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    xtype: 'toolbar',
+                                    padding: '5 0 0 0',
+                                    layout: {
+                                        type: 'hbox',
+                                        pack: 'end'
+                                    },
+                                    items: [
+                                        {
+                                            xtype: 'button',
+                                            id: 'addClusterServerBtn',
+                                            itemId: 'addClusterServerBtn',
+                                            text: 'Add Cluster Server'
+                                        }
+                                    ]
+                                },
+                                {
+                                    xtype: 'fieldset',
+                                    id: 'osdDevicePathSet',
+                                    itemId: 'osdDevicePathSet',
+                                    title: 'OSD Device Path',
+                                    items: [
+                                        {
+                                            xtype: 'textfield',
+                                            anchor: '100%',
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
+                                            fieldLabel: 'Path',
+                                            labelWidth: 140,
+                                            name: 'devicePaths',
+                                            allowBlank: false,
+                                            enforceMaxLength: true,
+                                            maskRe: /[a-zA-Z0-9_\-\/\.]/,
+                                            maxLength: 80
+                                        },
+                                        {
+                                            xtype: 'toolbar',
+                                            itemId: 'osdDevicePathRemoveToolbar',
+                                            layout: {
+                                                type: 'hbox',
+                                                pack: 'center'
+                                            },
+                                            items: [
+                                                {
+                                                    xtype: 'button',
+                                                    handler: function(button, e) {
+                                                        var form = button.up("form"),
+                                                            fieldset = button.up("fieldset");
+                                                        var index = fieldset.items.length;
+
+                                                        if (index <= 2) {
+                                                            return;
+                                                        }
+
+                                                        fieldset.remove(fieldset.queryById('devicePaths' + (index-2)));
+
+                                                    },
+                                                    text: 'Remove'
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    xtype: 'toolbar',
+                                    padding: '5 0 0 0',
+                                    layout: {
+                                        type: 'hbox',
+                                        pack: 'end'
+                                    },
+                                    items: [
+                                        {
+                                            xtype: 'button',
+                                            id: 'addOsdDevicePathBtn',
+                                            itemId: 'addOsdDevicePathBtn',
+                                            text: 'Add OSD Device Path'
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     ]
                 }
@@ -1457,6 +1906,18 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
             fieldset.query('textfield[name="minPoolSize"]')[0].setValue("1");
             fieldset.query('textfield[name="maxPoolSize"]')[0].setValue("5");
         }
+    },
+
+    onMycombobox13Change111: function(field, newValue, oldValue, eOpts) {
+        var store = field.getStore();
+        var record = store.findRecord("softwareVersion", newValue);
+        var form = field.up('form').getForm();
+
+        form.findField("softwareId").setValue(record.get("softwareId"));
+        form.findField("softwareName").setValue(record.get("softwareName"));
+        form.findField("fileName").setValue(record.get("fileName"));
+        form.findField("fileLocation").setValue(record.get("fileLocation"));
+
     }
 
 });

@@ -201,10 +201,7 @@ Ext.application({
         'createBucketWindow',
         'renameFileWindow',
         'uploadFileWindow',
-        'createFolderWindow',
-        'CreateClusterWindow',
-        'clusterDevicePathWindow',
-        'clusterServerWindow'
+        'createFolderWindow'
     ],
     controllers: [
         'LoginController',

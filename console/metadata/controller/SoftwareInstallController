@@ -55,6 +55,11 @@
                     "",
                     "        Ext.getCmp(\"jbossEAPForm\").down('#datasourceRemoveToolbar').hide();",
                     "",
+                    "    } else if (index == 3) {",
+                    "",
+                    "        Ext.getCmp(\"cephForm\").down('#clusterServerRemoveToolbar').hide();",
+                    "        //Ext.getCmp(\"cephForm\").down('#osdDevicePathRemoveToolbar').hide();",
+                    "",
                     "    }",
                     "",
                     "}",
@@ -88,6 +93,66 @@
                 "scope": "me"
             },
             "designerId": "c557679c-301f-4459-89f4-c673b2035c88"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#addClusterServerBtn",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onAddClusterServerBtnClick",
+                "implHandler": [
+                    "var form = button.up(\"form\"),",
+                    "    orgObj = form.down(\"#clusterServerSet\"),",
+                    "    index = form.items.length;",
+                    "",
+                    "form.insert(index-3, orgObj.cloneConfig({itemId : \"clusterServerSet\"+index}));"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "c44d87a4-8940-451d-ad3b-8335ac5dc94e"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|controlQuery": "#addOsdDevicePathBtn",
+                "designer|targetType": "Ext.button.Button",
+                "fn": "onAddOsdDevicePathBtnClick",
+                "implHandler": [
+                    "var form = button.up(\"form\"),",
+                    "    orgObj = form.down(\"#osdDevicePathSet\"),",
+                    "    index = orgObj.items.length;",
+                    "",
+                    "orgObj.insert(index-1, {",
+                    "                        xtype: 'textfield',",
+                    "                        anchor: '100%',",
+                    "                        itemId: 'devicePaths' + (index-1),",
+                    "                        afterLabelTextTpl: [ '<span style=\"color:red;font-weight:bold\" data-qtip=\"Required\">*</span>' ],",
+                    "                        fieldLabel: 'Path',",
+                    "                        labelWidth: 140,",
+                    "                        name: 'devicePaths',",
+                    "                        allowBlank: false,",
+                    "                        enforceMaxLength: true,",
+                    "                        maskRe: /[a-zA-Z0-9_\\-\\/\\.]/,",
+                    "                        maxLength: 80",
+                    "                       }",
+                    "             );",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "fc2259cf-9a59-4be8-a62c-9e46255115ee"
         }
     ]
 }

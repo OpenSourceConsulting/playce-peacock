@@ -547,7 +547,6 @@ Ext.define('MyApp.view.instancesContainer', {
                                                                     accountStore.getProxy().extraParams = {
                                                                         machineId : instancesConstants.selectRow.get("machineId")
                                                                     };
-
                                                                 } else {
 
                                                                     Ext.MessageBox.alert('Error', "Instance가 Running 상태일 경우에만 Software Install이 가능합니다.");

@@ -24,6 +24,14 @@ Ext.define('MyApp.controller.storageController', {
         this.setStorageMainData();
     },
 
+    onStorageHostContainerShow: function(component, eOpts) {
+        storageConstants.task.start();
+    },
+
+    onStorageHostContainerHide: function(component, eOpts) {
+        storageConstants.task.stop();
+    },
+
     onStorageHostButtonClick: function(button, e, eOpts) {
         storageConstants.workingGrid = 'storageHostGrid';
 
@@ -91,37 +99,6 @@ Ext.define('MyApp.controller.storageController', {
 
     },
 
-    onHostAddButtonClick: function(button, e, eOpts) {
-        //CreateClusterWindow 호출
-
-        var AddWindow = Ext.create('widget.CreateClusterWindow');
-
-        var myForm = Ext.getCmp("GeneralConfigurationFormPanel1");
-        myForm.getForm().findField("clusterReplicaSize").setValue(3);
-        myForm.getForm().findField("clusterPgNum").setValue(8);
-
-        myForm = Ext.getCmp("GeneralConfigurationFormPanel2");
-        myForm.getForm().findField("clusterJournalSize").setValue(1024);
-
-        AddWindow.show();
-
-
-    },
-
-    onClusterAddPathButtonClick: function(button, e, eOpts) {
-        var AddWindow = Ext.create('widget.clusterDevicePathWindow');
-
-        AddWindow.show();
-
-    },
-
-    onClusterAddServerButtonClick: function(button, e, eOpts) {
-        var AddWindow = Ext.create('widget.clusterServerWindow');
-
-        AddWindow.show();
-
-    },
-
     onMonAddButtonClick: function(button, e, eOpts) {
         //Add Popup 호출
 
@@ -169,122 +146,6 @@ Ext.define('MyApp.controller.storageController', {
 
     },
 
-    onCreateClusterButtonClick: function(button, e, eOpts) {
-        var myForm = Ext.getCmp("GeneralConfigurationFormPanel1");
-        if (myForm.getForm().isValid() !== true) {
-            return;
-        }
-        var replicaSize = myForm.getForm().findField("clusterReplicaSize").getValue();
-        var pgNum = myForm.getForm().findField("clusterPgNum").getValue();
-        var publicNetwork = myForm.getForm().findField("clusterPublicNetwork").getValue();
-        var clusterNetwork = myForm.getForm().findField("clusterClusterNetwork").getValue();
-
-
-
-        myForm = Ext.getCmp("GeneralConfigurationFormPanel2");
-        if (myForm.getForm().isValid() !== true) {
-            return;
-        }
-        var journalSize = myForm.getForm().findField("clusterJournalSize").getValue();
-        var monNetworkInterface = myForm.getForm().findField("clusterMonNetworkInterface").getValue();
-        var fileSystem = myForm.getForm().findField("clusterFileSystem").getValue();
-        var ntpServer = myForm.getForm().findField("clusterNtpServer").getValue();
-
-
-
-        var hostname = [];
-        var ip = [];
-        var type = [];
-        var userName = [];
-        var password = [];
-
-        var myGrid = Ext.getCmp("ClusterServersGrid");
-        var myStore = myGrid.getStore();
-        if (myStore.count() <= 0) {
-            alert('Input Cluster Server informations.');
-            return;
-        }
-
-        for (var i = 0; i < myStore.count(); i++) {
-            hostname.push(myStore.getAt(i).get('hostname'));
-            ip.push(myStore.getAt(i).get('ip'));
-            type.push(myStore.getAt(i).get('type'));
-            userName.push(myStore.getAt(i).get('username'));
-            password.push(myStore.getAt(i).get('password'));
-        }
-
-
-        var devicePaths = [];
-        var path = '';
-
-        myGrid = Ext.getCmp("OsdDevicePathGrid");
-        myStore = myGrid.getStore();
-        if (myStore.count() <= 0) {
-            alert('Input Osd Device Path informations.');
-            return;
-        }
-
-        for (var i = 0; i < myStore.count(); i++) {
-            path = myStore.getAt(i).get('path');
-
-            devicePaths.push(path);
-        }
-
-
-        var params = {
-            'journalSize': journalSize,
-            'monNetworkInterface': monNetworkInterface,
-            'pgNum': pgNum,
-        	'replicaSize': replicaSize,
-        	'publicNetwork': publicNetwork,
-        	'clusterNetwork': clusterNetwork,
-        	'fileSystem': fileSystem,
-        	'ntpServer': ntpServer,
-            'hostname': hostname,
-            'ip': ip,
-            'type': type,
-            'userName': userName,
-            'password': password,
-        	'devicePaths': devicePaths
-        };
-
-
-
-        var form = Ext.create('Ext.form.Panel', {
-            url: 'software/install',
-            items : [
-                {xtype: 'textfield', name: 'softwareId', value: 7},
-                {xtype: 'textfield', name: 'machineId', value: 'a110bb8f-9494-4ed4-949d-9d6a2defb4df'},
-                {xtype: 'textfield', name: 'journalSize', value: journalSize},
-                {xtype: 'textfield', name: 'monNetworkInterface', value: monNetworkInterface},
-                {xtype: 'textfield', name: 'pgNum', value: pgNum},
-                {xtype: 'textfield', name: 'replicaSize', value: replicaSize},
-                {xtype: 'textfield', name: 'publicNetwork', value: publicNetwork},
-                {xtype: 'textfield', name: 'clusterNetwork', value: clusterNetwork},
-                {xtype: 'textfield', name: 'fileSystem', value: fileSystem},
-                {xtype: 'textfield', name: 'ntpServer', value: ntpServer}
-            ]
-        });
-
-        for (var i = 0; i < hostname.length; i++) {
-            form.items.add(Ext.create("Ext.form.field.Text", {xtype: 'textfield', name: 'hostname', value: hostname[i]}));
-            form.items.add(Ext.create("Ext.form.field.Text", {xtype: 'textfield', name: 'ip', value: ip[i]}));
-            form.items.add(Ext.create("Ext.form.field.Text", {xtype: 'textfield', name: 'type', value: type[i]}));
-            form.items.add(Ext.create("Ext.form.field.Text", {xtype: 'textfield', name: 'userName', value: userName[i]}));
-            form.items.add(Ext.create("Ext.form.field.Text", {xtype: 'textfield', name: 'password', value: password[i]}));
-        }
-
-        for (var i = 0; i < devicePaths.length; i++) {
-            form.items.add(Ext.create("Ext.form.field.Text", {xtype: 'textfield', name: 'devicePaths', value: devicePaths[i]}));
-        }
-
-        console.log(Ext.JSON.encode(form.getValues()));
-        alert(Ext.JSON.encode(form.getValues()));
-
-        form.submit();
-
-    },
-
     onMonGridpanelBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
         var position = e.getXY();
         e.stopEvent();
@@ -313,26 +174,6 @@ Ext.define('MyApp.controller.storageController', {
         storageConstants.selectIndex = index;
 
         storageConstants.poolContextMenu.showAt(position);
-    },
-
-    onServerGridpanelBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
-        var position = e.getXY();
-        e.stopEvent();
-
-        storageConstants.selectRow = record;
-        storageConstants.selectIndex = index;
-
-        storageConstants.serverContextMenu.showAt(position);
-    },
-
-    onPathGridpanelBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
-        var position = e.getXY();
-        e.stopEvent();
-
-        storageConstants.selectRow = record;
-        storageConstants.selectIndex = index;
-
-        storageConstants.pathContextMenu.showAt(position);
     },
 
     setStorageMainData: function() {
@@ -976,115 +817,6 @@ Ext.define('MyApp.controller.storageController', {
 
     },
 
-    addClusterServer: function() {
-        var myForm = Ext.getCmp("clusterServerFormPanel");
-        if (myForm.getForm().isValid() !== true) {
-            return;
-        }
-
-        var host = myForm.getForm().findField("clusterServerHost").getValue();
-        var addr = myForm.getForm().findField("clusterServerIp").getValue();
-        var type = myForm.getForm().findField("clusterServerType").getValue();
-        var user = myForm.getForm().findField("clusterServerUser").getValue();
-        var pass = myForm.getForm().findField("clusterServerPass").getValue();
-
-        var myData = [{'hostname':host, 'ip':addr, 'type':type, 'username':user, 'password':pass}];
-
-
-        var myGrid = Ext.getCmp("ClusterServersGrid");
-        var myStore = myGrid.getStore();
-        var myHost = '';
-        var myIp = '';
-
-        for (var i = 0; i < myStore.count(); i++) {
-            myHost = myStore.getAt(i).get('hostname');
-            myIp = myStore.getAt(i).get('ip');
-            if (myHost == host) {
-                alert('Hostname(' + host + ') already exist.');
-                myForm.getForm().findField("clusterServerHost").focus();
-                return;
-            }
-            if (myIp == addr) {
-                alert('Ip(' + addr + ') already exist.');
-                myForm.getForm().findField("clusterServerIp").focus();
-                return;
-            }
-            if ((type == 'management') && (myStore.getAt(i).get('type') == type)) {
-                alert('managemrnt Type already exist.');
-                myForm.getForm().findField("clusterServerType").focus();
-                return;
-            }
-            if ((type == 'radosgw') && (myStore.getAt(i).get('type') == type)) {
-                alert('radosgw Type already exist.');
-                myForm.getForm().findField("clusterServerType").focus();
-                return;
-            }
-        }
-
-
-        Ext.getCmp('ClusterServersGrid').getStore().loadRawData(myData, true);
-
-
-    },
-
-    addOsdDevicePath: function() {
-        var myForm = Ext.getCmp("clusterDevicePathFormPanel");
-        if (myForm.getForm().isValid() !== true) {
-            return;
-        }
-
-        var path = myForm.getForm().findField("osdDevicePath").getValue();
-        var myData = [{'path':path}];
-
-
-        var myGrid = Ext.getCmp("OsdDevicePathGrid");
-        var myStore = myGrid.getStore();
-        var myName = '';
-
-        for (var i = 0; i < myStore.count(); i++) {
-            myName = myStore.getAt(i).get('path');
-            if (myName == path) {
-                alert('Path(' + path + ') already exist.');
-                myForm.getForm().findField("osdDevicePath").focus();
-                return;
-            }
-        }
-
-
-        Ext.getCmp('OsdDevicePathGrid').getStore().loadRawData(myData, true);
-
-    },
-
-    deleteClusterServer: function() {
-        Ext.Msg.show({
-            title:'Confirm',
-            msg: 'Delete selected Server?',
-            buttons: Ext.Msg.OKCANCEL,
-            icon: Ext.Msg.QUESTION,
-            fn: function(btn) {
-                if (btn === 'ok') {
-                    Ext.getCmp('ClusterServersGrid').getStore().remove(storageConstants.selectRow);
-                }
-            }
-        });
-
-    },
-
-    deleteClusterPath: function() {
-        Ext.Msg.show({
-            title:'Confirm',
-            msg: 'Delete selected Path?',
-            buttons: Ext.Msg.OKCANCEL,
-            icon: Ext.Msg.QUESTION,
-            fn: function(btn) {
-                if (btn === 'ok') {
-                    Ext.getCmp('OsdDevicePathGrid').getStore().remove(storageConstants.selectRow);
-                }
-            }
-        });
-
-    },
-
     init: function(application) {
                 var storage = this;
 
@@ -1133,36 +865,24 @@ Ext.define('MyApp.controller.storageController', {
                     ]
                 });
 
-                var serverGridContextMenu = new Ext.menu.Menu({
-                    items:
-                    [
-                    { text: 'Delete',
-                        handler: function() {
-                            storage.deleteClusterServer();
-                        }
-                    }
-                    ]
+                var runner = new Ext.util.TaskRunner();
+                var task = runner.newTask({
+                    run: function(){
+                        alert('timer');
+                        Ext.getCmp('storageHostImg1').setSrc('http://192.168.0.227/render?from=-2hours&until=now&width=800&height=450&target=servers.osc-ceph-mon1.iostat.vda.iops&hideLegend=true&_uniq=' + Date.now() );
+                        Ext.getCmp('storageHostImg2').setSrc('http://192.168.0.227/render?from=-2hours&until=now&width=800&height=450&target=ceph.cluster.a82efafc-bfa3-473e-92f6-25719386b673.df.total_used_bytes&hideLegend=true&_uniq=' + Date.now());
+                    },
+                    interval: (60 * 1000)
                 });
 
-                var pathGridContextMenu = new Ext.menu.Menu({
-                    items:
-                    [
-                    { text: 'Delete',
-                        handler: function() {
-                            storage.deleteClusterPath();
-                        }
-                    }
-                    ]
-                });
 
                 Ext.define('storageConstants', {
                     singleton: true,
                     me : storage,
+                    task: task,
                     monContextMenu: monGridContextMenu,
                     poolContextMenu: poolGridContextMenu,
                     osdContextMenu: osdGridContextMenu,
-                    serverContextMenu: serverGridContextMenu,
-                    pathContextMenu: pathGridContextMenu,
                     workingGrid: '',
                     selectRow:  null,
                     selectIndex: 0,
@@ -1173,6 +893,10 @@ Ext.define('MyApp.controller.storageController', {
         this.control({
             "#storageMainContainer": {
                 activate: this.onStorageMainContainerActivate
+            },
+            "#storageHostContainer": {
+                show: this.onStorageHostContainerShow,
+                hide: this.onStorageHostContainerHide
             },
             "#storageHostButton": {
                 click: this.onStorageHostButtonClick
@@ -1196,15 +920,6 @@ Ext.define('MyApp.controller.storageController', {
                 cellclick: this.onStoragePoolGridpanelCellClick,
                 beforeitemcontextmenu: this.onPoolGridpanelBeforeItemContextMenu
             },
-            "#storageHostAdd": {
-                click: this.onHostAddButtonClick
-            },
-            "#clusterAddPath": {
-                click: this.onClusterAddPathButtonClick
-            },
-            "#clusterAddServer": {
-                click: this.onClusterAddServerButtonClick
-            },
             "#storageMonAdd": {
                 click: this.onMonAddButtonClick
             },
@@ -1214,20 +929,11 @@ Ext.define('MyApp.controller.storageController', {
             "#storagePoolAdd": {
                 click: this.onPoolAddButtonClick
             },
-            "#createCluster": {
-                click: this.onCreateClusterButtonClick
-            },
             "#storageMonGrid": {
                 beforeitemcontextmenu: this.onMonGridpanelBeforeItemContextMenu
             },
             "#storageOsdGrid": {
                 beforeitemcontextmenu: this.onOsdGridpanelBeforeItemContextMenu
-            },
-            "#ClusterServersGrid": {
-                beforeitemcontextmenu: this.onServerGridpanelBeforeItemContextMenu
-            },
-            "#OsdDevicePathGrid": {
-                beforeitemcontextmenu: this.onPathGridpanelBeforeItemContextMenu
             }
         });
     }

@@ -20,7 +20,6 @@ Ext.define('MyApp.view.storageHostContainer', {
     requires: [
         'Ext.grid.Panel',
         'Ext.toolbar.Toolbar',
-        'Ext.button.Button',
         'Ext.grid.View',
         'Ext.grid.column.Column',
         'Ext.Img'
@@ -50,16 +49,7 @@ Ext.define('MyApp.view.storageHostContainer', {
                             dock: 'top',
                             height: 36,
                             id: 'storageHostToolbar',
-                            itemId: 'storageHostToolbar',
-                            items: [
-                                {
-                                    xtype: 'button',
-                                    id: 'storageHostAdd',
-                                    itemId: 'storageHostAdd',
-                                    padding: '3 7 3 7',
-                                    text: 'Create New Ceph Cluster'
-                                }
-                            ]
+                            itemId: 'storageHostToolbar'
                         }
                     ],
                     viewConfig: {

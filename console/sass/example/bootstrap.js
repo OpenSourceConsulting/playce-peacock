@@ -1010,7 +1010,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.AlmWizardWindow": [],
   "MyApp.view.CLIWindow": [],
   "MyApp.view.CompareConfigWindow": [],
-  "MyApp.view.CreateClusterWindow": [],
   "MyApp.view.CrontabWindow": [],
   "MyApp.view.EditInstanceWindow": [],
   "MyApp.view.EditPermissionWindow": [],
@@ -1037,8 +1036,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.adminContainer": [],
   "MyApp.view.almContainer": [],
   "MyApp.view.blankPanel": [],
-  "MyApp.view.clusterDevicePathWindow": [],
-  "MyApp.view.clusterServerWindow": [],
   "MyApp.view.createBucketWindow": [],
   "MyApp.view.createFolderWindow": [],
   "MyApp.view.dashboardContainer": [],
@@ -2240,9 +2237,6 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.CompareConfigWindow": [
     "widget.CompareConfigWindow"
   ],
-  "MyApp.view.CreateClusterWindow": [
-    "widget.CreateClusterWindow"
-  ],
   "MyApp.view.CrontabWindow": [
     "widget.CrontabWindow"
   ],
@@ -2318,12 +2312,6 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.blankPanel": [
     "widget.blankpanel"
-  ],
-  "MyApp.view.clusterDevicePathWindow": [
-    "widget.clusterDevicePathWindow"
-  ],
-  "MyApp.view.clusterServerWindow": [
-    "widget.clusterServerWindow"
   ],
   "MyApp.view.createBucketWindow": [
     "widget.createBucketWindow"
