@@ -1890,6 +1890,14 @@ public class ProvisioningHandler {
 		s_action.addArguments("-y");
 		s_action.addArguments("sshpass");
 		command.addAction(s_action);
+
+		s_action = new ShellAction(sequence++);
+		s_action.setWorkingDiretory("/etc/ansible");
+		s_action.setCommand("wget");
+		s_action.addArguments("${RepositoryUrl}" + fileLocation + "/ansible.cfg");
+		s_action.addArguments("-O");
+		s_action.addArguments("ansible.cfg");
+		command.addAction(s_action);
 		
 		// Add Install RPM Packages Command
 		cmdMsg.addCommand(command);
