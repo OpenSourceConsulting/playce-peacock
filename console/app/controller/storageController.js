@@ -25,6 +25,10 @@ Ext.define('MyApp.controller.storageController', {
     },
 
     onStorageHostContainerShow: function(component, eOpts) {
+        var sUniq = '&_uniq=' + Date.now();
+        Ext.getCmp('storageHostImg1').setSrc(storageConstants.griphiteUrl1 + sUniq);
+        Ext.getCmp('storageHostImg2').setSrc(storageConstants.griphiteUrl2 + sUniq);
+
         storageConstants.task.start();
     },
 
@@ -865,30 +869,37 @@ Ext.define('MyApp.controller.storageController', {
                     ]
                 });
 
-                var runner = new Ext.util.TaskRunner();
-                var task = runner.newTask({
-                    run: function(){
-                        alert('timer');
-                        Ext.getCmp('storageHostImg1').setSrc('http://192.168.0.227/render?from=-2hours&until=now&width=800&height=450&target=servers.osc-ceph-mon1.iostat.vda.iops&hideLegend=true&_uniq=' + Date.now() );
-                        Ext.getCmp('storageHostImg2').setSrc('http://192.168.0.227/render?from=-2hours&until=now&width=800&height=450&target=ceph.cluster.a82efafc-bfa3-473e-92f6-25719386b673.df.total_used_bytes&hideLegend=true&_uniq=' + Date.now());
-                    },
-                    interval: (60 * 1000)
-                });
-
-
                 Ext.define('storageConstants', {
                     singleton: true,
                     me : storage,
-                    task: task,
+                    task: null,
+                    griphiteUrl1: '',
+                    griphiteUrl2: '',
+                    chartInterval : 60,
                     monContextMenu: monGridContextMenu,
                     poolContextMenu: poolGridContextMenu,
                     osdContextMenu: osdGridContextMenu,
                     workingGrid: '',
-                    selectRow:  null,
-                    selectIndex: 0,
                     editMode: 'add',
-                    chartInterval : null
+                    selectRow:  null,
+                    selectIndex: 0
                 });
+
+                storageConstants.griphiteUrl1 = 'http://192.168.0.227/render?from=-2hours&until=now&width=800&height=450&target=servers.osc-ceph-mon1.iostat.vda.iops&hideLegend=true';
+                storageConstants.griphiteUrl2 = 'http://192.168.0.227/render?from=-2hours&until=now&width=800&height=450&target=ceph.cluster.a82efafc-bfa3-473e-92f6-25719386b673.df.total_used_bytes&hideLegend=true';
+
+                var runner = new Ext.util.TaskRunner();
+                var task = runner.newTask({
+                    run: function(){
+                        var sUniq = '&_uniq=' + Date.now();
+                        Ext.getCmp('storageHostImg1').setSrc(storageConstants.griphiteUrl1 + sUniq);
+                        Ext.getCmp('storageHostImg2').setSrc(storageConstants.griphiteUrl2 + sUniq);
+                    },
+                    interval: (storageConstants.chartInterval * 1000)
+                });
+
+                storageConstants.task = task;
+
 
         this.control({
             "#storageMainContainer": {
