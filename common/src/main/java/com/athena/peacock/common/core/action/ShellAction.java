@@ -146,7 +146,7 @@ public class ShellAction extends Action {
 			/** also enable StringWriter, PrintWriter, WriterStreamConsumer and etc. */
 			consumer = new CommandLineUtils.StringStreamConsumer();
 
-			int returnCode = CommandLineUtils.executeCommandLine(commandLine, consumer, consumer, Integer.MAX_VALUE);
+			int returnCode = CommandLineUtils.executeCommandLine(commandLine, consumer, consumer, 20 * 60);
 			
 			if (returnCode == 0) {
 				// success
