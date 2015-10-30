@@ -938,7 +938,12 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             fieldLabel: 'Base Template',
                                             name: 'baseTemplate',
                                             allowBlank: false,
-                                            store: '[\n    \'codeServer11\', \n    \'codeServer11_cs\', \n    \'codeServer21\', \n    \'codeServer21_cs\'\n]',
+                                            store: [
+                                                'codeServer11',
+                                                'codeServer11_cs',
+                                                'codeServer21',
+                                                'codeServer21_cs'
+                                            ],
                                             listeners: {
                                                 change: {
                                                     fn: me.onComboboxChange3,
