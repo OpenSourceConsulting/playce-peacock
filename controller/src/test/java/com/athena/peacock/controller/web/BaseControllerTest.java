@@ -22,18 +22,9 @@
  */
 package com.athena.peacock.controller.web;
 
-import static org.junit.Assert.fail;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -61,25 +52,6 @@ public class BaseControllerTest {
     @Before
     public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
-    }
-    
-    @Test
-    public void testSample() throws Exception {
-    	try {
-			this.mockMvc.perform(get("/customers/getCustomers/103").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
-					.andDo(print())
-					.andExpect(status().isOk())
-					.andExpect(content().contentType("application/json;charset=UTF-8"))
-					.andExpect(jsonPath("$.customerId").value(103))
-					.andExpect(jsonPath("$.customerName").value("Atelier graphique"))
-					.andExpect(jsonPath("$.contactLastname").value("Schmitt"))
-					.andExpect(jsonPath("$.contactFirstname").value("Carine"))
-					.andExpect(jsonPath("$.phone").value("40.32.2555"))
-					.andExpect(jsonPath("$.address1").value("54, rue Royale"));
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail("Exception has occurred.");
-		}
     }
 }
 //end of BaseControllerTest.java
