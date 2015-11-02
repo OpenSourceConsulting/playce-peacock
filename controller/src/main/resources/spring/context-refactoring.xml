@@ -14,7 +14,7 @@
 	<!-- ==================================================== -->
     
     
-    <!-- 사업부별 코드 & 패키지 매핑정보 -->
+    <!-- Department Code and Package Information -->
     <bean id="refactoring.DeptPackageMapper" class="com.athena.peacock.controller.web.alm.refactoring.DeptPackageMapper">
     	<property name="deptPackageMap">
     		<map>
