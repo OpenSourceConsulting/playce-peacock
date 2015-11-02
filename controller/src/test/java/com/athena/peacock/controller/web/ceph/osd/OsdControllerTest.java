@@ -11,7 +11,7 @@ import org.springframework.http.MediaType;
 
 import com.athena.peacock.controller.web.BaseControllerTest;
 
-public class OscControllerTest extends BaseControllerTest {
+public class OsdControllerTest extends BaseControllerTest {
 	@Test
     public void testDump() throws Exception {
     	try {
