@@ -24,6 +24,7 @@ package com.athena.peacock.controller.web.ceph.grid;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ArrayNode;
@@ -72,59 +73,62 @@ public class GridController extends CephBaseController {
 			JsonNode serviceList = null;
 			String hostName = null;
 			if (hosts.isArray()) {
+				ArrayList<String> idOsd = new ArrayList<String>();
+				ArrayList<String> idMon = new ArrayList<String>();
+				
 				for (JsonNode host : hosts) {
 					hostName = host.path("hostname").asText();
-					
+
 					serviceList = (JsonNode)host.path("services");
 					if (serviceList.isArray()) {
-						Integer cntOsd = 0;
-						Integer cntMon = 0;
-						String idOsd = "";
-						String idMon = "";
+						idOsd.clear();
+						idMon.clear();
 						Boolean isRunnong = true;
 						for (JsonNode service : serviceList){
 							String sType = service.path("type").asText();
 							String sId = service.path("id").asText();
 
 							if (sType.equals("osd")) {
-								cntOsd++;
-								if (idOsd.isEmpty()) {
-									idOsd = "OSD: ";
-								} else {
-									idOsd += ", ";
-								}
-								idOsd += sId;
-							}
-							if (sType.equals("mon")) {
-								cntMon++;
-								if (idMon.isEmpty()) {
-									idMon = "MON: ";
-								} else {
-									idMon += ", ";
-								}
-								idMon += sId;
+								idOsd.add(sId);
+							} else if (sType.equals("mon")) {
+								idMon.add(sId);
 							}
 
 							if (service.path("running").asBoolean() == false) {
 								isRunnong = service.path("running").asBoolean();
 							}
 						}
+						
+						Collections.sort(idOsd);
+						Collections.sort(idMon);
+
 						String strType = "";
 						String strId = "";
+						String sTemp;
 
-						if (cntOsd > 0) {
-							strType += "OSD(" + cntOsd.toString() + ")";
-							strId += idOsd;
-						}
-						if (cntMon > 0) {
-							if (!strType.isEmpty()) {
-								strType += " / ";
-								strId += " / ";
+						if (idOsd.size() > 0) {
+							sTemp = "";
+							for (String value : idOsd) {
+								if (!sTemp.isEmpty()) sTemp += ", ";
+								sTemp += value;
 							}
-							strType += "MON(" + cntMon.toString() + ")";
-							strId += idMon;
+							strId += "OSD: " + sTemp;
+							strType += "OSD(" + idOsd.size() + ")";
 						}
 
+						if (idMon.size() > 0) {
+							if (!strId.isEmpty()) strId += " / ";
+							if (!strType.isEmpty()) strType += " / ";
+
+							sTemp = "";
+							for (String value : idMon) {
+								if (!sTemp.isEmpty()) sTemp += ", ";
+								sTemp += value;
+							}
+							strId += "MON: " + sTemp;
+							strType += "MON(" + idMon.size() + ")";
+						}
+						
 						subNode = createObjectNode();
 						subNode.put("hostname", hostName);
 						subNode.put("type", strType );
