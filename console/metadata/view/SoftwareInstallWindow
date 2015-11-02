@@ -3041,6 +3041,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "margin": null,
                                 "title": "CEPH Install"
                             },
                             "designerId": "fbbb8326-ee6a-466e-b7dc-852375e277b3",
@@ -3501,6 +3502,7 @@
                             "userConfig": {
                                 "id": "clusterServerSet",
                                 "itemId": "clusterServerSet",
+                                "margin": "20 0 3 0",
                                 "title": "Cluster Server Data"
                             },
                             "designerId": "5cb02e59-69cc-4d1d-bec5-1e3c4a61fdd8",
@@ -3760,8 +3762,9 @@
                             "userConfig": {
                                 "container|pack": "end",
                                 "dock": null,
-                                "margin": null,
-                                "padding": "5 0 0 0"
+                                "height": null,
+                                "margin": "0 0 20 0",
+                                "padding": 0
                             },
                             "designerId": "24be1044-689a-4d87-8697-dec154bc2695",
                             "cn": [
@@ -3845,6 +3848,7 @@
                             "userConfig": {
                                 "id": "osdDevicePathSet",
                                 "itemId": "osdDevicePathSet",
+                                "margin": "10 0 3 0",
                                 "title": "OSD Device Path"
                             },
                             "designerId": "5c13529f-5b8e-494d-a6dc-a5650e076607",
@@ -3959,7 +3963,7 @@
                                 "container|pack": "end",
                                 "dock": null,
                                 "margin": null,
-                                "padding": "5 0 0 0"
+                                "padding": 0
                             },
                             "designerId": "e38b9977-98a3-4569-a0e3-2998df5291fa",
                             "cn": [

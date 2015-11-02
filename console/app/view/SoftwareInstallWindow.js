@@ -1459,6 +1459,7 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                     xtype: 'fieldset',
                                     id: 'clusterServerSet',
                                     itemId: 'clusterServerSet',
+                                    margin: '20 0 3 0',
                                     title: 'Cluster Server Data',
                                     items: [
                                         {
@@ -1558,7 +1559,8 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                 },
                                 {
                                     xtype: 'toolbar',
-                                    padding: '5 0 0 0',
+                                    margin: '0 0 20 0',
+                                    padding: 0,
                                     layout: {
                                         type: 'hbox',
                                         pack: 'end'
@@ -1600,6 +1602,7 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                     xtype: 'fieldset',
                                     id: 'osdDevicePathSet',
                                     itemId: 'osdDevicePathSet',
+                                    margin: '10 0 3 0',
                                     title: 'OSD Device Path',
                                     items: [
                                         {
@@ -1646,7 +1649,7 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                 },
                                 {
                                     xtype: 'toolbar',
-                                    padding: '5 0 0 0',
+                                    padding: 0,
                                     layout: {
                                         type: 'hbox',
                                         pack: 'end'
