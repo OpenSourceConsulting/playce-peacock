@@ -55,6 +55,7 @@
 		<property name="mapperLocations" >
 			<list>
 				<value>classpath:com/athena/peacock/controller/**/*Mapper.xsql</value>
+				<value>file:src/main/java/com/athena/peacock/controller/**/*Mapper.xsql</value>
 			</list>
 		</property>
 	</bean>
