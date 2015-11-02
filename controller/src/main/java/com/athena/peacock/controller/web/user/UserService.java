@@ -35,6 +35,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.athena.peacock.common.provider.AppContext;
 import com.athena.peacock.controller.web.common.model.ExtjsGridParam;
 import com.athena.peacock.controller.web.menu.MenuDto;
 import com.athena.peacock.controller.web.permission.PermissionDao;
@@ -135,7 +136,14 @@ public class UserService implements UserDetailsService {
 	public static UserDto getLoginUser(){
 		SecurityContext secContext = SecurityContextHolder.getContext();
 		
-		UserDto userDetails = (UserDto)secContext.getAuthentication().getPrincipal();
+		System.err.println("secContext.getAuthentication().getPrincipal() : " + secContext.getAuthentication().getPrincipal());
+		
+		UserDto userDetails = null;
+		if (secContext.getAuthentication().getPrincipal() instanceof UserDto) {
+			userDetails = (UserDto)secContext.getAuthentication().getPrincipal();
+		} else {
+			userDetails = ((UserDao) AppContext.getBean(UserDao.class)).getLoginUser((String) secContext.getAuthentication().getPrincipal());
+		}
 		
 		return userDetails;
 	}
