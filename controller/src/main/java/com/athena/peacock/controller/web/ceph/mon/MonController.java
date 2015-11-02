@@ -23,7 +23,6 @@
  */
 package com.athena.peacock.controller.web.ceph.mon;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +90,8 @@ public class MonController extends CephBaseController  {
 	@RequestMapping("/dump")
 	public @ResponseBody SimpleJsonResponse getStatus2(SimpleJsonResponse jsonRes, @QueryParam("epoch") String epoch) throws Exception {
 		try {
-			Object response = managementSubmit("/mon/dump?epoch=" + epoch, HttpMethod.GET);
+			//Object response = managementSubmit("/mon/dump?epoch=" + epoch, HttpMethod.GET);
+			Object response = managementSubmit("/mon/dump", HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
 			jsonRes.setMsg("dump가 정상적으로 조회되었습니다.");
@@ -174,7 +174,6 @@ public class MonController extends CephBaseController  {
 	}
 
 	@RequestMapping("/add")
-
 	public @ResponseBody SimpleJsonResponse add(SimpleJsonResponse jsonRes, @QueryParam("host") String host, @QueryParam("user") String user, @QueryParam("password") String password, @QueryParam("mgmt") String mgmt) throws Exception {
 		try {
 			sshCopyId(host, user, password);
