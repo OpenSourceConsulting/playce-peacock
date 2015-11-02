@@ -77,15 +77,60 @@ public class GridController extends CephBaseController {
 					
 					serviceList = (JsonNode)host.path("services");
 					if (serviceList.isArray()) {
+						Integer cntOsd = 0;
+						Integer cntMon = 0;
+						String idOsd = "";
+						String idMon = "";
+						Boolean isRunnong = true;
 						for (JsonNode service : serviceList){
-							subNode = createObjectNode();
-							subNode.put("hostname", hostName);
-							subNode.put("type", service.path("type").asText());
-							subNode.put("id", service.path("id").asText());
-							subNode.put("running", service.path("running").asBoolean());
+							String sType = service.path("type").asText();
+							String sId = service.path("id").asText();
 
-							rootNode.add(subNode);
+							if (sType.equals("osd")) {
+								cntOsd++;
+								if (idOsd.isEmpty()) {
+									idOsd = "OSD: ";
+								} else {
+									idOsd += ", ";
+								}
+								idOsd += sId;
+							}
+							if (sType.equals("mon")) {
+								cntMon++;
+								if (idMon.isEmpty()) {
+									idMon = "MON: ";
+								} else {
+									idMon += ", ";
+								}
+								idMon += sId;
+							}
+
+							if (service.path("running").asBoolean() == false) {
+								isRunnong = service.path("running").asBoolean();
+							}
 						}
+						String strType = "";
+						String strId = "";
+
+						if (cntOsd > 0) {
+							strType += "OSD(" + cntOsd.toString() + ")";
+							strId += idOsd;
+						}
+						if (cntMon > 0) {
+							if (!strType.isEmpty()) {
+								strType += " / ";
+								strId += " / ";
+							}
+							strType += "MON(" + cntMon.toString() + ")";
+							strId += idMon;
+						}
+
+						subNode = createObjectNode();
+						subNode.put("hostname", hostName);
+						subNode.put("type", strType );
+						subNode.put("id", strId);
+						subNode.put("running", isRunnong);
+						rootNode.add(subNode);
 					}
 				}
 			}

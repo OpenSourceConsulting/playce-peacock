@@ -223,10 +223,23 @@
                                     "} else if (index == 3) {",
                                     "",
                                     "    installForm = Ext.getCmp(\"cephForm\");",
+                                    "",
+                                    "    if (Ext.getCmp('UseSamePass').getValue() === true) {",
+                                    "        var sPassword = '';",
+                                    "        Ext.each(installForm.down(\"#clusterServerSet\").query('textfield[name=\"password\"]'), function(field, fieldIdx){",
+                                    "            sPassword = field.getValue();",
+                                    "        });",
+                                    "",
+                                    "        Ext.each(installForm.query('textfield[name=\"password\"]'), function(field, fieldIdx){",
+                                    "            field.setValue(sPassword);",
+                                    "        });",
+                                    "    }",
+                                    "",
                                     "    if (installForm.getForm().isValid() !== true) {",
                                     "        return;",
                                     "    }",
                                     "",
+                                    "    ",
                                     "    var values = installForm.getValues();",
                                     "    var types = values.type;",
                                     "    var hosts = values.hostname;",
@@ -3189,7 +3202,6 @@
                                         "maskRe": "/[0-9\\/\\.]/",
                                         "maxLength": 32,
                                         "name": "publicNetwork",
-                                        "readOnly": true,
                                         "value": [
                                             "\"192.168.0.0/24\"",
                                             ""
@@ -3229,7 +3241,6 @@
                                         "maskRe": "/[0-9\\/\\.]/",
                                         "maxLength": 32,
                                         "name": "clusterNetwork",
-                                        "readOnly": true,
                                         "value": [
                                             "\"192.168.0.0/24\""
                                         ]
@@ -3305,10 +3316,9 @@
                                         "fieldLabel": "mon Network Interface",
                                         "labelWidth": 140,
                                         "layout|anchor": "100%",
-                                        "maskRe": "/[a-z0-9_\\-\\.]/",
+                                        "maskRe": "/[a-zA-Z0-9_\\-\\.]/",
                                         "maxLength": 32,
                                         "name": "monNetworkInterface",
-                                        "readOnly": true,
                                         "value": [
                                             "\"eth0\""
                                         ]
@@ -3347,7 +3357,6 @@
                                         "maskRe": "/[a-zA-Z0-9_\\-\\/\\.]/",
                                         "maxLength": 64,
                                         "name": "fileSystem",
-                                        "readOnly": true,
                                         "value": [
                                             "\"xfs\""
                                         ]
@@ -3386,7 +3395,6 @@
                                         "maskRe": "/[0-9\\/\\.]/",
                                         "maxLength": 32,
                                         "name": "ntpServer",
-                                        "readOnly": true,
                                         "value": [
                                             "\"192.168.0.68\""
                                         ]
@@ -3757,6 +3765,59 @@
                             },
                             "designerId": "24be1044-689a-4d87-8697-dec154bc2695",
                             "cn": [
+                                {
+                                    "type": "Ext.form.field.Checkbox",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "boxLabel": "Use Same Password",
+                                        "checked": true,
+                                        "fieldLabel": null,
+                                        "formBind": false,
+                                        "id": "UseSamePass",
+                                        "itemId": "UseSamePass",
+                                        "layout|flex": null,
+                                        "layout|margins": null,
+                                        "margin": "0 160 0 0"
+                                    },
+                                    "designerId": "e021adab-e058-4336-ad74-76edfcf32735",
+                                    "cn": [
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "checkbox",
+                                                    "checked"
+                                                ],
+                                                "fn": "handler",
+                                                "implHandler": [
+                                                    "var form = checkbox.up(\"form\");",
+                                                    "",
+                                                    "Ext.each(form.query('textfield[name=\"password\"]'), function(field, fieldIdx){",
+                                                    "    var fieldset = field.up(\"fieldset\");",
+                                                    "    if (fieldset.getId() !== 'clusterServerSet'){",
+                                                    "        if (Ext.getCmp('UseSamePass').getValue() === true) {",
+                                                    "            field.hide();",
+                                                    "        } else {",
+                                                    "            field.show();",
+                                                    "        }",
+                                                    "    }",
+                                                    "});",
+                                                    ""
+                                                ]
+                                            },
+                                            "designerId": "05e3acf0-e0c8-45ed-bcdf-b418a22145d7"
+                                        }
+                                    ]
+                                },
                                 {
                                     "type": "Ext.button.Button",
                                     "reference": {

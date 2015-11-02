@@ -110,7 +110,16 @@
                     "    orgObj = form.down(\"#clusterServerSet\"),",
                     "    index = form.items.length;",
                     "",
-                    "form.insert(index-3, orgObj.cloneConfig({itemId : \"clusterServerSet\"+index}));"
+                    "var newSet = form.insert(index-3, orgObj.cloneConfig({itemId : \"clusterServerSet\"+index}));",
+                    "",
+                    "Ext.each(newSet.query('textfield[name=\"password\"]'), function(field, fieldIdx){",
+                    "    if (Ext.getCmp('UseSamePass').getValue() === true) {",
+                    "        field.hide();",
+                    "    } else {",
+                    "        field.show();",
+                    "    }",
+                    "});",
+                    ""
                 ],
                 "name": "click",
                 "scope": "me"

@@ -193,9 +193,22 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                 } else if (index == 3) {
 
                                     installForm = Ext.getCmp("cephForm");
+
+                                    if (Ext.getCmp('UseSamePass').getValue() === true) {
+                                        var sPassword = '';
+                                        Ext.each(installForm.down("#clusterServerSet").query('textfield[name="password"]'), function(field, fieldIdx){
+                                            sPassword = field.getValue();
+                                        });
+
+                                        Ext.each(installForm.query('textfield[name="password"]'), function(field, fieldIdx){
+                                            field.setValue(sPassword);
+                                        });
+                                    }
+
                                     if (installForm.getForm().isValid() !== true) {
                                         return;
                                     }
+
 
                                     var values = installForm.getValues();
                                     var types = values.type;
@@ -1335,7 +1348,6 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             labelWidth: 140,
                                             name: 'publicNetwork',
                                             value: '192.168.0.0/24',
-                                            readOnly: true,
                                             allowBlank: false,
                                             maskRe: /[0-9\/\.]/,
                                             maxLength: 32
@@ -1350,7 +1362,6 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             labelWidth: 140,
                                             name: 'clusterNetwork',
                                             value: '192.168.0.0/24',
-                                            readOnly: true,
                                             allowBlank: false,
                                             maskRe: /[0-9\/\.]/,
                                             maxLength: 32
@@ -1380,9 +1391,8 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             labelWidth: 140,
                                             name: 'monNetworkInterface',
                                             value: 'eth0',
-                                            readOnly: true,
                                             allowBlank: false,
-                                            maskRe: /[a-z0-9_\-\.]/,
+                                            maskRe: /[a-zA-Z0-9_\-\.]/,
                                             maxLength: 32
                                         },
                                         {
@@ -1395,7 +1405,6 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             labelWidth: 140,
                                             name: 'fileSystem',
                                             value: 'xfs',
-                                            readOnly: true,
                                             allowBlank: false,
                                             maskRe: /[a-zA-Z0-9_\-\/\.]/,
                                             maxLength: 64
@@ -1410,7 +1419,6 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                             labelWidth: 140,
                                             name: 'ntpServer',
                                             value: '192.168.0.68',
-                                            readOnly: true,
                                             allowBlank: false,
                                             maskRe: /[0-9\/\.]/,
                                             maxLength: 32
@@ -1556,6 +1564,30 @@ Ext.define('MyApp.view.SoftwareInstallWindow', {
                                         pack: 'end'
                                     },
                                     items: [
+                                        {
+                                            xtype: 'checkboxfield',
+                                            handler: function(checkbox, checked) {
+                                                var form = checkbox.up("form");
+
+                                                Ext.each(form.query('textfield[name="password"]'), function(field, fieldIdx){
+                                                    var fieldset = field.up("fieldset");
+                                                    if (fieldset.getId() !== 'clusterServerSet'){
+                                                        if (Ext.getCmp('UseSamePass').getValue() === true) {
+                                                            field.hide();
+                                                        } else {
+                                                            field.show();
+                                                        }
+                                                    }
+                                                });
+
+                                            },
+                                            formBind: false,
+                                            id: 'UseSamePass',
+                                            itemId: 'UseSamePass',
+                                            margin: '0 160 0 0',
+                                            boxLabel: 'Use Same Password',
+                                            checked: true
+                                        },
                                         {
                                             xtype: 'button',
                                             id: 'addClusterServerBtn',
