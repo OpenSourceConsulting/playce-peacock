@@ -653,7 +653,45 @@ public class GridController extends CephBaseController {
 		
 		return jsonRes;
 	}
-	
+
+	/**
+	 * <pre>
+	 * /api/v2/cluster . Cluster ID를 얻는다.
+	 * </pre>
+	 * @param jsonRes
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/cluster")
+	public @ResponseBody SimpleJsonResponse getClusterId(SimpleJsonResponse jsonRes) throws Exception {
+		try {
+			Object response = calamariSubmit("/cluster", HttpMethod.GET);
+			JsonNode clusters = (JsonNode) response;
+
+			ObjectNode subNode = null;
+			
+			String clusterId = null;
+			if (clusters.isArray()) {
+				for (JsonNode cluster : clusters) {
+					clusterId = cluster.path("id").asText();
+				}
+				subNode = createObjectNode();
+				subNode.put("clusterId", clusterId);
+			}
+			
+			jsonRes.setSuccess(true);
+			jsonRes.setData(subNode);
+			jsonRes.setMsg("cluster ID이(가) 정상적으로 조회되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("cluster ID 조회 중 에러가 발생하였습니다.");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+
 	/**
 	 * <pre>
 	 * Get a bucket detail
@@ -666,16 +704,16 @@ public class GridController extends CephBaseController {
 	public @ResponseBody DtoJsonResponse getCephInfo(DtoJsonResponse jsonRes) throws Exception {
 		try {
 			CephDto dto = cephService.selectCeph();
-			dto.setCalamariUsername(null);
-			dto.setCalamariPassword(null);
-			dto.setS3AccessKey(null);
-			dto.setS3SecretKey(null);
+			//dto.setCalamariUsername("");
+			//dto.setCalamariPassword("");
+			//dto.setS3AccessKey("");
+			//dto.setS3SecretKey("");
 			jsonRes.setSuccess(true);	
 			jsonRes.setData(dto);		
-			jsonRes.setMsg("Ceph 설처 정보 조회 성공");
+			jsonRes.setMsg("Ceph 설치 정보 조회 성공");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Ceph 설처 정보 조회 실패");
+			jsonRes.setMsg("Ceph 설치 정보 조회 실패");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
