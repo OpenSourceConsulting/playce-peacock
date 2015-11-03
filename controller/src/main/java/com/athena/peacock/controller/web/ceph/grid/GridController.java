@@ -23,8 +23,11 @@
 package com.athena.peacock.controller.web.ceph.grid;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ArrayNode;
@@ -35,9 +38,13 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.athena.peacock.controller.web.ceph.CephBaseController;
+import com.athena.peacock.controller.web.ceph.CephService;
+import com.athena.peacock.controller.web.ceph.base.CephDto;
+import com.athena.peacock.controller.web.common.model.DtoJsonResponse;
 import com.athena.peacock.controller.web.common.model.SimpleJsonResponse;
 
 /**
@@ -52,6 +59,10 @@ import com.athena.peacock.controller.web.common.model.SimpleJsonResponse;
 public class GridController extends CephBaseController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(GridController.class);
+	
+	@Inject
+	@Named("cephService")
+	private CephService cephService;
 
 	/**
 	 * <pre>
@@ -636,6 +647,35 @@ public class GridController extends CephBaseController {
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("usage detail 조회 중 에러가 발생하였습니다.");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
+	
+	/**
+	 * <pre>
+	 * Get a bucket detail
+	 * </pre>
+	 * @param jsonRes
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/cephInfo", method={ RequestMethod.GET })
+	public @ResponseBody DtoJsonResponse getCephInfo(DtoJsonResponse jsonRes) throws Exception {
+		try {
+			CephDto dto = cephService.selectCeph();
+			dto.setCalamariUsername(null);
+			dto.setCalamariPassword(null);
+			dto.setS3AccessKey(null);
+			dto.setS3SecretKey(null);
+			jsonRes.setSuccess(true);	
+			jsonRes.setData(dto);		
+			jsonRes.setMsg("Ceph 설처 정보 조회 성공");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("Ceph 설처 정보 조회 실패");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}

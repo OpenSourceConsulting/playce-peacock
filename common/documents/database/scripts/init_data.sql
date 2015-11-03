@@ -29,6 +29,8 @@ INSERT INTO peacock.software_repo_tbl (SOFTWARE_ID,SOFTWARE_NAME,SOFTWARE_VERSIO
 VALUES (5,'JBoss EAP','5.1.2','Red Hat,Inc.','/repo/jboss/','jboss-eap-5.1.2.zip,jboss-eap-template.zip','JBoss EAP 5.1.2',1,NOW(),1,NOW());
 INSERT INTO peacock.software_repo_tbl (SOFTWARE_ID,SOFTWARE_NAME,SOFTWARE_VERSION,SOFTWARE_VENDOR,FILE_LOCATION,FILE_NAME,DESCRIPTION,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
 VALUES (6,'JBoss EAP','5.2.0','Red Hat,Inc.','/repo/jboss/','jboss-eap-5.2.0.zip,jboss-eap-template.zip','JBoss EAP 5.2.0',1,NOW(),1,NOW());
+INSERT INTO peacock.software_repo_tbl (SOFTWARE_ID,SOFTWARE_NAME,SOFTWARE_VERSION,SOFTWARE_VENDOR,FILE_LOCATION,FILE_NAME,DESCRIPTION,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
+VALUES (7,'Ceph','0.94.2','Red Hat,Inc.','/repo/ceph/','ceph-ansible-deploy.tar.gz','Ceph',1,NOW(),1,NOW());
 
 INSERT INTO peacock.config_repo_tbl (CONFIG_FILE_ID,SOFTWARE_ID,CONFIG_FILE_SOURCE_LOCATION,CONFIG_FILE_TARGET_LOCATION,CONFIG_FILE_NAME,PROPERTIES,REG_USER_ID,REG_DT,UPD_USER_ID,UPD_DT) 
 VALUES (1,1,'/repo/httpd/conf/','${INSTALL_LOCATION}/conf/','httpd.conf',NULL,1,NOW(),1,NOW());
