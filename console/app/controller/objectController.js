@@ -118,9 +118,11 @@ Ext.define('MyApp.controller.objectController', {
 
         var key = record.get('key');
         var folder = objectConstants.currentFolder;
+        var params = Ext.Object.toQueryString({key:key});
 
         Ext.Ajax.request({
-            url: GLOBAL.urlPrefix + 'ceph/object/object?bucketName='+objectConstants.currentBucket + '&key='+key,
+        //    url: GLOBAL.urlPrefix + 'ceph/object/object?bucketName='+objectConstants.currentBucket + '&key='+key,
+            url: GLOBAL.urlPrefix + 'ceph/object/object?bucketName='+objectConstants.currentBucket + '&' + params,
             disableCaching : true,
             success: function(response){
                 var data = Ext.decode(response.responseText);

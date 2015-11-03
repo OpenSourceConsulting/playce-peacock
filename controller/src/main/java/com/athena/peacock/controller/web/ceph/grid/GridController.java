@@ -704,10 +704,12 @@ public class GridController extends CephBaseController {
 	public @ResponseBody DtoJsonResponse getCephInfo(DtoJsonResponse jsonRes) throws Exception {
 		try {
 			CephDto dto = cephService.selectCeph();
-			//dto.setCalamariUsername("");
-			//dto.setCalamariPassword("");
-			//dto.setS3AccessKey("");
-			//dto.setS3SecretKey("");
+			
+			//dto.setCalamariUsername(null);
+			//dto.setCalamariPassword(null);
+			//dto.setS3AccessKey(null);
+			//dto.setS3SecretKey(null);
+
 			jsonRes.setSuccess(true);	
 			jsonRes.setData(dto);		
 			jsonRes.setMsg("Ceph 설치 정보 조회 성공");
