@@ -188,7 +188,7 @@
                         "itemId": "storageHostDetail1",
                         "layout": "border",
                         "layout|flex": 1,
-                        "title": "MON1 VDA IOPS"
+                        "title": "Total Objects"
                     },
                     "designerId": "dd296afa-6975-4f72-a407-8e4a396a914f",
                     "cn": [
@@ -203,7 +203,7 @@
                                 "id": "storageHostImg1",
                                 "itemId": "storageHostImg1",
                                 "layout|region": "center",
-                                "src": "http://192.168.0.227/render?from=-2hours&until=now&width=800&height=450&target=servers.osc-ceph-mon1.iostat.vda.iops&_uniq=0.01915222406387329&hideLegend=true"
+                                "src": "http://192.168.0.227/render?from=-2hours&until=now&width=800&height=450&hideLegend=true&target=ceph.cluster.a82efafc-bfa3-473e-92f6-25719386b673.pool.all.num_objects"
                             },
                             "designerId": "7a3f374d-8b0a-42f0-b95b-e4e8dff8575a"
                         }

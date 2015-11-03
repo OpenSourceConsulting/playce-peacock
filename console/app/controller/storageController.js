@@ -375,7 +375,9 @@ Ext.define('MyApp.controller.storageController', {
                 var totalCnt = 0;
                 var activeCnt = 0;
 
-                totalCnt = data.data.length;
+                if (Ext.isArray(data.data)) {
+                    totalCnt = data.data.length;
+                }
 
                 var textData = "POOL<br>" + totalCnt.toString() + "<br>Active";
                 Ext.getCmp("storagePoolButton").setText(textData);
@@ -453,7 +455,7 @@ Ext.define('MyApp.controller.storageController', {
         var user = myForm.getForm().findField("monAddUser").getValue();
         var pass = myForm.getForm().findField("monAddPass").getValue();
 
-        var params = 'host=' + host + '&' + 'user=' + user + '&' + 'pass=' + pass;
+        var params = 'host=' + host + '&' + 'user=' + user + '&' + 'password=' + pass + '&' + 'mgmt=' + storageConstants.mgmtHost;
 
 
         var myGrid = Ext.getCmp("storageMonGrid");
@@ -714,8 +716,27 @@ Ext.define('MyApp.controller.storageController', {
             icon: Ext.Msg.QUESTION,
             fn: function(btn) {
                 if (btn === 'ok') {
-                    alert('Call Delete MON api ....');
-                    storageConstants.me.setStorageMonButtonText();        }
+                    Ext.Ajax.request({
+                        url: GLOBAL.urlPrefix + "ceph/mon/remove?" + params,
+                        method : "GET",
+                        disableCaching : true,
+                        success: function(response){
+                            var data = Ext.decode(response.responseText);
+
+                            if (data.success === true) {
+                                storageConstants.me.setStorageMonData();
+                                storageConstants.me.setStorageMonButtonText();
+                            } else {
+                                Ext.Msg.alert({
+                                    title: "MON Delete Failure",
+                                    msg: data.msg,
+                                    buttons: Ext.Msg.OK,
+                                    icon: Ext.Msg.ERROR
+                                });
+                            }
+                        }
+                    });
+                }
             }
         });
 
@@ -821,6 +842,47 @@ Ext.define('MyApp.controller.storageController', {
 
     },
 
+    setGraphiteUrl: function() {
+        storageConstants.mgmtHost = '';
+        storageConstants.griphiteUrl1 = 'http://192.168.0.227/render?from=-2hours&until=now&width=800&height=450&hideLegend=true&target=ceph.cluster.a82efafc-bfa3-473e-92f6-25719386b673.pool.all.num_objects';
+        storageConstants.griphiteUrl2 = 'http://192.168.0.227/render?from=-2hours&until=now&width=800&height=450&hideLegend=true&target=ceph.cluster.a82efafc-bfa3-473e-92f6-25719386b673.df.total_used_bytes';
+
+        var clusterId = '';
+
+        Ext.Ajax.request({
+            url: GLOBAL.urlPrefix + "ceph/grid/cluster",
+            method : "GET",
+            disableCaching : true,
+            success: function(response){
+                var data = Ext.decode(response.responseText);
+                if (data.success === true) {
+                    clusterId = data.data.clusterId;
+
+                    Ext.Ajax.request({
+                        url: GLOBAL.urlPrefix + "ceph/grid/cephInfo",
+                        method : "GET",
+                        disableCaching : true,
+                        success: function(response){
+                            var data = Ext.decode(response.responseText);
+                            if (data.success === true) {
+                                storageConstants.mgmtHost = data.data.mgmtHost;
+
+                                var calamariApi = data.data.calamariApiPrefix;
+                                var iPos = calamariApi.indexOf('/api');
+                                calamariApi = calamariApi.substring(0, iPos);
+                                calamariApi += '/render?from=-2hours&until=now&width=800&height=450&hideLegend=true&target=';
+
+                                storageConstants.griphiteUrl1 = calamariApi + 'ceph.cluster.' + clusterId + '.pool.all.num_objects';
+                                storageConstants.griphiteUrl2 = calamariApi + 'ceph.cluster.' + clusterId + '.df.total_used_bytes';
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+    },
+
     init: function(application) {
                 var storage = this;
 
@@ -875,6 +937,7 @@ Ext.define('MyApp.controller.storageController', {
                     task: null,
                     griphiteUrl1: '',
                     griphiteUrl2: '',
+                    mgmtHost: '',
                     chartInterval : 60,
                     monContextMenu: monGridContextMenu,
                     poolContextMenu: poolGridContextMenu,
@@ -885,8 +948,7 @@ Ext.define('MyApp.controller.storageController', {
                     selectIndex: 0
                 });
 
-                storageConstants.griphiteUrl1 = 'http://192.168.0.227/render?from=-2hours&until=now&width=800&height=450&target=servers.osc-ceph-mon1.iostat.vda.iops&hideLegend=true';
-                storageConstants.griphiteUrl2 = 'http://192.168.0.227/render?from=-2hours&until=now&width=800&height=450&target=ceph.cluster.a82efafc-bfa3-473e-92f6-25719386b673.df.total_used_bytes&hideLegend=true';
+                storage.setGraphiteUrl();
 
                 var runner = new Ext.util.TaskRunner();
                 var task = runner.newTask({

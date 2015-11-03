@@ -211,5 +211,22 @@ public class MonController extends CephBaseController  {
 		
 		return jsonRes;
 	}
+
+	@RequestMapping("/remove")
+	public @ResponseBody SimpleJsonResponse remove(SimpleJsonResponse jsonRes, @QueryParam("name") String name) throws Exception {
+		try {
+			Object response = managementSubmit("/mon/remove?name=" + name, HttpMethod.PUT);
+			jsonRes.setSuccess(true);
+			jsonRes.setData(response);
+			jsonRes.setMsg("Mon remove가 정상적으로 실행되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setSuccess(false);
+			jsonRes.setMsg("Mon remove가 실패 하였습니다.");
+			
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
+		}
+		
+		return jsonRes;
+	}
 }
 //end of MonController.java

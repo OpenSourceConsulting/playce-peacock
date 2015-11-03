@@ -110,14 +110,14 @@ Ext.define('MyApp.view.storageHostContainer', {
                             bodyStyle: {
                                 background: '#fff'
                             },
-                            title: 'MON1 VDA IOPS',
+                            title: 'Total Objects',
                             items: [
                                 {
                                     xtype: 'image',
                                     region: 'center',
                                     id: 'storageHostImg1',
                                     itemId: 'storageHostImg1',
-                                    src: 'http://192.168.0.227/render?from=-2hours&until=now&width=800&height=450&target=servers.osc-ceph-mon1.iostat.vda.iops&_uniq=0.01915222406387329&hideLegend=true'
+                                    src: 'http://192.168.0.227/render?from=-2hours&until=now&width=800&height=450&hideLegend=true&target=ceph.cluster.a82efafc-bfa3-473e-92f6-25719386b673.pool.all.num_objects'
                                 }
                             ]
                         },
