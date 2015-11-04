@@ -12,6 +12,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -44,6 +46,8 @@ import com.athena.peacock.controller.web.ceph.base.CephDto;
  */
 @Service("objectStorageService")
 public class ObjectStorageService {	
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ObjectStorageService.class);
 
 	private final static String FOLDER_SUFFIX = "/";
 	
@@ -408,8 +412,8 @@ public class ObjectStorageService {
 			getClient().deleteObject(new DeleteObjectRequest(dto.getBucketName(), dto.getKey()));
 		}
 		
-		System.out.println("DTO : " + dto);
-		System.out.println("Permission : " + dto.getPermission());
+		LOGGER.info("DTO : " + dto);
+		LOGGER.info("Permission : " + dto.getPermission());
 		
 		if (dto.getPermission() != null && !dto.getPermission().equals("")) {
 			String acl = dto.getPermission();
@@ -424,7 +428,7 @@ public class ObjectStorageService {
 			}
 			
 			if (newAcl != null) {
-				System.out.println("Will be changed to : " + newAcl);
+				LOGGER.info("Will be changed to : " + newAcl);
 				
 				getClient().setObjectAcl(dto.getBucketName(), dto.getKey(), newAcl);
 			}
@@ -538,7 +542,7 @@ public class ObjectStorageService {
 			
 			String key = objectSummary.getKey().substring(parentPath.length());
 			
-			System.out.println(key + " : " + StringUtils.countMatches(key, "/") + " : " + dto);
+			LOGGER.info(key + " : " + StringUtils.countMatches(key, "/") + " : " + dto);
         }
 		/*/
 		ListObjectsRequest listObjectsRequest = new ListObjectsRequest().withBucketName("scpark");
@@ -556,7 +560,7 @@ public class ObjectStorageService {
 					dto.setStorageClass(objectSummary.getStorageClass());
 					dto.setLastModified(objectSummary.getLastModified());
 
-					System.out.println(dto);
+					LOGGER.info(dto);
 		        }
 		        //objects = conn.listNextBatchOfObjects(objects);
 		        listObjectsRequest.setMarker(objectListing.getNextMarker());
@@ -569,48 +573,48 @@ public class ObjectStorageService {
 		long timeStamp = 1444264448;
 		java.util.Date time = new java.util.Date(timeStamp*1000);
 		
-		System.out.println("Expire time : ");
-		System.out.println(time);
+		LOGGER.info("Expire time : ");
+		LOGGER.info(time);
 		
 		ObjectStorageService osc = new ObjectStorageService();
 		
-		System.out.println("Bucket List : ");
-		System.out.println(osc.listOfBucktes());
+		LOGGER.info("Bucket List : ");
+		LOGGER.info(osc.listOfBucktes());
 
-		System.out.println("Create Folder : ");
-		System.out.println(osc.createFolder("my-new-bucket2", null, "testFolder"));
+		LOGGER.info("Create Folder : ");
+		LOGGER.info(osc.createFolder("my-new-bucket2", null, "testFolder"));
 		
-		System.out.println("Object List : ");
-		System.out.println(osc.listOfObjects("my-new-bucket"));
-		System.out.println(osc.listOfObjects("my-new-bucket2"));
+		LOGGER.info("Object List : ");
+		LOGGER.info(osc.listOfObjects("my-new-bucket"));
+		LOGGER.info(osc.listOfObjects("my-new-bucket2"));
 		
-		System.out.println("Upload File : ");
-		System.out.println(osc.uploadFile("my-new-bucket2", "testFolder", "testfile.png"));
-		System.out.println(osc.listOfObjects("my-new-bucket2"));
+		LOGGER.info("Upload File : ");
+		LOGGER.info(osc.uploadFile("my-new-bucket2", "testFolder", "testfile.png"));
+		LOGGER.info(osc.listOfObjects("my-new-bucket2"));
 		
-		//System.out.println("Delete Folder: ");
-		//System.out.println(osc.deleteFolder("my-new-bucket2", "testFolder"));
+		//LOGGER.info("Delete Folder: ");
+		//LOGGER.info(osc.deleteFolder("my-new-bucket2", "testFolder"));
 		
-		System.out.println("Object List : ");
-		System.out.println(osc.listOfObjects("my-new-bucket2"));
+		LOGGER.info("Object List : ");
+		LOGGER.info(osc.listOfObjects("my-new-bucket2"));
 		
-		System.out.println("Set Object ACL to Public : ");
-		System.out.println(osc.setObjectAclToPublic("my-new-bucket","file.txt"));
+		LOGGER.info("Set Object ACL to Public : ");
+		LOGGER.info(osc.setObjectAclToPublic("my-new-bucket","file.txt"));
 		
-		System.out.println(osc.getObjectAcl("my-new-bucket","file.txt"));
-		System.out.println(osc.getObjectAcl("my-new-bucket2", "testFolder/testfile.png"));
+		LOGGER.info(osc.getObjectAcl("my-new-bucket","file.txt"));
+		LOGGER.info(osc.getObjectAcl("my-new-bucket2", "testFolder/testfile.png"));
 		
-		System.out.println("Set Object ACL to Private : ");
-		System.out.println(osc.setObjectAclToPrivate("my-new-bucket2","test.txt"));
+		LOGGER.info("Set Object ACL to Private : ");
+		LOGGER.info(osc.setObjectAclToPrivate("my-new-bucket2","test.txt"));
 		
-		System.out.println(osc.getObjectAcl("my-new-bucket2","test.txt"));
+		LOGGER.info(osc.getObjectAcl("my-new-bucket2","test.txt"));
 		
-		System.out.println("Object URL : ");
-		System.out.println(osc.getUrlOfObject("my-new-bucket","file.txt"));
-		System.out.println(osc.getUrlOfObject("my-new-bucket2","test.txt"));
-		System.out.println(osc.getUrlOfObject("my-new-bucket2", "testFolder/testfile.png"));
+		LOGGER.info("Object URL : ");
+		LOGGER.info(osc.getUrlOfObject("my-new-bucket","file.txt"));
+		LOGGER.info(osc.getUrlOfObject("my-new-bucket2","test.txt"));
+		LOGGER.info(osc.getUrlOfObject("my-new-bucket2", "testFolder/testfile.png"));
 		
-		System.out.println(osc.getObjectsMethod("my-new-bucket","file.txt"));
+		LOGGER.info(osc.getObjectsMethod("my-new-bucket","file.txt"));
 	}
 	*/
 }

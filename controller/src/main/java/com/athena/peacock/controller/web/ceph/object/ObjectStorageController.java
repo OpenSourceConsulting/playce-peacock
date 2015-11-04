@@ -312,8 +312,8 @@ public class ObjectStorageController{
 	@RequestMapping(value="/object", method=RequestMethod.POST)
 	public @ResponseBody SimpleJsonResponse createObject(SimpleJsonResponse jsonRes, ObjectDto dto) throws Exception {
 		try {
-			System.err.println("FileName : " + dto.getFile().getOriginalFilename());
-			System.err.println("FileSize : " + dto.getFile().getSize());
+			LOGGER.error("FileName : " + dto.getFile().getOriginalFilename());
+			LOGGER.error("FileSize : " + dto.getFile().getSize());
 			
 			objectStorageService.uploadFile(dto);
 			jsonRes.setSuccess(true);

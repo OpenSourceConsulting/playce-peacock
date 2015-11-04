@@ -37,6 +37,8 @@ import org.libvirt.LibvirtException;
 import org.libvirt.NodeInfo;
 import org.libvirt.StoragePool;
 import org.libvirt.StorageVol;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -53,6 +55,8 @@ import org.xml.sax.InputSource;
  * @version 1.0
  */
 public class LibvirtTest {
+	
+	protected static final Logger LOGGER = LoggerFactory.getLogger(LibvirtTest.class);
 	
 	private static final String KVM_QEMU_URL = "qemu+tcp://192.168.0.240/system";
 	private Connect connect;
@@ -91,20 +95,20 @@ public class LibvirtTest {
 		}
 
         NodeInfo nodeInfo = connect.nodeInfo();
-        System.out.println("virNodeInfo.model:" + nodeInfo.model);
-        System.out.println("virNodeInfo.memory:" + nodeInfo.memory);
-        System.out.println("virNodeInfo.cpus:" + nodeInfo.cpus);
-        System.out.println("virNodeInfo.nodes:" + nodeInfo.nodes);
-        System.out.println("virNodeInfo.sockets:" + nodeInfo.sockets);
-        System.out.println("virNodeInfo.cores:" + nodeInfo.cores);
-        System.out.println("virNodeInfo.threads:" + nodeInfo.threads);
+        LOGGER.info("virNodeInfo.model:" + nodeInfo.model);
+        LOGGER.info("virNodeInfo.memory:" + nodeInfo.memory);
+        LOGGER.info("virNodeInfo.cpus:" + nodeInfo.cpus);
+        LOGGER.info("virNodeInfo.nodes:" + nodeInfo.nodes);
+        LOGGER.info("virNodeInfo.sockets:" + nodeInfo.sockets);
+        LOGGER.info("virNodeInfo.cores:" + nodeInfo.cores);
+        LOGGER.info("virNodeInfo.threads:" + nodeInfo.threads);
 
-        System.out.println("getHostName:" + connect.getHostName());
-        System.out.println("getCapabilities:" + connect.getCapabilities());
-        System.out.println("getType:" + connect.getType());
-        System.out.println("getURI:" + connect.getURI());
-        System.out.println("getVersion:" + connect.getVersion());
-        System.out.println("getLibVirVersion:" + connect.getLibVirVersion());
+        LOGGER.info("getHostName:" + connect.getHostName());
+        LOGGER.info("getCapabilities:" + connect.getCapabilities());
+        LOGGER.info("getType:" + connect.getType());
+        LOGGER.info("getURI:" + connect.getURI());
+        LOGGER.info("getVersion:" + connect.getVersion());
+        LOGGER.info("getLibVirVersion:" + connect.getLibVirVersion());
 	}
 	
 	public void getStoreagePoolInfo() throws LibvirtException {
@@ -117,14 +121,14 @@ public class LibvirtTest {
 		for (String poolName : connect.listStoragePools()) {
 			pool = connect.storagePoolLookupByName(poolName);
 			
-			System.out.println("StoragePool's name : " + pool.getName() + ", numOfVolumes : " + pool.numOfVolumes());
-			System.out.println(pool.getXMLDesc(0));
+			LOGGER.info("StoragePool's name : " + pool.getName() + ", numOfVolumes : " + pool.numOfVolumes());
+			LOGGER.info(pool.getXMLDesc(0));
 			
 			int cnt = 1;
 			for (String volName : pool.listVolumes()) {
 				vol = pool.storageVolLookupByName(volName);
 				
-				System.out.println("\t[" + cnt++ + "] \tname : " + vol.getName() + "\n\t\tpath : " + vol.getPath());
+				LOGGER.info("\t[" + cnt++ + "] \tname : " + vol.getName() + "\n\t\tpath : " + vol.getPath());
 			}
 		}
 	}
@@ -144,8 +148,8 @@ public class LibvirtTest {
 		
 		StoragePool pool = connect.storagePoolCreateXML(poolXml, 0);
 
-		System.out.println("StoragePool's name : " + pool.getName() + ", numOfVolumes : " + pool.numOfVolumes());
-		System.out.println(pool.getXMLDesc(0));
+		LOGGER.info("StoragePool's name : " + pool.getName() + ", numOfVolumes : " + pool.numOfVolumes());
+		LOGGER.info(pool.getXMLDesc(0));
 	}
 	
 	public void addStorageVol(String poolName, String volName) throws LibvirtException {
@@ -167,8 +171,8 @@ public class LibvirtTest {
 							"</volume>";	
 		
 		StorageVol vol = pool.storageVolCreateXML(vollXml, 0);
-		System.out.println("name : " + vol.getName() + ", path : " + vol.getPath());
-		System.out.println(vol.getXMLDesc(0));
+		LOGGER.info("name : " + vol.getName() + ", path : " + vol.getPath());
+		LOGGER.info(vol.getXMLDesc(0));
 	}
 	
 	public void deleteStorageVol(String poolName, String name) throws LibvirtException {
@@ -227,7 +231,7 @@ public class LibvirtTest {
 				volXml = volXml.replaceAll(fromVolName, newVolName);
 				
 				StorageVol newVol = pool.storageVolCreateXMLFrom(volXml, vol, 0);
-				System.out.println(newVol.getXMLDesc(0));
+				LOGGER.info(newVol.getXMLDesc(0));
 				break;
 			}
 		}
@@ -240,40 +244,40 @@ public class LibvirtTest {
 
         Domain domain = null;
         
-        System.out.println("================================[Active Domain]================================");
+        LOGGER.info("================================[Active Domain]================================");
         for (int id : connect.listDomains()) {
         	domain = connect.domainLookupByID(id);
 
         	/*
-			System.out.println("domain name : " + domain.getName() + ", type : " + domain.getOSType() + ", max_mem : " + domain.getMaxMemory() + ", max_cpu : " + domain.getMaxVcpus());
+			LOGGER.info("domain name : " + domain.getName() + ", type : " + domain.getOSType() + ", max_mem : " + domain.getMaxMemory() + ", max_cpu : " + domain.getMaxVcpus());
 			/*/
-            System.out.println("virDomainGetXMLDesc:" + domain.getXMLDesc(0));
+            LOGGER.info("virDomainGetXMLDesc:" + domain.getXMLDesc(0));
             
             JSONObject xmlJSONObj = XML.toJSONObject(domain.getXMLDesc(0));
             String jsonPrettyPrintString = xmlJSONObj.toString(3);
-            System.out.println(jsonPrettyPrintString);
+            LOGGER.info(jsonPrettyPrintString);
             
-            System.out.println("virDomainGetAutostart:" + domain.getAutostart());
-            System.out.println("virDomainGetConnect:" + domain.getConnect());
-            System.out.println("virDomainGetID:" + domain.getID());
-            System.out.println("virDomainGetInfo:" + domain.getInfo());
-            System.out.println("virDomainGetMaxMemory:" + domain.getMaxMemory());
-            System.out.println("virDomainGetMaxVcpus:" + domain.getMaxVcpus());
-            System.out.println("virDomainGetName:" + domain.getName());
-            System.out.println("virDomainGetOSType:" + domain.getOSType());
-            System.out.println("virDomainGetSchedulerType:" + domain.getSchedulerType());
-            System.out.println("virDomainGetSchedulerParameters:" + domain.getSchedulerParameters());
+            LOGGER.info("virDomainGetAutostart:" + domain.getAutostart());
+            LOGGER.info("virDomainGetConnect:" + domain.getConnect());
+            LOGGER.info("virDomainGetID:" + domain.getID());
+            LOGGER.info("virDomainGetInfo:" + domain.getInfo());
+            LOGGER.info("virDomainGetMaxMemory:" + domain.getMaxMemory());
+            LOGGER.info("virDomainGetMaxVcpus:" + domain.getMaxVcpus());
+            LOGGER.info("virDomainGetName:" + domain.getName());
+            LOGGER.info("virDomainGetOSType:" + domain.getOSType());
+            LOGGER.info("virDomainGetSchedulerType:" + domain.getSchedulerType());
+            LOGGER.info("virDomainGetSchedulerParameters:" + domain.getSchedulerParameters());
             //*/
             
             getInterfaces(domain);
             getDisks(domain);
         }	
         
-        System.out.println("================================[Inactive Domain]================================");
+        LOGGER.info("================================[Inactive Domain]================================");
         for (String name : connect.listDefinedDomains()) {
         	domain = connect.domainLookupByName(name);
 
-			System.out.println("domain name : " + domain.getName() + ", type : " + domain.getOSType());
+			LOGGER.info("domain name : " + domain.getName() + ", type : " + domain.getOSType());
         }	
 	}
 
@@ -283,7 +287,7 @@ public class LibvirtTest {
 		}
 
         Domain domain = connect.domainLookupByName(domainName);
-        System.out.println("Before Attach : " + domain.getXMLDesc(0));
+        LOGGER.info("Before Attach : " + domain.getXMLDesc(0));
         
         String deviceXml = 	"<disk type='file' device='disk'>" +
 			        		//"	<driver name='qemu' type='raw' cache='none'/>" +
@@ -294,7 +298,7 @@ public class LibvirtTest {
         //domain.attachDevice(deviceXml);
         domain.attachDeviceFlags(deviceXml, 0);
 
-        System.out.println("After Attach : " + domain.getXMLDesc(0));
+        LOGGER.info("After Attach : " + domain.getXMLDesc(0));
 	}
 
 	public void detatchVolume(String domainName, String sourceFile, String deviceName) throws LibvirtException {
@@ -303,7 +307,7 @@ public class LibvirtTest {
 		}
 
         Domain domain = connect.domainLookupByName(domainName);
-        System.out.println("Before Detatch : " + domain.getXMLDesc(0));
+        LOGGER.info("Before Detatch : " + domain.getXMLDesc(0));
         
         String deviceXml =	"<disk type='file' device='disk'>" +
 			        		"	<source file='" + sourceFile + "'/>" +
@@ -313,7 +317,7 @@ public class LibvirtTest {
         //domain.detachDevice(deviceXml);
         domain.detachDeviceFlags(deviceXml, 0);
 
-        System.out.println("After Detatch : " + domain.getXMLDesc(0));
+        LOGGER.info("After Detatch : " + domain.getXMLDesc(0));
 	}
 	
 	public void createDomain() throws LibvirtException {
@@ -499,22 +503,22 @@ public class LibvirtTest {
 		for (int idx = 0; idx < cols.getLength(); idx++) {
 			Node iface = cols.item(idx);
 			
-			System.out.println("[interface] type : " + iface.getAttributes().item(0).getNodeValue());
+			LOGGER.info("[interface] type : " + iface.getAttributes().item(0).getNodeValue());
 			
 	        if(iface.getNodeType() == Node.ELEMENT_NODE) {
 	        	Element element = (Element) iface;
 	        	
 	        	NodeList mac = element.getElementsByTagName("mac");
-				System.out.println("[interface] macAddress :" + mac.item(0).getAttributes().item(0).getNodeValue());
+				LOGGER.info("[interface] macAddress :" + mac.item(0).getAttributes().item(0).getNodeValue());
 	        	
 	        	NodeList source = element.getElementsByTagName("source");
-				System.out.println("[interface] sourceBridge :" + source.item(0).getAttributes().item(0).getNodeValue());
+				LOGGER.info("[interface] sourceBridge :" + source.item(0).getAttributes().item(0).getNodeValue());
 	        	
 	        	NodeList target = element.getElementsByTagName("target");
-				System.out.println("[interface] targetDev : " + target.item(0).getAttributes().item(0).getNodeValue());
+				LOGGER.info("[interface] targetDev : " + target.item(0).getAttributes().item(0).getNodeValue());
 	        	
 	        	NodeList model = element.getElementsByTagName("model");
-				System.out.println("[interface] modelType : " + model.item(0).getAttributes().item(0).getNodeValue());
+				LOGGER.info("[interface] modelType : " + model.item(0).getAttributes().item(0).getNodeValue());
 	        }
 		}
 	}
@@ -533,34 +537,34 @@ public class LibvirtTest {
 		for (int idx = 0; idx < cols.getLength(); idx++) {
 			Node iface = cols.item(idx);
 			
-			System.out.println("[disk] type : " + iface.getAttributes().getNamedItem("type").getNodeValue());
-			System.out.println("[disk] device : " + iface.getAttributes().getNamedItem("device").getNodeValue());
+			LOGGER.info("[disk] type : " + iface.getAttributes().getNamedItem("type").getNodeValue());
+			LOGGER.info("[disk] device : " + iface.getAttributes().getNamedItem("device").getNodeValue());
 			
 	        if(iface.getNodeType() == Node.ELEMENT_NODE) {
 	        	Element element = (Element) iface;
 	        	
 	        	NodeList nodeList = element.getElementsByTagName("driver");
-				System.out.println("[disk] driverName :" + nodeList.item(0).getAttributes().getNamedItem("name").getNodeValue());
-				System.out.println("[disk] driverType :" + nodeList.item(0).getAttributes().getNamedItem("type").getNodeValue());
+				LOGGER.info("[disk] driverName :" + nodeList.item(0).getAttributes().getNamedItem("name").getNodeValue());
+				LOGGER.info("[disk] driverType :" + nodeList.item(0).getAttributes().getNamedItem("type").getNodeValue());
 				
 				if (nodeList.item(0).getAttributes().getNamedItem("cache") != null) {
-					System.out.println("[disk] driverCache :" + nodeList.item(0).getAttributes().getNamedItem("cache").getNodeValue());
+					LOGGER.info("[disk] driverCache :" + nodeList.item(0).getAttributes().getNamedItem("cache").getNodeValue());
 				}
 	        	
 				nodeList = element.getElementsByTagName("source");
 				if (nodeList.getLength() > 0) {
-				System.out.println("[disk] sourceFile :" + nodeList.item(0).getAttributes().getNamedItem("file").getNodeValue());
+				LOGGER.info("[disk] sourceFile :" + nodeList.item(0).getAttributes().getNamedItem("file").getNodeValue());
 				}
 	        	
 	        	nodeList = element.getElementsByTagName("target");
-				System.out.println("[disk] targetDev : " + nodeList.item(0).getAttributes().getNamedItem("dev").getNodeValue());
-				System.out.println("[disk] targetBus : " + nodeList.item(0).getAttributes().getNamedItem("bus").getNodeValue());
+				LOGGER.info("[disk] targetDev : " + nodeList.item(0).getAttributes().getNamedItem("dev").getNodeValue());
+				LOGGER.info("[disk] targetBus : " + nodeList.item(0).getAttributes().getNamedItem("bus").getNodeValue());
 	        	
 	        	nodeList = element.getElementsByTagName("alias");
-				System.out.println("[disk] aliasName : " + nodeList.item(0).getAttributes().getNamedItem("name").getNodeValue());
+				LOGGER.info("[disk] aliasName : " + nodeList.item(0).getAttributes().getNamedItem("name").getNodeValue());
 
 	        	nodeList = element.getElementsByTagName("address");
-				System.out.println("[disk] addressType : " + nodeList.item(0).getAttributes().getNamedItem("type").getNodeValue());
+				LOGGER.info("[disk] addressType : " + nodeList.item(0).getAttributes().getNamedItem("type").getNodeValue());
 	        }
 		}
 	}

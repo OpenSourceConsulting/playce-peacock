@@ -75,7 +75,7 @@ public class Installer {
 		
 		file = new File(path);
 		while (!file.exists()) {
-			System.out.println(path + " 파일이 존재하지 않습니다.");
+			//System.out.println(path + " 파일이 존재하지 않습니다.");
 			
 			path = getValue("context.properties 파일의 전체 경로를 입력하세요.", null);
 			file = new File(path);
@@ -96,7 +96,7 @@ public class Installer {
 			}
 			
 			if (properties.get(key).length == 2 && properties.get(key)[1] != null) {
-				System.out.println("\n" + properties.get(key)[1]);
+				//System.out.println("\n" + properties.get(key)[1]);
 			}
 			properties.put(key, new String[]{getValue(key + "을(를) 입력하세요.", value)});
 		}
@@ -121,7 +121,7 @@ public class Installer {
     		initData(driver, url, schema, username, password, properties.get("username")[0], properties.get("password")[0]);
     	}
     	
-    	System.out.println("\n\n+:+:+:+: Athena-Peacock Server configuration is successfully done. +:+:+:+:");
+    	//System.out.println("\n\n+:+:+:+: Athena-Peacock Server configuration is successfully done. +:+:+:+:");
 	}//end of main()
 	
 	/**

@@ -28,6 +28,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import difflib.Delta;
 import difflib.DiffUtils;
@@ -41,6 +43,8 @@ import difflib.Patch;
  * @version 1.0
  */
 public class DiffUtil {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(DiffUtil.class);
 	
 	public static Patch<String> getDiff(File original, File revised) throws Exception {
 		return getDiff(IOUtils.readLines(new FileInputStream(original), "UTF-8"), IOUtils.readLines(new FileInputStream(revised), "UTF-8"));
@@ -67,11 +71,8 @@ public class DiffUtil {
 		Patch<String> patch = DiffUtils.diff(original, revised);
 		
 		for (Delta<String> delta : patch.getDeltas()) {
-			System.out.println(delta);
+			LOGGER.info(delta.toString());
 		}
-		
-		System.out.println(original);
-		System.out.println(revised);
 	}
 }
 //end of DiffUtil.java
