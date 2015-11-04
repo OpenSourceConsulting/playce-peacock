@@ -38,7 +38,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.athena.peacock.controller.common.component.RHEVMRestTemplate;
 import com.athena.peacock.controller.common.component.RHEVMRestTemplateManager;
 import com.athena.peacock.controller.netty.PeacockTransmitter;
-import com.athena.peacock.controller.web.alm.AlmDashboardComponent;
+//import com.athena.peacock.controller.web.alm.AlmDashboardComponent;
 import com.athena.peacock.controller.web.hypervisor.HypervisorDto;
 import com.athena.peacock.controller.web.hypervisor.HypervisorService;
 import com.athena.peacock.controller.web.machine.MachineDao;
@@ -85,9 +85,9 @@ public class DashboardService {
 	@Named("softwareDao")
 	private SoftwareDao softwareDao;
 
-	@Inject
-	@Named("almDashboardComponent")
-	AlmDashboardComponent almDashboardComponent;
+//	@Inject
+//	@Named("almDashboardComponent")
+//	AlmDashboardComponent almDashboardComponent;
 
     @Inject
     @Named("peacockTransmitter")

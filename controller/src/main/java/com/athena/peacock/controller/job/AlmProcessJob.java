@@ -26,7 +26,7 @@ import com.athena.peacock.common.provider.AppContext;
 import com.athena.peacock.common.scheduler.InternalJobExecutionException;
 import com.athena.peacock.common.scheduler.quartz.BaseJob;
 import com.athena.peacock.common.scheduler.quartz.JobExecution;
-import com.athena.peacock.controller.web.alm.project.AlmProjectProcess;
+//import com.athena.peacock.controller.web.alm.project.AlmProjectProcess;
 
 /**
  * <pre>
@@ -38,7 +38,7 @@ import com.athena.peacock.controller.web.alm.project.AlmProjectProcess;
  */
 public class AlmProcessJob extends BaseJob {
 
-	private AlmProjectProcess almProjectService;
+//	private AlmProjectProcess almProjectService;
 
 	// TODO
 	// Instance Grid의 정보 RHEV Manager 상의 정보를 주기적으로 동기화.
@@ -50,11 +50,11 @@ public class AlmProcessJob extends BaseJob {
 		try {
 			logger.debug("Alm Job Processing...");
 
-			if (almProjectService == null) {
-				almProjectService = AppContext.getBean(AlmProjectProcess.class);
-			}
-
-			almProjectService.processProjectMapping();
+//			if (almProjectService == null) {
+//				almProjectService = AppContext.getBean(AlmProjectProcess.class);
+//			}
+//
+//			almProjectService.processProjectMapping();
 
 		} catch (Exception e) {
 			logger.error("Unhandled exception has occurred.", e);
