@@ -117,7 +117,7 @@ Ext.define('MyApp.view.storageHostContainer', {
                                     region: 'center',
                                     id: 'storageHostImg1',
                                     itemId: 'storageHostImg1',
-                                    src: 'http://192.168.0.227/render?from=-2hours&until=now&width=800&height=450&hideLegend=true&target=ceph.cluster.a82efafc-bfa3-473e-92f6-25719386b673.pool.all.num_objects'
+                                    src: 'http://192.168.0.227/render?from=-2hours&until=now&width=800&height=450&hideLegend=true&lineMode=connected&target=ceph.cluster.a82efafc-bfa3-473e-92f6-25719386b673.pool.all.num_objects'
                                 }
                             ]
                         },
@@ -139,7 +139,7 @@ Ext.define('MyApp.view.storageHostContainer', {
                                     region: 'center',
                                     id: 'storageHostImg2',
                                     itemId: 'storageHostImg2',
-                                    src: 'http://192.168.0.227/render?from=-2hours&until=now&width=800&height=450&target=ceph.cluster.a82efafc-bfa3-473e-92f6-25719386b673.df.total_used_bytes&_uniq=0.43321172590367496&hideLegend=true'
+                                    src: 'http://192.168.0.227/render?from=-2hours&until=now&width=800&height=450&lineMode=connected&target=ceph.cluster.a82efafc-bfa3-473e-92f6-25719386b673.df.total_used_bytes&_uniq=0.43321172590367496&hideLegend=true'
                                 }
                             ]
                         }
