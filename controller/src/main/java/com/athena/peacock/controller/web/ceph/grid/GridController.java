@@ -105,9 +105,9 @@ public class GridController extends CephBaseController {
 								idMon.add(sId);
 							}
 
-							if (service.path("running").asBoolean() == false) {
+//							if (service.path("running").asBoolean() == false) {
 								isRunnong = service.path("running").asBoolean();
-							}
+//							}
 						}
 						
 						Collections.sort(idOsd);

@@ -152,7 +152,7 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 				try {
 					packageFile = PropertyUtil.getProperty(PeacockConstant.PACKAGE_FILE_KEY);
 				} catch (Exception e) {
-					// nothing to do.
+					LOGGER.error("Peacock Error", e);
 				} finally {
 					if (StringUtils.isEmpty(packageFile)) {
 						packageFile = "/peacock/agent/config/package.log";
@@ -171,7 +171,7 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 				try {
 					agentFile = PropertyUtil.getProperty(PeacockConstant.AGENT_ID_FILE_KEY);
 				} catch (Exception e) {
-					// nothing to do.
+					LOGGER.error("Peacock Error", e);
 				} finally {
 					if (StringUtils.isEmpty(agentFile)) {
 						agentFile = "/peacock/agent/.agent";
@@ -218,7 +218,7 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 						try {
 							packageFile = PropertyUtil.getProperty(PeacockConstant.PACKAGE_FILE_KEY);
 						} catch (Exception e) {
-							// nothing to do.
+							LOGGER.error("Peacock Error", e);
 						} finally {
 							if (StringUtils.isEmpty(packageFile)) {
 								packageFile = "/peacock/agent/config/package.log";
@@ -382,7 +382,7 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
          * @param ipAddr
          * @param channel
          */
-        synchronized static int registerChannel(String ipAddr, Channel channel) {
+        synchronized static int registerChannel(String ipAddr, Channel channel) {  // NOPMD
         	LOGGER.debug("ipAddr({}) and channel({}) will be added to channelMap.", ipAddr, channel);
         	channelMap.put(ipAddr, channel);
         	
@@ -395,7 +395,7 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
          * </pre>
          * @param ipAddr
          */
-        synchronized static void deregisterChannel(String ipAddr) {
+        synchronized static void deregisterChannel(String ipAddr) {  // NOPMD
         	LOGGER.debug("ipAddr({}) will be removed from channelMap.", ipAddr);
         	channelMap.remove(ipAddr);
         }//end of deregisterChannel()
@@ -406,7 +406,7 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
          * </pre>
          * @param channel
          */
-        synchronized static void deregisterChannel(Channel channel) {
+        synchronized static void deregisterChannel(Channel channel) {  // NOPMD
         	Iterator<Entry<String, Channel>> iter = channelMap.entrySet().iterator();
         	
         	Entry<String, Channel> entry = null;
@@ -425,7 +425,7 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 		 * 연결된 모든 채널을 제거한다.
 		 * </pre>
 		 */
-        synchronized static void deregisterAllChannel() {
+        synchronized static void deregisterAllChannel() {  // NOPMD
         	Iterator<Entry<String, Channel>> iter = channelMap.entrySet().iterator();
         	
         	while (iter.hasNext()) {
@@ -450,7 +450,7 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
          * </pre>
          * @return
          */
-        static synchronized int getChannelSize() {
+        static synchronized int getChannelSize() {  // NOPMD
 			return channelMap.size();
 		}//end of getChannelSize()
         

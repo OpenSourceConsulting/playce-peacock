@@ -36,7 +36,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.athena.peacock.controller.web.config.ConfigDao;
 import com.athena.peacock.controller.web.config.ConfigDto;
 import com.athena.peacock.controller.web.machine.MachineDto;
-import com.athena.peacock.controller.web.software.SoftwareDto;
 
 /**
  * <pre>

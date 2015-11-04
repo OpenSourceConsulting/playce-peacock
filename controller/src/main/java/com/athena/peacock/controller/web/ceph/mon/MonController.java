@@ -180,24 +180,24 @@ public class MonController extends CephBaseController  {
 	        Object response = execute("/usr/bin/ceph-deploy install --repo --release=hammer" + host);
 	        
 	        if (((String) response).indexOf("ERROR") > -1) {
-	        	throw new Exception("Mon repo failed.");
+	        	throw new Exception("Mon repo failed.");  // NOPMD
 	        }
 	        
 	        response = execute("/usr/bin/ceph-deploy install --mon" + host);
 	        
 	        if (((String) response).indexOf("ERROR") > -1) {
-	        	throw new Exception("Mon install failed.");
+	        	throw new Exception("Mon install failed.");  // NOPMD
 	        }
 	        
 	        response = execute("/usr/bin/ceph-deploy mon add" + host);
 	        
 	        if (((String) response).indexOf("ERROR") > -1) {
-	        	throw new Exception("Mon Add failed.");
+	        	throw new Exception("Mon Add failed.");  // NOPMD
 	        }     
 	        response = execute("/usr/bin/ceph-deploy calamari connect --master" + mgmt + host);
 	        
 	        if (((String) response).indexOf("ERROR") > -1) {
-	        	throw new Exception("Calamari Add failed.");
+	        	throw new Exception("Calamari Add failed.");  // NOPMD
 	        }     
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);

@@ -54,7 +54,7 @@ public class OsdControllerTest extends BaseControllerTest {
 	@Test
     public void testOSDCrushDump() throws Exception {
     	try {
-			mockMvc.perform(get("/crush/dump").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+			mockMvc.perform(get("/ceph/osd/crush/dump").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 					.andDo(print())
 					.andExpect(status().isOk())
 					.andExpect(content().contentType("application/json;charset=UTF-8"));

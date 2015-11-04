@@ -34,14 +34,14 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Sang-cheon Park
  * @version 1.0
  */
-public abstract class AutoScalingStatus {
+public class AutoScalingStatus {
 	
 	private static Map<Integer, Integer> autoScalingMap = new ConcurrentHashMap<Integer, Integer>();
 	private static Map<Integer, Long> autoScalingTimeMap = new ConcurrentHashMap<Integer, Long>();
 
 	private AutoScalingStatus() {}
 	
-	public synchronized static void addStatus(int autoScalingId, int size) {
+	public static void addStatus(int autoScalingId, int size) {
 		autoScalingMap.put(autoScalingId, size);
 		autoScalingTimeMap.put(autoScalingId, System.currentTimeMillis());
 	}
@@ -54,7 +54,7 @@ public abstract class AutoScalingStatus {
 		return autoScalingTimeMap.get(autoScalingId);
 	}
 	
-	public synchronized static void complete(int autoScalingId) {
+	public static void complete(int autoScalingId) {
 		Integer size = autoScalingMap.get(autoScalingId);
 		
 		if (--size < 1) {
@@ -64,7 +64,7 @@ public abstract class AutoScalingStatus {
 		}
 	}
 	
-	public synchronized static void removeStatus(int autoScalingId) {
+	public static void removeStatus(int autoScalingId) {
 		autoScalingMap.remove(autoScalingId);
 		autoScalingTimeMap.remove(autoScalingId);
 	}

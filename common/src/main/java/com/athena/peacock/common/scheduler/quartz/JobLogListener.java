@@ -59,6 +59,7 @@ public class JobLogListener implements JobListener {
 	 * @see org.quartz.JobListener#jobExecutionVetoed(org.quartz.JobExecutionContext)
 	 */
 	public void jobExecutionVetoed(JobExecutionContext context) {
+		LOGGER.info(context.toString());
 	}
 
 	/**

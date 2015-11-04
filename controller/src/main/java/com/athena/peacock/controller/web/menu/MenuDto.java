@@ -39,7 +39,9 @@ public class MenuDto extends BaseDto {
 	private int readYn;
 	private int writeYn;
 	
+	@SuppressWarnings("unused")
 	private boolean isRead;
+	@SuppressWarnings("unused")
 	private boolean isWrite;
 
 	/**

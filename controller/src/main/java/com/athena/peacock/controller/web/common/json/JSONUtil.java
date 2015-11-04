@@ -14,7 +14,7 @@ import org.codehaus.jackson.map.type.TypeFactory;
  * @version
  * @see
  */
-public abstract class JSONUtil {
+public class JSONUtil {
 
 	private static final ObjectMapper MAPPER = new ObjectMapper();
 
@@ -46,7 +46,7 @@ public abstract class JSONUtil {
 		try {
 			return MAPPER.readValue(json, valueType);
 		} catch (Exception ex) {
-			throw new RuntimeException(ex);
+			throw new RuntimeException(ex);  // NOPMD
 		}
 
 	}
@@ -56,7 +56,7 @@ public abstract class JSONUtil {
 		try {
 			return MAPPER.readValue(json, TypeFactory.defaultInstance().constructCollectionType(List.class, valueType));
 		} catch (Exception ex) {
-			throw new RuntimeException(ex);
+			throw new RuntimeException(ex);  // NOPMD
 		}
 	}
 
@@ -82,7 +82,7 @@ public abstract class JSONUtil {
 
 			//return mapper.writeValueAsString(obj);
 		} catch (Exception ex) {
-			throw new RuntimeException(ex);
+			throw new RuntimeException(ex);  // NOPMD
 		}
 	}
 

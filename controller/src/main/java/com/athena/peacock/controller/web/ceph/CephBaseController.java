@@ -42,7 +42,7 @@ import org.springframework.web.client.RestClientException;
  * @author Sang-cheon Park
  * @version 1.0
  */
-public abstract class CephBaseController {
+public class CephBaseController {
 	
 	@Inject
 	@Named("cephService")

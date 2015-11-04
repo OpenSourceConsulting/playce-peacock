@@ -27,6 +27,7 @@ package com.athena.peacock.controller.web.common.json;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.JsonProcessingException;
@@ -48,7 +49,7 @@ public class CustomDateSerializer extends JsonSerializer<Date> {
 	public void serialize(Date value, JsonGenerator gen, SerializerProvider arg2)
 			throws IOException, JsonProcessingException {
 
-		SimpleDateFormat formatter = new SimpleDateFormat(XMLGregorialCalendarUtil.DEFAULT_DATE_PATTERN);
+		SimpleDateFormat formatter = new SimpleDateFormat(XMLGregorialCalendarUtil.DEFAULT_DATE_PATTERN, Locale.KOREA);
 		String formattedDate = formatter.format(value);
 
 		gen.writeString(formattedDate);

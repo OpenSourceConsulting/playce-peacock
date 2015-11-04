@@ -55,7 +55,7 @@ public class PeacockTransmitter {
 		if (handler.isConnected()) {
 			handler.sendMessage(datagram);
 		} else {
-			throw new Exception("Connection closed.");
+			throw new Exception("Connection closed.");  // NOPMD
 		}
 	}//end of sendMessage()
 

@@ -73,7 +73,7 @@ public class Starter {
 		try {
 			configFile = PropertyUtil.getProperty(PeacockConstant.CONFIG_FILE_KEY);
 		} catch (Exception e) {
-			// nothing to do.
+			LOGGER.error("Agent starting error", e);
 		} finally {
 			if (StringUtils.isEmpty(configFile)) {
 				configFile = "/peacock/agent/config/agent.conf";

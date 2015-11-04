@@ -395,7 +395,7 @@ public class RHEVMController {
             	File keyFile = new File(defaultPath + dto.getKeyFile().getOriginalFilename());
                 if (!keyFile.exists()) {
                     if (!keyFile.mkdirs()) {
-                        throw new Exception("Fail to create a directory for attached file [" + keyFile + "]");
+                        throw new Exception("Fail to create a directory for attached file [" + keyFile + "]");  // NOPMD
                     }
                 }
                 
@@ -516,6 +516,7 @@ public class RHEVMController {
 					peacockTransmitter.sendMessage(datagram);
 				} catch (Exception e) {
 					// ignore this exception
+					LOGGER.error("Peacock Error", e);
 					// Agent가 설치되지 않은 VM일 경우 에러가 발생할 수 있고, 이미 Agent가 종료되어 연결된 Channel이 없을 수 있다.
 				}
 			};
@@ -576,6 +577,7 @@ public class RHEVMController {
 					peacockTransmitter.sendMessage(datagram);
 				} catch (Exception e) {
 					// ignore this exception
+					LOGGER.error("Peacock Error", e);
 					// Agent가 설치되지 않은 VM일 경우 에러가 발생할 수 있고, 이미 Agent가 종료되어 연결된 Channel이 없을 수 있다.
 				}
 			};

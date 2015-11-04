@@ -109,7 +109,14 @@ public class LBListenerService {
 		
 		StringBuilder sb = new StringBuilder();
 		for (LBListenerDto lbListener : lbListenerList) {
-			sb.append("\n").append("listen").append("\t").append("listener-" + lbListener.getListenPort()).append(" :").append(lbListener.getListenPort()).append("\n");
+			sb.append("\n")
+			.append("listen")
+			.append("\t")
+			.append("listener-")
+			.append(lbListener.getListenPort())
+			.append(" :")
+			.append(lbListener.getListenPort())
+			.append("\n");
 
 			if (lbListener.getProtocol().toLowerCase().equals("tcp")) {
 				sb.append("\t").append("mode").append("\t").append("tcp").append("\n");

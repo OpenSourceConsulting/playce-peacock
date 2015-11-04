@@ -29,7 +29,6 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.athena.peacock.controller.web.common.dao.AbstractBaseDao;
-import com.athena.peacock.controller.web.config.ConfigDto;
 
 /**
  * <pre>

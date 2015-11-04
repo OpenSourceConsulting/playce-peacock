@@ -426,6 +426,7 @@ public class MachineService {
 						Thread.sleep(1000);
 					} catch (Exception e) {
 						// service network restart가 완료되기 전까지 변경된 IP로 ifconfig 명령을 실행할 수 없다.(JSchException)
+						LOGGER.error("Peacock Error", e);
 						// ignore...
 					}
 				}

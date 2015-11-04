@@ -29,7 +29,7 @@ package com.athena.peacock.controller.common.component;
  * @author Sang-cheon Park
  * @version 1.0
  */
-public abstract class HypervisorClient {
+public class HypervisorClient {
 
 	protected Integer hypervisorId;
 	protected String rhevmName;

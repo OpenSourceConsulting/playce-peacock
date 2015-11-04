@@ -93,7 +93,7 @@ public class RHEVMRestTemplate extends HypervisorClient {
 		try {
 			init();
 		} catch (Exception e) {
-			// ignore
+			LOGGER.error("Peacock Error", e);
 		}
 	}
 
@@ -294,7 +294,7 @@ public class RHEVMRestTemplate extends HypervisorClient {
 	 * @throws RestClientException
 	 * @throws Exception
 	 */
-	public synchronized <T> T submit(String api, HttpMethod method, Object body, String rootElementName, Class<T> clazz) throws RestClientException, Exception {
+	public <T> T submit(String api, HttpMethod method, Object body, String rootElementName, Class<T> clazz) throws RestClientException, Exception {
 		Assert.isTrue(StringUtils.isNotEmpty(api), "api must not be null");
 		Assert.notNull(clazz, "clazz must not be null.");
 		

@@ -50,7 +50,7 @@ public class PoolControllerTest extends BaseControllerTest {
 	@Test
     public void testPoolPgNum() throws Exception {
     	try {
-			mockMvc.perform(get("/ceph/pool/get/pool=rbd").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+			mockMvc.perform(get("/ceph/pool/set/pg_num").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 					.andDo(print())
 					.andExpect(status().isOk());
 		} catch (Exception e) {

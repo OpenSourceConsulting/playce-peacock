@@ -70,10 +70,6 @@ public class ConfigController {
 	private ConfigService configService;
 
 	@Inject
-	@Named("configRepoService")
-	private ConfigRepoService configRepoService;
-	
-	@Inject
 	@Named("softwareService")
 	private SoftwareService softwareService;
 

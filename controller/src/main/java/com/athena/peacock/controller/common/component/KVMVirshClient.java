@@ -56,7 +56,7 @@ public class KVMVirshClient extends HypervisorClient {
 		try {
 			init();
 		} catch (Exception e) {
-			// ignore
+			LOGGER.error("Peacock Error", e);
 		}
 	}
 	

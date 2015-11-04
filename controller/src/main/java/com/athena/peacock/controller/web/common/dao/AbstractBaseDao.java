@@ -34,7 +34,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @version
  * @see
  */
-public abstract class AbstractBaseDao {
+public class AbstractBaseDao {
 
 	/**
 	 * MySQL Client (MyBatis)

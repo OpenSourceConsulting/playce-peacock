@@ -68,6 +68,7 @@ public class PeacockKvmAuth extends ConnectAuth {
                     case VIR_CRED_NOECHOPROMPT:
                         response = password;
                         break;
+                    default:
                 }
                 if (response.equals("") && !c.defresult.equals("")) {
                     c.result = c.defresult;

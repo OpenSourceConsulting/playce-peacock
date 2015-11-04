@@ -69,12 +69,12 @@ public class ObjectStorageService {
 	 * @return
 	 * @throws Exception
 	 */
-	private synchronized AmazonS3Client getClient() throws Exception {
+	private AmazonS3Client getClient() throws Exception {
 		if (client == null) {
 			cephDto = cephService.selectCeph();
 			
 			if (cephDto == null) {
-				throw new Exception("Ceph cluster does not initiated yet.");
+				throw new Exception("Ceph cluster does not initiated yet.");  // NOPMD
 			}
 			
 			accessKey = cephDto.getS3AccessKey();
@@ -280,7 +280,7 @@ public class ObjectStorageService {
             } else {
                 break;
             }
-        };
+        }
         
         VersionListing list = getClient().listVersions(new ListVersionsRequest().withBucketName(dto.getBucketName()));
         for ( Iterator<?> iterator = list.getVersionSummaries().iterator(); iterator.hasNext(); ) {
@@ -494,7 +494,7 @@ public class ObjectStorageService {
 			
 			if (!file.exists()) {
 				if (!file.mkdirs()) {
-					throw new Exception("Fail to create a directory for attached file [" + file + "]");
+					throw new Exception("Fail to create a directory for attached file [" + file + "]");  // NOPMD
 				}
 			}
 

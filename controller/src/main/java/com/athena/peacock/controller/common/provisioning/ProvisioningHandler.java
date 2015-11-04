@@ -90,10 +90,6 @@ public class ProvisioningHandler {
 	private ConfigService configService;
 
 	@Inject
-	@Named("machineService")
-	private MachineService machineService;
-	
-	@Inject
 	@Named("cephService")
 	private CephService cephService;
 
@@ -126,7 +122,7 @@ public class ProvisioningHandler {
 		}
 	}
     
-	private void httpdInstall(ProvisioningDetail provisioningDetail) throws Exception {
+	private void httpdInstall(ProvisioningDetail provisioningDetail) throws Exception {  // NOPMD
 		ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
 		cmdMsg.setAgentId(provisioningDetail.getMachineId());
 		cmdMsg.setBlocking(true);
@@ -2630,7 +2626,7 @@ class InstallThread extends Thread {
 					}
 				}
 
-				sb.append(results.get(i) + "\n");
+				sb.append(results.get(i)).append("\n");
 			}
 			
 			software.setInstallStat("COMPLETED");
@@ -2701,7 +2697,7 @@ class UninstallThread extends Thread {
 			
 			for (int i = 0; i < results.size(); i++) {
 				if (commands.get(i) != null) {
-					sb.append("[Command] : " + commands.get(i) + "\n");
+					sb.append("[Command] : ").append(commands.get(i)).append("\n");
 				}
 
 				sb.append(results.get(i) + "\n");

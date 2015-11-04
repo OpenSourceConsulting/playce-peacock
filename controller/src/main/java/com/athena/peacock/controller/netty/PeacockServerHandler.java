@@ -504,6 +504,8 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 						}
 						
 						break;
+						
+					default:
 				}
 			}
 		}
@@ -580,7 +582,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
      * @return
      * @throws Exception 
      */
-    public ProvisioningResponseMessage sendMessage(PeacockDatagram<AbstractMessage> datagram) throws Exception {
+    public ProvisioningResponseMessage sendMessage(PeacockDatagram<AbstractMessage> datagram) throws Exception { // NOPMD
     	Channel channel = ChannelManagement.getChannel(datagram.getMessage().getAgentId());
     	boolean isBlocking = datagram.getMessage().isBlocking();
 
@@ -605,7 +607,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 			if (channel != null) {
 				channel.writeAndFlush(datagram);
 			} else {
-				throw new Exception("Channel is null.");
+				throw new Exception("Channel is null.");  // NOPMD
 			}
     		
     		return null;
@@ -655,7 +657,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
          * @param agentId
          * @param channel
          */
-    	synchronized static void registerChannel(String agentId, Channel channel) {
+    	synchronized static void registerChannel(String agentId, Channel channel) {  // NOPMD
         	LOGGER.debug("agentId({}) and channel({}) will be added to channelMap.", agentId, channel);
 
         	// 기존에 등록된 채널이 있을 경우 close한다.
@@ -673,7 +675,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
          * </pre>
          * @param agentId
          */
-        synchronized static void deregisterChannel(String agentId) {
+        synchronized static void deregisterChannel(String agentId) {  // NOPMD
         	LOGGER.debug("agentId({}) will be removed from channelMap.", agentId);
         	channelMap.remove(agentId);
         }//end of deregisterChannel()
@@ -684,7 +686,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
          * </pre>
          * @param channel
          */
-        synchronized static void deregisterChannel(Channel channel) {
+        synchronized static void deregisterChannel(Channel channel) {   // NOPMD
         	Iterator<Entry<String, Channel>> iter = channelMap.entrySet().iterator();
         	
         	Entry<String, Channel> entry = null;
@@ -728,7 +730,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 			try {
 				latch.await();
 			} catch (InterruptedException e) {
-				throw new RuntimeException(e);
+				throw new RuntimeException(e);  // NOPMD
 			}
 			return response;
 		}

@@ -107,7 +107,7 @@ public class DashboardService {
 		return status;
 	}
 
-	public synchronized void refreshDashboardInfo() throws Exception {
+	public void refreshDashboardInfo() throws Exception {
     	status = "GATHERING";
     	
     	try {
@@ -189,7 +189,7 @@ public class DashboardService {
 					instanceDto.setInstanceName(machine.getDisplayName());
 					instanceDto.setIpAddress(machine.getIpAddr());
 					
-					if (peacockTransmitter.isActive(machine.getMachineId()) == true) {
+					if (peacockTransmitter.isActive(machine.getMachineId())) {
 						agentRunningCnt++;
 						instanceDto.setAgentStatus("Running");
 					} else {

@@ -109,7 +109,7 @@ public class PeacockRestTemplate {
 	 * @throws RestClientException
 	 * @throws Exception
 	 */
-	public synchronized String submit(String uri, Object body, HttpMethod method, List<MediaType> acceptableMediaTypes, MediaType contentType) throws RestClientException, Exception {
+	public String submit(String uri, Object body, HttpMethod method, List<MediaType> acceptableMediaTypes, MediaType contentType) throws RestClientException, Exception {
 		Assert.isTrue(StringUtils.isNotEmpty(uri), "uri must not be null");
 		
 		try {
@@ -155,7 +155,7 @@ public class PeacockRestTemplate {
 		}
 	}//end of submit()
 	
-	public synchronized void calamariLogin(String uri, String username, String password) throws Exception {
+	public void calamariLogin(String uri, String username, String password) throws Exception {
 		Assert.isTrue(StringUtils.isNotEmpty(uri), "uri must not be null");
 		Assert.isTrue(StringUtils.isNotEmpty(username), "username must not be null");
 		Assert.isTrue(StringUtils.isNotEmpty(password), "password must not be null");

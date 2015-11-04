@@ -30,7 +30,6 @@ import org.springframework.stereotype.Repository;
 
 import com.athena.peacock.controller.web.common.dao.AbstractBaseDao;
 import com.athena.peacock.controller.web.machine.MachineDto;
-import com.athena.peacock.controller.web.software.SoftwareDto;
 
 /**
  * <pre>

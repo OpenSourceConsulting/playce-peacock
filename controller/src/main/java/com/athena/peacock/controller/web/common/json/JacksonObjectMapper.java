@@ -25,6 +25,7 @@
 package com.athena.peacock.controller.web.common.json;
 
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -52,7 +53,7 @@ public class JacksonObjectMapper extends ObjectMapper {
 		super.configure(Feature.WRITE_DATES_AS_TIMESTAMPS, false);
 		super.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-		setDateFormat(new SimpleDateFormat(XMLGregorialCalendarUtil.DEFAULT_DATE_PATTERN));
+		setDateFormat(new SimpleDateFormat(XMLGregorialCalendarUtil.DEFAULT_DATE_PATTERN, Locale.KOREA));
 	}
 
 }

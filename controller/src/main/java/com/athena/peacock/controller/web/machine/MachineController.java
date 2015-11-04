@@ -107,7 +107,7 @@ public class MachineController {
 		
 		List<MachineDto> machineList = machineService.getMachineList(machine);
 		for (MachineDto m : machineList) {
-			m.setStatus(peacockTransmitter.isActive(m.getMachineId()) == true ? "Running" : "Down");
+			m.setStatus(peacockTransmitter.isActive(m.getMachineId()) ? "Running" : "Down");
 		}
 		
 		jsonRes.setList(machineList);
@@ -187,7 +187,7 @@ public class MachineController {
             	File keyFile = new File(defaultPath + machine.getKeyFile().getOriginalFilename());
                 if (!keyFile.exists()) {
                     if (!keyFile.mkdirs()) {
-                        throw new Exception("Fail to create a directory for attached file [" + keyFile + "]");
+                        throw new Exception("Fail to create a directory for attached file [" + keyFile + "]");  // NOPMD
                     }
                 }
                 

@@ -48,7 +48,7 @@ public final class PeacockAgentIDGenerator {
 			//hardware = MacAddressUtil.getMacAddressList().get(0);
 			hardware = MacAddressUtil.getMacAddress("eth0");
 		} catch (Exception e) {
-			// ignore..
+			e.printStackTrace();
 		}
 		
 		if (hardware != null && hardware.length() == 12) {

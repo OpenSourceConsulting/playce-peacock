@@ -72,9 +72,6 @@ public class PeacockServer implements InitializingBean, ApplicationContextAware 
     @Named("peacockServerInitializer")
     private PeacockServerInitializer initializer;
 
-    @Inject
-    @Named("peacockServerHandler")
-    private PeacockServerHandler handler;
     
     private Channel channel;
 	

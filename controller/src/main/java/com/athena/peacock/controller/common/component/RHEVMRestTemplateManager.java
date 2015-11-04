@@ -90,7 +90,7 @@ public class RHEVMRestTemplateManager implements InitializingBean {
 	 * </pre>
 	 * @param hypervisorList
 	 */
-	public synchronized static void resetRHEVMRestTemplate(List<HypervisorDto> hypervisorList) {
+	public static void resetRHEVMRestTemplate(List<HypervisorDto> hypervisorList) {
 		Map<Integer, RHEVMRestTemplate> newTemplates = new ConcurrentHashMap<Integer, RHEVMRestTemplate>();
 		
 		for (HypervisorDto hypervisor : hypervisorList) {
@@ -129,7 +129,7 @@ public class RHEVMRestTemplateManager implements InitializingBean {
 	 * </pre>
 	 * @param hypervisor
 	 */
-	public synchronized static void setRHEVMRestTemplate(HypervisorDto hypervisor) {
+	public static void setRHEVMRestTemplate(HypervisorDto hypervisor) {
 		RHEVMRestTemplate template = new RHEVMRestTemplate(hypervisor.getRhevmProtocol(), hypervisor.getRhevmHost(), hypervisor.getRhevmDomain(), 
 				hypervisor.getRhevmPort(), hypervisor.getRhevmUsername(), hypervisor.getRhevmPassword());
 		
@@ -162,7 +162,7 @@ public class RHEVMRestTemplateManager implements InitializingBean {
 	 * </pre>
 	 * @param hypervisorId
 	 */
-	public synchronized static void removeRHEVMRestTemplate(int hypervisorId) {
+	public static void removeRHEVMRestTemplate(int hypervisorId) {
 		templates.remove(hypervisorId);
 	}//end of removeRHEVMRestTemplate()
 	

@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -236,7 +237,7 @@ public class XMLGregorialCalendarUtil {
             throw new ParseException("Invalid second.", ss);
         }
         
-        return new SimpleDateFormat(DEFAULT_DATE_PATTERN).parse(date);
+        return new SimpleDateFormat(DEFAULT_DATE_PATTERN, Locale.KOREA).parse(date);
     }//end of getDate()
     
     /**

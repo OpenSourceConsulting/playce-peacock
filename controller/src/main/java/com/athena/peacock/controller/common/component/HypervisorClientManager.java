@@ -91,7 +91,7 @@ public class HypervisorClientManager implements InitializingBean {
 	 * </pre>
 	 * @param hypervisorList
 	 */
-	public synchronized static void resetHypervisorClient(List<HypervisorDto> hypervisorList) {
+	public static void resetHypervisorClient(List<HypervisorDto> hypervisorList) {
 		Map<Integer, HypervisorClient> newClients = new ConcurrentHashMap<Integer, HypervisorClient>();
 		
 		for (HypervisorDto hypervisor : hypervisorList) {
@@ -140,7 +140,7 @@ public class HypervisorClientManager implements InitializingBean {
 	 * </pre>
 	 * @param hypervisor
 	 */
-	public synchronized static void setHypervisorClient(HypervisorDto hypervisor) {
+	public static void setHypervisorClient(HypervisorDto hypervisor) {
 		if (hypervisor.getHypervisorType().toUpperCase().startsWith("RHEV")) {
 			RHEVMRestTemplate client = new RHEVMRestTemplate(hypervisor.getRhevmProtocol(), hypervisor.getRhevmHost(), hypervisor.getRhevmDomain(), 
 					hypervisor.getRhevmPort(), hypervisor.getRhevmUsername(), hypervisor.getRhevmPassword());
@@ -183,7 +183,7 @@ public class HypervisorClientManager implements InitializingBean {
 	 * </pre>
 	 * @param hypervisorId
 	 */
-	public synchronized static void removeHypervisorClient(int hypervisorId) {
+	public static void removeHypervisorClient(int hypervisorId) {
 		clients.remove(hypervisorId);
 	}//end of removeHypervisorClient()
 	

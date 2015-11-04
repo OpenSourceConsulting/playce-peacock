@@ -23,6 +23,7 @@
 package com.athena.peacock.controller.web;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -66,6 +67,11 @@ public class BaseControllerTest {
         Authentication auth = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
         SecurityContext securityContext = SecurityContextHolder.getContext();
         securityContext.setAuthentication(auth);
+    }
+    
+    @Test
+    public void test() {
+    	
     }
 }
 //end of BaseControllerTest.java
