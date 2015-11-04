@@ -112,7 +112,7 @@ public class InspectMachineStatusJob extends BaseJob {
 					AutoScalingStatus.addStatus(autoScaling.getAutoScalingId(), decreaseSize);
 					
 					for (AutoScalingDto as : autoScalingList) {
-						if (as.getAutoScalingId() == autoScaling.getAutoScalingId()) {
+						if (as.getAutoScalingId().equals(autoScaling.getAutoScalingId())) {
 							if (decreaseSize-- > 0) {
 								new ScaleInThread(as).start();
 							} else {

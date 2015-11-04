@@ -107,6 +107,10 @@ public class Starter {
 			}
 		}
 		
+		if (StringUtils.isEmpty(agentFile)) {
+			agentFile = "/peacock/agent/.agent";
+		}
+		
 		File file = new File(agentFile);
 		boolean isNew = false;
 		

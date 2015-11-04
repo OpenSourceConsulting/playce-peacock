@@ -23,6 +23,7 @@
 package com.athena.peacock.controller.web.kvm;
 
 import java.io.ByteArrayInputStream;
+import java.util.Arrays;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
@@ -265,8 +266,8 @@ public class LibvirtTest {
             LOGGER.info("virDomainGetMaxVcpus:" + domain.getMaxVcpus());
             LOGGER.info("virDomainGetName:" + domain.getName());
             LOGGER.info("virDomainGetOSType:" + domain.getOSType());
-            LOGGER.info("virDomainGetSchedulerType:" + domain.getSchedulerType());
-            LOGGER.info("virDomainGetSchedulerParameters:" + domain.getSchedulerParameters());
+            LOGGER.info("virDomainGetSchedulerType:" + Arrays.toString(domain.getSchedulerType()));
+            LOGGER.info("virDomainGetSchedulerParameters:" + Arrays.toString(domain.getSchedulerParameters()));
             //*/
             
             getInterfaces(domain);

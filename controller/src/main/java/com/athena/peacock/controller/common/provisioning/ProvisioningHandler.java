@@ -725,13 +725,13 @@ public class ProvisioningHandler {
 		String[] maxIdle = provisioningDetail.getMaxIdle();
 		String[] maxActive = provisioningDetail.getMaxActive();
 		
-		LOGGER.debug("databaseType : " + databaseType);
-		LOGGER.debug("jndiName : " + jndiName);
-		LOGGER.debug("connectionUrl : " + connectionUrl);
-		LOGGER.debug("userName : " + userName);
-		LOGGER.debug("password : " + password);
-		LOGGER.debug("maxIdle : " + maxIdle);
-		LOGGER.debug("maxActive : " + maxActive);
+//		LOGGER.debug("databaseType : " + databaseType);
+//		LOGGER.debug("jndiName : " + jndiName);
+//		LOGGER.debug("connectionUrl : " + connectionUrl);
+//		LOGGER.debug("userName : " + userName);
+//		LOGGER.debug("password : " + password);
+//		LOGGER.debug("maxIdle : " + maxIdle);
+//		LOGGER.debug("maxActive : " + maxActive);
 		
 		Command command = new Command("Tomcat INSTALL");
 		ShellAction s_action = null;
@@ -1130,13 +1130,13 @@ public class ProvisioningHandler {
 		String[] minPoolSize = provisioningDetail.getMinPoolSize();
 		String[] maxPoolSize = provisioningDetail.getMaxPoolSize();
 
-		LOGGER.debug("databaseType : " + databaseType);
-		LOGGER.debug("jndiName : " + jndiName);
-		LOGGER.debug("connectionUrl : " + connectionUrl);
-		LOGGER.debug("userName : " + userName);
-		LOGGER.debug("password : " + password);
-		LOGGER.debug("minPoolSize : " + minPoolSize);
-		LOGGER.debug("maxPoolSize : " + maxPoolSize);
+//		LOGGER.debug("databaseType : " + databaseType);
+//		LOGGER.debug("jndiName : " + jndiName);
+//		LOGGER.debug("connectionUrl : " + connectionUrl);
+//		LOGGER.debug("userName : " + userName);
+//		LOGGER.debug("password : " + password);
+//		LOGGER.debug("minPoolSize : " + minPoolSize);
+//		LOGGER.debug("maxPoolSize : " + maxPoolSize);
 		
 		Command command = new Command("JBoss INSTALL");
 		int sequence = 0;

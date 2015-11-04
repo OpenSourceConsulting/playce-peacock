@@ -178,6 +178,10 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 					}
 				}
 				
+				if (StringUtils.isEmpty(agentFile)) {
+				    agentFile = "/peacock/agent/.agent";
+				}
+				
 				File file = new File(agentFile);
 				boolean isNew = false;
 				
@@ -223,6 +227,10 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 							if (StringUtils.isEmpty(packageFile)) {
 								packageFile = "/peacock/agent/config/package.log";
 							}
+						}
+						
+						if (StringUtils.isEmpty(packageFile)) {
+							packageFile = "/peacock/agent/config/package.log";
 						}
 						
 						file = new File(packageFile);

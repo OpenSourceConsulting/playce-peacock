@@ -90,7 +90,8 @@ public class AutoScalingService {
 		// Auto Scaling 설정 중 Load Balancer가 기존과 다른지 확인
 		LoadBalancerDto loadBalancer = loadBalancerDao.getLoadBalancerByAutoScalingId(autoScaling.getAutoScalingId());
 		
-		if (loadBalancer.getLoadBalancerId() != autoScaling.getLoadBalancerId()) {
+		//if (loadBalancer.getLoadBalancerId() != autoScaling.getLoadBalancerId()) {  // Change due to findbug
+		if (!loadBalancer.getLoadBalancerId().equals(autoScaling.getLoadBalancerId())) {
 			// Load Balancer가 기존과 다른 경우 기존 Load Balancer에 매핑되어 있는 auto scaling id를 삭제하고
 			// 새로운 Load Balancer에 auto_scaling_id 값을 세팅한다.
 			loadBalancer.setAutoScalingId(null);

@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,12 +68,14 @@ public class PropertyUtil {
 					}
 				});
 	        	
-	            for(File f : files) {
-	            	prop = new Properties();
-	            	prop.load(new BufferedInputStream(new FileInputStream(f)));
-	            	
-	            	properties = (Properties[])ArrayUtils.add(properties, prop);
-	            }
+	        	if( files != null) {
+		            for(File f : files) {
+		            	prop = new Properties();
+		            	prop.load(new BufferedInputStream(new FileInputStream(f)));
+		            	
+		            	properties = (Properties[])ArrayUtils.add(properties, prop);
+		            }
+	        	}
         	} else {
         		// jar 배포 환경에서 java -jar로 agent를 실행할 경우..
             	prop = new Properties();
