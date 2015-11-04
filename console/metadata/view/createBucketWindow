@@ -86,7 +86,9 @@
                                         "maskRe": "/[a-z0-9_\\-]/",
                                         "maxLength": 32,
                                         "minLength": null,
-                                        "name": "bucketName"
+                                        "name": "bucketName",
+                                        "regex": "/[a-z0-9_\\-]/",
+                                        "style": null
                                     },
                                     "designerId": "8a8103d3-e43b-4cad-abcc-ef5437aaab58"
                                 }

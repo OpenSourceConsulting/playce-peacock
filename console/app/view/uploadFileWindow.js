@@ -65,6 +65,7 @@ Ext.define('MyApp.view.uploadFileWindow', {
                                             labelAlign: 'right',
                                             labelWidth: 68,
                                             name: 'file',
+                                            allowBlank: false,
                                             enforceMaxLength: false
                                         },
                                         {
@@ -109,6 +110,7 @@ Ext.define('MyApp.view.uploadFileWindow', {
                                         if(myForm.isValid()){
                                             myForm.getForm().submit({
                                                 url: GLOBAL.urlPrefix + "ceph/object/object",
+                                                method: 'POST',
                                                 waitMsg : 'Uploading file...',
                                                 success: function(fp, res){
                                                     var data = Ext.decode(res.response.responseText);
@@ -133,6 +135,8 @@ Ext.define('MyApp.view.uploadFileWindow', {
                                                     myForm.up('window').close();
                                                 }
                                             });
+                                        } else {
+                                            Ext.MessageBox.alert('알림', '유효한 파일을 선택하세요.');
                                         }
 
                                     },

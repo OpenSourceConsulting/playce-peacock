@@ -177,28 +177,37 @@ public class MonController extends CephBaseController  {
 	public @ResponseBody SimpleJsonResponse add(SimpleJsonResponse jsonRes, @QueryParam("host") String host, @QueryParam("user") String user, @QueryParam("password") String password, @QueryParam("mgmt") String mgmt) throws Exception {
 		try {
 			sshCopyId(host, user, password);
-	        Object response = execute("/usr/bin/ceph-deploy install --repo --release=hammer" + host);
+
+	        Object response = execute("/usr/bin/ceph-deploy install --repo --release=hammer " + host);
 	        
 	        if (((String) response).indexOf("ERROR") > -1) {
-	        	throw new Exception("Mon repo failed.");  // NOPMD
+	        	throw new Exception("Mon repo failed.");
 	        }
-	        
-	        response = execute("/usr/bin/ceph-deploy install --mon" + host);
+        
+	        response = execute("/usr/bin/ceph-deploy install --mon " + host);
 	        
 	        if (((String) response).indexOf("ERROR") > -1) {
-	        	throw new Exception("Mon install failed.");  // NOPMD
+	        	throw new Exception("Mon install failed.");
 	        }
-	        
-	        response = execute("/usr/bin/ceph-deploy mon add" + host);
-	        
-	        if (((String) response).indexOf("ERROR") > -1) {
-	        	throw new Exception("Mon Add failed.");  // NOPMD
-	        }     
-	        response = execute("/usr/bin/ceph-deploy calamari connect --master" + mgmt + host);
+
+	        response = execute("cd /etc/ceph && cd /etc/ceph && /usr/bin/ceph-deploy --overwrite-conf --ceph-conf /etc/ceph/ceph.conf admin " + host);
 	        
 	        if (((String) response).indexOf("ERROR") > -1) {
-	        	throw new Exception("Calamari Add failed.");  // NOPMD
+	        	throw new Exception("Ceph.conf Copy failed.");
+	        }
+
+	        response = execute("cd /etc/ceph && cd /etc/ceph && /usr/bin/ceph-deploy mon add " + host);
+	        
+	        if (((String) response).indexOf("ERROR") > -1) {
+	        	throw new Exception("Mon Add failed.");
+	        }
+
+	        response = execute("cd /etc/ceph && cd /etc/ceph && /usr/bin/ceph-deploy calamari connect --master " + mgmt + " " + host);
+	        
+	        if (((String) response).indexOf("ERROR") > -1) {
+	        	throw new Exception("Calamari Add failed.");
 	        }     
+	        
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
 			jsonRes.setMsg("Mon이 정상적으로 추가 되었습니다.");

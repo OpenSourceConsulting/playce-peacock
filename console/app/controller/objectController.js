@@ -117,17 +117,20 @@ Ext.define('MyApp.controller.objectController', {
         objectConstants.me.setFilesMenuEnable(record);
 
         var key = record.get('key');
+        var isFolder = record.get('folder');
         var folder = objectConstants.currentFolder;
-        var params = Ext.Object.toQueryString({key:key});
 
         Ext.Ajax.request({
         //    url: GLOBAL.urlPrefix + 'ceph/object/object?bucketName='+objectConstants.currentBucket + '&key='+key,
-            url: GLOBAL.urlPrefix + 'ceph/object/object?bucketName='+objectConstants.currentBucket + '&' + params,
+            url: GLOBAL.urlPrefix + 'ceph/object/object/detail',
+            method: 'POST',
+            params: {'bucketName':objectConstants.currentBucket, 'key':key},
             disableCaching : true,
             success: function(response){
                 var data = Ext.decode(response.responseText);
 
                 if ((objectConstants.currentBucket == data.data.bucketName) && (objectConstants.currentFolder == folder)) {
+                    data.data.folder = isFolder;
                     Ext.getCmp("objectFilesDetail1").update(data.data);
                     Ext.getCmp("objectFilesDetail2").update(data.data.acl.grantsAsList);
 
@@ -219,6 +222,7 @@ Ext.define('MyApp.controller.objectController', {
 
         var myForm = Ext.getCmp("createBucketFormPanel");
         if (myForm.getForm().isValid() !== true) {
+            Ext.MessageBox.alert('알림', '유효하지 않은 입력값이 존재합니다.');
             return;
         }
 
@@ -511,20 +515,18 @@ Ext.define('MyApp.controller.objectController', {
                             var key = recs.get('key');
 
                             Ext.Ajax.request({
-                                url: GLOBAL.urlPrefix + 'ceph/object/object?bucketName='+objectConstants.currentBucket + '&key='+key,
+                                //url: GLOBAL.urlPrefix + 'ceph/object/object?bucketName='+objectConstants.currentBucket + '&key='+key,
+                                url: GLOBAL.urlPrefix + 'ceph/object/object/detail',
+                                method: 'POST',
+                                params: {'bucketName':objectConstants.currentBucket, 'key':key},
                                 disableCaching : true,
                                 success: function(response){
                                     var data = Ext.decode(response.responseText);
 
-                                    Ext.DomHelper.append(document.body, {
-                                        tag: 'iframe',
-                                        id : 'downloadIframe' + idx,
-                                        frameBorder: 0,
-                                        width: 0,
-                                        height: 0,
-                                        css: 'display:none;visibility:hidden;height:0px;',
-                                        src: data.data.url
-                                    });
+                                    var link = document.createElement('a');
+                                    link.download = data.data.key;
+                                    link.href = data.data.url;
+                                    link.click();
                                 }
                             });
                         }
@@ -540,6 +542,7 @@ Ext.define('MyApp.controller.objectController', {
 
         var myForm = Ext.getCmp("createFolderFormPanel");
         if (myForm.getForm().isValid() !== true) {
+            Ext.MessageBox.alert('알림', '유효하지 않은 입력값이 존재합니다.');
             return;
         }
 
@@ -592,11 +595,6 @@ Ext.define('MyApp.controller.objectController', {
     },
 
     makepublicObjectFile: function() {
-        var selections = Ext.getCmp('objectFilesGrid').selModel.getSelection();
-        Ext.each(selections, function(recs){
-            //Ext.getCmp('objectFilesGrid').getStore().remove(recs);
-        });
-
         var bucketName = objectConstants.currentBucket;
         var key = '';
         var permission = 'public-read-write';  //private | public-read | public-read-write | authenticated-read | bucket-owner-read | bucket-owner-full-control
@@ -641,11 +639,6 @@ Ext.define('MyApp.controller.objectController', {
     },
 
     makeprotectedObjectFile: function() {
-        var selections = Ext.getCmp('objectFilesGrid').selModel.getSelection();
-        Ext.each(selections, function(recs){
-            //Ext.getCmp('objectFilesGrid').getStore().remove(recs);
-        });
-
         var bucketName = objectConstants.currentBucket;
         var key = '';
         var permission = 'private';  //private | public-read | public-read-write | authenticated-read | bucket-owner-read | bucket-owner-full-control
@@ -697,6 +690,7 @@ Ext.define('MyApp.controller.objectController', {
 
         var myForm = Ext.getCmp("renameFileFormPanel");
         if (myForm.getForm().isValid() !== true) {
+            Ext.MessageBox.alert('알림', '유효하지 않은 입력값이 존재합니다.');
             return;
         }
 
@@ -774,10 +768,12 @@ Ext.define('MyApp.controller.objectController', {
                         key = recs.get('key');
                         isFolder = recs.get('folder');
 
-                        pars = 'bucketName=' + bucketName + '&' + 'key=' + key + '&' + 'isFolder=' + isFolder;
-
+        //                pars = 'bucketName=' + bucketName + '&' + 'key=' + key + '&' + 'isFolder=' + isFolder;
                         Ext.Ajax.request({
-                            url: GLOBAL.urlPrefix + "ceph/object/object/delete?" + pars,
+        //                    url: GLOBAL.urlPrefix + "ceph/object/object/delete?" + pars,
+                            url: GLOBAL.urlPrefix + "ceph/object/object/delete",
+                            method: 'POST',
+                            params: {'bucketName':bucketName, 'key':key, 'isFolder':isFolder},
                             success: function(response){
                                 var data = Ext.decode(response.responseText);
                                 objectConstants.me.setObjectFilesData();

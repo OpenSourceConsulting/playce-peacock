@@ -83,7 +83,8 @@
                                         "layout|anchor": "100%",
                                         "maskRe": "/[a-z0-9_\\-]/",
                                         "maxLength": 32,
-                                        "name": "osdAddHost"
+                                        "name": "osdAddHost",
+                                        "regex": "/[a-z0-9_\\-]/"
                                     },
                                     "designerId": "1cda89e4-f700-4053-8041-b6161a7b6773"
                                 },
@@ -106,7 +107,8 @@
                                         "layout|anchor": "100%",
                                         "maskRe": "/[a-zA-Z0-9_\\-\\/\\.]/",
                                         "maxLength": 80,
-                                        "name": "osdAddPath"
+                                        "name": "osdAddPath",
+                                        "regex": "/[a-zA-Z0-9_\\-\\/\\.]/"
                                     },
                                     "designerId": "9622680d-bb2a-48cc-9f3a-8305556132f3"
                                 }

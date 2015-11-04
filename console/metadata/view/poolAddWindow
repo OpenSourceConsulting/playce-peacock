@@ -83,7 +83,8 @@
                                         "layout|anchor": "100%",
                                         "maskRe": "/[a-z0-9_\\-]/",
                                         "maxLength": 32,
-                                        "name": "poolAddName"
+                                        "name": "poolAddName",
+                                        "regex": "/[a-z0-9_\\-]/"
                                     },
                                     "designerId": "e5049a16-b465-453c-8128-e9fc1f6e980a"
                                 },

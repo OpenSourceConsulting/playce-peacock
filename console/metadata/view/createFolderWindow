@@ -86,7 +86,8 @@
                                         "maskRe": "/[a-z0-9_\\-]/",
                                         "maxLength": 32,
                                         "minLength": null,
-                                        "name": "objectName"
+                                        "name": "objectName",
+                                        "regex": "/[a-z0-9_\\-]/"
                                     },
                                     "designerId": "2b922b14-d147-4502-8f25-26b260c25868"
                                 },

@@ -312,7 +312,7 @@ Ext.define('MyApp.view.objectFilesContainer', {
                                     border: 1,
                                     id: 'objectFilesDetail1',
                                     itemId: 'objectFilesDetail1',
-                                    tpl: [
+                                    tpl: Ext.create('Ext.XTemplate', 
                                         '<table border=0 width=100%>',
                                         '<tr>',
                                         '<td align=right width=120>',
@@ -334,12 +334,21 @@ Ext.define('MyApp.view.objectFilesContainer', {
                                         '</tr>',
                                         '</table>',
                                         '<br>',
-                                        'Link > <a href=\'{url}\'>Download</a><br>',
+                                        '<tpl if="this.isTrue(folder)">',
+                                        'Link > <br>',
+                                        '<tpl else>',
+                                        'Link > <a href=\'{url}\' download=\'{url}\'>Download</a><br>',
+                                        '</tpl>',
                                         '<div border=0 width=100%>',
                                         '{url}<br>',
                                         '</div>',
-                                        ''
-                                    ],
+                                        '',
+                                        {
+                                            isTrue: function(vars) {
+                                                return (vars === true);
+                                            }
+                                        }
+                                    ),
                                     autoScroll: true,
                                     layout: 'border',
                                     bodyPadding: 10,

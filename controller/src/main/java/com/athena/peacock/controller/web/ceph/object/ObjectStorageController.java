@@ -253,7 +253,7 @@ public class ObjectStorageController{
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/object", method={ RequestMethod.GET })
+	@RequestMapping(value="/object/detail")
 	public @ResponseBody DtoJsonResponse getObjectAcl(DtoJsonResponse jsonRes, ObjectDto dto) throws Exception {
 		try {
 			dto = objectStorageService.getObjectDetail(dto);

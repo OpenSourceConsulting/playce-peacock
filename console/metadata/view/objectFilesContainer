@@ -671,14 +671,38 @@
                                             "</tr>",
                                             "</table>",
                                             "<br>",
-                                            "Link > <a href='{url}'>Download</a><br>",
+                                            "<tpl if=\"this.isTrue(folder)\">",
+                                            "Link > <br>",
+                                            "<tpl else>",
+                                            "Link > <a href='{url}' download='{url}'>Download</a><br>",
+                                            "</tpl>",
                                             "<div border=0 width=100%>",
                                             "{url}<br>",
                                             "</div>",
                                             ""
                                         ]
                                     },
-                                    "designerId": "47da471b-c8ee-4001-8300-3b299258354c"
+                                    "designerId": "47da471b-c8ee-4001-8300-3b299258354c",
+                                    "cn": [
+                                        {
+                                            "type": "templatefunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "vars"
+                                                ],
+                                                "fn": "isTrue",
+                                                "implHandler": [
+                                                    "return (vars === true);"
+                                                ]
+                                            },
+                                            "designerId": "baa332ef-df59-493e-b8ba-dde482cde803"
+                                        }
+                                    ]
                                 }
                             ]
                         },

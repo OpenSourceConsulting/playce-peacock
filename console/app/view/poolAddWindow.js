@@ -69,7 +69,8 @@ Ext.define('MyApp.view.poolAddWindow', {
                                             allowOnlyWhitespace: false,
                                             enforceMaxLength: true,
                                             maskRe: /[a-z0-9_\-]/,
-                                            maxLength: 32
+                                            maxLength: 32,
+                                            regex: /[a-z0-9_\-]/
                                         },
                                         {
                                             xtype: 'numberfield',

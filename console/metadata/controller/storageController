@@ -442,6 +442,7 @@
                     "",
                     "var myForm = Ext.getCmp(\"monAddFormPanel\");",
                     "if (myForm.getForm().isValid() !== true) {",
+                    "    Ext.MessageBox.alert('알림', '유효하지 않은 입력값이 존재합니다.');",
                     "    return;",
                     "}",
                     "",
@@ -508,6 +509,7 @@
                     "",
                     "var myForm = Ext.getCmp(\"osdAddFormPanel\");",
                     "if (myForm.getForm().isValid() !== true) {",
+                    "    Ext.MessageBox.alert('알림', '유효하지 않은 입력값이 존재합니다.');",
                     "    return;",
                     "}",
                     "",
@@ -558,6 +560,7 @@
                     "",
                     "var myForm = Ext.getCmp(\"poolAddFormPanel\");",
                     "if (myForm.getForm().isValid() !== true) {",
+                    "    Ext.MessageBox.alert('알림', '유효하지 않은 입력값이 존재합니다.');",
                     "    return;",
                     "}",
                     "",
@@ -1396,7 +1399,7 @@
                     "storageConstants.selectRow = record;",
                     "storageConstants.selectIndex = index;",
                     "",
-                    "storageConstants.monContextMenu.showAt(position);"
+                    "//storageConstants.monContextMenu.showAt(position);"
                 ],
                 "name": "beforeitemcontextmenu",
                 "scope": "me"

@@ -83,7 +83,8 @@
                                         "layout|anchor": "100%",
                                         "maskRe": "/[a-z0-9_\\-]/",
                                         "maxLength": 32,
-                                        "name": "monAddHost"
+                                        "name": "monAddHost",
+                                        "regex": "/[a-z0-9_\\-]/"
                                     },
                                     "designerId": "65dc0d3c-7d13-43f4-8edb-581d99fc4544"
                                 },
@@ -106,7 +107,8 @@
                                         "layout|anchor": "100%",
                                         "maskRe": "/[a-zA-Z0-9_\\-]/",
                                         "maxLength": 32,
-                                        "name": "monAddUser"
+                                        "name": "monAddUser",
+                                        "regex": "/[a-zA-Z0-9_\\-]/"
                                     },
                                     "designerId": "6fed7c3c-2d84-4fcf-928e-77c420853317"
                                 },

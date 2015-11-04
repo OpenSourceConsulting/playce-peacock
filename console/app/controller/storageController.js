@@ -157,7 +157,7 @@ Ext.define('MyApp.controller.storageController', {
         storageConstants.selectRow = record;
         storageConstants.selectIndex = index;
 
-        storageConstants.monContextMenu.showAt(position);
+        //storageConstants.monContextMenu.showAt(position);
     },
 
     onOsdGridpanelBeforeItemContextMenu: function(dataview, record, item, index, e, eOpts) {
@@ -448,6 +448,7 @@ Ext.define('MyApp.controller.storageController', {
 
         var myForm = Ext.getCmp("monAddFormPanel");
         if (myForm.getForm().isValid() !== true) {
+            Ext.MessageBox.alert('알림', '유효하지 않은 입력값이 존재합니다.');
             return;
         }
 
@@ -503,6 +504,7 @@ Ext.define('MyApp.controller.storageController', {
 
         var myForm = Ext.getCmp("osdAddFormPanel");
         if (myForm.getForm().isValid() !== true) {
+            Ext.MessageBox.alert('알림', '유효하지 않은 입력값이 존재합니다.');
             return;
         }
 
@@ -542,6 +544,7 @@ Ext.define('MyApp.controller.storageController', {
 
         var myForm = Ext.getCmp("poolAddFormPanel");
         if (myForm.getForm().isValid() !== true) {
+            Ext.MessageBox.alert('알림', '유효하지 않은 입력값이 존재합니다.');
             return;
         }
 

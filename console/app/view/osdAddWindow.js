@@ -68,7 +68,8 @@ Ext.define('MyApp.view.osdAddWindow', {
                                             allowOnlyWhitespace: false,
                                             enforceMaxLength: true,
                                             maskRe: /[a-z0-9_\-]/,
-                                            maxLength: 32
+                                            maxLength: 32,
+                                            regex: /[a-z0-9_\-]/
                                         },
                                         {
                                             xtype: 'textfield',
@@ -83,7 +84,8 @@ Ext.define('MyApp.view.osdAddWindow', {
                                             allowOnlyWhitespace: false,
                                             enforceMaxLength: true,
                                             maskRe: /[a-zA-Z0-9_\-\/\.]/,
-                                            maxLength: 80
+                                            maxLength: 80,
+                                            regex: /[a-zA-Z0-9_\-\/\.]/
                                         }
                                     ]
                                 }
