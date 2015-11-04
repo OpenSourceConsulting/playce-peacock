@@ -46,7 +46,7 @@ import org.slf4j.LoggerFactory;
  */
 public class FileWriteAction extends Action {
 
-	private static final Logger logger = LoggerFactory.getLogger(FileWriteAction.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(FileWriteAction.class);
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -131,10 +131,10 @@ public class FileWriteAction extends Action {
 			
 			result += " saved.\n";
 		} catch (FileNotFoundException e) {
-			logger.error("FileNotFoundException has occurred. : ", e);
+			LOGGER.error("FileNotFoundException has occurred. : ", e);
 			result += " does not saved.\n";
 		} catch (IOException e) {
-			logger.error("IOException has occurred. : ", e);
+			LOGGER.error("IOException has occurred. : ", e);
 			result += " does not saved.\n";
 		}
 		

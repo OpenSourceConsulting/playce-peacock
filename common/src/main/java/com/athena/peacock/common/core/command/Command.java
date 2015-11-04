@@ -46,7 +46,7 @@ public class Command implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	private static final Logger logger = LoggerFactory.getLogger(Command.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(Command.class);
 	
 	private String name;
 	private List<Action> actions;
@@ -80,7 +80,7 @@ public class Command implements Serializable {
     public void execute(ProvisioningResponseMessage response) {
     	String result = null;
         for (Action action : actions) {
-        	logger.debug("[{}] will be start.", action.getClass().getCanonicalName());
+        	LOGGER.debug("[{}] will be start.", action.getClass().getCanonicalName());
         	
         	result = action.perform();
         	
@@ -94,7 +94,7 @@ public class Command implements Serializable {
         		}
         	}
             
-        	logger.debug("[{}] has done.", action.getClass().getCanonicalName());
+        	LOGGER.debug("[{}] has done.", action.getClass().getCanonicalName());
         }
     }
 }

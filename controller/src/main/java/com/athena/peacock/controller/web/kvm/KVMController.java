@@ -66,7 +66,7 @@ import com.athena.peacock.controller.web.user.UserDto;
 @RequestMapping("/kvm")
 public class KVMController {
 
-    protected final Logger logger = LoggerFactory.getLogger(KVMController.class);
+    protected final Logger LOGGER = LoggerFactory.getLogger(KVMController.class);
     
 	@Inject
 	@Named("kvmService")
@@ -108,7 +108,7 @@ public class KVMController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("VM 목록 조회 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -135,7 +135,7 @@ public class KVMController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("VM 정보 조회 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -162,7 +162,7 @@ public class KVMController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("VM의 네트워크 정보 조회 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -189,7 +189,7 @@ public class KVMController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("VM의 디스크 정보 조회 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -270,7 +270,7 @@ public class KVMController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("VM 생성 요청 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -297,7 +297,7 @@ public class KVMController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("VM 시작 요청 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -357,7 +357,7 @@ public class KVMController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("VM 중지 요청 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -417,7 +417,7 @@ public class KVMController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("VM 종료 요청 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -448,7 +448,7 @@ public class KVMController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("VM 삭제 요청 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -476,7 +476,7 @@ public class KVMController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("VM Export 요청 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		*/
 		return jsonRes;
@@ -503,7 +503,7 @@ public class KVMController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("VM을 이용한 템플릿 생성 요청 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -563,7 +563,7 @@ public class KVMController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("템플릿 목록 조회 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -592,7 +592,7 @@ public class KVMController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("템플릿 정보 조회 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -621,7 +621,7 @@ public class KVMController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("템플릿의 네트워크 정보 조회 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -650,7 +650,7 @@ public class KVMController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("템플릿의 디스크 정보 조회 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -679,7 +679,7 @@ public class KVMController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("템플릿 삭제 요청 중 에러가 발생하였습니다.<br/>템플릿을 참조하는 VM이 있는지 확인하십시오.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;

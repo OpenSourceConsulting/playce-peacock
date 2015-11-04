@@ -84,7 +84,7 @@ import com.redhat.rhevm.api.model.VMs;
 @Service("rhevmService")
 public class RHEVMService {
 	
-	protected final Logger logger = LoggerFactory.getLogger(RHEVMService.class);
+	protected final Logger LOGGER = LoggerFactory.getLogger(RHEVMService.class);
 
 	@Inject
 	@Named("rhevmRestTemplateManager")
@@ -98,7 +98,7 @@ public class RHEVMService {
 		try {
 			manager.afterPropertiesSet();
 		} catch (Exception e) {
-			logger.error("Unhandled Exception has occurred while initializing RHEVMRestTemplates.", e);
+			LOGGER.error("Unhandled Exception has occurred while initializing RHEVMRestTemplates.", e);
 		}
 	}
 	
@@ -199,7 +199,7 @@ public class RHEVMService {
 	 * @throws Exception
 	 */
 	public VM createVirtualMachine(int hypervisorId, String vmName, String templateId) throws RestClientException, Exception {
-		logger.debug("vmName : {}, templateId : {}", vmName, templateId);
+		LOGGER.debug("vmName : {}, templateId : {}", vmName, templateId);
 		
 		Template template = new Template();
 		template.setId(templateId);
@@ -220,7 +220,7 @@ public class RHEVMService {
 	 * @throws Exception
 	 */
 	public VM createVirtualMachine(int hypervisorId, VMDto dto) throws RestClientException, Exception {
-		logger.debug("dto : {}", dto);
+		LOGGER.debug("dto : {}", dto);
 
 		String templateUrl =  RHEVApi.TEMPLATES + "/" + dto.getTemplate();
 		Template template = getRHEVMRestTemplate(hypervisorId).submit(templateUrl, HttpMethod.GET, Template.class);
@@ -465,7 +465,7 @@ public class RHEVMService {
 				commandLine.createArg().setLine("--insecure -H \"Content-Type: application/xml\" -H \"Accept: application/xml\" -H \"Authorization: " + auth + "\" -X DELETE -d \"<action><force>true</force></action>\" \"" + url + "\"");
 				
 				/** verify command string */
-				logger.debug("CURL Command : [{}]", commandLine.toString());
+				LOGGER.debug("CURL Command : [{}]", commandLine.toString());
 				
 				/** also enable StringWriter, PrintWriter, WriterStreamConsumer and etc. */
 				StringStreamConsumer consumer = new CommandLineUtils.StringStreamConsumer();
@@ -476,10 +476,10 @@ public class RHEVMService {
 				
 				if (returnCode == 0) {
 					// success
-					logger.debug("Succeed : [{}]", consumer.getOutput());
+					LOGGER.debug("Succeed : [{}]", consumer.getOutput());
 				} else {
 					// fail
-					logger.debug("Failed : [{}]", consumer.getOutput());
+					LOGGER.debug("Failed : [{}]", consumer.getOutput());
 					throw new Exception(consumer.getOutput());
 				}
 			} else {
@@ -716,7 +716,7 @@ public class RHEVMService {
 				}
 			}
 		} catch (Exception e) {
-			logger.error("Unhandled Exception has occurred while make templateDto.", e);
+			LOGGER.error("Unhandled Exception has occurred while make templateDto.", e);
 		}
 		
 		return dto;
@@ -763,7 +763,7 @@ public class RHEVMService {
 				dto.setNetworkName(network.getName());
 			}
 		} catch (Exception e) {
-			logger.error("Unhandler Exception has occurred : ", e);
+			LOGGER.error("Unhandler Exception has occurred : ", e);
 		}
 		
 		return dto;
@@ -902,7 +902,7 @@ public class RHEVMService {
 			}
 			
 		} catch (Exception e) {
-			logger.error("Unhandled Exception has occurred while make vmDto.", e);
+			LOGGER.error("Unhandled Exception has occurred while make vmDto.", e);
 		}
 		
 		return dto;

@@ -56,7 +56,7 @@ import com.athena.peacock.controller.netty.PeacockTransmitter;
 @Transactional(rollbackFor = {Throwable.class}, propagation = Propagation.REQUIRED)
 public class LBListenerService {
 	
-    protected final Logger logger = LoggerFactory.getLogger(LBListenerService.class);
+    protected final Logger LOGGER = LoggerFactory.getLogger(LBListenerService.class);
     
 	@Inject
 	@Named("lbListenerDao")
@@ -170,7 +170,7 @@ public class LBListenerService {
 		PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
 		ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
 		
-		logger.debug("Applied Load Balancer's config as below.\n{}", response.getResults());
+		LOGGER.debug("Applied Load Balancer's config as below.\n{}", response.getResults());
 	}
 }
 //end of LBListenerService.java

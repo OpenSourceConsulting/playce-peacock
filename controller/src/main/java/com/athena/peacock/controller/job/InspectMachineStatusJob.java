@@ -68,7 +68,7 @@ public class InspectMachineStatusJob extends BaseJob {
 		try {
 			List<AutoScalingDto> autoScalingList = autoScalingService.inspectMachineStatus();
 			
-			logger.debug("Inspection Result => {}", autoScalingList);
+			LOGGER.debug("Inspection Result => {}", autoScalingList);
 			
 			Long value = 0L;
 			int currentMachineSize = 0;
@@ -141,7 +141,7 @@ public class InspectMachineStatusJob extends BaseJob {
 								new ScaleOutThread(autoScaling).start();
 							}
 						} else {
-							logger.debug("[Auto Scaling ID : {}] 현재 동작 중인 머신 수가 설정된 최대 머신 수 보다 크거나 같기 때문에 Scale Out을 수행할 수 없습니다.", autoScaling.getAutoScalingId());
+							LOGGER.debug("[Auto Scaling ID : {}] 현재 동작 중인 머신 수가 설정된 최대 머신 수 보다 크거나 같기 때문에 Scale Out을 수행할 수 없습니다.", autoScaling.getAutoScalingId());
 						}
 					}
 				} else {
@@ -167,14 +167,14 @@ public class InspectMachineStatusJob extends BaseJob {
 								}
 							}
 						} else {
-							logger.debug("[Auto Scaling ID : {}] 현재 동작 중인 머신 수가 설정된 최소 머신 수 보다 작거나 같기 때문에 Scale In을 수행할 수 없습니다.", autoScaling.getAutoScalingId());
+							LOGGER.debug("[Auto Scaling ID : {}] 현재 동작 중인 머신 수가 설정된 최소 머신 수 보다 작거나 같기 때문에 Scale In을 수행할 수 없습니다.", autoScaling.getAutoScalingId());
 						}
 					}
 				}
 			}
 			
 		} catch (Exception e) {
-			logger.error("Unhandled exception has occurred.", e);
+			LOGGER.error("Unhandled exception has occurred.", e);
 			throw new InternalJobExecutionException(e);
 		}
 	}

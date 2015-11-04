@@ -43,7 +43,7 @@ import org.slf4j.LoggerFactory;
  */
 public class PropertyUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(PropertyUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PropertyUtil.class);
     
     private static Properties[] properties = new Properties[0];
     private static Exception exception;
@@ -77,13 +77,13 @@ public class PropertyUtil {
             	properties = (Properties[])ArrayUtils.add(properties, prop);
         	}
         } catch (FileNotFoundException e) {
-            logger.error("Property file(s) are not exist.", e);
+        	LOGGER.error("Property file(s) are not exist.", e);
             exception = e;
         } catch (IOException e) {
-            logger.error("Property file(s) or directory cannot read.", e);
+        	LOGGER.error("Property file(s) or directory cannot read.", e);
             exception = e;
         } catch (Exception e) {
-            logger.error("Unhandled exception has occurred.", e);
+        	LOGGER.error("Unhandled exception has occurred.", e);
             exception = e;
         }
     }

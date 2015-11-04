@@ -72,7 +72,7 @@ import org.springframework.web.client.RestTemplate;
  */
 public class RHEVMRestTemplate extends HypervisorClient {
 	
-    private static final Logger logger = LoggerFactory.getLogger(RHEVMRestTemplate.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RHEVMRestTemplate.class);
 	
 	private static final String HOST_HEADER_KEY = "Host";
 	private static final String AUTH_HEADER_KEY = "Authorization";
@@ -168,9 +168,9 @@ public class RHEVMRestTemplate extends HypervisorClient {
 			
 			HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
 		} catch (KeyManagementException e) {
-			logger.error("KeyManagementException has occurred.", e);
+			LOGGER.error("KeyManagementException has occurred.", e);
 		} catch (NoSuchAlgorithmException e) {
-			logger.error("NoSuchAlgorithmException has occurred.", e);
+			LOGGER.error("NoSuchAlgorithmException has occurred.", e);
 		}
 	}//end of init()
 	
@@ -191,7 +191,7 @@ public class RHEVMRestTemplate extends HypervisorClient {
 		requestHeaders.set(AUTH_HEADER_KEY, getCredential());
 		
 		if (body != null) {
-			logger.debug("Content Body => {}", marshal(body, rootElementName));
+			LOGGER.debug("Content Body => {}", marshal(body, rootElementName));
 			return new HttpEntity<Object>(marshal(body, rootElementName), requestHeaders);
 		} else {
 			return new HttpEntity<Object>(requestHeaders);
@@ -210,7 +210,7 @@ public class RHEVMRestTemplate extends HypervisorClient {
 				String plain = username + "@" + domain + ":" + password;
 				credential = "Basic " + Base64.encodeBase64String(plain.getBytes("UTF-8"));
 			} catch (UnsupportedEncodingException e) {
-				logger.error("UnsupportedEncodingException has occurred.", e);
+				LOGGER.error("UnsupportedEncodingException has occurred.", e);
 			}
 		}
 		
@@ -307,8 +307,8 @@ public class RHEVMRestTemplate extends HypervisorClient {
 			
 			ResponseEntity<?> response = rt.exchange(new URI(getUrl(api)), method, setHTTPEntity(body, rootElementName), clazz);
 			
-			logger.debug("[Request URL] : {}", getUrl(api));
-			logger.debug("[Response] : {}", response);
+			LOGGER.debug("[Request URL] : {}", getUrl(api));
+			LOGGER.debug("[Response] : {}", response);
 			
 			if(response.getStatusCode().equals(HttpStatus.BAD_REQUEST) 
 					|| response.getStatusCode().equals(HttpStatus.UNAUTHORIZED)
@@ -326,10 +326,10 @@ public class RHEVMRestTemplate extends HypervisorClient {
 			
 			return clazz.cast(response.getBody());
 		} catch (RestClientException e) {
-			logger.error("RestClientException has occurred.", e);
+			LOGGER.error("RestClientException has occurred.", e);
 			throw e;
 		} catch (Exception e) {
-			logger.error("Unhandled Exception has occurred.", e);
+			LOGGER.error("Unhandled Exception has occurred.", e);
 			throw e;
 		}
 	}//end of submit()
@@ -343,7 +343,6 @@ public class RHEVMRestTemplate extends HypervisorClient {
 		String password = "";
 		
 		RHEVMRestTemplate rhevTemplate = new RHEVMRestTemplate(protocol, host, domain, port, username, password);
-		System.out.println(rhevTemplate.getCredential());
 	}
 }
 //end of RHEVMRestTemplate.java

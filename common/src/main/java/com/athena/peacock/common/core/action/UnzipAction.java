@@ -41,7 +41,7 @@ import com.athena.peacock.common.core.util.ZipUtil;
  */
 public class UnzipAction extends Action {
 
-	private static final Logger logger = LoggerFactory.getLogger(UnzipAction.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(UnzipAction.class);
 	
 	private static final long serialVersionUID = 1L;
 
@@ -87,7 +87,7 @@ public class UnzipAction extends Action {
 	 */
 	@Override
 	public String perform() {
-    	logger.debug("Before decompress [{}] file to [{}]", sourceFile, destDir);
+    	LOGGER.debug("Before decompress [{}] file to [{}]", sourceFile, destDir);
     	
 		String result = "F";
     	
@@ -95,9 +95,9 @@ public class UnzipAction extends Action {
     		destDir = ZipUtil.decompress(sourceFile, destDir);
 			result = "S";
 			
-			logger.debug("[{}] Decompress has done successfully.", destDir);
+			LOGGER.debug("[{}] Decompress has done successfully.", destDir);
 		} catch (IOException e) {
-			logger.error("IOException has occurred.", e);
+			LOGGER.error("IOException has occurred.", e);
 		}
     	
     	return result;

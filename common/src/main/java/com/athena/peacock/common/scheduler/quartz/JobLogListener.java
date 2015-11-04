@@ -40,7 +40,7 @@ import org.slf4j.LoggerFactory;
  */
 public class JobLogListener implements JobListener {
     
-	private static final Logger logger = LoggerFactory.getLogger(JobLogListener.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(JobLogListener.class);
 	private String name;
 	
 	public void setName(String name) {
@@ -92,9 +92,9 @@ public class JobLogListener implements JobListener {
 			log.setSchedulerName(context.getScheduler().getSchedulerName());
 			log.setTriggerName(context.getTrigger().getName());
 			
-			logger.debug("JobDetailLog : [{}]", log);
+			LOGGER.debug("JobDetailLog : [{}]", log);
 		} catch (SchedulerException e) {
-		    logger.error("Job Detail 정보 로깅 중 예기치 못한 상황이 발생했습니다.", e);
+		    LOGGER.error("Job Detail 정보 로깅 중 예기치 못한 상황이 발생했습니다.", e);
 		}
 	}
 }//end of JobLogListener.java

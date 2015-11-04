@@ -75,7 +75,7 @@ import com.athena.peacock.controller.web.software.SoftwareService;
 @Qualifier("provisioningHandler")
 public class ProvisioningHandler {
 
-    protected final Logger logger = LoggerFactory.getLogger(ProvisioningHandler.class);
+    protected final Logger LOGGER = LoggerFactory.getLogger(ProvisioningHandler.class);
 
     @Inject
     @Named("peacockTransmitter")
@@ -144,21 +144,21 @@ public class ProvisioningHandler {
 		String uriworkermap = provisioningDetail.getUriworkermap();
 		String workers = provisioningDetail.getWorkers();
 		
-		logger.debug("fileLocation : " + fileLocation);
-		logger.debug("fileName : " + fileName);
-		logger.debug("user : " + user);
-		logger.debug("group : " + group);
-		logger.debug("version : " + version);
-		logger.debug("apacheHome : " + apacheHome);
-		logger.debug("serverHome : " + serverHome);
-		logger.debug("httpPort : " + httpPort);
-		logger.debug("httpsPort : " + httpsPort);
-		logger.debug("uriworkermap : " + uriworkermap);
-		logger.debug("workers : " + workers);
-		logger.debug("machineId : " + provisioningDetail.getMachineId());
-		logger.debug("softwareId : " + provisioningDetail.getSoftwareId());
-		logger.debug("softwareName : " + provisioningDetail.getSoftwareName());
-		logger.debug("autoStart : " + provisioningDetail.getAutoStart());
+		LOGGER.debug("fileLocation : " + fileLocation);
+		LOGGER.debug("fileName : " + fileName);
+		LOGGER.debug("user : " + user);
+		LOGGER.debug("group : " + group);
+		LOGGER.debug("version : " + version);
+		LOGGER.debug("apacheHome : " + apacheHome);
+		LOGGER.debug("serverHome : " + serverHome);
+		LOGGER.debug("httpPort : " + httpPort);
+		LOGGER.debug("httpsPort : " + httpsPort);
+		LOGGER.debug("uriworkermap : " + uriworkermap);
+		LOGGER.debug("workers : " + workers);
+		LOGGER.debug("machineId : " + provisioningDetail.getMachineId());
+		LOGGER.debug("softwareId : " + provisioningDetail.getSoftwareId());
+		LOGGER.debug("softwareName : " + provisioningDetail.getSoftwareName());
+		LOGGER.debug("autoStart : " + provisioningDetail.getAutoStart());
 		
 		Command command = new Command("Apache INSTALL");
 		ShellAction s_action = null;
@@ -695,28 +695,28 @@ public class ProvisioningHandler {
 		String localIPAddress = provisioningDetail.getLocalIPAddress();
 		String hostName = provisioningDetail.getHostName();
 
-		logger.debug("fileLocation : " + fileLocation);
-		logger.debug("fileName : " + fileName);
-		logger.debug("user : " + user);
-		logger.debug("group : " + group);
-		logger.debug("serverHome : " + serverHome);
-		logger.debug("serverName : " + serverName);
-		logger.debug("catalinaHome : " + catalinaHome);
-		logger.debug("catalinaBase : " + catalinaBase);
-		logger.debug("portOffset : " + portOffset);
-		logger.debug("encoding : " + encoding);
-		logger.debug("heapSize : " + heapSize);
-		logger.debug("permgenSize : " + permgenSize);
-		logger.debug("httpEnable : " + httpEnable);
-		logger.debug("highAvailability : " + highAvailability);
-		logger.debug("bindAddress : " + bindAddress);
-		logger.debug("otherBindAddress : " + otherBindAddress);
-		logger.debug("localIPAddress : " + localIPAddress);
-		logger.debug("hostName : " + hostName);
-		logger.debug("machineId : " + provisioningDetail.getMachineId());
-		logger.debug("softwareId : " + provisioningDetail.getSoftwareId());
-		logger.debug("softwareName : " + provisioningDetail.getSoftwareName());
-		logger.debug("autoStart : " + provisioningDetail.getAutoStart());
+		LOGGER.debug("fileLocation : " + fileLocation);
+		LOGGER.debug("fileName : " + fileName);
+		LOGGER.debug("user : " + user);
+		LOGGER.debug("group : " + group);
+		LOGGER.debug("serverHome : " + serverHome);
+		LOGGER.debug("serverName : " + serverName);
+		LOGGER.debug("catalinaHome : " + catalinaHome);
+		LOGGER.debug("catalinaBase : " + catalinaBase);
+		LOGGER.debug("portOffset : " + portOffset);
+		LOGGER.debug("encoding : " + encoding);
+		LOGGER.debug("heapSize : " + heapSize);
+		LOGGER.debug("permgenSize : " + permgenSize);
+		LOGGER.debug("httpEnable : " + httpEnable);
+		LOGGER.debug("highAvailability : " + highAvailability);
+		LOGGER.debug("bindAddress : " + bindAddress);
+		LOGGER.debug("otherBindAddress : " + otherBindAddress);
+		LOGGER.debug("localIPAddress : " + localIPAddress);
+		LOGGER.debug("hostName : " + hostName);
+		LOGGER.debug("machineId : " + provisioningDetail.getMachineId());
+		LOGGER.debug("softwareId : " + provisioningDetail.getSoftwareId());
+		LOGGER.debug("softwareName : " + provisioningDetail.getSoftwareName());
+		LOGGER.debug("autoStart : " + provisioningDetail.getAutoStart());
 		
 		/**
 		 * DataSource Variables
@@ -729,13 +729,13 @@ public class ProvisioningHandler {
 		String[] maxIdle = provisioningDetail.getMaxIdle();
 		String[] maxActive = provisioningDetail.getMaxActive();
 		
-		logger.debug("databaseType : " + databaseType);
-		logger.debug("jndiName : " + jndiName);
-		logger.debug("connectionUrl : " + connectionUrl);
-		logger.debug("userName : " + userName);
-		logger.debug("password : " + password);
-		logger.debug("maxIdle : " + maxIdle);
-		logger.debug("maxActive : " + maxActive);
+		LOGGER.debug("databaseType : " + databaseType);
+		LOGGER.debug("jndiName : " + jndiName);
+		LOGGER.debug("connectionUrl : " + connectionUrl);
+		LOGGER.debug("userName : " + userName);
+		LOGGER.debug("password : " + password);
+		LOGGER.debug("maxIdle : " + maxIdle);
+		LOGGER.debug("maxActive : " + maxActive);
 		
 		Command command = new Command("Tomcat INSTALL");
 		ShellAction s_action = null;
@@ -1095,33 +1095,33 @@ public class ProvisioningHandler {
 		String localIPAddress = provisioningDetail.getLocalIPAddress();
 		String hostName = provisioningDetail.getHostName();
 
-		logger.debug("fileLocation : " + fileLocation);
-		logger.debug("fileName : " + fileName);
-		logger.debug("user : " + user);
-		logger.debug("group : " + group);
-		logger.debug("javaHome : " + javaHome);
-		logger.debug("jbossHome : " + jbossHome);
-		logger.debug("baseTemplate : " + baseTemplate);
-		logger.debug("serverHome : " + serverHome);
-		logger.debug("serverBase : " + serverBase);
-		logger.debug("serverName : " + serverName);
-		logger.debug("domainIp : " + domainIp);
-		logger.debug("encoding : " + encoding);
-		logger.debug("bindPort : " + bindPort);
-		logger.debug("udpGroupAddr : " + udpGroupAddr);
-		logger.debug("multicastPort : " + multicastPort);
-		logger.debug("serverPeerID : " + serverPeerID);
-		logger.debug("jvmRoute : " + jvmRoute);
-		logger.debug("heapSize : " + heapSize);
-		logger.debug("heapSize : " + heapSize);
-		logger.debug("permgenSize : " + permgenSize);
-		logger.debug("httpEnable : " + httpEnable);
-		logger.debug("localIPAddress : " + localIPAddress);
-		logger.debug("hostName : " + hostName);
-		logger.debug("machineId : " + provisioningDetail.getMachineId());
-		logger.debug("softwareId : " + provisioningDetail.getSoftwareId());
-		logger.debug("softwareName : " + provisioningDetail.getSoftwareName());
-		logger.debug("autoStart : " + provisioningDetail.getAutoStart());
+		LOGGER.debug("fileLocation : " + fileLocation);
+		LOGGER.debug("fileName : " + fileName);
+		LOGGER.debug("user : " + user);
+		LOGGER.debug("group : " + group);
+		LOGGER.debug("javaHome : " + javaHome);
+		LOGGER.debug("jbossHome : " + jbossHome);
+		LOGGER.debug("baseTemplate : " + baseTemplate);
+		LOGGER.debug("serverHome : " + serverHome);
+		LOGGER.debug("serverBase : " + serverBase);
+		LOGGER.debug("serverName : " + serverName);
+		LOGGER.debug("domainIp : " + domainIp);
+		LOGGER.debug("encoding : " + encoding);
+		LOGGER.debug("bindPort : " + bindPort);
+		LOGGER.debug("udpGroupAddr : " + udpGroupAddr);
+		LOGGER.debug("multicastPort : " + multicastPort);
+		LOGGER.debug("serverPeerID : " + serverPeerID);
+		LOGGER.debug("jvmRoute : " + jvmRoute);
+		LOGGER.debug("heapSize : " + heapSize);
+		LOGGER.debug("heapSize : " + heapSize);
+		LOGGER.debug("permgenSize : " + permgenSize);
+		LOGGER.debug("httpEnable : " + httpEnable);
+		LOGGER.debug("localIPAddress : " + localIPAddress);
+		LOGGER.debug("hostName : " + hostName);
+		LOGGER.debug("machineId : " + provisioningDetail.getMachineId());
+		LOGGER.debug("softwareId : " + provisioningDetail.getSoftwareId());
+		LOGGER.debug("softwareName : " + provisioningDetail.getSoftwareName());
+		LOGGER.debug("autoStart : " + provisioningDetail.getAutoStart());
 		
 		/**
 		 * DataSource Variables
@@ -1134,13 +1134,13 @@ public class ProvisioningHandler {
 		String[] minPoolSize = provisioningDetail.getMinPoolSize();
 		String[] maxPoolSize = provisioningDetail.getMaxPoolSize();
 
-		logger.debug("databaseType : " + databaseType);
-		logger.debug("jndiName : " + jndiName);
-		logger.debug("connectionUrl : " + connectionUrl);
-		logger.debug("userName : " + userName);
-		logger.debug("password : " + password);
-		logger.debug("minPoolSize : " + minPoolSize);
-		logger.debug("maxPoolSize : " + maxPoolSize);
+		LOGGER.debug("databaseType : " + databaseType);
+		LOGGER.debug("jndiName : " + jndiName);
+		LOGGER.debug("connectionUrl : " + connectionUrl);
+		LOGGER.debug("userName : " + userName);
+		LOGGER.debug("password : " + password);
+		LOGGER.debug("minPoolSize : " + minPoolSize);
+		LOGGER.debug("maxPoolSize : " + maxPoolSize);
 		
 		Command command = new Command("JBoss INSTALL");
 		int sequence = 0;
@@ -1836,28 +1836,28 @@ public class ProvisioningHandler {
 			}
 		}
 
-		logger.debug("fileLocation : " + fileLocation);
-		logger.debug("fileName : " + fileName);
-		logger.debug("fsid : " + fsid);
-		logger.debug("journalSize : " + journalSize);
-		logger.debug("monNetworkInterface : " + monNetworkInterface);
-		logger.debug("pgNum : " + pgNum);
-		logger.debug("pgpNum : " + pgpNum);
-		logger.debug("replicaSize : " + replicaSize);
-		logger.debug("publicNetwork : " + publicNetwork);
-		logger.debug("clusterNetwork : " + clusterNetwork);
-		logger.debug("fileSystem : " + fileSystem);
-		logger.debug("calamariServer : " + calamariServer);
-		logger.debug("ntpServer : " + ntpServer);
-		logger.debug("hostname : " + Arrays.toString(hostname));
-		logger.debug("ip : " + Arrays.toString(ip));
-		logger.debug("type : " + Arrays.toString(type));
-		logger.debug("userName : " + Arrays.toString(userName));
-		logger.debug("password : " + Arrays.toString(password));
-		logger.debug("devicePaths : " + Arrays.toString(devicePaths));
-		logger.debug("machineId : " + provisioningDetail.getMachineId());
-		logger.debug("softwareId : " + provisioningDetail.getSoftwareId());
-		logger.debug("softwareName : " + provisioningDetail.getSoftwareName());
+		LOGGER.debug("fileLocation : " + fileLocation);
+		LOGGER.debug("fileName : " + fileName);
+		LOGGER.debug("fsid : " + fsid);
+		LOGGER.debug("journalSize : " + journalSize);
+		LOGGER.debug("monNetworkInterface : " + monNetworkInterface);
+		LOGGER.debug("pgNum : " + pgNum);
+		LOGGER.debug("pgpNum : " + pgpNum);
+		LOGGER.debug("replicaSize : " + replicaSize);
+		LOGGER.debug("publicNetwork : " + publicNetwork);
+		LOGGER.debug("clusterNetwork : " + clusterNetwork);
+		LOGGER.debug("fileSystem : " + fileSystem);
+		LOGGER.debug("calamariServer : " + calamariServer);
+		LOGGER.debug("ntpServer : " + ntpServer);
+		LOGGER.debug("hostname : " + Arrays.toString(hostname));
+		LOGGER.debug("ip : " + Arrays.toString(ip));
+		LOGGER.debug("type : " + Arrays.toString(type));
+		LOGGER.debug("userName : " + Arrays.toString(userName));
+		LOGGER.debug("password : " + Arrays.toString(password));
+		LOGGER.debug("devicePaths : " + Arrays.toString(devicePaths));
+		LOGGER.debug("machineId : " + provisioningDetail.getMachineId());
+		LOGGER.debug("softwareId : " + provisioningDetail.getSoftwareId());
+		LOGGER.debug("softwareName : " + provisioningDetail.getSoftwareName());
 
 		Command command = new Command("Install RPM Packages");
 		ShellAction s_action = null;
@@ -2555,7 +2555,7 @@ public class ProvisioningHandler {
 
 class InstallThread extends Thread {
 
-    protected final Logger logger = LoggerFactory.getLogger(InstallThread.class);
+    protected final Logger LOGGER = LoggerFactory.getLogger(InstallThread.class);
 
 	private PeacockTransmitter peacockTransmitter;
 	private SoftwareService softwareService;
@@ -2585,7 +2585,7 @@ class InstallThread extends Thread {
 			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
 			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
 			
-			logger.debug("[{}] Installed.", software.getSoftwareName());
+			LOGGER.debug("[{}] Installed.", software.getSoftwareName());
 			
 			StringBuilder sb = new StringBuilder("");
 			List<String> commands = response.getCommands();
@@ -2618,13 +2618,13 @@ class InstallThread extends Thread {
 									}
 								}
 								
-								logger.debug("S3 AccessKey : [{}]", accessKey);
-								logger.debug("S3 SecretKey : [{}]", secretKey);
+								LOGGER.debug("S3 AccessKey : [{}]", accessKey);
+								LOGGER.debug("S3 SecretKey : [{}]", secretKey);
 								
 								cephDto.setS3AccessKey(accessKey);
 								cephDto.setS3SecretKey(secretKey);
 							} catch (Exception e) {
-								logger.error("Unhandled Exception has occurred during parsing S3 credentials.", e);
+								LOGGER.error("Unhandled Exception has occurred during parsing S3 credentials.", e);
 							}
 						}
 					}
@@ -2636,15 +2636,15 @@ class InstallThread extends Thread {
 			software.setInstallStat("COMPLETED");
 			software.setInstallLog(sb.toString());
 
-			logger.debug("Install Log : [{}]", sb.toString());
+			LOGGER.debug("Install Log : [{}]", sb.toString());
 			
 			softwareService.insertSoftware(software, configList);
 			
-			logger.debug("cephService's instance : [{}]", cephService);
-			logger.debug("cephDto's instance : [{}]", cephDto);
+			LOGGER.debug("cephService's instance : [{}]", cephService);
+			LOGGER.debug("cephDto's instance : [{}]", cephDto);
 			
 			if (cephService != null && cephDto != null) {
-				logger.debug("cephDto will be inserted to DB");
+				LOGGER.debug("cephDto will be inserted to DB");
 				cephService.insertCeph(cephDto);
 			}
 		} catch (Exception e) {
@@ -2657,14 +2657,14 @@ class InstallThread extends Thread {
 				e1.printStackTrace();
 			}
 			
-			logger.error("Unhandled Exception has occurred.", e);
+			LOGGER.error("Unhandled Exception has occurred.", e);
 		}
 	}
 }
 
 class UninstallThread extends Thread {
 
-    protected final Logger logger = LoggerFactory.getLogger(UninstallThread.class);
+    protected final Logger LOGGER = LoggerFactory.getLogger(UninstallThread.class);
 
 	private PeacockTransmitter peacockTransmitter;
 	private SoftwareService softwareService;
@@ -2691,7 +2691,7 @@ class UninstallThread extends Thread {
 			PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
 			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
 			
-			logger.debug("[{}] Uninstalled.", software.getSoftwareName());
+			LOGGER.debug("[{}] Uninstalled.", software.getSoftwareName());
 			
 			configService.deleteConfig(config);
 			
@@ -2710,7 +2710,7 @@ class UninstallThread extends Thread {
 			software.setInstallStat("DELETED");
 			software.setInstallLog(sb.toString());
 
-			logger.debug("Uninstall Log : [{}]", sb.toString());
+			LOGGER.debug("Uninstall Log : [{}]", sb.toString());
 			
 			softwareService.updateSoftware(software);
 		} catch (Exception e) {
@@ -2723,7 +2723,7 @@ class UninstallThread extends Thread {
 				e1.printStackTrace();
 			}
 			
-			logger.error("Unhandled Exception has occurred.", e);
+			LOGGER.error("Unhandled Exception has occurred.", e);
 		}
 	}
 }

@@ -40,7 +40,7 @@ import org.slf4j.LoggerFactory;
  */
 public class PeacockClientListener implements ChannelFutureListener {
 
-    private static final Logger logger = LoggerFactory.getLogger(PeacockClientListener.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PeacockClientListener.class);
 
 	private PeacockClient client;
 	private String host;
@@ -61,7 +61,7 @@ public class PeacockClientListener implements ChannelFutureListener {
 			loop.schedule(new Runnable() {
 				@Override
 				public void run() {
-                    logger.debug("Attempt to reconnect within 5 seconds.");
+					LOGGER.debug("Attempt to reconnect within 5 seconds.");
 					client.createBootstrap(new Bootstrap(), loop, host);
 				}
 			}, 5L, TimeUnit.SECONDS);

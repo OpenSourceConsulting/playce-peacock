@@ -54,7 +54,7 @@ import com.athena.peacock.common.constant.PeacockConstant;
  */
 public class Starter {
 	
-    private static final Logger logger = LoggerFactory.getLogger(Starter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Starter.class);
 
 	/**
 	 * <pre>
@@ -119,7 +119,7 @@ public class Starter {
 					throw new IOException();
 				}
 			} catch (IOException e) {
-	            logger.error(agentFile + " file cannot read or saved invalid agent ID.", e);
+				LOGGER.error(agentFile + " file cannot read or saved invalid agent ID.", e);
 	            
 	            agentId = PeacockAgentIDGenerator.generateId();
 	            isNew = true;
@@ -130,7 +130,7 @@ public class Starter {
 		}
 		
 		if(isNew) {
-            logger.info("New Agent-ID({}) be generated.", agentId);
+			LOGGER.info("New Agent-ID({}) be generated.", agentId);
             
             try {
     			file.setWritable(true);
@@ -139,16 +139,16 @@ public class Starter {
 				file.setReadOnly();
 				IOUtils.closeQuietly(output);
 			} catch (UnsupportedEncodingException e) {
-				logger.error("UnsupportedEncodingException has occurred : ", e);
+				LOGGER.error("UnsupportedEncodingException has occurred : ", e);
 			} catch (FileNotFoundException e) {
-				logger.error("FileNotFoundException has occurred : ", e);
+				LOGGER.error("FileNotFoundException has occurred : ", e);
 			} catch (IOException e) {
-				logger.error("IOException has occurred : ", e);
+				LOGGER.error("IOException has occurred : ", e);
 			}
 		}
 		
 		// Spring Application Context Loading
-		logger.debug("Starting application context...");
+		LOGGER.debug("Starting application context...");
         AbstractApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring/context-*.xml");
         applicationContext.registerShutdownHook();
 	}//end of main()

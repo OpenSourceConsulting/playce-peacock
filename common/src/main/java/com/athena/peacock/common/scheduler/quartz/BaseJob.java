@@ -50,7 +50,7 @@ import com.athena.peacock.common.scheduler.InternalJobExecutionException;
  */
 public abstract class BaseJob implements Job, JobEventListener {
     
-    protected static final Logger logger = LoggerFactory.getLogger(BaseJob.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(BaseJob.class);
     private static final String LOGGING_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";  
     private static final String APPLICAITON_CONTEXT_KEY = "APPCTX";
     
@@ -65,7 +65,7 @@ public abstract class BaseJob implements Job, JobEventListener {
 	 * @see org.quartz.Job#execute(org.quartz.JobExecutionContext)
 	 */
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-		logger.debug("예정된 잡(JOB)이 호출됐습니다.[job: {} , instance: {}, start: {}]", new Object[] { context.getJobDetail().getFullName(),
+		LOGGER.debug("예정된 잡(JOB)이 호출됐습니다.[job: {} , instance: {}, start: {}]", new Object[] { context.getJobDetail().getFullName(),
 				context.getJobInstance().toString(), DateFormatUtils.format(System.currentTimeMillis(), LOGGING_DATE_FORMAT) });
 
 		initializingContext(context);
@@ -85,8 +85,8 @@ public abstract class BaseJob implements Job, JobEventListener {
 
 			wrapper.getJobStatus().complete();
 		} catch (Exception e) {
-			if (logger.isErrorEnabled()) {
-				logger.error("잡(JOB)이 예기치 못한 예외로 작업을 실패 했습니다.[job: " + context.getJobDetail().getFullName() + ", instance:"
+			if (LOGGER.isErrorEnabled()) {
+				LOGGER.error("잡(JOB)이 예기치 못한 예외로 작업을 실패 했습니다.[job: " + context.getJobDetail().getFullName() + ", instance:"
 						+ context.getJobInstance().toString() + " , interrupt: "
 						+ DateFormatUtils.format(System.currentTimeMillis(), LOGGING_DATE_FORMAT) + "]", e);
 			}
@@ -96,7 +96,7 @@ public abstract class BaseJob implements Job, JobEventListener {
 			throw new JobExecutionException("Job 내부 실행 중 예외가 발생했습니다", e);
 		}
 
-		logger.debug("잡(JOB)이 성공적으로 작업을 완료했습니다.[job: {} , instance: {}, end: {}]", new Object[] { context.getJobDetail().getFullName(),
+		LOGGER.debug("잡(JOB)이 성공적으로 작업을 완료했습니다.[job: {} , instance: {}, end: {}]", new Object[] { context.getJobDetail().getFullName(),
 				context.getJobInstance().toString(), DateFormatUtils.format(System.currentTimeMillis(), LOGGING_DATE_FORMAT) });
 	}//end of execute()
 
@@ -152,20 +152,20 @@ public abstract class BaseJob implements Job, JobEventListener {
      * @see com.athena.peacock.scheduler.quartz.JobEventListener#afterJob(com.athena.peacock.scheduler.quartz.JobExecution)
      */
     public void afterJob(JobExecution context) {
-        logger.debug("{} will be terminated... [instance : {}]", this.getClass().getSimpleName(), context);
+        LOGGER.debug("{} will be terminated... [instance : {}]", this.getClass().getSimpleName(), context);
     }//end of afterJob()
 
     /* (non-Javadoc)
      * @see com.athena.peacock.scheduler.quartz.JobEventListener#beforeJob(com.athena.peacock.scheduler.quartz.JobExecution)
      */
     public void beforeJob(JobExecution context) {
-        logger.debug("{} will be started... [instance : {}]", this.getClass().getSimpleName(), context);
+        LOGGER.debug("{} will be started... [instance : {}]", this.getClass().getSimpleName(), context);
 	}//end of beforeJob()
 
     /* (non-Javadoc)
      * @see com.athena.peacock.scheduler.quartz.JobEventListener#onError(com.athena.peacock.scheduler.quartz.JobExecution, java.lang.Throwable)
      */
     public void onError(JobExecution context, Throwable t) {
-    	logger.error("Exception has occurred : ", t);
+    	LOGGER.error("Exception has occurred : ", t);
     }//end of onError()
 }//end of BaseJob.java

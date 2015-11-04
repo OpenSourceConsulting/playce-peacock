@@ -45,7 +45,7 @@ import com.athena.peacock.common.core.action.support.Property;
  */
 public class ConfigAction extends Action {
 
-	private static final Logger logger = LoggerFactory.getLogger(ConfigAction.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ConfigAction.class);
 
 	private static final long serialVersionUID = 1L;
 	
@@ -100,13 +100,13 @@ public class ConfigAction extends Action {
     	Assert.isTrue(file.exists(), fileName + " does not exist.");
     	Assert.isTrue(file.isFile(), fileName + " is not a file.");
     	
-    	logger.debug("[{}] file's configuration will be changed.", fileName);
+    	LOGGER.debug("[{}] file's configuration will be changed.", fileName);
     	
     	try {
 			String fileContents = IOUtils.toString(file.toURI());
 			
 			for(Property property : properties) {
-				logger.debug("\"${{}}\" will be changed to \"{}\".", property.getKey(), property.getValue().replaceAll("\\\\", ""));
+				LOGGER.debug("\"${{}}\" will be changed to \"{}\".", property.getKey(), property.getValue().replaceAll("\\\\", ""));
 				fileContents = fileContents.replaceAll("\\$\\{" + property.getKey() + "\\}", property.getValue());
 			}
 			
@@ -114,7 +114,7 @@ public class ConfigAction extends Action {
 			IOUtils.write(fileContents, fos);
 			IOUtils.closeQuietly(fos);
 		} catch (IOException e) {
-			logger.error("IOException has occurred.", e);
+			LOGGER.error("IOException has occurred.", e);
 		}
     	
 		return null;

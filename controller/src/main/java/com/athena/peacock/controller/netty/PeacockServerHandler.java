@@ -103,7 +103,7 @@ import com.redhat.rhevm.api.model.VMs;
 @Sharable
 public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 
-	private static final Logger logger = LoggerFactory.getLogger(PeacockServerHandler.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(PeacockServerHandler.class);
 	
 	@Inject
 	@Named("machineService")
@@ -128,10 +128,10 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
-		logger.debug("channelRead0() has invoked.");
-		logger.debug("[Server] IP Address => " + ctx.channel().remoteAddress().toString());
-		logger.debug("[Server] Object => " + msg.getClass().getName());
-		//logger.debug("[Server] Contents => " + msg.toString());
+		LOGGER.debug("channelRead0() has invoked.");
+		LOGGER.debug("[Server] IP Address => " + ctx.channel().remoteAddress().toString());
+		LOGGER.debug("[Server] Object => " + msg.getClass().getName());
+		//LOGGER.debug("[Server] Contents => " + msg.toString());
 		
 		if("bye".equals(msg.toString())) {
 			// Response and exit.
@@ -210,7 +210,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 								templates = RHEVMRestTemplateManager.getAllTemplates();
 							}
 							
-							logger.debug("[PeacockServerHandler] templates.size() : {}", templates.size());
+							LOGGER.debug("[PeacockServerHandler] templates.size() : {}", templates.size());
 							
 							for (RHEVMRestTemplate restTemplate : templates) {
 								VMs vms = restTemplate.submit("/api/vms?search=" + ipAddr, HttpMethod.GET, VMs.class);
@@ -250,7 +250,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 							}
 						} catch (Exception e) {
 							// ignore
-							logger.error("Unhandled Exception has occurred.", e);
+							LOGGER.error("Unhandled Exception has occurred.", e);
 						}
 
 						// register a new channel
@@ -335,7 +335,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 								hostnameChanged = true;
 							} catch (Exception e) {
 								// HostName 변경이 실패하더라고 고정 IP 세팅을 할 수 있도록 예외를 무시한다.
-								logger.error("Unhandled exception has occurred while change hostname.", e);
+								LOGGER.error("Unhandled exception has occurred while change hostname.", e);
 							}
 						}
 						
@@ -511,17 +511,17 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 	
 	@Override
 	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-		logger.debug("channelReadComplete() has invoked.");
+		LOGGER.debug("channelReadComplete() has invoked.");
 	}
 	
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {	
-		logger.debug("channelActive() has invoked.");
+		LOGGER.debug("channelActive() has invoked.");
 	}
 	
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-		logger.debug("channelInactive() has invoked.");
+		LOGGER.debug("channelInactive() has invoked.");
 
 		// deregister a closed channel
 		ChannelManagement.deregisterChannel(ctx.channel());
@@ -529,12 +529,12 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 	
 	@Override
 	public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
-		logger.debug("handlerAdded() has invoked.");
+		LOGGER.debug("handlerAdded() has invoked.");
 	}
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        logger.error("Unexpected exception from downstream.", cause);
+        LOGGER.error("Unexpected exception from downstream.", cause);
         
         // ctx will not be closed.
         //if (!(cause instanceof NestedRuntimeException)) {
@@ -656,7 +656,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
          * @param channel
          */
     	synchronized static void registerChannel(String agentId, Channel channel) {
-        	logger.debug("agentId({}) and channel({}) will be added to channelMap.", agentId, channel);
+        	LOGGER.debug("agentId({}) and channel({}) will be added to channelMap.", agentId, channel);
 
         	// 기존에 등록된 채널이 있을 경우 close한다.
         	Channel c = channelMap.get(agentId);
@@ -674,7 +674,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
          * @param agentId
          */
         synchronized static void deregisterChannel(String agentId) {
-        	logger.debug("agentId({}) will be removed from channelMap.", agentId);
+        	LOGGER.debug("agentId({}) will be removed from channelMap.", agentId);
         	channelMap.remove(agentId);
         }//end of deregisterChannel()
         

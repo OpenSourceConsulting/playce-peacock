@@ -75,7 +75,7 @@ import com.athena.peacock.controller.web.user.UserDto;
 @RequestMapping("/machine")
 public class MachineController {
 
-    protected final Logger logger = LoggerFactory.getLogger(MachineController.class);
+    protected final Logger LOGGER = LoggerFactory.getLogger(MachineController.class);
 
     @Value("#{contextProperties['cli.white.list']}")
     private String cliWhiteList;
@@ -138,7 +138,7 @@ public class MachineController {
 				vm = rhevmService.getVirtualMachine(machine.getHypervisorId(), machine.getMachineId());
 			}
 		} catch (Exception e) {
-			logger.error("Unhandle Exception has occurred while call RHEVM API.", e);
+			LOGGER.error("Unhandle Exception has occurred while call RHEVM API.", e);
 		}
 		
 		if (vm != null && vm.getDescription() != null && !vm.getDescription().equals(machine.getDescription())) {
@@ -203,9 +203,9 @@ public class MachineController {
 			}
 			
 			if (machineService.updateMachine(machine)) {
-				logger.debug("[UPDATE_MACHINE] 5. finish updateMachine() and start Thread.sleep(3000).");
+				LOGGER.debug("[UPDATE_MACHINE] 5. finish updateMachine() and start Thread.sleep(3000).");
 				Thread.sleep(3000);
-				logger.debug("[UPDATE_MACHINE] 6. finish Thread.sleep(3000).");
+				LOGGER.debug("[UPDATE_MACHINE] 6. finish Thread.sleep(3000).");
 			}
 			
 			jsonRes.setMsg("Instance 정보가 정상적으로 변경되었습니다.");
@@ -218,10 +218,10 @@ public class MachineController {
 				jsonRes.setMsg("Instance 정보 변경 중 에러가 발생하였습니다.");
 			}
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 
-		logger.debug("[UPDATE_MACHINE] 7. finish /machine/updateMachine");
+		LOGGER.debug("[UPDATE_MACHINE] 7. finish /machine/updateMachine");
 		
 		return jsonRes;
 	}
@@ -248,7 +248,7 @@ public class MachineController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Agent 시작 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -273,7 +273,7 @@ public class MachineController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Agent 중지 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -338,7 +338,7 @@ public class MachineController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg(message);
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -408,7 +408,7 @@ public class MachineController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg(message);
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -519,7 +519,7 @@ public class MachineController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg(message);
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -571,7 +571,7 @@ public class MachineController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg(message);
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -623,7 +623,7 @@ public class MachineController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg(message);
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -718,7 +718,7 @@ public class MachineController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg(message);
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -856,7 +856,7 @@ public class MachineController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg(message);
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -904,7 +904,7 @@ public class MachineController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg(message);
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -974,7 +974,7 @@ public class MachineController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg(message);
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -1029,7 +1029,7 @@ public class MachineController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg(message);
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -1081,7 +1081,7 @@ public class MachineController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg(message);
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;

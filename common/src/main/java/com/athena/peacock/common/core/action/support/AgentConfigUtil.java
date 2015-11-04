@@ -45,7 +45,7 @@ import com.athena.peacock.common.constant.PeacockConstant;
  */
 public class AgentConfigUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(AgentConfigUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AgentConfigUtil.class);
     
     private static Properties prop; 
     public static Exception exception;
@@ -56,13 +56,13 @@ public class AgentConfigUtil {
         	prop = new Properties();
         	prop.load(new BufferedInputStream(new FileInputStream(new File(configFile))));
         } catch (FileNotFoundException e) {
-            logger.error("agent.conf file does not exist.", e);
+            LOGGER.error("agent.conf file does not exist.", e);
             exception = e;
         } catch (IOException e) {
-            logger.error("agent.conf file cannot read.", e);
+            LOGGER.error("agent.conf file cannot read.", e);
             exception = e;
         } catch (Exception e) {
-            logger.error("Unhandled exception has occurred.", e);
+            LOGGER.error("Unhandled exception has occurred.", e);
             exception = e;
         }
     }

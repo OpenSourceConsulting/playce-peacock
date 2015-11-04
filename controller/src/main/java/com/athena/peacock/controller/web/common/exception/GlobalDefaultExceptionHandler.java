@@ -23,12 +23,12 @@ class GlobalDefaultExceptionHandler {
 	
     public static final String DEFAULT_ERROR_VIEW = "error";
     
-    protected final Logger logger = LoggerFactory.getLogger(GlobalDefaultExceptionHandler.class);
+    protected final Logger LOGGER = LoggerFactory.getLogger(GlobalDefaultExceptionHandler.class);
 
     @ExceptionHandler(value = Exception.class)
     public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
     	
-    	logger.error(req.getRequestURL() + ": " + e.toString(), e);
+    	LOGGER.error(req.getRequestURL() + ": " + e.toString(), e);
     	
         // If the exception is annotated with @ResponseStatus rethrow it and let
         // the framework handle it - like the OrderNotFoundException example

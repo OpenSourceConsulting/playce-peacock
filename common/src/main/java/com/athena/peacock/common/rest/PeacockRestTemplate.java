@@ -58,7 +58,7 @@ import org.springframework.web.client.RestTemplate;
 @Component("peacockRestTemplate")
 public class PeacockRestTemplate {
 	
-    private static final Logger logger = LoggerFactory.getLogger(PeacockRestTemplate.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PeacockRestTemplate.class);
 
     private static final String XSRF_TOKEN = "XSRF-TOKEN";
     private static final String X_XSRF_TOKEN = "X-XSRF-TOKEN";
@@ -128,8 +128,8 @@ public class PeacockRestTemplate {
 			
 			ResponseEntity<String> response = rt.exchange(new URI(uri), method, setHTTPEntity(body, header, cookie, acceptableMediaTypes, contentType), String.class);
 			
-			logger.debug("[Request URL] : {}", uri);
-			logger.debug("[Response] : {}", response);
+			LOGGER.debug("[Request URL] : {}", uri);
+			LOGGER.debug("[Response] : {}", response);
 			
 			if(response.getStatusCode().equals(HttpStatus.BAD_REQUEST) 
 					|| response.getStatusCode().equals(HttpStatus.UNAUTHORIZED)
@@ -147,10 +147,10 @@ public class PeacockRestTemplate {
 			
 			return response.getBody();
 		} catch (RestClientException e) {
-			logger.error("RestClientException has occurred.", e);
+			LOGGER.error("RestClientException has occurred.", e);
 			throw e;
 		} catch (Exception e) {
-			logger.error("Unhandled Exception has occurred.", e);
+			LOGGER.error("Unhandled Exception has occurred.", e);
 			throw e;
 		}
 	}//end of submit()
@@ -230,13 +230,13 @@ public class PeacockRestTemplate {
 				}
 			}
 			//*/
-			logger.debug("[Request URL] : {}", uri);
-			logger.debug("[Response] : {}", response);
+			LOGGER.debug("[Request URL] : {}", uri);
+			LOGGER.debug("[Response] : {}", response);
 		} catch (RestClientException e) {
-			logger.error("RestClientException has occurred.", e);
+			LOGGER.error("RestClientException has occurred.", e);
 			throw e;
 		} catch (Exception e) {
-			logger.error("Unhandled Exception has occurred.", e);
+			LOGGER.error("Unhandled Exception has occurred.", e);
 			throw e;
 		}
 	}
@@ -301,7 +301,7 @@ public class PeacockRestTemplate {
 		}
 		
 		if (body != null) {
-			logger.debug("Content Body => {}", objToJson(body));
+			LOGGER.debug("Content Body => {}", objToJson(body));
 			return new HttpEntity<Object>(objToJson(body), requestHeaders);
 		} else {
 			return new HttpEntity<Object>(requestHeaders);

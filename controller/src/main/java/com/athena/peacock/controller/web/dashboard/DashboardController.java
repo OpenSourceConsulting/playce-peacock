@@ -45,7 +45,7 @@ import com.athena.peacock.controller.web.machine.MachineController;
 @RequestMapping("/dashboard")
 public class DashboardController {
 
-    protected final Logger logger = LoggerFactory.getLogger(MachineController.class);
+    protected final Logger LOGGER = LoggerFactory.getLogger(MachineController.class);
 
 	@Inject
 	@Named("dashboardService")

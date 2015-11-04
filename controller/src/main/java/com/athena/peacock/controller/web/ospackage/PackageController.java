@@ -54,7 +54,7 @@ import com.athena.peacock.controller.web.common.model.SimpleJsonResponse;
 @RequestMapping("/package")
 public class PackageController {
 
-    protected final Logger logger = LoggerFactory.getLogger(PackageController.class);
+    protected final Logger LOGGER = LoggerFactory.getLogger(PackageController.class);
 	
 	@Inject
 	@Named("packageService")
@@ -97,7 +97,7 @@ public class PackageController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg(message);
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;

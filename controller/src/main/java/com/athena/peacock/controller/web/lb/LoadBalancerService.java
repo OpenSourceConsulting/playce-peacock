@@ -56,7 +56,7 @@ import com.athena.peacock.controller.web.machine.MachineDto;
 @Transactional(rollbackFor = {Throwable.class}, propagation = Propagation.REQUIRED)
 public class LoadBalancerService {
 	
-    protected final Logger logger = LoggerFactory.getLogger(LoadBalancerService.class);
+    protected final Logger LOGGER = LoggerFactory.getLogger(LoadBalancerService.class);
     
 	@Inject
 	@Named("loadBalancerDao")
@@ -166,12 +166,12 @@ public class LoadBalancerService {
 		cmdMsg.addCommand(command);
 		
 
-		logger.debug("Send create LB message to agent on client. Machine ID is {}", machine.getMachineId());
+		LOGGER.debug("Send create LB message to agent on client. Machine ID is {}", machine.getMachineId());
 		
 		PeacockDatagram<AbstractMessage> datagram = new PeacockDatagram<AbstractMessage>(cmdMsg);
 		ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
 		
-		logger.debug("Created Load Balancer as below.\n{}", response.getResults());
+		LOGGER.debug("Created Load Balancer as below.\n{}", response.getResults());
 		
 		// TODO loadBalancer에 AS_GROUP_ID 관련 내용 확인
 		

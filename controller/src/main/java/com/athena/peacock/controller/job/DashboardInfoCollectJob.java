@@ -46,7 +46,7 @@ public class DashboardInfoCollectJob extends BaseJob {
 	protected void executeInternal(JobExecution context) throws InternalJobExecutionException {
 		
 		try {
-			logger.debug("Dashboard Info Collecting...");
+			LOGGER.debug("Dashboard Info Collecting...");
 
 			if (dashboardService == null) {
 				dashboardService = AppContext.getBean(DashboardService.class);
@@ -56,7 +56,7 @@ public class DashboardInfoCollectJob extends BaseJob {
 				dashboardService.refreshDashboardInfo();
 			}
 		} catch (Exception e) {
-			logger.error("Unhandled exception has occurred.", e);
+			LOGGER.error("Unhandled exception has occurred.", e);
 			throw new InternalJobExecutionException(e);
 		}
 	}

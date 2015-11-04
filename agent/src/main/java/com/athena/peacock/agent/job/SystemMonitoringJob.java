@@ -121,7 +121,7 @@ public class SystemMonitoringJob extends BaseJob {
 					total += fsu.getTotal();
 					used += fsu.getUsed();
 				} catch (Exception e) {
-					logger.warn("[{}] has an error.", fs.getDirName());
+					LOGGER.warn("[{}] has an error.", fs.getDirName());
 					
 					if (cnt++ > 0) {
 						usage.append(",");
@@ -138,13 +138,13 @@ public class SystemMonitoringJob extends BaseJob {
 			
 			peacockTransmitter.sendMessage(new PeacockDatagram<AgentSystemStatusMessage>(message));
 		} catch (SigarException e) {
-			logger.error("SigarException has occurred.", e);
+			LOGGER.error("SigarException has occurred.", e);
 			throw new InternalJobExecutionException(e);
 		} catch (IOException e) {
-			logger.error("IOException has occurred.", e);
+			LOGGER.error("IOException has occurred.", e);
 			throw new InternalJobExecutionException(e);
 		} catch (Exception e) {
-			logger.error("Unhandled Exception has occurred.", e);
+			LOGGER.error("Unhandled Exception has occurred.", e);
 			throw new InternalJobExecutionException(e);
 		}
 	}//end of executeInternal()

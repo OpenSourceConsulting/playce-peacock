@@ -48,7 +48,7 @@ public class AlmProcessJob extends BaseJob {
 			throws InternalJobExecutionException {
 
 		try {
-			logger.debug("Alm Job Processing...");
+			LOGGER.debug("Alm Job Processing...");
 
 //			if (almProjectService == null) {
 //				almProjectService = AppContext.getBean(AlmProjectProcess.class);
@@ -57,7 +57,7 @@ public class AlmProcessJob extends BaseJob {
 //			almProjectService.processProjectMapping();
 
 		} catch (Exception e) {
-			logger.error("Unhandled exception has occurred.", e);
+			LOGGER.error("Unhandled exception has occurred.", e);
 			throw new InternalJobExecutionException(e);
 		}
 	}

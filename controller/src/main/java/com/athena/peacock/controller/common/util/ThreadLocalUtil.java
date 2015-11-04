@@ -41,7 +41,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ThreadLocalUtil {
 
-	private static final Logger logger = LoggerFactory.getLogger(ThreadLocalUtil.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ThreadLocalUtil.class);
 
 	// 스레드 간 공유 객체를 저장하기 위한 ThreadLocal
 	private static ThreadLocal<Map<String, Object>> threadLocal = new ThreadLocal<Map<String, Object>>();
@@ -173,7 +173,7 @@ public class ThreadLocalUtil {
 			str.append("  " + keys[i] + " = " + values[i] + " \n");
 		}
 		
-		logger.info("{}", str.toString());
+		LOGGER.info("{}", str.toString());
 	}//end of toPringString()
 	
 }// end of ThreadLocalUtil.java

@@ -62,7 +62,7 @@ import com.athena.peacock.controller.web.kvm.dto.NetworkDto;
 @Service("kvmService")
 public class KVMService {
 	
-	protected final Logger logger = LoggerFactory.getLogger(KVMService.class);
+	protected final Logger LOGGER = LoggerFactory.getLogger(KVMService.class);
 
 	@Inject
 	@Named("hypervisiorClientManager")
@@ -76,7 +76,7 @@ public class KVMService {
 		try {
 			manager.afterPropertiesSet();
 		} catch (Exception e) {
-			logger.error("Unhandled Exception has occurred while initializing RHEVMRestTemplates.", e);
+			LOGGER.error("Unhandled Exception has occurred while initializing RHEVMRestTemplates.", e);
 		}
 	}
 

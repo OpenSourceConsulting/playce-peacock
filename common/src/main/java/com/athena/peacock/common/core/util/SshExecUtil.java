@@ -49,7 +49,7 @@ import com.athena.peacock.common.core.action.support.TargetHost;
  */
 public class SshExecUtil {
 
-	private static final Logger logger = LoggerFactory.getLogger(SshExecUtil.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SshExecUtil.class);
 
 	public static File output = new File("exec_result.log"); // 프로젝트 root에 파일 생성.
 	
@@ -95,7 +95,7 @@ public class SshExecUtil {
         	command = "sudo " + command;
         }
     	
-		logger.debug("[ssh exec] " + command);
+		LOGGER.debug("[ssh exec] " + command);
 		
 		Project project = new Project();
 		

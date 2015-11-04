@@ -67,7 +67,7 @@ import com.redhat.rhevm.api.model.VMs;
 @Transactional(rollbackFor = {Throwable.class}, propagation = Propagation.REQUIRED)
 public class DashboardService {
 	
-    protected final Logger logger = LoggerFactory.getLogger(DashboardService.class);
+    protected final Logger LOGGER = LoggerFactory.getLogger(DashboardService.class);
     
 	@Inject
 	@Named("machineDao")
@@ -121,7 +121,7 @@ public class DashboardService {
 				rhevmTemplateList = RHEVMRestTemplateManager.getAllTemplates();
 			}
 			
-			logger.debug("[DASHBOARD] rhevmTemplateList.size() : {}", rhevmTemplateList.size());
+			LOGGER.debug("[DASHBOARD] rhevmTemplateList.size() : {}", rhevmTemplateList.size());
 			
 			for (RHEVMRestTemplate restTemplate : rhevmTemplateList) {
 				dto.addRhevmNames(restTemplate.getRhevmName());
@@ -156,7 +156,7 @@ public class DashboardService {
 					}
 				}
 				
-				logger.debug("[DASHBOARD] {}'s Virtual Machine 전체 목록 조회 완료 : {}", restTemplate.getRhevmName(), instanceList.size());
+				LOGGER.debug("[DASHBOARD] {}'s Virtual Machine 전체 목록 조회 완료 : {}", restTemplate.getRhevmName(), instanceList.size());
 				
 				// Template 전체 목록 조회
 				Templates templates = restTemplate.submit(RHEVApi.TEMPLATES, HttpMethod.GET, Templates.class);
@@ -171,7 +171,7 @@ public class DashboardService {
 				
 				int templateTotalCnt = templateList.size();
 				
-				logger.debug("[DASHBOARD] {}'s Template 전체 목록 조회 완료 : {}", restTemplate.getRhevmName(), templateList.size());
+				LOGGER.debug("[DASHBOARD] {}'s Template 전체 목록 조회 완료 : {}", restTemplate.getRhevmName(), templateList.size());
 				
 				// Agent 목록 조회
 				MachineDto machine = new MachineDto();
@@ -199,7 +199,7 @@ public class DashboardService {
 					agentList.add(instanceDto);
 				}
 				
-				logger.debug("[DASHBOARD] {}'s Agent 전체 목록 조회 완료 : {}", restTemplate.getRhevmName(), agentList.size());
+				LOGGER.debug("[DASHBOARD] {}'s Agent 전체 목록 조회 완료 : {}", restTemplate.getRhevmName(), agentList.size());
 				
 				dto.getVmTotalCnt().put(restTemplate.getRhevmName(), total);
 				dto.getVmUpCnt().put(restTemplate.getRhevmName(), active);
@@ -210,12 +210,12 @@ public class DashboardService {
 				dto.getAgentTotalCnt().put(restTemplate.getRhevmName(), agentTotalCnt);
 				dto.getAgentRunningCnt().put(restTemplate.getRhevmName(), agentRunningCnt);
 	
-				logger.debug("[DASHBOARD] {}'s critical / alarm list, cpu / memory / disk top 5 list 조회 시작", restTemplate.getRhevmName());
+				LOGGER.debug("[DASHBOARD] {}'s critical / alarm list, cpu / memory / disk top 5 list 조회 시작", restTemplate.getRhevmName());
 				
 				// critical / alarm list, cpu / memory / disk top 5 list
 				monDataDao.getAlarmList(restTemplate.getHypervisorId(), restTemplate.getRhevmName(), dto);
 				
-				logger.debug("[DASHBOARD] {}'s critical / alarm list, cpu / memory / disk top 5 list 조회 완료", restTemplate.getRhevmName());
+				LOGGER.debug("[DASHBOARD] {}'s critical / alarm list, cpu / memory / disk top 5 list 조회 완료", restTemplate.getRhevmName());
 			}
 			
 			/*
@@ -223,7 +223,7 @@ public class DashboardService {
 			try {
 				dto.setProjectCnt(almDashboardComponent.getProjectCnt());
 			} catch (Exception e) {
-				logger.error("Unhandled exception has occurred while invoke getProjectCnt() : ", e);
+				LOGGER.error("Unhandled exception has occurred while invoke getProjectCnt() : ", e);
 				dto.setProjectCnt(0);
 			}
 			
@@ -231,7 +231,7 @@ public class DashboardService {
 			try {
 				dto.setSvnCnt(almDashboardComponent.getSvnCnt());
 			} catch (Exception e) {
-				logger.error("Unhandled exception has occurred while invoke getSvnCnt() : ", e);
+				LOGGER.error("Unhandled exception has occurred while invoke getSvnCnt() : ", e);
 				dto.setSvnCnt(0);
 			}
 			
@@ -239,7 +239,7 @@ public class DashboardService {
 			try {
 				dto.setJenkinsCnt(almDashboardComponent.getJenkinsCnt());
 			} catch (Exception e) {
-				logger.error("Unhandled exception has occurred while invoke getJenkinsCnt() : ", e);
+				LOGGER.error("Unhandled exception has occurred while invoke getJenkinsCnt() : ", e);
 				dto.setJenkinsCnt(0);
 			}
 			*/

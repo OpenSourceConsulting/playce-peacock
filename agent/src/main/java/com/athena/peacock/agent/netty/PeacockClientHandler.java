@@ -87,7 +87,7 @@ import com.athena.peacock.common.provider.AppContext;
 @Sharable
 public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 
-    private static final Logger logger = LoggerFactory.getLogger(PeacockClientHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PeacockClientHandler.class);
 
     private boolean connected = false;
     private static boolean _packageCollected = false;
@@ -98,7 +98,7 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
     
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		logger.debug("channelActive() has invoked. RemoteAddress=[{}]", ctx.channel().remoteAddress());
+		LOGGER.debug("channelActive() has invoked. RemoteAddress=[{}]", ctx.channel().remoteAddress());
 		
     	connected = true;
 		
@@ -128,10 +128,10 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
-		logger.debug("channelRead0() has invoked.");
+		LOGGER.debug("channelRead0() has invoked.");
 
-		logger.debug("[Client] Object => " + msg.getClass().getName());
-		logger.debug("[Client] Contents => " + msg.toString());
+		LOGGER.debug("[Client] Object => " + msg.getClass().getName());
+		LOGGER.debug("[Client] Contents => " + msg.toString());
 		
 		if(msg instanceof PeacockDatagram) {
 			MessageType messageType = ((PeacockDatagram<?>)msg).getMessageType();
@@ -188,11 +188,11 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 						isNew = true;
 					}
 				} catch (IOException e) {
-		            logger.error(agentFile + " file cannot read or saved invalid agent ID.", e);
+		            LOGGER.error(agentFile + " file cannot read or saved invalid agent ID.", e);
 				}
 				
 				if(isNew) {
-		            logger.info("New Agent-ID({}) will be saved.", machineId);
+		            LOGGER.info("New Agent-ID({}) will be saved.", machineId);
 		            
 		            try {
 		    			file.setWritable(true);
@@ -201,11 +201,11 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 						file.setReadOnly();
 						IOUtils.closeQuietly(output);
 					} catch (UnsupportedEncodingException e) {
-						logger.error("UnsupportedEncodingException has occurred : ", e);
+						LOGGER.error("UnsupportedEncodingException has occurred : ", e);
 					} catch (FileNotFoundException e) {
-						logger.error("FileNotFoundException has occurred : ", e);
+						LOGGER.error("FileNotFoundException has occurred : ", e);
 					} catch (IOException e) {
-						logger.error("IOException has occurred : ", e);
+						LOGGER.error("IOException has occurred : ", e);
 					}
 				}
 				
@@ -251,7 +251,7 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        logger.error("Unexpected exception from downstream.", cause);
+        LOGGER.error("Unexpected exception from downstream.", cause);
         ctx.close();
     }
     
@@ -260,7 +260,7 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
      */
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-		logger.debug("channelInactive() has invoked. RemoteAddress=[{}]", ctx.channel().remoteAddress());
+		LOGGER.debug("channelInactive() has invoked. RemoteAddress=[{}]", ctx.channel().remoteAddress());
 
 		// deregister a closed channel
 		ChannelManagement.deregisterChannel(ctx.channel());
@@ -279,7 +279,7 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 		eventLoop.schedule(new Runnable() {
 			@Override
 			public void run() {
-                logger.debug("Attempt to reconnect within 5 seconds.");
+                LOGGER.debug("Attempt to reconnect within 5 seconds.");
 				client.createBootstrap(new Bootstrap(), eventLoop, ipAddr.substring(1, ipAddr.indexOf(":")));
 			}
 		}, 5L, TimeUnit.SECONDS);
@@ -358,7 +358,7 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 			message.setIpAddr(InetAddress.getLocalHost().getHostAddress());
 		} catch (Exception e) {
 			// ignore
-			logger.info("[{}] has occurred but ignore this exception.", e.getMessage());
+			LOGGER.info("[{}] has occurred but ignore this exception.", e.getMessage());
 		}
 		
 		return new PeacockDatagram<AgentInitialInfoMessage>(message);
@@ -383,7 +383,7 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
          * @param channel
          */
         synchronized static int registerChannel(String ipAddr, Channel channel) {
-        	logger.debug("ipAddr({}) and channel({}) will be added to channelMap.", ipAddr, channel);
+        	LOGGER.debug("ipAddr({}) and channel({}) will be added to channelMap.", ipAddr, channel);
         	channelMap.put(ipAddr, channel);
         	
         	return channelMap.size();
@@ -396,7 +396,7 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
          * @param ipAddr
          */
         synchronized static void deregisterChannel(String ipAddr) {
-        	logger.debug("ipAddr({}) will be removed from channelMap.", ipAddr);
+        	LOGGER.debug("ipAddr({}) will be removed from channelMap.", ipAddr);
         	channelMap.remove(ipAddr);
         }//end of deregisterChannel()
         
@@ -477,7 +477,7 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
  */
 class PackageGatherThread extends Thread {
 
-    private static final Logger logger = LoggerFactory.getLogger(PackageGatherThread.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PackageGatherThread.class);
 	
 	private ChannelHandlerContext ctx;
 	private String packageFile;
@@ -497,8 +497,8 @@ class PackageGatherThread extends Thread {
 
 			StringStreamConsumer consumer = new CommandLineUtils.StringStreamConsumer();
 			
-			logger.debug("Start Package(rpm) info gathering...");
-			logger.debug("~]$ {}\n", commandLine.toString());
+			LOGGER.debug("Start Package(rpm) info gathering...");
+			LOGGER.debug("~]$ {}\n", commandLine.toString());
 
 			int returnCode = CommandLineUtils.executeCommandLine(commandLine, consumer, consumer, Integer.MAX_VALUE);
 			
@@ -517,7 +517,7 @@ class PackageGatherThread extends Thread {
 							msg.addPackageInfo(packageInfo);
 						}
 					} catch (Exception e) {
-						logger.error("Unhandled Exception has occurred. ", e);
+						LOGGER.error("Unhandled Exception has occurred. ", e);
 					}
 				}
 				
@@ -533,14 +533,14 @@ class PackageGatherThread extends Thread {
 					ctx.writeAndFlush(new PeacockDatagram<OSPackageInfoMessage>(msg));
 				}
 				
-				logger.debug("End Package(rpm) info gathering...");
+				LOGGER.debug("End Package(rpm) info gathering...");
 			} else {
 				// when command execute failed.
 				// especially command not found.
-				logger.debug("End Package(rpm) info gathering with error(command execute failed)...");
+				LOGGER.debug("End Package(rpm) info gathering with error(command execute failed)...");
 			}
 		} catch (Exception e) {
-			logger.error("Unhandled Exception has occurred. ", e);
+			LOGGER.error("Unhandled Exception has occurred. ", e);
 		}
 	}
 	
@@ -552,7 +552,7 @@ class PackageGatherThread extends Thread {
 		commandLine.createArg().setValue("%{NAME}\n%{ARCH}\n%{SIZE}\n%{VERSION}\n%{RELEASE}\n%{INSTALLTIME}\n%{SUMMARY}\n%{DESCRIPTION}");
 		commandLine.createArg().setValue(rpm);
 		
-		//logger.debug("~]$ {}\n", commandLine.toString());
+		//LOGGER.debug("~]$ {}\n", commandLine.toString());
 
 		StringStreamConsumer consumer = new CommandLineUtils.StringStreamConsumer();
 		int returnCode = CommandLineUtils.executeCommandLine(commandLine, consumer, consumer, Integer.MAX_VALUE);
@@ -611,7 +611,7 @@ class PackageGatherThread extends Thread {
  */
 class SoftwareGatherThread extends Thread {
 
-    private static final Logger logger = LoggerFactory.getLogger(SoftwareGatherThread.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SoftwareGatherThread.class);
 	
 	private ChannelHandlerContext ctx;
 	
@@ -639,8 +639,8 @@ class SoftwareGatherThread extends Thread {
 				commandLine.setExecutable("sh");
 				commandLine.createArg().setLine("chkhttpd.sh");
 				
-				logger.debug("Start Software(httpd) info gathering...");
-				logger.debug("~]$ {}\n", commandLine.toString());
+				LOGGER.debug("Start Software(httpd) info gathering...");
+				LOGGER.debug("~]$ {}\n", commandLine.toString());
 
 				consumer = new CommandLineUtils.StringStreamConsumer();
 
@@ -711,11 +711,11 @@ class SoftwareGatherThread extends Thread {
 						msg.getSoftwareInfoList().add(softwareInfo);
 				    }
 				    
-					logger.debug("End Software(httpd) info gathering...");
+					LOGGER.debug("End Software(httpd) info gathering...");
 				}
 			} catch (Exception e1) {
 				// ignore after logging
-				logger.error("Unhandled Exception has occurred. ", e1);
+				LOGGER.error("Unhandled Exception has occurred. ", e1);
 			}
 			
 			// =======================
@@ -726,8 +726,8 @@ class SoftwareGatherThread extends Thread {
 				commandLine.setExecutable("sh");
 				commandLine.createArg().setLine("chkews.sh");
 				
-				logger.debug("Start Software(tomcat) info gathering...");
-				logger.debug("~]$ {}\n", commandLine.toString());
+				LOGGER.debug("Start Software(tomcat) info gathering...");
+				LOGGER.debug("~]$ {}\n", commandLine.toString());
 
 				consumer = new CommandLineUtils.StringStreamConsumer();
 
@@ -799,11 +799,11 @@ class SoftwareGatherThread extends Thread {
 						msg.getSoftwareInfoList().add(softwareInfo);
 				    }
 				    
-					logger.debug("End Software(tomcat) info gathering...");
+					LOGGER.debug("End Software(tomcat) info gathering...");
 				}
 			} catch (Exception e1) {
 				// ignore after logging
-				logger.error("Unhandled Exception has occurred. ", e1);
+				LOGGER.error("Unhandled Exception has occurred. ", e1);
 			}			
 
 			// =======================
@@ -814,8 +814,8 @@ class SoftwareGatherThread extends Thread {
 				commandLine.setExecutable("sh");
 				commandLine.createArg().setLine("chkeap.sh");
 				
-				logger.debug("Start Software(eap) info gathering...");
-				logger.debug("~]$ {}\n", commandLine.toString());
+				LOGGER.debug("Start Software(eap) info gathering...");
+				LOGGER.debug("~]$ {}\n", commandLine.toString());
 
 				consumer = new CommandLineUtils.StringStreamConsumer();
 
@@ -886,18 +886,18 @@ class SoftwareGatherThread extends Thread {
 						msg.getSoftwareInfoList().add(softwareInfo);
 				    }
 				    
-					logger.debug("End Software(eap) info gathering...");
+					LOGGER.debug("End Software(eap) info gathering...");
 				}
 			} catch (Exception e1) {
 				// ignore after logging
-				logger.error("Unhandled Exception has occurred. ", e1);
+				LOGGER.error("Unhandled Exception has occurred. ", e1);
 			}
 
 			if (msg.getSoftwareInfoList().size() > 0) {
 				ctx.writeAndFlush(new PeacockDatagram<SoftwareInfoMessage>(msg));
 			}			
 		} catch (Exception e) {
-			logger.error("Unhandled Exception has occurred. ", e);
+			LOGGER.error("Unhandled Exception has occurred. ", e);
 		}
 	}
 }

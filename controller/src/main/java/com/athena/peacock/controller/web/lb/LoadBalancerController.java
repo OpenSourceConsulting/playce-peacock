@@ -51,7 +51,7 @@ import com.athena.peacock.controller.web.user.UserDto;
 @RequestMapping("/lb")
 public class LoadBalancerController {
 
-    protected final Logger logger = LoggerFactory.getLogger(LoadBalancerController.class);
+    protected final Logger LOGGER = LoggerFactory.getLogger(LoadBalancerController.class);
 
 	@Inject
 	@Named("loadBalancerService")
@@ -145,7 +145,7 @@ public class LoadBalancerController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Load Balancer 생성 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -179,7 +179,7 @@ public class LoadBalancerController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Instance 추가 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -213,7 +213,7 @@ public class LoadBalancerController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Instance 삭제 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -237,7 +237,7 @@ public class LoadBalancerController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Load Balancer Listener 설정 추가 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -261,7 +261,7 @@ public class LoadBalancerController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Load Balancer Listener 설정 수정 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -285,7 +285,7 @@ public class LoadBalancerController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Load Balancer Listener 설정 삭제 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -308,7 +308,7 @@ public class LoadBalancerController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Load Balancer Listener 설정 적용 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;

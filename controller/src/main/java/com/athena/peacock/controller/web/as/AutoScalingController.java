@@ -52,7 +52,7 @@ import com.athena.peacock.controller.web.user.UserDto;
 @RequestMapping("/as")
 public class AutoScalingController {
 
-    protected final Logger logger = LoggerFactory.getLogger(AutoScalingController.class);
+    protected final Logger LOGGER = LoggerFactory.getLogger(AutoScalingController.class);
     
 	@Inject
 	@Named("autoScalingService")
@@ -94,7 +94,7 @@ public class AutoScalingController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Auto Scaling 설정 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -119,7 +119,7 @@ public class AutoScalingController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Auto Scaling 수정 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -142,7 +142,7 @@ public class AutoScalingController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Auto Scaling 삭제 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;

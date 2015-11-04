@@ -54,7 +54,7 @@ public class SvnService {
 
 			return responseEntity.getBody();
 		} catch (Exception e) {
-			// logger.debug("exception {}", e.getMessage());
+
 		}
 
 		return null;

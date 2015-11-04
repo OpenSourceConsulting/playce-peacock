@@ -62,7 +62,7 @@ import com.athena.peacock.controller.web.user.UserDto;
 @RequestMapping("/software")
 public class SoftwareController {
 
-    protected final Logger logger = LoggerFactory.getLogger(SoftwareController.class);
+    protected final Logger LOGGER = LoggerFactory.getLogger(SoftwareController.class);
 	
     @Value("#{contextProperties['repository.url']}")
     private String urlPrefix;
@@ -216,7 +216,7 @@ public class SoftwareController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("설치 중 예외가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -272,7 +272,7 @@ public class SoftwareController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("삭제 중 예외가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;

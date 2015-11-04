@@ -47,7 +47,7 @@ import com.athena.peacock.common.core.action.support.AgentConfigUtil;
  */
 public class ShellAction extends Action {
 
-	private static final Logger logger = LoggerFactory.getLogger(ShellAction.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ShellAction.class);
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -141,7 +141,7 @@ public class ShellAction extends Action {
 			
 			/** verify command string */
 			commandStr = commandLine.toString();
-			logger.debug("{} ~]$ {}\n", workingDiretory, commandStr);
+			LOGGER.debug("{} ~]$ {}\n", workingDiretory, commandStr);
 			
 			/** also enable StringWriter, PrintWriter, WriterStreamConsumer and etc. */
 			consumer = new CommandLineUtils.StringStreamConsumer();
@@ -150,13 +150,13 @@ public class ShellAction extends Action {
 			
 			if (returnCode == 0) {
 				// success
-				logger.debug(consumer.getOutput());
+				LOGGER.debug(consumer.getOutput());
 			} else {
 				// fail
-				logger.error(consumer.getOutput());
+				LOGGER.error(consumer.getOutput());
 			}
 		} catch (CommandLineException e) {
-			logger.error("CommandLineException has occurred. : ", e);
+			LOGGER.error("CommandLineException has occurred. : ", e);
 		}
 		
 		if (consumer.getOutput() != null && consumer.getOutput().length() > 0) {

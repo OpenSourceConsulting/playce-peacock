@@ -44,7 +44,7 @@ import com.athena.peacock.common.core.util.SshExecUtil;
  */
 public class SshAction extends Action {
 	
-	private static final Logger logger = LoggerFactory.getLogger(SshAction.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SshAction.class);
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -88,7 +88,7 @@ public class SshAction extends Action {
 	 */
 	@Override
 	public String perform() {
-    	logger.debug("\n- Target Host Info : [{}]", targetHost.toString());
+    	LOGGER.debug("\n- Target Host Info : [{}]", targetHost.toString());
     	
 		String result = "F";
     	
@@ -96,9 +96,9 @@ public class SshAction extends Action {
 			SshExecUtil.executeCommand(targetHost, commandList);
 			result = "S";
 			
-			logger.debug("Execute Command(s) Result : \n{}", IOUtils.toString(SshExecUtil.output.toURI()));
+			LOGGER.debug("Execute Command(s) Result : \n{}", IOUtils.toString(SshExecUtil.output.toURI()));
 		} catch (IOException e) {
-			logger.error("IOException has occurred.", e);
+			LOGGER.error("IOException has occurred.", e);
 		}
         
         return result;

@@ -44,7 +44,7 @@ import com.athena.peacock.controller.web.dashboard.DashboardService;
 @Qualifier("dashboardHandler")
 public class DashboardHandler implements InitializingTask {
 
-    protected final Logger logger = LoggerFactory.getLogger(DashboardHandler.class);
+    protected final Logger LOGGER = LoggerFactory.getLogger(DashboardHandler.class);
 	
     @Inject
     @Named("dashboardService")
@@ -60,13 +60,13 @@ public class DashboardHandler implements InitializingTask {
 						try {
 							dashboardService.refreshDashboardInfo();
 						} catch (Exception e) {
-							logger.error("can not initiate dashboard info : ", e);
+							LOGGER.error("can not initiate dashboard info : ", e);
 						}
 					}
 				}.start();
 			}
 		} catch (Exception e) {
-			logger.error("can not initiate dashboard info : ", e);
+			LOGGER.error("can not initiate dashboard info : ", e);
 		}
 	}
 }

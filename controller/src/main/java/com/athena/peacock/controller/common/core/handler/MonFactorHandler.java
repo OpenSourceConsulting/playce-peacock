@@ -51,7 +51,7 @@ import com.athena.peacock.controller.web.monitor.MonFactorDto;
 @Qualifier("monFactorHandler")
 public class MonFactorHandler implements InitializingTask {
 
-    protected final Logger logger = LoggerFactory.getLogger(MonFactorHandler.class);
+    protected final Logger LOGGER = LoggerFactory.getLogger(MonFactorHandler.class);
     
     private List<MonFactorDto> monFactorList;
     
@@ -68,9 +68,9 @@ public class MonFactorHandler implements InitializingTask {
 			monFactorList = monFactorDao.getMonFactorList();
 			ThreadLocalUtil.add(PeacockConstant.MON_FACTOR_LIST, monFactorList);
 			
-			logger.debug("mon_factor_tbl fetch result : [{}]", monFactorList);
+			LOGGER.debug("mon_factor_tbl fetch result : [{}]", monFactorList);
 		} catch (Exception e) {
-			logger.error("can not initiate mon_factor_tbl info : ", e);
+			LOGGER.error("can not initiate mon_factor_tbl info : ", e);
 		}
 	}
 

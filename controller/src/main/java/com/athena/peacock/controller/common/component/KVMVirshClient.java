@@ -40,7 +40,7 @@ import com.athena.peacock.controller.web.kvm.PeacockKvmAuth;
  */
 public class KVMVirshClient extends HypervisorClient {
 	
-    private static final Logger logger = LoggerFactory.getLogger(KVMVirshClient.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(KVMVirshClient.class);
     
     private String url;
 	private Connect connect;
@@ -92,7 +92,7 @@ public class KVMVirshClient extends HypervisorClient {
 				connect = new Connect(url, new PeacockKvmAuth(username, password), 0);
 			}
 		} catch (LibvirtException e) {
-			logger.error("LibvirtException has occurred.", e);
+			LOGGER.error("LibvirtException has occurred.", e);
 			throw e;
 		}
 		

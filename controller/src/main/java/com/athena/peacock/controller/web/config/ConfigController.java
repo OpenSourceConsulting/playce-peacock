@@ -63,7 +63,7 @@ import com.athena.peacock.controller.web.software.SoftwareService;
 @RequestMapping("/config")
 public class ConfigController {
 
-    protected final Logger logger = LoggerFactory.getLogger(ConfigController.class);
+    protected final Logger LOGGER = LoggerFactory.getLogger(ConfigController.class);
 
 	@Inject
 	@Named("configService")
@@ -196,7 +196,7 @@ public class ConfigController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg(message);
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -320,7 +320,7 @@ public class ConfigController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg(message);
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 			
 			return jsonRes;
 		}
@@ -331,7 +331,7 @@ public class ConfigController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("DB 저장 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;

@@ -54,7 +54,7 @@ import com.athena.peacock.controller.web.user.UserDto;
 @RequestMapping("/hypervisor")
 public class HypervisorController {
 
-    protected final Logger logger = LoggerFactory.getLogger(HypervisorController.class);
+    protected final Logger LOGGER = LoggerFactory.getLogger(HypervisorController.class);
 
 	@Inject
 	@Named("hypervisorService")
@@ -134,7 +134,7 @@ public class HypervisorController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Hypervisor 생성 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -161,7 +161,7 @@ public class HypervisorController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Hypervisor 조회 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -197,7 +197,7 @@ public class HypervisorController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Hypervisor 수정 중 에러가 발생하였습니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;
@@ -226,7 +226,7 @@ public class HypervisorController {
 			jsonRes.setSuccess(false);
 			jsonRes.setMsg("Hypervisor 삭제 중 에러가 발생하였습니다.<br/>Agent가 설치된 Instance 목록이 존재할 경우 삭제가 불가능합니다.");
 			
-			logger.error("Unhandled Expeption has occurred. ", e);
+			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
 		
 		return jsonRes;

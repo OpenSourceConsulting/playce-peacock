@@ -45,7 +45,7 @@ import com.athena.peacock.common.core.action.support.TargetHost;
  */
 public class ScpUtil {
 	
-	private static final Logger logger = LoggerFactory.getLogger(ScpUtil.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ScpUtil.class);
 	
 	/**
 	 * <pre>
@@ -63,7 +63,7 @@ public class ScpUtil {
 		
 		String destination = targetHost.getUsername() + "@" + targetHost.getHost() + ":" + target;
 		
-		logger.debug("[scp upload] " + source + " - " + destination);
+		LOGGER.debug("[scp upload] " + source + " - " + destination);
 		
 		Project project = new Project();
 		

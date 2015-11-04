@@ -40,7 +40,7 @@ import com.athena.peacock.common.core.util.ScpUtil;
  */
 public class ScpAction extends Action {
 
-	private static final Logger logger = LoggerFactory.getLogger(ScpAction.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ScpAction.class);
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -100,7 +100,7 @@ public class ScpAction extends Action {
 	 */
 	@Override
 	public String perform() {
-    	logger.debug("\n- Target Host Info : [{}]\n- Source : [{}]\n- Target : [{}]", new Object[]{targetHost.toString(), source, target});
+    	LOGGER.debug("\n- Target Host Info : [{}]\n- Source : [{}]\n- Target : [{}]", new Object[]{targetHost.toString(), source, target});
     	
 		String result = "F";
     	
@@ -108,7 +108,7 @@ public class ScpAction extends Action {
 			ScpUtil.upload(targetHost, source, target);
 			result = "S";
 		} catch (Exception e) {
-			logger.error("Unhandled exception has occurred.", e);
+			LOGGER.error("Unhandled exception has occurred.", e);
 		}
         
         return result;
