@@ -479,7 +479,7 @@ class PackageGatherThread extends Thread {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PackageGatherThread.class);
 	
-	private ChannelHandlerContext ctx;
+	private final ChannelHandlerContext ctx;
 	private String packageFile;
 	
 	public PackageGatherThread(ChannelHandlerContext ctx, String packageFile) {
