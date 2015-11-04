@@ -14,7 +14,7 @@
 	<!-- ==================================================== -->
     
     
-    <!-- Department Code and Package Information -->
+    <!-- Department Code and Package Information 
     <bean id="refactoring.DeptPackageMapper" class="com.athena.peacock.controller.web.alm.refactoring.DeptPackageMapper">
     	<property name="deptPackageMap">
     		<map>
@@ -30,6 +30,7 @@
     		</map>
     	</property>
     </bean>
+    
 	
 	<bean id="ProRefactoringProcessor" class="com.athena.peacock.controller.web.alm.refactoring.ProjectRefactoringProcessor">
 		<property name="replaceHandlers">
@@ -48,5 +49,5 @@
 			</list>
 		</property>
 	</bean>
-	
+	-->
 </beans>
