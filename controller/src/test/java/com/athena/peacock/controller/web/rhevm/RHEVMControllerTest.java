@@ -15,7 +15,7 @@ public class RHEVMControllerTest extends BaseControllerTest {
 	@Test
     public void testList() throws Exception {
     	try {
-			mockMvc.perform(get("/rhevm//vms/list")
+			mockMvc.perform(get("/rhevm/vms/list")
 					.param("hypervisorId",  "1")
 					.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 					.andDo(print())
@@ -31,7 +31,7 @@ public class RHEVMControllerTest extends BaseControllerTest {
     	try {
 			mockMvc.perform(get("/rhevm/vms/info")
 					.param("hypervisorId",  "1")
-					.param("vmId", "001")
+					.param("vmId", "a110bb8f-9494-4ed4-949d-9d6a2defb4df")
 					.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 					.andDo(print())
 					.andExpect(status().isOk());
@@ -46,7 +46,7 @@ public class RHEVMControllerTest extends BaseControllerTest {
     	try {
 			mockMvc.perform(get("/rhevm/vms/nics")
 					.param("hypervisorId",  "1")
-					.param("vmId", "001")
+					.param("vmId", "a110bb8f-9494-4ed4-949d-9d6a2defb4df")
 					.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 					.andDo(print())
 					.andExpect(status().isOk());
@@ -61,7 +61,7 @@ public class RHEVMControllerTest extends BaseControllerTest {
     	try {
 			mockMvc.perform(get("/rhevm/vms/disks")
 					.param("hypervisorId",  "1")
-					.param("vmId", "001")
+					.param("vmId", "a110bb8f-9494-4ed4-949d-9d6a2defb4df")
 					.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 					.andDo(print())
 					.andExpect(status().isOk());

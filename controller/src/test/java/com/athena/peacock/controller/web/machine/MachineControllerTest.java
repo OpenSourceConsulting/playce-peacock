@@ -29,7 +29,7 @@ public class MachineControllerTest extends BaseControllerTest {
     public void testMachine() throws Exception {
     	try {
 			mockMvc.perform(get("/machine/getMachine")
-					.param("machineId", "1")
+					.param("machineId", "a110bb8f-9494-4ed4-949d-9d6a2defb4df")
 					.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 					.andDo(print())
 					.andExpect(status().isOk());
@@ -43,7 +43,7 @@ public class MachineControllerTest extends BaseControllerTest {
     public void testAdditionalInfo() throws Exception {
     	try {
 			mockMvc.perform(get("/machine/getAdditionalInfo")
-					.param("machineId", "1")
+					.param("machineId", "a110bb8f-9494-4ed4-949d-9d6a2defb4df")
 					.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 					.andDo(print())
 					.andExpect(status().isOk());
@@ -72,7 +72,7 @@ public class MachineControllerTest extends BaseControllerTest {
     public void testAgentStart() throws Exception {
     	try {
 			mockMvc.perform(get("/machine/agentStart")
-					.param("machineId", "1")
+					.param("machineId", "a110bb8f-9494-4ed4-949d-9d6a2defb4df")
 					.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 					.andDo(print())
 					.andExpect(status().isOk());
@@ -86,7 +86,7 @@ public class MachineControllerTest extends BaseControllerTest {
     public void testAgentStop() throws Exception {
     	try {
 			mockMvc.perform(get("/machine/agentStop")
-					.param("machineId", "1")
+					.param("machineId", "a110bb8f-9494-4ed4-949d-9d6a2defb4df")
 					.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 					.andDo(print())
 					.andExpect(status().isOk());
@@ -100,7 +100,7 @@ public class MachineControllerTest extends BaseControllerTest {
     public void testCli() throws Exception {
     	try {
 			mockMvc.perform(get("/machine/cli")
-					.param("machineId", "1")
+					.param("machineId", "a110bb8f-9494-4ed4-949d-9d6a2defb4df")
 					.param("command", "ls")
 					.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 					.andDo(print())
@@ -115,7 +115,7 @@ public class MachineControllerTest extends BaseControllerTest {
     public void testGroupList() throws Exception {
     	try {
 			mockMvc.perform(get("/machine/getGroupList")
-					.param("machineId", "1")
+					.param("machineId", "a110bb8f-9494-4ed4-949d-9d6a2defb4df")
 					.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 					.andDo(print())
 					.andExpect(status().isOk());
@@ -129,7 +129,7 @@ public class MachineControllerTest extends BaseControllerTest {
     public void testAccountList() throws Exception {
     	try {
 			mockMvc.perform(get("/machine/getAccountList")
-					.param("machineId", "1")
+					.param("machineId", "a110bb8f-9494-4ed4-949d-9d6a2defb4df")
 					.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 					.andDo(print())
 					.andExpect(status().isOk());
@@ -204,7 +204,7 @@ public class MachineControllerTest extends BaseControllerTest {
     public void testFstab() throws Exception {
     	try {
 			mockMvc.perform(get("/machine/getFstab")
-					.param("machineId", "1")
+					.param("machineId", "a110bb8f-9494-4ed4-949d-9d6a2defb4df")
 					.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 					.andDo(print())
 					.andExpect(status().isOk());
@@ -218,7 +218,7 @@ public class MachineControllerTest extends BaseControllerTest {
     public void testCrontab() throws Exception {
     	try {
 			mockMvc.perform(get("/machine/getCrontab")
-					.param("machineId", "1")
+					.param("machineId", "a110bb8f-9494-4ed4-949d-9d6a2defb4df")
 					.param("account", "osc")
 					.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 					.andDo(print())
@@ -233,8 +233,8 @@ public class MachineControllerTest extends BaseControllerTest {
     public void testEditCrontab() throws Exception {
     	try {
 			mockMvc.perform(get("/machine/editCrontab")
-					.param("machineId", "1")
-					.param("account", "osc")
+					.param("machineId", "a110bb8f-9494-4ed4-949d-9d6a2defb4df")
+					.param("account", "peacock")
 					.param("contents", "* * * * *")
 					.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 					.andDo(print())

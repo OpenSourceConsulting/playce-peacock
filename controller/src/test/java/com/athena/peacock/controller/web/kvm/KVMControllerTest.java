@@ -12,7 +12,7 @@ import com.athena.peacock.controller.web.BaseControllerTest;
 
 public class KVMControllerTest extends BaseControllerTest {
 	
-	@Test
+//	@Test
     public void testVMList() throws Exception {
     	try {
 			mockMvc.perform(get("/kvm/vms/list")
@@ -26,7 +26,7 @@ public class KVMControllerTest extends BaseControllerTest {
 		}
     }
 
-	@Test
+//	@Test
     public void testVMInfo() throws Exception {
     	try {
 			mockMvc.perform(get("/kvm/vms/list")
@@ -41,7 +41,7 @@ public class KVMControllerTest extends BaseControllerTest {
 		}
     }
 	
-	@Test
+//	@Test
     public void testVMNic() throws Exception {
     	try {
 			mockMvc.perform(get("/kvm/vms/nics")
@@ -56,7 +56,7 @@ public class KVMControllerTest extends BaseControllerTest {
 		}
     }
 	
-	@Test
+//	@Test
     public void testVMDisks() throws Exception {
     	try {
 			mockMvc.perform(get("/kvm/vms/disks")

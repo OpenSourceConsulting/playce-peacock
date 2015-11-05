@@ -60,7 +60,6 @@ import com.athena.peacock.controller.web.ceph.CephService;
 import com.athena.peacock.controller.web.ceph.base.CephDto;
 import com.athena.peacock.controller.web.config.ConfigDto;
 import com.athena.peacock.controller.web.config.ConfigService;
-import com.athena.peacock.controller.web.machine.MachineService;
 import com.athena.peacock.controller.web.software.SoftwareDto;
 import com.athena.peacock.controller.web.software.SoftwareService;
 

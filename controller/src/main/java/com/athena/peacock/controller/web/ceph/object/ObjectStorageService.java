@@ -505,12 +505,12 @@ public class ObjectStorageService {
 		return file;
 	}
 	
-	public static void main(String [] args) throws Exception {
-		String accessKey = "YURR234DJCPXHAWA2BKG";
-		String secretKey = "6oyIDbSPAG081wiBFEvo0zXTou01d1gljNi5FdnD";
-		
-		AmazonS3Client client = new AmazonS3Client(new BasicAWSCredentials(accessKey, secretKey));
-		client.setEndpoint("http://192.168.0.219");
+//	public static void main(String [] args) throws Exception {
+//		String accessKey = "YURR234DJCPXHAWA2BKG";
+//		String secretKey = "6oyIDbSPAG081wiBFEvo0zXTou01d1gljNi5FdnD";
+//		
+//		AmazonS3Client client = new AmazonS3Client(new BasicAWSCredentials(accessKey, secretKey));
+//		client.setEndpoint("http://192.168.0.219");
 		
 		/*
 		ObjectMetadata metadata = new ObjectMetadata();
@@ -523,27 +523,27 @@ public class ObjectStorageService {
 		//*/
 		
 		//*
-		String parentPath = "folder1/";
-		ObjectListing objectListing = client.listObjects("scpark", parentPath);
-
-        for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
-        	if (objectSummary.getKey().equals(parentPath)) {
-        		continue;
-        	}
-        	
-			ObjectDto dto = new ObjectDto();
-			dto.setBucketName(objectSummary.getBucketName());
-			dto.setParentPath(parentPath);
-			dto.setKey(objectSummary.getKey());
-			dto.setSize(objectSummary.getSize());
-			dto.setOwner(objectSummary.getOwner());
-			dto.setStorageClass(objectSummary.getStorageClass());
-			dto.setLastModified(objectSummary.getLastModified());
-			
-			String key = objectSummary.getKey().substring(parentPath.length());
-			
-			LOGGER.info(key + " : " + StringUtils.countMatches(key, "/") + " : " + dto);
-        }
+//		String parentPath = "folder1/";
+//		ObjectListing objectListing = client.listObjects("scpark", parentPath);
+//
+//        for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
+//        	if (objectSummary.getKey().equals(parentPath)) {
+//        		continue;
+//        	}
+//        	
+//			ObjectDto dto = new ObjectDto();
+//			dto.setBucketName(objectSummary.getBucketName());
+//			dto.setParentPath(parentPath);
+//			dto.setKey(objectSummary.getKey());
+//			dto.setSize(objectSummary.getSize());
+//			dto.setOwner(objectSummary.getOwner());
+//			dto.setStorageClass(objectSummary.getStorageClass());
+//			dto.setLastModified(objectSummary.getLastModified());
+//			
+//			String key = objectSummary.getKey().substring(parentPath.length());
+//			
+//			LOGGER.info(key + " : " + StringUtils.countMatches(key, "/") + " : " + dto);
+//        }
 		/*/
 		ListObjectsRequest listObjectsRequest = new ListObjectsRequest().withBucketName("scpark");
 		
@@ -617,4 +617,4 @@ public class ObjectStorageService {
 		LOGGER.info(osc.getObjectsMethod("my-new-bucket","file.txt"));
 	}
 	*/
-}
+//}

@@ -281,8 +281,8 @@ public class ObjectStorageController{
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/object", method=RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody SimpleJsonResponse updateObject(SimpleJsonResponse jsonRes, @RequestBody ObjectDto dto) throws Exception {
+	@RequestMapping(value="/object", method=RequestMethod.PUT)
+	public @ResponseBody SimpleJsonResponse updateObject(SimpleJsonResponse jsonRes, ObjectDto dto) throws Exception {
 		try {
 			objectStorageService.updateObject(dto);
 			jsonRes.setSuccess(true);
@@ -365,8 +365,8 @@ public class ObjectStorageController{
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/copy", method={ RequestMethod.POST }, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody SimpleJsonResponse copyObject(SimpleJsonResponse jsonRes, @RequestBody ObjectDto dto) throws Exception {
+	@RequestMapping(value="/copy", method={ RequestMethod.POST })
+	public @ResponseBody SimpleJsonResponse copyObject(SimpleJsonResponse jsonRes, ObjectDto dto) throws Exception {
 		try {
 			objectStorageService.copyObject(dto, false);
 			jsonRes.setSuccess(true);
@@ -391,8 +391,8 @@ public class ObjectStorageController{
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/move", method={ RequestMethod.POST }, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody SimpleJsonResponse moveObject(SimpleJsonResponse jsonRes, @RequestBody ObjectDto dto) throws Exception {
+	@RequestMapping(value="/move", method={ RequestMethod.POST })
+	public @ResponseBody SimpleJsonResponse moveObject(SimpleJsonResponse jsonRes, ObjectDto dto) throws Exception {
 		try {
 			objectStorageService.copyObject(dto, true);
 			jsonRes.setSuccess(true);

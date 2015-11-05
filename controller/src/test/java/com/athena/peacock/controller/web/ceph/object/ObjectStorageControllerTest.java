@@ -22,6 +22,7 @@
  */
 package com.athena.peacock.controller.web.ceph.object;
 
+import static org.junit.Assert.fail;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -29,7 +30,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.springframework.http.MediaType;
 
 import com.athena.peacock.controller.web.BaseControllerTest;
@@ -41,174 +44,197 @@ import com.athena.peacock.controller.web.BaseControllerTest;
  * @author Sang-cheon Park
  * @version 1.0
  */
+
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ObjectStorageControllerTest extends BaseControllerTest {
 
 	@Test
-	public void testListBuckets() {
+	public void test_01_CreateBucket() {
+    	try {
+			this.mockMvc.perform(post("/ceph/object/bucket").param("bucketName", "test-bucket").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+					.andDo(print())
+					.andExpect(status().isOk())
+					.andExpect(content().contentType("application/json;charset=UTF-8"));
+
+			this.mockMvc.perform(post("/ceph/object/bucket").param("bucketName", "test-bucket").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+					.andDo(print())
+					.andExpect(status().isOk())
+					.andExpect(content().contentType("application/json;charset=UTF-8"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("Exception has occurred.");
+		}
+	}
+
+	@Test
+	public void test_02_ListBuckets() {
     	try {
 			this.mockMvc.perform(get("/ceph/object/buckets").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 					.andDo(print())
 					.andExpect(status().isOk())
 					.andExpect(content().contentType("application/json;charset=UTF-8"));
 		} catch (Exception e) {
-			//e.printStackTrace();
-			//fail("Exception has occurred.");
+			e.printStackTrace();
+			fail("Exception has occurred.");
 		}
 	}
 
 	@Test
-	public void testListObjects() {
+	public void test_03_ListObjects() {
     	try {
-			this.mockMvc.perform(get("/ceph/object/objects").param("bucketName", "testBucket").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+			this.mockMvc.perform(get("/ceph/object/objects").param("bucketName", "test-bucket").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+					.andDo(print())
+					.andExpect(status().isOk())
+					.andExpect(content().contentType("application/json;charset=UTF-8"));
+			
+			this.mockMvc.perform(get("/ceph/object/objects").param("bucketName", "xxxxxxx").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+			.andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(content().contentType("application/json;charset=UTF-8"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("Exception has occurred.");
+		}
+	}
+
+	@Test
+	public void test_04_GetBucket() {
+    	try {
+			this.mockMvc.perform(get("/ceph/object/bucket").param("name", "test-bucket").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+					.andDo(print())
+					.andExpect(status().isOk())
+					.andExpect(content().contentType("application/json;charset=UTF-8"));
+			
+			this.mockMvc.perform(get("/ceph/object/bucket").param("name", "xxxxxx").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+			.andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(content().contentType("application/json;charset=UTF-8"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("Exception has occurred.");
+		}
+	}
+
+	@Test
+	public void test_05_CreateFolder() {
+    	try {
+			this.mockMvc.perform(post("/ceph/object/folder").param("bucketName", "test-bucket").param("objectName", "testFolder").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 					.andDo(print())
 					.andExpect(status().isOk())
 					.andExpect(content().contentType("application/json;charset=UTF-8"));
 		} catch (Exception e) {
-			//e.printStackTrace();
-			//fail("Exception has occurred.");
+			e.printStackTrace();
+			fail("Exception has occurred.");
 		}
 	}
 
 	@Test
-	public void testGetBucket() {
+	public void test_06_CreateObject() {
     	try {
-			this.mockMvc.perform(get("/ceph/object/bucket").param("bucketName", "testBucket").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
-					.andDo(print())
-					.andExpect(status().isOk())
-					.andExpect(content().contentType("application/json;charset=UTF-8"));
-		} catch (Exception e) {
-			//e.printStackTrace();
-			//fail("Exception has occurred.");
-		}
-	}
-
-	@Test
-	public void testCreateBucket() {
-    	try {
-			this.mockMvc.perform(post("/ceph/object/bucket").param("bucketName", "testBucket").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
-					.andDo(print())
-					.andExpect(status().isOk())
-					.andExpect(content().contentType("application/json;charset=UTF-8"));
-		} catch (Exception e) {
-			//e.printStackTrace();
-			//fail("Exception has occurred.");
-		}
-	}
-
-	@Test
-	public void testEmptyBucket() {
-    	try {
-			this.mockMvc.perform(put("/ceph/object/bucket").param("bucketName", "testBucket").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
-					.andDo(print())
-					.andExpect(status().isOk())
-					.andExpect(content().contentType("application/json;charset=UTF-8"));
-		} catch (Exception e) {
-			//e.printStackTrace();
-			//fail("Exception has occurred.");
-		}
-	}
-
-	@Test
-	public void testDeleteBucket() {
-    	try {
-			this.mockMvc.perform(post("/ceph/object/bucket/delete").param("bucketName", "testBucket").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
-					.andDo(print())
-					.andExpect(status().isOk())
-					.andExpect(content().contentType("application/json;charset=UTF-8"));
-		} catch (Exception e) {
-			//e.printStackTrace();
-			//fail("Exception has occurred.");
-		}
-	}
-
-	@Test
-	public void testCreateFolder() {
-    	try {
-			this.mockMvc.perform(post("/ceph/object/folder").param("bucketName", "testBucket").param("objectName", "testFolder").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
-					.andDo(print())
-					.andExpect(status().isOk())
-					.andExpect(content().contentType("application/json;charset=UTF-8"));
-		} catch (Exception e) {
-			//e.printStackTrace();
-			//fail("Exception has occurred.");
-		}
-	}
-
-	@Test
-	public void testGetObjectAcl() {
-    	try {
-			this.mockMvc.perform(get("/ceph/object/object").param("bucketName", "testBucket").param("key", "/testObject").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
-					.andDo(print())
-					.andExpect(status().isOk())
-					.andExpect(content().contentType("application/json;charset=UTF-8"));
-		} catch (Exception e) {
-			//e.printStackTrace();
-			//fail("Exception has occurred.");
-		}
-	}
-
-	@Test
-	public void testUpdateObject() {
-    	try {
-			this.mockMvc.perform(put("/ceph/object/object").param("bucketName", "testBucket").param("key", "/testObject").param("objectName", "testObject").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+			this.mockMvc.perform(post("/ceph/object/object").param("bucketName", "test-bucket").param("file", "file:///C:/Temp/app/classic.json").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 					.andDo(print())
 					.andExpect(status().isOk());
 		} catch (Exception e) {
-			//e.printStackTrace();
-			//fail("Exception has occurred.");
+			e.printStackTrace();
+			fail("Exception has occurred.");
 		}
 	}
 
 	@Test
-	public void testCreateObject() {
+	public void test_07_UpdateObject() {
     	try {
-			this.mockMvc.perform(post("/ceph/object/object").param("bucketName", "testBucket").param("file", "testFile").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+			this.mockMvc.perform(put("/ceph/object/object").param("bucketName", "asd").param("key", "ceph_ref_2.txt")
+					.param("objectName", "ceph_ref_2.txt").param("newName", "ceph_ref_3.txt").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+					.andDo(print())
+					.andExpect(status().isOk());
+
+			this.mockMvc.perform(put("/ceph/object/object").param("bucketName", "asd").param("key", "ceph_ref_3.txt")
+					.param("objectName", "ceph_ref_3.txt").param("newName", "ceph_ref_2.txt").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 					.andDo(print())
 					.andExpect(status().isOk());
 		} catch (Exception e) {
-			//e.printStackTrace();
-			//fail("Exception has occurred.");
+			e.printStackTrace();
+			fail("Exception has occurred.");
 		}
 	}
 
 	@Test
-	public void testDeleteObject() {
+	public void test_08_GetObjectAcl() {
     	try {
-			this.mockMvc.perform(post("/ceph/object/object/delete").param("bucketName", "testBucket").param("key", "/testObject").param("isFolder", "false").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+			this.mockMvc.perform(post("/ceph/object/object/detail").param("bucketName", "asd").param("key", "ceph_ref_2.txt").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+					.andDo(print())
+					.andExpect(status().isOk());
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("Exception has occurred.");
+		}
+	}
+
+	@Test
+	public void test_09_CopyObject() {
+    	try {
+			this.mockMvc.perform(post("/ceph/object/copy").param("bucketName", "asd")
+					.param("key", "ceph_ref_2.txt").param("objectName", "ceph_ref_2.txt")
+					.param("targetBucketName", "asdf").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+					.andDo(print())
+					.andExpect(status().isOk());
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("Exception has occurred.");
+		}
+	}
+
+	@Test
+	public void test_10_MoveObject() {
+    	try {
+			this.mockMvc.perform(post("/ceph/object/move").param("bucketName", "asdf")
+					.param("key", "ceph_ref_2.txt").param("objectName", "ceph_ref_2.txt")
+					.param("targetBucketName", "asdf").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+					.andDo(print())
+					.andExpect(status().isOk());
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("Exception has occurred.");
+		}
+	}
+
+	@Test
+	public void test_11_DeleteObject() {
+    	try {
+			this.mockMvc.perform(post("/ceph/object/object/delete").param("bucketName", "asdf").param("key", "ceph_ref_2.txt").param("isFolder", "false").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 					.andDo(print())
 					.andExpect(status().isOk())
 					.andExpect(content().contentType("application/json;charset=UTF-8"));
 		} catch (Exception e) {
-			//e.printStackTrace();
-			//fail("Exception has occurred.");
+			e.printStackTrace();
+			fail("Exception has occurred.");
 		}
 	}
 
 	@Test
-	public void testCopyObject() {
+	public void test_12_EmptyBucket() {
     	try {
-			this.mockMvc.perform(post("/ceph/object/copy").param("bucketName", "testBucket")
-					.param("key", "/testObject").param("objectName", "testObject")
-					.param("targetBucketName", "testBucket").param("parentPath", "/testFolder").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+			this.mockMvc.perform(put("/ceph/object/bucket").param("bucketName", "asdf").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 					.andDo(print())
-					.andExpect(status().isOk());
+					.andExpect(status().isOk())
+					.andExpect(content().contentType("application/json;charset=UTF-8"));
 		} catch (Exception e) {
-			//e.printStackTrace();
-			//fail("Exception has occurred.");
+			e.printStackTrace();
+			fail("Exception has occurred.");
 		}
 	}
 
 	@Test
-	public void testMoveObject() {
+	public void test_13_DeleteBucket() {
     	try {
-			this.mockMvc.perform(post("/ceph/object/move").param("bucketName", "testBucket")
-					.param("key", "/testObject").param("objectName", "testObject")
-					.param("targetBucketName", "testBucket").param("parentPath", "/testFolder").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+			this.mockMvc.perform(post("/ceph/object/bucket/delete").param("bucketName", "test-bucket").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
 					.andDo(print())
-					.andExpect(status().isOk());
+					.andExpect(status().isOk())
+					.andExpect(content().contentType("application/json;charset=UTF-8"));
 		} catch (Exception e) {
-			//e.printStackTrace();
-			//fail("Exception has occurred.");
+			e.printStackTrace();
+			fail("Exception has occurred.");
 		}
 	}
 
