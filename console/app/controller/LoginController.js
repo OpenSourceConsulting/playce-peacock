@@ -41,6 +41,11 @@ Ext.define('MyApp.controller.LoginController', {
             formWindow = Ext.getCmp('loginWindow'),	// Login form window
             values = form.getValues();				// Form values
 
+        if (form.getForm().isValid() !== true) {
+            Ext.MessageBox.alert('알림', '유효하지 않은 입력값이 존재합니다.');
+            return;
+        }
+
         var me = this;
 
         var userName = this.getUserName(),
@@ -48,6 +53,7 @@ Ext.define('MyApp.controller.LoginController', {
 
         var userNameVal = userName.getValue(),
             passwordVal = password.getValue();
+
 
         // Success
         var successCallback = function(resp, ops) {

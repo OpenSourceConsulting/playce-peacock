@@ -56,7 +56,11 @@
                         "labelWidth": 120,
                         "layout|anchor": "100%",
                         "margin": null,
-                        "name": "permNm"
+                        "maskRe": "/[^\\s]/",
+                        "maxLength": 30,
+                        "minLength": 3,
+                        "name": "permNm",
+                        "regex": "/[^\\s]/"
                     },
                     "designerId": "985a6ea0-01a7-4f3c-b6d2-571473e7b0f5",
                     "cn": [

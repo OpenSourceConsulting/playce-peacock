@@ -622,35 +622,37 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     items: [
                                                         {
                                                             handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                                                //if(instancesConstants.selectRow.get("status") == "Running" && record.get("installStat") == "설치 완료") {
+                                                                if(instancesConstants.selectRow.get("status") == "Running" && record.get("installStat") == "설치 완료") {
+                                                                    if(record.get("softwareName") == "Ceph") {
+                                                                        Ext.MessageBox.alert('Error', "Ceph는 Config를 수정할 수 없습니다.");
+                                                                    } else {
+                                                                        var softwareConfigWindow = Ext.create("widget.SoftwareConfigWindow");
+                                                                        softwareConfigWindow.show();
 
-                                                                var softwareConfigWindow = Ext.create("widget.SoftwareConfigWindow");
-                                                                softwareConfigWindow.show();
+                                                                        softwareConfigWindow.down('form').getForm().findField("machineId").setValue(instancesConstants.selectRow.get("machineId"));
+                                                                        softwareConfigWindow.down('form').getForm().findField("softwareId").setValue(record.get("softwareId"));
+                                                                        softwareConfigWindow.down('form').getForm().findField("installSeq").setValue(record.get("installSeq"));
 
-                                                                softwareConfigWindow.down('form').getForm().findField("machineId").setValue(instancesConstants.selectRow.get("machineId"));
-                                                                softwareConfigWindow.down('form').getForm().findField("softwareId").setValue(record.get("softwareId"));
-                                                                softwareConfigWindow.down('form').getForm().findField("installSeq").setValue(record.get("installSeq"));
-
-                                                                var fileStore = Ext.getStore("ComboSoftwareConfigFileStore");
-                                                                fileStore.getProxy().extraParams = {
-                                                                    machineId : instancesConstants.selectRow.get("machineId"),
-                                                                    softwareId : record.get("softwareId"),
-                                                                    installSeq : record.get("installSeq")
-                                                                };
-                                                                /*
+                                                                        var fileStore = Ext.getStore("ComboSoftwareConfigFileStore");
+                                                                        fileStore.getProxy().extraParams = {
+                                                                            machineId : instancesConstants.selectRow.get("machineId"),
+                                                                            softwareId : record.get("softwareId"),
+                                                                            installSeq : record.get("installSeq")
+                                                                        };
+                                                                    }
                                                                 } else {
 
-                                                                if(instancesConstants.selectRow.get("status") != "Running") {
+                                                                    if(instancesConstants.selectRow.get("status") != "Running") {
 
-                                                                Ext.MessageBox.alert('Error', "Agent가 동작하고 있지 않습니다. Agent 상태를 확인하십시오.");
+                                                                        Ext.MessageBox.alert('Error', "Agent가 동작하고 있지 않습니다. Agent 상태를 확인하십시오.");
 
-                                                                } else {
+                                                                    } else {
 
-                                                                Ext.MessageBox.alert('Error', "Config는 Software 설치 완료시에만 수정 가능합니다.");
+                                                                        Ext.MessageBox.alert('Error', "Config는 Software 설치 완료시에만 수정 가능합니다.");
+                                                                    }
+
                                                                 }
 
-                                                                }
-                                                                */
                                                             },
                                                             icon: 'resources/images/icons/cog.png'
                                                         }
@@ -699,31 +701,31 @@ Ext.define('MyApp.view.instancesContainer', {
                                                             handler: function(view, rowIndex, colIndex, item, e, record, row) {
                                                                 if(instancesConstants.selectRow.get("status") == "Running" && (record.get("installStat") == "설치 완료" || record.get("installStat") == "설치 에러"))  {
 
-                                                                    Ext.MessageBox.confirm('Confirm', 'Uninstall 하시겠습니까?', function(btn){
+                                                                    if(record.get("softwareName") == "Ceph") {
+                                                                        Ext.MessageBox.alert('Error', "Ceph는 삭제할 수 없습니다.");
+                                                                    } else {
+                                                                        Ext.MessageBox.confirm('Confirm', 'Uninstall 하시겠습니까?', function(btn){
+                                                                            if(btn == "yes"){
+                                                                                Ext.Ajax.request({
+                                                                                    url: GLOBAL.urlPrefix + "software/remove",
+                                                                                    params : {
+                                                                                        softwareId : record.get("softwareId"),
+                                                                                        machineId : instancesConstants.selectRow.get("machineId"),
+                                                                                        installSeq : record.get("installSeq")
+                                                                                    },
+                                                                                    disableCaching : true,
+                                                                                    waitMsg: 'Uninstall Software...',
+                                                                                    success: function(response){
+                                                                                        var msg = Ext.JSON.decode(response.responseText).msg;
+                                                                                        Ext.MessageBox.alert('알림', msg);
 
-                                                                        if(btn == "yes"){
+                                                                                        Ext.getCmp("instanceSoftwareGrid").getStore().reload();
 
-                                                                            Ext.Ajax.request({
-                                                                                url: GLOBAL.urlPrefix + "software/remove",
-                                                                                params : {
-                                                                                    softwareId : record.get("softwareId"),
-                                                                                    machineId : instancesConstants.selectRow.get("machineId"),
-                                                                                    installSeq : record.get("installSeq")
-                                                                                },
-                                                                                disableCaching : true,
-                                                                                waitMsg: 'Uninstall Software...',
-                                                                                success: function(response){
-                                                                                    var msg = Ext.JSON.decode(response.responseText).msg;
-                                                                                    Ext.MessageBox.alert('알림', msg);
-
-                                                                                    Ext.getCmp("instanceSoftwareGrid").getStore().reload();
-
-                                                                                }
-                                                                            });
-                                                                        }
-
-                                                                    });
-
+                                                                                    }
+                                                                                });
+                                                                            }
+                                                                        });
+                                                                    }
 
                                                                 } else {
 

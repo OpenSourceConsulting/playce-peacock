@@ -83,7 +83,9 @@ Ext.define('MyApp.view.loginWindow', {
                                     name: 'loginId',
                                     fieldStyle: '',
                                     allowBlank: false,
-                                    blankText: '사용자아이디는 필수 입력 항목입니다.'
+                                    blankText: '사용자아이디는 필수 입력 항목입니다.',
+                                    maskRe: /[^\s]/,
+                                    regex: /[^\s]/
                                 },
                                 {
                                     xtype: 'textfield',
@@ -96,7 +98,9 @@ Ext.define('MyApp.view.loginWindow', {
                                     name: 'passwd',
                                     inputType: 'password',
                                     allowBlank: false,
-                                    blankText: '비밀번호는 필수 입력 항목입니다.'
+                                    blankText: '비밀번호는 필수 입력 항목입니다.',
+                                    maskRe: /[^\s]/,
+                                    regex: /[^\s]/
                                 },
                                 {
                                     xtype: 'container',

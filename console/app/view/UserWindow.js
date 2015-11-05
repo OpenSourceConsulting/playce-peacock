@@ -66,7 +66,11 @@ Ext.define('MyApp.view.UserWindow', {
                                     ],
                                     fieldLabel: 'Login ID',
                                     name: 'loginId',
-                                    allowBlank: false
+                                    allowBlank: false,
+                                    maskRe: /[^\s]/,
+                                    maxLength: 30,
+                                    minLength: 3,
+                                    regex: /[^\s]/
                                 },
                                 {
                                     xtype: 'textfield',
@@ -81,8 +85,10 @@ Ext.define('MyApp.view.UserWindow', {
                                     inputType: 'password',
                                     allowBlank: false,
                                     emptyText: '4 ~ 20자',
+                                    maskRe: /[^\s]/,
                                     maxLength: 20,
-                                    minLength: 4
+                                    minLength: 4,
+                                    regex: /[^\s]/
                                 },
                                 {
                                     xtype: 'textfield',
@@ -95,6 +101,10 @@ Ext.define('MyApp.view.UserWindow', {
                                     name: 'confirmPasswd',
                                     inputType: 'password',
                                     allowBlank: false,
+                                    maskRe: /[^\s]/,
+                                    maxLength: 20,
+                                    minLength: 4,
+                                    regex: /[^\s]/,
                                     vtype: 'password'
                                 },
                                 {
@@ -106,7 +116,11 @@ Ext.define('MyApp.view.UserWindow', {
                                     ],
                                     fieldLabel: 'User Name',
                                     name: 'userName',
-                                    allowBlank: false
+                                    allowBlank: false,
+                                    maskRe: /[^\s]/,
+                                    maxLength: 30,
+                                    minLength: 3,
+                                    regex: /[^\s]/
                                 },
                                 {
                                     xtype: 'textfield',
@@ -152,6 +166,12 @@ Ext.define('MyApp.view.UserWindow', {
                                     handler: function(button, e) {
                                         var userForm = Ext.getCmp("userForm");
 
+                                        if (userForm.getForm().isValid() !== true) {
+                                            Ext.MessageBox.alert('알림', '유효하지 않은 입력값이 존재합니다.');
+                                            return;
+                                        }
+
+
                                         var action = GLOBAL.urlPrefix + "user/create";
                                         var editType = userForm.getForm().findField("editType").getValue();
 
@@ -160,6 +180,22 @@ Ext.define('MyApp.view.UserWindow', {
                                             action = GLOBAL.urlPrefix + "user/update";
                                             userId = userForm.getForm().findField("userId").getValue();
                                         }
+
+                                        // ID 중복체크
+                                        var loginId = userForm.getForm().findField("loginId").getValue();
+                                        var myGrid = Ext.getCmp('userGrid');
+                                        var myStore = myGrid.getStore();
+                                        var myName = '';
+
+                                        for (var i = 0; i < myStore.count(); i++) {
+                                            myName = myStore.getAt(i).get('loginId');
+                                            if (myName == loginId) {
+                                                alert('Login ID(' + loginId + ') already exist.');
+                                                userForm.getForm().findField("loginId").focus();
+                                                return;
+                                            }
+                                        }
+
 
                                         if(editType == 'myAccount') {
                                             action = GLOBAL.urlPrefix + "user/updateMyAccount";

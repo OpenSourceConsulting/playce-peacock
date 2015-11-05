@@ -100,7 +100,10 @@
                                 "labelStyle": "search",
                                 "labelWidth": 90,
                                 "layout|anchor": "100%",
+                                "maskRe": "/[^\\s]/",
+                                "minLength": null,
                                 "name": "loginId",
+                                "regex": "/[^\\s]/",
                                 "style": null,
                                 "width": null
                             },
@@ -126,7 +129,9 @@
                                 "labelAlign": "right",
                                 "labelWidth": 90,
                                 "layout|anchor": "100%",
-                                "name": "passwd"
+                                "maskRe": "/[^\\s]/",
+                                "name": "passwd",
+                                "regex": "/[^\\s]/"
                             },
                             "designerId": "a6183df9-f8ee-4cc2-8f0b-0b7605870e91"
                         },

@@ -63,7 +63,11 @@ Ext.define('MyApp.view.NewPermissionWindow', {
                             fieldLabel: 'Permission Name',
                             labelWidth: 120,
                             name: 'permNm',
-                            allowBlank: false
+                            allowBlank: false,
+                            maskRe: /[^\s]/,
+                            maxLength: 30,
+                            minLength: 3,
+                            regex: /[^\s]/
                         },
                         {
                             xtype: 'hiddenfield',
