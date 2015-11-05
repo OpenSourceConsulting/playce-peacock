@@ -238,11 +238,13 @@ Ext.define('MyApp.controller.RHEVMController', {
                             rhevm.controlVMStatus('Remove');
                         }
                     },
+                    /*
                     { text: 'Export',
-                        handler: function() {
-                            rhevm.controlVMStatus('Export');
-                        }
+                    handler: function() {
+                    rhevm.controlVMStatus('Export');
+                    }
                     },
+                    */
                     { text: 'Make Template',
                         handler: function() {
                             rhevm.showTemplateWindow();
