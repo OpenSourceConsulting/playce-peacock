@@ -138,8 +138,6 @@ Ext.application({
         'PgNumComboArrayStore',
         'objectFilesListJsonStore',
         'objectBucketsListJsonStore',
-        'storageClusterServersArrayStore',
-        'storageOsdDevicePathArrayStore',
         'ServerTypeArrayStore'
     ],
     views: [
