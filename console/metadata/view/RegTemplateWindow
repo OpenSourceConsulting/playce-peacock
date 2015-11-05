@@ -103,7 +103,8 @@
                                 "fieldLabel": "Description",
                                 "labelWidth": 120,
                                 "layout|anchor": "100%",
-                                "name": "description"
+                                "name": "description",
+                                "vtype": "description"
                             },
                             "designerId": "d235033c-d80f-4902-9755-5dde625a4a2b"
                         },
@@ -184,6 +185,11 @@
                                         "fn": "handler",
                                         "implHandler": [
                                             "var templateForm = Ext.getCmp(\"templateForm\");",
+                                            "",
+                                            "if (templateForm.getForm().isValid() !== true ) {",
+                                            "    Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');",
+                                            "    return;",
+                                            "}",
                                             "",
                                             "templateForm.getForm().submit({",
                                             "    clientValidation: true,",

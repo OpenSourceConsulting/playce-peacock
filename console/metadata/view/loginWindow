@@ -58,7 +58,7 @@
                         "layout|margins": "",
                         "margin": "5 0 0 0",
                         "style": "{text-align: center;}",
-                        "text": ""
+                        "text": null
                     },
                     "configAlternates": {
                         "style": "string"
@@ -163,6 +163,7 @@
                                         "id": "loginBtn",
                                         "itemId": "loginBtn",
                                         "layout|flex": null,
+                                        "margin": null,
                                         "scale": "medium",
                                         "text": "로그인"
                                     },

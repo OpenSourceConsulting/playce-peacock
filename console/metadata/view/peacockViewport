@@ -36,7 +36,49 @@
                 "itemId": "introPanel",
                 "title": null
             },
-            "designerId": "312ca490-2c7d-4a5f-beb3-a20357c9f174"
+            "designerId": "312ca490-2c7d-4a5f-beb3-a20357c9f174",
+            "cn": [
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dock": "bottom"
+                    },
+                    "designerId": "18500d2b-6372-4729-9e0a-beb172292dd5",
+                    "cn": [
+                        {
+                            "type": "Ext.toolbar.Fill",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null
+                            },
+                            "designerId": "d659a447-8c3b-48c9-94a2-69f9ff1ed4ac"
+                        },
+                        {
+                            "type": "Ext.form.Label",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "html": "<b>Ahtena Peacock은 FireFox, Chrome 브라우저에 최적화 되어 있습니다.</b>",
+                                "layout|flex": null,
+                                "text": null
+                            },
+                            "designerId": "b88f7090-0f5a-434b-b174-b259051d6ef3"
+                        }
+                    ]
+                }
+            ]
         },
         {
             "type": "Ext.container.Container",

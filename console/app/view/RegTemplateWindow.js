@@ -73,7 +73,8 @@ Ext.define('MyApp.view.RegTemplateWindow', {
                                     anchor: '100%',
                                     fieldLabel: 'Description',
                                     labelWidth: 120,
-                                    name: 'description'
+                                    name: 'description',
+                                    vtype: 'description'
                                 },
                                 {
                                     xtype: 'hiddenfield',
@@ -104,6 +105,11 @@ Ext.define('MyApp.view.RegTemplateWindow', {
                                     xtype: 'button',
                                     handler: function(button, e) {
                                         var templateForm = Ext.getCmp("templateForm");
+
+                                        if (templateForm.getForm().isValid() !== true ) {
+                                            Ext.Msg.alert('Failure', '유효하지 않은 입력값이 존재합니다.');
+                                            return;
+                                        }
 
                                         templateForm.getForm().submit({
                                             clientValidation: true,

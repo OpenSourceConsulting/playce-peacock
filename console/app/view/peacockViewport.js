@@ -25,9 +25,11 @@ Ext.define('MyApp.view.peacockViewport', {
         'MyApp.view.adminContainer',
         'MyApp.view.storageContainer',
         'MyApp.view.objectContainer',
+        'Ext.toolbar.Toolbar',
+        'Ext.toolbar.Fill',
+        'Ext.form.Label',
         'Ext.Img',
         'Ext.toolbar.Spacer',
-        'Ext.toolbar.Toolbar',
         'Ext.toolbar.TextItem',
         'Ext.toolbar.Separator',
         'Ext.button.Split',
@@ -54,7 +56,22 @@ Ext.define('MyApp.view.peacockViewport', {
                     itemId: 'introPanel',
                     bodyStyle: {
                         background: 'white'
-                    }
+                    },
+                    dockedItems: [
+                        {
+                            xtype: 'toolbar',
+                            dock: 'bottom',
+                            items: [
+                                {
+                                    xtype: 'tbfill'
+                                },
+                                {
+                                    xtype: 'label',
+                                    html: '<b>Ahtena Peacock은 FireFox, Chrome 브라우저에 최적화 되어 있습니다.</b>'
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     xtype: 'container',

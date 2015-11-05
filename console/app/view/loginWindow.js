@@ -61,8 +61,7 @@ Ext.define('MyApp.view.loginWindow', {
                             id: 'welcomeLabel',
                             itemId: 'welcomeLabel',
                             margin: '5 0 0 0',
-                            style: '{text-align: center;}',
-                            text: ''
+                            style: '{text-align: center;}'
                         },
                         {
                             xtype: 'form',

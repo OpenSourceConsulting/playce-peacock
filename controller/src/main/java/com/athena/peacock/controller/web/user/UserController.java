@@ -79,7 +79,7 @@ public class UserController {
 		user.setRegUserId(UserService.getLoginUserId());
 		
 		service.insertUser(user);
-		jsonRes.setMsg("사용자가 정상적으로 생성되었습니다.");
+		jsonRes.setMsg("생성되었습니다.");
 		
 		
 		return jsonRes;
@@ -91,7 +91,7 @@ public class UserController {
 		user.setUpdUserId(UserService.getLoginUserId());
 		
 		service.updateUser(user);
-		jsonRes.setMsg("사용자 정보가 정상적으로 수정되었습니다.");
+		jsonRes.setMsg("수정되었습니다.");
 		
 		
 		return jsonRes;
@@ -106,7 +106,7 @@ public class UserController {
 		user.setUpdUserId(userId);
 		
 		service.updateUser(user);
-		jsonRes.setMsg("내 정보가 정상적으로 수정되었습니다.");
+		jsonRes.setMsg("수정되었습니다.");
 		
 		
 		return jsonRes;
@@ -116,7 +116,7 @@ public class UserController {
 	public @ResponseBody SimpleJsonResponse delete(SimpleJsonResponse jsonRes, @RequestParam("userId") int userId){
 		
 		service.deleteUser(userId);
-		jsonRes.setMsg("사용자 정보가 정상적으로 삭제되었습니다.");
+		jsonRes.setMsg("삭제되었습니다.");
 		
 		return jsonRes;
 	}
