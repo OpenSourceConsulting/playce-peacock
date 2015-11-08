@@ -178,7 +178,8 @@ Ext.define('MyApp.view.RegInstanceWindow', {
                                     fieldLabel: 'Description',
                                     labelWidth: 130,
                                     name: 'description',
-                                    allowBlank: false
+                                    allowBlank: false,
+                                    vtype: 'description'
                                 },
                                 {
                                     xtype: 'textfield',

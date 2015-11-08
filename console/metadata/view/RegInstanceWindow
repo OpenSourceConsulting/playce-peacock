@@ -425,7 +425,8 @@
                                 "fieldLabel": "Description",
                                 "labelWidth": 130,
                                 "layout|anchor": "100%",
-                                "name": "description"
+                                "name": "description",
+                                "vtype": "description"
                             },
                             "designerId": "4e724b5d-e7ca-46b3-b6dc-6cc7cee8fc92",
                             "cn": [

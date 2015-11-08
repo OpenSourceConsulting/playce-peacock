@@ -366,8 +366,10 @@ public class ObjectStorageController{
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/copy", method={ RequestMethod.POST })
-	public @ResponseBody SimpleJsonResponse copyObject(SimpleJsonResponse jsonRes, ObjectDto dto) throws Exception {
+	public @ResponseBody SimpleJsonResponse copyObject(SimpleJsonResponse jsonRes, @RequestBody ObjectDto dto) throws Exception {
 		try {
+			LOGGER.debug("Object Copy : [{}]", dto);
+			
 			objectStorageService.copyObject(dto, false);
 			jsonRes.setSuccess(true);
 			jsonRes.setMsg("objec copy 성공");
@@ -392,8 +394,10 @@ public class ObjectStorageController{
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/move", method={ RequestMethod.POST })
-	public @ResponseBody SimpleJsonResponse moveObject(SimpleJsonResponse jsonRes, ObjectDto dto) throws Exception {
+	public @ResponseBody SimpleJsonResponse moveObject(SimpleJsonResponse jsonRes, @RequestBody ObjectDto dto) throws Exception {
 		try {
+			LOGGER.debug("Object Move : [{}]", dto);
+			
 			objectStorageService.copyObject(dto, true);
 			jsonRes.setSuccess(true);
 			jsonRes.setMsg("objec move 성공");

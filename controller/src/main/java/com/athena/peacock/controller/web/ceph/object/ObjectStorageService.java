@@ -490,7 +490,7 @@ public class ObjectStorageService {
 		
 		if (dto.getFile() != null && dto.getFile().getSize() > 0) {
 			String defaultPath = System.getProperty("java.io.tmpdir");
-			file = new File(defaultPath + dto.getFile().getOriginalFilename());
+			file = new File(defaultPath + File.pathSeparator + dto.getFile().getOriginalFilename());
 			
 			if (!file.exists()) {
 				if (!file.mkdirs()) {

@@ -67,9 +67,9 @@ Ext.define('MyApp.view.createBucketWindow', {
                                             allowBlank: false,
                                             allowOnlyWhitespace: false,
                                             enforceMaxLength: true,
-                                            maskRe: /[a-z0-9_\-]/,
+                                            maskRe: /[a-z0-9\-]/,
                                             maxLength: 32,
-                                            regex: /[a-z0-9_\-]/
+                                            regex: /[a-z0-9\-]/
                                         }
                                     ]
                                 }

@@ -145,7 +145,7 @@ public class DashboardService {
 						instanceDto.setInstanceName(vm.getName());
 						instanceDto.setVmStatus(vm.getStatus().getState());
 						
-						if (vm.getGuestInfo() != null ) {
+						if (vm.getGuestInfo() != null && vm.getGuestInfo().getIps() != null && vm.getGuestInfo().getIps().getIPs() != null) {
 							IP ip = vm.getGuestInfo().getIps().getIPs().get(0);
 							if (ip != null) {
 								instanceDto.setIpAddress(ip.getAddress());

@@ -27,7 +27,7 @@ Ext.define('MyApp.model.GroupModel', {
         },
         {
             name: 'gid',
-            type: 'string'
+            type: 'int'
         },
         {
             name: 'machineId',

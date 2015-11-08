@@ -416,35 +416,6 @@ Ext.define('MyApp.controller.objectController', {
         Ext.getCmp("objectFilesDetail1").update(null);
         Ext.getCmp("objectFilesDetail2").update(null);
         Ext.getCmp("objectFilesDetail").collapse();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     },
 
     createObjectFolder: function() {
@@ -807,6 +778,18 @@ Ext.define('MyApp.controller.objectController', {
         objectConstants.filesSelectBucket = objectConstants.currentBucket;
         objectConstants.filesSelectList = Ext.getCmp('objectFilesGrid').selModel.getSelection();
 
+        var selections = Ext.getCmp('objectFilesGrid').selModel.getSelection();
+        var idx = 0;
+
+        Ext.each(selections, function(recs){
+            if (recs.get('folder') === true) {
+                idx++;
+            }
+        });
+
+        if (idx > 0) {
+            Ext.MessageBox.alert('알림', '폴더 타입의 오브젝트는 잘라내기 항목에서 제외됩니다.');
+        }
     },
 
     copyObjectFile: function() {
@@ -814,6 +797,18 @@ Ext.define('MyApp.controller.objectController', {
         objectConstants.filesSelectBucket = objectConstants.currentBucket;
         objectConstants.filesSelectList = Ext.getCmp('objectFilesGrid').selModel.getSelection();
 
+        var selections = Ext.getCmp('objectFilesGrid').selModel.getSelection();
+        var idx = 0;
+
+        Ext.each(selections, function(recs){
+            if (recs.get('folder') === true) {
+                idx++;
+            }
+        });
+
+        if (idx > 0) {
+            Ext.MessageBox.alert('알림', '폴더 타입의 오브젝트는 복사 항목에서 제외됩니다.');
+        }
     },
 
     pasteObjectFile: function() {

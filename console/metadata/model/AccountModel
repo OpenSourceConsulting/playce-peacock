@@ -110,7 +110,7 @@
             "codeClass": null,
             "userConfig": {
                 "name": "uid",
-                "type": "string"
+                "type": "int"
             },
             "designerId": "c7b30370-d970-4e62-8fe5-65cb362c9296"
         }
