@@ -28,11 +28,11 @@ public class BucketDto implements Serializable {
     private Date creationDate = null;
     
     private AccessControlList acl;
-    private BucketCrossOriginConfiguration crossOrigin;
+    private transient BucketCrossOriginConfiguration crossOrigin;
     private String location;
-    private BucketLoggingConfiguration logging;
-    private BucketPolicy policy;
-    private BucketVersioningConfiguration versioning;
+    private transient BucketLoggingConfiguration logging;
+    private transient BucketPolicy policy;
+    private transient BucketVersioningConfiguration versioning;
 
 	public String getName() {
 		return name;

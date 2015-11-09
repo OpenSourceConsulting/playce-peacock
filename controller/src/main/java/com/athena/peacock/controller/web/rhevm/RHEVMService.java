@@ -618,6 +618,8 @@ public class RHEVMService {
 	private TemplateDto makeDto(int hypervisorId, Template template, List<DataCenter> dataCenterList, List<Cluster> clusterList, int seq) {
 		TemplateDto dto = new TemplateDto();
 		
+		String dcUrl = null;
+		
 		dto.setSeq(seq);
 		dto.setTemplateId(template.getId());
 		dto.setName(template.getName());
@@ -659,7 +661,7 @@ public class RHEVMService {
 				}
 			}
 			
-			String dcUrl = cluster.getDataCenter().getHref();
+			if( cluster != null) dcUrl = cluster.getDataCenter().getHref();
 			DataCenter dc = null;
 
 			if (dataCenterList != null) {

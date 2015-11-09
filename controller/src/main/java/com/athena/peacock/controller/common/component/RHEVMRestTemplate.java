@@ -342,7 +342,7 @@ public class RHEVMRestTemplate extends HypervisorClient {
 		String username = "admin";
 		String password = "";
 		
-		RHEVMRestTemplate rhevTemplate = new RHEVMRestTemplate(protocol, host, domain, port, username, password);
+		//RHEVMRestTemplate rhevTemplate = new RHEVMRestTemplate(protocol, host, domain, port, username, password);
 	}
 }
 //end of RHEVMRestTemplate.java

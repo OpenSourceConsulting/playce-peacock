@@ -120,7 +120,8 @@ public class HypervisorClientManager implements InitializingBean {
 				}
 
 				newClients.put(hypervisor.getHypervisorId(), client);
-			} else if (hypervisor.getHypervisorType().toUpperCase().startsWith("KVM")) {
+			} 
+//			else if (hypervisor.getHypervisorType().toUpperCase().startsWith("KVM")) {
 //				KVMVirshClient client = new KVMVirshClient(hypervisor.getRhevmProtocol(), hypervisor.getRhevmHost(), hypervisor.getRhevmDomain(), 
 //						hypervisor.getRhevmPort(), hypervisor.getRhevmUsername(), hypervisor.getRhevmPassword());
 //
@@ -128,7 +129,7 @@ public class HypervisorClientManager implements InitializingBean {
 //				client.setRhevmName(hypervisor.getRhevmName());
 //				
 //				newClients.put(hypervisor.getHypervisorId(), client);
-			}
+//			}
 		}
 		
 		clients = newClients;
@@ -166,7 +167,8 @@ public class HypervisorClientManager implements InitializingBean {
 			}
 
 			clients.put(hypervisor.getHypervisorId(), client);
-		} else if (hypervisor.getHypervisorType().toUpperCase().startsWith("KVM")) {
+		} 
+//		else if (hypervisor.getHypervisorType().toUpperCase().startsWith("KVM")) {
 //			KVMVirshClient client = new KVMVirshClient(hypervisor.getRhevmProtocol(), hypervisor.getRhevmHost(), hypervisor.getRhevmDomain(), 
 //					hypervisor.getRhevmPort(), hypervisor.getRhevmUsername(), hypervisor.getRhevmPassword());
 //
@@ -174,7 +176,7 @@ public class HypervisorClientManager implements InitializingBean {
 //			client.setRhevmName(hypervisor.getRhevmName());
 //			
 //			clients.put(hypervisor.getHypervisorId(), client);
-		}
+//		}
 	}//end of setHypervisorClient()
 	
 	/**

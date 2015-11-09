@@ -674,7 +674,7 @@ class SoftwareGatherThread extends Thread {
 							softwareInfo.setVersion("2.2.22");
 					    }
 					    
-						softwareInfo.getInstallLocations().add(apacheHome.split(",")[i]);
+						if( apacheHome!= null) softwareInfo.getInstallLocations().add(apacheHome.split(",")[i]);
 						softwareInfo.getInstallLocations().add(serverHome.split(",")[i] + "/bin");
 						softwareInfo.getInstallLocations().add(serverHome.split(",")[i] + "/conf");
 						softwareInfo.getInstallLocations().add(serverHome.split(",")[i] + "/log");

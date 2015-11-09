@@ -30,7 +30,7 @@ public class ObjectDto implements Serializable {
 	
 	private AccessControlList acl;
 	private String url;
-	private ObjectMetadata metadata;
+	private transient ObjectMetadata metadata;
 	
 	private String targetBucketName;
 	

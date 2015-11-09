@@ -1980,26 +1980,28 @@ public class ProvisioningHandler {
 		StringBuilder saltClient = new StringBuilder("[salt-client]").append("\n");
 		StringBuilder ntpClient = new StringBuilder("[ntp-client]").append("\n");
 		
-		for (ClusterServer server : servers) {
-			if (server.getType().equals("radosgw")) {
-				rgws.append(server.getHostname()).append("\n");
-				ntpClient.append(server.getHostname()).append("\n");
-			} else if (server.getType().equals("management")) {
-				restapi.append(server.getHostname()).append("\n");
-				calamari.append(server.getHostname()).append("\n");
-				saltServer.append(server.getHostname()).append("\n");
-				ntpClient.append(server.getHostname()).append("\n");
-			} else if (server.getType().equals("mon")) {
-				mons.append(server.getHostname()).append("\n");
-				saltClient.append(server.getHostname()).append("\n");
-				ntpClient.append(server.getHostname()).append("\n");
-			} else if (server.getType().equals("osd")) {
-				osds.append(server.getHostname()).append("\n");
-				saltClient.append(server.getHostname()).append("\n");
-				ntpClient.append(server.getHostname()).append("\n");
-			} 
+		if( servers != null ) {
+			for (ClusterServer server : servers) {
+				if (server.getType().equals("radosgw")) {
+					rgws.append(server.getHostname()).append("\n");
+					ntpClient.append(server.getHostname()).append("\n");
+				} else if (server.getType().equals("management")) {
+					restapi.append(server.getHostname()).append("\n");
+					calamari.append(server.getHostname()).append("\n");
+					saltServer.append(server.getHostname()).append("\n");
+					ntpClient.append(server.getHostname()).append("\n");
+				} else if (server.getType().equals("mon")) {
+					mons.append(server.getHostname()).append("\n");
+					saltClient.append(server.getHostname()).append("\n");
+					ntpClient.append(server.getHostname()).append("\n");
+				} else if (server.getType().equals("osd")) {
+					osds.append(server.getHostname()).append("\n");
+					saltClient.append(server.getHostname()).append("\n");
+					ntpClient.append(server.getHostname()).append("\n");
+				} 
+			}
 		}
-
+		
 		sb = new StringBuilder();
 		sb.append(rgws).append("\n");
 		sb.append(restapi).append("\n");
@@ -2024,10 +2026,11 @@ public class ProvisioningHandler {
 		StringBuilder script = new StringBuilder("#!/bin/bash").append("\n");
 		script.append("echo -e \"" + ntpServer + "\\tntp-server\" >> /etc/hosts").append("\n");
 		
-		for (ClusterServer server : servers) {
-			script.append("echo -e \"" + server.getIp() + "\\t" + server.getHostname() + "\" >> /etc/hosts").append("\n");
+		if( servers != null ) {
+			for (ClusterServer server : servers) {
+				script.append("echo -e \"" + server.getIp() + "\\t" + server.getHostname() + "\" >> /etc/hosts").append("\n");
+			}
 		}
-
 		script.append("rm -f ~/.ssh/id_rsa*").append("\n");
 		script.append("ssh-keygen -t rsa -f ~/.ssh/id_rsa -q -N \"\"");
 		
@@ -2053,62 +2056,64 @@ public class ProvisioningHandler {
 		command = new Command("Copy ssh key files and /etc/hosts");
 		sequence = 0;
 		
-		for (ClusterServer server : servers) {
-			//sshpass -p{password} ssh -o StrictHostKeyChecking=no {username}@{hostname} "mkdir -p ~/.ssh"
-			s_action = new ShellAction(sequence++);
-			s_action.setCommand("sshpass");
-			s_action.addArguments("-p" + server.getPassword());
-			s_action.addArguments("ssh");
-			s_action.addArguments("-o");
-			s_action.addArguments("StrictHostKeyChecking=no");
-			s_action.addArguments(server.getUsername() + "@" + server.getHostname());
-			s_action.addArguments("\"mkdir -p ~/.ssh\"");
-			command.addAction(s_action);
-
-			//sshpass -p{password} ssh -o StrictHostKeyChecking=no {username}@{hostname} "chmod 700 ~/.ssh"
-			s_action = new ShellAction(sequence++);
-			s_action.setCommand("sshpass");
-			s_action.addArguments("-p" + server.getPassword());
-			s_action.addArguments("ssh");
-			s_action.addArguments("-o");
-			s_action.addArguments("StrictHostKeyChecking=no");
-			s_action.addArguments(server.getUsername() + "@" + server.getHostname());
-			s_action.addArguments("\"chmod 700 ~/.ssh\"");
-			command.addAction(s_action);
-			
-			//sshpass -p{password} scp -o StrictHostKeyChecking=no ~/.ssh/id_rsa.pub {username}@{hostname}:~/.ssh/authorized_keys
-			s_action = new ShellAction(sequence++);
-			s_action.setCommand("sshpass");
-			s_action.addArguments("-p" + server.getPassword());
-			s_action.addArguments("scp");
-			s_action.addArguments("-o");
-			s_action.addArguments("StrictHostKeyChecking=no");
-			s_action.addArguments("~/.ssh/id_rsa.pub");
-			s_action.addArguments(server.getUsername() + "@" + server.getHostname() + ":~/.ssh/authorized_keys");
-			command.addAction(s_action);
-
-			//sshpass -p{password} ssh -o StrictHostKeyChecking=no {username}@{hostname} "chmod 600 ~/.ssh/authorized_keys"
-			s_action = new ShellAction(sequence++);
-			s_action.setCommand("sshpass");
-			s_action.addArguments("-p" + server.getPassword());
-			s_action.addArguments("ssh");
-			s_action.addArguments("-o");
-			s_action.addArguments("StrictHostKeyChecking=no");
-			s_action.addArguments(server.getUsername() + "@" + server.getHostname());
-			s_action.addArguments("\"chmod 600 ~/.ssh/authorized_keys\"");
-			command.addAction(s_action);
-			
-			//sshpass -p{password} scp -o StrictHostKeyChecking=no ~/.ssh/id_rsa* {username}@{hostname}:~/.ssh/
-			s_action = new ShellAction(sequence++);
-			s_action.setCommand("sshpass");
-			s_action.addArguments("-p" + server.getPassword());
-			s_action.addArguments("scp");
-			s_action.addArguments("-o");
-			s_action.addArguments("StrictHostKeyChecking=no");
-			s_action.addArguments("/etc/hosts");
-			s_action.addArguments(server.getUsername() + "@" + server.getHostname() + ":/etc/hosts");
-			command.addAction(s_action);
-		}
+		if( servers != null ) {
+			for (ClusterServer server : servers) {
+				//sshpass -p{password} ssh -o StrictHostKeyChecking=no {username}@{hostname} "mkdir -p ~/.ssh"
+				s_action = new ShellAction(sequence++);
+				s_action.setCommand("sshpass");
+				s_action.addArguments("-p" + server.getPassword());
+				s_action.addArguments("ssh");
+				s_action.addArguments("-o");
+				s_action.addArguments("StrictHostKeyChecking=no");
+				s_action.addArguments(server.getUsername() + "@" + server.getHostname());
+				s_action.addArguments("\"mkdir -p ~/.ssh\"");
+				command.addAction(s_action);
+	
+				//sshpass -p{password} ssh -o StrictHostKeyChecking=no {username}@{hostname} "chmod 700 ~/.ssh"
+				s_action = new ShellAction(sequence++);
+				s_action.setCommand("sshpass");
+				s_action.addArguments("-p" + server.getPassword());
+				s_action.addArguments("ssh");
+				s_action.addArguments("-o");
+				s_action.addArguments("StrictHostKeyChecking=no");
+				s_action.addArguments(server.getUsername() + "@" + server.getHostname());
+				s_action.addArguments("\"chmod 700 ~/.ssh\"");
+				command.addAction(s_action);
+				
+				//sshpass -p{password} scp -o StrictHostKeyChecking=no ~/.ssh/id_rsa.pub {username}@{hostname}:~/.ssh/authorized_keys
+				s_action = new ShellAction(sequence++);
+				s_action.setCommand("sshpass");
+				s_action.addArguments("-p" + server.getPassword());
+				s_action.addArguments("scp");
+				s_action.addArguments("-o");
+				s_action.addArguments("StrictHostKeyChecking=no");
+				s_action.addArguments("~/.ssh/id_rsa.pub");
+				s_action.addArguments(server.getUsername() + "@" + server.getHostname() + ":~/.ssh/authorized_keys");
+				command.addAction(s_action);
+	
+				//sshpass -p{password} ssh -o StrictHostKeyChecking=no {username}@{hostname} "chmod 600 ~/.ssh/authorized_keys"
+				s_action = new ShellAction(sequence++);
+				s_action.setCommand("sshpass");
+				s_action.addArguments("-p" + server.getPassword());
+				s_action.addArguments("ssh");
+				s_action.addArguments("-o");
+				s_action.addArguments("StrictHostKeyChecking=no");
+				s_action.addArguments(server.getUsername() + "@" + server.getHostname());
+				s_action.addArguments("\"chmod 600 ~/.ssh/authorized_keys\"");
+				command.addAction(s_action);
+				
+				//sshpass -p{password} scp -o StrictHostKeyChecking=no ~/.ssh/id_rsa* {username}@{hostname}:~/.ssh/
+				s_action = new ShellAction(sequence++);
+				s_action.setCommand("sshpass");
+				s_action.addArguments("-p" + server.getPassword());
+				s_action.addArguments("scp");
+				s_action.addArguments("-o");
+				s_action.addArguments("StrictHostKeyChecking=no");
+				s_action.addArguments("/etc/hosts");
+				s_action.addArguments(server.getUsername() + "@" + server.getHostname() + ":/etc/hosts");
+				command.addAction(s_action);
+			}  // end of for
+		} // end of if
 		
 		// Add Make and copy ssh key files, copy /etc/hosts Command
 		cmdMsg.addCommand(command);
@@ -2220,21 +2225,23 @@ public class ProvisioningHandler {
 		CephDto cephDto = new CephDto();
 		cephDto.setMachineId(provisioningDetail.getMachineId());
 		
-		for (ClusterServer server : servers) {
-			if (server.getType().equals("radosgw")) {
-				cephDto.setRadosgwApiPrefix("http://" + server.getIp());
-			} else if (server.getType().equals("management")) {
-				cephDto.setMgmtHost(server.getIp());
-				cephDto.setMgmtPort("22");
-				cephDto.setMgmtUsername(server.getUsername());
-				cephDto.setMgmtPassword(server.getPassword());
-				cephDto.setMgmtApiPrefix("http://" + server.getIp() + ":5000/api/v0.1");
-				
-				cephDto.setCalamariApiPrefix("http://" + server.getIp() + "/api/v2");
-				cephDto.setCalamariUsername("root");
-				cephDto.setCalamariPassword("calamaripw");
-			}
-		}
+		if( servers != null ) {
+			for (ClusterServer server : servers) {
+				if (server.getType().equals("radosgw")) {
+					cephDto.setRadosgwApiPrefix("http://" + server.getIp());
+				} else if (server.getType().equals("management")) {
+					cephDto.setMgmtHost(server.getIp());
+					cephDto.setMgmtPort("22");
+					cephDto.setMgmtUsername(server.getUsername());
+					cephDto.setMgmtPassword(server.getPassword());
+					cephDto.setMgmtApiPrefix("http://" + server.getIp() + ":5000/api/v0.1");
+					
+					cephDto.setCalamariApiPrefix("http://" + server.getIp() + "/api/v2");
+					cephDto.setCalamariUsername("root");
+					cephDto.setCalamariPassword("calamaripw");
+				}
+			} // end of for
+		} // end of servers
 		
 		cephDto.setRegUserId(provisioningDetail.getUserId());
 		cephDto.setUpdUserId(provisioningDetail.getUserId());
@@ -2301,7 +2308,7 @@ public class ProvisioningHandler {
 		s_action = new ShellAction(sequence++);
 		s_action.setCommand("rm");
 		s_action.addArguments("-f");
-		s_action.addArguments("/etc/init.d/" + args.split(" ")[0]);
+		if( args != null) s_action.addArguments("/etc/init.d/" + args.split(" ")[0]);
 		command.addAction(s_action);
 		
 		for (ConfigDto _config : configList) {
