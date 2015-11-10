@@ -117,7 +117,7 @@ public class ProvisioningHandler {
 			mysqlRemove(provisioningDetail);
 		} else if (provisioningDetail.getSoftwareName().toLowerCase().indexOf("ceph") > -1) {
 			//cephRemove(provisioningDetail);
-			throw new UnsupportedOperationException("Ceph clustering does not support delete operation.");
+			throw new UnsupportedOperationException("Ceph clustering does not support delete operation.");  
 		}
 	}
     

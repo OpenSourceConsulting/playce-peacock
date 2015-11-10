@@ -597,7 +597,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 				if (channel != null) {
 					channel.writeAndFlush(datagram);
 				} else {
-					throw new EOFException("Channel is null.");
+					throw new EOFException("Channel is null.");  // NOPMD
 				}
 			} finally { 
 				CallbackManagement.unlock(); 

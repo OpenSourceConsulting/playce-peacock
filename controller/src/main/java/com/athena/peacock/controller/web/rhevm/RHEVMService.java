@@ -480,7 +480,7 @@ public class RHEVMService {
 				} else {
 					// fail
 					LOGGER.debug("Failed : [{}]", consumer.getOutput());
-					throw new Exception(consumer.getOutput());
+					throw new Exception(consumer.getOutput());  // NOPMD
 				}
 			} else {
 				throw e;

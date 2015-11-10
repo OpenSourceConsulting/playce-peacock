@@ -210,7 +210,7 @@ public class CephService implements InitializingBean {
 	 */
 	public Object managementSubmit(String uri, Object body, HttpMethod method, List<MediaType> acceptableMediaTypes, MediaType contentType) throws RestClientException, Exception {
 		if (ceph == null) {
-			throw new Exception("Ceph cluster is not configured yet.");
+			throw new Exception("Ceph cluster is not configured yet.");  // NOPMD
 		}
 		
 		String response = null;
@@ -242,7 +242,7 @@ public class CephService implements InitializingBean {
 	 */
 	public Object calamariSubmit(String uri, Object body, HttpMethod method, List<MediaType> acceptableMediaTypes, MediaType contentType) throws RestClientException, Exception {
 		if (ceph == null) {
-			throw new Exception("Ceph cluster is not configured yet.");
+			throw new Exception("Ceph cluster is not configured yet.");  // NOPMD
 		}
 		
 		String response = null;
@@ -275,7 +275,7 @@ public class CephService implements InitializingBean {
 	 */
 	public Object radosgwSubmit(String uri, Object body, HttpMethod method, List<MediaType> acceptableMediaTypes, MediaType contentType) throws RestClientException, Exception {
 		if (ceph == null) {
-			throw new Exception("Ceph cluster is not configured yet.");
+			throw new Exception("Ceph cluster is not configured yet.");  // NOPMD
 		}
 		
 		String response = null;
@@ -360,7 +360,7 @@ public class CephService implements InitializingBean {
 	 */
 	private TargetHost getTargetHost() throws Exception {
 		if (ceph == null) {
-			throw new Exception("Ceph cluster is not configured yet.");
+			throw new Exception("Ceph cluster is not configured yet.");  // NOPMD
 		}
 		
 		TargetHost targetHost = new TargetHost();

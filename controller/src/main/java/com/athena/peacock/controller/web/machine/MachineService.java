@@ -162,7 +162,7 @@ public class MachineService {
 						vm.setName(machine.getDisplayName());
 						RHEVMRestTemplateManager.getRHEVMRestTemplate(m.getHypervisorId()).submit(RHEVApi.VMS + "/" + m.getMachineId(), HttpMethod.PUT, vm, "vm", VM.class);
 					} else {
-						throw new Exception("VM_UP_STAT");
+						throw new Exception("VM_UP_STAT");  // NOPMD
 					}
 				}
 			}
@@ -438,7 +438,7 @@ public class MachineService {
 		}
 		
 		if (!result) {
-			throw new Exception("static ip set has failed.");
+			throw new Exception("static ip set has failed.");  // NOPMD
 		}
 	}
 }

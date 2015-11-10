@@ -142,7 +142,7 @@ public class PeacockRestTemplate {
 					|| response.getStatusCode().equals(HttpStatus.BAD_GATEWAY)
 					|| response.getStatusCode().equals(HttpStatus.SERVICE_UNAVAILABLE)
 					|| response.getStatusCode().equals(HttpStatus.GATEWAY_TIMEOUT)) {
-				throw new Exception(response.getStatusCode().value() + " " + response.getStatusCode().toString());
+				throw new Exception(response.getStatusCode().value() + " " + response.getStatusCode().toString());  // NOPMD
 			}
 			
 			return response.getBody();

@@ -120,7 +120,7 @@ public class Starter {
 				
 				// 파일 내에 agent ID가 비어있거나 agent ID의 길이가 36이 아닐 경우 신규로 생성한다.
 				if(StringUtils.isEmpty(agentId) || agentId.length() != 36) {
-					throw new IOException();
+					throw new IOException();  // NOPMD
 				}
 			} catch (IOException e) {
 				LOGGER.error(agentFile + " file cannot read or saved invalid agent ID.", e);

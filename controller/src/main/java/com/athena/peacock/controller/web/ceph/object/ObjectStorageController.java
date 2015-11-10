@@ -282,7 +282,7 @@ public class ObjectStorageController{
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/object", method=RequestMethod.PUT)
-	public @ResponseBody SimpleJsonResponse updateObject(SimpleJsonResponse jsonRes, ObjectDto dto) throws Exception {
+	public @ResponseBody SimpleJsonResponse updateObject(SimpleJsonResponse jsonRes, @RequestBody ObjectDto dto) throws Exception {  // NOPMD
 		try {
 			objectStorageService.updateObject(dto);
 			jsonRes.setSuccess(true);
@@ -310,7 +310,7 @@ public class ObjectStorageController{
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/object", method=RequestMethod.POST)
-	public @ResponseBody SimpleJsonResponse createObject(SimpleJsonResponse jsonRes, ObjectDto dto) throws Exception {
+	public @ResponseBody SimpleJsonResponse createObject(SimpleJsonResponse jsonRes, @RequestBody ObjectDto dto) throws Exception {  // NOPMD
 		try {
 			LOGGER.error("FileName : " + dto.getFile().getOriginalFilename());
 			LOGGER.error("FileSize : " + dto.getFile().getSize());
@@ -366,7 +366,7 @@ public class ObjectStorageController{
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/copy", method={ RequestMethod.POST })
-	public @ResponseBody SimpleJsonResponse copyObject(SimpleJsonResponse jsonRes, @RequestBody ObjectDto dto) throws Exception {
+	public @ResponseBody SimpleJsonResponse copyObject(SimpleJsonResponse jsonRes, @RequestBody ObjectDto dto) throws Exception { // NOPMD
 		try {
 			LOGGER.debug("Object Copy : [{}]", dto);
 			
@@ -394,7 +394,7 @@ public class ObjectStorageController{
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/move", method={ RequestMethod.POST })
-	public @ResponseBody SimpleJsonResponse moveObject(SimpleJsonResponse jsonRes, @RequestBody ObjectDto dto) throws Exception {
+	public @ResponseBody SimpleJsonResponse moveObject(SimpleJsonResponse jsonRes, @RequestBody ObjectDto dto) throws Exception {  // NOPMD
 		try {
 			LOGGER.debug("Object Move : [{}]", dto);
 			
