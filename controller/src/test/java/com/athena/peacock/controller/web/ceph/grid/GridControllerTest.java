@@ -154,6 +154,45 @@ public class GridControllerTest extends BaseControllerTest {
 			fail("Exception has occurred.");
 		}
     }
+	
+	@Test
+    public void testUsageDetail() throws Exception {
+    	try {
+			mockMvc.perform(get("/ceph/grid/usagedetail").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+					.andDo(print())
+					.andExpect(status().isOk())
+					.andExpect(content().contentType("application/json;charset=UTF-8"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("Exception has occurred.");
+		}
+    }
+	
+	@Test
+    public void testCluster() throws Exception {
+    	try {
+			mockMvc.perform(get("/ceph/grid/cluster").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+					.andDo(print())
+					.andExpect(status().isOk())
+					.andExpect(content().contentType("application/json;charset=UTF-8"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("Exception has occurred.");
+		}
+    }
+	
+	@Test
+    public void testCephInfo() throws Exception {
+    	try {
+			mockMvc.perform(get("/ceph/grid/cephInfo").accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+					.andDo(print())
+					.andExpect(status().isOk())
+					.andExpect(content().contentType("application/json;charset=UTF-8"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("Exception has occurred.");
+		}
+    }
 }
 
 
