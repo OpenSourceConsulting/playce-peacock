@@ -74,7 +74,7 @@ public class ObjectStorageService {
 			cephDto = cephService.selectCeph();
 			
 			if (cephDto == null) {
-				throw new Exception("Ceph cluster does not initiated yet.");  // NOPMD
+				throw new UnsupportedOperationException("Ceph cluster does not initiated yet.");  
 			}
 			
 			accessKey = cephDto.getS3AccessKey();
@@ -494,7 +494,7 @@ public class ObjectStorageService {
 			
 			if (!file.exists()) {
 				if (!file.mkdirs()) {
-					throw new Exception("Fail to create a directory for attached file [" + file + "]");  // NOPMD
+					throw new UnsupportedOperationException("Fail to create a directory for attached file [" + file + "]");  
 				}
 			}
 

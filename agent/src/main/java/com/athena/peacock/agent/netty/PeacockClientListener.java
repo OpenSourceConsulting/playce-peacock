@@ -42,8 +42,8 @@ public class PeacockClientListener implements ChannelFutureListener {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PeacockClientListener.class);
 
-	private PeacockClient client;
-	private String host;
+	private final PeacockClient client;
+	private final String host;
 	
 	public PeacockClientListener(PeacockClient client, String host) {
 		this.client = client;

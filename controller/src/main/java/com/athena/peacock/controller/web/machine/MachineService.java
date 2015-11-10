@@ -447,7 +447,7 @@ public class MachineService {
 class NetworkRestarter extends Thread {
     protected final Logger LOGGER = LoggerFactory.getLogger(NetworkRestarter.class);
     
-	private TargetHost targetHost;
+	private final TargetHost targetHost;
 	
 	public NetworkRestarter(TargetHost targetHost) {
 		this.targetHost = targetHost;
@@ -470,7 +470,7 @@ class NetworkRestarter extends Thread {
 class AgentRestarter extends Thread {
     protected final Logger LOGGER = LoggerFactory.getLogger(AgentRestarter.class);
     
-	private TargetHost targetHost;
+	private final TargetHost targetHost;
 	
 	public AgentRestarter(TargetHost targetHost) {
 		this.targetHost = targetHost;

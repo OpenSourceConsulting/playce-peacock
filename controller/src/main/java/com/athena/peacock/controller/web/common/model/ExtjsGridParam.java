@@ -41,7 +41,7 @@ public class ExtjsGridParam {
 	private int start;
 	private int limit;
 	private String search;//검색어
-	private Map<String, Object> exParams = new HashMap<String, Object>();
+	private final Map<String, Object> exParams = new HashMap<String, Object>();
 
 	/**
 	 * <pre>

@@ -31,6 +31,7 @@ import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
+import java.io.EOFException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -596,7 +597,7 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 				if (channel != null) {
 					channel.writeAndFlush(datagram);
 				} else {
-					throw new Exception("Channel is null.");
+					throw new EOFException("Channel is null.");
 				}
 			} finally { 
 				CallbackManagement.unlock(); 
@@ -750,27 +751,27 @@ public class PeacockServerHandler extends SimpleChannelInboundHandler<Object> {
 	 * @version 1.0
 	 */
 	static class CallbackManagement {
-		private static final Lock lock = new ReentrantLock();
-		private static final Queue<Callback> callbacks = new ConcurrentLinkedQueue<Callback>();
+		private static final Lock LOCK = new ReentrantLock();
+		private static final Queue<Callback> CALLBACKS = new ConcurrentLinkedQueue<Callback>();
 		
 		static void lock() {
-			lock.lock();
+			LOCK.lock();
 		}
 		
 		static void unlock() {
-			lock.unlock();
+			LOCK.unlock();
 		}
 		
 		static void add(Callback callback) {
-			callbacks.add(callback);
+			CALLBACKS.add(callback);
 		}
 		
 		static Callback poll() {
-			return callbacks.poll();
+			return CALLBACKS.poll();
 		}
 		
 		static int getSize() {
-			return callbacks.size();
+			return CALLBACKS.size();
 		}
 	}
 	//end of CallbackManagement.java

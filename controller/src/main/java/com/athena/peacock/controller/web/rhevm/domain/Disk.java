@@ -63,7 +63,7 @@ public class Disk extends BaseDevice {
     protected String type;
     protected Status status;
     @XmlElement(name = "interface")
-    protected String _interface;
+    protected String mInterface;
     protected String format;
     protected Boolean sparse;
     protected Boolean bootable;
@@ -224,7 +224,7 @@ public class Disk extends BaseDevice {
      *     
      */
     public String getInterface() {
-        return _interface;
+        return mInterface;
     }
 
     /**
@@ -236,11 +236,11 @@ public class Disk extends BaseDevice {
      *     
      */
     public void setInterface(String value) {
-        this._interface = value;
+        this.mInterface = value;
     }
 
     public boolean isSetInterface() {
-        return (this._interface!= null);
+        return (this.mInterface!= null);
     }
 
     /**

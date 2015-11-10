@@ -32,18 +32,18 @@ package com.athena.peacock.controller.web.rhevm;
  * @author Ji-Woong Choi
  * @version 1.0
  */
-public interface RHEVApi {
-	public String API = "/api";
-	public String VMS = "/api/vms";
-	public String DATA_CENTERS = "/api/datacenters";
-	public String NETWORKS = "/api/networks";
-	public String DOMAINS = "/api/domains";
-	public String ROLES = "/api/roles";
-	public String TEMPLATES = "/api/templates";
-	public String USERS = "/api/users";
-	public String GROUPS = "/api/groups";
-	public String STORAGE_DOMAINS = "/api/storagedomains";
-	public String DISKS = "/api/disks";
-	public String CLUSTERS = "/api/clusters";
-	public String HOSTS = "/api/hosts";
+public class RHEVApi {
+	public static final String API = "/api";
+	public static final String VMS = "/api/vms";
+	public static final String DATA_CENTERS = "/api/datacenters";
+	public static final String NETWORKS = "/api/networks";
+	public static final String DOMAINS = "/api/domains";
+	public static final String ROLES = "/api/roles";
+	public static final String TEMPLATES = "/api/templates";
+	public static final String USERS = "/api/users";
+	public static final String GROUPS = "/api/groups";
+	public static final String STORAGE_DOMAINS = "/api/storagedomains";
+	public static final String DISKS = "/api/disks";
+	public static final String CLUSTERS = "/api/clusters";
+	public static final String HOSTS = "/api/hosts";
 }

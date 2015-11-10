@@ -31,7 +31,7 @@ public class DiskDto extends RHEVBaseDto {
 	private String actualSize;
 	private String bootable;
 	private String sharable;
-	private String _interface;
+	private String mInterface;
 	private String status;
 	
 	/**
@@ -98,13 +98,13 @@ public class DiskDto extends RHEVBaseDto {
 	 * @return the _interface
 	 */
 	public String getInterface() {
-		return _interface;
+		return mInterface;
 	}
 	/**
 	 * @param _interface the _interface to set
 	 */
-	public void setInterface(String _interface) {
-		this._interface = _interface;
+	public void setInterface(String mInterface) {
+		this.mInterface = mInterface;
 	}
 	/**
 	 * @return the status

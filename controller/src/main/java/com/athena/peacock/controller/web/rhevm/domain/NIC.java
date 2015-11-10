@@ -46,7 +46,7 @@ public class NIC extends BaseDevice {
 
     protected Network network;
     @XmlElement(name = "interface")
-    protected String _interface;
+    protected String mInterface;
     protected MAC mac;
     protected Statistics statistics;
     protected Boolean linked;
@@ -90,7 +90,7 @@ public class NIC extends BaseDevice {
      *     
      */
     public String getInterface() {
-        return _interface;
+        return mInterface;
     }
 
     /**
@@ -102,11 +102,11 @@ public class NIC extends BaseDevice {
      *     
      */
     public void setInterface(String value) {
-        this._interface = value;
+        this.mInterface = value;
     }
 
     public boolean isSetInterface() {
-        return (this._interface!= null);
+        return (this.mInterface!= null);
     }
 
     /**

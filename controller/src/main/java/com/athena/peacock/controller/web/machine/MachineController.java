@@ -1158,191 +1158,192 @@ public class MachineController {
 		Command command = new Command("Apache INSTALL");
 		int sequence = 0;
 		
-		ShellAction s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}/apache/" + version + "/httpd-" + version + ".tar.gz");
-		command.addAction(s_action);
+		ShellAction sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}/apache/" + version + "/httpd-" + version + ".tar.gz");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src");
-		s_action.setCommand("tar");
-		s_action.addArguments("xvzf");
-		s_action.addArguments("httpd-" + version + ".tar.gz");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src");
+		sAction.setCommand("tar");
+		sAction.addArguments("xvzf");
+		sAction.addArguments("httpd-" + version + ".tar.gz");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src/httpd-" + version + "/srclib");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}/apache/apr-1.4.6.tar.gz");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src/httpd-" + version + "/srclib");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}/apache/apr-1.4.6.tar.gz");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src/httpd-" + version + "/srclib");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}/apache/apr-util-1.5.2.tar.gz");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src/httpd-" + version + "/srclib");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}/apache/apr-util-1.5.2.tar.gz");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src/httpd-" + version + "/srclib");
-		s_action.setCommand("tar");
-		s_action.addArguments("xvzf");
-		s_action.addArguments("apr-1.4.6.tar.gz");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src/httpd-" + version + "/srclib");
+		sAction.setCommand("tar");
+		sAction.addArguments("xvzf");
+		sAction.addArguments("apr-1.4.6.tar.gz");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src/httpd-" + version + "/srclib");
-		s_action.setCommand("tar");
-		s_action.addArguments("xvzf");
-		s_action.addArguments("apr-util-1.5.2.tar.gz");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src/httpd-" + version + "/srclib");
+		sAction.setCommand("tar");
+		sAction.addArguments("xvzf");
+		sAction.addArguments("apr-util-1.5.2.tar.gz");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src/httpd-" + version + "/srclib");
-		s_action.setCommand("mv");
-		s_action.addArguments("apr-1.4.6");
-		s_action.addArguments("apr");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src/httpd-" + version + "/srclib");
+		sAction.setCommand("mv");
+		sAction.addArguments("apr-1.4.6");
+		sAction.addArguments("apr");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src/httpd-" + version + "/srclib");
-		s_action.setCommand("mv");
-		s_action.addArguments("apr-util-1.5.2");
-		s_action.addArguments("apr-util");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src/httpd-" + version + "/srclib");
+		sAction.setCommand("mv");
+		sAction.addArguments("apr-util-1.5.2");
+		sAction.addArguments("apr-util");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("yum");
-		s_action.addArguments("install");
-		s_action.addArguments("-y");
-//		s_action.addArguments("apr-devel");
-//		s_action.addArguments("apr-util-devel");
-//		s_action.addArguments("gcc");
-		s_action.addArguments("pcre-devel.x86_64");
-//		s_action.addArguments("zlib-devel");
-//		s_action.addArguments("openssl-devel");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("yum");
+		sAction.addArguments("install");
+		sAction.addArguments("-y");
+//		sAction.addArguments("apr-devel");
+//		sAction.addArguments("apr-util-devel");
+//		sAction.addArguments("gcc");
+		sAction.addArguments("pcre-devel.x86_64");
+//		sAction.addArguments("zlib-devel");
+//		sAction.addArguments("openssl-devel");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src/httpd-" + version);
-		s_action.setCommand("./configure");
-		s_action.addArguments("--prefix=" + targetDir);
-		s_action.addArguments("--enable-mods-shared=most");
-		s_action.addArguments("--enable-ssl");
-		s_action.addArguments("--with-ssl=/usr/local/openssl");
-		s_action.addArguments("--enable-modules=ssl");
-		s_action.addArguments("--enable-rewrite");
-		s_action.addArguments("--with-included-apr");
-		s_action.addArguments("--with-included-apr-util");
-		s_action.addArguments("--enable-deflate");
-		s_action.addArguments("--enable-expires");
-		s_action.addArguments("--enable-headers");
-		s_action.addArguments("--enable-proxy");
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src/httpd-" + version);
+		sAction.setCommand("./configure");
+		sAction.addArguments("--prefix=" + targetDir);
+		sAction.addArguments("--enable-mods-shared=most");
+		sAction.addArguments("--enable-ssl");
+		sAction.addArguments("--with-ssl=/usr/local/openssl");
+		sAction.addArguments("--enable-modules=ssl");
+		sAction.addArguments("--enable-rewrite");
+		sAction.addArguments("--with-included-apr");
+		sAction.addArguments("--with-included-apr-util");
+		sAction.addArguments("--enable-deflate");
+		sAction.addArguments("--enable-expires");
+		sAction.addArguments("--enable-headers");
+		sAction.addArguments("--enable-proxy");
 		
 		if (version.startsWith("2.2")) {
-			//s_action.addArguments("--with-mpm=prefork");
-			s_action.addArguments("--with-mpm=worker");
+			//sAction.addArguments("--with-mpm=prefork");
+			sAction.addArguments("--with-mpm=worker");
 		} else if (version.startsWith("2.3") || version.startsWith("2.4")) {
-			s_action.addArguments("--enable-mpms-shared=all");
+			sAction.addArguments("--enable-mpms-shared=all");
 		}
-		command.addAction(s_action);
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src/httpd-" + version);
-		s_action.setCommand("make");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src/httpd-" + version);
+		sAction.setCommand("make");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src/httpd-" + version);
-		s_action.setCommand("make");
-		s_action.addArguments("install");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src/httpd-" + version);
+		sAction.setCommand("make");
+		sAction.addArguments("install");
+		command.addAction(sAction);
 		
 		// Add Apache INSTALL Command
 		cmdMsg.addCommand(command);
 		
 		command = new Command("JK Connector INSTALL");
 		sequence = 0;
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}/apache/tomcat-connectors-1.2.37-src.tar.gz");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}/apache/tomcat-connectors-1.2.37-src.tar.gz");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src");
-		s_action.setCommand("tar");
-		s_action.addArguments("xvzf");
-		s_action.addArguments("tomcat-connectors-1.2.37-src.tar.gz");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src");
+		sAction.setCommand("tar");
+		sAction.addArguments("xvzf");
+		sAction.addArguments("tomcat-connectors-1.2.37-src.tar.gz");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src/tomcat-connectors-1.2.37-src/native");
-		s_action.setCommand("./configure");
-		s_action.addArguments("--with-apxs=" + targetDir + "/bin/apxs");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src/tomcat-connectors-1.2.37-src/native");
+		sAction.setCommand("./configure");
+		sAction.addArguments("--with-apxs=" + targetDir + "/bin/apxs");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src/tomcat-connectors-1.2.37-src/native");
-		s_action.setCommand("make");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src/tomcat-connectors-1.2.37-src/native");
+		sAction.setCommand("make");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("cp");
-		s_action.addArguments("-f");
-		s_action.addArguments("/usr/local/src/tomcat-connectors-1.2.37-src/native/apache-2.0/mod_jk.so");
-		s_action.addArguments(targetDir + "/modules/mod_jk.so");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("cp");
+		sAction.addArguments("-f");
+		sAction.addArguments("/usr/local/src/tomcat-connectors-1.2.37-src/native/apache-2.0/mod_jk.so");
+		sAction.addArguments(targetDir + "/modules/mod_jk.so");
+		command.addAction(sAction);
 		
 		// Add JK Connector INSTALL Command
 		cmdMsg.addCommand(command);
 		
 		command = new Command("CONFIGURATION");
 		sequence = 0;
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory(targetDir + "/conf");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}/apache/" + version + "/conf/httpd.conf");
-		s_action.addArguments("-O");
-		s_action.addArguments("httpd.conf");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory(targetDir + "/conf");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}/apache/" + version + "/conf/httpd.conf");
+		sAction.addArguments("-O");
+		sAction.addArguments("httpd.conf");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory(targetDir + "/conf");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}/apache/" + version + "/conf/mod-jk.conf");
-		s_action.addArguments("-O");
-		s_action.addArguments("mod-jk.conf");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory(targetDir + "/conf");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}/apache/" + version + "/conf/mod-jk.conf");
+		sAction.addArguments("-O");
+		sAction.addArguments("mod-jk.conf");
+		command.addAction(sAction);
 
-//		s_action = new ShellAction(sequence++);
-//		s_action.setWorkingDiretory(targetDir + "/conf");
-//		s_action.setCommand("wget");
-//		s_action.addArguments("${RepositoryUrl}/apache/" + version + "/conf/workers.properties");
-//		s_action.addArguments("-O");
-//		s_action.addArguments("workers.properties");
-//		command.addAction(s_action);
+//		sAction = new ShellAction(sequence++);
+//		sAction.setWorkingDiretory(targetDir + "/conf");
+//		sAction.setCommand("wget");
+//		sAction.addArguments("${RepositoryUrl}/apache/" + version + "/conf/workers.properties");
+//		sAction.addArguments("-O");
+//		sAction.addArguments("workers.properties");
+//		command.addAction(sAction);
 
-		FileWriteAction fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents("/*.jsp=loadbalancer\r\n/*.do=loadbalancer");
-		fw_action.setFileName(targetDir + "/conf/workers.properties");
-		command.addAction(fw_action);
+		FileWriteAction fileWriteAction = new FileWriteAction(sequence);
+		sequence++;
+		fileWriteAction.setContents("/*.jsp=loadbalancer\r\n/*.do=loadbalancer");
+		fileWriteAction.setFileName(targetDir + "/conf/workers.properties");
+		command.addAction(fileWriteAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory(targetDir + "/conf");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}/apache/" + version + "/conf/uriworkermap.properties");
-		s_action.addArguments("-O");
-		s_action.addArguments("uriworkermap.properties");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory(targetDir + "/conf");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}/apache/" + version + "/conf/uriworkermap.properties");
+		sAction.addArguments("-O");
+		sAction.addArguments("uriworkermap.properties");
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory(targetDir + "/conf/extra");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}/apache/" + version + "/conf/httpd-mpm.conf");
-		s_action.addArguments("-O");
-		s_action.addArguments("httpd-mpm.conf");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory(targetDir + "/conf/extra");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}/apache/" + version + "/conf/httpd-mpm.conf");
+		sAction.addArguments("-O");
+		sAction.addArguments("httpd-mpm.conf");
+		command.addAction(sAction);
 		
 		List<Property> properties = new ArrayList<Property>();
 		Property property = new Property();
@@ -1360,40 +1361,41 @@ public class MachineController {
 		property.setValue("localhost");
 		properties.add(property);
 
-		ConfigAction c_action = new ConfigAction(sequence++);
-		c_action.setFileName(targetDir + "/conf/httpd.conf");
-		c_action.setProperties(properties);
-		command.addAction(c_action);
+		ConfigAction configAction = new ConfigAction(sequence);
+		sequence++;
+		configAction.setFileName(targetDir + "/conf/httpd.conf");
+		configAction.setProperties(properties);
+		command.addAction(configAction);
 		
 		// Add CONFIGURATION Command
 		cmdMsg.addCommand(command);
 		
 		command = new Command("CHECK");
 		sequence = 0;
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand(targetDir + "/bin/apachectl");
-		s_action.addArguments("-V");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand(targetDir + "/bin/apachectl");
+		sAction.addArguments("-V");
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand(targetDir + "/bin/apachectl");
-		s_action.addArguments("-l");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand(targetDir + "/bin/apachectl");
+		sAction.addArguments("-l");
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand(targetDir + "/bin/apachectl");
-		s_action.addArguments("start");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand(targetDir + "/bin/apachectl");
+		sAction.addArguments("start");
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("sleep");
-		s_action.addArguments("1");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("sleep");
+		sAction.addArguments("1");
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("curl");
-		s_action.addArguments("http://localhost");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("curl");
+		sAction.addArguments("http://localhost");
+		command.addAction(sAction);
 
 		// Add CHECK Command
 		cmdMsg.addCommand(command);
@@ -1433,13 +1435,13 @@ public class MachineController {
 		Command command = new Command("CONFIGURATION");
 		int sequence = 0;
 		
-		ShellAction s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/etc");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}/mysql/" + version + "/my.cnf");
-		s_action.addArguments("-O");
-		s_action.addArguments("my.cnf");
-		command.addAction(s_action);
+		ShellAction sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/etc");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}/mysql/" + version + "/my.cnf");
+		sAction.addArguments("-O");
+		sAction.addArguments("my.cnf");
+		command.addAction(sAction);
 		
 		List<Property> properties = new ArrayList<Property>();
 		Property property = new Property();
@@ -1452,10 +1454,11 @@ public class MachineController {
 		property.setValue(port);
 		properties.add(property);
 		
-		ConfigAction c_action = new ConfigAction(sequence++);
-		c_action.setFileName("/etc/my.cnf");
-		c_action.setProperties(properties);
-		command.addAction(c_action);
+		ConfigAction configAction = new ConfigAction(sequence);
+		sequence++;
+		configAction.setFileName("/etc/my.cnf");
+		configAction.setProperties(properties);
+		command.addAction(configAction);
 		
 		// Add CONFIGURATION Command
 		cmdMsg.addCommand(command);
@@ -1463,75 +1466,75 @@ public class MachineController {
 		command = new Command("MySQL INSTALL");
 		sequence = 0;
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}/mysql/" + version + "/MySQL-server.rpm");
-		s_action.addArguments("-O");
-		s_action.addArguments("MySQL-server.rpm");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}/mysql/" + version + "/MySQL-server.rpm");
+		sAction.addArguments("-O");
+		sAction.addArguments("MySQL-server.rpm");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}/mysql/" + version + "/MySQL-client.rpm");
-		s_action.addArguments("-O");
-		s_action.addArguments("MySQL-client.rpm");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}/mysql/" + version + "/MySQL-client.rpm");
+		sAction.addArguments("-O");
+		sAction.addArguments("MySQL-client.rpm");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src");
-		s_action.setCommand("rpm");
-		s_action.addArguments("-Uvh");
-		s_action.addArguments("MySQL-server.rpm");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src");
+		sAction.setCommand("rpm");
+		sAction.addArguments("-Uvh");
+		sAction.addArguments("MySQL-server.rpm");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src");
-		s_action.setCommand("rpm");
-		s_action.addArguments("-Uvh");
-		s_action.addArguments("MySQL-client.rpm");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src");
+		sAction.setCommand("rpm");
+		sAction.addArguments("-Uvh");
+		sAction.addArguments("MySQL-client.rpm");
+		command.addAction(sAction);
 		
 		// Add MySQL INSTALL Command
 		cmdMsg.addCommand(command);
 		
 		command = new Command("Change Password");
 		sequence = 0;
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("service");
-		s_action.addArguments("mysql");
-		s_action.addArguments("start");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("service");
+		sAction.addArguments("mysql");
+		sAction.addArguments("start");
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("mysqladmin");
-		s_action.addArguments("-u");
-		s_action.addArguments("root");
-		s_action.addArguments("password");
-		s_action.addArguments(password);
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("mysqladmin");
+		sAction.addArguments("-u");
+		sAction.addArguments("root");
+		sAction.addArguments("password");
+		sAction.addArguments(password);
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("mysqladmin");
-		s_action.addArguments("-u");
-		s_action.addArguments("root");
-		s_action.addArguments("-h");
-		s_action.addArguments("localhost.localdomain");
-		s_action.addArguments("-P");
-		s_action.addArguments(port);
-		s_action.addArguments("password");
-		s_action.addArguments(password);
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("mysqladmin");
+		sAction.addArguments("-u");
+		sAction.addArguments("root");
+		sAction.addArguments("-h");
+		sAction.addArguments("localhost.localdomain");
+		sAction.addArguments("-P");
+		sAction.addArguments(port);
+		sAction.addArguments("password");
+		sAction.addArguments(password);
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("mysql");
-		s_action.addArguments("-u");
-		s_action.addArguments("root");
-		s_action.addArguments("-p" + password);
-		s_action.addArguments("-e");
-		s_action.addArguments("'select User,Host,Password from mysql.user'");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("mysql");
+		sAction.addArguments("-u");
+		sAction.addArguments("root");
+		sAction.addArguments("-p" + password);
+		sAction.addArguments("-e");
+		sAction.addArguments("'select User,Host,Password from mysql.user'");
+		command.addAction(sAction);
 
 		// Add Change Password Command
 		cmdMsg.addCommand(command);
@@ -1562,29 +1565,29 @@ public class MachineController {
 		Command command = new Command("DELETE");
 		int sequence = 0;
 		
-		ShellAction s_action = new ShellAction(sequence++);
-		s_action.setCommand("service");
-		s_action.addArguments("mysql");
-		s_action.addArguments("stop");
-		command.addAction(s_action);
+		ShellAction sAction = new ShellAction(sequence++);
+		sAction.setCommand("service");
+		sAction.addArguments("mysql");
+		sAction.addArguments("stop");
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("rpm");
-		s_action.addArguments("--erase");
-		s_action.addArguments("MySQL-client");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("rpm");
+		sAction.addArguments("--erase");
+		sAction.addArguments("MySQL-client");
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("rpm");
-		s_action.addArguments("--erase");
-		s_action.addArguments("MySQL-server");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("rpm");
+		sAction.addArguments("--erase");
+		sAction.addArguments("MySQL-server");
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("userdel");
-		s_action.addArguments("-r");
-		s_action.addArguments("mysql");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("userdel");
+		sAction.addArguments("-r");
+		sAction.addArguments("mysql");
+		command.addAction(sAction);
 
 		// Add DELETE Command
 		cmdMsg.addCommand(command);
@@ -1636,17 +1639,17 @@ public class MachineController {
 		Command command = new Command("Pre-install");
 		int sequence = 0;
 		
-		ShellAction s_action = new ShellAction(sequence++);
-		s_action.setCommand("mkdir");
-		s_action.addArguments("-p");
-		s_action.addArguments(jbossHome);
-		command.addAction(s_action);
+		ShellAction sAction = new ShellAction(sequence++);
+		sAction.setCommand("mkdir");
+		sAction.addArguments("-p");
+		sAction.addArguments(jbossHome);
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("mkdir");
-		s_action.addArguments("-p");
-		s_action.addArguments(serverHome);
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("mkdir");
+		sAction.addArguments("-p");
+		sAction.addArguments(serverHome);
+		command.addAction(sAction);
 		
 		// Add Pre-install Command
 		cmdMsg.addCommand(command);
@@ -1654,35 +1657,35 @@ public class MachineController {
 		command = new Command("JBoss INSTALL");
 		sequence = 0;
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}/jboss/jboss-eap-5.2.0.zip");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}/jboss/jboss-eap-5.2.0.zip");
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src");
-		s_action.setCommand("unzip");
-		s_action.addArguments("-o");
-		s_action.addArguments("jboss-eap-5.2.0.zip");
-		s_action.addArguments("-d");
-		s_action.addArguments(jbossHome);
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src");
+		sAction.setCommand("unzip");
+		sAction.addArguments("-o");
+		sAction.addArguments("jboss-eap-5.2.0.zip");
+		sAction.addArguments("-d");
+		sAction.addArguments(jbossHome);
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}/jboss/jboss-cluster-template-5.2.0.zip");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}/jboss/jboss-cluster-template-5.2.0.zip");
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src");
-		s_action.setCommand("unzip");
-		s_action.addArguments("-o");
-		s_action.addArguments("jboss-cluster-template-5.2.0.zip");
-		s_action.addArguments("-d");
-		s_action.addArguments(serverHome + "/" + serverName);
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src");
+		sAction.setCommand("unzip");
+		sAction.addArguments("-o");
+		sAction.addArguments("jboss-cluster-template-5.2.0.zip");
+		sAction.addArguments("-d");
+		sAction.addArguments(serverHome + "/" + serverName);
+		command.addAction(sAction);
 		
 		List<Property> properties = new ArrayList<Property>();
 		Property property = null;
@@ -1717,10 +1720,11 @@ public class MachineController {
 		property.setValue(bindPort);
 		properties.add(property);
 		
-		ConfigAction c_action = new ConfigAction(sequence++);
-		c_action.setFileName(serverHome + "/" + serverName + "/bin/env.sh");
-		c_action.setProperties(properties);
-		command.addAction(c_action);
+		ConfigAction configAction = new ConfigAction(sequence);
+		sequence++;
+		configAction.setFileName(serverHome + "/" + serverName + "/bin/env.sh");
+		configAction.setProperties(properties);
+		command.addAction(configAction);
 		
 		// Add JBoss INSTALL Command
 		cmdMsg.addCommand(command);
@@ -1728,20 +1732,20 @@ public class MachineController {
 		command = new Command("DataSource Configuration");
 		sequence = 0;
 
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory(serverHome + "/" + serverName);
-		s_action.setCommand("wget");
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory(serverHome + "/" + serverName);
+		sAction.setCommand("wget");
 		
 		if (databaseType.equals("oracle")) {
-			s_action.addArguments("${RepositoryUrl}/jboss/datasource/oracle-ds.xml");
+			sAction.addArguments("${RepositoryUrl}/jboss/datasource/oracle-ds.xml");
 		} else if (databaseType.equals("mysql")) {
-			s_action.addArguments("${RepositoryUrl}/jboss/datasource/mysql-ds.xml");
+			sAction.addArguments("${RepositoryUrl}/jboss/datasource/mysql-ds.xml");
 		} else if (databaseType.equals("cubrid")) {
-			s_action.addArguments("${RepositoryUrl}/jboss/datasource/cubrid-ds.xml");
+			sAction.addArguments("${RepositoryUrl}/jboss/datasource/cubrid-ds.xml");
 		}
-		s_action.addArguments("-O");
-		s_action.addArguments(serverName + "-ds.xml");
-		command.addAction(s_action);
+		sAction.addArguments("-O");
+		sAction.addArguments(serverName + "-ds.xml");
+		command.addAction(sAction);
 		
 		properties = new ArrayList<Property>();
 		property = new Property();
@@ -1774,10 +1778,10 @@ public class MachineController {
 		property.setValue(maxPoolSize);
 		properties.add(property);
 		
-		c_action = new ConfigAction(sequence++);
-		c_action.setFileName(serverHome + "/" + serverName + "/" + serverName + "-ds.xml");
-		c_action.setProperties(properties);
-		command.addAction(c_action);
+		configAction = new ConfigAction(sequence++);
+		configAction.setFileName(serverHome + "/" + serverName + "/" + serverName + "-ds.xml");
+		configAction.setProperties(properties);
+		command.addAction(configAction);
 		
 		// Add DataSource Configuration Command
 		cmdMsg.addCommand(command);
@@ -1819,17 +1823,17 @@ public class MachineController {
 		Command command = new Command("Pre-install");
 		int sequence = 0;
 		
-		ShellAction s_action = new ShellAction(sequence++);
-		s_action.setCommand("mkdir");
-		s_action.addArguments("-p");
-		s_action.addArguments(catalinaHome);
-		command.addAction(s_action);
+		ShellAction sAction = new ShellAction(sequence++);
+		sAction.setCommand("mkdir");
+		sAction.addArguments("-p");
+		sAction.addArguments(catalinaHome);
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("mkdir");
-		s_action.addArguments("-p");
-		s_action.addArguments(catalinaBase + "/" + serverName);
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("mkdir");
+		sAction.addArguments("-p");
+		sAction.addArguments(catalinaBase + "/" + serverName);
+		command.addAction(sAction);
 		
 		// Add Pre-install Command
 		cmdMsg.addCommand(command);
@@ -1837,35 +1841,35 @@ public class MachineController {
 		command = new Command("Tomcat Install");
 		sequence = 0;
 
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}/tomcat/apache-tomcat-6.0.37.zip");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}/tomcat/apache-tomcat-6.0.37.zip");
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src");
-		s_action.setCommand("unzip");
-		s_action.addArguments("-o");
-		s_action.addArguments("apache-tomcat-6.0.37.zip");
-		s_action.addArguments("-d");
-		s_action.addArguments(catalinaHome);
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src");
+		sAction.setCommand("unzip");
+		sAction.addArguments("-o");
+		sAction.addArguments("apache-tomcat-6.0.37.zip");
+		sAction.addArguments("-d");
+		sAction.addArguments(catalinaHome);
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}/tomcat/tomcat-template-6.0.37.zip");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}/tomcat/tomcat-template-6.0.37.zip");
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src");
-		s_action.setCommand("unzip");
-		s_action.addArguments("-o");
-		s_action.addArguments("tomcat-template-6.0.37.zip");
-		s_action.addArguments("-d");
-		s_action.addArguments(catalinaBase + "/" + serverName);
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src");
+		sAction.setCommand("unzip");
+		sAction.addArguments("-o");
+		sAction.addArguments("tomcat-template-6.0.37.zip");
+		sAction.addArguments("-d");
+		sAction.addArguments(catalinaBase + "/" + serverName);
+		command.addAction(sAction);
 		
 		List<Property> properties = new ArrayList<Property>();
 		Property property = null;
@@ -1900,10 +1904,11 @@ public class MachineController {
 		property.setValue(compUser);
 		properties.add(property);
 		
-		ConfigAction c_action = new ConfigAction(sequence++);
-		c_action.setFileName(catalinaBase + "/" + serverName + "/bin/env.sh");
-		c_action.setProperties(properties);
-		command.addAction(c_action);
+		ConfigAction configAction = new ConfigAction(sequence);
+		sequence++;
+		configAction.setFileName(catalinaBase + "/" + serverName + "/bin/env.sh");
+		configAction.setProperties(properties);
+		command.addAction(configAction);
 		
 		// Add Tomcat INSTALL Command
 		cmdMsg.addCommand(command);

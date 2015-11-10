@@ -160,16 +160,16 @@ public class LBListenerService {
 		String haproxyCfg = IOUtils.toString(getClass().getResource("/haproxy/haproxy.cfg"), "UTF-8");
 		haproxyCfg = haproxyCfg.replaceAll("#\\$\\{PROXY_SETTING\\}", sb.toString());
 		
-		FileWriteAction fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(haproxyCfg);
-		fw_action.setFileName("/etc/haproxy/haproxy.cfg");
-		command.addAction(fw_action);
+		FileWriteAction fileWriteAction = new FileWriteAction(sequence++);
+		fileWriteAction.setContents(haproxyCfg);
+		fileWriteAction.setFileName("/etc/haproxy/haproxy.cfg");
+		command.addAction(fileWriteAction);
 		
-		ShellAction s_action = new ShellAction(sequence++);
-		s_action.setCommand("service");
-		s_action.addArguments("haproxy");
-		s_action.addArguments("reload");
-		command.addAction(s_action);
+		ShellAction sAction = new ShellAction(sequence++);
+		sAction.setCommand("service");
+		sAction.addArguments("haproxy");
+		sAction.addArguments("reload");
+		command.addAction(sAction);
 		
 		// Add HAProxy INSTALL Command
 		cmdMsg.addCommand(command);

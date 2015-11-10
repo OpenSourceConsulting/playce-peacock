@@ -384,7 +384,7 @@ public class CephService implements InitializingBean {
 		try {
 			return MAPPER.readTree(json);
 		} catch (Exception ex) {
-			throw new RuntimeException(ex);  // NOPMD
+			throw new UnsupportedOperationException(ex);  
 		}
 	}
 	//end of readTree()

@@ -70,6 +70,7 @@ public class JobLogListener implements JobListener {
 	 * @see org.quartz.JobListener#jobToBeExecuted(org.quartz.JobExecutionContext)
 	 */
 	public void jobToBeExecuted(JobExecutionContext context) {
+		LOGGER.info(context.toString());
 	}
 
 	/**

@@ -436,19 +436,19 @@ public class OsdController extends CephBaseController   {
 	        Object response = execute("/usr/bin/ceph osd crush remove osd." + id);
 	        
 	        if (((String) response).indexOf("ERROR") > -1) {
-	        	throw new Exception("Crush remove failed.");  // NOPMD
+	        	throw new IllegalStateException("Crush remove failed.");  // NOPMD
 	        }
 	        
 	        response = execute("rsh " + host + " \"/etc/init.d/ceph stop osd." + id + "\"");
 	        
 	        if (((String) response).indexOf("ERROR") > -1) {
-	        	throw new Exception("OSD stop failed.");  // NOPMD
+	        	throw new IllegalStateException("OSD stop failed.");  // NOPMD
 	        }
 	        
 	        response = execute("ceph osd rm " + id);
 	        
 	        if (((String) response).indexOf("ERROR") > -1) {
-	        	throw new Exception("OSD rm failed.");  // NOPMD
+	        	throw new IllegalStateException("OSD rm failed.");  // NOPMD
 	        }     
 	        
 			jsonRes.setSuccess(true);

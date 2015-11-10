@@ -181,31 +181,31 @@ public class MonController extends CephBaseController  {
 	        Object response = execute("/usr/bin/ceph-deploy install --repo --release=hammer " + host);
 	        
 	        if (((String) response).indexOf("ERROR") > -1) {
-	        	throw new Exception("Mon repo failed.");
+	        	throw new IllegalStateException("Mon repo failed.");
 	        }
         
 	        response = execute("/usr/bin/ceph-deploy install --mon " + host);
 	        
 	        if (((String) response).indexOf("ERROR") > -1) {
-	        	throw new Exception("Mon install failed.");
+	        	throw new IllegalStateException("Mon install failed.");
 	        }
 
 	        response = execute("cd /etc/ceph && cd /etc/ceph && /usr/bin/ceph-deploy --overwrite-conf --ceph-conf /etc/ceph/ceph.conf admin " + host);
 	        
 	        if (((String) response).indexOf("ERROR") > -1) {
-	        	throw new Exception("Ceph.conf Copy failed.");
+	        	throw new IllegalStateException("Ceph.conf Copy failed.");
 	        }
 
 	        response = execute("cd /etc/ceph && cd /etc/ceph && /usr/bin/ceph-deploy mon add " + host);
 	        
 	        if (((String) response).indexOf("ERROR") > -1) {
-	        	throw new Exception("Mon Add failed.");
+	        	throw new IllegalStateException("Mon Add failed.");
 	        }
 
 	        response = execute("cd /etc/ceph && cd /etc/ceph && /usr/bin/ceph-deploy calamari connect --master " + mgmt + " " + host);
 	        
 	        if (((String) response).indexOf("ERROR") > -1) {
-	        	throw new Exception("Calamari Add failed.");
+	        	throw new IllegalStateException("Calamari Add failed.");
 	        }     
 	        
 			jsonRes.setSuccess(true);

@@ -133,34 +133,34 @@ public class LoadBalancerService {
 		Command command = new Command("HAProxy INSTALL");
 		int sequence = 0;
 		
-		ShellAction s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}/haproxy/" + fileName);
-		s_action.addArguments("-O");
-		s_action.addArguments(fileName);
-		command.addAction(s_action);
+		ShellAction sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}/haproxy/" + fileName);
+		sAction.addArguments("-O");
+		sAction.addArguments(fileName);
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src");
-		s_action.setCommand("rpm");
-		s_action.addArguments("-Uvh");
-		s_action.addArguments(fileName);
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src");
+		sAction.setCommand("rpm");
+		sAction.addArguments("-Uvh");
+		sAction.addArguments(fileName);
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/etc/haproxy");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}/haproxy/haproxy.cfg");
-		s_action.addArguments("-O");
-		s_action.addArguments("haproxy.cfg");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/etc/haproxy");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}/haproxy/haproxy.cfg");
+		sAction.addArguments("-O");
+		sAction.addArguments("haproxy.cfg");
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("service");
-		s_action.addArguments("haproxy");
-		s_action.addArguments("start");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("service");
+		sAction.addArguments("haproxy");
+		sAction.addArguments("start");
+		command.addAction(sAction);
 		
 		// Add HAProxy INSTALL Command
 		cmdMsg.addCommand(command);

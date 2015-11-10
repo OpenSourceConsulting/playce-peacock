@@ -29,7 +29,7 @@ package com.athena.peacock.agent.util;
  */
 public final class OSUtil {
 
-	private static String OS = System.getProperty("os.name").toLowerCase();
+	private static String operatingSystem = System.getProperty("os.name").toLowerCase();
 
 	/**
 	 * <pre>
@@ -60,7 +60,7 @@ public final class OSUtil {
 	 * @return
 	 */
 	public static boolean isWindows() {
-		return (OS.indexOf("win") >= 0);
+		return (operatingSystem.indexOf("win") >= 0);
 	}//end of isWindows()
 
 	/**
@@ -70,7 +70,7 @@ public final class OSUtil {
 	 * @return
 	 */
 	public static boolean isLinux() {
-		return (OS.indexOf("linux") >= 0);
+		return (operatingSystem.indexOf("linux") >= 0);
 	}//end of isLinux()
 
 	/**
@@ -80,7 +80,7 @@ public final class OSUtil {
 	 * @return
 	 */
 	public static boolean isUnix() {
-		return (OS.indexOf("aix") >= 0 || OS.indexOf("hp") >= 0 || OS.indexOf("irix") > 0);
+		return (operatingSystem.indexOf("aix") >= 0 || operatingSystem.indexOf("hp") >= 0 || operatingSystem.indexOf("irix") > 0);
 	}//end of isUnix()
 
 	/**
@@ -90,7 +90,7 @@ public final class OSUtil {
 	 * @return
 	 */
 	public static boolean isSolaris() {
-		return (OS.indexOf("solaris") >= 0 || OS.indexOf("sunos") >= 0);
+		return (operatingSystem.indexOf("solaris") >= 0 || operatingSystem.indexOf("sunos") >= 0);
 	}//end of isSolaris()
 
 	/**
@@ -100,7 +100,7 @@ public final class OSUtil {
 	 * @return
 	 */
 	public static boolean isMac() {
-		return (OS.indexOf("mac") >= 0);
+		return (operatingSystem.indexOf("mac") >= 0);
 	}//end of isMac()
 	
 	/**

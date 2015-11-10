@@ -138,13 +138,13 @@ public class Installer {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         
         while (true) {
-        	System.out.print(msg);
+        	//System.out.print(msg);
         	
         	if (defaults != null && !defaults.equals("")) {
-        		System.out.print("(기본값 : " + defaults + ")");
+        		//System.out.print("(기본값 : " + defaults + ")");
         	}
         	
-        	System.out.print(" => ");
+        	//System.out.print(" => ");
         	
         	value = br.readLine();
         	

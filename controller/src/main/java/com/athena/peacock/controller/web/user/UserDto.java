@@ -55,7 +55,7 @@ public class UserDto extends BaseDto implements UserDetails {
 	private String email;
 	private Date lastLogon;
 	
-	private List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
+	private final List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
 
 	
 	

@@ -246,7 +246,7 @@ public class ConfigController {
 				
 				command = new Command("Restart Service");
 				sequence = 0;
-				ShellAction s_action = null;
+				ShellAction sAction = null;
 
 				/**
 				 * Stop Service
@@ -261,20 +261,20 @@ public class ConfigController {
 					args = stopCmd.split(",")[2].split(":")[1];
 				}
 
-				s_action = new ShellAction(sequence++);
+				sAction = new ShellAction(sequence++);
 				if (workingDir != null) {
-					s_action.setWorkingDiretory(workingDir);
+					sAction.setWorkingDiretory(workingDir);
 				}
-				s_action.setCommand(cmd);
+				sAction.setCommand(cmd);
 				if (args != null) {
-					s_action.addArguments(args);
+					sAction.addArguments(args);
 				}
-				command.addAction(s_action);
+				command.addAction(sAction);
 
-				s_action = new ShellAction(sequence++);
-				s_action.setCommand("sleep");
-				s_action.addArguments("5");
-				command.addAction(s_action);
+				sAction = new ShellAction(sequence++);
+				sAction.setCommand("sleep");
+				sAction.addArguments("5");
+				command.addAction(sAction);
 
 				/**
 				 *  Start Service
@@ -289,15 +289,15 @@ public class ConfigController {
 					args = startCmd.split(",")[2].split(":")[1];
 				}
 
-				s_action = new ShellAction(sequence++);
+				sAction = new ShellAction(sequence++);
 				if (workingDir != null) {
-					s_action.setWorkingDiretory(workingDir);
+					sAction.setWorkingDiretory(workingDir);
 				}
-				s_action.setCommand(cmd);
+				sAction.setCommand(cmd);
 				if (args != null) {
-					s_action.addArguments(args);
+					sAction.addArguments(args);
 				}
-				command.addAction(s_action);
+				command.addAction(sAction);
 				
 				cmdMsg.addCommand(command);
 

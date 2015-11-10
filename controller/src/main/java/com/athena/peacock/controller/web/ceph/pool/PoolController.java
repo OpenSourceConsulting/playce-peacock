@@ -161,9 +161,9 @@ public class PoolController extends CephBaseController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/create")
-	public @ResponseBody SimpleJsonResponse createPool(SimpleJsonResponse jsonRes, @QueryParam("pool") String pool, @QueryParam("pg_num") String pg_num) throws Exception {
+	public @ResponseBody SimpleJsonResponse createPool(SimpleJsonResponse jsonRes, @QueryParam("pool") String pool, @QueryParam("pg_num") String pgNum) throws Exception {
 		try {
-			Object response = managementSubmit("/osd/pool/create?pool=" + pool + "&pg_num=" + pg_num, HttpMethod.PUT);
+			Object response = managementSubmit("/osd/pool/create?pool=" + pool + "&pg_num=" + pgNum, HttpMethod.PUT);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
 			jsonRes.setMsg(pool + " Pool 생성이 완료되었습니다.");
@@ -239,9 +239,9 @@ public class PoolController extends CephBaseController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/set/pg_num")
-	public @ResponseBody SimpleJsonResponse setPoolPgNum(SimpleJsonResponse jsonRes, @QueryParam("name") String name, @QueryParam("pg_num") String pg_num) throws Exception {
+	public @ResponseBody SimpleJsonResponse setPoolPgNum(SimpleJsonResponse jsonRes, @QueryParam("name") String name, @QueryParam("pg_num") String pgNum) throws Exception {
 		try {
-			Object response = managementSubmit("/osd/pool/set?pool=" + name + "&var=pg_num&val=" + pg_num, HttpMethod.PUT);
+			Object response = managementSubmit("/osd/pool/set?pool=" + name + "&var=pg_num&val=" + pgNum, HttpMethod.PUT);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
 			jsonRes.setMsg(name + " Pool의  pg_num 설정 변경되었습니다.");

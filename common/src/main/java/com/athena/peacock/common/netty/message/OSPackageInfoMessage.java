@@ -42,6 +42,7 @@ public class OSPackageInfoMessage extends AbstractMessage {
 
 	public OSPackageInfoMessage(MessageType messageType) {
 		super(MessageType.PACKAGE_INFO);
+		messageType.name();
 	}
 
 	/**

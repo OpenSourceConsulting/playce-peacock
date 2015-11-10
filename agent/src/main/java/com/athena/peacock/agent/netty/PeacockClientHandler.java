@@ -90,8 +90,8 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
     private static final Logger LOGGER = LoggerFactory.getLogger(PeacockClientHandler.class);
 
     private boolean connected = false;
-    private static boolean _packageCollected = false;
-    private static boolean _softwareCollected = false;
+    private static boolean gPackageCollected = false;
+    private static boolean gSoftwareCollected = false;
     private String machineId = null;
     
     private PeacockClient client = null;
@@ -215,8 +215,8 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 				
 				// 패키지 정보 수집을 수행하지 않았고 패키지 정보 수집 이력이 없는 경우 수행
 				if (packageCollected != null && packageCollected.equals("N")) {
-					if (!_packageCollected) {
-						_packageCollected = true;
+					if (!gPackageCollected) {
+						gPackageCollected = true;
 						String packageFile = null;
 						
 						try {
@@ -242,8 +242,8 @@ public class PeacockClientHandler extends SimpleChannelInboundHandler<Object> {
 				}
 				
 				if (softwareInstalled != null && softwareInstalled.equals("N")) {
-					if (!_softwareCollected) {
-						_softwareCollected = true;
+					if (!gSoftwareCollected) {
+						gSoftwareCollected = true;
 						new SoftwareGatherThread(ctx).start();
 					}
 				}
@@ -488,7 +488,7 @@ class PackageGatherThread extends Thread {
     private static final Logger LOGGER = LoggerFactory.getLogger(PackageGatherThread.class);
 	
 	private final ChannelHandlerContext ctx;
-	private String packageFile;
+	private final String packageFile;
 	
 	public PackageGatherThread(ChannelHandlerContext ctx, String packageFile) {
 		this.ctx = ctx;
@@ -621,7 +621,7 @@ class SoftwareGatherThread extends Thread {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SoftwareGatherThread.class);
 	
-	private ChannelHandlerContext ctx;
+	private final ChannelHandlerContext ctx;
 	
 	public SoftwareGatherThread(ChannelHandlerContext ctx) {
 		this.ctx = ctx;
@@ -693,7 +693,8 @@ class SoftwareGatherThread extends Thread {
 						String[] configKeys = new String[]{"HTTPD_CONF", "HTTPD_INFO_CONF", "SSL_CONF", "URIWORKERMAP", "WORKERS"};
 						
 						for (String configKey : configKeys) {
-							if ((configFile = (String) properties.get(configKey)) != null) {
+							configFile = (String) properties.get(configKey);
+							if (configFile != null) {
 								// ,,,,, 일 경우 split size가 0으로 반환되는 것을 방지하기 위해 공백을 넣어준다.
 								configFile = configFile + " ";
 								if (configFile.split(",").length > 0 && configFile.split(",")[i].indexOf("/") >= 0) {
@@ -781,7 +782,8 @@ class SoftwareGatherThread extends Thread {
 						String[] configKeys = new String[]{"ENV_SH", "SERVER_XML", "CONTEXT_XML"};
 						
 						for (String configKey : configKeys) {
-							if ((configFile = (String) properties.get(configKey)) != null) {
+							configFile = (String) properties.get(configKey);
+							if ( configFile != null) {
 								// ,,,,, 일 경우 split size가 0으로 반환되는 것을 방지하기 위해 공백을 넣어준다.
 								configFile = configFile + " ";
 								if (configFile.split(",").length > 0 && configFile.split(",")[i].indexOf("/") >= 0) {
@@ -868,7 +870,8 @@ class SoftwareGatherThread extends Thread {
 						String[] configKeys = new String[]{"ENV_SH", "DS_XML", "LOGIN_CONFIG_XML"};
 						
 						for (String configKey : configKeys) {
-							if ((configFile = (String) properties.get(configKey)) != null) {
+							configFile = (String) properties.get(configKey);
+							if (configFile != null) {
 								// ,,,,, 일 경우 split size가 0으로 반환되는 것을 방지하기 위해 공백을 넣어준다.
 								configFile = configFile + " ";
 								if (configFile.split(",").length > 0 && configFile.split(",")[i].indexOf("/") >= 0) {

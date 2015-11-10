@@ -26,6 +26,8 @@ package com.athena.peacock.controller.web.user;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -49,6 +51,8 @@ import com.athena.peacock.controller.web.permission.PermissionDao;
  */
 @Service
 public class UserService implements UserDetailsService {
+	
+	protected static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 	
 	public static final String SUPER_USER = "admin";
 
@@ -136,7 +140,7 @@ public class UserService implements UserDetailsService {
 	public static UserDto getLoginUser(){
 		SecurityContext secContext = SecurityContextHolder.getContext();
 		
-		System.err.println("secContext.getAuthentication().getPrincipal() : " + secContext.getAuthentication().getPrincipal());
+		LOGGER.error("secContext.getAuthentication().getPrincipal() : " + secContext.getAuthentication().getPrincipal());
 		
 		UserDto userDetails = null;
 		if (secContext.getAuthentication().getPrincipal() instanceof UserDto) {
