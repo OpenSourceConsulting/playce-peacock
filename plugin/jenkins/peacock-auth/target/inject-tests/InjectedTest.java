@@ -7,10 +7,10 @@ import java.util.*;
 public class InjectedTest extends junit.framework.TestCase {
   public static junit.framework.Test suite() throws Exception {
     Map parameters = new HashMap();
-    parameters.put("basedir","C:\\peacock\\git\\athena-peacock\\plugin\\jenkins\\peacock-auth");
+    parameters.put("basedir","C:\\Users\\Owner\\git\\athena-peacock\\plugin\\jenkins\\peacock-auth");
     parameters.put("artifactId","peacock-auth");
-    parameters.put("outputDirectory","C:\\peacock\\git\\athena-peacock\\plugin\\jenkins\\peacock-auth\\target\\classes");
-    parameters.put("testOutputDirectory","C:\\peacock\\git\\athena-peacock\\plugin\\jenkins\\peacock-auth\\target\\test-classes");
+    parameters.put("outputDirectory","C:\\Users\\Owner\\git\\athena-peacock\\plugin\\jenkins\\peacock-auth\\target\\classes");
+    parameters.put("testOutputDirectory","C:\\Users\\Owner\\git\\athena-peacock\\plugin\\jenkins\\peacock-auth\\target\\test-classes");
     parameters.put("requirePI","false");
     return new org.jvnet.hudson.test.PluginAutomaticTestBuilder().build(parameters);
   }

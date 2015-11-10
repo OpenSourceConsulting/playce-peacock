@@ -94,7 +94,7 @@ public class MachineController {
     
 	/**
 	 * <pre>
-	 * Instance 목록을 조회힌다.
+	 * Instance 목록??조회?�다.
 	 * </pre>
 	 * @param jsonRes
 	 * @param machine
@@ -117,7 +117,7 @@ public class MachineController {
 
 	/**
 	 * <pre>
-	 * Instance 상세 정보를 조회한다.
+	 * Instance ?�세 ?�보�?조회?�다.
 	 * </pre>
 	 * @param jsonRes
 	 * @param machineId
@@ -153,7 +153,7 @@ public class MachineController {
 
 	/**
 	 * <pre>
-	 * 고정 IP 및 SSH 설정 정보 등 Instance 부가 정보를 조회한다.
+	 * 고정 IP �?SSH ?�정 ?�보 ??Instance �?? ?�보�?조회?�다.
 	 * </pre>
 	 * @param jsonRes
 	 * @param machineId
@@ -169,7 +169,7 @@ public class MachineController {
 
 	/**
 	 * <pre>
-	 * Instance의 Display Name을 수정한다.
+	 * Instance??Display Name???�정?�다.
 	 * </pre>
 	 * @param jsonRes
 	 * @param machine
@@ -187,7 +187,7 @@ public class MachineController {
             	File keyFile = new File(defaultPath + machine.getKeyFile().getOriginalFilename());
                 if (!keyFile.exists()) {
                     if (!keyFile.mkdirs()) {
-                        throw new Exception("Fail to create a directory for attached file [" + keyFile + "]");  // NOPMD
+                        throw new Exception("Fail to create a directory for attached file [" + keyFile + "]");  
                     }
                 }
                 
@@ -208,14 +208,14 @@ public class MachineController {
 				LOGGER.debug("[UPDATE_MACHINE] 6. finish Thread.sleep(3000).");
 			}
 			
-			jsonRes.setMsg("Instance 정보가 정상적으로 변경되었습니다.");
+			jsonRes.setMsg("Instance ?�보�??�상?�으�?�?��?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
 			
 			if (e.getMessage().equals("VM_UP_STAT")) {
-				jsonRes.setMsg("RHEV-M 패키지 버전이 3.2 미만이고 VM이 Up 상태일 경우 인스턴스 정보를 변경할 수 없습니다.");
+				jsonRes.setMsg("RHEV-M ?�키�?버전??3.2 미만?�고 VM??Up ?�태??경우 ?�스?�스 ?�보�?�?��?????�습?�다.");
 			} else {
-				jsonRes.setMsg("Instance 정보 변경 중 에러가 발생하였습니다.");
+				jsonRes.setMsg("Instance ?�보 �?�� �??�러�?발생?��??�니??");
 			}
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
@@ -228,7 +228,7 @@ public class MachineController {
 	
 	/**
 	 * <pre>
-	 * Down 상태의 Agent를 구동시킨다.
+	 * Down ?�태??Agent�?구동?�킨??
 	 * </pre>
 	 * @param jsonRes
 	 * @param machineId
@@ -243,10 +243,10 @@ public class MachineController {
 			
 			Thread.sleep(3000);
 			
-			jsonRes.setMsg("Agent가 정상적으로 시작하였습니다.");
+			jsonRes.setMsg("Agent�??�상?�으�??�작?��??�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Agent 시작 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("Agent ?�작 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -256,7 +256,7 @@ public class MachineController {
 	
 	/**
 	 * <pre>
-	 * Running 상태의 Agent를 중지시킨다.
+	 * Running ?�태??Agent�?중�??�킨??
 	 * </pre>
 	 * @param jsonRes
 	 * @param machineId
@@ -268,10 +268,10 @@ public class MachineController {
 		
 		try {
 			machineService.agentStop(machineId);
-			jsonRes.setMsg("Agent가 정상적으로 중지하였습니다.");
+			jsonRes.setMsg("Agent�??�상?�으�?중�??��??�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Agent 중지 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("Agent 중�? �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -281,7 +281,7 @@ public class MachineController {
 
 	/**
 	 * <pre>
-	 * Running 중인 Instance에 대해 CLI 기능을 제공한다.
+	 * Running 중인 Instance????�� CLI 기능???�공?�다.
 	 * </pre>
 	 * @param jsonRes
 	 * @param cli
@@ -294,7 +294,7 @@ public class MachineController {
 		
 		if (cliWhiteList.indexOf(cli.getCommand()) < 0) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("\"" + cli.getCommand() + "\"은(는) 실행할 수 없는 명령입니다.");
+			jsonRes.setMsg("\"" + cli.getCommand() + "\"???? ?�행?????�는 명령?�니??");
 			
 			return jsonRes;
 		}
@@ -327,12 +327,12 @@ public class MachineController {
 			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
 			
 			jsonRes.setData(response.getResults());
-			jsonRes.setMsg("Command가 정상적으로 처리되었습니다.");
+			jsonRes.setMsg("Command�??�상?�으�?처리?�었?�니??");
 		} catch (Exception e) {
-			String message = "Command 실행 중 에러가 발생하였습니다.";
+			String message = "Command ?�행 �??�러�?발생?��??�니??";
 			
 			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
-				message += "<br/>Instance와의 연결을 확인하십시오.";
+				message += "<br/>Instance??�� ?�결???�인?�십?�오.";
 			}
 			
 			jsonRes.setSuccess(false);
@@ -346,7 +346,7 @@ public class MachineController {
 
 	/**
 	 * <pre>
-	 * Running 중인 Instance의 그룹 목록을 조회한다.
+	 * Running 중인 Instance??그룹 목록??조회?�다.
 	 * </pre>
 	 * @param jsonRes
 	 * @param machineId
@@ -397,12 +397,12 @@ public class MachineController {
 			
 			jsonRes.setTotal(groupList.size());
 			jsonRes.setList(groupList);
-			jsonRes.setMsg("그룹 목록 수집이 정상적으로 처리되었습니다.");
+			jsonRes.setMsg("그룹 목록 ?�집???�상?�으�?처리?�었?�니??");
 		} catch (Exception e) {
-			String message = "그룹 목록 수집 중 에러가 발생하였습니다.";
+			String message = "그룹 목록 ?�집 �??�러�?발생?��??�니??";
 			
 			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
-				message += "<br/>Instance와의 연결을 확인하십시오.";
+				message += "<br/>Instance??�� ?�결???�인?�십?�오.";
 			}
 			
 			jsonRes.setSuccess(false);
@@ -416,7 +416,7 @@ public class MachineController {
 
 	/**
 	 * <pre>
-	 * Running 중인 Instance의 계정 목록을 조회한다.
+	 * Running 중인 Instance??계정 목록??조회?�다.
 	 * </pre>
 	 * @param jsonRes
 	 * @param machineId
@@ -508,12 +508,12 @@ public class MachineController {
 			
 			jsonRes.setTotal(accountList.size());
 			jsonRes.setList(accountList);
-			jsonRes.setMsg("계정 목록 수집이 정상적으로 처리되었습니다.");
+			jsonRes.setMsg("계정 목록 ?�집???�상?�으�?처리?�었?�니??");
 		} catch (Exception e) {
-			String message = "계정 목록 수집 중 에러가 발생하였습니다.";
+			String message = "계정 목록 ?�집 �??�러�?발생?��??�니??";
 			
 			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
-				message += "<br/>Instance와의 연결을 확인하십시오.";
+				message += "<br/>Instance??�� ?�결???�인?�십?�오.";
 			}
 			
 			jsonRes.setSuccess(false);
@@ -527,7 +527,7 @@ public class MachineController {
 
 	/**
 	 * <pre>
-	 * Running 중인 Instance의 특정 그룹을 삭제한다.
+	 * Running 중인 Instance???�정 그룹????��?�다.
 	 * </pre>
 	 * @param jsonRes
 	 * @param account
@@ -560,12 +560,12 @@ public class MachineController {
 			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
 			
 			jsonRes.setData(response.getResults());
-			jsonRes.setMsg("Group이 정상적으로 삭제되었습니다.");
+			jsonRes.setMsg("Group???�상?�으�???��?�었?�니??");
 		} catch (Exception e) {
-			String message = "Group 삭제 중 에러가 발생하였습니다.";
+			String message = "Group ??�� �??�러�?발생?��??�니??";
 			
 			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
-				message += "<br/>Instance와의 연결을 확인하십시오.";
+				message += "<br/>Instance??�� ?�결???�인?�십?�오.";
 			}
 			
 			jsonRes.setSuccess(false);
@@ -579,7 +579,7 @@ public class MachineController {
 
 	/**
 	 * <pre>
-	 * Running 중인 Instance의 특정 계정을 삭제한다.
+	 * Running 중인 Instance???�정 계정????��?�다.
 	 * </pre>
 	 * @param jsonRes
 	 * @param account
@@ -612,12 +612,12 @@ public class MachineController {
 			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
 			
 			jsonRes.setData(response.getResults());
-			jsonRes.setMsg("Account가 정상적으로 삭제되었습니다.");
+			jsonRes.setMsg("Account�??�상?�으�???��?�었?�니??");
 		} catch (Exception e) {
-			String message = "Account 삭제 중 에러가 발생하였습니다.";
+			String message = "Account ??�� �??�러�?발생?��??�니??";
 			
 			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
-				message += "<br/>Instance와의 연결을 확인하십시오.";
+				message += "<br/>Instance??�� ?�결???�인?�십?�오.";
 			}
 			
 			jsonRes.setSuccess(false);
@@ -631,7 +631,7 @@ public class MachineController {
 
 	/**
 	 * <pre>
-	 * Running 중인 Instance에 주어진 그룹을 생성한다.
+	 * Running 중인 Instance??주어�?그룹???�성?�다.
 	 * </pre>
 	 * @param jsonRes
 	 * @param account
@@ -666,14 +666,14 @@ public class MachineController {
 				if (line.contains(":")) {
 					if (line.split(":")[0].equals(group.getGroup())) {
 						jsonRes.setSuccess(false);
-						jsonRes.setMsg("\"" + group.getGroup() + "\" 그룹이 이미 있습니다.");
+						jsonRes.setMsg("\"" + group.getGroup() + "\" 그룹???��? ?�습?�다.");
 						
 						return jsonRes;
 					}
 					
 					if (group.getGid() != null && line.split(":")[2].equals(group.getGid())) {
 						jsonRes.setSuccess(false);
-						jsonRes.setMsg("\"" + group.getGid() + "\" GID가 이미 있습니다.");
+						jsonRes.setMsg("\"" + group.getGid() + "\" GID�??��? ?�습?�다.");
 						
 						return jsonRes;
 					}
@@ -707,12 +707,12 @@ public class MachineController {
 			response = peacockTransmitter.sendMessage(datagram);
 			
 			jsonRes.setData(response.getResults());
-			jsonRes.setMsg("Group이 정상적으로 생성되었습니다.");
+			jsonRes.setMsg("Group???�상?�으�??�성?�었?�니??");
 		} catch (Exception e) {
-			String message = "Group 생성 중 에러가 발생하였습니다.";
+			String message = "Group ?�성 �??�러�?발생?��??�니??";
 			
 			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
-				message += "<br/>Instance와의 연결을 확인하십시오.";
+				message += "<br/>Instance??�� ?�결???�인?�십?�오.";
 			}
 			
 			jsonRes.setSuccess(false);
@@ -726,7 +726,7 @@ public class MachineController {
 
 	/**
 	 * <pre>
-	 * Running 중인 Instance에 주어진 계정을 생성한다.
+	 * Running 중인 Instance??주어�?계정???�성?�다.
 	 * </pre>
 	 * @param jsonRes
 	 * @param account
@@ -762,14 +762,14 @@ public class MachineController {
 				if (line.contains(":")) {
 					if (line.split(":")[0].equals(account.getAccount())) {
 						jsonRes.setSuccess(false);
-						jsonRes.setMsg("\"" + account.getAccount() + "\" 사용자가 이미 있습니다.");
+						jsonRes.setMsg("\"" + account.getAccount() + "\" ?�용?��? ?��? ?�습?�다.");
 						
 						return jsonRes;
 					}
 					
 					if (account.getUid() != null && line.split(":")[2].equals(account.getUid())) {
 						jsonRes.setSuccess(false);
-						jsonRes.setMsg("\"" + account.getUid() + "\" UID가 이미 있습니다.");
+						jsonRes.setMsg("\"" + account.getUid() + "\" UID�??��? ?�습?�다.");
 						
 						return jsonRes;
 					}
@@ -845,12 +845,12 @@ public class MachineController {
 			response = peacockTransmitter.sendMessage(datagram);
 			
 			jsonRes.setData(response.getResults());
-			jsonRes.setMsg("Account가 정상적으로 생성되었습니다.");
+			jsonRes.setMsg("Account�??�상?�으�??�성?�었?�니??");
 		} catch (Exception e) {
-			String message = "Account 생성 중 에러가 발생하였습니다.";
+			String message = "Account ?�성 �??�러�?발생?��??�니??";
 			
 			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
-				message += "<br/>Instance와의 연결을 확인하십시오.";
+				message += "<br/>Instance??�� ?�결???�인?�십?�오.";
 			}
 			
 			jsonRes.setSuccess(false);
@@ -864,7 +864,7 @@ public class MachineController {
 
 	/**
 	 * <pre>
-	 * Running 중인 Instance의 /etc/fstab 정보를 가져온다.
+	 * Running 중인 Instance??/etc/fstab ?�보�?�?��?�다.
 	 * </pre>
 	 * @param jsonRes
 	 * @param machineId
@@ -893,12 +893,12 @@ public class MachineController {
 			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
 			
 			jsonRes.setData(response.getResults());
-			jsonRes.setMsg("/etc/fstab 파일을 정상적으로 조회하였습니다.");
+			jsonRes.setMsg("/etc/fstab ?�일???�상?�으�?조회?��??�니??");
 		} catch (Exception e) {
-			String message = "/etc/fstab 파일 조회 중 에러가 발생하였습니다.";
+			String message = "/etc/fstab ?�일 조회 �??�러�?발생?��??�니??";
 			
 			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
-				message += "<br/>Instance와의 연결을 확인하십시오.";
+				message += "<br/>Instance??�� ?�결???�인?�십?�오.";
 			}
 			
 			jsonRes.setSuccess(false);
@@ -912,13 +912,13 @@ public class MachineController {
 
 	/**
 	 * <pre>
-	 * Running 중인 Instance의 /etc/fstab 정보를 수정한다.
+	 * Running 중인 Instance??/etc/fstab ?�보�??�정?�다.
 	 * </pre>
 	 * @param jsonRes
 	 * @param machineId
-	 * @param contents /etc/fstab 내용
-	 * @param unmounts 하나 이상의 unmount 대상 노드(',' 구분자 사용)
-	 * @param remount 저장 후 mount -a 실행 여부
+	 * @param contents /etc/fstab ?�용
+	 * @param unmounts ?�나 ?�상??unmount ??�� ?�드(',' 구분???�용)
+	 * @param remount ??�� ??mount -a ?�행 ?��?
 	 * @return
 	 */
 	@RequestMapping(value="/editFstab", method=RequestMethod.POST)
@@ -963,12 +963,12 @@ public class MachineController {
 			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
 			
 			jsonRes.setData(response.getResults());
-			jsonRes.setMsg("/etc/fstab 파일이 정상적으로 수정되었습니다.");
+			jsonRes.setMsg("/etc/fstab ?�일???�상?�으�??�정?�었?�니??");
 		} catch (Exception e) {
-			String message = "/etc/fstab 파일 수정 중 에러가 발생하였습니다.";
+			String message = "/etc/fstab ?�일 ?�정 �??�러�?발생?��??�니??";
 			
 			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
-				message += "<br/>Instance와의 연결을 확인하십시오.";
+				message += "<br/>Instance??�� ?�결???�인?�십?�오.";
 			}
 			
 			jsonRes.setSuccess(false);
@@ -982,7 +982,7 @@ public class MachineController {
 
 	/**
 	 * <pre>
-	 * Running 중인 Instance내 지정된 계정에 대한 crontab 정보를 조회한다.
+	 * Running 중인 Instance??�?��??계정????�� crontab ?�보�?조회?�다.
 	 * </pre>
 	 * @param jsonRes
 	 * @param machineId
@@ -1018,12 +1018,12 @@ public class MachineController {
 				jsonRes.setData(response.getResults());
 			}
 			
-			jsonRes.setMsg("crontab 정보를 정상적으로 조회하였습니다.");
+			jsonRes.setMsg("crontab ?�보�??�상?�으�?조회?��??�니??");
 		} catch (Exception e) {
-			String message = "crontab 정보 조회 중 에러가 발생하였습니다.";
+			String message = "crontab ?�보 조회 �??�러�?발생?��??�니??";
 			
 			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
-				message += "<br/>Instance와의 연결을 확인하십시오.";
+				message += "<br/>Instance??�� ?�결???�인?�십?�오.";
 			}
 			
 			jsonRes.setSuccess(false);
@@ -1037,7 +1037,7 @@ public class MachineController {
 
 	/**
 	 * <pre>
-	 * Running 중인 Instance내 지정된 계정에 대한 crontab 정보를 저장한다.
+	 * Running 중인 Instance??�?��??계정????�� crontab ?�보�???��?�다.
 	 * </pre>
 	 * @param jsonRes
 	 * @param machineId
@@ -1070,12 +1070,12 @@ public class MachineController {
 			ProvisioningResponseMessage response = peacockTransmitter.sendMessage(datagram);
 			
 			jsonRes.setData(response.getResults());
-			jsonRes.setMsg("crontab 정보가 정상적으로 수정되었습니다.");
+			jsonRes.setMsg("crontab ?�보�??�상?�으�??�정?�었?�니??");
 		} catch (Exception e) {
-			String message = "crontab 정보 수정 중 에러가 발생하였습니다.";
+			String message = "crontab ?�보 ?�정 �??�러�?발생?��??�니??";
 			
 			if (e.getMessage() != null && e.getMessage().equals("Channel is null.")) {
-				message += "<br/>Instance와의 연결을 확인하십시오.";
+				message += "<br/>Instance??�� ?�결???�인?�십?�오.";
 			}
 			
 			jsonRes.setSuccess(false);
@@ -1089,7 +1089,7 @@ public class MachineController {
 
 	/**
 	 * <pre>
-	 * Provisioning Command 실행을 위한 테스트 메소드
+	 * Provisioning Command ?�행???�한 ?�스??메소??
 	 * </pre>
 	 * @return
 	 * @throws Exception
@@ -1139,7 +1139,7 @@ public class MachineController {
 
 	/**
 	 * <pre>
-	 * Agent에 Apache HTTP Daemon 설치를 위한 테스트 메소드
+	 * Agent??Apache HTTP Daemon ?�치�??�한 ?�스??메소??
 	 * </pre>
 	 * @return
 	 * @throws Exception
@@ -1411,7 +1411,7 @@ public class MachineController {
 
 	/**
 	 * <pre>
-	 * Agent에 MySQL 설치를 위한 테스트 메소드
+	 * Agent??MySQL ?�치�??�한 ?�스??메소??
 	 * </pre>
 	 * @return
 	 * @throws Exception
@@ -1550,7 +1550,7 @@ public class MachineController {
 
 	/**
 	 * <pre>
-	 * Agent에 MySQL 제거를 위한 테스트 메소드
+	 * Agent??MySQL ?�거�??�한 ?�스??메소??
 	 * </pre>
 	 * @return
 	 * @throws Exception
@@ -1603,7 +1603,7 @@ public class MachineController {
 
 	/**
 	 * <pre>
-	 * Agent에 JBoss 설치를 위한 테스트 메소드
+	 * Agent??JBoss ?�치�??�한 ?�스??메소??
 	 * </pre>
 	 * @return
 	 * @throws Exception
@@ -1797,7 +1797,7 @@ public class MachineController {
 
 	/**
 	 * <pre>
-	 * Agent에 Tomcat 설치를 위한 테스트 메소드
+	 * Agent??Tomcat ?�치�??�한 ?�스??메소??
 	 * </pre>
 	 * @return
 	 * @throws Exception

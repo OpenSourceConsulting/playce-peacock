@@ -8,7 +8,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.type.TypeFactory;
 
 /**
- * JSON 문자열 처리 유틸.
+ * JSON 문자??처리 ?�틸.
  *
  * @author Bong-Jin Kwon
  * @version
@@ -24,7 +24,7 @@ public class JSONUtil {
 
 	/**
 	 * <pre>
-	 * json string을 특정 class Object 로 	변환.
+	 * json string???�정 class Object �?	�?��.
 	 * </pre>
 	 *
 	 * @param <T>
@@ -46,7 +46,7 @@ public class JSONUtil {
 		try {
 			return MAPPER.readValue(json, valueType);
 		} catch (Exception ex) {
-			throw new RuntimeException(ex);  // NOPMD
+			throw new RuntimeException(ex);  
 		}
 
 	}
@@ -56,13 +56,13 @@ public class JSONUtil {
 		try {
 			return MAPPER.readValue(json, TypeFactory.defaultInstance().constructCollectionType(List.class, valueType));
 		} catch (Exception ex) {
-			throw new RuntimeException(ex);  // NOPMD
+			throw new RuntimeException(ex);  
 		}
 	}
 
 	/**
 	 * <pre>
-	 * Object 를 json String으로 변환.
+	 * Object �?json String?�로 �?��.
 	 * </pre>
 	 *
 	 * @param obj
@@ -82,7 +82,7 @@ public class JSONUtil {
 
 			//return mapper.writeValueAsString(obj);
 		} catch (Exception ex) {
-			throw new RuntimeException(ex);  // NOPMD
+			throw new RuntimeException(ex);  
 		}
 	}
 

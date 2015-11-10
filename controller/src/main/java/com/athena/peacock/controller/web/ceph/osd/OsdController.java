@@ -68,10 +68,10 @@ public class OsdController extends CephBaseController   {
 			Object response = managementSubmit("/osd/dump", HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("OSD DUMP가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("OSD DUMP�??�상?�으�?조회?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("OSD DUMP 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("OSD DUMP 조회 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -93,10 +93,10 @@ public class OsdController extends CephBaseController   {
 			Object response = managementSubmit("/osd/tree", HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("OSD Tree가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("OSD Tree�??�상?�으�?조회?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("OSD Tree 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("OSD Tree 조회 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -118,10 +118,10 @@ public class OsdController extends CephBaseController   {
 			Object response = managementSubmit("/osd/blacklist/ls", HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("OSD Black List가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("OSD Black List�??�상?�으�?조회?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("OSD Black List 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("OSD Black List 조회 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -143,10 +143,10 @@ public class OsdController extends CephBaseController   {
 			Object response = managementSubmit("/osd/crush/dump", HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("OSD Crush dump가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("OSD Crush dump�??�상?�으�?조회?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("OSD Crush dump 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("OSD Crush dump 조회 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -168,10 +168,10 @@ public class OsdController extends CephBaseController   {
 			Object response = managementSubmit("/osd/crush/rule/dump", HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("OSD Crush Rule Dump가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("OSD Crush Rule Dump�??�상?�으�?조회?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("OSD Crush Rule Dump 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("OSD Crush Rule Dump 조회 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -193,10 +193,10 @@ public class OsdController extends CephBaseController   {
 			Object response = managementSubmit("/osd/crush/rule/list", HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("OSD Crush Rule List가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("OSD Crush Rule List�??�상?�으�?조회?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("OSD Crush Rule List가 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("OSD Crush Rule List�?조회 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -218,10 +218,10 @@ public class OsdController extends CephBaseController   {
 			Object response = managementSubmit("/osd/dump?epoch=" + epoch, HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("OSD Dump가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("OSD Dump�??�상?�으�?조회?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("OSD Dump 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("OSD Dump 조회 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -243,10 +243,10 @@ public class OsdController extends CephBaseController   {
 			Object response = managementSubmit("/osd/find?id=" + id, HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("OSD Find가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("OSD Find�??�상?�으�?조회?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("OSD Find 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("OSD Find 조회 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -268,10 +268,10 @@ public class OsdController extends CephBaseController   {
 			Object response = managementSubmit("/osd/getcrushmap?epoch=" + epoch, HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("OSD Crush Map이 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("OSD Crush Map???�상?�으�?조회?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("OSD Crush Map이 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("OSD Crush Map??조회 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -293,10 +293,10 @@ public class OsdController extends CephBaseController   {
 			Object response = managementSubmit("/osd/getmap?epoch=" + epoch, HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("OSD Map이 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("OSD Map???�상?�으�?조회?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("OSD Map이 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("OSD Map??조회 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -318,10 +318,10 @@ public class OsdController extends CephBaseController   {
 			Object response = managementSubmit("/osd/perf", HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("OSD Perf가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("OSD Perf�??�상?�으�?조회?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("OSD Perf 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("OSD Perf 조회 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -343,10 +343,10 @@ public class OsdController extends CephBaseController   {
 			Object response = managementSubmit("/osd/stat", HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("stat가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("stat�??�상?�으�?조회?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("stat 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("stat 조회 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -385,10 +385,10 @@ public class OsdController extends CephBaseController   {
 			
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("정상적으로 조회되었습니다.");
+			jsonRes.setMsg("?�상?�으�?조회?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("조회 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -402,10 +402,10 @@ public class OsdController extends CephBaseController   {
 			Object response = managementSubmit("/osd/pool/stats?name=" + name, HttpMethod.GET);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("Pool List가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("Pool List�??�상?�으�?조회?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Pool List 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("Pool List 조회 �??�러�?발생?��??�니??");
 
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -419,10 +419,10 @@ public class OsdController extends CephBaseController   {
 	        Object response = execute("/usr/bin/ceph-deploy --overwrite-conf osd create " + host + ":" + path);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("OSD 추가기 정상적으로 되었습니다.");
+			jsonRes.setMsg("OSD 추�?�??�상?�으�??�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("OSD 추가가  에러 발생하였습니다.");
+			jsonRes.setMsg("OSD 추�?�? ?�러 발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -453,10 +453,10 @@ public class OsdController extends CephBaseController   {
 	        
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
-			jsonRes.setMsg("OSD가 정상적으로 삭제 되었습니다.");
+			jsonRes.setMsg("OSD�??�상?�으�???�� ?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("OSD 삭제가 실패 하였습니다.");
+			jsonRes.setMsg("OSD ??���??�패 ?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
