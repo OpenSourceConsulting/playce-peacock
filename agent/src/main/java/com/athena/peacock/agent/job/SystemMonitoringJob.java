@@ -111,10 +111,11 @@ public class SystemMonitoringJob extends BaseJob {
 					// try {} catch() {} 추가
 					fsu = SigarUtil.getFileSystemUsage(fs.getDirName());
 					
-					if (cnt++ > 0) {
+					if (cnt > 0) {
 						usage.append(",");
 						
 					}
+					cnt++;
 					usage.append(fs.getDirName()).append(":");
 					usage.append(CpuPerc.format(fsu.getUsePercent()).replaceAll("%", ""));
 
@@ -123,10 +124,11 @@ public class SystemMonitoringJob extends BaseJob {
 				} catch (Exception e) {
 					LOGGER.warn("[{}] has an error.", fs.getDirName());
 					
-					if (cnt++ > 0) {
+					if (cnt > 0) {
 						usage.append(",");
 						
 					}
+					cnt++;
 					usage.append(fs.getDirName()).append(":");
 					usage.append("0.0");
 				}

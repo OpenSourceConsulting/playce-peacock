@@ -22,7 +22,7 @@
  */
 package com.athena.peacock.controller.job;
 
-import com.athena.peacock.common.provider.AppContext;
+
 import com.athena.peacock.common.scheduler.InternalJobExecutionException;
 import com.athena.peacock.common.scheduler.quartz.BaseJob;
 import com.athena.peacock.common.scheduler.quartz.JobExecution;

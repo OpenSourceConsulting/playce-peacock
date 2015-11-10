@@ -107,7 +107,8 @@ public class PropertyUtil {
         
         String value = null;
         for(Properties p : properties) {
-        	if((value = p.getProperty(key)) != null) {
+        	value = p.getProperty(key);
+        	if(value != null) {
         		break;
         	}
         }

@@ -38,7 +38,7 @@ import com.athena.peacock.common.scheduler.JobStatus;
 public class JobExecution {
 
 	private JobStatus jobStatus;
-	private JobExecutionContext context;
+	private final JobExecutionContext context;
 
 	private JobExecution(JobExecutionContext context) {
 		this.context = context;

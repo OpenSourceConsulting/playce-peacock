@@ -48,7 +48,7 @@ public class Command implements Serializable {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Command.class);
 	
-	private String name;
+	private final String name;
 	private List<Action> actions;
 	
 	public Command(String name) {

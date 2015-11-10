@@ -47,7 +47,7 @@ import org.springframework.util.Assert;
  */
 public class XMLGregorialCalendarUtil {
 	
-	public static String DEFAULT_DATE_PATTERN = "yyyy.MM.dd HH:mm:ss";
+	public static final String DEFAULT_DATE_PATTERN = "yyyy.MM.dd HH:mm:ss";
 	
     /**
      * <pre>
@@ -67,7 +67,7 @@ public class XMLGregorialCalendarUtil {
             pattern = DEFAULT_DATE_PATTERN;
         }
         
-        return new SimpleDateFormat(pattern).format(date);
+        return new SimpleDateFormat(pattern, Locale.KOREA).format(date);
     }// end of getFormattedDate()
 
     

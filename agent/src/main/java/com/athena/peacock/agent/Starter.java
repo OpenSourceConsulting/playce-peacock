@@ -100,7 +100,7 @@ public class Starter {
 		try {
 			agentFile = PropertyUtil.getProperty(PeacockConstant.AGENT_ID_FILE_KEY);
 		} catch (Exception e) {
-			// nothing to do.
+			LOGGER.error(e.getMessage());
 		} finally {
 			if (StringUtils.isEmpty(agentFile)) {
 				agentFile = "/peacock/agent/.agent";

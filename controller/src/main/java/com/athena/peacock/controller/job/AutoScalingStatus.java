@@ -57,7 +57,8 @@ public class AutoScalingStatus {
 	public static void complete(int autoScalingId) {
 		Integer size = autoScalingMap.get(autoScalingId);
 		
-		if (--size < 1) {
+		size--;
+		if (size < 1) {
 			removeStatus(autoScalingId);
 		} else {
 			autoScalingMap.put(autoScalingId, size);

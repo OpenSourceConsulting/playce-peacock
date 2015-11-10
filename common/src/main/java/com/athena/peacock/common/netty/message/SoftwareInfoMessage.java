@@ -40,6 +40,7 @@ public class SoftwareInfoMessage extends AbstractMessage {
 
 	public SoftwareInfoMessage(MessageType messageType) {
 		super(MessageType.SOFTWARE_INFO);
+		messageType.name();
 	}
 
 	/**

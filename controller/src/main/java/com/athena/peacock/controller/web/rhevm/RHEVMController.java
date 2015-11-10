@@ -62,7 +62,7 @@ import com.redhat.rhevm.api.model.VM;
 /**
  * <pre>
  * This is a controller for RHEV-M API.
- * RHEV-M API를 이용한 작업을 수행하는 컨트롤러
+ * RHEV-M API�??�용???�업???�행?�는 컨트롤러
  * </pre>
  * @author Ji-Woong Choi
  * @version 1.0
@@ -87,7 +87,7 @@ public class RHEVMController {
 
 	/**
 	 * <pre>
-	 * 지정된 RHEV-M(hypervisorId)에 해당하는 Virtual Machine 목록을 조회
+	 * �?��??RHEV-M(hypervisorId)???�당?�는 Virtual Machine 목록??조회
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto
@@ -108,10 +108,10 @@ public class RHEVMController {
 			List<VMDto> vmDtoList = rhevmService.getVirtualList(dto.getHypervisorId(), dto.getName(), page);
 			jsonRes.setTotal(vmDtoList.size());
 			jsonRes.setList(vmDtoList);
-			jsonRes.setMsg("VM 목록이 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("VM 목록???�상?�으�?조회?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("VM 목록 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("VM 목록 조회 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -121,7 +121,7 @@ public class RHEVMController {
 	
 	/**
 	 * <pre>
-	 * 지정된 RHEV-M(hypervisorId)에 해당하는 특정 Virtual Machine을 조회
+	 * �?��??RHEV-M(hypervisorId)???�당?�는 ?�정 Virtual Machine??조회
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto
@@ -135,10 +135,10 @@ public class RHEVMController {
 		
 		try {
 			jsonRes.setData(rhevmService.getVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
-			jsonRes.setMsg("VM 정보가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("VM ?�보�??�상?�으�?조회?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("VM 정보 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("VM ?�보 조회 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -148,7 +148,7 @@ public class RHEVMController {
 	
 	/**
 	 * <pre>
-	 * 지정된 RHEV-M(hypervisorId)에 해당하는 특정 Virtual Machine의 네트워크 인터페이스 조회
+	 * �?��??RHEV-M(hypervisorId)???�당?�는 ?�정 Virtual Machine???�트?�크 ?�터?�이??조회
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto
@@ -162,10 +162,10 @@ public class RHEVMController {
 		
 		try {
 			jsonRes.setList(rhevmService.getVMNics(dto.getHypervisorId(), dto.getVmId()));
-			jsonRes.setMsg("VM의 네트워크 정보가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("VM???�트?�크 ?�보�??�상?�으�?조회?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("VM의 네트워크 정보 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("VM???�트?�크 ?�보 조회 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -175,7 +175,7 @@ public class RHEVMController {
 	
 	/**
 	 * <pre>
-	 * 지정된 RHEV-M(hypervisorId)에 해당하는 특정 Virtual Machine의 Disk 정보 조회
+	 * �?��??RHEV-M(hypervisorId)???�당?�는 ?�정 Virtual Machine??Disk ?�보 조회
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto
@@ -189,10 +189,10 @@ public class RHEVMController {
 		
 		try {
 			jsonRes.setList(rhevmService.getVMDisks(dto.getHypervisorId(), dto.getVmId()));
-			jsonRes.setMsg("VM의 디스크 정보가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("VM???�스???�보�??�상?�으�?조회?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("VM의 디스크 정보 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("VM???�스???�보 조회 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -202,7 +202,7 @@ public class RHEVMController {
 	
 	/**
 	 * <pre>
-	 * 지정된 RHEV-M(hypervisorId)에 해당하는 Template 목록을 조회
+	 * �?��??RHEV-M(hypervisorId)???�당?�는 Template 목록??조회
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto
@@ -223,10 +223,10 @@ public class RHEVMController {
 			List<TemplateDto> templateDtoList = rhevmService.getTemplateList(dto.getHypervisorId(), dto.getName(), page);
 			jsonRes.setTotal(templateDtoList.size());
 			jsonRes.setList(templateDtoList);
-			jsonRes.setMsg("템플릿 목록이 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("?�플�?목록???�상?�으�?조회?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("템플릿 목록 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("?�플�?목록 조회 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -236,7 +236,7 @@ public class RHEVMController {
 	
 	/**
 	 * <pre>
-	 * 지정된 RHEV-M(hypervisorId)에 해당하는 특정 Template 정보를 조회한다.
+	 * �?��??RHEV-M(hypervisorId)???�당?�는 ?�정 Template ?�보�?조회?�다.
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto
@@ -250,10 +250,10 @@ public class RHEVMController {
 		
 		try {
 			jsonRes.setData(rhevmService.getTemplate(dto.getHypervisorId(), dto.getTemplateId()));
-			jsonRes.setMsg("템플릿 정보가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("?�플�??�보�??�상?�으�?조회?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("템플릿 정보 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("?�플�??�보 조회 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -263,7 +263,7 @@ public class RHEVMController {
 	
 	/**
 	 * <pre>
-	 * 지정된 RHEV-M(hypervisorId)에 해당하는 특정 Template의 네트워크 인터페이스 조회
+	 * �?��??RHEV-M(hypervisorId)???�당?�는 ?�정 Template???�트?�크 ?�터?�이??조회
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto
@@ -277,10 +277,10 @@ public class RHEVMController {
 		
 		try {
 			jsonRes.setList(rhevmService.getTemplateNics(dto.getHypervisorId(), dto.getTemplateId()));
-			jsonRes.setMsg("템플릿의 네트워크 정보가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("?�플릿의 ?�트?�크 ?�보�??�상?�으�?조회?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("템플릿의 네트워크 정보 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("?�플릿의 ?�트?�크 ?�보 조회 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -290,7 +290,7 @@ public class RHEVMController {
 	
 	/**
 	 * <pre>
-	 * 지정된 RHEV-M(hypervisorId)에 해당하는 특정 Template의 Disk 정보 조회
+	 * �?��??RHEV-M(hypervisorId)???�당?�는 ?�정 Template??Disk ?�보 조회
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto
@@ -304,10 +304,10 @@ public class RHEVMController {
 		
 		try {
 			jsonRes.setList(rhevmService.getTemplateDisks(dto.getHypervisorId(), dto.getTemplateId()));
-			jsonRes.setMsg("템플릿의 디스크 정보가 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("?�플릿의 ?�스???�보�??�상?�으�?조회?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("템플릿의 디스크 정보 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("?�플릿의 ?�스???�보 조회 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -317,7 +317,7 @@ public class RHEVMController {
 	
 	/**
 	 * <pre>
-	 * 지정된 RHEV-M(hypervisorId)에 해당하는 Data Center 목록 조회
+	 * �?��??RHEV-M(hypervisorId)???�당?�는 Data Center 목록 조회
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto
@@ -330,10 +330,10 @@ public class RHEVMController {
 		
 		try {
 			jsonRes.setList(rhevmService.getDataCenter(hypervisorId));
-			jsonRes.setMsg("Data Center 목록이 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("Data Center 목록???�상?�으�?조회?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Data Center 목록 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("Data Center 목록 조회 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -343,7 +343,7 @@ public class RHEVMController {
 	
 	/**
 	 * <pre>
-	 * 지정된 RHEV-M(hypervisorId)에 해당하는 Host Cluster 목록 조회
+	 * �?��??RHEV-M(hypervisorId)???�당?�는 Host Cluster 목록 조회
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto
@@ -357,10 +357,10 @@ public class RHEVMController {
 		
 		try {
 			jsonRes.setList(rhevmService.getHostCluster(hypervisorId, dataCenterId));
-			jsonRes.setMsg("Data Center 목록이 정상적으로 조회되었습니다.");
+			jsonRes.setMsg("Data Center 목록???�상?�으�?조회?�었?�니??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("Data Center 목록 조회 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("Data Center 목록 조회 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -370,7 +370,7 @@ public class RHEVMController {
 	
 	/**
 	 * <pre>
-	 * RHEV-M의 템플릿을 이용하여 신규 VM을 생성한다.
+	 * RHEV-M???�플릿을 ?�용?�여 ?�규 VM???�성?�다.
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto
@@ -386,16 +386,16 @@ public class RHEVMController {
 		Assert.isTrue(dto.getSockets() != 0, "sockets must not be 0.");
 		
 		try {
-			// RHEV REST API를 호출하여 VM을 생성하고 결과를 리턴받는다.
+			// RHEV REST API�??�출?�여 VM???�성?�고 결과�?리턴받는??
 			VM vm = rhevmService.createVirtualMachine(dto.getHypervisorId(), dto);
 			
-			// SSH Key File이 존재할 경우 해당 VM 생성 결과인 vm id로 디렉토리를 생성하고 파일을 저장한다.
+			// SSH Key File??존재??경우 ?�당 VM ?�성 결과??vm id�??�렉?�리�??�성?�고 ?�일????��?�다.
             if (dto.getKeyFile() != null && dto.getKeyFile().getSize() > 0 ) {
             	String defaultPath = PropertyUtil.getProperty("upload.dir") + File.separator + vm.getId() + File.separator;
             	File keyFile = new File(defaultPath + dto.getKeyFile().getOriginalFilename());
                 if (!keyFile.exists()) {
                     if (!keyFile.mkdirs()) {
-                        throw new Exception("Fail to create a directory for attached file [" + keyFile + "]");  // NOPMD
+                        throw new Exception("Fail to create a directory for attached file [" + keyFile + "]");  
                     }
                 }
                 
@@ -404,7 +404,7 @@ public class RHEVMController {
                 dto.setSshKeyFile(keyFile.getAbsolutePath());
             }
             
-            // machine_additional_info_tbl에 부가 정보를 저장한다.
+            // machine_additional_info_tbl??�?? ?�보�???��?�다.
             boolean isExist = false;
             MachineDto machine = new MachineDto();
 
@@ -438,10 +438,10 @@ public class RHEVMController {
             	machineService.insertAdditionalInfo(machine);
             }
             
-			jsonRes.setMsg("VM 생성이 정상적으로 요청되었습니다. 잠시만 기다려주십시오.");
+			jsonRes.setMsg("VM ?�성???�상?�으�??�청?�었?�니?? ?�시�?기다?�주??��??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("VM 생성 요청 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("VM ?�성 ?�청 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -451,7 +451,7 @@ public class RHEVMController {
 	
 	/**
 	 * <pre>
-	 * 입력받은 vmId를 사용하여 RHEV-M의 VM을 시작시킨다. 
+	 * ?�력받�? vmId�??�용?�여 RHEV-M??VM???�작?�킨?? 
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto
@@ -465,10 +465,10 @@ public class RHEVMController {
 		
 		try {
 			jsonRes.setData(rhevmService.startVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
-			jsonRes.setMsg("VM 시작이 정상적으로 요청되었습니다. 잠시만 기다려주십시오.");
+			jsonRes.setMsg("VM ?�작???�상?�으�??�청?�었?�니?? ?�시�?기다?�주??��??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("VM 시작 요청 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("VM ?�작 ?�청 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -478,7 +478,7 @@ public class RHEVMController {
 	
 	/**
 	 * <pre>
-	 * 입력받은 vmId를 사용하여 RHEV-M의 VM을 중지시킨다. 
+	 * ?�력받�? vmId�??�용?�여 RHEV-M??VM??중�??�킨?? 
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto
@@ -495,7 +495,7 @@ public class RHEVMController {
 		new Thread() {
 			public void run() {
 				try {
-					// VM 중지 전 Agent를 중지시킨다.
+					// VM 중�? ??Agent�?중�??�킨??
 					ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
 					cmdMsg.setAgentId(vmId);
 					cmdMsg.setBlocking(true);
@@ -517,7 +517,7 @@ public class RHEVMController {
 				} catch (Exception e) {
 					// ignore this exception
 					LOGGER.error("Peacock Error", e);
-					// Agent가 설치되지 않은 VM일 경우 에러가 발생할 수 있고, 이미 Agent가 종료되어 연결된 Channel이 없을 수 있다.
+					// Agent�??�치?��? ?��? VM??경우 ?�러�?발생?????�고, ?��? Agent�?종료?�어 ?�결??Channel???�을 ???�다.
 				}
 			};
 		}.start();
@@ -526,10 +526,10 @@ public class RHEVMController {
 		
 		try {
 			jsonRes.setData(rhevmService.stopVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
-			jsonRes.setMsg("VM 중지가 정상적으로 요청되었습니다. 잠시만 기다려주십시오.");
+			jsonRes.setMsg("VM 중�?�??�상?�으�??�청?�었?�니?? ?�시�?기다?�주??��??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("VM 중지 요청 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("VM 중�? ?�청 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -539,7 +539,7 @@ public class RHEVMController {
 	
 	/**
 	 * <pre>
-	 * 입력받은 vmId를 사용하여 RHEV-M의 VM을 셧다운시킨다. 
+	 * ?�력받�? vmId�??�용?�여 RHEV-M??VM???�다?�시?�다. 
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto
@@ -556,7 +556,7 @@ public class RHEVMController {
 		new Thread() {
 			public void run() {
 				try {
-					// VM 중지 전 Agent를 중지시킨다.
+					// VM 중�? ??Agent�?중�??�킨??
 					ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
 					cmdMsg.setAgentId(vmId);
 					cmdMsg.setBlocking(true);
@@ -578,7 +578,7 @@ public class RHEVMController {
 				} catch (Exception e) {
 					// ignore this exception
 					LOGGER.error("Peacock Error", e);
-					// Agent가 설치되지 않은 VM일 경우 에러가 발생할 수 있고, 이미 Agent가 종료되어 연결된 Channel이 없을 수 있다.
+					// Agent�??�치?��? ?��? VM??경우 ?�러�?발생?????�고, ?��? Agent�?종료?�어 ?�결??Channel???�을 ???�다.
 				}
 			};
 		}.start();
@@ -587,10 +587,10 @@ public class RHEVMController {
 		
 		try {
 			jsonRes.setData(rhevmService.shutdownVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
-			jsonRes.setMsg("VM 종료가 정상적으로 요청되었습니다. 잠시만 기다려주십시오.");
+			jsonRes.setMsg("VM 종료�??�상?�으�??�청?�었?�니?? ?�시�?기다?�주??��??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("VM 종료 요청 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("VM 종료 ?�청 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -600,7 +600,7 @@ public class RHEVMController {
 	
 	/**
 	 * <pre>
-	 * 입력받은 vmId를 사용하여 RHEV-M의 VM을 제거시킨다. 
+	 * ?�력받�? vmId�??�용?�여 RHEV-M??VM???�거?�킨?? 
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto
@@ -615,13 +615,13 @@ public class RHEVMController {
 		try {
 			jsonRes.setData(rhevmService.removeVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
 			
-			// VM이 정상적으로 삭제된 경우 DB의 machine_tbl에서도 해당 VM을 제거한다.
+			// VM???�상?�으�???��??경우 DB??machine_tbl?�서???�당 VM???�거?�다.
 			machineService.deleteMachine(dto.getVmId());
 			
-			jsonRes.setMsg("VM 삭제가 정상적으로 요청되었습니다. 잠시만 기다려주십시오.");
+			jsonRes.setMsg("VM ??���??�상?�으�??�청?�었?�니?? ?�시�?기다?�주??��??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("VM 삭제 요청 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("VM ??�� ?�청 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -631,7 +631,7 @@ public class RHEVMController {
 	
 	/**
 	 * <pre>
-	 * 입력받은 vmId를 사용하여 RHEV-M의 VM을 export 시킨다. 
+	 * ?�력받�? vmId�??�용?�여 RHEV-M??VM??export ?�킨?? 
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto
@@ -645,10 +645,10 @@ public class RHEVMController {
 		
 		try {
 			jsonRes.setData(rhevmService.exportVirtualMachine(dto.getHypervisorId(), dto.getVmId()));
-			jsonRes.setMsg("VM Export가 정상적으로 요청되었습니다. 잠시만 기다려주십시오.");
+			jsonRes.setMsg("VM Export�??�상?�으�??�청?�었?�니?? ?�시�?기다?�주??��??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("VM Export 요청 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("VM Export ?�청 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -658,7 +658,7 @@ public class RHEVMController {
 	
 	/**
 	 * <pre>
-	 * 입력받은 vmId를 사용하여 RHEV-M의 VM을 템플릿으로 만든다. 
+	 * ?�력받�? vmId�??�용?�여 RHEV-M??VM???�플릿으�?만든?? 
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto
@@ -673,10 +673,10 @@ public class RHEVMController {
 		
 		try {
 			jsonRes.setData(rhevmService.makeTemplate(dto.getHypervisorId(), dto.getName(), dto.getVmId(), dto.getDescription()));
-			jsonRes.setMsg("VM을 이용한 템플릿 생성이 정상적으로 요청되었습니다. 잠시만 기다려주십시오.");
+			jsonRes.setMsg("VM???�용???�플�??�성???�상?�으�??�청?�었?�니?? ?�시�?기다?�주??��??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("VM을 이용한 템플릿 생성 요청 중 에러가 발생하였습니다.");
+			jsonRes.setMsg("VM???�용???�플�??�성 ?�청 �??�러�?발생?��??�니??");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}
@@ -686,7 +686,7 @@ public class RHEVMController {
 	
 	/**
 	 * <pre>
-	 * 특정 VM Instance로 SSH Command를 호출한다.
+	 * ?�정 VM Instance�?SSH Command�??�출?�다.
 	 * </pre>
 	 * @param jsonRes
 	 * @param targetHost
@@ -709,7 +709,7 @@ public class RHEVMController {
 	
 	/**
 	 * <pre>
-	 * 입력받은 templateId를 사용하여 템플릿을 제거한다. 
+	 * ?�력받�? templateId�??�용?�여 ?�플릿을 ?�거?�다. 
 	 * </pre>
 	 * @param jsonRes
 	 * @param dto
@@ -723,10 +723,10 @@ public class RHEVMController {
 		
 		try {
 			jsonRes.setData(rhevmService.removeTemplate(dto.getHypervisorId(), dto.getTemplateId()));
-			jsonRes.setMsg("템플릿 삭제가 정상적으로 요청되었습니다. 잠시만 기다려주십시오.");
+			jsonRes.setMsg("?�플�???���??�상?�으�??�청?�었?�니?? ?�시�?기다?�주??��??");
 		} catch (Exception e) {
 			jsonRes.setSuccess(false);
-			jsonRes.setMsg("템플릿 삭제 요청 중 에러가 발생하였습니다.<br/>템플릿을 참조하는 VM이 있는지 확인하십시오.");
+			jsonRes.setMsg("?�플�???�� ?�청 �??�러�?발생?��??�니??<br/>?�플릿을 참조?�는 VM???�는�??�인?�십?�오.");
 			
 			LOGGER.error("Unhandled Expeption has occurred. ", e);
 		}

@@ -184,11 +184,11 @@ public class InspectMachineStatusJob extends BaseJob {
 
 class ScaleOutThread extends Thread {
 
-	private AutoScalingDto autoScaling;
-	private RHEVMService rhevmService;
-	private MachineService machineService;
-	private LoadBalancerService loadBalancerService;
-	private LBListenerService lbListenerService;
+	private final AutoScalingDto autoScaling;
+	private final RHEVMService rhevmService;
+	private final MachineService machineService;
+	private final LoadBalancerService loadBalancerService;
+	private final LBListenerService lbListenerService;
 	
 	public ScaleOutThread(AutoScalingDto autoScaling) {
 		this.autoScaling = autoScaling;
@@ -275,12 +275,12 @@ class ScaleOutThread extends Thread {
 
 class ScaleInThread extends Thread {
 
-	private AutoScalingDto autoScaling;
+	private final AutoScalingDto autoScaling;
 	
-	private RHEVMService rhevmService;
-	private MachineService machineService;
-	private LoadBalancerService loadBalancerService;
-	private LBListenerService lbListenerService;
+	private final RHEVMService rhevmService;
+	private final MachineService machineService;
+	private final LoadBalancerService loadBalancerService;
+	private final LBListenerService lbListenerService;
 	
 	public ScaleInThread(AutoScalingDto autoScaling) {
 		this.autoScaling = autoScaling;

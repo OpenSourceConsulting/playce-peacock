@@ -117,11 +117,11 @@ public class ProvisioningHandler {
 			mysqlRemove(provisioningDetail);
 		} else if (provisioningDetail.getSoftwareName().toLowerCase().indexOf("ceph") > -1) {
 			//cephRemove(provisioningDetail);
-			throw new Exception("Ceph clustering does not support delete operation.");
+			throw new UnsupportedOperationException("Ceph clustering does not support delete operation.");
 		}
 	}
     
-	private void httpdInstall(ProvisioningDetail provisioningDetail) throws Exception {  // NOPMD
+	private void httpdInstall(ProvisioningDetail provisioningDetail) throws Exception {  
 		ProvisioningCommandMessage cmdMsg = new ProvisioningCommandMessage();
 		cmdMsg.setAgentId(provisioningDetail.getMachineId());
 		cmdMsg.setBlocking(true);
@@ -156,150 +156,150 @@ public class ProvisioningHandler {
 		LOGGER.debug("autoStart : " + provisioningDetail.getAutoStart());
 		
 		Command command = new Command("Apache INSTALL");
-		ShellAction s_action = null;
+		ShellAction sAction = null;
 		int sequence = 0;
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/tmp");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}" + fileLocation + "/apr-1.3.9-5.el6_2.x86_64.rpm");
-		s_action.addArguments("-O");
-		s_action.addArguments("apr-1.3.9-5.el6_2.x86_64.rpm");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/tmp");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}" + fileLocation + "/apr-1.3.9-5.el6_2.x86_64.rpm");
+		sAction.addArguments("-O");
+		sAction.addArguments("apr-1.3.9-5.el6_2.x86_64.rpm");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/tmp");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}" + fileLocation + "/apr-util-1.3.9-3.el6_0.1.x86_64.rpm");
-		s_action.addArguments("-O");
-		s_action.addArguments("apr-util-1.3.9-3.el6_0.1.x86_64.rpm");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/tmp");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}" + fileLocation + "/apr-util-1.3.9-3.el6_0.1.x86_64.rpm");
+		sAction.addArguments("-O");
+		sAction.addArguments("apr-util-1.3.9-3.el6_0.1.x86_64.rpm");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/tmp");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}" + fileLocation + "/pcre-7.8-6.el6.x86_64.rpm");
-		s_action.addArguments("-O");
-		s_action.addArguments("pcre-7.8-6.el6.x86_64.rpm");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/tmp");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}" + fileLocation + "/pcre-7.8-6.el6.x86_64.rpm");
+		sAction.addArguments("-O");
+		sAction.addArguments("pcre-7.8-6.el6.x86_64.rpm");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/tmp");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}" + fileLocation + "/pcre-devel-7.8-6.el6.x86_64.rpm");
-		s_action.addArguments("-O");
-		s_action.addArguments("pcre-devel-7.8-6.el6.x86_64.rpm");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/tmp");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}" + fileLocation + "/pcre-devel-7.8-6.el6.x86_64.rpm");
+		sAction.addArguments("-O");
+		sAction.addArguments("pcre-devel-7.8-6.el6.x86_64.rpm");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/tmp");
-		s_action.setCommand("rpm");
-		s_action.addArguments("-Uvh");
-		s_action.addArguments("apr-1.3.9-5.el6_2.x86_64.rpm");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/tmp");
+		sAction.setCommand("rpm");
+		sAction.addArguments("-Uvh");
+		sAction.addArguments("apr-1.3.9-5.el6_2.x86_64.rpm");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/tmp");
-		s_action.setCommand("rpm");
-		s_action.addArguments("-Uvh");
-		s_action.addArguments("apr-util-1.3.9-3.el6_0.1.x86_64.rpm");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/tmp");
+		sAction.setCommand("rpm");
+		sAction.addArguments("-Uvh");
+		sAction.addArguments("apr-util-1.3.9-3.el6_0.1.x86_64.rpm");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/tmp");
-		s_action.setCommand("rpm");
-		s_action.addArguments("-Uvh");
-		s_action.addArguments("pcre-7.8-6.el6.x86_64.rpm");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/tmp");
+		sAction.setCommand("rpm");
+		sAction.addArguments("-Uvh");
+		sAction.addArguments("pcre-7.8-6.el6.x86_64.rpm");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/tmp");
-		s_action.setCommand("rpm");
-		s_action.addArguments("-Uvh");
-		s_action.addArguments("pcre-devel-7.8-6.el6.x86_64.rpm");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/tmp");
+		sAction.setCommand("rpm");
+		sAction.addArguments("-Uvh");
+		sAction.addArguments("pcre-devel-7.8-6.el6.x86_64.rpm");
+		command.addAction(sAction);
 		
 		if (version.equals("2.2.26")) {
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory("/tmp");
-			s_action.setCommand("wget");
-			s_action.addArguments("${RepositoryUrl}" + fileLocation + "/openssl-devel-1.0.1e-16.el6_5.15.x86_64.rpm");
-			s_action.addArguments("-O");
-			s_action.addArguments("openssl-devel-1.0.1e-16.el6_5.15.x86_64.rpm");
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setWorkingDiretory("/tmp");
+			sAction.setCommand("wget");
+			sAction.addArguments("${RepositoryUrl}" + fileLocation + "/openssl-devel-1.0.1e-16.el6_5.15.x86_64.rpm");
+			sAction.addArguments("-O");
+			sAction.addArguments("openssl-devel-1.0.1e-16.el6_5.15.x86_64.rpm");
+			command.addAction(sAction);
 			
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory("/tmp");
-			s_action.setCommand("wget");
-			s_action.addArguments("${RepositoryUrl}" + fileLocation + "/openssl-1.0.1e-16.el6_5.15.x86_64.rpm");
-			s_action.addArguments("-O");
-			s_action.addArguments("openssl-1.0.1e-16.el6_5.15.x86_64.rpm");
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setWorkingDiretory("/tmp");
+			sAction.setCommand("wget");
+			sAction.addArguments("${RepositoryUrl}" + fileLocation + "/openssl-1.0.1e-16.el6_5.15.x86_64.rpm");
+			sAction.addArguments("-O");
+			sAction.addArguments("openssl-1.0.1e-16.el6_5.15.x86_64.rpm");
+			command.addAction(sAction);
 			
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory("/tmp");
-			s_action.setCommand("rpm");
-			s_action.addArguments("-Uvh");
-			s_action.addArguments("--nodeps");
-			s_action.addArguments("openssl-devel-1.0.1e-16.el6_5.15.x86_64.rpm");
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setWorkingDiretory("/tmp");
+			sAction.setCommand("rpm");
+			sAction.addArguments("-Uvh");
+			sAction.addArguments("--nodeps");
+			sAction.addArguments("openssl-devel-1.0.1e-16.el6_5.15.x86_64.rpm");
+			command.addAction(sAction);
 			
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory("/tmp");
-			s_action.setCommand("rpm");
-			s_action.addArguments("-Uvh");
-			s_action.addArguments("--nodeps");
-			s_action.addArguments("openssl-1.0.1e-16.el6_5.15.x86_64.rpm");
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setWorkingDiretory("/tmp");
+			sAction.setCommand("rpm");
+			sAction.addArguments("-Uvh");
+			sAction.addArguments("--nodeps");
+			sAction.addArguments("openssl-1.0.1e-16.el6_5.15.x86_64.rpm");
+			command.addAction(sAction);
 		}
 		
 		String[] fileNames = fileName.split(",");
 		
 		for (int i = 0; i < fileNames.length; i++) {
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory("/tmp");
-			s_action.setCommand("wget");
-			s_action.addArguments("${RepositoryUrl}" + fileLocation + "/" + fileNames[i]);
-			s_action.addArguments("-O");
-			s_action.addArguments(fileNames[i]);
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setWorkingDiretory("/tmp");
+			sAction.setCommand("wget");
+			sAction.addArguments("${RepositoryUrl}" + fileLocation + "/" + fileNames[i]);
+			sAction.addArguments("-O");
+			sAction.addArguments(fileNames[i]);
+			command.addAction(sAction);
 			
 			if (i == 0) {
-				s_action = new ShellAction(sequence++);
-				s_action.setCommand("mkdir");
-				s_action.addArguments("-p");
-				s_action.addArguments(apacheHome);
-				command.addAction(s_action);
+				sAction = new ShellAction(sequence++);
+				sAction.setCommand("mkdir");
+				sAction.addArguments("-p");
+				sAction.addArguments(apacheHome);
+				command.addAction(sAction);
 
-				s_action = new ShellAction(sequence++);
-				s_action.setWorkingDiretory("/tmp");
-				s_action.setCommand("unzip");
-				s_action.addArguments("-o");
-				s_action.addArguments(fileNames[i]);
-				s_action.addArguments("-d");
-				s_action.addArguments(apacheHome);
-				command.addAction(s_action);
+				sAction = new ShellAction(sequence++);
+				sAction.setWorkingDiretory("/tmp");
+				sAction.setCommand("unzip");
+				sAction.addArguments("-o");
+				sAction.addArguments(fileNames[i]);
+				sAction.addArguments("-d");
+				sAction.addArguments(apacheHome);
+				command.addAction(sAction);
 
-				s_action = new ShellAction(sequence++);
-				s_action.setWorkingDiretory(apacheHome);
-				s_action.setCommand("sh");
-				s_action.addArguments(".postinstall");
-				command.addAction(s_action);
+				sAction = new ShellAction(sequence++);
+				sAction.setWorkingDiretory(apacheHome);
+				sAction.setCommand("sh");
+				sAction.addArguments(".postinstall");
+				command.addAction(sAction);
 			} else if (i == 1) {
-				s_action = new ShellAction(sequence++);
-				s_action.setCommand("mkdir");
-				s_action.addArguments("-p");
-				s_action.addArguments(serverHome);
-				command.addAction(s_action);
+				sAction = new ShellAction(sequence++);
+				sAction.setCommand("mkdir");
+				sAction.addArguments("-p");
+				sAction.addArguments(serverHome);
+				command.addAction(sAction);
 
-				s_action = new ShellAction(sequence++);
-				s_action.setWorkingDiretory("/tmp");
-				s_action.setCommand("unzip");
-				s_action.addArguments("-o");
-				s_action.addArguments(fileNames[i]);
-				s_action.addArguments("-d");
-				s_action.addArguments(serverHome);
-				command.addAction(s_action);
+				sAction = new ShellAction(sequence++);
+				sAction.setWorkingDiretory("/tmp");
+				sAction.setCommand("unzip");
+				sAction.addArguments("-o");
+				sAction.addArguments(fileNames[i]);
+				sAction.addArguments("-d");
+				sAction.addArguments(serverHome);
+				command.addAction(sAction);
 			}
 		}
 		
@@ -317,10 +317,10 @@ public class ProvisioningHandler {
 							.replaceAll("\\$\\{user\\}", user)
 							.replaceAll("\\$\\{group\\}", group);
 		
-		FileWriteAction fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(httpdConf);
-		fw_action.setFileName(serverHome + "/conf/httpd.conf");
-		command.addAction(fw_action);
+		FileWriteAction writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(httpdConf);
+		writeAction.setFileName(serverHome + "/conf/httpd.conf");
+		command.addAction(writeAction);
 		
 		String httpdInfoConf = IOUtils.toString(new URL(provisioningDetail.getUrlPrefix() + "/repo/httpd/conf/extra/httpd-info.conf"), "UTF-8");
 		httpdInfoConf = httpdInfoConf.replaceAll("\\$\\{apache.home\\}", apacheHome)
@@ -330,10 +330,10 @@ public class ProvisioningHandler {
 									.replaceAll("\\$\\{user\\}", user)
 									.replaceAll("\\$\\{group\\}", group);
 		
-		fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(httpdInfoConf);
-		fw_action.setFileName(serverHome + "/conf/extra/httpd-info.conf");
-		command.addAction(fw_action);
+		writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(httpdInfoConf);
+		writeAction.setFileName(serverHome + "/conf/extra/httpd-info.conf");
+		command.addAction(writeAction);
 		
 		String httpdSslConf = IOUtils.toString(new URL(provisioningDetail.getUrlPrefix() + "/repo/httpd/conf/extra/httpd-ssl.conf"), "UTF-8");
 		httpdSslConf = httpdSslConf.replaceAll("\\$\\{apache.home\\}", apacheHome)
@@ -343,20 +343,20 @@ public class ProvisioningHandler {
 									.replaceAll("\\$\\{user\\}", user)
 									.replaceAll("\\$\\{group\\}", group);
 		
-		fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(httpdSslConf);
-		fw_action.setFileName(serverHome + "/conf/extra/httpd-ssl.conf");
-		command.addAction(fw_action);
+		writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(httpdSslConf);
+		writeAction.setFileName(serverHome + "/conf/extra/httpd-ssl.conf");
+		command.addAction(writeAction);
 
-		fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(uriworkermap);
-		fw_action.setFileName(serverHome + "/conf/extra/uriworkermap.properties");
-		command.addAction(fw_action);
+		writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(uriworkermap);
+		writeAction.setFileName(serverHome + "/conf/extra/uriworkermap.properties");
+		command.addAction(writeAction);
 		
-		fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(workers);
-		fw_action.setFileName(serverHome + "/conf/extra/workers.properties");
-		command.addAction(fw_action);	
+		writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(workers);
+		writeAction.setFileName(serverHome + "/conf/extra/workers.properties");
+		command.addAction(writeAction);	
 		
 		// Add Save Configuration Files
 		cmdMsg.addCommand(command);	
@@ -378,119 +378,119 @@ public class ProvisioningHandler {
 		sequence = 0;
 		
 		/** mv /home2/${USER}/bin/apachectl /home2/${USER}/bin/${USER}ctl */
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory(serverHome + "/bin");
-		s_action.setCommand("mv");
-		s_action.addArguments("apachectl");
-		s_action.addArguments(user + "ctl");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory(serverHome + "/bin");
+		sAction.setCommand("mv");
+		sAction.addArguments("apachectl");
+		sAction.addArguments(user + "ctl");
+		command.addAction(sAction);
 
 		/** mv /home2/${USER}/jbossews /etc/init.d/${USER}_httpd */
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory(serverHome);
-		s_action.setCommand("mv");
-		s_action.addArguments("jbossews");
-		s_action.addArguments("/etc/init.d/" + user + "_httpd");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory(serverHome);
+		sAction.setCommand("mv");
+		sAction.addArguments("jbossews");
+		sAction.addArguments("/etc/init.d/" + user + "_httpd");
+		command.addAction(sAction);
 
 		/** chown -R root.sys /home2/${USER}
 		 *  ~/bin, ~/conf, ~/log, ~/run */
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("chown");
-		s_action.addArguments("-R");
-		s_action.addArguments("root.sys");
-		s_action.addArguments(serverHome + "/bin");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("chown");
+		sAction.addArguments("-R");
+		sAction.addArguments("root.sys");
+		sAction.addArguments(serverHome + "/bin");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("chown");
-		s_action.addArguments("-R");
-		s_action.addArguments("root.sys");
-		s_action.addArguments(serverHome + "/conf");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("chown");
+		sAction.addArguments("-R");
+		sAction.addArguments("root.sys");
+		sAction.addArguments(serverHome + "/conf");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("chown");
-		s_action.addArguments("-R");
-		s_action.addArguments("root.sys");
-		s_action.addArguments(serverHome + "/log");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("chown");
+		sAction.addArguments("-R");
+		sAction.addArguments("root.sys");
+		sAction.addArguments(serverHome + "/log");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("chown");
-		s_action.addArguments("-R");
-		s_action.addArguments("root.sys");
-		s_action.addArguments(serverHome + "/run");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("chown");
+		sAction.addArguments("-R");
+		sAction.addArguments("root.sys");
+		sAction.addArguments(serverHome + "/run");
+		command.addAction(sAction);
 
 		/** chmod 755 /home2/${USER} */
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("chmod");
-		s_action.addArguments("755");
-		s_action.addArguments(serverHome);
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("chmod");
+		sAction.addArguments("755");
+		sAction.addArguments(serverHome);
+		command.addAction(sAction);
 
 		/** chown -R ${USERID}:${GROUPID} /home2/${USER}/www */
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("chown");
-		s_action.addArguments("-R");
-		s_action.addArguments(user + ":" + group);
-		s_action.addArguments(serverHome + "/www");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("chown");
+		sAction.addArguments("-R");
+		sAction.addArguments(user + ":" + group);
+		sAction.addArguments(serverHome + "/www");
+		command.addAction(sAction);
 
 		/** chmod 700 /home2/${USER}/www */
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("chmod");
-		s_action.addArguments("700");
-		s_action.addArguments(serverHome + "/www");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("chmod");
+		sAction.addArguments("700");
+		sAction.addArguments(serverHome + "/www");
+		command.addAction(sAction);
 
 		/** chown -R ${USERID}:${GROUPID} /home2/${USER}/.bash*
 		 *  chown -R ${USERID}:${GROUPID} /home2/${USER}/.*rc
 		 *  .bash_logout, .bash_profile, .bashrc, .kshrc, .mkshrc, .zshrc 
 		 */
 		/*
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("chown");
-		s_action.addArguments("-R");
-		s_action.addArguments(user + ":" + group);
-		s_action.addArguments(serverHome + "/.bash_logout");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("chown");
+		sAction.addArguments("-R");
+		sAction.addArguments(user + ":" + group);
+		sAction.addArguments(serverHome + "/.bash_logout");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("chown");
-		s_action.addArguments("-R");
-		s_action.addArguments(user + ":" + group);
-		s_action.addArguments(serverHome + "/.bash_profile");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("chown");
+		sAction.addArguments("-R");
+		sAction.addArguments(user + ":" + group);
+		sAction.addArguments(serverHome + "/.bash_profile");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("chown");
-		s_action.addArguments("-R");
-		s_action.addArguments(user + ":" + group);
-		s_action.addArguments(serverHome + "/.bashrc");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("chown");
+		sAction.addArguments("-R");
+		sAction.addArguments(user + ":" + group);
+		sAction.addArguments(serverHome + "/.bashrc");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("chown");
-		s_action.addArguments("-R");
-		s_action.addArguments(user + ":" + group);
-		s_action.addArguments(serverHome + "/.kshrc");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("chown");
+		sAction.addArguments("-R");
+		sAction.addArguments(user + ":" + group);
+		sAction.addArguments(serverHome + "/.kshrc");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("chown");
-		s_action.addArguments("-R");
-		s_action.addArguments(user + ":" + group);
-		s_action.addArguments(serverHome + "/.mkshrc");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("chown");
+		sAction.addArguments("-R");
+		sAction.addArguments(user + ":" + group);
+		sAction.addArguments(serverHome + "/.mkshrc");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("chown");
-		s_action.addArguments("-R");
-		s_action.addArguments(user + ":" + group);
-		s_action.addArguments(serverHome + "/.zshrc");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("chown");
+		sAction.addArguments("-R");
+		sAction.addArguments(user + ":" + group);
+		sAction.addArguments(serverHome + "/.zshrc");
+		command.addAction(sAction);
 		*/
 		
 		// Add Set Directory & Permission
@@ -543,33 +543,34 @@ public class ProvisioningHandler {
 		*/
 		
 		/** sed -i "s/template/${USER}/g" /home2/${USER}/bin/${USER}ctl */
-		ConfigAction c_action = new ConfigAction(sequence++);
-		c_action.setFileName(serverHome + "/bin/" + user + "ctl");
-		c_action.setProperties(properties);
-		command.addAction(c_action);
+		ConfigAction configAction = new ConfigAction(sequence);
+		sequence++;
+		configAction.setFileName(serverHome + "/bin/" + user + "ctl");
+		configAction.setProperties(properties);
+		command.addAction(configAction);
 		
 		/** 
 		 * sed -i "s/template/${USER}/g" /etc/init.d/${USER}_httpd
 		 * sed -i "s/jbossews/${USER}ews/g" /etc/init.d/${USER}_httpd
 		 */
-		c_action = new ConfigAction(sequence++);
-		c_action.setFileName("/etc/init.d/" + user + "_httpd");
-		c_action.setProperties(properties);
-		command.addAction(c_action);
+		configAction = new ConfigAction(sequence++);
+		configAction.setFileName("/etc/init.d/" + user + "_httpd");
+		configAction.setProperties(properties);
+		command.addAction(configAction);
 
 		/** chkconfig --add ${USER}_httpd */
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("chkconfig");
-		s_action.addArguments("--add");
-		s_action.addArguments(user + "_httpd");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("chkconfig");
+		sAction.addArguments("--add");
+		sAction.addArguments(user + "_httpd");
+		command.addAction(sAction);
 
 		/** chkconfig ${USER}_httpd on */
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("chkconfig");
-		s_action.addArguments(user + "_httpd");
-		s_action.addArguments("on");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("chkconfig");
+		sAction.addArguments(user + "_httpd");
+		sAction.addArguments("on");
+		command.addAction(sAction);
 		
 		// Add Set Configurations
 		cmdMsg.addCommand(command);
@@ -577,11 +578,11 @@ public class ProvisioningHandler {
 		if (provisioningDetail.getAutoStart().equals("Y")) {
 			command = new Command("Service Start");
 			sequence = 0;
-			s_action = new ShellAction(sequence++);
-			s_action.setCommand("service");
-			s_action.addArguments(user + "_httpd");
-			s_action.addArguments("start");
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setCommand("service");
+			sAction.addArguments(user + "_httpd");
+			sAction.addArguments("start");
+			command.addAction(sAction);
 			
 			// Add Service Start
 			cmdMsg.addCommand(command);
@@ -733,64 +734,64 @@ public class ProvisioningHandler {
 //		LOGGER.debug("maxActive : " + maxActive);
 		
 		Command command = new Command("Tomcat INSTALL");
-		ShellAction s_action = null;
+		ShellAction sAction = null;
 		int sequence = 0;
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/tmp");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}" + fileLocation + "/apr-1.3.9-5.el6_2.x86_64.rpm");
-		s_action.addArguments("-O");
-		s_action.addArguments("apr-1.3.9-5.el6_2.x86_64.rpm");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/tmp");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}" + fileLocation + "/apr-1.3.9-5.el6_2.x86_64.rpm");
+		sAction.addArguments("-O");
+		sAction.addArguments("apr-1.3.9-5.el6_2.x86_64.rpm");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/tmp");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}" + fileLocation + "/apr-util-1.3.9-3.el6_0.1.x86_64.rpm");
-		s_action.addArguments("-O");
-		s_action.addArguments("apr-util-1.3.9-3.el6_0.1.x86_64.rpm");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/tmp");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}" + fileLocation + "/apr-util-1.3.9-3.el6_0.1.x86_64.rpm");
+		sAction.addArguments("-O");
+		sAction.addArguments("apr-util-1.3.9-3.el6_0.1.x86_64.rpm");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/tmp");
-		s_action.setCommand("rpm");
-		s_action.addArguments("-Uvh");
-		s_action.addArguments("apr-1.3.9-5.el6_2.x86_64.rpm");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/tmp");
+		sAction.setCommand("rpm");
+		sAction.addArguments("-Uvh");
+		sAction.addArguments("apr-1.3.9-5.el6_2.x86_64.rpm");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/tmp");
-		s_action.setCommand("rpm");
-		s_action.addArguments("-Uvh");
-		s_action.addArguments("apr-util-1.3.9-3.el6_0.1.x86_64.rpm");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/tmp");
+		sAction.setCommand("rpm");
+		sAction.addArguments("-Uvh");
+		sAction.addArguments("apr-util-1.3.9-3.el6_0.1.x86_64.rpm");
+		command.addAction(sAction);
 		
 		String[] fileNames = fileName.split(",");
 		
 		for (int i = 0; i < fileNames.length; i++) {
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory("/tmp");
-			s_action.setCommand("wget");
-			s_action.addArguments("${RepositoryUrl}" + fileLocation + "/" + fileNames[i]);
-			s_action.addArguments("-O");
-			s_action.addArguments(fileNames[i]);
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setWorkingDiretory("/tmp");
+			sAction.setCommand("wget");
+			sAction.addArguments("${RepositoryUrl}" + fileLocation + "/" + fileNames[i]);
+			sAction.addArguments("-O");
+			sAction.addArguments(fileNames[i]);
+			command.addAction(sAction);
 			
-			s_action = new ShellAction(sequence++);
-			s_action.setCommand("mkdir");
-			s_action.addArguments("-p");
-			s_action.addArguments(serverHome);
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setCommand("mkdir");
+			sAction.addArguments("-p");
+			sAction.addArguments(serverHome);
+			command.addAction(sAction);
 
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory("/tmp");
-			s_action.setCommand("unzip");
-			s_action.addArguments("-o");
-			s_action.addArguments(fileNames[i]);
-			s_action.addArguments("-d");
-			s_action.addArguments(serverHome);
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setWorkingDiretory("/tmp");
+			sAction.setCommand("unzip");
+			sAction.addArguments("-o");
+			sAction.addArguments(fileNames[i]);
+			sAction.addArguments("-d");
+			sAction.addArguments(serverHome);
+			command.addAction(sAction);
 		}
 		
 		// Add Tomcat INSTALL Command
@@ -800,20 +801,20 @@ public class ProvisioningHandler {
 		sequence = 0;
 		
 		// mv /home/${user}/jbossews /etc/init.d/jbossews
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory(serverHome);
-		s_action.setCommand("mv");
-		s_action.addArguments("jbossews");
-		s_action.addArguments("/etc/init.d/jbossews");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory(serverHome);
+		sAction.setCommand("mv");
+		sAction.addArguments("jbossews");
+		sAction.addArguments("/etc/init.d/jbossews");
+		command.addAction(sAction);
 		
 		// mv /home/${user}/Servers/codeServer21 /home/${user}/Servers/${user}Server21
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory(serverHome + "/Servers");
-		s_action.setCommand("mv");
-		s_action.addArguments("codeServer21");
-		s_action.addArguments(serverName);
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory(serverHome + "/Servers");
+		sAction.setCommand("mv");
+		sAction.addArguments("codeServer21");
+		sAction.addArguments(serverName);
+		command.addAction(sAction);
 		
 		// Add Directory & File Setting Command
 		cmdMsg.addCommand(command);
@@ -835,10 +836,10 @@ public class ProvisioningHandler {
 					.replaceAll("\\$\\{bind.addr\\}", bindAddress)
 					.replaceAll("\\$\\{other.bind.addr\\}", otherBindAddress);
 
-		FileWriteAction fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(envSh);
-		fw_action.setFileName(catalinaBase + "/env.sh");
-		command.addAction(fw_action);
+		FileWriteAction writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(envSh);
+		writeAction.setFileName(catalinaBase + "/env.sh");
+		command.addAction(writeAction);
 		
 		List<Property> properties = new ArrayList<Property>();
 		Property property = null;
@@ -876,35 +877,36 @@ public class ProvisioningHandler {
 		/** 
 		 * sed -i 's/code/'${USER}'/g' /etc/init.d/jbossews
 		 */
-		ConfigAction c_action = new ConfigAction(sequence++);
-		c_action.setFileName("/etc/init.d/jbossews");
-		c_action.setProperties(properties);
-		command.addAction(c_action);
+		ConfigAction configAction = new ConfigAction(sequence);
+		sequence++;
+		configAction.setFileName("/etc/init.d/jbossews");
+		configAction.setProperties(properties);
+		command.addAction(configAction);
 		
 		// Set server.xml
-		String _fileName = "server-all.xml";
+		String serverFileName = "server-all.xml";
 		String serverXml = null;
 		
 		if (httpEnable != null && httpEnable.toUpperCase().equals("Y")) {
 			if (highAvailability != null && highAvailability.toUpperCase().equals("Y")) {
-				_fileName = "server-all.xml";
+				serverFileName = "server-all.xml";
 			} else {
-				_fileName = "server-http.xml";
+				serverFileName = "server-http.xml";
 			}
 		} else {
 			if (highAvailability != null && highAvailability.toUpperCase().equals("Y")) {
-				_fileName = "server-cluster.xml";
+				serverFileName = "server-cluster.xml";
 			} else {
-				_fileName = "server-none.xml";
+				serverFileName = "server-none.xml";
 			}
 		}
 		
-		serverXml = IOUtils.toString(new URL(provisioningDetail.getUrlPrefix() + "/repo/tomcat/conf/" + _fileName), "UTF-8");
+		serverXml = IOUtils.toString(new URL(provisioningDetail.getUrlPrefix() + "/repo/tomcat/conf/" + serverFileName), "UTF-8");
 		
-		fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(serverXml);
-		fw_action.setFileName(catalinaBase + "/conf/server.xml");
-		command.addAction(fw_action);
+		writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(serverXml);
+		writeAction.setFileName(catalinaBase + "/conf/server.xml");
+		command.addAction(writeAction);
 		
 		// Set context.xml
 		StringBuilder datasource = new StringBuilder();
@@ -956,10 +958,10 @@ public class ProvisioningHandler {
 		String contextXml = IOUtils.toString(new URL(provisioningDetail.getUrlPrefix() + "/repo/tomcat/conf/context.xml"), "UTF-8");
 		contextXml = contextXml.replaceAll("\\$\\{datasource\\}", datasource.toString());
 		
-		fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(contextXml);
-		fw_action.setFileName(catalinaBase + "/conf/context.xml");
-		command.addAction(fw_action);
+		writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(contextXml);
+		writeAction.setFileName(catalinaBase + "/conf/context.xml");
+		command.addAction(writeAction);
 		
 		// Add Set Configurations Command
 		cmdMsg.addCommand(command);
@@ -968,12 +970,12 @@ public class ProvisioningHandler {
 		sequence = 0;
 		
 		// chonw -R ${user}:${group} /home/${user}
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("chown");
-		s_action.addArguments("-R");
-		s_action.addArguments(user + ":" + group);
-		s_action.addArguments(serverHome);
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("chown");
+		sAction.addArguments("-R");
+		sAction.addArguments(user + ":" + group);
+		sAction.addArguments(serverHome);
+		command.addAction(sAction);
 		
 		// Add Set IP & Hostname Command
 		cmdMsg.addCommand(command);
@@ -982,25 +984,25 @@ public class ProvisioningHandler {
 		sequence = 0;
 		
 		/** chkconfig --add jbossews */
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("chkconfig");
-		s_action.addArguments("--add");
-		s_action.addArguments("jbossews");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("chkconfig");
+		sAction.addArguments("--add");
+		sAction.addArguments("jbossews");
+		command.addAction(sAction);
 
 		/** chkconfig jbossews on */
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("chkconfig");
-		s_action.addArguments("jbossews");
-		s_action.addArguments("on");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("chkconfig");
+		sAction.addArguments("jbossews");
+		sAction.addArguments("on");
+		command.addAction(sAction);
 		
 		if (provisioningDetail.getAutoStart().equals("Y")) {
-			s_action = new ShellAction(sequence++);
-			s_action.setCommand("service");
-			s_action.addArguments("jbossews");
-			s_action.addArguments("start");
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setCommand("service");
+			sAction.addArguments("jbossews");
+			sAction.addArguments("start");
+			command.addAction(sAction);
 		}
 		
 		// Add Set chkconfig & Start service Command
@@ -1139,50 +1141,50 @@ public class ProvisioningHandler {
 		
 		Command command = new Command("JBoss INSTALL");
 		int sequence = 0;
-		ShellAction s_action = null;
+		ShellAction sAction = null;
 		
 		String[] fileNames = fileName.split(",");
 		
 		for (int i = 0; i < fileNames.length; i++) {
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory("/tmp");
-			s_action.setCommand("wget");
-			s_action.addArguments("${RepositoryUrl}" + fileLocation + "/" + fileNames[i]);
-			s_action.addArguments("-O");
-			s_action.addArguments(fileNames[i]);
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setWorkingDiretory("/tmp");
+			sAction.setCommand("wget");
+			sAction.addArguments("${RepositoryUrl}" + fileLocation + "/" + fileNames[i]);
+			sAction.addArguments("-O");
+			sAction.addArguments(fileNames[i]);
+			command.addAction(sAction);
 			
-			s_action = new ShellAction(sequence++);
-			s_action.setCommand("mkdir");
-			s_action.addArguments("-p");
-			s_action.addArguments(serverHome);
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setCommand("mkdir");
+			sAction.addArguments("-p");
+			sAction.addArguments(serverHome);
+			command.addAction(sAction);
 
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory("/tmp");
-			s_action.setCommand("unzip");
-			s_action.addArguments("-o");
-			s_action.addArguments(fileNames[i]);
-			s_action.addArguments("-d");
-			s_action.addArguments(serverHome);
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setWorkingDiretory("/tmp");
+			sAction.setCommand("unzip");
+			sAction.addArguments("-o");
+			sAction.addArguments(fileNames[i]);
+			sAction.addArguments("-d");
+			sAction.addArguments(serverHome);
+			command.addAction(sAction);
 		}
 		
-		// ${server.base}/codeServer11_cs/lib, ${server.base}/codeServer21_cs/lib 에는 ${jboss.home}/server/all/lib에 있는 라이브러리 파일을 복사해 넣는다.
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory(serverHome);
-		s_action.setCommand("sh");
-		s_action.addArguments("eap_init.sh");
-		s_action.addArguments(jbossHome + "/server/all/lib");
-		s_action.addArguments(serverBase);
-		command.addAction(s_action);
+		// ${server.base}/codeServer11_cs/lib, ${server.base}/codeServer21_cs/lib ?�는 ${jboss.home}/server/all/lib???�는 ?�이브러�??�일??복사???�는??
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory(serverHome);
+		sAction.setCommand("sh");
+		sAction.addArguments("eap_init.sh");
+		sAction.addArguments(jbossHome + "/server/all/lib");
+		sAction.addArguments(serverBase);
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory(serverHome);
-		s_action.setCommand("rm");
-		s_action.addArguments("-f");
-		s_action.addArguments("eap_init.sh");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory(serverHome);
+		sAction.setCommand("rm");
+		sAction.addArguments("-f");
+		sAction.addArguments("eap_init.sh");
+		command.addAction(sAction);
 		
 		// Add JBoss INSTALL Command
 		cmdMsg.addCommand(command);
@@ -1190,7 +1192,7 @@ public class ProvisioningHandler {
 		command = new Command("Set Configurations");
 		sequence = 0;
 		
-		// env.sh 변환
+		// env.sh �?��
 		String envSh = IOUtils.toString(new URL(provisioningDetail.getUrlPrefix() + "/repo/jboss/conf/env.sh"), "UTF-8");
 		envSh = envSh.replaceAll("\\$\\{user\\}", user)
 					.replaceAll("\\$\\{java.home\\}", javaHome)
@@ -1208,59 +1210,59 @@ public class ProvisioningHandler {
 					.replaceAll("\\$\\{heap.size\\}", heapSize)
 					.replaceAll("\\$\\{permgen.size\\}", permgenSize);		
 		
-		FileWriteAction fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(envSh);
-		fw_action.setFileName(serverBase + "/codeServer11/env.sh");
-		command.addAction(fw_action);
+		FileWriteAction writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(envSh);
+		writeAction.setFileName(serverBase + "/codeServer11/env.sh");
+		command.addAction(writeAction);
 		
-		fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(envSh);
-		fw_action.setFileName(serverBase + "/codeServer11_cs/env.sh");
-		command.addAction(fw_action);
+		writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(envSh);
+		writeAction.setFileName(serverBase + "/codeServer11_cs/env.sh");
+		command.addAction(writeAction);
 		
-		fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(envSh);
-		fw_action.setFileName(serverBase + "/codeServer21/env.sh");
-		command.addAction(fw_action);
+		writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(envSh);
+		writeAction.setFileName(serverBase + "/codeServer21/env.sh");
+		command.addAction(writeAction);
 		
-		fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(envSh);
-		fw_action.setFileName(serverBase + "/codeServer21_cs/env.sh");
-		command.addAction(fw_action);
+		writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(envSh);
+		writeAction.setFileName(serverBase + "/codeServer21_cs/env.sh");
+		command.addAction(writeAction);
 
 		// Set server.xml
-		String _fileName = "server-http.xml";
+		String serverFileName = "server-http.xml";
 		String serverXml = null;
 		
 		if (httpEnable != null && httpEnable.toUpperCase().equals("N")) {
-			_fileName = "server-none.xml";
+			serverFileName = "server-none.xml";
 		} else {
-			_fileName = "server-http.xml";
+			serverFileName = "server-http.xml";
 		}
 		
-		serverXml = IOUtils.toString(new URL(provisioningDetail.getUrlPrefix() + "/repo/jboss/conf/" + _fileName), "UTF-8");
+		serverXml = IOUtils.toString(new URL(provisioningDetail.getUrlPrefix() + "/repo/jboss/conf/" + serverFileName), "UTF-8");
 		
-		fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(serverXml);
-		fw_action.setFileName(serverBase + "/codeServer11/deploy/jbossweb.sar/server.xml");
-		command.addAction(fw_action);
+		writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(serverXml);
+		writeAction.setFileName(serverBase + "/codeServer11/deploy/jbossweb.sar/server.xml");
+		command.addAction(writeAction);
 		
-		fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(serverXml);
-		fw_action.setFileName(serverBase + "/codeServer11_cs/deploy/jbossweb.sar/server.xml");
-		command.addAction(fw_action);
+		writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(serverXml);
+		writeAction.setFileName(serverBase + "/codeServer11_cs/deploy/jbossweb.sar/server.xml");
+		command.addAction(writeAction);
 		
-		fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(serverXml);
-		fw_action.setFileName(serverBase + "/codeServer21/deploy/jbossweb.sar/server.xml");
-		command.addAction(fw_action);
+		writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(serverXml);
+		writeAction.setFileName(serverBase + "/codeServer21/deploy/jbossweb.sar/server.xml");
+		command.addAction(writeAction);
 		
-		fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(serverXml);
-		fw_action.setFileName(serverBase + "/codeServer21_cs/deploy/jbossweb.sar/server.xml");
-		command.addAction(fw_action);
+		writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(serverXml);
+		writeAction.setFileName(serverBase + "/codeServer21_cs/deploy/jbossweb.sar/server.xml");
+		command.addAction(writeAction);
 		
-		// jboss_init 변환
+		// jboss_init �?��
 		List<Property> properties = new ArrayList<Property>();
 		Property property = null;
 		
@@ -1297,10 +1299,11 @@ public class ProvisioningHandler {
 		/** 
 		 * sed -i 's/code/'${USER}'/g' /home/$USER/Servers/jboss_init
 		 */
-		ConfigAction c_action = new ConfigAction(sequence++);
-		c_action.setFileName(serverBase + "/jboss_init");
-		c_action.setProperties(properties);
-		command.addAction(c_action);
+		ConfigAction configAction = new ConfigAction(sequence);
+		sequence++;
+		configAction.setFileName(serverBase + "/jboss_init");
+		configAction.setProperties(properties);
+		command.addAction(configAction);
 		
 		// Add Set Configurations Command
 		cmdMsg.addCommand(command);
@@ -1308,7 +1311,7 @@ public class ProvisioningHandler {
 		command = new Command("DataSource Configurations");
 		sequence = 0;
 		
-		// <local-tx-datasource />, <application-policy /> 생성
+		// <local-tx-datasource />, <application-policy /> ?�성
 		StringBuilder localTxDatasource = new StringBuilder();
 		StringBuilder applicationPolicy = new StringBuilder();
 		String driverClassName = null;
@@ -1387,34 +1390,34 @@ public class ProvisioningHandler {
 			dsXml = IOUtils.toString(new URL(provisioningDetail.getUrlPrefix() + "/repo/jboss/conf/sample-ds.xml"), "UTF-8");
 		}
 		
-		fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(dsXml);
-		fw_action.setFileName(serverHome + "/apps/" + user + "-ds.xml");
-		command.addAction(fw_action);
+		writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(dsXml);
+		writeAction.setFileName(serverHome + "/apps/" + user + "-ds.xml");
+		command.addAction(writeAction);
 
 		String loginConfigXml = null;
 		loginConfigXml = IOUtils.toString(new URL(provisioningDetail.getUrlPrefix() + "/repo/jboss/conf/login-config.xml"), "UTF-8");
 		loginConfigXml = loginConfigXml.replaceAll("\\$\\{application.policy\\}", applicationPolicy.toString());
 		
-		fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(loginConfigXml);
-		fw_action.setFileName(serverBase + "/codeServer11/conf/login-config.xml");
-		command.addAction(fw_action);
+		writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(loginConfigXml);
+		writeAction.setFileName(serverBase + "/codeServer11/conf/login-config.xml");
+		command.addAction(writeAction);
 		
-		fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(loginConfigXml);
-		fw_action.setFileName(serverBase + "/codeServer11_cs/conf/login-config.xml");
-		command.addAction(fw_action);
+		writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(loginConfigXml);
+		writeAction.setFileName(serverBase + "/codeServer11_cs/conf/login-config.xml");
+		command.addAction(writeAction);
 		
-		fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(loginConfigXml);
-		fw_action.setFileName(serverBase + "/codeServer21/conf/login-config.xml");
-		command.addAction(fw_action);
+		writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(loginConfigXml);
+		writeAction.setFileName(serverBase + "/codeServer21/conf/login-config.xml");
+		command.addAction(writeAction);
 		
-		fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(loginConfigXml);
-		fw_action.setFileName(serverBase + "/codeServer21_cs/conf/login-config.xml");
-		command.addAction(fw_action);
+		writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(loginConfigXml);
+		writeAction.setFileName(serverBase + "/codeServer21_cs/conf/login-config.xml");
+		command.addAction(writeAction);
 		
 		// Add Set DataSource Configurations
 		cmdMsg.addCommand(command);
@@ -1423,163 +1426,163 @@ public class ProvisioningHandler {
 		sequence = 0;
 		
 		// codeServerXX => ${user}ServerXX
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory(serverBase);
-		s_action.setCommand("mv");
-		s_action.addArguments("codeServer11");
-		s_action.addArguments(user + "Server11");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory(serverBase);
+		sAction.setCommand("mv");
+		sAction.addArguments("codeServer11");
+		sAction.addArguments(user + "Server11");
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory(serverBase);
-		s_action.setCommand("mv");
-		s_action.addArguments("codeServer11_cs");
-		s_action.addArguments(user + "Server11_cs");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory(serverBase);
+		sAction.setCommand("mv");
+		sAction.addArguments("codeServer11_cs");
+		sAction.addArguments(user + "Server11_cs");
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory(serverBase);
-		s_action.setCommand("mv");
-		s_action.addArguments("codeServer21");
-		s_action.addArguments(user + "Server21");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory(serverBase);
+		sAction.setCommand("mv");
+		sAction.addArguments("codeServer21");
+		sAction.addArguments(user + "Server21");
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory(serverBase);
-		s_action.setCommand("mv");
-		s_action.addArguments("codeServer21_cs");
-		s_action.addArguments(user + "Server21_cs");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory(serverBase);
+		sAction.setCommand("mv");
+		sAction.addArguments("codeServer21_cs");
+		sAction.addArguments(user + "Server21_cs");
+		command.addAction(sAction);
 		
 		if (baseTemplate.endsWith("Server11")) {
 			if (!serverName.equals(user + "Server11")) {
-				s_action = new ShellAction(sequence++);
-				s_action.setWorkingDiretory(serverBase);
-				s_action.setCommand("mv");
-				s_action.addArguments(user + "Server11");
-				s_action.addArguments(serverName);
-				command.addAction(s_action);
+				sAction = new ShellAction(sequence++);
+				sAction.setWorkingDiretory(serverBase);
+				sAction.setCommand("mv");
+				sAction.addArguments(user + "Server11");
+				sAction.addArguments(serverName);
+				command.addAction(sAction);
 			}
 			
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory(serverBase);
-			s_action.setCommand("rm");
-			s_action.addArguments("-rf");
-			s_action.addArguments(user + "Server11_cs");
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setWorkingDiretory(serverBase);
+			sAction.setCommand("rm");
+			sAction.addArguments("-rf");
+			sAction.addArguments(user + "Server11_cs");
+			command.addAction(sAction);
 			
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory(serverBase);
-			s_action.setCommand("rm");
-			s_action.addArguments("-rf");
-			s_action.addArguments(user + "Server21");
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setWorkingDiretory(serverBase);
+			sAction.setCommand("rm");
+			sAction.addArguments("-rf");
+			sAction.addArguments(user + "Server21");
+			command.addAction(sAction);
 
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory(serverBase);
-			s_action.setCommand("rm");
-			s_action.addArguments("-rf");
-			s_action.addArguments(user + "Server21_cs");
-			command.addAction(s_action);			
+			sAction = new ShellAction(sequence++);
+			sAction.setWorkingDiretory(serverBase);
+			sAction.setCommand("rm");
+			sAction.addArguments("-rf");
+			sAction.addArguments(user + "Server21_cs");
+			command.addAction(sAction);			
 		} else if (baseTemplate.endsWith("Server11_cs")) {
 			if (!serverName.equals(user + "Server11_cs")) {
-				s_action = new ShellAction(sequence++);
-				s_action.setWorkingDiretory(serverBase);
-				s_action.setCommand("mv");
-				s_action.addArguments(user + "Server11_cs");
-				s_action.addArguments(serverName);
-				command.addAction(s_action);
+				sAction = new ShellAction(sequence++);
+				sAction.setWorkingDiretory(serverBase);
+				sAction.setCommand("mv");
+				sAction.addArguments(user + "Server11_cs");
+				sAction.addArguments(serverName);
+				command.addAction(sAction);
 			}
 			
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory(serverBase);
-			s_action.setCommand("rm");
-			s_action.addArguments("-rf");
-			s_action.addArguments(user + "Server11");
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setWorkingDiretory(serverBase);
+			sAction.setCommand("rm");
+			sAction.addArguments("-rf");
+			sAction.addArguments(user + "Server11");
+			command.addAction(sAction);
 			
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory(serverBase);
-			s_action.setCommand("rm");
-			s_action.addArguments("-rf");
-			s_action.addArguments(user + "Server21");
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setWorkingDiretory(serverBase);
+			sAction.setCommand("rm");
+			sAction.addArguments("-rf");
+			sAction.addArguments(user + "Server21");
+			command.addAction(sAction);
 
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory(serverBase);
-			s_action.setCommand("rm");
-			s_action.addArguments("-rf");
-			s_action.addArguments(user + "Server21_cs");
-			command.addAction(s_action);			
+			sAction = new ShellAction(sequence++);
+			sAction.setWorkingDiretory(serverBase);
+			sAction.setCommand("rm");
+			sAction.addArguments("-rf");
+			sAction.addArguments(user + "Server21_cs");
+			command.addAction(sAction);			
 		} else if (baseTemplate.endsWith("Server21")) {
 			if (!serverName.equals(user + "Server21")) {
-				s_action = new ShellAction(sequence++);
-				s_action.setWorkingDiretory(serverBase);
-				s_action.setCommand("mv");
-				s_action.addArguments(user + "Server21");
-				s_action.addArguments(serverName);
-				command.addAction(s_action);
+				sAction = new ShellAction(sequence++);
+				sAction.setWorkingDiretory(serverBase);
+				sAction.setCommand("mv");
+				sAction.addArguments(user + "Server21");
+				sAction.addArguments(serverName);
+				command.addAction(sAction);
 			}
 			
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory(serverBase);
-			s_action.setCommand("rm");
-			s_action.addArguments("-rf");
-			s_action.addArguments(user + "Server11");
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setWorkingDiretory(serverBase);
+			sAction.setCommand("rm");
+			sAction.addArguments("-rf");
+			sAction.addArguments(user + "Server11");
+			command.addAction(sAction);
 			
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory(serverBase);
-			s_action.setCommand("rm");
-			s_action.addArguments("-rf");
-			s_action.addArguments(user + "Server11_cs");
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setWorkingDiretory(serverBase);
+			sAction.setCommand("rm");
+			sAction.addArguments("-rf");
+			sAction.addArguments(user + "Server11_cs");
+			command.addAction(sAction);
 
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory(serverBase);
-			s_action.setCommand("rm");
-			s_action.addArguments("-rf");
-			s_action.addArguments(user + "Server21_cs");
-			command.addAction(s_action);			
+			sAction = new ShellAction(sequence++);
+			sAction.setWorkingDiretory(serverBase);
+			sAction.setCommand("rm");
+			sAction.addArguments("-rf");
+			sAction.addArguments(user + "Server21_cs");
+			command.addAction(sAction);			
 		} else if (baseTemplate.endsWith("Server21_cs")) {
 			if (!serverName.equals(user + "Server11_cs")) {
-				s_action = new ShellAction(sequence++);
-				s_action.setWorkingDiretory(serverBase);
-				s_action.setCommand("mv");
-				s_action.addArguments(user + "Server21_cs");
-				s_action.addArguments(serverName);
-				command.addAction(s_action);
+				sAction = new ShellAction(sequence++);
+				sAction.setWorkingDiretory(serverBase);
+				sAction.setCommand("mv");
+				sAction.addArguments(user + "Server21_cs");
+				sAction.addArguments(serverName);
+				command.addAction(sAction);
 			}
 			
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory(serverBase);
-			s_action.setCommand("rm");
-			s_action.addArguments("-rf");
-			s_action.addArguments(user + "Server11");
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setWorkingDiretory(serverBase);
+			sAction.setCommand("rm");
+			sAction.addArguments("-rf");
+			sAction.addArguments(user + "Server11");
+			command.addAction(sAction);
 			
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory(serverBase);
-			s_action.setCommand("rm");
-			s_action.addArguments("-rf");
-			s_action.addArguments(user + "Server11_cs");
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setWorkingDiretory(serverBase);
+			sAction.setCommand("rm");
+			sAction.addArguments("-rf");
+			sAction.addArguments(user + "Server11_cs");
+			command.addAction(sAction);
 
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory(serverBase);
-			s_action.setCommand("rm");
-			s_action.addArguments("-rf");
-			s_action.addArguments(user + "Server21");
-			command.addAction(s_action);			
+			sAction = new ShellAction(sequence++);
+			sAction.setWorkingDiretory(serverBase);
+			sAction.setCommand("rm");
+			sAction.addArguments("-rf");
+			sAction.addArguments(user + "Server21");
+			command.addAction(sAction);			
 		}
 
 		// chonw -R ${user}:${group} /home/${user}
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("chown");
-		s_action.addArguments("-R");
-		s_action.addArguments(user + ":" + group);
-		s_action.addArguments(serverHome);
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("chown");
+		sAction.addArguments("-R");
+		sAction.addArguments(user + ":" + group);
+		sAction.addArguments(serverHome);
+		command.addAction(sAction);
 		
 		// Add JBoss INSTALL Command
 		cmdMsg.addCommand(command);
@@ -1590,18 +1593,18 @@ public class ProvisioningHandler {
 		if (provisioningDetail.getAutoStart().equals("Y")) {
 			command = new Command("Service Start");
 			sequence = 0;
-			s_action = new ShellAction(sequence++);
-			s_action.setWorkingDiretory(serverBase + "/" + serverName);
-			s_action.setCommand("runuser");
-			s_action.addArguments(startArgs);
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setWorkingDiretory(serverBase + "/" + serverName);
+			sAction.setCommand("runuser");
+			sAction.addArguments(startArgs);
+			command.addAction(sAction);
 			
 			cmdMsg.addCommand(command);
 		}
 		
 		/***************************************************************
 		 *  software_tbl에 소프트웨어 설치 정보 및 config_tbl에 설정파일 정보 추가
-		 ***************************************************************/		
+		 ***************************************************************/			
 		SoftwareDto software = new SoftwareDto();
 		software.setSoftwareId(provisioningDetail.getSoftwareId());
 		software.setMachineId(provisioningDetail.getMachineId());
@@ -1668,10 +1671,10 @@ public class ProvisioningHandler {
 		myCnf = myCnf.replaceAll("\\$\\{mysql.datadir\\}", dataDir)
 					.replaceAll("\\$\\{mysql.port\\}", port);
 		
-		FileWriteAction fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(myCnf);
-		fw_action.setFileName("/etc/my.cnf");
-		command.addAction(fw_action);
+		FileWriteAction writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(myCnf);
+		writeAction.setFileName("/etc/my.cnf");
+		command.addAction(writeAction);
 		
 		// Add CONFIGURATION Command
 		cmdMsg.addCommand(command);
@@ -1679,35 +1682,35 @@ public class ProvisioningHandler {
 		command = new Command("MySQL INSTALL");
 		sequence = 0;
 		
-		ShellAction s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}/mysql/" + version + "/MySQL-server.rpm");
-		s_action.addArguments("-O");
-		s_action.addArguments("MySQL-server.rpm");
-		command.addAction(s_action);
+		ShellAction sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}/mysql/" + version + "/MySQL-server.rpm");
+		sAction.addArguments("-O");
+		sAction.addArguments("MySQL-server.rpm");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}/mysql/" + version + "/MySQL-client.rpm");
-		s_action.addArguments("-O");
-		s_action.addArguments("MySQL-client.rpm");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}/mysql/" + version + "/MySQL-client.rpm");
+		sAction.addArguments("-O");
+		sAction.addArguments("MySQL-client.rpm");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src");
-		s_action.setCommand("rpm");
-		s_action.addArguments("-Uvh");
-		s_action.addArguments("MySQL-server.rpm");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src");
+		sAction.setCommand("rpm");
+		sAction.addArguments("-Uvh");
+		sAction.addArguments("MySQL-server.rpm");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/usr/local/src");
-		s_action.setCommand("rpm");
-		s_action.addArguments("-Uvh");
-		s_action.addArguments("MySQL-client.rpm");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/usr/local/src");
+		sAction.setCommand("rpm");
+		sAction.addArguments("-Uvh");
+		sAction.addArguments("MySQL-client.rpm");
+		command.addAction(sAction);
 		
 		// Add MySQL INSTALL Command
 		cmdMsg.addCommand(command);
@@ -1715,26 +1718,26 @@ public class ProvisioningHandler {
 		if (!StringUtils.isEmpty(password)) {
 			command = new Command("Change Password");
 			sequence = 0;
-			s_action = new ShellAction(sequence++);
-			s_action.setCommand("service");
-			s_action.addArguments("mysql");
-			s_action.addArguments("start");
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setCommand("service");
+			sAction.addArguments("mysql");
+			sAction.addArguments("start");
+			command.addAction(sAction);
 
-			s_action = new ShellAction(sequence++);
-			s_action.setCommand("mysqladmin");
-			s_action.addArguments("-u");
-			s_action.addArguments("root");
-			s_action.addArguments("password");
-			s_action.addArguments(password);
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setCommand("mysqladmin");
+			sAction.addArguments("-u");
+			sAction.addArguments("root");
+			sAction.addArguments("password");
+			sAction.addArguments(password);
+			command.addAction(sAction);
 
 			if (provisioningDetail.getAutoStart().equals("N")) {
-				s_action = new ShellAction(sequence++);
-				s_action.setCommand("service");
-				s_action.addArguments("mysql");
-				s_action.addArguments("stop");
-				command.addAction(s_action);
+				sAction = new ShellAction(sequence++);
+				sAction.setCommand("service");
+				sAction.addArguments("mysql");
+				sAction.addArguments("stop");
+				command.addAction(sAction);
 			}
 			
 			// Add Change Password Command
@@ -1743,11 +1746,11 @@ public class ProvisioningHandler {
 			if (provisioningDetail.getAutoStart().equals("Y")) {
 				command = new Command("Service Start");
 				sequence = 0;
-				s_action = new ShellAction(sequence++);
-				s_action.setCommand("service");
-				s_action.addArguments("mysql");
-				s_action.addArguments("start");
-				command.addAction(s_action);
+				sAction = new ShellAction(sequence++);
+				sAction.setCommand("service");
+				sAction.addArguments("mysql");
+				sAction.addArguments("start");
+				command.addAction(sAction);
 
 				// Add Service Start Command
 				cmdMsg.addCommand(command);
@@ -1855,44 +1858,44 @@ public class ProvisioningHandler {
 		LOGGER.debug("softwareName : " + provisioningDetail.getSoftwareName());
 
 		Command command = new Command("Install RPM Packages");
-		ShellAction s_action = null;
+		ShellAction sAction = null;
 		int sequence = 0;
 
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("yum");
-		s_action.addArguments("install");
-		s_action.addArguments("-y");
-		s_action.addArguments("epel-release");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("yum");
+		sAction.addArguments("install");
+		sAction.addArguments("-y");
+		sAction.addArguments("epel-release");
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("yum");
-		s_action.addArguments("install");
-		s_action.addArguments("-y");
-		s_action.addArguments("wget");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("yum");
+		sAction.addArguments("install");
+		sAction.addArguments("-y");
+		sAction.addArguments("wget");
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("yum");
-		s_action.addArguments("install");
-		s_action.addArguments("-y");
-		s_action.addArguments("ansible");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("yum");
+		sAction.addArguments("install");
+		sAction.addArguments("-y");
+		sAction.addArguments("ansible");
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("yum");
-		s_action.addArguments("install");
-		s_action.addArguments("-y");
-		s_action.addArguments("sshpass");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("yum");
+		sAction.addArguments("install");
+		sAction.addArguments("-y");
+		sAction.addArguments("sshpass");
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/etc/ansible");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}" + fileLocation + "/ansible.cfg");
-		s_action.addArguments("-O");
-		s_action.addArguments("ansible.cfg");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/etc/ansible");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}" + fileLocation + "/ansible.cfg");
+		sAction.addArguments("-O");
+		sAction.addArguments("ansible.cfg");
+		command.addAction(sAction);
 		
 		// Add Install RPM Packages Command
 		cmdMsg.addCommand(command);
@@ -1900,27 +1903,27 @@ public class ProvisioningHandler {
 		command = new Command("ceph-ansible INSTALL");
 		sequence = 0;
 
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/opt");
-		s_action.setCommand("wget");
-		s_action.addArguments("${RepositoryUrl}" + fileLocation + "/" + fileName);
-		s_action.addArguments("-O");
-		s_action.addArguments(fileName);
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/opt");
+		sAction.setCommand("wget");
+		sAction.addArguments("${RepositoryUrl}" + fileLocation + "/" + fileName);
+		sAction.addArguments("-O");
+		sAction.addArguments(fileName);
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/opt");
-		s_action.setCommand("rm");
-		s_action.addArguments("-rf");
-		s_action.addArguments("ceph-ansible");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/opt");
+		sAction.setCommand("rm");
+		sAction.addArguments("-rf");
+		sAction.addArguments("ceph-ansible");
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory("/opt");
-		s_action.setCommand("tar");
-		s_action.addArguments("-xvzf");
-		s_action.addArguments(fileName);
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory("/opt");
+		sAction.setCommand("tar");
+		sAction.addArguments("-xvzf");
+		sAction.addArguments(fileName);
+		command.addAction(sAction);
 		
 		// Add ceph-ansible INSTALL Command
 		cmdMsg.addCommand(command);
@@ -1939,10 +1942,10 @@ public class ProvisioningHandler {
 					.replaceAll("\\$\\{calamari_server\\}", calamariServer)
 					.replaceAll("\\$\\{ntp-server\\}", ntpServer);
 
-		FileWriteAction fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(all);
-		fw_action.setFileName("/opt/ceph-ansible/group_vars/all");
-		command.addAction(fw_action);
+		FileWriteAction writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(all);
+		writeAction.setFileName("/opt/ceph-ansible/group_vars/all");
+		command.addAction(writeAction);
 		
 		String osd = IOUtils.toString(new URL(provisioningDetail.getUrlPrefix() + "/repo/ceph/ceph-ansible/group_vars/osds"), "UTF-8");
 		
@@ -1960,10 +1963,10 @@ public class ProvisioningHandler {
 		
 		osd = osd.replaceAll("\\$\\{path_of_devices\\}", sb.toString());
 
-		fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(osd);
-		fw_action.setFileName("/opt/ceph-ansible/group_vars/osds");
-		command.addAction(fw_action);
+		writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(osd);
+		writeAction.setFileName("/opt/ceph-ansible/group_vars/osds");
+		command.addAction(writeAction);
 		
 		// Add Set /opt/ceph-ansible/group_vars/all, osds Command
 		cmdMsg.addCommand(command);
@@ -2012,10 +2015,10 @@ public class ProvisioningHandler {
 		sb.append(saltClient).append("\n");
 		sb.append(ntpClient);
 		
-		fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(sb.toString());
-		fw_action.setFileName("/etc/ansible/hosts");
-		command.addAction(fw_action);
+		writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(sb.toString());
+		writeAction.setFileName("/etc/ansible/hosts");
+		command.addAction(writeAction);
 		
 		// Add Set /etc/ansible/hosts Command
 		cmdMsg.addCommand(command);
@@ -2034,21 +2037,21 @@ public class ProvisioningHandler {
 		script.append("rm -f ~/.ssh/id_rsa*").append("\n");
 		script.append("ssh-keygen -t rsa -f ~/.ssh/id_rsa -q -N \"\"");
 		
-		fw_action = new FileWriteAction(sequence++);
-		fw_action.setContents(script.toString());
-		fw_action.setFileName("/tmp/ceph-init.sh");
-		command.addAction(fw_action);
+		writeAction = new FileWriteAction(sequence++);
+		writeAction.setContents(script.toString());
+		writeAction.setFileName("/tmp/ceph-init.sh");
+		command.addAction(writeAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("chmod");
-		s_action.addArguments("+x");
-		s_action.addArguments("/tmp/ceph-init.sh");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("chmod");
+		sAction.addArguments("+x");
+		sAction.addArguments("/tmp/ceph-init.sh");
+		command.addAction(sAction);
 
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("sh");
-		s_action.addArguments("/tmp/ceph-init.sh");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("sh");
+		sAction.addArguments("/tmp/ceph-init.sh");
+		command.addAction(sAction);
 		
 		// Add Set script & run Command
 		cmdMsg.addCommand(command);
@@ -2059,59 +2062,59 @@ public class ProvisioningHandler {
 		if( servers != null ) {
 			for (ClusterServer server : servers) {
 				//sshpass -p{password} ssh -o StrictHostKeyChecking=no {username}@{hostname} "mkdir -p ~/.ssh"
-				s_action = new ShellAction(sequence++);
-				s_action.setCommand("sshpass");
-				s_action.addArguments("-p" + server.getPassword());
-				s_action.addArguments("ssh");
-				s_action.addArguments("-o");
-				s_action.addArguments("StrictHostKeyChecking=no");
-				s_action.addArguments(server.getUsername() + "@" + server.getHostname());
-				s_action.addArguments("\"mkdir -p ~/.ssh\"");
-				command.addAction(s_action);
+				sAction = new ShellAction(sequence++);
+				sAction.setCommand("sshpass");
+				sAction.addArguments("-p" + server.getPassword());
+				sAction.addArguments("ssh");
+				sAction.addArguments("-o");
+				sAction.addArguments("StrictHostKeyChecking=no");
+				sAction.addArguments(server.getUsername() + "@" + server.getHostname());
+				sAction.addArguments("\"mkdir -p ~/.ssh\"");
+				command.addAction(sAction);
 	
 				//sshpass -p{password} ssh -o StrictHostKeyChecking=no {username}@{hostname} "chmod 700 ~/.ssh"
-				s_action = new ShellAction(sequence++);
-				s_action.setCommand("sshpass");
-				s_action.addArguments("-p" + server.getPassword());
-				s_action.addArguments("ssh");
-				s_action.addArguments("-o");
-				s_action.addArguments("StrictHostKeyChecking=no");
-				s_action.addArguments(server.getUsername() + "@" + server.getHostname());
-				s_action.addArguments("\"chmod 700 ~/.ssh\"");
-				command.addAction(s_action);
+				sAction = new ShellAction(sequence++);
+				sAction.setCommand("sshpass");
+				sAction.addArguments("-p" + server.getPassword());
+				sAction.addArguments("ssh");
+				sAction.addArguments("-o");
+				sAction.addArguments("StrictHostKeyChecking=no");
+				sAction.addArguments(server.getUsername() + "@" + server.getHostname());
+				sAction.addArguments("\"chmod 700 ~/.ssh\"");
+				command.addAction(sAction);
 				
 				//sshpass -p{password} scp -o StrictHostKeyChecking=no ~/.ssh/id_rsa.pub {username}@{hostname}:~/.ssh/authorized_keys
-				s_action = new ShellAction(sequence++);
-				s_action.setCommand("sshpass");
-				s_action.addArguments("-p" + server.getPassword());
-				s_action.addArguments("scp");
-				s_action.addArguments("-o");
-				s_action.addArguments("StrictHostKeyChecking=no");
-				s_action.addArguments("~/.ssh/id_rsa.pub");
-				s_action.addArguments(server.getUsername() + "@" + server.getHostname() + ":~/.ssh/authorized_keys");
-				command.addAction(s_action);
+				sAction = new ShellAction(sequence++);
+				sAction.setCommand("sshpass");
+				sAction.addArguments("-p" + server.getPassword());
+				sAction.addArguments("scp");
+				sAction.addArguments("-o");
+				sAction.addArguments("StrictHostKeyChecking=no");
+				sAction.addArguments("~/.ssh/id_rsa.pub");
+				sAction.addArguments(server.getUsername() + "@" + server.getHostname() + ":~/.ssh/authorized_keys");
+				command.addAction(sAction);
 	
 				//sshpass -p{password} ssh -o StrictHostKeyChecking=no {username}@{hostname} "chmod 600 ~/.ssh/authorized_keys"
-				s_action = new ShellAction(sequence++);
-				s_action.setCommand("sshpass");
-				s_action.addArguments("-p" + server.getPassword());
-				s_action.addArguments("ssh");
-				s_action.addArguments("-o");
-				s_action.addArguments("StrictHostKeyChecking=no");
-				s_action.addArguments(server.getUsername() + "@" + server.getHostname());
-				s_action.addArguments("\"chmod 600 ~/.ssh/authorized_keys\"");
-				command.addAction(s_action);
+				sAction = new ShellAction(sequence++);
+				sAction.setCommand("sshpass");
+				sAction.addArguments("-p" + server.getPassword());
+				sAction.addArguments("ssh");
+				sAction.addArguments("-o");
+				sAction.addArguments("StrictHostKeyChecking=no");
+				sAction.addArguments(server.getUsername() + "@" + server.getHostname());
+				sAction.addArguments("\"chmod 600 ~/.ssh/authorized_keys\"");
+				command.addAction(sAction);
 				
 				//sshpass -p{password} scp -o StrictHostKeyChecking=no ~/.ssh/id_rsa* {username}@{hostname}:~/.ssh/
-				s_action = new ShellAction(sequence++);
-				s_action.setCommand("sshpass");
-				s_action.addArguments("-p" + server.getPassword());
-				s_action.addArguments("scp");
-				s_action.addArguments("-o");
-				s_action.addArguments("StrictHostKeyChecking=no");
-				s_action.addArguments("/etc/hosts");
-				s_action.addArguments(server.getUsername() + "@" + server.getHostname() + ":/etc/hosts");
-				command.addAction(s_action);
+				sAction = new ShellAction(sequence++);
+				sAction.setCommand("sshpass");
+				sAction.addArguments("-p" + server.getPassword());
+				sAction.addArguments("scp");
+				sAction.addArguments("-o");
+				sAction.addArguments("StrictHostKeyChecking=no");
+				sAction.addArguments("/etc/hosts");
+				sAction.addArguments(server.getUsername() + "@" + server.getHostname() + ":/etc/hosts");
+				command.addAction(sAction);
 			}  // end of for
 		} // end of if
 		
@@ -2121,15 +2124,15 @@ public class ProvisioningHandler {
 		command = new Command("Run ansible-playbook");
 		sequence = 0;
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("ansible-playbook");
-		s_action.addArguments("/opt/ceph-ansible/site.yml");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("ansible-playbook");
+		sAction.addArguments("/opt/ceph-ansible/site.yml");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("ceph");
-		s_action.addArguments("status");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("ceph");
+		sAction.addArguments("status");
+		command.addAction(sAction);
 
 		// Add Run ansible-playbook Command
 		cmdMsg.addCommand(command);
@@ -2138,58 +2141,58 @@ public class ProvisioningHandler {
 		sequence = 0;
 		
 		// radosgw-admin user create --uid=osc --display-name="osc"
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("radosgw-admin");
-		s_action.addArguments("user");
-		s_action.addArguments("create");
-		s_action.addArguments("--uid=osc");
-		s_action.addArguments("--display-name=\"osc\"");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("radosgw-admin");
+		sAction.addArguments("user");
+		sAction.addArguments("create");
+		sAction.addArguments("--uid=osc");
+		sAction.addArguments("--display-name=\"osc\"");
+		command.addAction(sAction);
 
 		// # radosgw-admin caps add --uid=osc --caps="usage=read, write"
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("radosgw-admin");
-		s_action.addArguments("caps");
-		s_action.addArguments("add");
-		s_action.addArguments("--uid=osc");
-		s_action.addArguments("--caps=\"usage=read, write\"");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("radosgw-admin");
+		sAction.addArguments("caps");
+		sAction.addArguments("add");
+		sAction.addArguments("--uid=osc");
+		sAction.addArguments("--caps=\"usage=read, write\"");
+		command.addAction(sAction);
 
 		// # radosgw-admin caps add --uid=osc --caps="buckets=read, write"
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("radosgw-admin");
-		s_action.addArguments("caps");
-		s_action.addArguments("add");
-		s_action.addArguments("--uid=osc");
-		s_action.addArguments("--caps=\"buckets=read, write\"");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("radosgw-admin");
+		sAction.addArguments("caps");
+		sAction.addArguments("add");
+		sAction.addArguments("--uid=osc");
+		sAction.addArguments("--caps=\"buckets=read, write\"");
+		command.addAction(sAction);
 
 		// # radosgw-admin caps add --uid=osc --caps="users=read, write"
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("radosgw-admin");
-		s_action.addArguments("caps");
-		s_action.addArguments("add");
-		s_action.addArguments("--uid=osc");
-		s_action.addArguments("--caps=\"users=read, write\"");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("radosgw-admin");
+		sAction.addArguments("caps");
+		sAction.addArguments("add");
+		sAction.addArguments("--uid=osc");
+		sAction.addArguments("--caps=\"users=read, write\"");
+		command.addAction(sAction);
 
 		// # radosgw-admin caps add --uid=osc --caps="zone=read, write"
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("radosgw-admin");
-		s_action.addArguments("caps");
-		s_action.addArguments("add");
-		s_action.addArguments("--uid=osc");
-		s_action.addArguments("--caps=\"zone=read, write\"");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("radosgw-admin");
+		sAction.addArguments("caps");
+		sAction.addArguments("add");
+		sAction.addArguments("--uid=osc");
+		sAction.addArguments("--caps=\"zone=read, write\"");
+		command.addAction(sAction);
 
 		// # radosgw-admin caps add --uid=osc --caps="metadata=read, write"
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("radosgw-admin");
-		s_action.addArguments("caps");
-		s_action.addArguments("add");
-		s_action.addArguments("--uid=osc");
-		s_action.addArguments("--caps=\"metadata=read, write\"");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("radosgw-admin");
+		sAction.addArguments("caps");
+		sAction.addArguments("add");
+		sAction.addArguments("--uid=osc");
+		sAction.addArguments("--caps=\"metadata=read, write\"");
+		command.addAction(sAction);
 
 		// Add user for object storage Command
 		cmdMsg.addCommand(command);
@@ -2198,12 +2201,12 @@ public class ProvisioningHandler {
 		sequence = 0;
 		
 		// radosgw-admin user info --uid=osc
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("radosgw-admin");
-		s_action.addArguments("user");
-		s_action.addArguments("info");
-		s_action.addArguments("--uid=osc");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("radosgw-admin");
+		sAction.addArguments("user");
+		sAction.addArguments("info");
+		sAction.addArguments("--uid=osc");
+		command.addAction(sAction);
 
 		// Add Get S3 Credeitials Command
 		cmdMsg.addCommand(command);
@@ -2295,37 +2298,37 @@ public class ProvisioningHandler {
 			args = stopCmd.split(",")[2].split(":")[1];
 		}
 		
-		ShellAction s_action = new ShellAction(sequence++);
+		ShellAction sAction = new ShellAction(sequence++);
 		if (workingDir != null) {
-			s_action.setWorkingDiretory("");
+			sAction.setWorkingDiretory("");
 		}
-		s_action.setCommand(cmd);
+		sAction.setCommand(cmd);
 		if (args != null) {
-			s_action.addArguments(args);
+			sAction.addArguments(args);
 		}
-		command.addAction(s_action);
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("rm");
-		s_action.addArguments("-f");
-		if( args != null) s_action.addArguments("/etc/init.d/" + args.split(" ")[0]);
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("rm");
+		sAction.addArguments("-f");
+		if( args != null) sAction.addArguments("/etc/init.d/" + args.split(" ")[0]);
+		command.addAction(sAction);
 		
-		for (ConfigDto _config : configList) {
-			s_action = new ShellAction(sequence++);
-			s_action.setCommand("rm");
-			s_action.addArguments("-f");
-			s_action.addArguments(_config.getConfigFileLocation() + "/" + _config.getConfigFileName());
-			command.addAction(s_action);
+		for (ConfigDto configDto : configList) {
+			sAction = new ShellAction(sequence++);
+			sAction.setCommand("rm");
+			sAction.addArguments("-f");
+			sAction.addArguments(configDto.getConfigFileLocation() + "/" + configDto.getConfigFileName());
+			command.addAction(sAction);
 		}
 		
 		String[] installLocation = software.getInstallLocation().split(",");
 		for (String location : installLocation) {
-			s_action = new ShellAction(sequence++);
-			s_action.setCommand("rm");
-			s_action.addArguments("-rf");
-			s_action.addArguments(location);
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setCommand("rm");
+			sAction.addArguments("-rf");
+			sAction.addArguments(location);
+			command.addAction(sAction);
 		}
 		
 		// Add Uninstall Command
@@ -2366,27 +2369,27 @@ public class ProvisioningHandler {
 		Command command = new Command("Uninstall");
 		int sequence = 0;
 
-		ShellAction s_action = new ShellAction(sequence++);
-		s_action.setCommand("service");
-		s_action.addArguments("jbossews");
-		s_action.addArguments("stop");
-		command.addAction(s_action);
+		ShellAction sAction = new ShellAction(sequence++);
+		sAction.setCommand("service");
+		sAction.addArguments("jbossews");
+		sAction.addArguments("stop");
+		command.addAction(sAction);
 		
-		for (ConfigDto _config : configList) {
-			s_action = new ShellAction(sequence++);
-			s_action.setCommand("rm");
-			s_action.addArguments("-f");
-			s_action.addArguments(_config.getConfigFileLocation() + "/" + _config.getConfigFileName());
-			command.addAction(s_action);
+		for (ConfigDto configDto : configList) {
+			sAction = new ShellAction(sequence++);
+			sAction.setCommand("rm");
+			sAction.addArguments("-f");
+			sAction.addArguments(configDto.getConfigFileLocation() + "/" + configDto.getConfigFileName());
+			command.addAction(sAction);
 		}
 		
 		String[] installLocation = software.getInstallLocation().split(",");
 		for (String location : installLocation) {
-			s_action = new ShellAction(sequence++);
-			s_action.setCommand("rm");
-			s_action.addArguments("-rf");
-			s_action.addArguments(location);
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setCommand("rm");
+			sAction.addArguments("-rf");
+			sAction.addArguments(location);
+			command.addAction(sAction);
 		}
 		
 		// Add Uninstall Command
@@ -2427,27 +2430,27 @@ public class ProvisioningHandler {
 		Command command = new Command("Uninstall");
 		int sequence = 0;
 		
-		ShellAction s_action = new ShellAction(sequence++);
-		s_action.setWorkingDiretory(configList.get(0).getConfigFileLocation());
-		s_action.setCommand("sh");
-		s_action.addArguments("kill.sh");
-		command.addAction(s_action);
+		ShellAction sAction = new ShellAction(sequence++);
+		sAction.setWorkingDiretory(configList.get(0).getConfigFileLocation());
+		sAction.setCommand("sh");
+		sAction.addArguments("kill.sh");
+		command.addAction(sAction);
 		
-		for (ConfigDto _config : configList) {
-			s_action = new ShellAction(sequence++);
-			s_action.setCommand("rm");
-			s_action.addArguments("-f");
-			s_action.addArguments(_config.getConfigFileLocation() + "/" + _config.getConfigFileName());
-			command.addAction(s_action);
+		for (ConfigDto configDto : configList) {
+			sAction = new ShellAction(sequence++);
+			sAction.setCommand("rm");
+			sAction.addArguments("-f");
+			sAction.addArguments(configDto.getConfigFileLocation() + "/" + configDto.getConfigFileName());
+			command.addAction(sAction);
 		}
 		
 		String[] installLocation = software.getInstallLocation().split(",");
 		for (String location : installLocation) {
-			s_action = new ShellAction(sequence++);
-			s_action.setCommand("rm");
-			s_action.addArguments("-rf");
-			s_action.addArguments(location);
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setCommand("rm");
+			sAction.addArguments("-rf");
+			sAction.addArguments(location);
+			command.addAction(sAction);
 		}
 		
 		// Add Uninstall Command
@@ -2488,45 +2491,45 @@ public class ProvisioningHandler {
 		Command command = new Command("Uninstall");
 		int sequence = 0;
 		
-		ShellAction s_action = new ShellAction(sequence++);
-		s_action.setCommand("service");
-		s_action.addArguments("mysql");
-		s_action.addArguments("stop");
-		command.addAction(s_action);
+		ShellAction sAction = new ShellAction(sequence++);
+		sAction.setCommand("service");
+		sAction.addArguments("mysql");
+		sAction.addArguments("stop");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("rpm");
-		s_action.addArguments("--erase");
-		s_action.addArguments("MySQL-server");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("rpm");
+		sAction.addArguments("--erase");
+		sAction.addArguments("MySQL-server");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("rpm");
-		s_action.addArguments("--erase");
-		s_action.addArguments("MySQL-client");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("rpm");
+		sAction.addArguments("--erase");
+		sAction.addArguments("MySQL-client");
+		command.addAction(sAction);
 		
-		s_action = new ShellAction(sequence++);
-		s_action.setCommand("rm");
-		s_action.addArguments("-rf");
-		s_action.addArguments("/usr/lib64/mysql");
-		command.addAction(s_action);
+		sAction = new ShellAction(sequence++);
+		sAction.setCommand("rm");
+		sAction.addArguments("-rf");
+		sAction.addArguments("/usr/lib64/mysql");
+		command.addAction(sAction);
 		
-		for (ConfigDto _config : configList) {
-			s_action = new ShellAction(sequence++);
-			s_action.setCommand("rm");
-			s_action.addArguments("-f");
-			s_action.addArguments(_config.getConfigFileLocation() + "/" + _config.getConfigFileName());
-			command.addAction(s_action);
+		for (ConfigDto configDto : configList) {
+			sAction = new ShellAction(sequence++);
+			sAction.setCommand("rm");
+			sAction.addArguments("-f");
+			sAction.addArguments(configDto.getConfigFileLocation() + "/" + configDto.getConfigFileName());
+			command.addAction(sAction);
 		}
 		
 		String[] installLocation = software.getInstallLocation().split(",");
 		for (String location : installLocation) {
-			s_action = new ShellAction(sequence++);
-			s_action.setCommand("rm");
-			s_action.addArguments("-rf");
-			s_action.addArguments(location);
-			command.addAction(s_action);
+			sAction = new ShellAction(sequence++);
+			sAction.setCommand("rm");
+			sAction.addArguments("-rf");
+			sAction.addArguments(location);
+			command.addAction(sAction);
 		}
 		
 		// Add Uninstall Command
@@ -2559,13 +2562,13 @@ class InstallThread extends Thread {
 
     protected final Logger LOGGER = LoggerFactory.getLogger(InstallThread.class);
 
-	private PeacockTransmitter peacockTransmitter;
-	private SoftwareService softwareService;
-	private ProvisioningCommandMessage cmdMsg;
-	private SoftwareDto software;
-	private List<ConfigDto> configList;
-	private CephService cephService;
-	private CephDto cephDto;
+	private final PeacockTransmitter peacockTransmitter;
+	private final SoftwareService softwareService;
+	private final ProvisioningCommandMessage cmdMsg;
+	private final SoftwareDto software;
+	private final List<ConfigDto> configList;
+	private final CephService cephService;
+	private final CephDto cephDto;
 	
 	public InstallThread(PeacockTransmitter peacockTransmitter, SoftwareService softwareService,
 			ProvisioningCommandMessage cmdMsg, SoftwareDto software, List<ConfigDto> configList,
@@ -2668,12 +2671,12 @@ class UninstallThread extends Thread {
 
     protected final Logger LOGGER = LoggerFactory.getLogger(UninstallThread.class);
 
-	private PeacockTransmitter peacockTransmitter;
-	private SoftwareService softwareService;
-	private ConfigService configService;
-	private ProvisioningCommandMessage cmdMsg;
-	private SoftwareDto software;
-	private ConfigDto config;
+	private final PeacockTransmitter peacockTransmitter;
+	private final SoftwareService softwareService;
+	private final ConfigService configService;
+	private final ProvisioningCommandMessage cmdMsg;
+	private final SoftwareDto software;
+	private final ConfigDto config;
 	
 	public UninstallThread(PeacockTransmitter peacockTransmitter, SoftwareService softwareService,
 			ConfigService configService, ProvisioningCommandMessage cmdMsg, SoftwareDto software, ConfigDto config) {
@@ -2697,7 +2700,7 @@ class UninstallThread extends Thread {
 			
 			configService.deleteConfig(config);
 			
-			StringBuilder sb = new StringBuilder("");
+			StringBuilder sb = new StringBuilder();
 			List<String> commands = response.getCommands();
 			List<String> results = response.getResults();
 			
@@ -2706,7 +2709,7 @@ class UninstallThread extends Thread {
 					sb.append("[Command] : ").append(commands.get(i)).append("\n");
 				}
 
-				sb.append(results.get(i) + "\n");
+				sb.append(results.get(i)).append("\n");
 			}
 			software.setDeleteYn("Y");
 			software.setInstallStat("DELETED");

@@ -221,7 +221,7 @@ public class ConfigDto extends BaseDto {
 	 * @return the configDisplayFileId
 	 */
 	public String getConfigDisplayFileId() {
-		return configFileId + "(" + String.valueOf(getRegDt()) + ")";  // NOPMD
+		return configFileId + "(" + String.valueOf(getRegDt()) + ")";  
 	}
 
 }
