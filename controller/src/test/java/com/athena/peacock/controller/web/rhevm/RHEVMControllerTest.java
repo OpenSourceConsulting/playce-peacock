@@ -281,4 +281,22 @@ public class RHEVMControllerTest extends BaseControllerTest {
 			fail("Exception has occurred.");
 		}
     }
+	
+	@Test
+    public void testCreateVirtualMachine() throws Exception {
+    	try {
+			mockMvc.perform(get("/rhevm/vms/create")
+					.param("hypervisorId",  "1")
+					.param("vmId", "a110bb8f-9494-4ed4-949d-9d6a2defb4df")
+					.param("name", "test")
+					.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+					.andDo(print())
+					.andExpect(status().isOk());
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("Exception has occurred.");
+		}
+    }
+	
+
 }

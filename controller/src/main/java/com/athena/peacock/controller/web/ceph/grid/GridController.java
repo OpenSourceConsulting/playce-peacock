@@ -722,6 +722,5 @@ public class GridController extends CephBaseController {
 		
 		return jsonRes;
 	}
-
 }
 //end of HostController.java
