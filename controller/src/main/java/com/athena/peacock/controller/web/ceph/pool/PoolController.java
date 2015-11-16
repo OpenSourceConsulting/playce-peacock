@@ -161,9 +161,9 @@ public class PoolController extends CephBaseController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/create")
-	public @ResponseBody SimpleJsonResponse createPool(SimpleJsonResponse jsonRes, @QueryParam("pool") String pool, @QueryParam("pg_num") String pgNum) throws Exception {
+	public @ResponseBody SimpleJsonResponse createPool(SimpleJsonResponse jsonRes, @QueryParam("pool") String pool, @QueryParam("pg_num") String pg_num) throws Exception {  // NOPMD
 		try {
-			Object response = managementSubmit("/osd/pool/create?pool=" + pool + "&pg_num=" + pgNum, HttpMethod.PUT);
+			Object response = managementSubmit("/osd/pool/create?pool=" + pool + "&pg_num=" + pg_num, HttpMethod.PUT);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
 			jsonRes.setMsg(pool + " Pool 생성이 완료되었습니다.");
