@@ -849,7 +849,7 @@ public class RHEVMService {
 		// Optional information
 		try {
 			// Getting IP Address
-			if( vm.getGuestInfo() != null ) {
+			if( vm.getGuestInfo() != null && vm.getGuestInfo().getIps() != null && vm.getGuestInfo().getIps().getIPs() != null) {
 				IP ip = vm.getGuestInfo().getIps().getIPs().get(0);
 				if( ip != null) dto.setIpAddr(ip.getAddress());
 			}
