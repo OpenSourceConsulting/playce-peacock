@@ -150,11 +150,15 @@ public class PermissionController {
 	}
 	
 	@RequestMapping("/insertuser")
-	public @ResponseBody SimpleJsonResponse insertUser(PermissionUserMapDto param){
-		
+	public @ResponseBody SimpleJsonResponse insertUser(PermissionUserMapDto param) {
 		SimpleJsonResponse jsonRes = new SimpleJsonResponse();
-		service.insertPermissionUser(param);
-		jsonRes.setMsg("User가 정상적으로 등록(권한 부여)되었습니다.");
+		
+		try {
+			service.insertPermissionUser(param);
+			jsonRes.setMsg("User가 정상적으로 등록(권한 부여)되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setMsg("User 등록이 실패하였습니다.<br/>이미 등록된 사용자인지 확인하십시오.");
+		}
 		
 		return jsonRes;
 	}
