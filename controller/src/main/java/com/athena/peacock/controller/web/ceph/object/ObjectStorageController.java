@@ -310,7 +310,7 @@ public class ObjectStorageController{
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/object", method=RequestMethod.POST)
-	public @ResponseBody SimpleJsonResponse createObject(SimpleJsonResponse jsonRes, @RequestBody ObjectDto dto) throws Exception {  // NOPMD
+	public @ResponseBody SimpleJsonResponse createObject(SimpleJsonResponse jsonRes, ObjectDto dto) throws Exception {  // NOPMD
 		try {
 			LOGGER.error("FileName : " + dto.getFile().getOriginalFilename());
 			LOGGER.error("FileSize : " + dto.getFile().getSize());
