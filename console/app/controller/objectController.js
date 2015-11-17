@@ -288,6 +288,12 @@ Ext.define('MyApp.controller.objectController', {
                         success: function(response){
                             var data = Ext.decode(response.responseText);
                             objectConstants.me.setObjectBucketsData();
+
+
+                            Ext.getCmp("objectBucketsDetail1").update("");
+                            Ext.getCmp("objectBucketsDetail2").update("");
+
+                            Ext.getCmp("objectBucketsDetail").collapse();
                         },
                         failure: function(response){
                             var data = Ext.decode(response.responseText);
