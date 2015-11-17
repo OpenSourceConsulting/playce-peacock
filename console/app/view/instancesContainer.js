@@ -531,6 +531,11 @@ Ext.define('MyApp.view.instancesContainer', {
                                                         {
                                                             xtype: 'button',
                                                             handler: function(button, e) {
+                                                                var grid = Ext.getCmp("instancesGrid");
+                                                                var pos = grid.getSelectionModel().getCurrentPosition();
+
+                                                                instancesConstants.selectRow = grid.store.getAt(pos.row);
+
                                                                 if(instancesConstants.selectRow.get("status") == "Running") {
 
                                                                     var softwareInstallWindow = Ext.create("widget.SoftwareInstallWindow");
@@ -622,6 +627,11 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     items: [
                                                         {
                                                             handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                                                var grid = Ext.getCmp("instancesGrid");
+                                                                var pos = grid.getSelectionModel().getCurrentPosition();
+
+                                                                instancesConstants.selectRow = grid.store.getAt(pos.row);
+
                                                                 if(instancesConstants.selectRow.get("status") == "Running" && record.get("installStat") == "설치 완료") {
                                                                     if(record.get("softwareName") == "Ceph") {
                                                                         Ext.MessageBox.alert('Error', "Ceph는 Config를 수정할 수 없습니다.");
@@ -699,6 +709,11 @@ Ext.define('MyApp.view.instancesContainer', {
                                                     items: [
                                                         {
                                                             handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                                                var grid = Ext.getCmp("instancesGrid");
+                                                                var pos = grid.getSelectionModel().getCurrentPosition();
+
+                                                                instancesConstants.selectRow = grid.store.getAt(pos.row);
+
                                                                 if(instancesConstants.selectRow.get("status") == "Running" && (record.get("installStat") == "설치 완료" || record.get("installStat") == "설치 에러"))  {
 
                                                                     if(record.get("softwareName") == "Ceph") {

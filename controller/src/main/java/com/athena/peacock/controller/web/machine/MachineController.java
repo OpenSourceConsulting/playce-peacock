@@ -241,7 +241,7 @@ public class MachineController {
 		try {
 			machineService.agentStart(machineId);
 			
-			Thread.sleep(3000);
+			Thread.sleep(5000);
 			
 			jsonRes.setMsg("Agent가 정상적으로 시작하였습니다.");
 		} catch (Exception e) {

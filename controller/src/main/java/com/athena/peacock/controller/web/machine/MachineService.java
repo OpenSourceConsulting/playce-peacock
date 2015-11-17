@@ -303,6 +303,10 @@ public class MachineService {
 		String result = SshExecUtil.executeCommand(targetHost, command);
 		
 		LOGGER.debug("Command : [{}], Result : [{}]", command, result);
+		
+		if (result.indexOf("FAILED") > -1) {
+			throw new RuntimeException("Agent start/stop failed.");
+		}
 	}
 	
 	public void applyStaticIp(MachineDto machine) throws Exception {
