@@ -22,6 +22,7 @@
  */
 package com.athena.peacock.controller.web.ceph.pool;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.QueryParam;
 
 import org.slf4j.Logger;
@@ -161,8 +162,9 @@ public class PoolController extends CephBaseController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/create")
-	public @ResponseBody SimpleJsonResponse createPool(SimpleJsonResponse jsonRes, @QueryParam("pool") String pool, @QueryParam("pg_num") String pg_num) throws Exception {  // NOPMD
+	public @ResponseBody SimpleJsonResponse createPool(SimpleJsonResponse jsonRes, @QueryParam("pool") String pool, @QueryParam("pg_num") String pg_num, HttpServletRequest request) throws Exception {  // NOPMD
 		try {
+			LOGGER.info(request.getParameterNames().toString());
 			Object response = managementSubmit("/osd/pool/create?pool=" + pool + "&pg_num=" + pg_num, HttpMethod.PUT);
 			jsonRes.setSuccess(true);
 			jsonRes.setData(response);
