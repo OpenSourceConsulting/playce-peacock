@@ -29,6 +29,7 @@
                     "if(instancesConstants.selectRow == null || instancesConstants.selectRow.get(\"machineId\") != record.get(\"machineId\")) {",
                     "",
                     "    instancesConstants.selectRow = record;",
+                    "    instancesConstants.rowIndex = rowIndex;",
                     "",
                     "    this.selectInstanceGrid();",
                     "}",
@@ -177,7 +178,8 @@
                     "    contextMenu: instancesGridContextMenu,",
                     "    selectRow : null,",
                     "    actionRow : null,",
-                    "    writeMenuAuth : false",
+                    "    writeMenuAuth : false,",
+                    "    rowIndex : null",
                     "});",
                     ""
                 ]

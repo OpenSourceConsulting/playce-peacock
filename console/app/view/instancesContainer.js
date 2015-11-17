@@ -532,9 +532,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                             xtype: 'button',
                                                             handler: function(button, e) {
                                                                 var grid = Ext.getCmp("instancesGrid");
-                                                                var pos = grid.getSelectionModel().getCurrentPosition();
-
-                                                                instancesConstants.selectRow = grid.store.getAt(pos.row);
+                                                                instancesConstants.selectRow = grid.store.getAt(instancesConstants.rowIndex);
 
                                                                 if(instancesConstants.selectRow.get("status") == "Running") {
 
@@ -628,9 +626,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                         {
                                                             handler: function(view, rowIndex, colIndex, item, e, record, row) {
                                                                 var grid = Ext.getCmp("instancesGrid");
-                                                                var pos = grid.getSelectionModel().getCurrentPosition();
-
-                                                                instancesConstants.selectRow = grid.store.getAt(pos.row);
+                                                                instancesConstants.selectRow = grid.store.getAt(instancesConstants.rowIndex);
 
                                                                 if(instancesConstants.selectRow.get("status") == "Running" && record.get("installStat") == "설치 완료") {
                                                                     if(record.get("softwareName") == "Ceph") {
@@ -710,9 +706,7 @@ Ext.define('MyApp.view.instancesContainer', {
                                                         {
                                                             handler: function(view, rowIndex, colIndex, item, e, record, row) {
                                                                 var grid = Ext.getCmp("instancesGrid");
-                                                                var pos = grid.getSelectionModel().getCurrentPosition();
-
-                                                                instancesConstants.selectRow = grid.store.getAt(pos.row);
+                                                                instancesConstants.selectRow = grid.store.getAt(instancesConstants.rowIndex);
 
                                                                 if(instancesConstants.selectRow.get("status") == "Running" && (record.get("installStat") == "설치 완료" || record.get("installStat") == "설치 에러"))  {
 

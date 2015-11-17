@@ -25,6 +25,7 @@ Ext.define('MyApp.controller.InstancesController', {
         if(instancesConstants.selectRow == null || instancesConstants.selectRow.get("machineId") != record.get("machineId")) {
 
             instancesConstants.selectRow = record;
+            instancesConstants.rowIndex = rowIndex;
 
             this.selectInstanceGrid();
         }
@@ -221,7 +222,8 @@ Ext.define('MyApp.controller.InstancesController', {
                     contextMenu: instancesGridContextMenu,
                     selectRow : null,
                     actionRow : null,
-                    writeMenuAuth : false
+                    writeMenuAuth : false,
+                    rowIndex : null
                 });
 
 
