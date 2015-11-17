@@ -586,7 +586,7 @@
                     "} else {",
                     "",
                     "    this.setAdminMenuAuth(1, 1);",
-                    "    ",
+                    "",
                     "    Ext.getCmp(\"searchPermissionUserName\").setValue(\"\");",
                     "",
                     "    this.searchUserPermissionDetail(1);",

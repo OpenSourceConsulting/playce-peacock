@@ -76,11 +76,14 @@ public class UserController {
 	@RequestMapping("/create")
 	public @ResponseBody SimpleJsonResponse create(SimpleJsonResponse jsonRes, UserDto user){
 		
-		user.setRegUserId(UserService.getLoginUserId());
-		
-		service.insertUser(user);
-		jsonRes.setMsg("생성되었습니다.");
-		
+		try {
+			user.setRegUserId(UserService.getLoginUserId());
+			
+			service.insertUser(user);
+			jsonRes.setMsg("생성되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setMsg("사용자 생성 중 오류가 발생했습니다.<br/>이미 등록된 사용자인지 확인하십시오.");
+		}
 		
 		return jsonRes;
 	}

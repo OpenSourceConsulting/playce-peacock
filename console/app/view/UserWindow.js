@@ -181,6 +181,7 @@ Ext.define('MyApp.view.UserWindow', {
                                             userId = userForm.getForm().findField("userId").getValue();
                                         }
 
+                                        /*
                                         // ID 중복체크
                                         var loginId = userForm.getForm().findField("loginId").getValue();
                                         var myGrid = Ext.getCmp('userGrid');
@@ -195,6 +196,7 @@ Ext.define('MyApp.view.UserWindow', {
                                                 return;
                                             }
                                         }
+                                        */
 
 
                                         if(editType == 'myAccount') {
