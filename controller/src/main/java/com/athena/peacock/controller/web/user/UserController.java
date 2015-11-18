@@ -117,10 +117,12 @@ public class UserController {
 	
 	@RequestMapping("/delete")
 	public @ResponseBody SimpleJsonResponse delete(SimpleJsonResponse jsonRes, @RequestParam("userId") int userId){
-		
-		service.deleteUser(userId);
-		jsonRes.setMsg("삭제되었습니다.");
-		
+		try {
+			service.deleteUser(userId);
+			jsonRes.setMsg("삭제되었습니다.");
+		} catch (Exception e) {
+			jsonRes.setMsg("사용자 삭제 중 오류가 발생했습니다.<br/>User Permission에 등록된 사용자인지 확인하십시오.");
+		}
 		return jsonRes;
 	}
 	
