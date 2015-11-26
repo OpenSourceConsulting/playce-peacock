@@ -212,26 +212,6 @@ public class ObjectStorageService {
 		objectList.addAll(folderList);
 		objectList.addAll(fileList);
 		
-		/*
-		//ObjectListing objects = conn.listObjects(bucket.getName());
-		ObjectListing objectListing;
-		objectList = new ArrayList<ObjectDto>();
-		do {
-			    objectListing = getClient().listObjects(request);
-		        for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
-					ObjectDto dto = new ObjectDto();
-					dto.setBucketName(objectSummary.getBucketName());
-					dto.setKey(objectSummary.getKey());
-					dto.setSize(objectSummary.getSize());
-					dto.setOwner(objectSummary.getOwner());
-					dto.setStorageClass(objectSummary.getStorageClass());
-					dto.setLastModified(objectSummary.getLastModified());
-					objectList.add(dto);		                
-		        }
-		        //objects = conn.listNextBatchOfObjects(objects);
-		        request.setMarker(objectListing.getNextMarker());
-		} while (objectListing.isTruncated());
-		*/
 		
 		return objectList;
 	}
@@ -321,17 +301,6 @@ public class ObjectStorageService {
 	}
 	
 	public void deleteFolder(ObjectDto dto) throws Exception {
-//		String path = null;
-//		
-//		if (dto.getParentPath() != null) {
-//			path = dto.getParentPath();
-//		}
-//		
-//		if (path.endsWith(FOLDER_SUFFIX)) {
-//			path = path + dto.getObjectName() + FOLDER_SUFFIX;
-//		} else {
-//			path = path + FOLDER_SUFFIX + dto.getObjectName() + FOLDER_SUFFIX;
-//		}
 		
 		List<S3ObjectSummary> fileList = getClient().listObjects(dto.getBucketName(), dto.getKey()).getObjectSummaries();
 
